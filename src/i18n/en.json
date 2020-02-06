@@ -1,5 +1,18 @@
 {
   "dashboard": {
     "title": "Culture Kids admin"
+  },
+  "venues": {
+    "list": {
+      "title": "Venues"
+    },
+    "fields": {
+      "name": {
+        "label": "Name"
+      },
+      "address": {
+        "label": "Address"
+      }
+    }
   }
 }
