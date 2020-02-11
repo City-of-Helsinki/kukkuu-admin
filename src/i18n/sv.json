@@ -14,5 +14,10 @@
         "label": "Address"
       }
     }
+  },
+  "authentication": {
+    "redirect": {
+      "text": "Redirecting..."
+    }
   }
 }

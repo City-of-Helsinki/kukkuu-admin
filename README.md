@@ -2,15 +2,56 @@
 
 :baby: Staff interface for Kulttuurin kummilapset / Godchildren of Culture :violin:
 
-## Development with Docker
+## Getting started
 
-To start the app in a docker container, run:
+1. Clone the repo.
+2. Use file `.env.local` to modify environment variables if needed. For more info, check [this](https://create-react-app.dev/docs/adding-custom-environment-variables#docsNav).
+3. Run either
+    * `yarn start` to run the app normally **or**
+    * `docker-compose up` to run the app in a Docker container. In the future when there are changes that need rebuilding the container, run `docker-compose up --build` instead.
+4. Open [http://localhost:3001](http://localhost:3001) to view the app in the browser.
 
-### `docker-compose up`
+## Setting up Tunnistamo locally with Docker
 
-Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
+### Set Tunnistamo hostname
+Add the following line to your hosts file (`/etc/hosts` on mac and linux):
 
-When there are changes that need rebuilding the container, run `docker-compose up --build` instead.
+    127.0.0.1 tunnistamo-backend
+
+### Create a new OAuth app on GitHub
+Go to https://github.com/settings/developers/ and add a new app with the following settings:
+
+- Application name: can be anything, e.g. local tunnistamo
+- Homepage URL: http://tunnistamo-backend:8000
+- Authorization callback URL: http://tunnistamo-backend:8000/accounts/github/login/callback/
+
+Save. You'll need the created **Client ID** and **Client Secret** for configuring tunnistamo in the next step.
+
+### Install local Tunnistamo
+Clone https://github.com/City-of-Helsinki/tunnistamo/.
+
+Follow the instructions for setting up tunnistamo locally. Before running `docker-compose up` set the following settings in tunnistamo roots `docker-compose.env.yaml`:
+
+- SOCIAL_AUTH_GITHUB_KEY: **Client ID** from the GitHub OAuth app
+- SOCIAL_AUTH_GITHUB_SECRET: **Client Secret** from the GitHub OAuth app
+
+As of Nov 15 2019 there is a bug in tunnistamo with cors, a workaround is to set this line in `tunnistamo/settings.py`:
+`CORS_URLS_REGEX = r'.*/(\.well-known/openid-configuration|v1|openid|api-tokens|jwt-token).*'`
+
+After you've got tunnistamo running locally, ssh to the tunnistamo docker container:
+
+`docker-compose exec django bash`
+
+and execute the following four commands inside your docker container:
+
+```bash
+./manage.py add_oidc_client -n kukkuu-admin-ui -t "id_token token" -u "http://localhost:3001/callback" -i https://api.hel.fi/auth/kukkuu-admin-ui -m github -s dev
+./manage.py add_oidc_client -n kukkuu-api -t "code" -u http://localhost:8081/return -i https://api.hel.fi/auth/kukkuu -m github -s dev -c
+./manage.py add_oidc_api -n kukkuu -d https://api.hel.fi/auth -s email,profile -c https://api.hel.fi/auth/kukkuu
+./manage.py add_oidc_api_scope -an kukkuu -c https://api.hel.fi/auth/kukkuu-admin-ui -n "Kulttuurin kummilapset Admin UI" -d"Lorem ipsum"
+```
+
+To make Kukkuu Admin use the local Tunnistamo set `REACT_APP_OIDC_AUTHORITY="http://tunnistamo-backend:8000"` for example in file `.env.local`.
 
 ## Available Scripts
 
