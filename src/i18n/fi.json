@@ -1,5 +1,18 @@
 {
   "dashboard": {
     "title": "Kulttuurin kummilapset ylläpito"
+  },
+  "venues": {
+    "list": {
+      "title": "Tapahtumapaikat"
+    },
+    "fields": {
+      "name": {
+        "label": "Nimi"
+      },
+      "address": {
+        "label": "Osoite"
+      }
+    }
   }
 }
