@@ -1,11 +1,11 @@
-import client from '../client';
 import {
   Venues_venues_edges as ApiVenueEdge,
   Venues_venues_edges_node as ApiVenue,
-} from '../generatedTypes/Venues';
-import { Venue } from '../../domain/venues/types/VenueTypes';
-import { venuesQuery } from '../../domain/venues/query/VenueQueries';
-import { convertVenueTranslations } from '../../domain/venues/VenueUtils';
+} from '../../../api/generatedTypes/Venues';
+import { Venue } from '../types/VenueTypes';
+import { convertVenueTranslations } from '../VenueUtils';
+import client from '../../../api/client';
+import { venuesQuery } from '../query/VenueQueries';
 
 const mapApiDataToLocalData = (apiVenue: ApiVenue): Venue => {
   return {
@@ -14,7 +14,10 @@ const mapApiDataToLocalData = (apiVenue: ApiVenue): Venue => {
   };
 };
 
-const getList = async (params: object) => {
+/**
+ * Get list of venues
+ */
+const getVenues = async (params: object) => {
   // TODO Add filtering, sorting and pagination
   const response = await client.query({ query: venuesQuery });
   return response.data.venues.edges.map((edge: ApiVenueEdge) =>
@@ -22,4 +25,4 @@ const getList = async (params: object) => {
   );
 };
 
-export default getList;
+export { getVenues };
