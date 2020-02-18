@@ -7,11 +7,11 @@ const VenueList = (props: any) => {
     <List title={translate('venues.list.title')} {...props}>
       <Datagrid rowClick="show">
         <TextField
-          source="name"
+          source="translations.FI.name"
           label={translate('venues.fields.name.label')}
         />
         <TextField
-          source="address"
+          source="translations.FI.address"
           label={translate('venues.fields.address.label')}
         />
       </Datagrid>

@@ -11,7 +11,7 @@
     * `docker-compose up` to run the app in a Docker container. In the future when there are changes that need rebuilding the container, run `docker-compose up --build` instead.
 4. Open [http://localhost:3001](http://localhost:3001) to view the app in the browser.
 
-## Setting up Tunnistamo locally with Docker
+## Setting up Tunnistamo and Kukkuu API locally with Docker
 
 ### Set Tunnistamo hostname
 Add the following line to your hosts file (`/etc/hosts` on mac and linux):
@@ -52,6 +52,14 @@ and execute the following four commands inside your docker container:
 ```
 
 To make Kukkuu Admin use the local Tunnistamo set `REACT_APP_OIDC_AUTHORITY="http://tunnistamo-backend:8000"` for example in file `.env.local`.
+
+### Install Kukkuu API locally
+Clone the repository (https://github.com/City-of-Helsinki/kukkuu). Follow the instructions for running kukkuu with docker. Before running `docker-compose up` set the following settings in kukkuu roots `docker-compose.env.yaml`:
+
+- CORS_ORIGIN_ALLOW_ALL=1
+- TOKEN_AUTH_AUTHSERVER_URL=http://tunnistamo-backend:8000/openid
+
+To make Kukkuu Admin use the local Kukkuu API set `REACT_APP_API_URI="localhost:8081/graphql"` for example in file `.env.local`.
 
 ## Available Scripts
 
