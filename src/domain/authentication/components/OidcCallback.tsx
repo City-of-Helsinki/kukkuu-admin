@@ -4,8 +4,8 @@ import { CallbackComponent } from 'redux-oidc';
 import { User } from 'oidc-client';
 import { RouteChildrenProps } from 'react-router';
 
-import userManager from './userManager';
-import { fetchApiToken } from './api';
+import userManager from '../userManager';
+import { fetchApiToken } from '../api';
 
 function OidcCallback(props: RouteChildrenProps) {
   const translate = useTranslate();

@@ -3,22 +3,17 @@ import { Admin, Resource, useTranslate } from 'react-admin';
 import fakeDataProvider from 'ra-data-fakerest'; // TODO replace with an actual API data provider
 import PlaceIcon from '@material-ui/icons/Place';
 import { createBrowserHistory as createHistory } from 'history';
-import { Route } from 'react-router-dom';
 
-import i18nProvider from './i18n/i18nProvider';
-import Dashboard from './Dashboard/Dashboard';
-import VenueList from './venues/VenueList';
-import theme from './theme';
-import mockData from './mock_data';
-import authProvider from './auth/authProvider';
-import LoginPage from './auth/LoginPage';
-import OidcCallback from './auth/OidcCallback';
+import i18nProvider from '../../common/translation/i18nProvider';
+import Dashboard from '../dashboard/Dashboard';
+import VenueList from '../venues/VenueList';
+import theme from '../../common/materialUI/themeConfig';
+import mockData from '../../__MOCKS__/mock_data';
+import authProvider from '../authentication/authProvider';
+import LoginPage from '../authentication/components/LoginPage';
+import AppRoutes from '../../routes';
 
 const history = createHistory();
-
-const customRoutes = [
-  <Route exact path="/callback" component={OidcCallback} />,
-];
 
 const App: React.FC = () => {
   const translate = useTranslate();
@@ -31,7 +26,7 @@ const App: React.FC = () => {
       history={history}
       authProvider={authProvider}
       loginPage={LoginPage}
-      customRoutes={customRoutes}
+      customRoutes={AppRoutes}
     >
       <Resource
         name="venues"

@@ -4,8 +4,8 @@ import { Button, Card, CardContent } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { loginTunnistamo } from './authenticate';
-import theme from '../theme';
+import { loginTunnistamo } from '../authenticate';
+import theme from '../../../common/materialUI/themeConfig';
 
 const useStyles = makeStyles({
   container: {
