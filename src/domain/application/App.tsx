@@ -6,12 +6,12 @@ import { createBrowserHistory as createHistory } from 'history';
 
 import i18nProvider from '../../common/translation/i18nProvider';
 import Dashboard from '../dashboard/Dashboard';
-import VenueList from '../venues/VenueList';
 import theme from '../../common/materialUI/themeConfig';
 import authProvider from '../authentication/authProvider';
 import AppRoutes from '../../routes';
 import LoginPage from '../authentication/components/LoginPage';
 import dataProvider from '../../api/dataProvider';
+import VenueList from '../venues/VenueList';
 
 const history = createHistory();
 
