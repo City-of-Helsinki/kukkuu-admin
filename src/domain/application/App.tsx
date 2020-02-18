@@ -10,8 +10,8 @@ import VenueList from '../venues/VenueList';
 import theme from '../../common/materialUI/themeConfig';
 import mockData from '../../__MOCKS__/mock_data';
 import authProvider from '../authentication/authProvider';
-import LoginPage from '../authentication/components/LoginPage';
 import AppRoutes from '../../routes';
+import LoginPage from '../authentication/components/LoginPage';
 
 const history = createHistory();
 
