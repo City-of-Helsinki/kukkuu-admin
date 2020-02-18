@@ -14,5 +14,10 @@
         "label": "Osoite"
       }
     }
+  },
+  "authentication": {
+    "redirect": {
+      "text": "Ohjataan..."
+    }
   }
 }
