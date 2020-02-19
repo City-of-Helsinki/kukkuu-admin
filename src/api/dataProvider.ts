@@ -1,11 +1,11 @@
-import getVenueList from './venues/getList';
+import { getVenues } from '../domain/venues/api/VenueApi';
 
 const VENUES = 'venues';
 
 const getListData = async (resource: string, params: object) => {
   switch (resource) {
     case VENUES:
-      return await getVenueList(params);
+      return await getVenues(params);
     default:
       throw new Error(`Invalid resource "${resource}"`);
   }
