@@ -1,19 +1,36 @@
 import { getVenues } from '../domain/venues/api/VenueApi';
+import {
+  MethodHandlers,
+  Method,
+  Resource,
+  DataProviderParams as Params,
+} from './types';
 
-const VENUES = 'venues';
+const METHOD_HANDLERS: MethodHandlers = {
+  venues: {
+    LIST: getVenues,
+  },
+};
 
-const getListData = async (resource: string, params: object) => {
-  switch (resource) {
-    case VENUES:
-      return await getVenues(params);
-    default:
-      throw new Error(`Invalid resource "${resource}"`);
+const runHandler = (method: Method, resource: Resource, params: Params) => {
+  const handlers = METHOD_HANDLERS[resource];
+  if (handlers === undefined) {
+    throw new Error(`Invalid resource "${resource}".`);
   }
+
+  const handler = handlers[method];
+  if (handler === undefined) {
+    throw new Error(
+      `Method "${method}" for resource "${resource}" is not implemented.`
+    );
+  }
+
+  return handler(params);
 };
 
 const dataProvider = {
-  getList: async (resource: string, params: object) => {
-    const data = await getListData(resource, params);
+  getList: async (resource: Resource, params: Params) => {
+    const data = await runHandler('LIST', resource, params);
     return {
       data,
       total: data.length,

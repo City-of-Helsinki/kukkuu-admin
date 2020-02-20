@@ -6,6 +6,7 @@ import { Venue } from '../types/VenueTypes';
 import { convertVenueTranslations } from '../VenueUtils';
 import client from '../../../api/client';
 import { venuesQuery } from '../query/VenueQueries';
+import { MethodHandler, MethodHandlerParams } from '../../../api/types';
 
 const mapApiDataToLocalData = (apiVenue: ApiVenue): Venue => {
   return {
@@ -17,7 +18,7 @@ const mapApiDataToLocalData = (apiVenue: ApiVenue): Venue => {
 /**
  * Get list of venues
  */
-const getVenues = async (params: object) => {
+const getVenues: MethodHandler = async (params: MethodHandlerParams) => {
   // TODO Add filtering, sorting and pagination
   const response = await client.query({ query: venuesQuery });
   return response.data.venues.edges.map((edge: ApiVenueEdge) =>
