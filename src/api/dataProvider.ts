@@ -35,8 +35,14 @@ const runHandler = async (
 };
 
 const dataProvider = {
-  getList: (resource: Resource, params: Params) =>
-    runHandler('LIST', resource, params),
+  getList: async (resource: Resource, params: Params) => {
+    const data = await runHandler('LIST', resource, params);
+
+    return {
+      data,
+      total: data.length,
+    };
+  },
 };
 
 export default dataProvider;
