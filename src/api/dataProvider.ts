@@ -34,9 +34,15 @@ const runHandler = async (
   try {
     const data = await handler(params);
 
+    if (Array.isArray(data)) {
+      return {
+        data,
+        total: data.length,
+      };
+    }
+
     return {
       data,
-      total: data.length,
     };
   } catch (error) {
     throw new HttpError('Http error');
