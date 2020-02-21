@@ -6,7 +6,7 @@ import { Venue } from '../types/VenueTypes';
 import { convertVenueTranslations } from '../VenueUtils';
 import { venuesQuery } from '../query/VenueQueries';
 import { MethodHandler, MethodHandlerParams } from '../../../api/types';
-import { queryHandler } from '../../../api/apiUtils';
+import { queryHandler } from '../../../api/utils/apiUtils';
 
 const mapApiDataToLocalData = (apiVenue: ApiVenue): Venue => {
   return {

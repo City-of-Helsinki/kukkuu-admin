@@ -1,5 +1,3 @@
-import { HttpError } from 'react-admin';
-
 import { getVenues } from '../domain/venues/api/VenueApi';
 import {
   MethodHandlers,
@@ -21,12 +19,12 @@ const runHandler = async (
 ) => {
   const handlers = METHOD_HANDLERS[resource];
   if (!handlers) {
-    throw new HttpError(`Invalid resource "${resource}".`);
+    throw new Error(`Invalid resource "${resource}".`);
   }
 
   const handler = handlers[method];
   if (!handler) {
-    throw new HttpError(
+    throw new Error(
       `Method "${method}" for resource "${resource}" is not implemented.`
     );
   }
