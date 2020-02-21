@@ -1,3 +1,5 @@
+import { HttpError } from 'react-admin';
+
 import {
   Venues_venues_edges as ApiVenueEdge,
   Venues_venues_edges_node as ApiVenue,
@@ -19,11 +21,18 @@ const mapApiDataToLocalData = (apiVenue: ApiVenue): Venue => {
  * Get list of venues
  */
 const getVenues: MethodHandler = async (params: MethodHandlerParams) => {
-  // TODO Add filtering, sorting and pagination
-  const response = await client.query({ query: venuesQuery });
-  return response.data.venues.edges.map((edge: ApiVenueEdge) =>
-    mapApiDataToLocalData(edge.node as ApiVenue)
-  );
+  try {
+    const response = await client.query({ query: venuesQuery });
+    const data = response.data.venues.edges.map((edge: ApiVenueEdge) =>
+      mapApiDataToLocalData(edge.node as ApiVenue)
+    );
+    return {
+      data,
+      total: data.length,
+    };
+  } catch {
+    throw new HttpError('Error getting venues');
+  }
 };
 
 export { getVenues };

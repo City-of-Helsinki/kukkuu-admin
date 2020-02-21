@@ -31,22 +31,7 @@ const runHandler = async (
     );
   }
 
-  try {
-    const data = await handler(params);
-
-    if (Array.isArray(data)) {
-      return {
-        data,
-        total: data.length,
-      };
-    }
-
-    return {
-      data,
-    };
-  } catch (error) {
-    throw new HttpError('Http error');
-  }
+  return handler(params);
 };
 
 const dataProvider = {
