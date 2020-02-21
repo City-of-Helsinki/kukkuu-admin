@@ -35,9 +35,8 @@ const runHandler = async (
 const dataProvider = {
   getList: async (resource: Resource, params: Params) => {
     const data = await runHandler('LIST', resource, params);
-
     return {
-      data,
+      data: data,
       total: data.length,
     };
   },

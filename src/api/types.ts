@@ -17,11 +17,8 @@ export type Method =
   | 'DELETE'
   | 'DELETE_MANY';
 
-export interface MethodHandlerResponse {
-  [index: string]: any;
-  data: { [index: string]: any };
-  total?: number;
-}
+// TODO: Replace this with better type from react-admin
+export type MethodHandlerResponse = any;
 
 export type MethodHandler = (
   params: DataProviderParams
