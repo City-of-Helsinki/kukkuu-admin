@@ -1,3 +1,5 @@
+import { HttpError } from 'react-admin';
+
 import { getVenues } from '../domain/venues/api/VenueApi';
 import {
   MethodHandlers,
@@ -12,30 +14,38 @@ const METHOD_HANDLERS: MethodHandlers = {
   },
 };
 
-const runHandler = (method: Method, resource: Resource, params: Params) => {
+const runHandler = async (
+  method: Method,
+  resource: Resource,
+  params: Params
+) => {
   const handlers = METHOD_HANDLERS[resource];
-  if (handlers === undefined) {
-    throw new Error(`Invalid resource "${resource}".`);
+  if (!handlers) {
+    throw new HttpError(`Invalid resource "${resource}".`);
   }
 
   const handler = handlers[method];
-  if (handler === undefined) {
-    throw new Error(
+  if (!handler) {
+    throw new HttpError(
       `Method "${method}" for resource "${resource}" is not implemented.`
     );
   }
 
-  return handler(params);
-};
+  try {
+    const data = await handler(params);
 
-const dataProvider = {
-  getList: async (resource: Resource, params: Params) => {
-    const data = await runHandler('LIST', resource, params);
     return {
       data,
       total: data.length,
     };
-  },
+  } catch (error) {
+    throw new HttpError('Http error');
+  }
+};
+
+const dataProvider = {
+  getList: (resource: Resource, params: Params) =>
+    runHandler('LIST', resource, params),
 };
 
 export default dataProvider;

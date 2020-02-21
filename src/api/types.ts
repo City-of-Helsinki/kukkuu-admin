@@ -20,6 +20,7 @@ export type Method =
 export interface MethodHandlerResponse {
   [index: string]: any;
   data: { [index: string]: any };
+  total?: number;
 }
 
 export type MethodHandler = (
