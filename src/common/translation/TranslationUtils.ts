@@ -4,4 +4,4 @@
  * @param currentLocale Current locale
  */
 export const getTranslatedField = (fieldName: string, currentLocale: string) =>
-  `translations.${currentLocale}.${fieldName}`;
+  `translations.${currentLocale.toUpperCase()}.${fieldName}`;
