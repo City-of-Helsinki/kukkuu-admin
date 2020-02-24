@@ -6,12 +6,37 @@
     "list": {
       "title": "Tapahtumapaikat"
     },
+    "show": {
+      "tab": {
+        "FI": {
+          "label": "Suomeksi"
+        },
+        "SV": {
+          "label": "Ruotsiksi"
+        },
+        "EN": {
+          "label": "Englanniksi"
+        }
+      }
+    },
     "fields": {
       "name": {
         "label": "Nimi"
       },
       "address": {
         "label": "Osoite"
+      },
+      "description": {
+        "label": "Kuvaus"
+      },
+      "accessibilityInfo": {
+        "label": "Esteettömyystiedot"
+      },
+      "arrivalInstructions": {
+        "label": "Saapumisohjeet"
+      },
+      "additionalInformation": {
+        "label": "Lisätiedot"
       }
     }
   },

@@ -1,5 +1,6 @@
-import { Venues_venues_edges_node_translations as ApiVenueTranslations } from '../../api/generatedTypes/Venues';
-import { VenueTranslations } from '../../domain/venues/types/VenueTypes';
+import { Venues_venues_edges_node_translations as ApiListVenueTranslations } from '../../api/generatedTypes/Venues';
+import { Venue_venue_translations as ApiDetailVenueTranslations } from '../../api/generatedTypes/Venue';
+import { VenueTranslations } from './types/VenueTypes';
 
 /*
 Convert translations from the API data form
@@ -22,12 +23,12 @@ Convert translations from the API data form
   }
 */
 export const convertVenueTranslations = (
-  apiTranslations: ApiVenueTranslations[]
+  apiTranslations: ApiListVenueTranslations[] | ApiDetailVenueTranslations[]
 ): VenueTranslations => {
   const translations: VenueTranslations = {};
   for (const apiTranslation of apiTranslations) {
-    const { languageCode, name, address } = apiTranslation;
-    translations[languageCode] = { name, address };
+    const { languageCode, ...fields } = apiTranslation;
+    translations[languageCode] = fields;
   }
   return translations;
 };
