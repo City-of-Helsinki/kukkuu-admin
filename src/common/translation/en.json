@@ -48,6 +48,9 @@
       "id": {
         "label": "ID"
       },
+      "name": {
+        "label": "Name"
+      },
       "participantsPerInvite": {
         "label": "Participants per invite"
       },

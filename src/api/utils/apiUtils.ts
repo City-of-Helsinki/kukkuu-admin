@@ -17,7 +17,7 @@ export type AdminUITranslation<F> = {
 
 export type EntityNode = {
   id: string;
-  translations: ApiTranslation[];
+  translations?: ApiTranslation[];
 };
 
 /**
@@ -68,28 +68,29 @@ export const normalizeApiTranslations = <T extends ApiTranslation>(
 };
 
 /*
-Convert translations from the API data form
+Convert translations from the API single data entity to a local one.
+If no translations, return the entity data.
 
-  [
-    {
-      "languageCode": "FI",
-      "name": "foo",
-      "address": "bar"
-    }
-  ]
+  {
+    id: string;
+    translations: APITranslation[];
+    ...rest
+  }
 
   to the form used in this app
 
   {
     id: string;
-    translations: LocalTranslation[]
+    translations: LocalTranslation[];
+    ...rest
   }
 */
 export const mapApiDataToLocalData = <E extends EntityNode>(
   apiEntityNode: E
 ) => {
-  return {
-    id: apiEntityNode.id,
-    translations: normalizeApiTranslations(apiEntityNode.translations),
-  };
+  return apiEntityNode.translations
+    ? Object.assign({}, apiEntityNode, {
+        translations: normalizeApiTranslations(apiEntityNode.translations),
+      })
+    : apiEntityNode;
 };

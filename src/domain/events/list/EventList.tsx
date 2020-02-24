@@ -1,22 +1,35 @@
 import React from 'react';
-import { List, Datagrid, TextField, useTranslate } from 'react-admin';
+import {
+  List,
+  Datagrid,
+  TextField,
+  useTranslate,
+  useLocale,
+} from 'react-admin';
+
+import { getTranslatedField } from '../../../common/translation/TranslationUtils';
 
 const EventList = (props: any) => {
   const translate = useTranslate();
+  const currentLocale = useLocale();
+
   return (
     <List title={translate('events.list.title')} {...props}>
       <Datagrid rowClick="show">
+        <TextField source="id" label={translate('events.fields.id.label')} />
+
         <TextField
-          source="translations.FI.id"
+          source={getTranslatedField('name', currentLocale)}
+          label={translate('events.fields.name.label')}
+        />
+
+        <TextField
+          source="participantsPerInvite"
           label={translate('events.fields.participantsPerInvite.label')}
         />
         <TextField
-          source="translations.FI.participants"
-          label={translate('events.fields.participantsPerInvite.label')}
-        />
-        <TextField
-          source="translations.FI.duration"
-          label={translate('venues.fields.duration.label')}
+          source="duration"
+          label={translate('events.fields.duration.label')}
         />
       </Datagrid>
     </List>

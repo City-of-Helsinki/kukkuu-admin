@@ -40,6 +40,25 @@
       }
     }
   },
+  "events": {
+    "list": {
+      "title": "Events"
+    },
+    "fields": {
+      "id": {
+        "label": "ID"
+      },
+      "name": {
+        "label": "Name"
+      },
+      "participantsPerInvite": {
+        "label": "Participants per invite"
+      },
+      "duration": {
+        "label": "Duration"
+      }
+    }
+  },
   "authentication": {
     "redirect": {
       "text": "Ohjataan..."
