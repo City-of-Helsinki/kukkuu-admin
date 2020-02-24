@@ -6,12 +6,37 @@
     "list": {
       "title": "Venues"
     },
+    "show": {
+      "tab": {
+        "FI": {
+          "label": "English"
+        },
+        "SV": {
+          "label": "Swedish"
+        },
+        "EN": {
+          "label": "English"
+        }
+      }
+    },
     "fields": {
       "name": {
         "label": "Name"
       },
       "address": {
         "label": "Address"
+      },
+      "description": {
+        "label": "Description"
+      },
+      "accessibilityInfo": {
+        "label": "Accessibility info"
+      },
+      "arrivalInstructions": {
+        "label": "Arrival instructions"
+      },
+      "additionalInformation": {
+        "label": "Additional information"
       }
     }
   },
