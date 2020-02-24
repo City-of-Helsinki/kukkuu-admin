@@ -15,6 +15,22 @@
       }
     }
   },
+  "events": {
+    "list": {
+      "title": "Events"
+    },
+    "fields": {
+      "id": {
+        "label": "ID"
+      },
+      "participantsPerInvite": {
+        "label": "Participants per invite",
+      },
+      "duration": {
+        "label": "Duration"
+      }
+    }
+  },
   "authentication": {
     "redirect": {
       "text": "Redirecting..."
