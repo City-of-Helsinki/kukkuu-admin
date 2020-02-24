@@ -1,15 +1,6 @@
-export interface VenueTranslation {
-  name: string;
-  address: string;
-  description?: string;
-  accessibilityInfo?: string;
-  arrivalInstructions?: string;
-  additionalInfo?: string;
-}
-
-export type VenueTranslations = { [index: string]: VenueTranslation };
-
-export interface Venue {
+import { AdminUITranslation } from '../../../api/utils/apiUtils';
+import { Venue_venue_translations as ApiVenueTranslation } from '../../../api/generatedTypes/Venue';
+export interface AdminVenue {
   id: string;
-  translations: VenueTranslations;
+  translations: AdminUITranslation<Omit<ApiVenueTranslation, 'languageCode'>>;
 }

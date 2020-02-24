@@ -49,7 +49,7 @@
         "label": "ID"
       },
       "participantsPerInvite": {
-        "label": "Participants per invite",
+        "label": "Participants per invite"
       },
       "duration": {
         "label": "Duration"

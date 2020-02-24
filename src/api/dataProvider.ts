@@ -5,11 +5,15 @@ import {
   Resource,
   DataProviderParams as Params,
 } from './types';
+import { getEvents } from '../domain/events/api/EventApi';
 
 const METHOD_HANDLERS: MethodHandlers = {
   venues: {
     LIST: getVenues,
     ONE: getVenue,
+  },
+  events: {
+    LIST: getEvents,
   },
 };
 
