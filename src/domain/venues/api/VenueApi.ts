@@ -1,40 +1,31 @@
-import {
-  Venues_venues_edges as ApiVenueEdge,
-  Venues_venues_edges_node as ApiListVenue,
-} from '../../../api/generatedTypes/Venues';
-import { Venue_venue as ApiDetailVenue } from '../../../api/generatedTypes/Venue';
-import { Venue } from '../types/VenueTypes';
-import { convertVenueTranslations } from '../VenueUtils';
-import client from '../../../api/client';
+import { ApolloQueryResult } from 'apollo-boost';
+
+import { Venues_venues as ApiDetailVenues } from '../../../api/generatedTypes/Venues';
+import { Venue as ApiDetailVenue } from '../../../api/generatedTypes/Venue';
 import { venuesQuery, venueQuery } from '../query/VenueQueries';
 import { MethodHandler, MethodHandlerParams } from '../../../api/types';
-import { queryHandler } from '../../../api/utils/apiUtils';
-
-const mapApiDataToLocalData = (
-  apiVenue: ApiListVenue | ApiDetailVenue
-): Venue => {
-  return {
-    id: apiVenue.id,
-    translations: convertVenueTranslations(apiVenue.translations),
-  };
-};
-
+import {
+  queryHandler,
+  mapApiDataToLocalData,
+} from '../../../api/utils/apiUtils';
 /**
  * Get list of venues
  */
 const getVenues: MethodHandler = async (params: MethodHandlerParams) => {
   const response = await queryHandler({ query: venuesQuery });
-  return response.data.venues.edges.map((edge: ApiVenueEdge) =>
-    mapApiDataToLocalData(edge.node as ApiListVenue)
+  return (response.data.venues as ApiDetailVenues).edges.map(edge =>
+    edge?.node ? mapApiDataToLocalData(edge.node) : null
   );
 };
 
 const getVenue: MethodHandler = async (params: MethodHandlerParams) => {
-  const response = await client.query({
+  const response: ApolloQueryResult<ApiDetailVenue> = await queryHandler({
     query: venueQuery,
     variables: { id: params.id },
   });
-  return mapApiDataToLocalData(response.data.venue as ApiDetailVenue);
+  return response.data.venue
+    ? mapApiDataToLocalData(response.data.venue)
+    : null;
 };
 
 export { getVenues, getVenue };

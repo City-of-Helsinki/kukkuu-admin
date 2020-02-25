@@ -13,6 +13,7 @@ import LoginPage from '../authentication/components/LoginPage';
 import dataProvider from '../../api/dataProvider';
 import VenueList from '../venues/VenueList';
 import VenueShow from '../venues/VenueShow';
+import EventList from '../events/list/EventList';
 
 const history = createHistory();
 
@@ -35,6 +36,12 @@ const App: React.FC = () => {
         icon={PlaceIcon}
         list={VenueList}
         show={VenueShow}
+      />
+      <Resource
+        name="events"
+        options={{ label: translate('events.list.title') }}
+        icon={PlaceIcon}
+        list={EventList}
       />
     </Admin>
   );
