@@ -31,6 +31,10 @@ const EventList = (props: any) => {
           source="duration"
           label={translate('events.fields.duration.label')}
         />
+        <TextField
+          source="occurrences.edges.length"
+          label={translate('events.fields.occurrences.label')}
+        />
       </Datagrid>
     </List>
   );

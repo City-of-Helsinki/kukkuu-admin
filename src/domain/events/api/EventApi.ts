@@ -1,10 +1,13 @@
+import { ApolloQueryResult } from 'apollo-boost';
+
 import { MethodHandler, MethodHandlerParams } from '../../../api/types';
 import {
   queryHandler,
   mapApiDataToLocalData,
 } from '../../../api/utils/apiUtils';
-import { eventsQuery } from '../queries/EventQueries';
+import { eventsQuery, eventQuery } from '../queries/EventQueries';
 import { Events_events as ApiEvents } from '../../../api/generatedTypes/Events';
+import { Event as ApiEvent } from '../../../api/generatedTypes/Event';
 
 /**
  * Get list of events
@@ -16,4 +19,14 @@ const getEvents: MethodHandler = async (params: MethodHandlerParams) => {
   );
 };
 
-export { getEvents };
+const getEvent: MethodHandler = async (params: MethodHandlerParams) => {
+  const response: ApolloQueryResult<ApiEvent> = await queryHandler({
+    query: eventQuery,
+    variables: { id: params.id },
+  });
+  return response.data.event
+    ? mapApiDataToLocalData(response.data.event)
+    : null;
+};
+
+export { getEvents, getEvent };

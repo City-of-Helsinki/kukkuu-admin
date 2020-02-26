@@ -2,22 +2,22 @@
   "dashboard": {
     "title": "Culture Kids admin"
   },
+  "common": {
+    "tab": {
+      "FI": {
+        "label": "Suomi"
+      },
+      "SV": {
+        "label": "Swedish"
+      },
+      "EN": {
+        "label": "English"
+      }
+    }
+  },
   "venues": {
     "list": {
       "title": "Venues"
-    },
-    "show": {
-      "tab": {
-        "FI": {
-          "label": "English"
-        },
-        "SV": {
-          "label": "Swedish"
-        },
-        "EN": {
-          "label": "English"
-        }
-      }
     },
     "fields": {
       "name": {
@@ -44,6 +44,11 @@
     "list": {
       "title": "Events"
     },
+    "show": {
+      "tab": {
+        "label": "Event detail"
+      }
+    },
     "fields": {
       "id": {
         "label": "ID"
@@ -56,6 +61,15 @@
       },
       "duration": {
         "label": "Duration"
+      },
+      "occurrences": {
+        "label": "Occurrences"
+      },
+      "capacityPerOccurrence": {
+        "label": "Capacity per occurrence"
+      },
+      "publishedAt": {
+        "label": "Published at"
       }
     }
   },

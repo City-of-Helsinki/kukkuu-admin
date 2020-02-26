@@ -27,3 +27,27 @@ export const eventsQuery = gql`
     }
   }
 `;
+
+export const eventQuery = gql`
+  query Event($id: ID!) {
+    event(id: $id) {
+      id
+      image
+      participantsPerInvite
+      duration
+      translations {
+        languageCode
+        name
+      }
+      capacityPerOccurrence
+      publishedAt
+      occurrences {
+        edges {
+          node {
+            id
+          }
+        }
+      }
+    }
+  }
+`;

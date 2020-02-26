@@ -19,10 +19,7 @@ const VenueShow = (props: any) => {
   for (const language of CONTENT_LANGUAGES) {
     const translation = `translations.${language}`;
     tabs.push(
-      <Tab
-        label={translate(`venues.show.tab.${language}.label`)}
-        key={language}
-      >
+      <Tab label={translate(`common.tab.${language}.label`)} key={language}>
         <TextField
           source={`${translation}.name`}
           label={translate('venues.fields.name.label')}
