@@ -2,7 +2,7 @@
   "dashboard": {
     "title": "Culture Kids admin"
   },
-  "common": {
+  "languageTabs": {
     "tab": {
       "FI": {
         "label": "Suomi"

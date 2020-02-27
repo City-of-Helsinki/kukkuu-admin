@@ -2,7 +2,7 @@
   "dashboard": {
     "title": "Kulttuurin kummilapset ylläpito"
   },
-  "common": {
+  "languageTabs": {
     "tab": {
       "FI": {
         "label": "Suomi"

@@ -1,25 +1,25 @@
-import React from 'react';
-import {
-  Show,
-  TabbedShowLayout,
-  TextField,
-  Tab,
-  useTranslate,
-} from 'react-admin';
+import React, { useState } from 'react';
+import { Show, TextField, useTranslate, SimpleShowLayout } from 'react-admin';
 
-import { CONTENT_LANGUAGES } from '../../common/constants';
+import LanguageTabs from '../../common/components/languageTab/LanguageTabs';
+import { EventTranslationLanguageCode as LanguageEnum } from '../../api/generatedTypes/globalTypes';
 
 const VenueTitle = ({ record }: { record?: any }) => {
   return <span>{record ? `${record.translations.FI.name}` : ''}</span>;
 };
 
 const VenueShow = (props: any) => {
-  const tabs: Array<typeof TextField> = [];
   const translate = useTranslate();
-  for (const language of CONTENT_LANGUAGES) {
-    const translation = `translations.${language}`;
-    tabs.push(
-      <Tab label={translate(`common.tab.${language}.label`)} key={language}>
+  const [selectedLanguage, selectLanguage] = useState(LanguageEnum.FI);
+  const translation = `translations.${selectedLanguage}`;
+
+  return (
+    <Show title={<VenueTitle />} {...props}>
+      <SimpleShowLayout>
+        <LanguageTabs
+          selectedLanguage={selectedLanguage}
+          onSelect={selectLanguage}
+        />
         <TextField
           source={`${translation}.name`}
           label={translate('venues.fields.name.label')}
@@ -44,12 +44,7 @@ const VenueShow = (props: any) => {
           source={`${translation}.additionalInformation`}
           label={translate('venues.fields.additionalInformation.label')}
         />
-      </Tab>
-    );
-  }
-  return (
-    <Show title={<VenueTitle />} {...props}>
-      <TabbedShowLayout>{tabs}</TabbedShowLayout>
+      </SimpleShowLayout>
     </Show>
   );
 };
