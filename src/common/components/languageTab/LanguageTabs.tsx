@@ -26,16 +26,16 @@ const LanguageTabs: React.FunctionComponent<{
     <>
       <Tabs value={selectedLanguage} onChange={(e, value) => onSelect(value)}>
         <Tab
-          value={LanguageEnum.EN}
-          label={translate(`languageTabs.tab.EN.label`)}
-        />
-        <Tab
           value={LanguageEnum.FI}
           label={translate(`languageTabs.tab.FI.label`)}
         />
         <Tab
           value={LanguageEnum.SV}
           label={translate(`languageTabs.tab.SV.label`)}
+        />
+        <Tab
+          value={LanguageEnum.EN}
+          label={translate(`languageTabs.tab.EN.label`)}
         />
       </Tabs>
     </>
