@@ -5,13 +5,13 @@
   "languageTabs": {
     "tab": {
       "FI": {
-        "label": "Suomi"
+        "label": "finska"
       },
       "SV": {
-        "label": "Swedish"
+        "label": "svenska"
       },
       "EN": {
-        "label": "English"
+        "label": "engelska"
       }
     }
   },
