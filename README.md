@@ -117,6 +117,10 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+### `yarn build`
+
+Fetches the schema from backend and updates typing information.
+
 ## Debugging
 
 See instructions in the sister project: https://github.com/City-of-Helsinki/kukkuu-ui/
