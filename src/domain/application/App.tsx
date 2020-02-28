@@ -14,6 +14,7 @@ import dataProvider from '../../api/dataProvider';
 import VenueList from '../venues/VenueList';
 import VenueShow from '../venues/VenueShow';
 import EventList from '../events/list/EventList';
+import EventShow from '../events/detail/EventShow';
 
 const history = createHistory();
 
@@ -42,6 +43,7 @@ const App: React.FC = () => {
         options={{ label: translate('events.list.title') }}
         icon={PlaceIcon}
         list={EventList}
+        show={EventShow}
       />
     </Admin>
   );

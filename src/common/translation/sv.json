@@ -44,6 +44,11 @@
     "list": {
       "title": "Events"
     },
+    "show": {
+      "tab": {
+        "label": "Event detail"
+      }
+    },
     "fields": {
       "id": {
         "label": "ID"
@@ -56,6 +61,15 @@
       },
       "duration": {
         "label": "Duration"
+      },
+      "occurrences": {
+        "label": "Occurrences"
+      },
+      "capacityPerOccurrence": {
+        "label": "Capacity per occurrence"
+      },
+      "publishedAt": {
+        "label": "Published at"
       }
     }
   },
