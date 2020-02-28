@@ -7,4 +7,5 @@ import * as React from 'react';
 import { Route } from 'react-router';
 
 import OidcCallback from './domain/authentication/components/OidcCallback';
+
 export default [<Route exact path="/callback" component={OidcCallback} />];

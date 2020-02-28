@@ -5,6 +5,7 @@ import {
   TextField,
   useTranslate,
   useLocale,
+  NumberField,
 } from 'react-admin';
 
 import { getTranslatedField } from '../../../common/translation/TranslationUtils';
@@ -27,11 +28,11 @@ const EventList = (props: any) => {
           source="participantsPerInvite"
           label={translate('events.fields.participantsPerInvite.label')}
         />
-        <TextField
+        <NumberField
           source="duration"
           label={translate('events.fields.duration.label')}
         />
-        <TextField
+        <NumberField
           source="occurrences.edges.length"
           label={translate('events.fields.occurrences.label')}
         />
