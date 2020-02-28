@@ -2,22 +2,22 @@
   "dashboard": {
     "title": "Kulttuurin kummilapset ylläpito"
   },
+  "languageTabs": {
+    "tab": {
+      "FI": {
+        "label": "suomi"
+      },
+      "SV": {
+        "label": "ruotsi"
+      },
+      "EN": {
+        "label": "englanti"
+      }
+    }
+  },
   "venues": {
     "list": {
       "title": "Tapahtumapaikat"
-    },
-    "show": {
-      "tab": {
-        "FI": {
-          "label": "Suomeksi"
-        },
-        "SV": {
-          "label": "Ruotsiksi"
-        },
-        "EN": {
-          "label": "Englanniksi"
-        }
-      }
     },
     "fields": {
       "name": {

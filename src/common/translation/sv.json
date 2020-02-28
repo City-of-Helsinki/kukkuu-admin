@@ -2,22 +2,22 @@
   "dashboard": {
     "title": "Culture Kids admin"
   },
+  "languageTabs": {
+    "tab": {
+      "FI": {
+        "label": "finska"
+      },
+      "SV": {
+        "label": "svenska"
+      },
+      "EN": {
+        "label": "engelska"
+      }
+    }
+  },
   "venues": {
     "list": {
       "title": "Venues"
-    },
-    "show": {
-      "tab": {
-        "FI": {
-          "label": "English"
-        },
-        "SV": {
-          "label": "Swedish"
-        },
-        "EN": {
-          "label": "English"
-        }
-      }
     },
     "fields": {
       "name": {
