@@ -36,27 +36,27 @@ export const queryHandler = async (
   }
 };
 
-/*
-Convert translations from the API data form
-
-  [
-    {
-      "languageCode": "FI",
-      "name": "foo",
-      "address": "bar",
-      "__typename": "bazType"
-    }
-  ]
-
-  to the form used in this app
-
-  {
-    "FI": {
-      "name": "foo",
-      "address": "bar"
-    }
-  }
-*/
+/**
+ * Convert translations from the API data form
+ *
+ * [
+ *   {
+ *     "languageCode": "FI",
+ *     "name": "foo",
+ *     "address": "bar",
+ *     "__typename": "bazType"
+ *   }
+ * ]
+ *
+ * to the form used in this app
+ *
+ * {
+ *   "FI": {
+ *     "name": "foo",
+ *     "address": "bar"
+ *   }
+ * }
+ */
 export const normalizeApiTranslations = <T extends ApiTranslation>(
   apiTranslations: T[]
 ) => {
@@ -69,25 +69,26 @@ export const normalizeApiTranslations = <T extends ApiTranslation>(
   return translations;
 };
 
-/*
-Convert translations from the API single data entity to a local one.
-If no translations, return the entity data.
-
-  {
-    id: string;
-    translations: APITranslation[];
-    __typename: string;
-    ...rest
-  }
-
-  to the form used in this app
-
-  {
-    id: string;
-    translations: LocalTranslation[];
-    ...rest
-  }
-*/
+/**
+ *
+ * Convert translations from the API single data entity to a local one.
+ * If no translations, return the entity data.
+ *
+ * {
+ *   id: string;
+ *   translations: APITranslation[];
+ *   __typename: string;
+ *   ...rest
+ * }
+ *
+ * to the form used in this app
+ *
+ * {
+ *   id: string;
+ *   translations: LocalTranslation[];
+ *   ...rest
+ * }
+ */
 export const mapApiDataToLocalData = <E extends EntityNode>(
   apiEntityNode: E
 ) => {
