@@ -43,7 +43,8 @@ Convert translations from the API data form
     {
       "languageCode": "FI",
       "name": "foo",
-      "address": "bar"
+      "address": "bar",
+      "__typename": "bazType"
     }
   ]
 
@@ -62,6 +63,7 @@ export const normalizeApiTranslations = <T extends ApiTranslation>(
   const translations: AdminUITranslation<Omit<T, 'languageCode'>> = {};
   for (const apiTranslation of apiTranslations) {
     const { languageCode, ...fields } = apiTranslation;
+    delete (fields as { __typename?: string }).__typename;
     translations[languageCode] = fields;
   }
   return translations;
@@ -74,6 +76,7 @@ If no translations, return the entity data.
   {
     id: string;
     translations: APITranslation[];
+    __typename: string;
     ...rest
   }
 
@@ -88,9 +91,11 @@ If no translations, return the entity data.
 export const mapApiDataToLocalData = <E extends EntityNode>(
   apiEntityNode: E
 ) => {
-  return apiEntityNode.translations
-    ? Object.assign({}, apiEntityNode, {
-        translations: normalizeApiTranslations(apiEntityNode.translations),
+  const apiData = Object.assign({}, apiEntityNode);
+  delete (apiData as { __typename?: string }).__typename;
+  return apiData.translations
+    ? Object.assign({}, apiData, {
+        translations: normalizeApiTranslations(apiData.translations),
       })
-    : apiEntityNode;
+    : apiData;
 };
