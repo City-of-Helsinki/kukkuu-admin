@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Show, TextField, useTranslate, SimpleShowLayout } from 'react-admin';
 
 import LanguageTabs from '../../common/components/languageTab/LanguageTabs';
-import { Language as LanguageEnum } from '../../api/generatedTypes/globalTypes';
+import { Language } from '../../api/generatedTypes/globalTypes';
 
 const VenueTitle = ({ record }: { record?: any }) => {
   return <span>{record ? `${record.translations.FI.name}` : ''}</span>;
@@ -10,7 +10,7 @@ const VenueTitle = ({ record }: { record?: any }) => {
 
 const VenueShow = (props: any) => {
   const translate = useTranslate();
-  const [selectedLanguage, selectLanguage] = useState(LanguageEnum.FI);
+  const [selectedLanguage, selectLanguage] = useState(Language.FI);
   const translation = `translations.${selectedLanguage}`;
 
   return (
@@ -41,8 +41,8 @@ const VenueShow = (props: any) => {
           label={translate('venues.fields.arrivalInstructions.label')}
         />
         <TextField
-          source={`${translation}.additionalInformation`}
-          label={translate('venues.fields.additionalInformation.label')}
+          source={`${translation}.additionalInfo`}
+          label={translate('venues.fields.additionalInfo.label')}
         />
       </SimpleShowLayout>
     </Show>
