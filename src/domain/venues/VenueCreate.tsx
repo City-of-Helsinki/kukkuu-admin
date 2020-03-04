@@ -21,6 +21,11 @@ const VenueCreate = (props: any) => {
           label={translate('venues.fields.name.label')}
         />
         <TextInput
+          source={`${translation}.address`}
+          label={translate('venues.fields.address.label')}
+          multiline
+        />
+        <TextInput
           source={`${translation}.description`}
           label={translate('venues.fields.description.label')}
           multiline
