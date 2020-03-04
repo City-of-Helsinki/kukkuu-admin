@@ -1,4 +1,9 @@
-import { getVenues, getVenue, addVenue } from '../domain/venues/api/VenueApi';
+import {
+  getVenues,
+  getVenue,
+  addVenue,
+  updateVenue,
+} from '../domain/venues/api/VenueApi';
 import {
   MethodHandlers,
   Method,
@@ -12,6 +17,7 @@ const METHOD_HANDLERS: MethodHandlers = {
     LIST: getVenues,
     ONE: getVenue,
     CREATE: addVenue,
+    UPDATE: updateVenue,
   },
   events: {
     LIST: getEvents,
@@ -53,6 +59,10 @@ const dataProvider = {
   },
   create: async (resource: Resource, params: Params) => {
     const data = await runHandler('CREATE', resource, params);
+    return { data };
+  },
+  update: async (resource: Resource, params: Params) => {
+    const data = await runHandler('UPDATE', resource, params);
     return { data };
   },
 };

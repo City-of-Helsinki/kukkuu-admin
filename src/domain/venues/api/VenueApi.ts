@@ -6,7 +6,10 @@ import {
 } from '../../../api/generatedTypes/Venues';
 import { Venue as ApiDetailVenue } from '../../../api/generatedTypes/Venue';
 import { venuesQuery, venueQuery } from '../query/VenueQueries';
-import { addVenueMutation } from './mutations/venueMutations';
+import {
+  addVenueMutation,
+  updateVenueMutation,
+} from './mutations/venueMutations';
 import { MethodHandler, MethodHandlerParams } from '../../../api/types';
 import {
   queryHandler,
@@ -49,4 +52,15 @@ const addVenue: MethodHandler = async (params: MethodHandlerParams) => {
     : null;
 };
 
-export { getVenues, getVenue, addVenue };
+const updateVenue: MethodHandler = async (params: MethodHandlerParams) => {
+  const data = mapLocalDataToApiData(params.data as AdminVenue);
+  const response = await mutationHandler({
+    mutation: updateVenueMutation,
+    variables: { input: data },
+  });
+  return response.data?.updateVenue.venue
+    ? mapApiDataToLocalData(response.data.updateVenue.venue)
+    : null;
+};
+
+export { getVenues, getVenue, addVenue, updateVenue };

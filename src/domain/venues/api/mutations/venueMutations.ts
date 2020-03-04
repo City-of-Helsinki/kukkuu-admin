@@ -18,3 +18,22 @@ export const addVenueMutation = gql`
     }
   }
 `;
+
+export const updateVenueMutation = gql`
+  mutation updateVenue($input: UpdateVenueMutationInput!) {
+    updateVenue(input: $input) {
+      venue {
+        id
+        translations {
+          name
+          address
+          languageCode
+          description
+          accessibilityInfo
+          arrivalInstructions
+          additionalInfo
+        }
+      }
+    }
+  }
+`;
