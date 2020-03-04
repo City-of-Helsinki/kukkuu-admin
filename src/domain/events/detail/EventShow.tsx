@@ -10,7 +10,7 @@ import {
   DateField,
 } from 'react-admin';
 
-import { EventTranslationLanguageCode as LanguageEnum } from '../../../api/generatedTypes/globalTypes';
+import { Language } from '../../../api/generatedTypes/globalTypes';
 import LanguageTabs from '../../../common/components/languageTab/LanguageTabs';
 
 const EventShow: FunctionComponent = (props: any) => {
@@ -19,7 +19,7 @@ const EventShow: FunctionComponent = (props: any) => {
     return <span>{record ? `${record.translations.FI.name}` : ''}</span>;
   };
 
-  const [language, selectLanguage] = useState(LanguageEnum.FI);
+  const [language, selectLanguage] = useState(Language.FI);
   return (
     <Show title={<EventTitle />} {...props}>
       <TabbedShowLayout>

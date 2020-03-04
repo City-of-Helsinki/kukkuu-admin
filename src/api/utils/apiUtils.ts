@@ -1,9 +1,13 @@
-import { QueryOptions, OperationVariables } from 'apollo-boost';
+import {
+  QueryOptions,
+  OperationVariables,
+  MutationOptions,
+} from 'apollo-boost';
 import { HttpError } from 'react-admin';
 
 import client from '../client';
 import { API_ERROR_MESSAGE } from '../constants/ApiConstants';
-import { EventTranslationLanguageCode } from '../generatedTypes/globalTypes';
+import { Language as EventTranslationLanguageCode } from '../generatedTypes/globalTypes';
 
 type ApiTranslation = {
   languageCode: EventTranslationLanguageCode;
@@ -20,6 +24,11 @@ export type EntityNode = {
   translations?: ApiTranslation[];
 };
 
+export type LocalEntity<T> = {
+  id: string;
+  translations?: [T];
+};
+
 /**
  * Add generic error handler for Apollo query
  * with error match with React-admin error handling standard
@@ -31,6 +40,16 @@ export const queryHandler = async (
   try {
     const res = await client.query(queryOptions);
     return res;
+  } catch (error) {
+    throw new HttpError(error.message || API_ERROR_MESSAGE);
+  }
+};
+
+export const mutationHandler = async (
+  mutationOptions: MutationOptions<OperationVariables>
+) => {
+  try {
+    return await client.mutate(mutationOptions);
   } catch (error) {
     throw new HttpError(error.message || API_ERROR_MESSAGE);
   }
@@ -70,6 +89,19 @@ export const normalizeApiTranslations = <T extends ApiTranslation>(
 };
 
 /**
+ * Convert local data translations back to API ones.
+ */
+export const denormalizeLocalTranslations = <T>(
+  adminTranslations: AdminUITranslation<T>
+) => {
+  const apiTranslations: T[] = [];
+  for (const [k, v] of Object.entries(adminTranslations)) {
+    apiTranslations.push(Object.assign({ languageCode: k }, v));
+  }
+  return apiTranslations;
+};
+
+/**
  *
  * Convert translations from the API single data entity to a local one.
  * If no translations, return the entity data.
@@ -99,4 +131,13 @@ export const mapApiDataToLocalData = <E extends EntityNode>(
         translations: normalizeApiTranslations(apiData.translations),
       })
     : apiData;
+};
+
+// TODO add proper typing
+export const mapLocalDataToApiData = (record: any) => {
+  return record.translations
+    ? Object.assign({}, record, {
+        translations: denormalizeLocalTranslations(record.translations),
+      })
+    : record;
 };

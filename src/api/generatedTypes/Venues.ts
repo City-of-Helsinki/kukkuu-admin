@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { EventTranslationLanguageCode } from "./globalTypes";
+import { Language } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: Venues
@@ -12,7 +12,7 @@ import { EventTranslationLanguageCode } from "./globalTypes";
 export interface Venues_venues_edges_node_translations {
   name: string;
   address: string;
-  languageCode: EventTranslationLanguageCode;
+  languageCode: Language;
 }
 
 export interface Venues_venues_edges_node {

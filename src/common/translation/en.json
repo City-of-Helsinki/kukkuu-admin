@@ -35,8 +35,8 @@
       "arrivalInstructions": {
         "label": "Arrival instructions"
       },
-      "additionalInformation": {
-        "label": "Additional information"
+      "additionalInfo": {
+        "label": "Additional info"
       }
     }
   },

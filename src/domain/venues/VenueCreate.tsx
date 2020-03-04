@@ -1,52 +1,48 @@
 import React, { useState } from 'react';
-import { Show, TextField, useTranslate, SimpleShowLayout } from 'react-admin';
+import { Create, TextInput, useTranslate, SimpleForm } from 'react-admin';
 
-import LanguageTabs from '../../common/components/languageTab/LanguageTabs';
 import { Language as LanguageEnum } from '../../api/generatedTypes/globalTypes';
+import LanguageTabs from '../../common/components/languageTab/LanguageTabs';
 
-const VenueTitle = ({ record }: { record?: any }) => {
-  return <span>{record ? `${record.translations.FI.name}` : ''}</span>;
-};
-
-const VenueShow = (props: any) => {
+const VenueCreate = (props: any) => {
   const translate = useTranslate();
   const [selectedLanguage, selectLanguage] = useState(LanguageEnum.FI);
   const translation = `translations.${selectedLanguage}`;
 
   return (
-    <Show title={<VenueTitle />} {...props}>
-      <SimpleShowLayout>
+    <Create title={'Luo uusi tapahtumapaikka'} {...props}>
+      <SimpleForm redirect="show">
         <LanguageTabs
           selectedLanguage={selectedLanguage}
           onSelect={selectLanguage}
         />
-        <TextField
+        <TextInput
           source={`${translation}.name`}
           label={translate('venues.fields.name.label')}
         />
-        <TextField
-          source={`${translation}.address`}
-          label={translate('venues.fields.address.label')}
-        />
-        <TextField
+        <TextInput
           source={`${translation}.description`}
           label={translate('venues.fields.description.label')}
+          multiline
         />
-        <TextField
+        <TextInput
           source={`${translation}.accessibilityInfo`}
           label={translate('venues.fields.accessibilityInfo.label')}
+          multiline
         />
-        <TextField
+        <TextInput
           source={`${translation}.arrivalInstructions`}
           label={translate('venues.fields.arrivalInstructions.label')}
+          multiline
         />
-        <TextField
-          source={`${translation}.additionalInformation`}
-          label={translate('venues.fields.additionalInformation.label')}
+        <TextInput
+          source={`${translation}.additionalInfo`}
+          label={translate('venues.fields.additionalInfo.label')}
+          multiline
         />
-      </SimpleShowLayout>
-    </Show>
+      </SimpleForm>
+    </Create>
   );
 };
 
-export default VenueShow;
+export default VenueCreate;

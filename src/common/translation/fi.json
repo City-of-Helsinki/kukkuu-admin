@@ -35,7 +35,7 @@
       "arrivalInstructions": {
         "label": "Saapumisohjeet"
       },
-      "additionalInformation": {
+      "additionalInfo": {
         "label": "Lisätiedot"
       }
     }
