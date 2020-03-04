@@ -10,7 +10,7 @@ const VenueCreate = (props: any) => {
   const translation = `translations.${selectedLanguage}`;
 
   return (
-    <Create title={'Luo uusi tapahtumapaikka'} {...props}>
+    <Create title={translate('venues.create.title')} {...props}>
       <SimpleForm redirect="show">
         <LanguageTabs
           selectedLanguage={selectedLanguage}

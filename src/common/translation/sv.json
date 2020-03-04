@@ -19,6 +19,9 @@
     "list": {
       "title": "Venues"
     },
+    "create": {
+      "title": "Create venue"
+    },
     "fields": {
       "name": {
         "label": "Name"

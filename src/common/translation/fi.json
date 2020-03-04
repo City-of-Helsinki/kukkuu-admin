@@ -19,6 +19,9 @@
     "list": {
       "title": "Tapahtumapaikat"
     },
+    "create": {
+      "title": "Luo uusi tapahtumapaikka"
+    },
     "fields": {
       "name": {
         "label": "Nimi"
