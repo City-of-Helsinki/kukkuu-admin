@@ -1,17 +1,24 @@
 import React, { useState } from 'react';
-import { Create, TextInput, useTranslate, SimpleForm } from 'react-admin';
+import {
+  Create,
+  SimpleForm,
+  TextInput,
+  useTranslate,
+  required,
+} from 'react-admin';
 
-import { Language as LanguageEnum } from '../../api/generatedTypes/globalTypes';
+import { Language } from '../../api/generatedTypes/globalTypes';
 import LanguageTabs from '../../common/components/languageTab/LanguageTabs';
+import { validateVenue } from './validations';
 
 const VenueCreate = (props: any) => {
   const translate = useTranslate();
-  const [selectedLanguage, selectLanguage] = useState(LanguageEnum.FI);
+  const [selectedLanguage, selectLanguage] = useState(Language.FI);
   const translation = `translations.${selectedLanguage}`;
 
   return (
     <Create title={translate('venues.create.title')} {...props}>
-      <SimpleForm redirect="show">
+      <SimpleForm redirect="show" validate={validateVenue}>
         <LanguageTabs
           selectedLanguage={selectedLanguage}
           onSelect={selectLanguage}
@@ -19,6 +26,7 @@ const VenueCreate = (props: any) => {
         <TextInput
           source={`${translation}.name`}
           label={translate('venues.fields.name.label')}
+          validate={selectedLanguage === Language.FI ? required() : null}
         />
         <TextInput
           source={`${translation}.address`}

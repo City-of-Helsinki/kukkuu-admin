@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
-import { Edit, TextInput, useTranslate, SimpleForm } from 'react-admin';
+import {
+  Edit,
+  TextInput,
+  useTranslate,
+  SimpleForm,
+  required,
+} from 'react-admin';
 
 import { Language } from '../../api/generatedTypes/globalTypes';
 import LanguageTabs from '../../common/components/languageTab/LanguageTabs';
+import { validateVenue } from './validations';
 
 const VenueEditTitle = ({ record }: any) => {
   return (
@@ -18,7 +25,7 @@ const VenueEdit = (props: any) => {
 
   return (
     <Edit title={<VenueEditTitle />} {...props}>
-      <SimpleForm>
+      <SimpleForm validate={validateVenue}>
         <LanguageTabs
           selectedLanguage={selectedLanguage}
           onSelect={selectLanguage}
@@ -26,6 +33,7 @@ const VenueEdit = (props: any) => {
         <TextInput
           source={`${translation}.name`}
           label={translate('venues.fields.name.label')}
+          validate={selectedLanguage === Language.FI ? required() : null}
         />
         <TextInput
           source={`${translation}.address`}
