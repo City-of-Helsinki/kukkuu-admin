@@ -15,6 +15,8 @@ import VenueList from '../venues/VenueList';
 import VenueShow from '../venues/VenueShow';
 import EventList from '../events/list/EventList';
 import EventShow from '../events/detail/EventShow';
+import VenueEdit from '../venues/VenueEdit';
+import VenueCreate from '../venues/VenueCreate';
 
 const history = createHistory();
 
@@ -37,6 +39,8 @@ const App: React.FC = () => {
         icon={PlaceIcon}
         list={VenueList}
         show={VenueShow}
+        create={VenueCreate}
+        edit={VenueEdit}
       />
       <Resource
         name="events"

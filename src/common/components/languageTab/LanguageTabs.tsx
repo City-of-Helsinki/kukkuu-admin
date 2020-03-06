@@ -3,7 +3,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { useTranslate } from 'react-admin';
 
-import { EventTranslationLanguageCode as LanguageEnum } from '../../../api/generatedTypes/globalTypes';
+import { Language } from '../../../api/generatedTypes/globalTypes';
 /**
  * Use as a wrapper for translatable content view
  * as render props, (please forgive me, HOC is worse).
@@ -17,8 +17,8 @@ import { EventTranslationLanguageCode as LanguageEnum } from '../../../api/gener
  *
  */
 const LanguageTabs: React.FunctionComponent<{
-  selectedLanguage: LanguageEnum;
-  onSelect: (value: LanguageEnum) => void;
+  selectedLanguage: Language;
+  onSelect: (value: Language) => void;
 }> = ({ selectedLanguage, onSelect }) => {
   const translate = useTranslate();
 
@@ -26,15 +26,15 @@ const LanguageTabs: React.FunctionComponent<{
     <>
       <Tabs value={selectedLanguage} onChange={(e, value) => onSelect(value)}>
         <Tab
-          value={LanguageEnum.FI}
+          value={Language.FI}
           label={translate(`languageTabs.tab.FI.label`)}
         />
         <Tab
-          value={LanguageEnum.SV}
+          value={Language.SV}
           label={translate(`languageTabs.tab.SV.label`)}
         />
         <Tab
-          value={LanguageEnum.EN}
+          value={Language.EN}
           label={translate(`languageTabs.tab.EN.label`)}
         />
       </Tabs>

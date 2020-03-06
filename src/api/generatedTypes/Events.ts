@@ -3,14 +3,14 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { EventParticipantsPerInvite, EventTranslationLanguageCode } from "./globalTypes";
+import { EventParticipantsPerInvite, Language } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: Events
 // ====================================================
 
 export interface Events_events_edges_node_translations {
-  languageCode: EventTranslationLanguageCode;
+  languageCode: Language;
   name: string;
 }
 

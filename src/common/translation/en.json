@@ -19,6 +19,9 @@
     "list": {
       "title": "Venues"
     },
+    "create": {
+      "title": "Create venue"
+    },
     "fields": {
       "name": {
         "label": "Name"
@@ -35,8 +38,8 @@
       "arrivalInstructions": {
         "label": "Arrival instructions"
       },
-      "additionalInformation": {
-        "label": "Additional information"
+      "additionalInfo": {
+        "label": "Additional info"
       }
     }
   },
