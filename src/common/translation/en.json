@@ -60,7 +60,15 @@
         "label": "Name"
       },
       "participantsPerInvite": {
-        "label": "Participants per invite"
+        "label": "Participants per invite",
+        "choices": {
+          "CHILD_AND_GUARDIAN": {
+            "label": "Child and guardian"
+          },
+          "FAMILY": {
+            "label": "Family"
+          }
+        }
       },
       "duration": {
         "label": "Duration"
@@ -73,6 +81,12 @@
       },
       "publishedAt": {
         "label": "Published at"
+      },
+      "description": {
+        "label": "Desription"
+      },
+      "shortDescription": {
+        "label": "Short Description"
       }
     }
   },

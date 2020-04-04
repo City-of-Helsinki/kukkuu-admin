@@ -4,14 +4,14 @@ import { MethodHandler, MethodHandlerParams } from '../../../api/types';
 import {
   queryHandler,
   mapApiDataToLocalData,
+  mapLocalDataToApiData,
+  mutationHandler,
 } from '../../../api/utils/apiUtils';
 import { eventsQuery, eventQuery } from '../queries/EventQueries';
 import { Events_events as ApiEvents } from '../../../api/generatedTypes/Events';
 import { Event as ApiEvent } from '../../../api/generatedTypes/Event';
+import { addEventMutation } from '../mutations/EventMutations';
 
-/**
- * Get list of events
- */
 const getEvents: MethodHandler = async (params: MethodHandlerParams) => {
   const response = await queryHandler({ query: eventsQuery });
   return (response.data.events as ApiEvents).edges.map(edge =>
@@ -29,4 +29,15 @@ const getEvent: MethodHandler = async (params: MethodHandlerParams) => {
     : null;
 };
 
-export { getEvents, getEvent };
+const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
+  const data = mapLocalDataToApiData(params.data);
+  const response = await mutationHandler({
+    mutation: addEventMutation,
+    variables: { input: data },
+  });
+  return response?.data?.addEvent.event
+    ? mapApiDataToLocalData(response.data.addEvent.event)
+    : null;
+};
+
+export { getEvents, getEvent, addEvent };
