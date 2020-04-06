@@ -17,6 +17,7 @@ import EventList from '../events/list/EventList';
 import EventShow from '../events/detail/EventShow';
 import VenueEdit from '../venues/VenueEdit';
 import VenueCreate from '../venues/VenueCreate';
+import EventCreate from '../events/create/EventCreate';
 
 const history = createHistory();
 
@@ -48,6 +49,7 @@ const App: React.FC = () => {
         icon={PlaceIcon}
         list={EventList}
         show={EventShow}
+        create={EventCreate}
       />
     </Admin>
   );

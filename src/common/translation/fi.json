@@ -45,11 +45,11 @@
   },
   "events": {
     "list": {
-      "title": "Events"
+      "title": "Tapahtumat"
     },
     "show": {
       "tab": {
-        "label": "Event detail"
+        "label": "Tapahtuman tiedot"
       }
     },
     "fields": {
@@ -57,22 +57,36 @@
         "label": "ID"
       },
       "name": {
-        "label": "Name"
+        "label": "Nimi"
       },
       "participantsPerInvite": {
-        "label": "Participants per invite"
+        "label": "Osallistujat kutsua kohden",
+        "choices": {
+          "CHILD_AND_GUARDIAN": {
+            "label": "Lapsi ja huoltaja"
+          },
+          "FAMILY": {
+            "label": "Perhe"
+          }
+        }
       },
       "duration": {
-        "label": "Duration"
+        "label": "Kesto"
       },
       "occurrences": {
-        "label": "Occurrences"
+        "label": "Ajankohdat"
       },
       "capacityPerOccurrence": {
-        "label": "Capacity per occurrence"
+        "label": "Tilaisuuden kapasiteetti"
       },
       "publishedAt": {
-        "label": "Published at"
+        "label": "Julkaistu"
+      },
+      "description": {
+        "label": "Kuvaus"
+      },
+      "shortDescription": {
+        "label": "Lyhyt kuvaus"
       }
     }
   },

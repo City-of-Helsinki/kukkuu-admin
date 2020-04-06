@@ -7,9 +7,6 @@
 // START Enums and Input Objects
 //==============================================================
 
-/**
- * An enumeration.
- */
 export enum EventParticipantsPerInvite {
   CHILD_AND_GUARDIAN = "CHILD_AND_GUARDIAN",
   FAMILY = "FAMILY",
@@ -24,13 +21,37 @@ export enum Language {
   SV = "SV",
 }
 
+export interface AddEventMutationInput {
+  translations?: (EventTranslationsInput | null)[] | null;
+  duration?: number | null;
+  participantsPerInvite: EventParticipantsPerInvite;
+  capacityPerOccurrence: number;
+  image?: any | null;
+  clientMutationId?: string | null;
+}
+
 export interface AddVenueMutationInput {
   translations?: (VenueTranslationsInput | null)[] | null;
   clientMutationId?: string | null;
 }
 
+export interface EventTranslationsInput {
+  name?: string | null;
+  shortDescription?: string | null;
+  description?: string | null;
+  imageAltText?: string | null;
+  languageCode: Language;
+}
+
+export interface UpdateVenueMutationInput {
+  id: string;
+  translations?: (VenueTranslationsInput | null)[] | null;
+  deleteTranslations?: (Language | null)[] | null;
+  clientMutationId?: string | null;
+}
+
 export interface VenueTranslationsInput {
-  name: string;
+  name?: string | null;
   description?: string | null;
   languageCode: Language;
   address?: string | null;
@@ -38,6 +59,7 @@ export interface VenueTranslationsInput {
   arrivalInstructions?: string | null;
   additionalInfo?: string | null;
   wwwUrl?: string | null;
+  wcAndFacilities?: string | null;
 }
 
 //==============================================================
