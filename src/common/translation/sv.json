@@ -52,6 +52,9 @@
         "label": "Event detail"
       }
     },
+    "create": {
+      "title": "Create event"
+    },
     "edit": {
       "title": "Edit event"
     },

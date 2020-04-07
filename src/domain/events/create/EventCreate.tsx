@@ -25,7 +25,7 @@ const EventCreate = (props: any) => {
   const translation = `translations.${selectedLanguage}`;
 
   return (
-    <Create title={translate('events.show.tab.label')} {...props}>
+    <Create title={translate('events.create.title')} {...props}>
       <SimpleForm redirect="show" validate={validateEvent}>
         <LanguageTabs
           selectedLanguage={selectedLanguage}
