@@ -10,7 +10,12 @@ import {
   Resource,
   DataProviderParams as Params,
 } from './types';
-import { getEvents, getEvent, addEvent } from '../domain/events/api/EventApi';
+import {
+  getEvents,
+  getEvent,
+  addEvent,
+  updateEvent,
+} from '../domain/events/api/EventApi';
 
 const METHOD_HANDLERS: MethodHandlers = {
   venues: {
@@ -23,6 +28,7 @@ const METHOD_HANDLERS: MethodHandlers = {
     LIST: getEvents,
     ONE: getEvent,
     CREATE: addEvent,
+    UPDATE: updateEvent,
   },
 };
 

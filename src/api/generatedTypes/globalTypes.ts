@@ -43,6 +43,17 @@ export interface EventTranslationsInput {
   languageCode: Language;
 }
 
+export interface UpdateEventMutationInput {
+  id: string;
+  duration?: number | null;
+  participantsPerInvite?: EventParticipantsPerInvite | null;
+  capacityPerOccurrence?: number | null;
+  image?: any | null;
+  translations?: (EventTranslationsInput | null)[] | null;
+  deleteTranslations?: (Language | null)[] | null;
+  clientMutationId?: string | null;
+}
+
 export interface UpdateVenueMutationInput {
   id: string;
   translations?: (VenueTranslationsInput | null)[] | null;
