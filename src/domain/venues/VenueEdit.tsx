@@ -25,7 +25,7 @@ const VenueEdit = (props: any) => {
 
   return (
     <Edit title={<VenueEditTitle />} {...props}>
-      <SimpleForm validate={validateVenue}>
+      <SimpleForm redirect="show" validate={validateVenue}>
         <LanguageTabs
           selectedLanguage={selectedLanguage}
           onSelect={selectLanguage}
