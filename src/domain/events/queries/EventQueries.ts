@@ -12,6 +12,8 @@ export const eventsQuery = gql`
           translations {
             languageCode
             name
+            description
+            shortDescription
           }
           capacityPerOccurrence
           publishedAt
@@ -38,6 +40,8 @@ export const eventQuery = gql`
       translations {
         languageCode
         name
+        description
+        shortDescription
       }
       capacityPerOccurrence
       publishedAt
