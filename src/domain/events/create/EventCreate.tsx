@@ -37,14 +37,14 @@ const EventCreate = (props: any) => {
           validate={selectedLanguage === Language.FI ? required() : null}
         />
         <TextInput
-          source={`${translation}.description`}
-          label={translate('events.fields.description.label')}
-          multiline
-        />
-        <TextInput
           source={`${translation}.shortDescription`}
           label={translate('events.fields.shortDescription.label')}
           validate={validateShortDescription}
+          multiline
+        />
+        <TextInput
+          source={`${translation}.description`}
+          label={translate('events.fields.description.label')}
           multiline
         />
         <SelectInput
