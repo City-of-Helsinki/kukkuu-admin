@@ -18,6 +18,7 @@ import EventShow from '../events/detail/EventShow';
 import VenueEdit from '../venues/VenueEdit';
 import VenueCreate from '../venues/VenueCreate';
 import EventCreate from '../events/create/EventCreate';
+import EventEdit from '../events/edit/EventEdit';
 
 const history = createHistory();
 
@@ -50,6 +51,7 @@ const App: React.FC = () => {
         list={EventList}
         show={EventShow}
         create={EventCreate}
+        edit={EventEdit}
       />
     </Admin>
   );

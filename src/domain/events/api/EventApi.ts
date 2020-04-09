@@ -10,7 +10,10 @@ import {
 import { eventsQuery, eventQuery } from '../queries/EventQueries';
 import { Events_events as ApiEvents } from '../../../api/generatedTypes/Events';
 import { Event as ApiEvent } from '../../../api/generatedTypes/Event';
-import { addEventMutation } from '../mutations/EventMutations';
+import {
+  addEventMutation,
+  updateEventMutation,
+} from '../mutations/EventMutations';
 
 const getEvents: MethodHandler = async (params: MethodHandlerParams) => {
   const response = await queryHandler({ query: eventsQuery });
@@ -40,4 +43,16 @@ const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
     : null;
 };
 
-export { getEvents, getEvent, addEvent };
+const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
+  const { publishedAt, occurrences, ...localUpdateData } = params.data;
+  const data = mapLocalDataToApiData(localUpdateData);
+  const response = await mutationHandler({
+    mutation: updateEventMutation,
+    variables: { input: data },
+  });
+  return response?.data?.updateEvent.event
+    ? mapApiDataToLocalData(response.data.updateEvent.event)
+    : null;
+};
+
+export { getEvents, getEvent, addEvent, updateEvent };

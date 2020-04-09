@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Create,
+  Edit,
   TextInput,
   useTranslate,
   SimpleForm,
@@ -11,22 +11,22 @@ import {
 
 import LanguageTabs from '../../../common/components/languageTab/LanguageTabs';
 import { Language } from '../../../api/generatedTypes/globalTypes';
+import { validateVenue } from '../../venues/validations';
 import {
   validateCapacityPerOccurrence,
   validateDuration,
-  validateEvent,
   validateParticipantsPerInvite,
   validateShortDescription,
 } from '../validations';
 
-const EventCreate = (props: any) => {
+const EventEdit = (props: any) => {
   const translate = useTranslate();
   const [selectedLanguage, selectLanguage] = useState(Language.FI);
   const translation = `translations.${selectedLanguage}`;
 
   return (
-    <Create title={translate('events.create.title')} {...props}>
-      <SimpleForm redirect="show" validate={validateEvent}>
+    <Edit title={translate('events.edit.title')} {...props}>
+      <SimpleForm redirect="show" validate={validateVenue}>
         <LanguageTabs
           selectedLanguage={selectedLanguage}
           onSelect={selectLanguage}
@@ -77,8 +77,8 @@ const EventCreate = (props: any) => {
           validate={validateDuration}
         />
       </SimpleForm>
-    </Create>
+    </Edit>
   );
 };
 
-export default EventCreate;
+export default EventEdit;

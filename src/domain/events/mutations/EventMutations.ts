@@ -18,3 +18,22 @@ export const addEventMutation = gql`
     }
   }
 `;
+
+export const updateEventMutation = gql`
+  mutation UpdateEvent($input: UpdateEventMutationInput!) {
+    updateEvent(input: $input) {
+      event {
+        id
+        participantsPerInvite
+        capacityPerOccurrence
+        duration
+        translations {
+          languageCode
+          name
+          description
+          shortDescription
+        }
+      }
+    }
+  }
+`;

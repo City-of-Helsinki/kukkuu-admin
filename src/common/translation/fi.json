@@ -52,6 +52,12 @@
         "label": "Tapahtuman tiedot"
       }
     },
+    "create": {
+      "title": "Luo tapahtuma"
+    },
+    "edit": {
+      "title": "Muokkaa tapahtumaa"
+    },
     "fields": {
       "id": {
         "label": "ID"
