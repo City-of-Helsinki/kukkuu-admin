@@ -18,6 +18,7 @@ import {
   validateParticipantsPerInvite,
   validateShortDescription,
 } from '../validations';
+import { participantsPerInviteChoices } from '../choices';
 
 const EventCreate = (props: any) => {
   const translate = useTranslate();
@@ -50,20 +51,7 @@ const EventCreate = (props: any) => {
         <SelectInput
           source="participantsPerInvite"
           label={translate('events.fields.participantsPerInvite.label')}
-          choices={[
-            {
-              id: 'CHILD_AND_GUARDIAN',
-              name: translate(
-                'events.fields.participantsPerInvite.choices.CHILD_AND_GUARDIAN.label'
-              ),
-            },
-            {
-              id: 'FAMILY',
-              name: translate(
-                'events.fields.participantsPerInvite.choices.FAMILY.label'
-              ),
-            },
-          ]}
+          choices={participantsPerInviteChoices}
           validate={validateParticipantsPerInvite}
         />
         <NumberInput

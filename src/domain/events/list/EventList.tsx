@@ -6,9 +6,11 @@ import {
   useTranslate,
   useLocale,
   NumberField,
+  SelectField,
 } from 'react-admin';
 
 import { getTranslatedField } from '../../../common/translation/TranslationUtils';
+import { participantsPerInviteChoices } from '../choices';
 
 const EventList = (props: any) => {
   const translate = useTranslate();
@@ -21,10 +23,10 @@ const EventList = (props: any) => {
           source={getTranslatedField('name', currentLocale)}
           label={translate('events.fields.name.label')}
         />
-
-        <TextField
+        <SelectField
           source="participantsPerInvite"
           label={translate('events.fields.participantsPerInvite.label')}
+          choices={participantsPerInviteChoices}
         />
         <NumberField
           source="duration"
