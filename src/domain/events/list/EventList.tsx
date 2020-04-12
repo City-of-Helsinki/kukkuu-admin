@@ -31,6 +31,10 @@ const EventList = (props: any) => {
           label={translate('events.fields.duration.label')}
         />
         <NumberField
+          source="capacityPerOccurrence"
+          label={translate('events.fields.capacityPerOccurrence.label')}
+        />
+        <NumberField
           source="occurrences.edges.length"
           label={translate('events.fields.occurrences.label')}
         />
