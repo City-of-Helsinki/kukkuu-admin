@@ -17,8 +17,6 @@ const EventList = (props: any) => {
   return (
     <List title={translate('events.list.title')} {...props}>
       <Datagrid rowClick="show">
-        <TextField source="id" label={translate('events.fields.id.label')} />
-
         <TextField
           source={getTranslatedField('name', currentLocale)}
           label={translate('events.fields.name.label')}
