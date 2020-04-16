@@ -8,10 +8,12 @@ import {
   ImageField,
   NumberField,
   DateField,
+  SelectField,
 } from 'react-admin';
 
 import { Language } from '../../../api/generatedTypes/globalTypes';
 import LanguageTabs from '../../../common/components/languageTab/LanguageTabs';
+import { participantsPerInviteChoices } from '../choices';
 
 const EventShow: FunctionComponent = (props: any) => {
   const translate = useTranslate();
@@ -26,15 +28,15 @@ const EventShow: FunctionComponent = (props: any) => {
         <Tab label={translate('events.show.tab.label')}>
           <LanguageTabs selectedLanguage={language} onSelect={selectLanguage} />
           <ImageField source="image" />
-
           <TextField
             source={`translations.${language}.name`}
             label={translate('events.fields.name.label')}
           />
 
-          <TextField
-            source={`participantsPerInvite`}
+          <SelectField
+            source="participantsPerInvite"
             label={translate('events.fields.participantsPerInvite.label')}
+            choices={participantsPerInviteChoices}
           />
 
           <NumberField

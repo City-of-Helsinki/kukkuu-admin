@@ -6,9 +6,11 @@ import {
   useTranslate,
   useLocale,
   NumberField,
+  SelectField,
 } from 'react-admin';
 
 import { getTranslatedField } from '../../../common/translation/TranslationUtils';
+import { participantsPerInviteChoices } from '../choices';
 
 const EventList = (props: any) => {
   const translate = useTranslate();
@@ -17,20 +19,22 @@ const EventList = (props: any) => {
   return (
     <List title={translate('events.list.title')} {...props}>
       <Datagrid rowClick="show">
-        <TextField source="id" label={translate('events.fields.id.label')} />
-
         <TextField
           source={getTranslatedField('name', currentLocale)}
           label={translate('events.fields.name.label')}
         />
-
-        <TextField
+        <SelectField
           source="participantsPerInvite"
           label={translate('events.fields.participantsPerInvite.label')}
+          choices={participantsPerInviteChoices}
         />
         <NumberField
           source="duration"
           label={translate('events.fields.duration.label')}
+        />
+        <NumberField
+          source="capacityPerOccurrence"
+          label={translate('events.fields.capacityPerOccurrence.label')}
         />
         <NumberField
           source="occurrences.edges.length"

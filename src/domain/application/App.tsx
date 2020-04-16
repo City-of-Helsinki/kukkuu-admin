@@ -2,6 +2,7 @@
 import React from 'react';
 import { Admin, Resource, useTranslate } from 'react-admin';
 import PlaceIcon from '@material-ui/icons/Place';
+import EventIcon from '@material-ui/icons/Event';
 import { createBrowserHistory as createHistory } from 'history';
 
 import i18nProvider from '../../common/translation/i18nProvider';
@@ -47,7 +48,7 @@ const App: React.FC = () => {
       <Resource
         name="events"
         options={{ label: translate('events.list.title') }}
-        icon={PlaceIcon}
+        icon={EventIcon}
         list={EventList}
         show={EventShow}
         create={EventCreate}
