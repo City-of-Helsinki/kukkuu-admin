@@ -9,6 +9,10 @@ import {
   NumberField,
   DateField,
   SelectField,
+  ReferenceManyField,
+  Datagrid,
+  ReferenceField,
+  useLocale,
 } from 'react-admin';
 
 import { Language } from '../../../api/generatedTypes/globalTypes';
@@ -17,6 +21,7 @@ import { participantsPerInviteChoices } from '../choices';
 
 const EventShow: FunctionComponent = (props: any) => {
   const translate = useTranslate();
+  const locale = useLocale();
   const EventTitle = ({ record }: { record?: any }) => {
     return <span>{record ? `${record.translations.FI.name}` : ''}</span>;
   };
@@ -54,7 +59,29 @@ const EventShow: FunctionComponent = (props: any) => {
             label={translate('events.fields.publishedAt.label')}
           />
         </Tab>
-        <Tab label="events.fields.occurrences.label"></Tab>
+        <Tab label="events.fields.occurrences.label">
+          <ReferenceManyField
+            label=" "
+            reference="occurrences"
+            target="event_id"
+          >
+            <Datagrid>
+              <DateField
+                label="occurrences.fields.time.label"
+                source="time"
+                showTime
+                locales={locale}
+              />
+              <ReferenceField
+                label="occurrences.fields.venues.label"
+                source="venue.id"
+                reference="venues"
+              >
+                <TextField source="translations.FI.name" />
+              </ReferenceField>
+            </Datagrid>
+          </ReferenceManyField>
+        </Tab>
       </TabbedShowLayout>
     </Show>
   );

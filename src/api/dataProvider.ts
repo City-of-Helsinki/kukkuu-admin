@@ -16,11 +16,13 @@ import {
   addEvent,
   updateEvent,
 } from '../domain/events/api/EventApi';
+import { getOccurrences } from '../domain/occurrences/api/OccurrenceApi';
 
 const METHOD_HANDLERS: MethodHandlers = {
   venues: {
     LIST: getVenues,
     ONE: getVenue,
+    MANY: getVenues,
     CREATE: addVenue,
     UPDATE: updateVenue,
   },
@@ -29,6 +31,9 @@ const METHOD_HANDLERS: MethodHandlers = {
     ONE: getEvent,
     CREATE: addEvent,
     UPDATE: updateEvent,
+  },
+  occurrences: {
+    MANY_REFERENCE: getOccurrences,
   },
 };
 
@@ -63,6 +68,20 @@ const dataProvider = {
   getOne: async (resource: Resource, params: Params) => {
     const data = await runHandler('ONE', resource, params);
     return { data };
+  },
+  getMany: async (resource: Resource, params: Params) => {
+    const data = await runHandler('MANY', resource, params);
+    return {
+      data: data,
+      total: data.length,
+    };
+  },
+  getManyReference: async (resource: Resource, params: Params) => {
+    const data = await runHandler('MANY_REFERENCE', resource, params);
+    return {
+      data: data,
+      total: data.length,
+    };
   },
   create: async (resource: Resource, params: Params) => {
     const data = await runHandler('CREATE', resource, params);

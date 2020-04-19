@@ -54,6 +54,7 @@ const App: React.FC = () => {
         create={EventCreate}
         edit={EventEdit}
       />
+      <Resource name="occurrences" />
     </Admin>
   );
 };

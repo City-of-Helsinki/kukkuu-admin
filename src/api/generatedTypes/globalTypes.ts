@@ -27,11 +27,13 @@ export interface AddEventMutationInput {
   participantsPerInvite: EventParticipantsPerInvite;
   capacityPerOccurrence: number;
   image?: any | null;
+  projectId: string;
   clientMutationId?: string | null;
 }
 
 export interface AddVenueMutationInput {
   translations?: (VenueTranslationsInput | null)[] | null;
+  projectId: string;
   clientMutationId?: string | null;
 }
 
@@ -50,14 +52,14 @@ export interface UpdateEventMutationInput {
   capacityPerOccurrence?: number | null;
   image?: any | null;
   translations?: (EventTranslationsInput | null)[] | null;
-  deleteTranslations?: (Language | null)[] | null;
+  projectId?: string | null;
   clientMutationId?: string | null;
 }
 
 export interface UpdateVenueMutationInput {
   id: string;
   translations?: (VenueTranslationsInput | null)[] | null;
-  deleteTranslations?: (Language | null)[] | null;
+  projectId?: string | null;
   clientMutationId?: string | null;
 }
 

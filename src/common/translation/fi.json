@@ -96,6 +96,16 @@
       }
     }
   },
+  "occurrences": {
+    "fields": {
+      "time": {
+        "label": "Aika"
+      },
+      "venues": {
+        "label": "Tapahtumapaikka"
+      }
+    }
+  },
   "authentication": {
     "redirect": {
       "text": "Ohjataan..."

@@ -96,6 +96,16 @@
       }
     }
   },
+  "occurrences": {
+    "fields": {
+      "time": {
+        "label": "Time"
+      },
+      "venues": {
+        "label": "Venue"
+      }
+    }
+  },
   "authentication": {
     "redirect": {
       "text": "Redirecting..."
