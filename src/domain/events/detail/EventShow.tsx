@@ -13,11 +13,40 @@ import {
   Datagrid,
   ReferenceField,
   useLocale,
+  Button,
 } from 'react-admin';
+import { withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
+import AddIcon from '@material-ui/icons/Add';
 
-import { Language } from '../../../api/generatedTypes/globalTypes';
-import LanguageTabs from '../../../common/components/languageTab/LanguageTabs';
 import { participantsPerInviteChoices } from '../choices';
+import LanguageTabs from '../../../common/components/languageTab/LanguageTabs';
+import { Language } from '../../../api/generatedTypes/globalTypes';
+import { Occurrences_occurrences_edges_node as Occurrence } from '../../../api/generatedTypes/Occurrences';
+
+const styles = createStyles({
+  button: {
+    marginBottom: '1em',
+  },
+});
+
+interface Props extends WithStyles<typeof styles> {
+  record?: Occurrence;
+}
+
+const AddOccurrenceButton = withStyles(styles)(({ classes, record }: Props) => (
+  <Button
+    component={Link}
+    className={classes.button}
+    to={{
+      pathname: '/occurrences/create',
+      search: `?event_id=${record?.id}`,
+    }}
+    label="occurrences.create.title"
+  >
+    <AddIcon />
+  </Button>
+));
 
 const EventShow: FunctionComponent = (props: any) => {
   const translate = useTranslate();
@@ -81,6 +110,7 @@ const EventShow: FunctionComponent = (props: any) => {
               </ReferenceField>
             </Datagrid>
           </ReferenceManyField>
+          <AddOccurrenceButton />
         </Tab>
       </TabbedShowLayout>
     </Show>

@@ -97,6 +97,9 @@
     }
   },
   "occurrences": {
+    "create": {
+      "title": "Add occurrence"
+    },
     "fields": {
       "time": {
         "label": "Time"

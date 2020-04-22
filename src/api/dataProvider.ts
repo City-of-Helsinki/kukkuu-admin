@@ -16,7 +16,10 @@ import {
   addEvent,
   updateEvent,
 } from '../domain/events/api/EventApi';
-import { getOccurrences } from '../domain/occurrences/api/OccurrenceApi';
+import {
+  addOccurrence,
+  getOccurrences,
+} from '../domain/occurrences/api/OccurrenceApi';
 
 const METHOD_HANDLERS: MethodHandlers = {
   venues: {
@@ -29,10 +32,12 @@ const METHOD_HANDLERS: MethodHandlers = {
   events: {
     LIST: getEvents,
     ONE: getEvent,
+    MANY: getEvents,
     CREATE: addEvent,
     UPDATE: updateEvent,
   },
   occurrences: {
+    CREATE: addOccurrence,
     MANY_REFERENCE: getOccurrences,
   },
 };

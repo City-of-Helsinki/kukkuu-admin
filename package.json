@@ -21,6 +21,7 @@
     "history": "^4.10.1",
     "oidc-client": "^1.10.1",
     "prop-types": "^15.7.2",
+    "query-string": "^6.12.1",
     "ra-data-fakerest": "^3.0.1",
     "ra-language-english": "^3.1.0",
     "ra-language-finnish": "^3.1.0",

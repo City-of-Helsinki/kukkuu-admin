@@ -4,9 +4,12 @@ import { MethodHandler, MethodHandlerParams } from '../../../api/types';
 import {
   queryHandler,
   mapApiDataToLocalData,
+  mapLocalDataToApiData,
+  mutationHandler,
 } from '../../../api/utils/apiUtils';
 import { occurrencesQuery } from '../queries/OccurrenceQueries';
 import { Occurrences as ApiOccurrences } from '../../../api/generatedTypes/Occurrences';
+import { addOccurrenceMutation } from '../mutations/OccurrenceMutations';
 
 const getOccurrences: MethodHandler = async (params: MethodHandlerParams) => {
   const response: ApolloQueryResult<ApiOccurrences> = await queryHandler({
@@ -18,4 +21,15 @@ const getOccurrences: MethodHandler = async (params: MethodHandlerParams) => {
   );
 };
 
-export { getOccurrences };
+const addOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
+  const data = mapLocalDataToApiData(params.data);
+  const response = await mutationHandler({
+    mutation: addOccurrenceMutation,
+    variables: { input: data },
+  });
+  return response?.data?.addOccurrence.occurrence
+    ? mapApiDataToLocalData(response.data.addOccurrence.occurrence)
+    : null;
+};
+
+export { getOccurrences, addOccurrence };

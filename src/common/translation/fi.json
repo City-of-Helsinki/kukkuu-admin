@@ -97,6 +97,9 @@
     }
   },
   "occurrences": {
+    "create": {
+      "title": "Lisää ajankohta"
+    },
     "fields": {
       "time": {
         "label": "Aika"
@@ -104,6 +107,9 @@
       "venues": {
         "label": "Tapahtumapaikka"
       }
+    },
+    "addOccurrenceButton": {
+      "label": "Lisää ajankohta"
     }
   },
   "authentication": {

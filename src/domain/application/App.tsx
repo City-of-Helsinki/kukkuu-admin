@@ -20,6 +20,7 @@ import VenueEdit from '../venues/VenueEdit';
 import VenueCreate from '../venues/VenueCreate';
 import EventCreate from '../events/create/EventCreate';
 import EventEdit from '../events/edit/EventEdit';
+import OccurrenceCreate from '../occurrences/OccurrenceCreate';
 
 const history = createHistory();
 
@@ -54,7 +55,7 @@ const App: React.FC = () => {
         create={EventCreate}
         edit={EventEdit}
       />
-      <Resource name="occurrences" />
+      <Resource name="occurrences" create={OccurrenceCreate} />
     </Admin>
   );
 };
