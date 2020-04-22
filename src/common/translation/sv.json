@@ -102,7 +102,15 @@
     },
     "fields": {
       "time": {
-        "label": "Time"
+        "label": "Time",
+        "fields": {
+          "date": {
+            "label": "Date"
+          },
+          "time": {
+            "label": "Time"
+          }
+        }
       },
       "venues": {
         "label": "Venue"

@@ -102,7 +102,15 @@
     },
     "fields": {
       "time": {
-        "label": "Aika"
+        "label": "Aika",
+        "fields": {
+          "date": {
+            "label": "Päivämäärä"
+          },
+          "time": {
+            "label": "Kellonaika"
+          }
+        }
       },
       "venues": {
         "label": "Tapahtumapaikka"

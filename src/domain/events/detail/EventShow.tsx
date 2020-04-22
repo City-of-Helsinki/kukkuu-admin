@@ -48,6 +48,32 @@ const AddOccurrenceButton = withStyles(styles)(({ classes, record }: Props) => (
   </Button>
 ));
 
+const OccurrenceTimeRangeField = ({
+  record,
+  locales,
+}: {
+  [key: string]: any;
+  record?: Occurrence;
+}) => {
+  if (!record) {
+    return <span />;
+  }
+  const options = {
+    hour: '2-digit',
+    minute: 'numeric',
+  };
+  const start = new Date(Date.parse(record.time));
+  const startString = start.toLocaleString(locales, options);
+  const duration = record.event.duration;
+  if (!duration) {
+    return <span>{startString}</span>;
+  }
+  const end = new Date(start.getTime() + 60000 * duration);
+  return (
+    <span>{`${startString} – ${end.toLocaleString(locales, options)}`}</span>
+  );
+};
+
 const EventShow: FunctionComponent = (props: any) => {
   const translate = useTranslate();
   const locale = useLocale();
@@ -96,9 +122,12 @@ const EventShow: FunctionComponent = (props: any) => {
           >
             <Datagrid>
               <DateField
-                label="occurrences.fields.time.label"
+                label="occurrences.fields.time.fields.date.label"
                 source="time"
-                showTime
+                locales={locale}
+              />
+              <OccurrenceTimeRangeField
+                label="occurrences.fields.time.fields.time.label"
                 locales={locale}
               />
               <ReferenceField

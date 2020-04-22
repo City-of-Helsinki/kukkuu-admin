@@ -15,6 +15,10 @@ export interface Occurrences_occurrences_edges_node_event {
    */
   id: string;
   capacityPerOccurrence: number;
+  /**
+   * In minutes
+   */
+  duration: number | null;
 }
 
 export interface Occurrences_occurrences_edges_node_venue_translations {

@@ -15,6 +15,10 @@ export interface addOccurrence_addOccurrence_occurrence_event {
    */
   id: string;
   capacityPerOccurrence: number;
+  /**
+   * In minutes
+   */
+  duration: number | null;
 }
 
 export interface addOccurrence_addOccurrence_occurrence_venue_translations {

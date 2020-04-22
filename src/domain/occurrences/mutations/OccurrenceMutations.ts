@@ -9,6 +9,7 @@ export const addOccurrenceMutation = gql`
         event {
           id
           capacityPerOccurrence
+          duration
         }
         enrolmentCount
         venue {
