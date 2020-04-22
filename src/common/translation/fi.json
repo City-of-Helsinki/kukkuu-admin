@@ -106,6 +106,12 @@
       },
       "venues": {
         "label": "Tapahtumapaikka"
+      },
+      "capacity": {
+        "label": "Paikkoja"
+      },
+      "enrolmentsCount": {
+        "label": "Osallistujia"
       }
     },
     "addOccurrenceButton": {

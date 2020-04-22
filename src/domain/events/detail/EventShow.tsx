@@ -108,6 +108,14 @@ const EventShow: FunctionComponent = (props: any) => {
               >
                 <TextField source="translations.FI.name" />
               </ReferenceField>
+              <NumberField
+                source="event.capacityPerOccurrence"
+                label="occurrences.fields.capacity.label"
+              />
+              <NumberField
+                source="enrolmentCount"
+                label="occurrences.fields.enrolmentsCount.label"
+              />
             </Datagrid>
           </ReferenceManyField>
           <AddOccurrenceButton />

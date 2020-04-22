@@ -106,6 +106,12 @@
       },
       "venues": {
         "label": "Venue"
+      },
+      "capacity": {
+        "label": "Capacity"
+      },
+      "enrolmentsCount": {
+        "label": "Number of enrolments"
       }
     }
   },

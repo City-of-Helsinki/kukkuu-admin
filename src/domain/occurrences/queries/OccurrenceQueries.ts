@@ -9,7 +9,9 @@ export const occurrencesQuery = gql`
           time
           event {
             id
+            capacityPerOccurrence
           }
+          enrolmentCount
           venue {
             id
             translations {

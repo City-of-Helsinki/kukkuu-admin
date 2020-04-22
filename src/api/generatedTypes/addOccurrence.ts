@@ -14,6 +14,7 @@ export interface addOccurrence_addOccurrence_occurrence_event {
    * The ID of the object.
    */
   id: string;
+  capacityPerOccurrence: number;
 }
 
 export interface addOccurrence_addOccurrence_occurrence_venue_translations {
@@ -36,6 +37,7 @@ export interface addOccurrence_addOccurrence_occurrence {
   id: string;
   time: any;
   event: addOccurrence_addOccurrence_occurrence_event;
+  enrolmentCount: number;
   venue: addOccurrence_addOccurrence_occurrence_venue;
 }
 

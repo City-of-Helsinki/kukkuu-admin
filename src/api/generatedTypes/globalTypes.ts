@@ -31,6 +31,14 @@ export interface AddEventMutationInput {
   clientMutationId?: string | null;
 }
 
+export interface AddOccurrenceMutationInput {
+  time: any;
+  eventId: string;
+  venueId: string;
+  occurrenceLanguage?: Language | null;
+  clientMutationId?: string | null;
+}
+
 export interface AddVenueMutationInput {
   translations?: (VenueTranslationsInput | null)[] | null;
   projectId: string;
