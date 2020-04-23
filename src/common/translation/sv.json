@@ -89,7 +89,7 @@
         "label": "Published at"
       },
       "description": {
-        "label": "Desription"
+        "label": "Description"
       },
       "shortDescription": {
         "label": "Short Description"
@@ -121,6 +121,9 @@
       "enrolmentsCount": {
         "label": "Number of enrolments"
       }
+    },
+    "addOccurrenceButton": {
+      "label": "Add occurrence"
     }
   },
   "authentication": {
