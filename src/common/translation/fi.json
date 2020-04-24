@@ -2,18 +2,10 @@
   "dashboard": {
     "title": "Kulttuurin kummilapset ylläpito"
   },
-  "languageTabs": {
-    "tab": {
-      "FI": {
-        "label": "suomi"
-      },
-      "SV": {
-        "label": "ruotsi"
-      },
-      "EN": {
-        "label": "englanti"
-      }
-    }
+  "languages": {
+    "FI": "suomi",
+    "SV": "ruotsi",
+    "EN": "englanti"
   },
   "venues": {
     "list": {
@@ -93,6 +85,9 @@
       },
       "shortDescription": {
         "label": "Lyhyt kuvaus"
+      },
+      "language": {
+        "label": "Kieli"
       }
     }
   },
@@ -124,6 +119,22 @@
     },
     "addOccurrenceButton": {
       "label": "Lisää ajankohta"
+    }
+  },
+  "children": {
+    "list": {
+      "title": "Kummilapset"
+    },
+    "fields": {
+      "name": {
+        "label": "Nimi"
+      },
+      "birthdate": {
+        "label": "Syntymäaika"
+      },
+      "guardians":  {
+        "label": "Huoltaja"
+      }
     }
   },
   "authentication": {

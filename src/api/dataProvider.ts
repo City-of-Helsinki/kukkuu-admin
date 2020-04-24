@@ -20,6 +20,7 @@ import {
   addOccurrence,
   getOccurrences,
 } from '../domain/occurrences/api/OccurrenceApi';
+import { getChildren } from '../domain/children/api/ChildApi';
 
 const METHOD_HANDLERS: MethodHandlers = {
   venues: {
@@ -39,6 +40,9 @@ const METHOD_HANDLERS: MethodHandlers = {
   occurrences: {
     CREATE: addOccurrence,
     MANY_REFERENCE: getOccurrences,
+  },
+  children: {
+    LIST: getChildren,
   },
 };
 

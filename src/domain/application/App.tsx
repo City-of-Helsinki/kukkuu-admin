@@ -4,6 +4,7 @@ import { Admin, Resource, useTranslate } from 'react-admin';
 import PlaceIcon from '@material-ui/icons/Place';
 import EventIcon from '@material-ui/icons/Event';
 import { createBrowserHistory as createHistory } from 'history';
+import ChildCareIcon from '@material-ui/icons/ChildCare';
 
 import i18nProvider from '../../common/translation/i18nProvider';
 import Dashboard from '../dashboard/Dashboard';
@@ -21,6 +22,7 @@ import VenueCreate from '../venues/VenueCreate';
 import EventCreate from '../events/create/EventCreate';
 import EventEdit from '../events/edit/EventEdit';
 import OccurrenceCreate from '../occurrences/OccurrenceCreate';
+import ChildList from '../children/ChildList';
 
 const history = createHistory();
 
@@ -37,6 +39,12 @@ const App: React.FC = () => {
       loginPage={LoginPage}
       customRoutes={AppRoutes}
     >
+      <Resource
+        name="children"
+        options={{ label: 'children.list.title' }}
+        icon={ChildCareIcon}
+        list={ChildList}
+      />
       <Resource
         name="venues"
         options={{ label: translate('venues.list.title') }}

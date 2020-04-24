@@ -2,18 +2,10 @@
   "dashboard": {
     "title": "Culture Kids admin"
   },
-  "languageTabs": {
-    "tab": {
-      "FI": {
-        "label": "finska"
-      },
-      "SV": {
-        "label": "svenska"
-      },
-      "EN": {
-        "label": "engelska"
-      }
-    }
+  "languages": {
+    "FI": "Finnish",
+    "SV": "Swedish",
+    "EN": "English"
   },
   "venues": {
     "list": {
@@ -93,6 +85,9 @@
       },
       "shortDescription": {
         "label": "Short Description"
+      },
+      "language": {
+        "label": "Language"
       }
     }
   },
@@ -124,6 +119,22 @@
     },
     "addOccurrenceButton": {
       "label": "Add occurrence"
+    }
+  },
+  "children": {
+    "list": {
+      "title": "Culture kids"
+    },
+    "fields": {
+      "name": {
+        "label": "Name"
+      },
+      "birthdate": {
+        "label": "Date of birth"
+      },
+      "guardians":  {
+        "label": "Guardian"
+      }
     }
   },
   "authentication": {
