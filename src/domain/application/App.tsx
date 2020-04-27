@@ -23,6 +23,7 @@ import EventCreate from '../events/create/EventCreate';
 import EventEdit from '../events/edit/EventEdit';
 import OccurrenceCreate from '../occurrences/OccurrenceCreate';
 import ChildList from '../children/ChildList';
+import ChildShow from '../children/ChildShow';
 
 const history = createHistory();
 
@@ -44,6 +45,7 @@ const App: React.FC = () => {
         options={{ label: 'children.list.title' }}
         icon={ChildCareIcon}
         list={ChildList}
+        show={ChildShow}
       />
       <Resource
         name="venues"

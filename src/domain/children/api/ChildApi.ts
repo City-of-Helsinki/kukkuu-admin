@@ -6,7 +6,8 @@ import {
   queryHandler,
   mapApiDataToLocalData,
 } from '../../../api/utils/apiUtils';
-import { childrenQuery } from '../queries/ChildQueries';
+import { childrenQuery, childQuery } from '../queries/ChildQueries';
+import { Child as ApiChild } from '../../../api/generatedTypes/Child';
 
 const getChildren: MethodHandler = async (params: MethodHandlerParams) => {
   const response: ApolloQueryResult<Children> = await queryHandler({
@@ -17,4 +18,14 @@ const getChildren: MethodHandler = async (params: MethodHandlerParams) => {
   );
 };
 
-export { getChildren };
+const getChild: MethodHandler = async (params: MethodHandlerParams) => {
+  const response: ApolloQueryResult<ApiChild> = await queryHandler({
+    query: childQuery,
+    variables: { id: params.id },
+  });
+  return response.data.child
+    ? mapApiDataToLocalData(response.data.child)
+    : null;
+};
+
+export { getChildren, getChild };

@@ -23,6 +23,7 @@ import { participantsPerInviteChoices } from '../choices';
 import LanguageTabs from '../../../common/components/languageTab/LanguageTabs';
 import { Language } from '../../../api/generatedTypes/globalTypes';
 import { Occurrences_occurrences_edges_node as Occurrence } from '../../../api/generatedTypes/Occurrences';
+import { OccurrenceTimeRangeField } from '../../occurrences/fields';
 
 const styles = createStyles({
   button: {
@@ -47,32 +48,6 @@ const AddOccurrenceButton = withStyles(styles)(({ classes, record }: Props) => (
     <AddIcon />
   </Button>
 ));
-
-const OccurrenceTimeRangeField = ({
-  record,
-  locales,
-}: {
-  [key: string]: any;
-  record?: Occurrence;
-}) => {
-  if (!record) {
-    return <span />;
-  }
-  const options = {
-    hour: '2-digit',
-    minute: 'numeric',
-  };
-  const start = new Date(Date.parse(record.time));
-  const startString = start.toLocaleString(locales, options);
-  const duration = record.event.duration;
-  if (!duration) {
-    return <span>{startString}</span>;
-  }
-  const end = new Date(start.getTime() + 60000 * duration);
-  return (
-    <span>{`${startString} – ${end.toLocaleString(locales, options)}`}</span>
-  );
-};
 
 const EventShow: FunctionComponent = (props: any) => {
   const translate = useTranslate();

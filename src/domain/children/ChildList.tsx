@@ -6,21 +6,23 @@ import {
   useLocale,
   EmailField,
   SelectField,
+  FunctionField,
 } from 'react-admin';
 
 import { Children_children_edges_node as Child } from '../../api/generatedTypes/Children';
 import { languageChoices } from '../../common/choices';
-
-const ChildNameField = ({ record }: { [key: string]: any; record?: Child }) => (
-  <span>{`${record?.firstName} ${record?.lastName}`.trim()}</span>
-);
 
 const ChildList = (props: any) => {
   const locale = useLocale();
   return (
     <List title="children.list.title" {...props}>
       <Datagrid rowClick="show">
-        <ChildNameField label="children.fields.name.label" />
+        <FunctionField
+          label="children.fields.name.label"
+          render={(record: Child) =>
+            `${record.firstName} ${record.lastName}`.trim()
+          }
+        />
         <DateField
           source="birthdate"
           label="children.fields.birthdate.label"

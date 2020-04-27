@@ -110,6 +110,9 @@
       "venues": {
         "label": "Venue"
       },
+      "event": {
+        "label": "Event"
+      },
       "capacity": {
         "label": "Capacity"
       },
@@ -132,8 +135,22 @@
       "birthdate": {
         "label": "Date of birth"
       },
-      "guardians":  {
-        "label": "Guardian"
+      "guardians": {
+        "label": "Guardian",
+        "fields": {
+          "postalCode": {
+            "label": "Postal code"
+          },
+          "email": {
+            "label": "Email"
+          },
+          "phoneNumber": {
+            "label": "Phone number"
+          }
+        }
+      },
+      "occurrences": {
+        "label": "Events"
       }
     }
   },

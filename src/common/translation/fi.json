@@ -110,6 +110,9 @@
       "venues": {
         "label": "Tapahtumapaikka"
       },
+      "event": {
+        "label": "Tapahtuma"
+      },
       "capacity": {
         "label": "Paikkoja"
       },
@@ -125,6 +128,9 @@
     "list": {
       "title": "Kummilapset"
     },
+    "show": {
+      "title": "Kummilapsi"
+    },
     "fields": {
       "name": {
         "label": "Nimi"
@@ -132,8 +138,22 @@
       "birthdate": {
         "label": "Syntymäaika"
       },
-      "guardians":  {
-        "label": "Huoltaja"
+      "guardians": {
+        "label": "Huoltaja",
+        "fields": {
+          "postalCode": {
+            "label": "Postinumero"
+          },
+          "email": {
+            "label": "Sähköposti"
+          },
+          "phoneNumber": {
+            "label": "Puhelinnumero"
+          }
+        }
+      },
+      "occurrences": {
+        "label": "Tapahtumat"
       }
     }
   },
