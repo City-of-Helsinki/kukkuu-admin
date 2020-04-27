@@ -95,6 +95,9 @@
     "create": {
       "title": "Lisää ajankohta"
     },
+    "show": {
+      "title": "Tapahtuma-ajankohta"
+    },
     "fields": {
       "time": {
         "label": "Aika",
@@ -107,7 +110,7 @@
           }
         }
       },
-      "venues": {
+      "venue": {
         "label": "Tapahtumapaikka"
       },
       "event": {
@@ -118,6 +121,9 @@
       },
       "enrolmentsCount": {
         "label": "Osallistujia"
+      },
+      "children": {
+        "label": "Osallistujat"
       }
     },
     "addOccurrenceButton": {

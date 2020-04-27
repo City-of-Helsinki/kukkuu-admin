@@ -95,7 +95,7 @@ const EventShow: FunctionComponent = (props: any) => {
             reference="occurrences"
             target="event_id"
           >
-            <Datagrid>
+            <Datagrid rowClick="show">
               <DateField
                 label="occurrences.fields.time.fields.date.label"
                 source="time"
@@ -106,9 +106,10 @@ const EventShow: FunctionComponent = (props: any) => {
                 locales={locale}
               />
               <ReferenceField
-                label="occurrences.fields.venues.label"
+                label="occurrences.fields.venue.label"
                 source="venue.id"
                 reference="venues"
+                link="show"
               >
                 <TextField source="translations.FI.name" />
               </ReferenceField>

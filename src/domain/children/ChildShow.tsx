@@ -14,8 +14,17 @@ import {
 } from 'react-admin';
 
 import { languageChoices } from '../../common/choices';
-import { Child_child as Child } from '../../api/generatedTypes/Child';
+import {
+  Child_child as Child,
+  Child_child_occurrences_edges as OccurrenceEdges,
+} from '../../api/generatedTypes/Child';
 import { OccurrenceTimeRangeField } from '../occurrences/fields';
+
+interface RowClickParams<T> {
+  id: string;
+  basePath: string;
+  record: T;
+}
 
 const ChildShow = (props: any) => {
   const locale = useLocale();
@@ -61,7 +70,11 @@ const ChildShow = (props: any) => {
           source="occurrences.edges"
           label="children.fields.occurrences.label"
         >
-          <Datagrid>
+          <Datagrid
+            rowClick={(id: string, basePath: string, record: OccurrenceEdges) =>
+              `/occurrences/${encodeURIComponent(record.node?.id || '')}/show`
+            }
+          >
             <DateField
               label="occurrences.fields.time.fields.date.label"
               source="node.time"
@@ -80,7 +93,7 @@ const ChildShow = (props: any) => {
               <TextField source="translations.FI.name" />
             </ReferenceField>
             <ReferenceField
-              label="occurrences.fields.venues.label"
+              label="occurrences.fields.venue.label"
               source="node.venue.id"
               reference="venues"
               link="show"

@@ -23,6 +23,7 @@ import EventCreate from '../events/create/EventCreate';
 import EventEdit from '../events/edit/EventEdit';
 import OccurrenceCreate from '../occurrences/OccurrenceCreate';
 import ChildList from '../children/ChildList';
+import OccurrenceShow from '../occurrences/OccurrenceShow';
 import ChildShow from '../children/ChildShow';
 
 const history = createHistory();
@@ -65,7 +66,11 @@ const App: React.FC = () => {
         create={EventCreate}
         edit={EventEdit}
       />
-      <Resource name="occurrences" create={OccurrenceCreate} />
+      <Resource
+        name="occurrences"
+        create={OccurrenceCreate}
+        show={OccurrenceShow}
+      />
     </Admin>
   );
 };

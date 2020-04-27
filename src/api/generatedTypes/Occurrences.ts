@@ -34,6 +34,53 @@ export interface Occurrences_occurrences_edges_node_venue {
   translations: Occurrences_occurrences_edges_node_venue_translations[];
 }
 
+export interface Occurrences_occurrences_edges_node_children_edges_node_guardians_edges_node {
+  /**
+   * The ID of the object.
+   */
+  id: string;
+  email: string | null;
+}
+
+export interface Occurrences_occurrences_edges_node_children_edges_node_guardians_edges {
+  /**
+   * The item at the end of the edge
+   */
+  node: Occurrences_occurrences_edges_node_children_edges_node_guardians_edges_node | null;
+}
+
+export interface Occurrences_occurrences_edges_node_children_edges_node_guardians {
+  /**
+   * Contains the nodes in this connection.
+   */
+  edges: (Occurrences_occurrences_edges_node_children_edges_node_guardians_edges | null)[];
+}
+
+export interface Occurrences_occurrences_edges_node_children_edges_node {
+  /**
+   * The ID of the object.
+   */
+  id: string;
+  firstName: string;
+  lastName: string;
+  birthdate: any;
+  guardians: Occurrences_occurrences_edges_node_children_edges_node_guardians;
+}
+
+export interface Occurrences_occurrences_edges_node_children_edges {
+  /**
+   * The item at the end of the edge
+   */
+  node: Occurrences_occurrences_edges_node_children_edges_node | null;
+}
+
+export interface Occurrences_occurrences_edges_node_children {
+  /**
+   * Contains the nodes in this connection.
+   */
+  edges: (Occurrences_occurrences_edges_node_children_edges | null)[];
+}
+
 export interface Occurrences_occurrences_edges_node {
   /**
    * The ID of the object.
@@ -43,6 +90,7 @@ export interface Occurrences_occurrences_edges_node {
   event: Occurrences_occurrences_edges_node_event;
   enrolmentCount: number;
   venue: Occurrences_occurrences_edges_node_venue;
+  children: Occurrences_occurrences_edges_node_children;
 }
 
 export interface Occurrences_occurrences_edges {

@@ -19,6 +19,7 @@ import {
 import {
   addOccurrence,
   getOccurrences,
+  getOccurrence,
 } from '../domain/occurrences/api/OccurrenceApi';
 import { getChild, getChildren } from '../domain/children/api/ChildApi';
 
@@ -38,12 +39,15 @@ const METHOD_HANDLERS: MethodHandlers = {
     UPDATE: updateEvent,
   },
   occurrences: {
+    LIST: getEvents,
+    ONE: getOccurrence,
     CREATE: addOccurrence,
     MANY_REFERENCE: getOccurrences,
   },
   children: {
     LIST: getChildren,
     ONE: getChild,
+    MANY_REFERENCE: getChildren,
   },
 };
 
