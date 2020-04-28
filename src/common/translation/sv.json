@@ -89,11 +89,41 @@
         "label": "Published at"
       },
       "description": {
-        "label": "Desription"
+        "label": "Description"
       },
       "shortDescription": {
         "label": "Short Description"
       }
+    }
+  },
+  "occurrences": {
+    "create": {
+      "title": "Add occurrence"
+    },
+    "fields": {
+      "time": {
+        "label": "Time",
+        "fields": {
+          "date": {
+            "label": "Date"
+          },
+          "time": {
+            "label": "Time"
+          }
+        }
+      },
+      "venues": {
+        "label": "Venue"
+      },
+      "capacity": {
+        "label": "Capacity"
+      },
+      "enrolmentsCount": {
+        "label": "Number of enrolments"
+      }
+    },
+    "addOccurrenceButton": {
+      "label": "Add occurrence"
     }
   },
   "authentication": {

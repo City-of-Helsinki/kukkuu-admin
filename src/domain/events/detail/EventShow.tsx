@@ -9,14 +9,74 @@ import {
   NumberField,
   DateField,
   SelectField,
+  ReferenceManyField,
+  Datagrid,
+  ReferenceField,
+  useLocale,
+  Button,
 } from 'react-admin';
+import { withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
+import AddIcon from '@material-ui/icons/Add';
 
-import { Language } from '../../../api/generatedTypes/globalTypes';
-import LanguageTabs from '../../../common/components/languageTab/LanguageTabs';
 import { participantsPerInviteChoices } from '../choices';
+import LanguageTabs from '../../../common/components/languageTab/LanguageTabs';
+import { Language } from '../../../api/generatedTypes/globalTypes';
+import { Occurrences_occurrences_edges_node as Occurrence } from '../../../api/generatedTypes/Occurrences';
+
+const styles = createStyles({
+  button: {
+    marginBottom: '1em',
+  },
+});
+
+interface Props extends WithStyles<typeof styles> {
+  record?: Occurrence;
+}
+
+const AddOccurrenceButton = withStyles(styles)(({ classes, record }: Props) => (
+  <Button
+    component={Link}
+    className={classes.button}
+    to={{
+      pathname: '/occurrences/create',
+      search: `?event_id=${record?.id}`,
+    }}
+    label="occurrences.create.title"
+  >
+    <AddIcon />
+  </Button>
+));
+
+const OccurrenceTimeRangeField = ({
+  record,
+  locales,
+}: {
+  [key: string]: any;
+  record?: Occurrence;
+}) => {
+  if (!record) {
+    return <span />;
+  }
+  const options = {
+    hour: '2-digit',
+    minute: 'numeric',
+  };
+  const start = new Date(Date.parse(record.time));
+  const startString = start.toLocaleString(locales, options);
+  const duration = record.event.duration;
+  if (!duration) {
+    return <span>{startString}</span>;
+  }
+  const end = new Date(start.getTime() + 60000 * duration);
+  return (
+    <span>{`${startString} – ${end.toLocaleString(locales, options)}`}</span>
+  );
+};
 
 const EventShow: FunctionComponent = (props: any) => {
   const translate = useTranslate();
+  const locale = useLocale();
   const EventTitle = ({ record }: { record?: any }) => {
     return <span>{record ? `${record.translations.FI.name}` : ''}</span>;
   };
@@ -54,7 +114,41 @@ const EventShow: FunctionComponent = (props: any) => {
             label={translate('events.fields.publishedAt.label')}
           />
         </Tab>
-        <Tab label="events.fields.occurrences.label"></Tab>
+        <Tab label="events.fields.occurrences.label">
+          <ReferenceManyField
+            label=" "
+            reference="occurrences"
+            target="event_id"
+          >
+            <Datagrid>
+              <DateField
+                label="occurrences.fields.time.fields.date.label"
+                source="time"
+                locales={locale}
+              />
+              <OccurrenceTimeRangeField
+                label="occurrences.fields.time.fields.time.label"
+                locales={locale}
+              />
+              <ReferenceField
+                label="occurrences.fields.venues.label"
+                source="venue.id"
+                reference="venues"
+              >
+                <TextField source="translations.FI.name" />
+              </ReferenceField>
+              <NumberField
+                source="event.capacityPerOccurrence"
+                label="occurrences.fields.capacity.label"
+              />
+              <NumberField
+                source="enrolmentCount"
+                label="occurrences.fields.enrolmentsCount.label"
+              />
+            </Datagrid>
+          </ReferenceManyField>
+          <AddOccurrenceButton />
+        </Tab>
       </TabbedShowLayout>
     </Show>
   );

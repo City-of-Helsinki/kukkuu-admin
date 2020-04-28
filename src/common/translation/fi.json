@@ -96,6 +96,36 @@
       }
     }
   },
+  "occurrences": {
+    "create": {
+      "title": "Lisää ajankohta"
+    },
+    "fields": {
+      "time": {
+        "label": "Aika",
+        "fields": {
+          "date": {
+            "label": "Päivämäärä"
+          },
+          "time": {
+            "label": "Kellonaika"
+          }
+        }
+      },
+      "venues": {
+        "label": "Tapahtumapaikka"
+      },
+      "capacity": {
+        "label": "Paikkoja"
+      },
+      "enrolmentsCount": {
+        "label": "Osallistujia"
+      }
+    },
+    "addOccurrenceButton": {
+      "label": "Lisää ajankohta"
+    }
+  },
   "authentication": {
     "redirect": {
       "text": "Ohjataan..."
