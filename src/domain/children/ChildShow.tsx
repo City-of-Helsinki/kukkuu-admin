@@ -1,0 +1,97 @@
+import React from 'react';
+import {
+  Show,
+  TextField,
+  SimpleShowLayout,
+  DateField,
+  EmailField,
+  useLocale,
+  SelectField,
+  FunctionField,
+  Datagrid,
+  ReferenceField,
+  ArrayField,
+} from 'react-admin';
+
+import { languageChoices } from '../../common/choices';
+import { Child_child as Child } from '../../api/generatedTypes/Child';
+import { OccurrenceTimeRangeField } from '../occurrences/fields';
+
+const ChildShow = (props: any) => {
+  const locale = useLocale();
+
+  return (
+    <Show title="children.show.title" {...props}>
+      <SimpleShowLayout>
+        <FunctionField
+          label="children.fields.name.label"
+          render={(record: Child) =>
+            `${record.firstName} ${record.lastName}`.trim()
+          }
+        />
+        <DateField
+          source="birthdate"
+          label="children.fields.birthdate.label"
+          locales={locale}
+        />
+        <SelectField
+          source="guardians.edges.0.node.language"
+          label="events.fields.language.label"
+          choices={languageChoices}
+        />
+        <TextField
+          source="postalCode"
+          label="children.fields.guardians.fields.postalCode.label"
+        />
+        <FunctionField
+          label="children.fields.guardians.label"
+          render={(record: Child) =>
+            `${record.guardians.edges[0]?.node?.firstName} ${record.guardians.edges[0]?.node?.lastName}`.trim()
+          }
+        />
+        <EmailField
+          source="guardians.edges.0.node.email"
+          label="children.fields.guardians.fields.email.label"
+        />
+        <TextField
+          source="guardians.edges.0.node.phoneNumber"
+          label="children.fields.guardians.fields.phoneNumber.label"
+        />
+        <ArrayField
+          source="occurrences.edges"
+          label="children.fields.occurrences.label"
+        >
+          <Datagrid>
+            <DateField
+              label="occurrences.fields.time.fields.date.label"
+              source="node.time"
+              locales={locale}
+            />
+            <OccurrenceTimeRangeField
+              occurrenceSource="node"
+              locales={locale}
+            />
+            <ReferenceField
+              label="occurrences.fields.event.label"
+              source="node.event.id"
+              reference="events"
+              link="show"
+            >
+              <TextField source="translations.FI.name" />
+            </ReferenceField>
+            <ReferenceField
+              label="occurrences.fields.venues.label"
+              source="node.venue.id"
+              reference="venues"
+              link="show"
+            >
+              <TextField source="translations.FI.name" />
+            </ReferenceField>
+          </Datagrid>
+        </ArrayField>
+      </SimpleShowLayout>
+    </Show>
+  );
+};
+
+export default ChildShow;

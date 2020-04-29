@@ -2,18 +2,10 @@
   "dashboard": {
     "title": "Kulttuurin kummilapset ylläpito"
   },
-  "languageTabs": {
-    "tab": {
-      "FI": {
-        "label": "suomi"
-      },
-      "SV": {
-        "label": "ruotsi"
-      },
-      "EN": {
-        "label": "englanti"
-      }
-    }
+  "languages": {
+    "FI": "suomi",
+    "SV": "ruotsi",
+    "EN": "englanti"
   },
   "venues": {
     "list": {
@@ -93,6 +85,9 @@
       },
       "shortDescription": {
         "label": "Lyhyt kuvaus"
+      },
+      "language": {
+        "label": "Kieli"
       }
     }
   },
@@ -115,6 +110,9 @@
       "venues": {
         "label": "Tapahtumapaikka"
       },
+      "event": {
+        "label": "Tapahtuma"
+      },
       "capacity": {
         "label": "Paikkoja"
       },
@@ -124,6 +122,39 @@
     },
     "addOccurrenceButton": {
       "label": "Lisää ajankohta"
+    }
+  },
+  "children": {
+    "list": {
+      "title": "Kummilapset"
+    },
+    "show": {
+      "title": "Kummilapsi"
+    },
+    "fields": {
+      "name": {
+        "label": "Nimi"
+      },
+      "birthdate": {
+        "label": "Syntymäaika"
+      },
+      "guardians": {
+        "label": "Huoltaja",
+        "fields": {
+          "postalCode": {
+            "label": "Postinumero"
+          },
+          "email": {
+            "label": "Sähköposti"
+          },
+          "phoneNumber": {
+            "label": "Puhelinnumero"
+          }
+        }
+      },
+      "occurrences": {
+        "label": "Tapahtumat"
+      }
     }
   },
   "authentication": {
