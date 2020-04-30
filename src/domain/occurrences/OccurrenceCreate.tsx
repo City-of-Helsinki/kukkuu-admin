@@ -22,7 +22,7 @@ const OccurrenceCreate = (props: any) => {
           validate={[required()]}
         />
         <ReferenceInput
-          label="occurrences.fields.venues.label"
+          label="occurrences.fields.venue.label"
           source="venueId"
           reference="venues"
         >

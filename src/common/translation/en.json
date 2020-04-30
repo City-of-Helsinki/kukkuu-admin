@@ -95,6 +95,9 @@
     "create": {
       "title": "Add occurrence"
     },
+    "show": {
+      "title": "Occurrence"
+    },
     "fields": {
       "time": {
         "label": "Time",
@@ -107,7 +110,7 @@
           }
         }
       },
-      "venues": {
+      "venue": {
         "label": "Venue"
       },
       "event": {
@@ -118,6 +121,9 @@
       },
       "enrolmentsCount": {
         "label": "Number of enrolments"
+      },
+      "children": {
+        "label": "Enrolled children"
       }
     },
     "addOccurrenceButton": {

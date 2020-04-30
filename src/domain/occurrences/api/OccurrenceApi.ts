@@ -7,8 +7,12 @@ import {
   mapLocalDataToApiData,
   mutationHandler,
 } from '../../../api/utils/apiUtils';
-import { occurrencesQuery } from '../queries/OccurrenceQueries';
+import {
+  occurrencesQuery,
+  occurrenceQuery,
+} from '../queries/OccurrenceQueries';
 import { Occurrences as ApiOccurrences } from '../../../api/generatedTypes/Occurrences';
+import { Occurrence_occurrence as ApiOccurrence } from '../../../api/generatedTypes/Occurrence';
 import { addOccurrenceMutation } from '../mutations/OccurrenceMutations';
 
 const getOccurrences: MethodHandler = async (params: MethodHandlerParams) => {
@@ -16,9 +20,19 @@ const getOccurrences: MethodHandler = async (params: MethodHandlerParams) => {
     query: occurrencesQuery,
     variables: { eventId: params.id },
   });
-  return response.data.occurrences?.edges.map(edge =>
+  const data = response.data.occurrences?.edges.map(edge =>
     edge?.node ? mapApiDataToLocalData(edge.node) : null
   );
+  return data;
+};
+
+const getOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
+  const response: ApolloQueryResult<ApiOccurrence> = await queryHandler({
+    query: occurrenceQuery,
+    variables: { id: params.id },
+  });
+  const data = response.data ? mapApiDataToLocalData(response.data) : null;
+  return data;
 };
 
 const addOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
@@ -32,4 +46,4 @@ const addOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
     : null;
 };
 
-export { getOccurrences, addOccurrence };
+export { getOccurrences, getOccurrence, addOccurrence };
