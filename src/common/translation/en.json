@@ -141,7 +141,7 @@
       "birthdate": {
         "label": "Date of birth"
       },
-      "guardians":  {
+      "guardians": {
         "label": "Guardian",
         "fields": {
           "postalCode": {

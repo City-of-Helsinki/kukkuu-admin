@@ -14,7 +14,7 @@ const getChildren: MethodHandler = async (params: MethodHandlerParams) => {
     query: childrenQuery,
     variables: { occurrenceId: params.id },
   });
-  return response.data.children?.edges.map(edge =>
+  return response.data.children?.edges.map((edge) =>
     edge?.node ? mapApiDataToLocalData(edge.node) : null
   );
 };
