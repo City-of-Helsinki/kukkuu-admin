@@ -26,7 +26,7 @@ const getVenues: MethodHandler = async (params: MethodHandlerParams) => {
   const response: ApolloQueryResult<ApiVenues> = await queryHandler({
     query: venuesQuery,
   });
-  return (response.data.venues as ApiDetailVenues).edges.map(edge =>
+  return (response.data.venues as ApiDetailVenues).edges.map((edge) =>
     edge?.node ? mapApiDataToLocalData(edge.node) : null
   );
 };

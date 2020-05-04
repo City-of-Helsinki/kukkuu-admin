@@ -17,7 +17,7 @@ import {
 
 const getEvents: MethodHandler = async (params: MethodHandlerParams) => {
   const response = await queryHandler({ query: eventsQuery });
-  return (response.data.events as ApiEvents).edges.map(edge =>
+  return (response.data.events as ApiEvents).edges.map((edge) =>
     edge?.node ? mapApiDataToLocalData(edge.node) : null
   );
 };

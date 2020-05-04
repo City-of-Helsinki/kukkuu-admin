@@ -20,7 +20,7 @@ const getOccurrences: MethodHandler = async (params: MethodHandlerParams) => {
     query: occurrencesQuery,
     variables: { eventId: params.id },
   });
-  const data = response.data.occurrences?.edges.map(edge =>
+  const data = response.data.occurrences?.edges.map((edge) =>
     edge?.node ? mapApiDataToLocalData(edge.node) : null
   );
   return data;
