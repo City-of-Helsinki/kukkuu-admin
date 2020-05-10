@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState, Fragment } from 'react';
 import {
   Show,
   TabbedShowLayout,
@@ -19,6 +19,7 @@ import {
   TopToolbar,
   useNotify,
   useRefresh,
+  Confirm,
 } from 'react-admin';
 import { withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
@@ -59,6 +60,8 @@ const AddOccurrenceButton = withStyles(styles)(({ classes, record }: Props) => (
 const PublishButton = ({ record }: { record?: AdminEvent }) => {
   const notify = useNotify();
   const refresh = useRefresh();
+  const [open, setOpen] = useState(false);
+  const translate = useTranslate();
   const [publish, { loading }] = useMutation(
     {
       type: 'publish',
@@ -67,26 +70,45 @@ const PublishButton = ({ record }: { record?: AdminEvent }) => {
     },
     {
       onSuccess: ({ data }: { data: any }) => {
-        notify('events.show.publishButton.onSuccess.message');
+        notify('events.show.publish.onSuccess.message');
         refresh();
       },
       onFailure: (error: any) => {
         // TODO Send to Sentry
-        notify('events.show.publishButton.onSuccess.message', 'warning');
+        notify('events.show.publish.onSuccess.message', 'warning');
       },
     }
   );
   if (record?.publishedAt) {
     return null;
   }
+  const handleClick = () => setOpen(true);
+  const handleDialogClose = () => setOpen(false);
+  const handleConfirm = () => {
+    publish();
+    setOpen(false);
+  };
+
   return (
-    <Button
-      label="events.show.publishButton.label"
-      onClick={publish}
-      disabled={loading}
-    >
-      <DoneOutlineIcon />
-    </Button>
+    <Fragment>
+      <Button
+        label="events.show.publish.button.label"
+        onClick={handleClick}
+        disabled={loading}
+      >
+        <DoneOutlineIcon />
+      </Button>
+      <Confirm
+        isOpen={open}
+        loading={loading}
+        title={translate('events.show.publish.confirm.title', {
+          eventName: record?.translations?.FI?.name,
+        })}
+        content="events.show.publish.confirm.content"
+        onConfirm={handleConfirm}
+        onClose={handleDialogClose}
+      />
+    </Fragment>
   );
 };
 

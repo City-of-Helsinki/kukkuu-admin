@@ -43,13 +43,19 @@
       "tab": {
         "label": "Tapahtuman tiedot"
       },
-      "publishButton": {
-        "label": "Julkaise",
+      "publish": {
+        "button": {
+          "label": "Julkaise"
+        },
         "onSuccess": {
           "message": "Tapahtuma julkaistu!"
         },
         "onFailure": {
           "message": "Tapahtuman julkaisussa tapahtui virhe."
+        },
+        "confirm": {
+          "title": "Julkaise tapahtuma \"%{eventName}\"",
+          "content": "Oletko varma, että haluat julkaista tämän tapahtuman?"
         }
       }
     },
