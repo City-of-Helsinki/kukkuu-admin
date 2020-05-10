@@ -42,6 +42,15 @@
     "show": {
       "tab": {
         "label": "Event detail"
+      },
+      "publishButton": {
+        "label": "Publish",
+        "onSuccess": {
+          "message": "Event published!"
+        },
+        "onFailure": {
+          "message": "Event publish error."
+        }
       }
     },
     "create": {

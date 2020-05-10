@@ -14,16 +14,23 @@ import {
   ReferenceField,
   useLocale,
   Button,
+  useMutation,
+  EditButton,
+  TopToolbar,
+  useNotify,
+  useRefresh,
 } from 'react-admin';
 import { withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
+import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 
 import { participantsPerInviteChoices } from '../choices';
 import LanguageTabs from '../../../common/components/languageTab/LanguageTabs';
 import { Language } from '../../../api/generatedTypes/globalTypes';
 import { Occurrences_occurrences_edges_node as Occurrence } from '../../../api/generatedTypes/Occurrences';
 import { OccurrenceTimeRangeField } from '../../occurrences/fields';
+import { AdminEvent } from '../types/EventTypes';
 
 const styles = createStyles({
   button: {
@@ -49,6 +56,55 @@ const AddOccurrenceButton = withStyles(styles)(({ classes, record }: Props) => (
   </Button>
 ));
 
+const PublishButton = ({ record }: { record?: AdminEvent }) => {
+  const notify = useNotify();
+  const refresh = useRefresh();
+  const [publish, { loading }] = useMutation(
+    {
+      type: 'publish',
+      resource: 'events',
+      payload: { id: record?.id },
+    },
+    {
+      onSuccess: ({ data }: { data: any }) => {
+        notify('events.show.publishButton.onSuccess.message');
+        refresh();
+      },
+      onFailure: (error: any) => {
+        // TODO Send to Sentry
+        notify('events.show.publishButton.onSuccess.message', 'warning');
+      },
+    }
+  );
+  if (record?.publishedAt) {
+    return null;
+  }
+  return (
+    <Button
+      label="events.show.publishButton.label"
+      onClick={publish}
+      disabled={loading}
+    >
+      <DoneOutlineIcon />
+    </Button>
+  );
+};
+
+const EventShowActions = ({
+  basePath,
+  data,
+  resource,
+}: {
+  basePath?: string;
+  data?: AdminEvent;
+  resource?: string;
+}) => (
+  <TopToolbar>
+    <EditButton basePath={basePath} record={data} />
+    <PublishButton record={data} />
+  </TopToolbar>
+);
+
 const EventShow: FunctionComponent = (props: any) => {
   const translate = useTranslate();
   const locale = useLocale();
@@ -58,7 +114,7 @@ const EventShow: FunctionComponent = (props: any) => {
 
   const [language, selectLanguage] = useState(Language.FI);
   return (
-    <Show title={<EventTitle />} {...props}>
+    <Show title={<EventTitle />} actions={<EventShowActions />} {...props}>
       <TabbedShowLayout>
         <Tab label={translate('events.show.tab.label')}>
           <LanguageTabs selectedLanguage={language} onSelect={selectLanguage} />

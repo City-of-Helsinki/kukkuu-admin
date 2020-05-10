@@ -15,7 +15,8 @@ export type Method =
   | 'UPDATE'
   | 'UPDATE_MANY'
   | 'DELETE'
-  | 'DELETE_MANY';
+  | 'DELETE_MANY'
+  | 'PUBLISH';
 
 // TODO: Replace this with better type from react-admin
 export type MethodHandlerResponse = any;

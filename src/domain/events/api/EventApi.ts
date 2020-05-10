@@ -12,6 +12,7 @@ import { Events_events as ApiEvents } from '../../../api/generatedTypes/Events';
 import { Event as ApiEvent } from '../../../api/generatedTypes/Event';
 import {
   addEventMutation,
+  publishEventMutation,
   updateEventMutation,
 } from '../mutations/EventMutations';
 
@@ -55,4 +56,14 @@ const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
     : null;
 };
 
-export { getEvents, getEvent, addEvent, updateEvent };
+const publishEvent: MethodHandler = async (params: MethodHandlerParams) => {
+  const response = await mutationHandler({
+    mutation: publishEventMutation,
+    variables: { input: { id: params.id } },
+  });
+  return response?.data?.publishEvent.event
+    ? mapApiDataToLocalData(response.data.publishEvent.event)
+    : null;
+};
+
+export { getEvents, getEvent, addEvent, updateEvent, publishEvent };

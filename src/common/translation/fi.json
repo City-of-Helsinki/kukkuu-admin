@@ -42,6 +42,15 @@
     "show": {
       "tab": {
         "label": "Tapahtuman tiedot"
+      },
+      "publishButton": {
+        "label": "Julkaise",
+        "onSuccess": {
+          "message": "Tapahtuma julkaistu!"
+        },
+        "onFailure": {
+          "message": "Tapahtuman julkaisussa tapahtui virhe."
+        }
       }
     },
     "create": {
