@@ -47,7 +47,7 @@ const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
 };
 
 const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
-  const { publishedAt, occurrences, ...localUpdateData } = params.data;
+  const { publishedAt, occurrences, image, ...localUpdateData } = params.data;
   const data = mapLocalDataToApiData(localUpdateData);
   const response = await mutationHandler({
     mutation: updateEventMutation,
