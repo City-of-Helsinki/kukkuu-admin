@@ -7,5 +7,6 @@ export interface AdminEvent {
   participantsPerInvite: EventParticipantsPerInvite;
   capacityPerOccurrence: number;
   duration: number;
+  publishedAt?: string;
   translations: AdminUITranslation<Omit<ApiEventTranslation, 'languageCode'>>;
 }

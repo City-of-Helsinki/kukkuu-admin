@@ -7,6 +7,7 @@ import {
   useLocale,
   NumberField,
   SelectField,
+  DateField,
 } from 'react-admin';
 
 import { getTranslatedField } from '../../../common/translation/TranslationUtils';
@@ -14,13 +15,13 @@ import { participantsPerInviteChoices } from '../choices';
 
 const EventList = (props: any) => {
   const translate = useTranslate();
-  const currentLocale = useLocale();
+  const locale = useLocale();
 
   return (
     <List title={translate('events.list.title')} {...props}>
       <Datagrid rowClick="show">
         <TextField
-          source={getTranslatedField('name', currentLocale)}
+          source={getTranslatedField('name', locale)}
           label={translate('events.fields.name.label')}
         />
         <SelectField
@@ -39,6 +40,12 @@ const EventList = (props: any) => {
         <NumberField
           source="occurrences.edges.length"
           label={translate('events.fields.occurrences.label')}
+        />
+        <DateField
+          source={`publishedAt`}
+          label={translate('events.fields.publishedAt.label')}
+          showTime={true}
+          locales={locale}
         />
       </Datagrid>
     </List>

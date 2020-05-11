@@ -15,6 +15,7 @@ import {
   getEvent,
   addEvent,
   updateEvent,
+  publishEvent,
 } from '../domain/events/api/EventApi';
 import {
   addOccurrence,
@@ -37,6 +38,7 @@ const METHOD_HANDLERS: MethodHandlers = {
     MANY: getEvents,
     CREATE: addEvent,
     UPDATE: updateEvent,
+    PUBLISH: publishEvent,
   },
   occurrences: {
     LIST: getEvents,
@@ -103,6 +105,10 @@ const dataProvider = {
   },
   update: async (resource: Resource, params: Params) => {
     const data = await runHandler('UPDATE', resource, params);
+    return { data };
+  },
+  publish: async (resource: Resource, params: Params) => {
+    const data = await runHandler('PUBLISH', resource, params);
     return { data };
   },
 };
