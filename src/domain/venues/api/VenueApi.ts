@@ -43,6 +43,8 @@ const getVenue: MethodHandler = async (params: MethodHandlerParams) => {
 
 const addVenue: MethodHandler = async (params: MethodHandlerParams) => {
   const data = mapLocalDataToApiData(params.data as AdminVenue);
+  // TODO temporarily hardcoded project ID 1
+  data['projectId'] = 'UHJvamVjdE5vZGU6MQ==';
   const response = await mutationHandler({
     mutation: addVenueMutation,
     variables: { input: data },

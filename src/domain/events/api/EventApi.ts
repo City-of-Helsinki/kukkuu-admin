@@ -35,6 +35,8 @@ const getEvent: MethodHandler = async (params: MethodHandlerParams) => {
 
 const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
   const data = mapLocalDataToApiData(params.data);
+  // TODO temporarily hardcoded project ID 1
+  data['projectId'] = 'UHJvamVjdE5vZGU6MQ==';
   const response = await mutationHandler({
     mutation: addEventMutation,
     variables: { input: data },
