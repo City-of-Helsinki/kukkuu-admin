@@ -53,6 +53,11 @@ export interface EventTranslationsInput {
   languageCode: Language;
 }
 
+export interface PublishEventMutationInput {
+  id: string;
+  clientMutationId?: string | null;
+}
+
 export interface UpdateEventMutationInput {
   id: string;
   duration?: number | null;
