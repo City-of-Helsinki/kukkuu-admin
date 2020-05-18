@@ -1,4 +1,3 @@
-/* tslint:disable */
 import React from 'react';
 import { Admin, Resource, useTranslate } from 'react-admin';
 import PlaceIcon from '@material-ui/icons/Place';
