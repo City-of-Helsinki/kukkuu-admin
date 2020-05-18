@@ -52,6 +52,7 @@ FROM appbase as staticbuilder
 
 ARG REACT_APP_API_URI
 ARG REACT_APP_OIDC_AUTHORITY
+ARG REACT_APP_ENVIRONMENT
 
 COPY . /app
 RUN yarn build
