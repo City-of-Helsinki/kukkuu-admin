@@ -73,7 +73,7 @@ const PublishButton = ({ record }: { record?: AdminEvent }) => {
         notify('events.show.publish.onSuccess.message');
         refresh();
       },
-      onFailure: (error: any) => {
+      onFailure: (error: Error) => {
         // TODO Send to Sentry
         notify('events.show.publish.onSuccess.message', 'warning');
       },
