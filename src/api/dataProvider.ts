@@ -24,6 +24,7 @@ import {
 } from '../domain/occurrences/api/OccurrenceApi';
 import { getChild, getChildren } from '../domain/children/api/ChildApi';
 import { getMyAdminProfile } from '../domain/profile/api';
+import { getProject } from '../domain/dashboard/api';
 
 const METHOD_HANDLERS: MethodHandlers = {
   venues: {
@@ -51,6 +52,9 @@ const METHOD_HANDLERS: MethodHandlers = {
     LIST: getChildren,
     ONE: getChild,
     MANY_REFERENCE: getChildren,
+  },
+  projects: {
+    ONE: getProject,
   },
 };
 
