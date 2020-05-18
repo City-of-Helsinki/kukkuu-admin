@@ -136,7 +136,7 @@ export const denormalizeLocalTranslations = <T>(
  * }
  */
 export const mapApiDataToLocalData = <E extends EntityNode>(
-  apiEntityNode: E
+  apiEntityNode: E | null
 ) => {
   const apiData = Object.assign({}, apiEntityNode);
   delete (apiData as { __typename?: string }).__typename;

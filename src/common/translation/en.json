@@ -177,7 +177,13 @@
   },
   "authentication": {
     "redirect": {
-      "text": "Redirecting..."
+      "text": "Authenticating..."
+    },
+    "unauthorizedPage": {
+      "title": "Not authorized.",
+      "content": "Your account is not authorized to use Culture Kids Admin UI. If you need access, please contact",
+      "contactEmail": "kulttuurin.kummilapset@hel.fi",
+      "backToLoginPage": "Back to login page"
     }
   }
 }
