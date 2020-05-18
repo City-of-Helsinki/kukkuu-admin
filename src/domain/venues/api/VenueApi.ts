@@ -18,6 +18,7 @@ import {
   mapLocalDataToApiData,
 } from '../../../api/utils/apiUtils';
 import { AdminVenue } from '../types/VenueTypes';
+import { getProjectId } from '../../profile/utils';
 
 /**
  * Get list of venues
@@ -43,8 +44,7 @@ const getVenue: MethodHandler = async (params: MethodHandlerParams) => {
 
 const addVenue: MethodHandler = async (params: MethodHandlerParams) => {
   const data = mapLocalDataToApiData(params.data as AdminVenue);
-  // TODO temporarily hardcoded project ID 1
-  data['projectId'] = 'UHJvamVjdE5vZGU6MQ==';
+  data['projectId'] = getProjectId();
   const response = await mutationHandler({
     mutation: addVenueMutation,
     variables: { input: data },

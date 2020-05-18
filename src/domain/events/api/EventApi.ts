@@ -15,6 +15,7 @@ import {
   publishEventMutation,
   updateEventMutation,
 } from '../mutations/EventMutations';
+import { getProjectId } from '../../profile/utils';
 
 const getEvents: MethodHandler = async (params: MethodHandlerParams) => {
   const response = await queryHandler({ query: eventsQuery });
@@ -35,8 +36,7 @@ const getEvent: MethodHandler = async (params: MethodHandlerParams) => {
 
 const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
   const data = mapLocalDataToApiData(params.data);
-  // TODO temporarily hardcoded project ID 1
-  data['projectId'] = 'UHJvamVjdE5vZGU6MQ==';
+  data['projectId'] = getProjectId();
   const response = await mutationHandler({
     mutation: addEventMutation,
     variables: { input: data },
