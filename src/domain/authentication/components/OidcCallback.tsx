@@ -19,12 +19,13 @@ function OidcCallback(props: RouteChildrenProps) {
       })
       .catch((error) => {
         notify(translate('ra.message.error'), 'warning');
-        // TODO Add Sentry
+        console.error('fetchApiToken caught error');
+        console.error(error);
       });
   };
   const onError = (error: Error) => {
     notify(translate('ra.message.error'), 'warning');
-    // TODO Add Sentry
+    console.error(error);
   };
 
   return (

@@ -8,6 +8,7 @@ import { HttpError } from 'react-admin';
 import client from '../client';
 import { API_ERROR_MESSAGE } from '../constants/ApiConstants';
 import { Language as EventTranslationLanguageCode } from '../generatedTypes/globalTypes';
+import userManager from '../../domain/authentication/userManager';
 
 type ApiTranslation = {
   languageCode: EventTranslationLanguageCode;
@@ -41,6 +42,19 @@ export const queryHandler = async (
     const res = await client.query(queryOptions);
     return res;
   } catch (error) {
+    if (
+      error.message ===
+      'GraphQL error: Invalid Authorization header. JWT has expired.'
+    ) {
+      console.error(
+        'WIP: JWT has expired. Not sure if we should be able to reach this place if silent renew works. TODO: Find out! Consider if we want to log in automatically'
+      );
+      userManager.signinRedirect();
+    }
+
+    if (error.graphQLErrors[0].extensions.code === 'PERMISSION_DENIED_ERROR') {
+      console.error('Permission denied');
+    }
     throw new HttpError(error.message || API_ERROR_MESSAGE);
   }
 };
