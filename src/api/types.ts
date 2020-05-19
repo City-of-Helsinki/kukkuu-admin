@@ -4,7 +4,12 @@ export interface DataProviderParams {
 
 export type MethodHandlerParams = DataProviderParams;
 
-export type Resource = 'venues' | 'events' | 'occurrences' | 'children';
+export type Resource =
+  | 'venues'
+  | 'events'
+  | 'occurrences'
+  | 'children'
+  | 'projects';
 
 export type Method =
   | 'LIST'

@@ -180,7 +180,13 @@
   },
   "authentication": {
     "redirect": {
-      "text": "Ohjataan..."
+      "text": "Tunnistaudutaan..."
+    },
+    "unauthorizedPage": {
+      "title": "Ei käyttöoikeutta",
+      "content": "Käyttäjätunnuksellasi ei ole käyttöoikeutta Kulttuurin kummilapset -palvelun ylläpitoon. Mikäli tarvitset käyttöoikeuden, ole yhteydessä osoitteeseen",
+      "contactEmail": "kulttuurin.kummilapset@hel.fi",
+      "backToLoginPage": "Takaisin kirjautumissivulle"
     }
   }
 }

@@ -23,6 +23,8 @@ import {
   getOccurrence,
 } from '../domain/occurrences/api/OccurrenceApi';
 import { getChild, getChildren } from '../domain/children/api/ChildApi';
+import { getMyAdminProfile } from '../domain/profile/api';
+import { getProject } from '../domain/dashboard/api';
 
 const METHOD_HANDLERS: MethodHandlers = {
   venues: {
@@ -50,6 +52,9 @@ const METHOD_HANDLERS: MethodHandlers = {
     LIST: getChildren,
     ONE: getChild,
     MANY_REFERENCE: getChildren,
+  },
+  projects: {
+    ONE: getProject,
   },
 };
 
@@ -109,6 +114,10 @@ const dataProvider = {
   },
   publish: async (resource: Resource, params: Params) => {
     const data = await runHandler('PUBLISH', resource, params);
+    return { data };
+  },
+  getMyAdminProfile: async () => {
+    const data = await getMyAdminProfile();
     return { data };
   },
 };
