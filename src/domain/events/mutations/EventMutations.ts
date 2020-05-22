@@ -1,16 +1,18 @@
-import { gql } from 'apollo-boost';
+import gql from 'graphql-tag';
 
 export const addEventMutation = gql`
   mutation AddEvent($input: AddEventMutationInput!) {
     addEvent(input: $input) {
       event {
         id
+        image
         participantsPerInvite
         capacityPerOccurrence
         duration
         translations {
           languageCode
           name
+          imageAltText
           description
           shortDescription
         }
@@ -24,10 +26,12 @@ export const updateEventMutation = gql`
     updateEvent(input: $input) {
       event {
         id
+        image
         participantsPerInvite
         capacityPerOccurrence
         duration
         translations {
+          imageAltText
           languageCode
           name
           description

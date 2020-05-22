@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import {
   Create,
   TextInput,
+  ImageInput,
+  ImageField,
   useTranslate,
   SimpleForm,
   SelectInput,
@@ -32,6 +34,14 @@ const EventCreate = (props: any) => {
           selectedLanguage={selectedLanguage}
           onSelect={selectLanguage}
         />
+        <ImageInput
+          source="image"
+          label="Event image"
+          accept="image/*"
+          placeholder={<p>Drop your file here</p>}
+        >
+          <ImageField source="src" title="title" />
+        </ImageInput>
         <TextInput
           source={`${translation}.name`}
           label={translate('events.fields.name.label')}

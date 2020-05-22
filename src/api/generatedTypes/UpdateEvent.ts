@@ -10,6 +10,7 @@ import { UpdateEventMutationInput, EventParticipantsPerInvite, Language } from "
 // ====================================================
 
 export interface UpdateEvent_updateEvent_event_translations {
+  imageAltText: string;
   languageCode: Language;
   name: string;
   description: string;
@@ -21,6 +22,7 @@ export interface UpdateEvent_updateEvent_event {
    * The ID of the object.
    */
   id: string;
+  image: string;
   participantsPerInvite: EventParticipantsPerInvite;
   capacityPerOccurrence: number;
   /**

@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from 'apollo-boost';
+import { ApolloQueryResult } from 'apollo-client';
 
 import { MethodHandler, MethodHandlerParams } from '../../../api/types';
 import {
@@ -37,10 +37,15 @@ const getEvent: MethodHandler = async (params: MethodHandlerParams) => {
 const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
   const data = mapLocalDataToApiData(params.data);
   data['projectId'] = getProjectId();
+  if (params.data.image) {
+    data.image = params.data.image.rawFile;
+  }
+
   const response = await mutationHandler({
     mutation: addEventMutation,
     variables: { input: data },
   });
+
   return response?.data?.addEvent.event
     ? mapApiDataToLocalData(response.data.addEvent.event)
     : null;
@@ -49,6 +54,11 @@ const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
 const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
   const { publishedAt, occurrences, image, ...localUpdateData } = params.data;
   const data = mapLocalDataToApiData(localUpdateData);
+
+  if (params.data.image) {
+    data.image = params.data.image.rawFile;
+  }
+
   const response = await mutationHandler({
     mutation: updateEventMutation,
     variables: { input: data },

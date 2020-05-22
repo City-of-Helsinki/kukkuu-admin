@@ -2,7 +2,7 @@ import {
   QueryOptions,
   OperationVariables,
   MutationOptions,
-} from 'apollo-boost';
+} from 'apollo-client';
 import { HttpError } from 'react-admin';
 
 import client from '../client';
