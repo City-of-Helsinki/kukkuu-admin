@@ -19,12 +19,27 @@ export interface Venue_venue_translations {
   additionalInfo: string;
 }
 
+export interface Venue_venue_occurrences_pageInfo {
+  /**
+   * When paginating backwards, the cursor to continue.
+   */
+  startCursor: string | null;
+}
+
+export interface Venue_venue_occurrences {
+  /**
+   * Pagination data for this connection.
+   */
+  pageInfo: Venue_venue_occurrences_pageInfo;
+}
+
 export interface Venue_venue {
   /**
    * The ID of the object.
    */
   id: string;
   translations: Venue_venue_translations[];
+  occurrences: Venue_venue_occurrences;
 }
 
 export interface Venue {

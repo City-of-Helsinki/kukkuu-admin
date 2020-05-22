@@ -11,6 +11,11 @@ export const venuesQuery = gql`
             address
             languageCode
           }
+          occurrences {
+            pageInfo {
+              startCursor
+            }
+          }
         }
       }
     }
@@ -29,6 +34,11 @@ export const venueQuery = gql`
         accessibilityInfo
         arrivalInstructions
         additionalInfo
+      }
+      occurrences {
+        pageInfo {
+          startCursor
+        }
       }
     }
   }
