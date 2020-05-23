@@ -61,3 +61,11 @@ export const publishEventMutation = gql`
     }
   }
 `;
+
+export const deleteEventMutation = gql`
+  mutation deleteEvent($input: DeleteEventMutationInput!) {
+    deleteEvent(input: $input) {
+      clientMutationId
+    }
+  }
+`;

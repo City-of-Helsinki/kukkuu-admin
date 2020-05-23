@@ -45,6 +45,11 @@ export interface AddVenueMutationInput {
   clientMutationId?: string | null;
 }
 
+export interface DeleteEventMutationInput {
+  id: string;
+  clientMutationId?: string | null;
+}
+
 export interface DeleteVenueMutationInput {
   id: string;
   clientMutationId?: string | null;

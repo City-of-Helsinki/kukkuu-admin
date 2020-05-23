@@ -17,6 +17,7 @@ import {
   addEvent,
   updateEvent,
   publishEvent,
+  deleteEvent,
 } from '../domain/events/api/EventApi';
 import {
   addOccurrence,
@@ -42,6 +43,7 @@ const METHOD_HANDLERS: MethodHandlers = {
     MANY: getEvents,
     CREATE: addEvent,
     UPDATE: updateEvent,
+    DELETE: deleteEvent,
     PUBLISH: publishEvent,
   },
   occurrences: {

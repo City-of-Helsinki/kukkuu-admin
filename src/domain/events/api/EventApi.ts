@@ -14,6 +14,7 @@ import {
   addEventMutation,
   publishEventMutation,
   updateEventMutation,
+  deleteEventMutation,
 } from '../mutations/EventMutations';
 import { getProjectId } from '../../profile/utils';
 
@@ -78,4 +79,19 @@ const publishEvent: MethodHandler = async (params: MethodHandlerParams) => {
     : null;
 };
 
-export { getEvents, getEvent, addEvent, updateEvent, publishEvent };
+const deleteEvent: MethodHandler = async (params: MethodHandlerParams) => {
+  await mutationHandler({
+    mutation: deleteEventMutation,
+    variables: { input: { id: params.id } },
+  });
+  return { id: params.id };
+};
+
+export {
+  getEvents,
+  getEvent,
+  addEvent,
+  updateEvent,
+  publishEvent,
+  deleteEvent,
+};
