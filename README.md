@@ -117,9 +117,13 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn build`
+### `yarn graphql-types`
 
 Fetches the schema from backend and updates typing information.
+
+### `yarn update-translations`
+
+Updates translation files from the Google spreadsheet
 
 ## Debugging
 
