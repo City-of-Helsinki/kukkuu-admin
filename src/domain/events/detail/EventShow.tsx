@@ -143,7 +143,7 @@ const EventShow: FunctionComponent = (props: any) => {
           <ImageField source="image" />
           <TextField
             source={`translations.${language}.imageAltText`}
-            label={translate('events.fields.imageAltText.label')}
+            label={'Alt text'} // TODO: translate('events.fields.imageAltText.label')
           />
 
           <TextField

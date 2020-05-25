@@ -27,20 +27,26 @@ const EventEdit = (props: any) => {
   const [selectedLanguage, selectLanguage] = useState(Language.FI);
   const translation = `translations.${selectedLanguage}`;
 
-  // Stolen https://github.com/marmelab/react-admin/issues/2077#issuecomment-516821629
-  // FIXME: Is it really needed?
-  function formatImage(value: any) {
-    if (!value.image || typeof value.image === 'string') {
-      // Value is null or the url string from the backend, wrap it in an object so the form input can handle it
+  /**
+   * Ensure that the preview works after user chooses image from their computer
+   * Inspired by:
+   * https://github.com/marmelab/react-admin/issues/2077#issuecomment-516821629
+   * @param value Url from backend or File from ImageField
+   */
+  function formatImage(value: string | File) {
+    if (!value || typeof value === 'string') {
+      // Value is null or the url string from the backend,
+      // wrap it in an object so the form input can handle it
       return { image: value };
     } else {
-      // Else a new image is selected which results in a value object already having a preview link under the url key
-      return value.image;
+      // A new image is selected which results in a value object
+      // already having a preview link under the url key
+      return value;
     }
   }
-
+  // Undoable is false to prevent image from appearing while waiting for backend result.
   return (
-    <Edit title={translate('events.edit.title')} {...props}>
+    <Edit undoable={false} title={translate('events.edit.title')} {...props}>
       <SimpleForm redirect="show" validate={validateVenue}>
         <LanguageTabs
           selectedLanguage={selectedLanguage}
@@ -51,16 +57,15 @@ const EventEdit = (props: any) => {
           source="image"
           label="Event image"
           accept="image/*"
-          placeholder={<p>Drop your file here</p>}
+          placeholder={<p>Select file to upload</p>} // TODO: translate(events.fields.imageInput.label)
         >
           <ImageField source="image" />
         </ImageInput>
         <TextInput
           source={`${translation}.imageAltText`}
-          label={translate('events.fields.imageAltText.label')}
+          label={'Image alt text'} // TODO: translate('events.fields.imageAltText.label')
           validate={null}
         />
-
         <TextInput
           source={`${translation}.name`}
           label={translate('events.fields.name.label')}

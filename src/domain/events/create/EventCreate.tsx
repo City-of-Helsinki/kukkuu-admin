@@ -38,10 +38,15 @@ const EventCreate = (props: any) => {
           source="image"
           label="Event image"
           accept="image/*"
-          placeholder={<p>Drop your file here</p>}
+          placeholder={<p>Select file to upload</p>} // TODO: translate(events.fields.imageInput.label)
         >
           <ImageField source="src" title="title" />
         </ImageInput>
+        <TextInput
+          source={`${translation}.imageAltText`}
+          label={'Image alt text'} // TODO: translate('events.fields.imageAltText.label')
+          validate={null}
+        />
         <TextInput
           source={`${translation}.name`}
           label={translate('events.fields.name.label')}
