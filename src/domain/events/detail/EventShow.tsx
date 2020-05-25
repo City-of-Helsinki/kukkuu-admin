@@ -128,7 +128,6 @@ const EventShowActions = ({
 );
 
 const EventShow: FunctionComponent = (props: any) => {
-  const translate = useTranslate();
   const locale = useLocale();
   const EventTitle = ({ record }: { record?: any }) => {
     return <span>{record ? `${record.translations.FI.name}` : ''}</span>;
@@ -138,38 +137,38 @@ const EventShow: FunctionComponent = (props: any) => {
   return (
     <Show title={<EventTitle />} actions={<EventShowActions />} {...props}>
       <TabbedShowLayout>
-        <Tab label={translate('events.show.tab.label')}>
+        <Tab label={'events.show.tab.label'}>
           <LanguageTabs selectedLanguage={language} onSelect={selectLanguage} />
           <ImageField source="image" />
           <TextField
             source={`translations.${language}.imageAltText`}
-            label={'Kuvan alt-teksti'} // TODO: translate('events.fields.imageAltText.label')
+            label={'events.fields.imageAltText.label'}
           />
 
           <TextField
             source={`translations.${language}.name`}
-            label={translate('events.fields.name.label')}
+            label={'events.fields.name.label'}
           />
 
           <SelectField
             source="participantsPerInvite"
-            label={translate('events.fields.participantsPerInvite.label')}
+            label={'events.fields.participantsPerInvite.label'}
             choices={participantsPerInviteChoices}
           />
 
           <NumberField
             source={`duration`}
-            label={translate('events.fields.duration.label')}
+            label={'events.fields.duration.label'}
           />
 
           <NumberField
             source={`capacityPerOccurrence`}
-            label={translate('events.fields.capacityPerOccurrence.label')}
+            label={'events.fields.capacityPerOccurrence.label'}
           />
 
           <DateField
             source={`publishedAt`}
-            label={translate('events.fields.publishedAt.label')}
+            label={'events.fields.publishedAt.label'}
             showTime={true}
             locales={locale}
           />
