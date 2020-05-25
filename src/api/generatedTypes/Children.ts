@@ -15,6 +15,8 @@ export interface Children_children_edges_node_guardians_edges_node {
    */
   id: string;
   email: string | null;
+  firstName: string;
+  lastName: string;
   language: Language;
 }
 

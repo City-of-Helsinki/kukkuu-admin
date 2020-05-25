@@ -29,6 +29,9 @@
         },
         "label": "Huoltaja"
       },
+      "guardiansEmail": {
+        "label": "Huoltajan sähköposti"
+      },
       "name": {
         "label": "Nimi"
       },
@@ -125,6 +128,9 @@
         "label": "Tapahtuman tiedot"
       }
     }
+  },
+  "guardian": {
+    "name": "Huoltajan nimi"
   },
   "languages": {
     "EN": "englanti",

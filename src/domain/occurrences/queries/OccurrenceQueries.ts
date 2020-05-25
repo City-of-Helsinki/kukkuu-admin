@@ -32,6 +32,9 @@ export const occurrencesQuery = gql`
                     node {
                       id
                       email
+                      firstName
+                      lastName
+                      language
                     }
                   }
                 }
@@ -74,6 +77,9 @@ export const occurrenceQuery = gql`
                 node {
                   id
                   email
+                  firstName
+                  lastName
+                  language
                 }
               }
             }

@@ -7,6 +7,7 @@ import {
   Datagrid,
   ReferenceField,
   useLocale,
+  useTranslate,
   SimpleShowLayout,
   EmailField,
   ArrayField,
@@ -18,6 +19,7 @@ import { OccurrenceTimeRangeField } from './fields';
 
 const OccurrenceShow = (props: any) => {
   const locale = useLocale();
+  const translate = useTranslate();
 
   return (
     <Show {...props} title="occurrences.show.title">
@@ -53,8 +55,8 @@ const OccurrenceShow = (props: any) => {
           source="children.edges"
         >
           <Datagrid
-            rowClick={(id: any, basePath: any, record: any) =>
-              escape(`/children/${record.node.id}/show`)
+            rowClick={(id: string, basePath: string, record: ChildEdge) =>
+              escape(`/children/${record?.node?.id}/show`)
             }
           >
             <FunctionField
@@ -68,9 +70,23 @@ const OccurrenceShow = (props: any) => {
               label="children.fields.birthdate.label"
               locales={locale}
             />
+            <FunctionField
+              render={(record: ChildEdge) =>
+                `${record.node?.guardians.edges[0]?.node?.firstName} ${record.node?.guardians.edges[0]?.node?.lastName}`.trim()
+              }
+              label="guardian.name"
+            />
             <EmailField
               source="node.guardians.edges.0.node.email"
-              label="children.fields.guardians.label"
+              label="children.fields.guardiansEmail.label"
+            />
+            <FunctionField
+              render={(record: ChildEdge) =>
+                translate(
+                  `languages.${record?.node?.guardians.edges[0]?.node?.language}`
+                )
+              }
+              label="Kieli"
             />
           </Datagrid>
         </ArrayField>

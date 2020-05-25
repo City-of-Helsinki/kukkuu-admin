@@ -29,6 +29,9 @@
         },
         "label": "Guardian"
       },
+      "guardiansEmail": {
+        "label": "Guardian's email"
+      },
       "name": {
         "label": "Name"
       },
@@ -125,6 +128,9 @@
         "label": "Event detail"
       }
     }
+  },
+  "guardian": {
+    "name": "Guardian's name"
   },
   "languages": {
     "EN": "English",

@@ -14,6 +14,8 @@ export const childrenQuery = gql`
               node {
                 id
                 email
+                firstName
+                lastName
                 language
               }
             }
