@@ -12,6 +12,7 @@ import { AddEventMutationInput, EventParticipantsPerInvite, Language } from "./g
 export interface AddEvent_addEvent_event_translations {
   languageCode: Language;
   name: string;
+  imageAltText: string;
   description: string;
   shortDescription: string;
 }
@@ -21,6 +22,7 @@ export interface AddEvent_addEvent_event {
    * The ID of the object.
    */
   id: string;
+  image: string;
   participantsPerInvite: EventParticipantsPerInvite;
   capacityPerOccurrence: number;
   /**

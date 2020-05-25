@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import {
   Create,
   TextInput,
+  ImageInput,
+  ImageField,
   useTranslate,
   SimpleForm,
   SelectInput,
@@ -31,6 +33,19 @@ const EventCreate = (props: any) => {
         <LanguageTabs
           selectedLanguage={selectedLanguage}
           onSelect={selectLanguage}
+        />
+        <ImageInput
+          source="image"
+          label="Event image"
+          accept="image/*"
+          placeholder={<p>Valitse ladattava kuva</p>} // TODO: translate(events.fields.imageInput.label)
+        >
+          <ImageField source="src" title="title" />
+        </ImageInput>
+        <TextInput
+          source={`${translation}.imageAltText`}
+          label={'Kuvan alt-teksti'} // TODO: translate('events.fields.imageAltText.label')
+          validate={null}
         />
         <TextInput
           source={`${translation}.name`}

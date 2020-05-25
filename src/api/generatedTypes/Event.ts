@@ -12,6 +12,7 @@ import { EventParticipantsPerInvite, Language } from "./globalTypes";
 export interface Event_event_translations {
   languageCode: Language;
   name: string;
+  imageAltText: string;
   description: string;
   shortDescription: string;
 }

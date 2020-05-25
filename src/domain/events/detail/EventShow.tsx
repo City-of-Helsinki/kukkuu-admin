@@ -142,6 +142,11 @@ const EventShow: FunctionComponent = (props: any) => {
           <LanguageTabs selectedLanguage={language} onSelect={selectLanguage} />
           <ImageField source="image" />
           <TextField
+            source={`translations.${language}.imageAltText`}
+            label={'Kuvan alt-teksti'} // TODO: translate('events.fields.imageAltText.label')
+          />
+
+          <TextField
             source={`translations.${language}.name`}
             label={translate('events.fields.name.label')}
           />

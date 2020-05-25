@@ -12,6 +12,7 @@ import { EventParticipantsPerInvite, Language } from "./globalTypes";
 export interface Events_events_edges_node_translations {
   languageCode: Language;
   name: string;
+  imageAltText: string;
   description: string;
   shortDescription: string;
 }

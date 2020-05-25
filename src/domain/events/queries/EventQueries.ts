@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import gql from 'graphql-tag';
 
 export const eventsQuery = gql`
   query Events {
@@ -12,6 +12,7 @@ export const eventsQuery = gql`
           translations {
             languageCode
             name
+            imageAltText
             description
             shortDescription
           }
@@ -40,6 +41,7 @@ export const eventQuery = gql`
       translations {
         languageCode
         name
+        imageAltText
         description
         shortDescription
       }

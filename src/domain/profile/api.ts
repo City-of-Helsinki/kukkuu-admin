@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from 'apollo-boost';
+import { ApolloQueryResult } from 'apollo-client';
 
 import { queryHandler, mapApiDataToLocalData } from '../../api/utils/apiUtils';
 import { myAdminProfileQuery } from './queries';
