@@ -36,7 +36,7 @@ const EventCreate = (props: any) => {
         />
         <ImageInput
           source="image"
-          label={'events.fields.imageAltText.label'}
+          label={'events.fields.image.label'}
           accept="image/*"
           placeholder={<p>{translate('events.fields.imageInput.label')}</p>}
         >
