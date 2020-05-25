@@ -1,64 +1,49 @@
 {
+  "authentication": {
+    "redirect": {
+      "text": "Tapahtumat"
+    },
+    "unauthorizedPage": {
+      "backToLoginPage": "kulttuurin.kummilapset@hel.fi",
+      "contactEmail": "Käyttäjätunnuksellasi ei ole käyttöoikeutta Kulttuurin kummilapset -palvelun ylläpitoon. Mikäli tarvitset käyttöoikeuden, ole yhteydessä osoitteeseen",
+      "content": "Ei käyttöoikeutta",
+      "title": "Tunnistaudutaan..."
+    }
+  },
+  "children": {
+    "fields": {
+      "birthdate": {
+        "label": "Nimi"
+      },
+      "guardians": {
+        "fields": {
+          "email": {
+            "label": "Postinumero"
+          },
+          "phoneNumber": {
+            "label": "Sähköposti"
+          },
+          "postalCode": {
+            "label": "Huoltaja"
+          }
+        },
+        "label": "Syntymäaika"
+      },
+      "name": {
+        "label": "Kummilapsi"
+      },
+      "occurrences": {
+        "label": "Puhelinnumero"
+      }
+    },
+    "list": {
+      "title": "Kummilapset"
+    }
+  },
   "dashboard": {
     "title": "Kulttuurin kummilapset ylläpito"
   },
-  "languages": {
-    "FI": "suomi",
-    "SV": "ruotsi",
-    "EN": "englanti"
-  },
-  "venues": {
-    "list": {
-      "title": "Tapahtumapaikat"
-    },
-    "create": {
-      "title": "Luo uusi tapahtumapaikka"
-    },
-    "fields": {
-      "name": {
-        "label": "Nimi"
-      },
-      "address": {
-        "label": "Osoite"
-      },
-      "description": {
-        "label": "Kuvaus"
-      },
-      "accessibilityInfo": {
-        "label": "Esteettömyystiedot"
-      },
-      "arrivalInstructions": {
-        "label": "Saapumisohjeet"
-      },
-      "additionalInfo": {
-        "label": "Lisätiedot"
-      }
-    }
-  },
   "events": {
-    "list": {
-      "title": "Tapahtumat"
-    },
-    "show": {
-      "tab": {
-        "label": "Tapahtuman tiedot"
-      },
-      "publish": {
-        "button": {
-          "label": "Julkaise"
-        },
-        "onSuccess": {
-          "message": "Tapahtuma julkaistu!"
-        },
-        "onFailure": {
-          "message": "Tapahtuman julkaisussa tapahtui virhe."
-        },
-        "confirm": {
-          "title": "Julkaise tapahtuma \"%{eventName}\"",
-          "content": "Oletko varma, että haluat julkaista tämän tapahtuman?"
-        }
-      }
-    },
     "create": {
       "title": "Luo tapahtuma"
     },
@@ -66,23 +51,37 @@
       "title": "Muokkaa tapahtumaa"
     },
     "fields": {
+      "capacityPerOccurrence": {
+        "label": "Tilaisuuden kapasiteetti"
+      },
+      "description": {
+        "label": "Kuvaus"
+      },
+      "duration": {
+        "label": "Kesto"
+      },
       "id": {
         "label": "ID"
       },
       "image": {
         "label": "Kuva"
       },
+      "imageAltText": {
+        "label": "Kuvan alt-teksti"
+      },
       "imageInput": {
         "label": "Valitse ladattava kuva"
       },
-      "imageAltText": {
-        "label": "Kuvan alt-teksti"
+      "language": {
+        "label": "Kieli"
       },
       "name": {
         "label": "Nimi"
       },
+      "occurrences": {
+        "label": "Ajankohdat"
+      },
       "participantsPerInvite": {
-        "label": "Osallistujat kutsua kohden",
         "choices": {
           "CHILD_AND_GUARDIAN": {
             "label": "Lapsi ja huoltaja"
@@ -90,41 +89,66 @@
           "FAMILY": {
             "label": "Perhe"
           }
-        }
-      },
-      "duration": {
-        "label": "Kesto"
-      },
-      "occurrences": {
-        "label": "Ajankohdat"
-      },
-      "capacityPerOccurrence": {
-        "label": "Tilaisuuden kapasiteetti"
+        },
+        "label": "Osallistujat kutsua kohden"
       },
       "publishedAt": {
         "label": "Julkaistu"
       },
-      "description": {
-        "label": "Kuvaus"
-      },
       "shortDescription": {
         "label": "Lyhyt kuvaus"
+      }
+    },
+    "list": {
+      "title": "Tapahtumat"
+    },
+    "show": {
+      "publish": {
+        "button": {
+          "label": "Julkaise"
+        },
+        "confirm": {
+          "content": "Oletko varma, että haluat julkaista tämän tapahtuman?",
+          "title": "Julkaise tapahtuma \"%{eventName}\""
+        },
+        "onFailure": {
+          "message": "Tapahtuman julkaisussa tapahtui virhe."
+        },
+        "onSuccess": {
+          "message": "Tapahtuma julkaistu!"
+        }
       },
-      "language": {
-        "label": "Kieli"
+      "tab": {
+        "label": "Tapahtuman tiedot"
       }
     }
   },
+  "languages": {
+    "EN": "englanti",
+    "FI": "suomi",
+    "SV": "ruotsi"
+  },
   "occurrences": {
+    "addOccurrenceButton": {
+      "label": "Lisää ajankohta"
+    },
     "create": {
       "title": "Lisää ajankohta"
     },
-    "show": {
-      "title": "Tapahtuma-ajankohta"
-    },
     "fields": {
+      "capacity": {
+        "label": "Paikkoja"
+      },
+      "children": {
+        "label": "Osallistujat"
+      },
+      "enrolmentsCount": {
+        "label": "Osallistujia"
+      },
+      "event": {
+        "label": "Tapahtuma"
+      },
       "time": {
-        "label": "Aika",
         "fields": {
           "date": {
             "label": "Päivämäärä"
@@ -132,67 +156,43 @@
           "time": {
             "label": "Kellonaika"
           }
-        }
+        },
+        "label": "Aika"
       },
       "venue": {
         "label": "Tapahtumapaikka"
-      },
-      "event": {
-        "label": "Tapahtuma"
-      },
-      "capacity": {
-        "label": "Paikkoja"
-      },
-      "enrolmentsCount": {
-        "label": "Osallistujia"
-      },
-      "children": {
-        "label": "Osallistujat"
       }
     },
-    "addOccurrenceButton": {
-      "label": "Lisää ajankohta"
+    "show": {
+      "title": "Tapahtuma-ajankohta"
     }
   },
-  "children": {
-    "list": {
-      "title": "Kummilapset"
+  "venues": {
+    "create": {
+      "title": "Luo uusi tapahtumapaikka"
     },
     "fields": {
+      "accessibilityInfo": {
+        "label": "Esteettömyystiedot"
+      },
+      "additionalInfo": {
+        "label": "Lisätiedot"
+      },
+      "address": {
+        "label": "Osoite"
+      },
+      "arrivalInstructions": {
+        "label": "Saapumisohjeet"
+      },
+      "description": {
+        "label": "Kuvaus"
+      },
       "name": {
-        "label": "Kummilapsi"
-      },
-      "birthdate": {
         "label": "Nimi"
-      },
-      "guardians": {
-        "label": "Syntymäaika",
-        "fields": {
-          "postalCode": {
-            "label": "Huoltaja"
-          },
-          "email": {
-            "label": "Postinumero"
-          },
-          "phoneNumber": {
-            "label": "Sähköposti"
-          }
-        }
-      },
-      "occurrences": {
-        "label": "Puhelinnumero"
       }
-    }
-  },
-  "authentication": {
-    "redirect": {
-      "text": "Tapahtumat"
     },
-    "unauthorizedPage": {
-      "title": "Tunnistaudutaan...",
-      "content": "Ei käyttöoikeutta",
-      "contactEmail": "Käyttäjätunnuksellasi ei ole käyttöoikeutta Kulttuurin kummilapset -palvelun ylläpitoon. Mikäli tarvitset käyttöoikeuden, ole yhteydessä osoitteeseen",
-      "backToLoginPage": "kulttuurin.kummilapset@hel.fi"
+    "list": {
+      "title": "Tapahtumapaikat"
     }
   },
   "": "Takaisin kirjautumissivulle"
