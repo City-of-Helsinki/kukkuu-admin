@@ -36,15 +36,15 @@ const EventCreate = (props: any) => {
         />
         <ImageInput
           source="image"
-          label="Event image"
+          label={'events.fields.imageAltText.label'}
           accept="image/*"
-          placeholder={<p>Valitse ladattava kuva</p>} // TODO: translate(events.fields.imageInput.label)
+          placeholder={<p>{translate('events.fields.imageInput.label')}</p>}
         >
           <ImageField source="src" title="title" />
         </ImageInput>
         <TextInput
           source={`${translation}.imageAltText`}
-          label={'Kuvan alt-teksti'} // TODO: translate('events.fields.imageAltText.label')
+          label={'events.fields.imageAltText.label'}
           validate={null}
         />
         <TextInput

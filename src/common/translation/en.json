@@ -69,6 +69,15 @@
       "id": {
         "label": "ID"
       },
+      "image": {
+        "label": "Image"
+      },
+      "imageInput": {
+        "label": "Select image to upload"
+      },
+      "imageAltText": {
+        "label": "Image alt text"
+      },
       "name": {
         "label": "Name"
       },

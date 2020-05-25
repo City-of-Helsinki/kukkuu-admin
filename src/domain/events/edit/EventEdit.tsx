@@ -46,7 +46,7 @@ const EventEdit = (props: any) => {
   }
   // Undoable is false to prevent image from appearing while waiting for backend result.
   return (
-    <Edit undoable={false} title={translate('events.edit.title')} {...props}>
+    <Edit undoable={false} title={'events.edit.title'} {...props}>
       <SimpleForm redirect="show" validate={validateVenue}>
         <LanguageTabs
           selectedLanguage={selectedLanguage}
@@ -55,47 +55,47 @@ const EventEdit = (props: any) => {
         <ImageInput
           format={formatImage}
           source="image"
-          label="Event image"
+          label={'events.fields.image.label'}
           accept="image/*"
-          placeholder={<p>Valitse ladattava kuva</p>} // TODO: translate(events.fields.imageInput.label)
+          placeholder={<p>{translate('events.fields.imageInput.label')}</p>}
         >
           <ImageField source="image" />
         </ImageInput>
         <TextInput
           source={`${translation}.imageAltText`}
-          label={'Kuvan alt-teksti'} // TODO: translate('events.fields.imageAltText.label')
+          label={'events.fields.imageAltText.label'}
           validate={null}
         />
         <TextInput
           source={`${translation}.name`}
-          label={translate('events.fields.name.label')}
+          label={'events.fields.name.label'}
           validate={selectedLanguage === Language.FI ? required() : null}
         />
         <TextInput
           source={`${translation}.shortDescription`}
-          label={translate('events.fields.shortDescription.label')}
+          label={'events.fields.shortDescription.label'}
           validate={validateShortDescription}
           multiline
         />
         <TextInput
           source={`${translation}.description`}
-          label={translate('events.fields.description.label')}
+          label={'events.fields.description.label'}
           multiline
         />
         <SelectInput
           source="participantsPerInvite"
-          label={translate('events.fields.participantsPerInvite.label')}
+          label={'events.fields.participantsPerInvite.label'}
           choices={participantsPerInviteChoices}
           validate={validateParticipantsPerInvite}
         />
         <NumberInput
           source="capacityPerOccurrence"
-          label={translate('events.fields.capacityPerOccurrence.label')}
+          label={'events.fields.capacityPerOccurrence.label'}
           validate={validateCapacityPerOccurrence}
         />
         <NumberInput
           source="duration"
-          label={translate('events.fields.duration.label')}
+          label={'events.fields.duration.label'}
           validate={validateDuration}
         />
       </SimpleForm>

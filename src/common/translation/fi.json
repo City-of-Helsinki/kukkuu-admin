@@ -69,6 +69,15 @@
       "id": {
         "label": "ID"
       },
+      "image": {
+        "label": "Kuva"
+      },
+      "imageInput": {
+        "label": "Valitse ladattava kuva"
+      },
+      "imageAltText": {
+        "label": "Kuvan alt-teksti"
+      },
       "name": {
         "label": "Nimi"
       },
@@ -149,44 +158,42 @@
     "list": {
       "title": "Kummilapset"
     },
-    "show": {
-      "title": "Kummilapsi"
-    },
     "fields": {
       "name": {
-        "label": "Nimi"
+        "label": "Kummilapsi"
       },
       "birthdate": {
-        "label": "Syntymäaika"
+        "label": "Nimi"
       },
       "guardians": {
-        "label": "Huoltaja",
+        "label": "Syntymäaika",
         "fields": {
           "postalCode": {
-            "label": "Postinumero"
+            "label": "Huoltaja"
           },
           "email": {
-            "label": "Sähköposti"
+            "label": "Postinumero"
           },
           "phoneNumber": {
-            "label": "Puhelinnumero"
+            "label": "Sähköposti"
           }
         }
       },
       "occurrences": {
-        "label": "Tapahtumat"
+        "label": "Puhelinnumero"
       }
     }
   },
   "authentication": {
     "redirect": {
-      "text": "Tunnistaudutaan..."
+      "text": "Tapahtumat"
     },
     "unauthorizedPage": {
-      "title": "Ei käyttöoikeutta",
-      "content": "Käyttäjätunnuksellasi ei ole käyttöoikeutta Kulttuurin kummilapset -palvelun ylläpitoon. Mikäli tarvitset käyttöoikeuden, ole yhteydessä osoitteeseen",
-      "contactEmail": "kulttuurin.kummilapset@hel.fi",
-      "backToLoginPage": "Takaisin kirjautumissivulle"
+      "title": "Tunnistaudutaan...",
+      "content": "Ei käyttöoikeutta",
+      "contactEmail": "Käyttäjätunnuksellasi ei ole käyttöoikeutta Kulttuurin kummilapset -palvelun ylläpitoon. Mikäli tarvitset käyttöoikeuden, ole yhteydessä osoitteeseen",
+      "backToLoginPage": "kulttuurin.kummilapset@hel.fi"
     }
-  }
+  },
+  "": "Takaisin kirjautumissivulle"
 }
