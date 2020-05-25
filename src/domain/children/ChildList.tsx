@@ -15,7 +15,7 @@ import { languageChoices } from '../../common/choices';
 const ChildList = (props: any) => {
   const locale = useLocale();
   return (
-    <List title="children.list.title" {...props}>
+    <List title="children.list.title" bulkActionButtons={false} {...props}>
       <Datagrid rowClick="show">
         <FunctionField
           label="children.fields.name.label"

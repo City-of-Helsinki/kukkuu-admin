@@ -13,7 +13,7 @@ const VenueList = (props: any) => {
   const translate = useTranslate();
   const locale = useLocale();
   return (
-    <List title={translate('venues.list.title')} {...props}>
+    <List title="venues.list.title" bulkActionButtons={false} {...props}>
       <Datagrid rowClick="show">
         <TextField
           source={getTranslatedField('name', locale)}

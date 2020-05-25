@@ -15,12 +15,27 @@ export interface Venues_venues_edges_node_translations {
   languageCode: Language;
 }
 
+export interface Venues_venues_edges_node_occurrences_pageInfo {
+  /**
+   * When paginating backwards, the cursor to continue.
+   */
+  startCursor: string | null;
+}
+
+export interface Venues_venues_edges_node_occurrences {
+  /**
+   * Pagination data for this connection.
+   */
+  pageInfo: Venues_venues_edges_node_occurrences_pageInfo;
+}
+
 export interface Venues_venues_edges_node {
   /**
    * The ID of the object.
    */
   id: string;
   translations: Venues_venues_edges_node_translations[];
+  occurrences: Venues_venues_edges_node_occurrences;
 }
 
 export interface Venues_venues_edges {

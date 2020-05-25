@@ -3,6 +3,7 @@ import {
   getVenue,
   addVenue,
   updateVenue,
+  deleteVenue,
 } from '../domain/venues/api/VenueApi';
 import {
   MethodHandlers,
@@ -16,6 +17,7 @@ import {
   addEvent,
   updateEvent,
   publishEvent,
+  deleteEvent,
 } from '../domain/events/api/EventApi';
 import {
   addOccurrence,
@@ -33,6 +35,7 @@ const METHOD_HANDLERS: MethodHandlers = {
     MANY: getVenues,
     CREATE: addVenue,
     UPDATE: updateVenue,
+    DELETE: deleteVenue,
   },
   events: {
     LIST: getEvents,
@@ -40,6 +43,7 @@ const METHOD_HANDLERS: MethodHandlers = {
     MANY: getEvents,
     CREATE: addEvent,
     UPDATE: updateEvent,
+    DELETE: deleteEvent,
     PUBLISH: publishEvent,
   },
   occurrences: {
@@ -110,6 +114,10 @@ const dataProvider = {
   },
   update: async (resource: Resource, params: Params) => {
     const data = await runHandler('UPDATE', resource, params);
+    return { data };
+  },
+  delete: async (resource: Resource, params: Params) => {
+    const data = await runHandler('DELETE', resource, params);
     return { data };
   },
   publish: async (resource: Resource, params: Params) => {

@@ -9,6 +9,9 @@ import {
   SelectInput,
   NumberInput,
   required,
+  Toolbar,
+  SaveButton,
+  DeleteButton,
 } from 'react-admin';
 
 import LanguageTabs from '../../../common/components/languageTab/LanguageTabs';
@@ -21,6 +24,15 @@ import {
   validateShortDescription,
 } from '../validations';
 import { participantsPerInviteChoices } from '../choices';
+
+const EventEditToolbar = (props: any) => {
+  return (
+    <Toolbar style={{ justifyContent: 'space-between' }} {...props}>
+      <SaveButton />
+      <DeleteButton disabled={Boolean(props.record.occurrences.edges.length)} />
+    </Toolbar>
+  );
+};
 
 const EventEdit = (props: any) => {
   const translate = useTranslate();
@@ -47,7 +59,11 @@ const EventEdit = (props: any) => {
   // Undoable is false to prevent image from appearing while waiting for backend result.
   return (
     <Edit undoable={false} title={'events.edit.title'} {...props}>
-      <SimpleForm redirect="show" validate={validateVenue}>
+      <SimpleForm
+        redirect="show"
+        validate={validateVenue}
+        toolbar={<EventEditToolbar />}
+      >
         <LanguageTabs
           selectedLanguage={selectedLanguage}
           onSelect={selectLanguage}

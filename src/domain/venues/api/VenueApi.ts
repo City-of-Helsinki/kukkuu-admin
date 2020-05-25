@@ -9,6 +9,7 @@ import { venuesQuery, venueQuery } from '../query/VenueQueries';
 import {
   addVenueMutation,
   updateVenueMutation,
+  deleteVenueMutation,
 } from './mutations/venueMutations';
 import { MethodHandler, MethodHandlerParams } from '../../../api/types';
 import {
@@ -65,4 +66,12 @@ const updateVenue: MethodHandler = async (params: MethodHandlerParams) => {
     : null;
 };
 
-export { getVenues, getVenue, addVenue, updateVenue };
+const deleteVenue: MethodHandler = async (params: MethodHandlerParams) => {
+  await mutationHandler({
+    mutation: deleteVenueMutation,
+    variables: { input: { id: params.id } },
+  });
+  return { id: params.id };
+};
+
+export { getVenues, getVenue, addVenue, updateVenue, deleteVenue };

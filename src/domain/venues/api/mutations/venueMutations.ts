@@ -37,3 +37,11 @@ export const updateVenueMutation = gql`
     }
   }
 `;
+
+export const deleteVenueMutation = gql`
+  mutation deleteVenue($input: DeleteVenueMutationInput!) {
+    deleteVenue(input: $input) {
+      clientMutationId
+    }
+  }
+`;

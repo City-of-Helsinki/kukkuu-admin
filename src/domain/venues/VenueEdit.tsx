@@ -5,6 +5,9 @@ import {
   useTranslate,
   SimpleForm,
   required,
+  Toolbar,
+  SaveButton,
+  DeleteButton,
 } from 'react-admin';
 
 import { Language } from '../../api/generatedTypes/globalTypes';
@@ -18,6 +21,17 @@ const VenueEditTitle = ({ record }: any) => {
   );
 };
 
+const VenueEditToolbar = (props: any) => {
+  return (
+    <Toolbar style={{ justifyContent: 'space-between' }} {...props}>
+      <SaveButton />
+      <DeleteButton
+        disabled={Boolean(props.record.occurrences.pageInfo.startCursor)}
+      />
+    </Toolbar>
+  );
+};
+
 const VenueEdit = (props: any) => {
   const translate = useTranslate();
   const [selectedLanguage, selectLanguage] = useState(Language.FI);
@@ -25,7 +39,11 @@ const VenueEdit = (props: any) => {
 
   return (
     <Edit title={<VenueEditTitle />} {...props}>
-      <SimpleForm redirect="show" validate={validateVenue}>
+      <SimpleForm
+        redirect="show"
+        validate={validateVenue}
+        toolbar={<VenueEditToolbar />}
+      >
         <LanguageTabs
           selectedLanguage={selectedLanguage}
           onSelect={selectLanguage}
