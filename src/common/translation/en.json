@@ -37,7 +37,10 @@
       }
     },
     "list": {
-      "title": "Culture kids"
+      "title": "Culture Kids"
+    },
+    "show": {
+      "title": "Culture Kid"
     }
   },
   "dashboard": {

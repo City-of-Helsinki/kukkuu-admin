@@ -1,43 +1,46 @@
 {
   "authentication": {
     "redirect": {
-      "text": "Tapahtumat"
+      "text": "Tunnistaudutaan..."
     },
     "unauthorizedPage": {
-      "backToLoginPage": "kulttuurin.kummilapset@hel.fi",
-      "contactEmail": "Käyttäjätunnuksellasi ei ole käyttöoikeutta Kulttuurin kummilapset -palvelun ylläpitoon. Mikäli tarvitset käyttöoikeuden, ole yhteydessä osoitteeseen",
-      "content": "Ei käyttöoikeutta",
-      "title": "Tunnistaudutaan..."
+      "backToLoginPage": "Takaisin kirjautumissivulle",
+      "contactEmail": "kulttuurin.kummilapset@hel.fi",
+      "content": "Käyttäjätunnuksellasi ei ole käyttöoikeutta Kulttuurin kummilapset -palvelun ylläpitoon. Mikäli tarvitset käyttöoikeuden, ole yhteydessä osoitteeseen",
+      "title": "Ei käyttöoikeutta"
     }
   },
   "children": {
     "fields": {
       "birthdate": {
-        "label": "Nimi"
+        "label": "Syntymäaika"
       },
       "guardians": {
         "fields": {
           "email": {
-            "label": "Postinumero"
-          },
-          "phoneNumber": {
             "label": "Sähköposti"
           },
+          "phoneNumber": {
+            "label": "Puhelinnumero"
+          },
           "postalCode": {
-            "label": "Huoltaja"
+            "label": "Postinumero"
           }
         },
-        "label": "Syntymäaika"
+        "label": "Huoltaja"
       },
       "name": {
-        "label": "Kummilapsi"
+        "label": "Nimi"
       },
       "occurrences": {
-        "label": "Puhelinnumero"
+        "label": "Tapahtumat"
       }
     },
     "list": {
       "title": "Kummilapset"
+    },
+    "show": {
+      "title": "Kummilapsi"
     }
   },
   "dashboard": {
@@ -194,6 +197,5 @@
     "list": {
       "title": "Tapahtumapaikat"
     }
-  },
-  "": "Takaisin kirjautumissivulle"
+  }
 }
