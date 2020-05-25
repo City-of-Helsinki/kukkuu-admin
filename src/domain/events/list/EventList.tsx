@@ -18,7 +18,7 @@ const EventList = (props: any) => {
   const locale = useLocale();
 
   return (
-    <List title={translate('events.list.title')} {...props}>
+    <List title="events.list.title" bulkActionButtons={false} {...props}>
       <Datagrid rowClick="show">
         <TextField
           source={getTranslatedField('name', locale)}
