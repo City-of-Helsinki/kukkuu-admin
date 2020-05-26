@@ -28,13 +28,9 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 USER root
 
-RUN apt-install.sh build-essential
-
-USER appuser
-RUN yarn && yarn cache clean --force
-
-USER root
-RUN apt-cleanup.sh build-essential
+RUN apt-install.sh build-essential \
+    && su -c "yarn && yarn cache clean --force" appuser \
+    && apt-cleanup.sh build-essential
 
 # =============================
 FROM appbase as development
