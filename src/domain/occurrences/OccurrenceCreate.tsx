@@ -25,11 +25,9 @@ const OccurrenceCreate = (props: any) => {
           label="occurrences.fields.venue.label"
           source="venueId"
           reference="venues"
+          validate={[required()]}
         >
-          <SelectInput
-            optionText="translations.FI.name"
-            validate={[required()]}
-          />
+          <SelectInput optionText="translations.FI.name" />
         </ReferenceInput>
       </SimpleForm>
     </Create>
