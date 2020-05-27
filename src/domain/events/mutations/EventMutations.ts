@@ -37,6 +37,13 @@ export const updateEventMutation = gql`
           description
           shortDescription
         }
+        occurrences {
+          edges {
+            node {
+              id
+            }
+          }
+        }
       }
     }
   }
