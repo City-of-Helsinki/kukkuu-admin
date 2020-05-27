@@ -25,6 +25,7 @@ import { withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
+import * as Sentry from '@sentry/browser';
 
 import { participantsPerInviteChoices } from '../choices';
 import LanguageTabs from '../../../common/components/languageTab/LanguageTabs';
@@ -74,7 +75,8 @@ const PublishButton = ({ record }: { record?: AdminEvent }) => {
         refresh();
       },
       onFailure: (error: Error) => {
-        // TODO Send to Sentry
+        console.error(error);
+        Sentry.captureException(error);
         notify('events.show.publish.onSuccess.message', 'warning');
       },
     }

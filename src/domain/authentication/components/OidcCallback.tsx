@@ -8,6 +8,7 @@ import {
 import { CallbackComponent } from 'redux-oidc';
 import { User } from 'oidc-client';
 import { RouteChildrenProps } from 'react-router';
+import * as Sentry from '@sentry/browser';
 
 import userManager from '../userManager';
 import { fetchApiToken } from '../api';
@@ -21,9 +22,9 @@ function OidcCallback(props: RouteChildrenProps) {
 
   const handleError = (error: Error) => {
     notify(translate('ra.message.error'), 'warning');
+    Sentry.captureException(error);
     console.error(error);
     logout();
-    // TODO Add Sentry
   };
 
   const onSuccess = (user: User) => {

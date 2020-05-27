@@ -1,6 +1,10 @@
+import * as Sentry from '@sentry/browser';
+
 import userManager from './userManager';
 
 export const loginTunnistamo = () => {
-  userManager.signinRedirect();
-  // TODO Add error handling and Sentry
+  userManager.signinRedirect().catch((error) => {
+    Sentry.captureException(error);
+    console.error(error);
+  });
 };
