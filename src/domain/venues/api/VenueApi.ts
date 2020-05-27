@@ -56,7 +56,8 @@ const addVenue: MethodHandler = async (params: MethodHandlerParams) => {
 };
 
 const updateVenue: MethodHandler = async (params: MethodHandlerParams) => {
-  const data = mapLocalDataToApiData(params.data as AdminVenue);
+  const { occurrences, ...localUpdateData } = params.data;
+  const data = mapLocalDataToApiData(localUpdateData as AdminVenue);
   const response = await mutationHandler({
     mutation: updateVenueMutation,
     variables: { input: data },
