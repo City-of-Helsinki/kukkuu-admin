@@ -29,9 +29,6 @@
         },
         "label": "Huoltaja"
       },
-      "guardiansEmail": {
-        "label": "Huoltajan sähköposti"
-      },
       "name": {
         "label": "Nimi"
       },

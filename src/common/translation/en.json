@@ -29,9 +29,6 @@
         },
         "label": "Guardian"
       },
-      "guardiansEmail": {
-        "label": "Guardian's email"
-      },
       "name": {
         "label": "Name"
       },

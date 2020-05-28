@@ -78,7 +78,7 @@ const OccurrenceShow = (props: any) => {
             />
             <EmailField
               source="node.guardians.edges.0.node.email"
-              label="children.fields.guardiansEmail.label"
+              label="children.fields.guardians.fields.email.label"
             />
             <FunctionField
               render={(record: ChildEdge) =>
@@ -86,7 +86,7 @@ const OccurrenceShow = (props: any) => {
                   `languages.${record?.node?.guardians.edges[0]?.node?.language}`
                 )
               }
-              label="Kieli"
+              label="events.fields.language.label"
             />
           </Datagrid>
         </ArrayField>
