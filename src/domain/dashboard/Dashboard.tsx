@@ -10,6 +10,7 @@ import {
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
+import * as Sentry from '@sentry/browser';
 
 import { getProjectId } from '../profile/utils';
 import { getTranslatedField } from '../../common/translation/TranslationUtils';
@@ -29,7 +30,7 @@ export default () => {
     },
     {
       onFailure: (error: Error) => {
-        // TODO send to Sentry, maybe do something else as well?
+        Sentry.captureException(error);
         notify(translate('ra.message.error'), 'warning');
       },
     }

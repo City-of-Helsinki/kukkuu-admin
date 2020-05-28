@@ -4,6 +4,7 @@ import {
   MutationOptions,
 } from 'apollo-client';
 import { HttpError } from 'react-admin';
+import * as Sentry from '@sentry/browser';
 
 import client from '../client';
 import { API_ERROR_MESSAGE } from '../constants/ApiConstants';
@@ -54,6 +55,9 @@ export const queryHandler = async (
 
     if (error.graphQLErrors[0].extensions.code === 'PERMISSION_DENIED_ERROR') {
       console.error('Permission denied');
+    } else {
+      console.error(error);
+      Sentry.captureException(error);
     }
     throw new HttpError(error.message || API_ERROR_MESSAGE);
   }
@@ -65,6 +69,8 @@ export const mutationHandler = async (
   try {
     return await client.mutate(mutationOptions);
   } catch (error) {
+    console.error(error);
+    Sentry.captureException(error);
     throw new HttpError(error.message || API_ERROR_MESSAGE);
   }
 };
