@@ -14,15 +14,10 @@ const OccurrenceCreate = (props: any) => {
   const { event_id: eventId } = parse(props.location.search);
   const redirect = eventId ? `/events/${eventId}/show/1` : 'show';
 
-  const dateParser = (v: any) => {
-    console.log('parser!!!!');
-    console.log(v);
-  };
-
   return (
     <Create title="occurrences.create.title" {...props}>
       <SimpleForm initialValues={{ eventId }} redirect={redirect}>
-        <DateTimeTextInput required={true} parse={dateParser} />
+        <DateTimeTextInput required={true} inputName="time" label="Date&Time" />
         <ReferenceInput
           label="occurrences.fields.venue.label"
           source="venueId"

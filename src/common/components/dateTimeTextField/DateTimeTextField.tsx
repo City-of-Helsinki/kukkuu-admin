@@ -1,36 +1,18 @@
-import React from 'react';
-import { useInput, FunctionField } from 'react-admin';
-import TextField from '@material-ui/core/TextField';
+import React, { useState } from 'react';
+import { useField } from 'react-final-form';
+import { TextInput } from 'react-admin';
 import moment from 'moment';
 
 type Props = {
-  error?: any;
-  name: string;
-  label: string;
-  size?: 'big' | 'medium' | 'small';
-  placeholder?: string;
-  onChange?: any;
-  validate?: any;
+  inputName: string;
   required?: boolean;
+  label: string;
+  error?: string;
 };
 
-const BoundedTextField = (props: Props) => {
-  const {
-    input: { name, onChange },
-    meta: { touched, error },
-    isRequired,
-  } = useInput(props);
-  return (
-    <TextField
-      name={name}
-      label={props.label}
-      onChange={onChange}
-      error={!!(touched && error)}
-      helperText={touched && error}
-      required={isRequired}
-      margin={'normal'}
-    />
-  );
+type DateTime = {
+  date?: string;
+  timeTime?: string;
 };
 
 const validateDate = (value: string) => {
@@ -45,22 +27,52 @@ const validateTime = (value: string) => {
     : 'Time invalid, use format 12:30';
 };
 
-const DateTimeTextInput = (props: any) => {
+const DateTimeTextInput = ({ inputName, label, error }: Props) => {
+  console.log({ inputName, label, error });
+  const [time, setDateTime] = useState<DateTime>({
+    date: '',
+    timeTime: '',
+  });
+
+  const {
+    input: { value, onChange },
+  } = useField(inputName);
+  console.log('value');
+  console.log(value);
+  // e type is set to any for now. Event type returned from hds
+  // is set to ChangeEvent<Element> which doesn't contain
+  // target.value
+  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
+  const handleChange = (e: any) => {
+    e.persist();
+    console.log(e.target.id);
+    console.log(e.target.value);
+    setDateTime((previousDateTime) => ({
+      ...previousDateTime,
+      [e.target.id]: e.target.value,
+    }));
+    onChange((z: any) => {
+      console.log('onChange');
+      console.log(z);
+      return {
+        target: `${e.target.id === 'date' ? e.target.value : time.date}
+          ${e.target.id === 'timeTime' ? e.target.value : time.timeTime}`,
+      };
+    });
+  };
   return (
     <>
-      <BoundedTextField
-        validate={validateDate}
-        size="medium"
-        name="date"
+      <TextInput
+        id="date"
         label="Date (dd.mm.yyyy)"
-        required={props.required}
-      />{' '}
-      &nbsp; &nbsp;
-      <BoundedTextField
-        validate={validateTime}
-        name="time"
+        onChange={handleChange}
+        value={time.date}
+      />
+      <TextInput
+        id="timeTime"
         label="Time (hh:mm)"
-        required={props.required}
+        onChange={handleChange}
+        value={time.timeTime}
       />
     </>
   );
