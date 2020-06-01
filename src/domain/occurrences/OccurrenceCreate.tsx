@@ -4,23 +4,25 @@ import {
   SimpleForm,
   SelectInput,
   ReferenceInput,
-  DateTimeInput,
   required,
 } from 'react-admin';
 import { parse } from 'query-string';
+
+import DateTimeTextInput from '../../common/components/dateTimeTextField/DateTimeTextField';
 
 const OccurrenceCreate = (props: any) => {
   const { event_id: eventId } = parse(props.location.search);
   const redirect = eventId ? `/events/${eventId}/show/1` : 'show';
 
+  const dateParser = (v: any) => {
+    console.log('parser!!!!');
+    console.log(v);
+  };
+
   return (
     <Create title="occurrences.create.title" {...props}>
       <SimpleForm initialValues={{ eventId }} redirect={redirect}>
-        <DateTimeInput
-          label="occurrences.fields.time.label"
-          source="time"
-          validate={[required()]}
-        />
+        <DateTimeTextInput required={true} parse={dateParser} />
         <ReferenceInput
           label="occurrences.fields.venue.label"
           source="venueId"

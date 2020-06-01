@@ -1,4 +1,5 @@
 import { ApolloQueryResult } from 'apollo-client';
+import moment from 'moment-timezone';
 
 import { MethodHandler, MethodHandlerParams } from '../../../api/types';
 import {
@@ -14,6 +15,8 @@ import {
 import { Occurrences as ApiOccurrences } from '../../../api/generatedTypes/Occurrences';
 import { Occurrence_occurrence as ApiOccurrence } from '../../../api/generatedTypes/Occurrence';
 import { addOccurrenceMutation } from '../mutations/OccurrenceMutations';
+
+moment.tz.setDefault('Europe/Helsinki');
 
 const getOccurrences: MethodHandler = async (params: MethodHandlerParams) => {
   const response: ApolloQueryResult<ApiOccurrences> = await queryHandler({
@@ -37,6 +40,13 @@ const getOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
 
 const addOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
   const data = mapLocalDataToApiData(params.data);
+
+  // Combine two fields into one:
+  data.time = moment
+    .tz(`${data.date} ${data.time}`, 'D.M.YYYY HH:mm', true, 'Europe/Helsinki')
+    .toISOString();
+  data.date = undefined;
+
   const response = await mutationHandler({
     mutation: addOccurrenceMutation,
     variables: { input: data },
