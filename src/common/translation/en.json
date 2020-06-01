@@ -126,6 +126,9 @@
       }
     }
   },
+  "guardian": {
+    "name": "Guardian's name"
+  },
   "languages": {
     "EN": "English",
     "FI": "Finnish",

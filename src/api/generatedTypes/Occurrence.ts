@@ -40,6 +40,9 @@ export interface Occurrence_occurrence_children_edges_node_guardians_edges_node 
    */
   id: string;
   email: string | null;
+  firstName: string;
+  lastName: string;
+  language: Language;
 }
 
 export interface Occurrence_occurrence_children_edges_node_guardians_edges {

@@ -126,6 +126,9 @@
       }
     }
   },
+  "guardian": {
+    "name": "Huoltajan nimi"
+  },
   "languages": {
     "EN": "englanti",
     "FI": "suomi",
