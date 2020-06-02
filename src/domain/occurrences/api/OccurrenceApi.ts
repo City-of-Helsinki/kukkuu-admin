@@ -43,7 +43,7 @@ const addOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
 
   // Combine two fields into one:
   data.time = moment
-    .tz(`${data.date} ${data.time}`, 'D.M.YYYY HH:mm', true, 'Europe/Helsinki')
+    .tz(`${data.date} ${data.time}`, 'D.M.YYYY H:mm', true, 'Europe/Helsinki')
     .toISOString();
   data.date = undefined;
 

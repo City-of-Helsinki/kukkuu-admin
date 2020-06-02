@@ -38,13 +38,13 @@ const BoundedTextField = (props: Props & TextFieldProps) => {
 };
 
 const validateDate = (value: string) => {
-  return moment(value, 'DD.MM.YYYY', true).isValid()
+  return moment(value, 'D.M.YYYY', true).isValid()
     ? undefined
     : 'occurrences.fields.time.fields.date.errorMessage';
 };
 
 const validateTime = (value: string) => {
-  return moment(value, 'HH:mm', true).isValid()
+  return moment(value, 'H:mm', true).isValid()
     ? undefined
     : 'occurrences.fields.time.fields.time.errorMessage';
 };

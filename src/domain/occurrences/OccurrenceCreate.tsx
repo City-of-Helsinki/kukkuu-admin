@@ -17,9 +17,9 @@ const OccurrenceCreate = (props: any) => {
   return (
     <Create title="occurrences.create.title" {...props}>
       <SimpleForm
+        variant="outlined"
         initialValues={{ eventId }}
         redirect={redirect}
-        variant="outlined"
       >
         <DateTimeTextInput required={true} />
         <ReferenceInput
