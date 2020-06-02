@@ -157,9 +157,13 @@
       "time": {
         "fields": {
           "date": {
+            "errorMessage": "Date invalid, use format 29.02.2020",
+            "format": "dd.mm.yyyy",
             "label": "Date"
           },
           "time": {
+            "errorMessage": "Time invalid, use format 12:30",
+            "format": "hh:mm",
             "label": "Time"
           }
         },

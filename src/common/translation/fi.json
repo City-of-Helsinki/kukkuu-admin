@@ -157,9 +157,13 @@
       "time": {
         "fields": {
           "date": {
+            "errorMessage": "Päivämäärä kirjoitettu väärin, käytä muoto 29.02.2020",
+            "format": "pp.kk.vvvv",
             "label": "Päivämäärä"
           },
           "time": {
+            "errorMessage": "Kellonaika on kirjoittettu väärin, käytä muoto 12:30",
+            "format": "mm:tt",
             "label": "Kellonaika"
           }
         },
