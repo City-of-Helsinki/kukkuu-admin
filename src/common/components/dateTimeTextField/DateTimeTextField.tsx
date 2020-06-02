@@ -1,12 +1,11 @@
 import React from 'react';
 import { useInput, useTranslate } from 'react-admin';
 import TextField, { TextFieldProps } from '@material-ui/core/TextField';
-import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import moment from 'moment-timezone';
 
 const useStyles = makeStyles({
-  boundedTextField: { marginRight: '1rem' },
+  boundedTextField: { marginRight: '8px' },
 });
 
 type Props = {
@@ -58,7 +57,7 @@ const DateTimeTextInput = (props: any) => {
   )} (${translate('occurrences.fields.time.fields.time.format')})`;
 
   return (
-    <Box display="flex">
+    <>
       <BoundedTextField
         validate={validateDate}
         size="medium"
@@ -74,7 +73,7 @@ const DateTimeTextInput = (props: any) => {
         required={props.required}
         variant={props.variant}
       />
-    </Box>
+    </>
   );
 };
 
