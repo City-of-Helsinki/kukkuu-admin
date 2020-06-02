@@ -157,13 +157,13 @@
       "time": {
         "fields": {
           "date": {
-            "errorMessage": "Päivämäärä tulee antaa muodossa 29.2.2020",
+            "errorMessage": "Päivämäärä tulee antaa muodossa pp.kk.vvvv",
             "format": "pp.kk.vvvv",
             "label": "Päivämäärä"
           },
           "time": {
-            "errorMessage": "Kellonaika tulee antaa muodossa 12:30",
-            "format": "mm:tt",
+            "errorMessage": "Kellonaika tulee antaa muodossa tt:mm",
+            "format": "tt:mm",
             "label": "Kellonaika"
           }
         },
