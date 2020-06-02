@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 import moment from 'moment-timezone';
 
 const useStyles = makeStyles({
-  boundedTextField: { marginRight: '8px' },
+  boundedTextField: { marginRight: '8px', minWidth: '256px' },
 });
 
 type Props = {
