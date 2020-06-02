@@ -157,9 +157,13 @@
       "time": {
         "fields": {
           "date": {
+            "errorMessage": "Date invalid, use format dd.mm.yyyy",
+            "format": "dd.mm.yyyy",
             "label": "Date"
           },
           "time": {
+            "errorMessage": "Time invalid, use format hh:mm",
+            "format": "hh:mm",
             "label": "Time"
           }
         },

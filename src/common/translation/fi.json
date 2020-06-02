@@ -157,9 +157,13 @@
       "time": {
         "fields": {
           "date": {
+            "errorMessage": "Päivämäärä tulee antaa muodossa pp.kk.vvvv",
+            "format": "pp.kk.vvvv",
             "label": "Päivämäärä"
           },
           "time": {
+            "errorMessage": "Kellonaika tulee antaa muodossa tt:mm",
+            "format": "tt:mm",
             "label": "Kellonaika"
           }
         },
