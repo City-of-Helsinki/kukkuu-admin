@@ -13,7 +13,9 @@ type Props = {
 };
 
 const BoundedTextField = (props: Props & TextFieldProps) => {
+  const translate = useTranslate();
   const classes = useStyles();
+
   const { label, variant } = props;
   const {
     input: { name, onChange },
@@ -29,7 +31,7 @@ const BoundedTextField = (props: Props & TextFieldProps) => {
       label={label}
       onChange={onChange}
       error={!!(touched && error)}
-      helperText={touched && error}
+      helperText={touched && translate(error)}
       required={isRequired}
     />
   );
@@ -38,13 +40,13 @@ const BoundedTextField = (props: Props & TextFieldProps) => {
 const validateDate = (value: string) => {
   return moment(value, 'DD.MM.YYYY', true).isValid()
     ? undefined
-    : 'Date invalid, use format 29.02.2020';
+    : 'occurrences.fields.time.fields.date.errorMessage';
 };
 
 const validateTime = (value: string) => {
   return moment(value, 'HH:mm', true).isValid()
     ? undefined
-    : 'Time invalid, use format 12:30';
+    : 'occurrences.fields.time.fields.time.errorMessage';
 };
 
 const DateTimeTextInput = (props: any) => {
