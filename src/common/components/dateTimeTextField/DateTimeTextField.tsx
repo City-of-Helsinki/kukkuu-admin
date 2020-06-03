@@ -3,9 +3,11 @@ import { useInput, useTranslate } from 'react-admin';
 import TextField, { TextFieldProps } from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/styles';
 import moment from 'moment-timezone';
+import { Grid } from '@material-ui/core';
 
 const useStyles = makeStyles({
-  boundedTextField: { marginRight: '8px', minWidth: '256px' },
+  dateTimeTextInput: { flexGrow: 1 },
+  textFieldInput: { width: '100%' },
 });
 
 type Props = {
@@ -26,7 +28,8 @@ const BoundedTextField = (props: Props & TextFieldProps) => {
   return (
     <TextField
       variant={variant}
-      className={classes.boundedTextField}
+      className={classes.textFieldInput}
+      size="small"
       name={name}
       label={label}
       onChange={onChange}
@@ -50,7 +53,9 @@ const validateTime = (value: string) => {
 };
 
 const DateTimeTextInput = (props: any) => {
+  const classes = useStyles();
   const translate = useTranslate();
+
   const dateLabel = `${translate(
     'occurrences.fields.time.fields.date.label'
   )} (${translate('occurrences.fields.time.fields.date.format')})`;
@@ -59,23 +64,28 @@ const DateTimeTextInput = (props: any) => {
   )} (${translate('occurrences.fields.time.fields.time.format')})`;
 
   return (
-    <>
-      <BoundedTextField
-        validate={validateDate}
-        size="medium"
-        name="date"
-        label={dateLabel}
-        required={props.required}
-        variant={props.variant}
-      />
-      <BoundedTextField
-        validate={validateTime}
-        name="time"
-        label={timeLabel}
-        required={props.required}
-        variant={props.variant}
-      />
-    </>
+    <div className={classes.dateTimeTextInput}>
+      <Grid container spacing={1}>
+        <Grid item md={6}>
+          <BoundedTextField
+            validate={validateDate}
+            name="date"
+            label={dateLabel}
+            required={props.required}
+            variant={props.variant}
+          />
+        </Grid>
+        <Grid item md={6}>
+          <BoundedTextField
+            validate={validateTime}
+            name="time"
+            label={timeLabel}
+            required={props.required}
+            variant={props.variant}
+          />
+        </Grid>
+      </Grid>
+    </div>
   );
 };
 
