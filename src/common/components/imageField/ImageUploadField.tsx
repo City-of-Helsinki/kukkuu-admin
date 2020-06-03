@@ -1,11 +1,7 @@
 import React from 'react';
 import { ImageInput, ImageField, useTranslate } from 'react-admin';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
-import { makeStyles } from '@material-ui/styles';
-
-const useStyles = makeStyles({
-  imageInputPlaceholder: { display: 'inline-flex', alignItems: 'center' },
-});
+import Box from '@material-ui/core/Box';
 
 /**
  * Ensure that the preview works after user chooses image from their computer
@@ -26,7 +22,6 @@ function formatImage(value: string | File) {
 }
 
 const ImageUploadField = (props: any) => {
-  const classes = useStyles();
   const translate = useTranslate();
 
   const { name, edit, image } = props;
@@ -38,10 +33,10 @@ const ImageUploadField = (props: any) => {
       label={'events.fields.image.label'}
       accept="image/*"
       placeholder={
-        <div className={classes.imageInputPlaceholder}>
+        <Box display="inline-flex" alignItems="center">
           <InsertPhotoIcon />
           {translate('events.fields.imageInput.label')}
-        </div>
+        </Box>
       }
     >
       <ImageField source="image" title="title" />
