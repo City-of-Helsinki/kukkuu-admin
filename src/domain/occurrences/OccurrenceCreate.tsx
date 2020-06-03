@@ -16,7 +16,7 @@ const OccurrenceCreate = (props: any) => {
   const redirect = eventId ? `/events/${eventId}/show/1` : 'show';
 
   return (
-    <Grid container direction="column" xs={8} item={true}>
+    <Grid container direction="column" xs={6} item={true}>
       <Create title="occurrences.create.title" {...props}>
         <SimpleForm
           variant="outlined"

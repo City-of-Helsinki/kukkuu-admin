@@ -29,6 +29,7 @@ const BoundedTextField = (props: Props & TextFieldProps) => {
     <TextField
       variant={variant}
       className={classes.textFieldInput}
+      size="small"
       name={name}
       label={label}
       onChange={onChange}
@@ -64,18 +65,17 @@ const DateTimeTextInput = (props: any) => {
 
   return (
     <div className={classes.dateTimeTextInput}>
-      <Grid container spacing={3} alignItems="stretch">
-        <Grid item xs={6}>
+      <Grid container spacing={1}>
+        <Grid item md={6}>
           <BoundedTextField
             validate={validateDate}
-            size="medium"
             name="date"
             label={dateLabel}
             required={props.required}
             variant={props.variant}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item md={6}>
           <BoundedTextField
             validate={validateTime}
             name="time"
