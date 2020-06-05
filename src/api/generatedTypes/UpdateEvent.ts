@@ -17,6 +17,27 @@ export interface UpdateEvent_updateEvent_event_translations {
   shortDescription: string;
 }
 
+export interface UpdateEvent_updateEvent_event_occurrences_edges_node {
+  /**
+   * The ID of the object.
+   */
+  id: string;
+}
+
+export interface UpdateEvent_updateEvent_event_occurrences_edges {
+  /**
+   * The item at the end of the edge
+   */
+  node: UpdateEvent_updateEvent_event_occurrences_edges_node | null;
+}
+
+export interface UpdateEvent_updateEvent_event_occurrences {
+  /**
+   * Contains the nodes in this connection.
+   */
+  edges: (UpdateEvent_updateEvent_event_occurrences_edges | null)[];
+}
+
 export interface UpdateEvent_updateEvent_event {
   /**
    * The ID of the object.
@@ -30,6 +51,7 @@ export interface UpdateEvent_updateEvent_event {
    */
   duration: number | null;
   translations: UpdateEvent_updateEvent_event_translations[];
+  occurrences: UpdateEvent_updateEvent_event_occurrences;
 }
 
 export interface UpdateEvent_updateEvent {

@@ -23,3 +23,35 @@ export const addOccurrenceMutation = gql`
     }
   }
 `;
+
+export const updateOccurrenceMutation = gql`
+  mutation updateOccurrence($input: UpdateOccurrenceMutationInput!) {
+    updateOccurrence(input: $input) {
+      occurrence {
+        id
+        time
+        event {
+          id
+          capacityPerOccurrence
+          duration
+        }
+        enrolmentCount
+        venue {
+          id
+          translations {
+            languageCode
+            name
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const deleteOccurrenceMutation = gql`
+  mutation deleteOccurrence($input: DeleteOccurrenceMutationInput!) {
+    deleteOccurrence(input: $input) {
+      clientMutationId
+    }
+  }
+`;

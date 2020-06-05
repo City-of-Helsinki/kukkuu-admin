@@ -23,6 +23,8 @@ import {
   addOccurrence,
   getOccurrences,
   getOccurrence,
+  updateOccurrence,
+  deleteOccurrence,
 } from '../domain/occurrences/api/OccurrenceApi';
 import { getChild, getChildren } from '../domain/children/api/ChildApi';
 import { getMyAdminProfile } from '../domain/profile/api';
@@ -50,6 +52,8 @@ const METHOD_HANDLERS: MethodHandlers = {
     LIST: getEvents,
     ONE: getOccurrence,
     CREATE: addOccurrence,
+    UPDATE: updateOccurrence,
+    DELETE: deleteOccurrence,
     MANY_REFERENCE: getOccurrences,
   },
   children: {
