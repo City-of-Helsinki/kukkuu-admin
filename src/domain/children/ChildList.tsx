@@ -11,11 +11,17 @@ import {
 
 import { Children_children_edges_node as Child } from '../../api/generatedTypes/Children';
 import { languageChoices } from '../../common/choices';
+import Aside from '../../common/components/aside/Aside';
 
 const ChildList = (props: any) => {
   const locale = useLocale();
   return (
-    <List title="children.list.title" bulkActionButtons={false} {...props}>
+    <List
+      title="children.list.title"
+      bulkActionButtons={false}
+      aside={<Aside content="children.list.aside.content" />}
+      {...props}
+    >
       <Datagrid rowClick="show">
         <FunctionField
           label="children.fields.name.label"

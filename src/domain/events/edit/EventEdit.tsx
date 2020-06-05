@@ -11,6 +11,7 @@ import {
   DeleteButton,
 } from 'react-admin';
 import { Grid } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 import LanguageTabs from '../../../common/components/languageTab/LanguageTabs';
 import { Language } from '../../../api/generatedTypes/globalTypes';
@@ -33,6 +34,30 @@ const EventEditToolbar = (props: any) => {
   );
 };
 
+const Aside = () => (
+  <div style={{ width: 200, margin: '1em' }}>
+    <Typography variant="h6">Tapahtuman muokkaus</Typography>
+    <Typography variant="body2">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis
+        leo et sapien aliquam malesuada. Mauris finibus eget nulla ut tempor.
+        Mauris sodales mi ac ex semper, vitae luctus tellus bibendum.
+      </p>
+      <p>
+        Fusce et feugiat eros. Aliquam ornare blandit sem, id suscipit ex dictum
+        eu. Sed nec orci at turpis commodo dapibus. Quisque ut facilisis augue.
+        Mauris mattis quam ac ligula fermentum auctor.
+      </p>
+      <p>
+        Sed fringilla dolor ut metus pulvinar tempor. Praesent rhoncus semper
+        vestibulum. Vestibulum at nisi at orci pretium condimentum ut vulputate
+        ex. Aliquam pretium placerat lectus quis cursus. Praesent tincidunt nisi
+        ac ipsum gravida aliquet.
+      </p>
+    </Typography>
+  </div>
+);
+
 const EventEdit = (props: any) => {
   const [selectedLanguage, selectLanguage] = useState(Language.FI);
   const translation = `translations.${selectedLanguage}`;
@@ -40,7 +65,12 @@ const EventEdit = (props: any) => {
   // Undoable is false to prevent image from appearing while waiting for backend result.
   return (
     <Grid container direction="column" xs={6} item={true}>
-      <Edit undoable={false} title={'events.edit.title'} {...props}>
+      <Edit
+        undoable={false}
+        title={'events.edit.title'}
+        aside={<Aside />}
+        {...props}
+      >
         <SimpleForm
           variant="outlined"
           redirect="show"
@@ -64,6 +94,7 @@ const EventEdit = (props: any) => {
             label="events.fields.name.label"
             validate={selectedLanguage === Language.FI ? required() : null}
             fullWidth
+            helperText="Tähän laitetaan tapahtuman nimi"
           />
           <TextInput
             source={`${translation}.shortDescription`}

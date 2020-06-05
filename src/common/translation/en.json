@@ -38,7 +38,9 @@
     },
     "list": {
       "title": "Culture Kids",
-      "helperText": ""
+      "aside": {
+        "content": ""
+      }
     },
     "show": {
       "title": "Culture Kid"
@@ -50,7 +52,9 @@
   "events": {
     "create": {
       "title": "Create event",
-      "helperText": ""
+      "aside": {
+        "content": ""
+      }
     },
     "edit": {
       "title": "Edit event"
@@ -112,7 +116,10 @@
       }
     },
     "list": {
-      "title": "Events"
+      "title": "Events",
+      "aside": {
+        "content": ""
+      }
     },
     "show": {
       "publish": {
@@ -191,7 +198,10 @@
   },
   "venues": {
     "create": {
-      "title": "Create venue"
+      "title": "Create venue",
+      "aside": {
+        "content": ""
+      }
     },
     "fields": {
       "accessibilityInfo": {
@@ -220,7 +230,9 @@
     },
     "list": {
       "title": "Venues",
-      "helperText": ""
+      "aside": {
+        "content": ""
+      }
     }
   }
 }

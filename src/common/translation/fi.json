@@ -38,7 +38,9 @@
     },
     "list": {
       "title": "Kummilapset",
-      "helperText": "Täältä näet kaikki palveluun rekisteröityneet käyttäjät ja kummilapset. "
+      "aside": {
+        "content": "Täältä näet kaikki palveluun rekisteröityneet käyttäjät ja kummilapset. "
+      }
     },
     "show": {
       "title": "Kummilapsi"
@@ -50,7 +52,9 @@
   "events": {
     "create": {
       "title": "Luo tapahtuma",
-      "helperText": "Luo tapahtuma, lisää sille kuva, kuvaus ja kuvausteksti. Muista lisätä tiedot myös ruotsiksi ja englanniksi."
+      "aside": {
+        "content": "Luo tapahtuma, lisää sille kuva, kuvaus ja kuvausteksti. Muista lisätä tiedot myös ruotsiksi ja englanniksi. Lisää tapahtumalle tapahtumapaikat ja ajankohdat Tapahtuma-ajankohdat osiossa"
+      }
     },
     "edit": {
       "title": "Muokkaa tapahtumaa"
@@ -112,7 +116,10 @@
       }
     },
     "list": {
-      "title": "Tapahtumat"
+      "title": "Tapahtumat",
+      "aside": {
+        "content": "Täältä näet listan tapahtumistasi."
+      }
     },
     "show": {
       "publish": {
@@ -191,7 +198,10 @@
   },
   "venues": {
     "create": {
-      "title": "Luo uusi tapahtumapaikka"
+      "title": "Luo uusi tapahtumapaikka",
+      "aside": {
+        "content": "Lisää tapahtumapaikkoja. Lisättyäsi tapahtumapaikan voit helposti liittää sen tapahtuma-ajankohtaan"
+      }
     },
     "fields": {
       "accessibilityInfo": {
@@ -220,7 +230,9 @@
     },
     "list": {
       "title": "Tapahtumapaikat",
-      "helperText": "Täältä näet lisäämäsi tapahtumapaikat. Lisättyäsi tapahtumapaikan voit helposti liittää sen tapahtuma-ajankohtaan"
+      "aside": {
+        "content": "Täältä näet lisäämäsi tapahtumapaikat. Lisättyäsi tapahtumapaikan voit helposti liittää sen tapahtuma-ajankohtaan"
+      }
     }
   }
 }

@@ -20,6 +20,7 @@ import {
 } from '../validations';
 import { participantsPerInviteChoices } from '../choices';
 import ImageUploadField from '../../../common/components/imageField/ImageUploadField';
+import Aside from '../../../common/components/aside/Aside';
 
 const EventCreate = (props: any) => {
   const [selectedLanguage, selectLanguage] = useState(Language.FI);
@@ -27,7 +28,11 @@ const EventCreate = (props: any) => {
 
   return (
     <Grid container direction="column" xs={6} item={true}>
-      <Create title="events.create.title" {...props}>
+      <Create
+        title="events.create.title"
+        aside={<Aside content="events.create.aside.content" />}
+        {...props}
+      >
         <SimpleForm variant="outlined" redirect="show" validate={validateEvent}>
           <LanguageTabs
             selectedLanguage={selectedLanguage}

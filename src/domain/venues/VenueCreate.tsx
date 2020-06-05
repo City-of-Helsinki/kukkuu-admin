@@ -5,6 +5,7 @@ import { Grid } from '@material-ui/core';
 import { Language } from '../../api/generatedTypes/globalTypes';
 import LanguageTabs from '../../common/components/languageTab/LanguageTabs';
 import { validateVenue } from './validations';
+import Aside from '../../common/components/aside/Aside';
 
 const VenueCreate = (props: any) => {
   const [selectedLanguage, selectLanguage] = useState(Language.FI);
@@ -12,7 +13,11 @@ const VenueCreate = (props: any) => {
 
   return (
     <Grid container direction="column" xs={6} item={true}>
-      <Create title="venues.create.title" {...props}>
+      <Create
+        title="venues.create.title"
+        aside={<Aside content="venues.create.aside.content" />}
+        {...props}
+      >
         <SimpleForm variant="outlined" redirect="show" validate={validateVenue}>
           <LanguageTabs
             selectedLanguage={selectedLanguage}
