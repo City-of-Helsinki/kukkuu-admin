@@ -54,45 +54,51 @@ const EventEdit = (props: any) => {
           <ImageUploadField edit={true} name="image" source="image" />
           <TextInput
             source={`${translation}.imageAltText`}
-            label={'events.fields.imageAltText.label'}
+            label="events.fields.imageAltText.label"
+            helperText="events.fields.imageAltText.helperText"
             validate={null}
             fullWidth
           />
           <TextInput
             source={`${translation}.name`}
-            label={'events.fields.name.label'}
+            label="events.fields.name.label"
             validate={selectedLanguage === Language.FI ? required() : null}
             fullWidth
           />
           <TextInput
             source={`${translation}.shortDescription`}
-            label={'events.fields.shortDescription.label'}
+            label="events.fields.shortDescription.label"
+            helperText="events.fields.shortDescription.helperText"
             validate={validateShortDescription}
             multiline
             fullWidth
           />
           <TextInput
             source={`${translation}.description`}
-            label={'events.fields.description.label'}
+            label="events.fields.description.label"
+            helperText="events.fields.description.helperText"
             multiline
             fullWidth
           />
           <SelectInput
             source="participantsPerInvite"
-            label={'events.fields.participantsPerInvite.label'}
+            label="events.fields.participantsPerInvite.label"
+            helperText="events.fields.participantsPerInvite.helperText"
             choices={participantsPerInviteChoices}
             validate={validateParticipantsPerInvite}
             fullWidth
           />
           <NumberInput
             source="capacityPerOccurrence"
-            label={'events.fields.capacityPerOccurrence.label'}
+            label="events.fields.capacityPerOccurrence.label"
+            helperText="events.fields.capacityPerOccurrence.helperText"
             validate={validateCapacityPerOccurrence}
             fullWidth
           />
           <NumberInput
             source="duration"
-            label={'events.fields.duration.label'}
+            label="events.fields.duration.label"
+            helperText="events.fields.duration.helperText"
             validate={validateDuration}
             fullWidth
           />

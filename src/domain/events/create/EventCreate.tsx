@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Create,
   TextInput,
-  useTranslate,
   SimpleForm,
   SelectInput,
   NumberInput,
@@ -23,13 +22,12 @@ import { participantsPerInviteChoices } from '../choices';
 import ImageUploadField from '../../../common/components/imageField/ImageUploadField';
 
 const EventCreate = (props: any) => {
-  const translate = useTranslate();
   const [selectedLanguage, selectLanguage] = useState(Language.FI);
   const translation = `translations.${selectedLanguage}`;
 
   return (
     <Grid container direction="column" xs={6} item={true}>
-      <Create title={translate('events.create.title')} {...props}>
+      <Create title="events.create.title" {...props}>
         <SimpleForm variant="outlined" redirect="show" validate={validateEvent}>
           <LanguageTabs
             selectedLanguage={selectedLanguage}
@@ -38,45 +36,51 @@ const EventCreate = (props: any) => {
           <ImageUploadField edit={true} source="image" image="image" />
           <TextInput
             source={`${translation}.imageAltText`}
-            label={'events.fields.imageAltText.label'}
+            label="events.fields.imageAltText.label"
+            helperText="events.fields.imageAltText.helperText"
             validate={null}
             fullWidth
           />
           <TextInput
             source={`${translation}.name`}
-            label={translate('events.fields.name.label')}
+            label="events.fields.name.label"
             validate={selectedLanguage === Language.FI ? required() : null}
             fullWidth
           />
           <TextInput
             source={`${translation}.shortDescription`}
-            label={translate('events.fields.shortDescription.label')}
+            label="events.fields.shortDescription.label"
+            helperText="events.fields.shortDescription.helperText"
             validate={validateShortDescription}
             multiline
             fullWidth
           />
           <TextInput
             source={`${translation}.description`}
-            label={translate('events.fields.description.label')}
+            label="events.fields.description.label"
+            helperText="events.fields.description.helperText"
             multiline
             fullWidth
           />
           <SelectInput
             source="participantsPerInvite"
-            label={translate('events.fields.participantsPerInvite.label')}
+            label="events.fields.participantsPerInvite.label"
+            helperText="events.fields.participantsPerInvite.helperText"
             choices={participantsPerInviteChoices}
             validate={validateParticipantsPerInvite}
             fullWidth
           />
           <NumberInput
             source="capacityPerOccurrence"
-            label={translate('events.fields.capacityPerOccurrence.label')}
+            label="events.fields.capacityPerOccurrence.label"
+            helperText="events.fields.capacityPerOccurrence.helperText"
             validate={validateCapacityPerOccurrence}
             fullWidth
           />
           <NumberInput
             source="duration"
-            label={translate('events.fields.duration.label')}
+            label="events.fields.duration.label"
+            helperText="events.fields.duration.helperText"
             validate={validateDuration}
             fullWidth
           />
