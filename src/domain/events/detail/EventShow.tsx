@@ -152,6 +152,16 @@ const EventShow: FunctionComponent = (props: any) => {
             label={'events.fields.name.label'}
           />
 
+          <TextField
+            source={`translations.${language}.shortDescription`}
+            label={'events.fields.shortDescription.label'}
+          />
+
+          <TextField
+            source={`translations.${language}.description`}
+            label={'events.fields.description.label'}
+          />
+
           <SelectField
             source="participantsPerInvite"
             label={'events.fields.participantsPerInvite.label'}

@@ -14,7 +14,10 @@ export interface Child_child_guardians_edges_node {
    * The ID of the object.
    */
   id: string;
-  email: string | null;
+  /**
+   * If left blank, will be populated with the user's email.
+   */
+  email: string;
   language: Language;
   firstName: string;
   lastName: string;

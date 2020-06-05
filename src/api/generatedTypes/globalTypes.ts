@@ -50,6 +50,11 @@ export interface DeleteEventMutationInput {
   clientMutationId?: string | null;
 }
 
+export interface DeleteOccurrenceMutationInput {
+  id: string;
+  clientMutationId?: string | null;
+}
+
 export interface DeleteVenueMutationInput {
   id: string;
   clientMutationId?: string | null;
@@ -76,6 +81,15 @@ export interface UpdateEventMutationInput {
   image?: any | null;
   translations?: (EventTranslationsInput | null)[] | null;
   projectId?: string | null;
+  clientMutationId?: string | null;
+}
+
+export interface UpdateOccurrenceMutationInput {
+  id: string;
+  time?: any | null;
+  eventId?: string | null;
+  venueId?: string | null;
+  occurrenceLanguage?: Language | null;
   clientMutationId?: string | null;
 }
 

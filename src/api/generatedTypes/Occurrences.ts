@@ -39,7 +39,10 @@ export interface Occurrences_occurrences_edges_node_children_edges_node_guardian
    * The ID of the object.
    */
   id: string;
-  email: string | null;
+  /**
+   * If left blank, will be populated with the user's email.
+   */
+  email: string;
   firstName: string;
   lastName: string;
   language: Language;

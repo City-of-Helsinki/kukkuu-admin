@@ -14,7 +14,11 @@ import {
 } from '../queries/OccurrenceQueries';
 import { Occurrences as ApiOccurrences } from '../../../api/generatedTypes/Occurrences';
 import { Occurrence_occurrence as ApiOccurrence } from '../../../api/generatedTypes/Occurrence';
-import { addOccurrenceMutation } from '../mutations/OccurrenceMutations';
+import {
+  addOccurrenceMutation,
+  updateOccurrenceMutation,
+  deleteOccurrenceMutation,
+} from '../mutations/OccurrenceMutations';
 
 moment.tz.setDefault('Europe/Helsinki');
 
@@ -38,14 +42,18 @@ const getOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
   return data;
 };
 
+// Combine two fields into one:
+const normalizeTime = (date: string, time: string) => {
+  return moment
+    .tz(`${date} ${time}`, 'D.M.YYYY H:mm', true, 'Europe/Helsinki')
+    .toISOString();
+};
+
 const addOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
   const data = mapLocalDataToApiData(params.data);
-
-  // Combine two fields into one:
-  data.time = moment
-    .tz(`${data.date} ${data.time}`, 'D.M.YYYY H:mm', true, 'Europe/Helsinki')
-    .toISOString();
+  data.time = normalizeTime(data.date, data.timeField);
   data.date = undefined;
+  data.timeField = undefined;
 
   const response = await mutationHandler({
     mutation: addOccurrenceMutation,
@@ -56,4 +64,46 @@ const addOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
     : null;
 };
 
-export { getOccurrences, getOccurrence, addOccurrence };
+const updateOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
+  const { ...localUpdateData } = params.data;
+  const {
+    id,
+    timeField,
+    date,
+    venue,
+    occurrenceLanguage,
+    event,
+  } = localUpdateData;
+
+  const data = {
+    id,
+    venueId: venue.id,
+    time: normalizeTime(date, timeField),
+    occurrenceLanguage,
+    eventId: event.id,
+  };
+
+  const response = await mutationHandler({
+    mutation: updateOccurrenceMutation,
+    variables: { input: data },
+  });
+  return response.data?.updateOccurrence.occurrence
+    ? mapApiDataToLocalData(response.data.updateOccurrence.occurrence)
+    : null;
+};
+
+const deleteOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
+  await mutationHandler({
+    mutation: deleteOccurrenceMutation,
+    variables: { input: { id: params.id } },
+  });
+  return { id: params.id };
+};
+
+export {
+  getOccurrences,
+  getOccurrence,
+  addOccurrence,
+  updateOccurrence,
+  deleteOccurrence,
+};
