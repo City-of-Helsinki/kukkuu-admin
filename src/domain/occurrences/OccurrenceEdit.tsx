@@ -54,7 +54,10 @@ const OccurrenceEdit = (props: any) => {
             validate={[required()]}
             fullWidth
           >
-            <SelectInput optionText="translations.FI.name" />
+            <SelectInput
+              optionText="translations.FI.name"
+              helperText="occurrences.fields.venue.helperText"
+            />
           </ReferenceInput>
         </SimpleForm>
       </Edit>

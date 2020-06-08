@@ -37,7 +37,10 @@
       }
     },
     "list": {
-      "title": "Kummilapset"
+      "title": "Kummilapset",
+      "aside": {
+        "content": "Täältä näet kaikki palveluun rekisteröityneet käyttäjät ja kummilapset. "
+      }
     },
     "show": {
       "title": "Kummilapsi"
@@ -48,29 +51,37 @@
   },
   "events": {
     "create": {
-      "title": "Luo tapahtuma"
+      "title": "Luo tapahtuma",
+      "aside": {
+        "content": "Luo tapahtuma, lisää sille kuva, kuvaus ja kuvausteksti. Muista lisätä tiedot myös ruotsiksi ja englanniksi. Lisää tapahtumalle tapahtumapaikat ja ajankohdat Tapahtuma-ajankohdat osiossa"
+      }
     },
     "edit": {
       "title": "Muokkaa tapahtumaa"
     },
     "fields": {
       "capacityPerOccurrence": {
-        "label": "Tilaisuuden kapasiteetti"
+        "label": "Tilaisuuden kapasiteetti",
+        "helperText": "Montako ilmoittautumista tapahtumaan vastaanotetaan. Huomioithan että todellinen osallistujamäärä on kapasiteetti kerrottuna sillä montako henkilöä kutsua kohti tapahtumana voi osallistua."
       },
       "description": {
-        "label": "Kuvaus"
+        "label": "Kuvaus",
+        "helperText": "Tämä kuvaus näkyy tapahtumasivulla ja kummilapselle lähtevässä tapahtumakutsusähköpostiviestissä."
       },
       "duration": {
-        "label": "Kesto"
+        "label": "Kesto",
+        "helperText": "Tapahtuman kesto minuuteina"
       },
       "id": {
         "label": "ID"
       },
       "image": {
-        "label": "Kuva"
+        "label": "Kuva",
+        "helperText": "Kuvan tulee olla vähintään 1400px leveä ja tärkein sisältö mielellään kuvan yläosassa, jotta tämä toimisi tapahtumasivun taustakuvana."
       },
       "imageAltText": {
-        "label": "Kuvan alt-teksti"
+        "label": "Kuvan alt-teksti",
+        "helperText": "Lisää kuvan alt-tekstiin kuvaajan nimi ja kuvaus siitä mitä kuva esittää"
       },
       "imageInput": {
         "label": "Valitse ladattava kuva"
@@ -93,17 +104,22 @@
             "label": "Perhe"
           }
         },
-        "label": "Osallistujat kutsua kohden"
+        "label": "Osallistujat kutsua kohden",
+        "helperText": "Montako henkilöä tapantumaan voi yhdellä kutsulla osallistua"
       },
       "publishedAt": {
         "label": "Julkaistu"
       },
       "shortDescription": {
-        "label": "Lyhyt kuvaus"
+        "label": "Lyhyt kuvaus",
+        "helperText": "Tämä näkyy kummilapsen omalla sivulla ilmestyvässä kutsussa. Maksimissaan 140 merkkiä"
       }
     },
     "list": {
-      "title": "Tapahtumat"
+      "title": "Tapahtumat",
+      "aside": {
+        "content": "Täältä näet listan tapahtumistasi."
+      }
     },
     "show": {
       "publish": {
@@ -159,7 +175,8 @@
           "date": {
             "errorMessage": "Päivämäärä tulee antaa muodossa pp.kk.vvvv",
             "format": "pp.kk.vvvv",
-            "label": "Päivämäärä"
+            "label": "Päivämäärä",
+            "helperText": "Tapahtuman päivämäärä"
           },
           "time": {
             "errorMessage": "Kellonaika tulee antaa muodossa tt:mm",
@@ -167,10 +184,12 @@
             "label": "Kellonaika"
           }
         },
-        "label": "Aika"
+        "label": "Aika",
+        "helperText": "Tapahtuman alkamiskellonaika"
       },
       "venue": {
-        "label": "Tapahtumapaikka"
+        "label": "Tapahtumapaikka",
+        "helperText": "Mikäli valikosta ei löydy haluamaasi tapahtumapaikkaa, lisää se tapahtumapaikat -osiosta."
       }
     },
     "show": {
@@ -179,30 +198,41 @@
   },
   "venues": {
     "create": {
-      "title": "Luo uusi tapahtumapaikka"
+      "title": "Luo uusi tapahtumapaikka",
+      "aside": {
+        "content": "Lisää tapahtumapaikkoja. Lisättyäsi tapahtumapaikan voit helposti liittää sen tapahtuma-ajankohtaan"
+      }
     },
     "fields": {
       "accessibilityInfo": {
-        "label": "Esteettömyystiedot"
+        "label": "Esteettömyystiedot",
+        "helperText": "Kerro tiedot paikan esteettömyydestä. Kerro erityisesti miten paikalle pääsee lastenvaunuilla ja voiko ne jättää johonkin"
       },
       "additionalInfo": {
-        "label": "Lisätiedot"
+        "label": "Lisätiedot",
+        "helperText": "Tähän tietoa tapahtumapaikan muista palveluista, esimerkiksi kahvilasta tai ruoan lämmitysmahdollisuudesta"
       },
       "address": {
-        "label": "Osoite"
+        "label": "Osoite",
+        "helperText": "Lisää tapahtumapaikan osoite kokonaisuudessaan, myös postinumero ja toimipaikka (esim. Mannerheimintie 13 A, 00100 Helsinki)"
       },
       "arrivalInstructions": {
-        "label": "Saapumisohjeet"
+        "label": "Saapumisohjeet",
+        "helperText": "Kerro miten tapahtumapaikalle pääsee julkisella liikenteellä, sekä esimerkiksi tiedot pysäköintipaikkojen määrästä ja maksullisuudesta"
       },
       "description": {
         "label": "Kuvaus"
       },
       "name": {
-        "label": "Nimi"
+        "label": "Nimi",
+        "helperText": "Lisää tapahtumapaikan nimi, liitä nimeen myös huone tai sali (esim. Musiikkitalo, Harjoitussali Paavo)"
       }
     },
     "list": {
-      "title": "Tapahtumapaikat"
+      "title": "Tapahtumapaikat",
+      "aside": {
+        "content": "Täältä näet lisäämäsi tapahtumapaikat. Lisättyäsi tapahtumapaikan voit helposti liittää sen tapahtuma-ajankohtaan"
+      }
     }
   }
 }

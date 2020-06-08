@@ -37,7 +37,10 @@
       }
     },
     "list": {
-      "title": "Culture Kids"
+      "title": "Culture Kids",
+      "aside": {
+        "content": ""
+      }
     },
     "show": {
       "title": "Culture Kid"
@@ -48,29 +51,37 @@
   },
   "events": {
     "create": {
-      "title": "Create event"
+      "title": "Create event",
+      "aside": {
+        "content": ""
+      }
     },
     "edit": {
       "title": "Edit event"
     },
     "fields": {
       "capacityPerOccurrence": {
-        "label": "Capacity per occurrence"
+        "label": "Capacity per occurrence",
+        "helperText": ""
       },
       "description": {
-        "label": "Description"
+        "label": "Description",
+        "helperText": ""
       },
       "duration": {
-        "label": "Duration"
+        "label": "Duration",
+        "helperText": ""
       },
       "id": {
         "label": "ID"
       },
       "image": {
-        "label": "Image"
+        "label": "Image",
+        "helperText": ""
       },
       "imageAltText": {
-        "label": "Image alt text"
+        "label": "Image alt text",
+        "helperText": ""
       },
       "imageInput": {
         "label": "Select image to upload"
@@ -93,17 +104,22 @@
             "label": "Family"
           }
         },
-        "label": "Participants per invite"
+        "label": "Participants per invite",
+        "helperText": ""
       },
       "publishedAt": {
         "label": "Published at"
       },
       "shortDescription": {
-        "label": "Short Description"
+        "label": "Short Description",
+        "helperText": ""
       }
     },
     "list": {
-      "title": "Events"
+      "title": "Events",
+      "aside": {
+        "content": ""
+      }
     },
     "show": {
       "publish": {
@@ -159,7 +175,8 @@
           "date": {
             "errorMessage": "Date invalid, use format dd.mm.yyyy",
             "format": "dd.mm.yyyy",
-            "label": "Date"
+            "label": "Date",
+            "helperText": ""
           },
           "time": {
             "errorMessage": "Time invalid, use format hh:mm",
@@ -167,10 +184,12 @@
             "label": "Time"
           }
         },
-        "label": "Time"
+        "label": "Time",
+        "helperText": ""
       },
       "venue": {
-        "label": "Venue"
+        "label": "Venue",
+        "helperText": ""
       }
     },
     "show": {
@@ -179,30 +198,41 @@
   },
   "venues": {
     "create": {
-      "title": "Create venue"
+      "title": "Create venue",
+      "aside": {
+        "content": ""
+      }
     },
     "fields": {
       "accessibilityInfo": {
-        "label": "Accessibility info"
+        "label": "Accessibility info",
+        "helperText": ""
       },
       "additionalInfo": {
-        "label": "Additional info"
+        "label": "Additional info",
+        "helperText": ""
       },
       "address": {
-        "label": "Address"
+        "label": "Address",
+        "helperText": ""
       },
       "arrivalInstructions": {
-        "label": "Arrival instructions"
+        "label": "Arrival instructions",
+        "helperText": ""
       },
       "description": {
         "label": "Description"
       },
       "name": {
-        "label": "Name"
+        "label": "Name",
+        "helperText": ""
       }
     },
     "list": {
-      "title": "Venues"
+      "title": "Venues",
+      "aside": {
+        "content": ""
+      }
     }
   }
 }

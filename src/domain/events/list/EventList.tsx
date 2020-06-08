@@ -12,13 +12,19 @@ import {
 
 import { getTranslatedField } from '../../../common/translation/TranslationUtils';
 import { participantsPerInviteChoices } from '../choices';
+import Aside from '../../../common/components/aside/Aside';
 
 const EventList = (props: any) => {
   const translate = useTranslate();
   const locale = useLocale();
 
   return (
-    <List title="events.list.title" bulkActionButtons={false} {...props}>
+    <List
+      title="events.list.title"
+      bulkActionButtons={false}
+      aside={<Aside content="events.list.aside.content" />}
+      {...props}
+    >
       <Datagrid rowClick="show">
         <TextField
           source={getTranslatedField('name', locale)}

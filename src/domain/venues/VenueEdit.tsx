@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Edit,
   TextInput,
-  useTranslate,
   SimpleForm,
   required,
   Toolbar,
@@ -34,7 +33,6 @@ const VenueEditToolbar = (props: any) => {
 };
 
 const VenueEdit = (props: any) => {
-  const translate = useTranslate();
   const [selectedLanguage, selectLanguage] = useState(Language.FI);
   const translation = `translations.${selectedLanguage}`;
 
@@ -53,37 +51,42 @@ const VenueEdit = (props: any) => {
           />
           <TextInput
             source={`${translation}.name`}
-            label={translate('venues.fields.name.label')}
+            label="venues.fields.name.label"
+            helperText="venues.fields.name.helperText"
             validate={selectedLanguage === Language.FI ? required() : null}
             fullWidth
           />
           <TextInput
             source={`${translation}.address`}
-            label={translate('venues.fields.address.label')}
+            label="venues.fields.address.label"
+            helperText="venues.fields.address.helperText"
             multiline
             fullWidth
           />
           <TextInput
             source={`${translation}.description`}
-            label={translate('venues.fields.description.label')}
+            label="venues.fields.description.label"
             multiline
             fullWidth
           />
           <TextInput
             source={`${translation}.accessibilityInfo`}
-            label={translate('venues.fields.accessibilityInfo.label')}
+            label="venues.fields.accessibilityInfo.label"
+            helperText="venues.fields.accessibilityInfo.helperText"
             multiline
             fullWidth
           />
           <TextInput
             source={`${translation}.arrivalInstructions`}
-            label={translate('venues.fields.arrivalInstructions.label')}
+            label="venues.fields.arrivalInstructions.label"
+            helperText="venues.fields.arrivalInstructions.helperText"
             multiline
             fullWidth
           />
           <TextInput
             source={`${translation}.additionalInfo`}
-            label={translate('venues.fields.additionalInfo.label')}
+            label="venues.fields.additionalInfo.label"
+            helperText="venues.fields.additionalInfo.helperText"
             multiline
             fullWidth
           />
