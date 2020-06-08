@@ -42,11 +42,13 @@ const App: React.FC = () => {
       customRoutes={AppRoutes}
     >
       <Resource
-        name="children"
-        options={{ label: 'children.list.title' }}
-        icon={ChildCareIcon}
-        list={ChildList}
-        show={ChildShow}
+        name="events"
+        options={{ label: translate('events.list.title') }}
+        icon={EventIcon}
+        list={EventList}
+        show={EventShow}
+        create={EventCreate}
+        edit={EventEdit}
       />
       <Resource
         name="venues"
@@ -58,13 +60,11 @@ const App: React.FC = () => {
         edit={VenueEdit}
       />
       <Resource
-        name="events"
-        options={{ label: translate('events.list.title') }}
-        icon={EventIcon}
-        list={EventList}
-        show={EventShow}
-        create={EventCreate}
-        edit={EventEdit}
+        name="children"
+        options={{ label: 'children.list.title' }}
+        icon={ChildCareIcon}
+        list={ChildList}
+        show={ChildShow}
       />
       <Resource
         name="occurrences"
