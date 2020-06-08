@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const occurrencesQuery = gql`
-  query Occurrences($projectId: ID, $eventId: String) {
+  query Occurrences($projectId: String, $eventId: String) {
     occurrences(projectId: $projectId, eventId: $eventId) {
       edges {
         node {
