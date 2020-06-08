@@ -19,7 +19,10 @@ import {
 import { getProjectId } from '../../profile/utils';
 
 const getEvents: MethodHandler = async (params: MethodHandlerParams) => {
-  const response = await queryHandler({ query: eventsQuery });
+  const response = await queryHandler({
+    query: eventsQuery,
+    variables: { projectId: getProjectId() },
+  });
   return (response.data.events as ApiEvents).edges.map((edge) =>
     edge?.node ? mapApiDataToLocalData(edge.node) : null
   );

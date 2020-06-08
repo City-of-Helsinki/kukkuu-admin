@@ -19,13 +19,14 @@ import {
   updateOccurrenceMutation,
   deleteOccurrenceMutation,
 } from '../mutations/OccurrenceMutations';
+import { getProjectId } from '../../profile/utils';
 
 moment.tz.setDefault('Europe/Helsinki');
 
 const getOccurrences: MethodHandler = async (params: MethodHandlerParams) => {
   const response: ApolloQueryResult<ApiOccurrences> = await queryHandler({
     query: occurrencesQuery,
-    variables: { eventId: params.id },
+    variables: { projectId: getProjectId(), eventId: params.id },
   });
   const data = response.data.occurrences?.edges.map((edge) =>
     edge?.node ? mapApiDataToLocalData(edge.node) : null

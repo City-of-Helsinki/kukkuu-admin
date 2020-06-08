@@ -118,5 +118,6 @@ export interface Occurrences {
 }
 
 export interface OccurrencesVariables {
+  projectId?: string | null;
   eventId?: string | null;
 }

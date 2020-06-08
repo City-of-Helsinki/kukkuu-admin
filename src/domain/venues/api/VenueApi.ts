@@ -27,6 +27,7 @@ import { getProjectId } from '../../profile/utils';
 const getVenues: MethodHandler = async (params: MethodHandlerParams) => {
   const response: ApolloQueryResult<ApiVenues> = await queryHandler({
     query: venuesQuery,
+    variables: { projectId: getProjectId() },
   });
   return (response.data.venues as ApiDetailVenues).edges.map((edge) =>
     edge?.node ? mapApiDataToLocalData(edge.node) : null

@@ -65,3 +65,7 @@ export interface Children_children {
 export interface Children {
   children: Children_children | null;
 }
+
+export interface ChildrenVariables {
+  projectId?: string | null;
+}

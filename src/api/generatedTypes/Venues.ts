@@ -55,3 +55,7 @@ export interface Venues_venues {
 export interface Venues {
   venues: Venues_venues | null;
 }
+
+export interface VenuesVariables {
+  projectId?: string | null;
+}

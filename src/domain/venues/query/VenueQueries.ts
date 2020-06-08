@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const venuesQuery = gql`
-  query Venues {
-    venues {
+  query Venues($projectId: ID) {
+    venues(projectId: $projectId) {
       edges {
         node {
           id

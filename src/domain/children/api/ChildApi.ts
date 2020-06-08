@@ -8,11 +8,12 @@ import {
 } from '../../../api/utils/apiUtils';
 import { childrenQuery, childQuery } from '../queries/ChildQueries';
 import { Child as ApiChild } from '../../../api/generatedTypes/Child';
+import { getProjectId } from '../../profile/utils';
 
 const getChildren: MethodHandler = async (params: MethodHandlerParams) => {
   const response: ApolloQueryResult<Children> = await queryHandler({
     query: childrenQuery,
-    variables: { occurrenceId: params.id },
+    variables: { projectId: getProjectId(), occurrenceId: params.id },
   });
   return response.data.children?.edges.map((edge) =>
     edge?.node ? mapApiDataToLocalData(edge.node) : null
