@@ -23,13 +23,14 @@ function OidcCallback(props: RouteChildrenProps) {
   const handleError = (error: Error) => {
     notify(translate('ra.message.error'), 'warning');
     Sentry.captureException(error);
-    console.error(error);
+    console.error('OidcCallback handleError', error);
     logout();
   };
 
   const onSuccess = (user: User) => {
     fetchApiToken(user.access_token)
       .then((apiToken) => {
+        console.log('OidcCallback onSuccess fetchApiToken');
         localStorage.setItem('apiToken', apiToken);
         return dataProvider.getMyAdminProfile();
       })
@@ -38,7 +39,9 @@ function OidcCallback(props: RouteChildrenProps) {
         props.history.push('/');
       })
       .catch((error) => {
-        console.error('fetchApiToken caught error');
+        console.error(
+          'OidcCallback onSuccess fetchApiToken fetchApiToken caught error'
+        );
         handleError(error);
       });
   };
