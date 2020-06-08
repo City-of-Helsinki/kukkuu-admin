@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const childrenQuery = gql`
-  query Children {
-    children {
+  query Children($projectId: ID) {
+    children(projectId: $projectId) {
       edges {
         node {
           id

@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const eventsQuery = gql`
-  query Events {
-    events {
+  query Events($projectId: ID) {
+    events(projectId: $projectId) {
       edges {
         node {
           id

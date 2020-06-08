@@ -72,3 +72,7 @@ export interface Events_events {
 export interface Events {
   events: Events_events | null;
 }
+
+export interface EventsVariables {
+  projectId?: string | null;
+}
