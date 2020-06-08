@@ -24,7 +24,7 @@ function formatImage(value: string | File) {
 const ImageUploadField = (props: any) => {
   const translate = useTranslate();
 
-  const { name, edit, image } = props;
+  const { name, edit, image, helperText } = props;
   return (
     <ImageInput
       name={name}
@@ -38,6 +38,7 @@ const ImageUploadField = (props: any) => {
           {translate('events.fields.imageInput.label')}
         </Box>
       }
+      helperText={helperText}
     >
       <ImageField source="image" title="title" />
     </ImageInput>

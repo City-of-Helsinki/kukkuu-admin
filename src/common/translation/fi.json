@@ -62,7 +62,7 @@
     "fields": {
       "capacityPerOccurrence": {
         "label": "Tilaisuuden kapasiteetti",
-        "helperText": "Montako ilmoittautumista tapahtumaan vastaanotetaan. Huomioithan että todellinen osallistujamäärä on kapasitetti kerrottuna sillä montako henkilöä kutsua kohti tapahtumana voi osallistua."
+        "helperText": "Montako ilmoittautumista tapahtumaan vastaanotetaan. Huomioithan että todellinen osallistujamäärä on kapasiteetti kerrottuna sillä montako henkilöä kutsua kohti tapahtumana voi osallistua."
       },
       "description": {
         "label": "Kuvaus",
@@ -112,7 +112,7 @@
       },
       "shortDescription": {
         "label": "Lyhyt kuvaus",
-        "helperText": "Tämä näkyy kummilapsen omalla sivulla ilmestyvässä kustussa. Maksimissaan 140 merkkiä"
+        "helperText": "Tämä näkyy kummilapsen omalla sivulla ilmestyvässä kutsussa. Maksimissaan 140 merkkiä"
       }
     },
     "list": {

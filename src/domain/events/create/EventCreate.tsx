@@ -38,7 +38,12 @@ const EventCreate = (props: any) => {
             selectedLanguage={selectedLanguage}
             onSelect={selectLanguage}
           />
-          <ImageUploadField edit={true} source="image" image="image" />
+          <ImageUploadField
+            edit={true}
+            source="image"
+            image="image"
+            helperText="events.fields.image.helperText"
+          />
           <TextInput
             source={`${translation}.imageAltText`}
             label="events.fields.imageAltText.label"
