@@ -19,7 +19,7 @@ const settings: UserManagerSettings = {
   client_id: process.env.REACT_APP_OIDC_CLIENT_ID,
   redirect_uri: `${location}/callback`,
   // For debugging, set it to 1 minute by removing comment:
-  //accessTokenExpiringNotificationTime: 59.65 * 60,
+  // accessTokenExpiringNotificationTime: 59.65 * 60,
   automaticSilentRenew: true,
   silent_redirect_uri: `${location}/silent_renew.html`,
   response_type: 'id_token token',
@@ -31,11 +31,11 @@ const settings: UserManagerSettings = {
 const userManager = createUserManager(settings);
 
 userManager.events.addUserSessionChanged(() => {
-  console.log('zzz user session changed');
+  console.count('zzz user session changed');
 });
 
 userManager.events.addAccessTokenExpiring(() => {
-  console.log('userManager - addAccessTokenExpiring - fetching new token');
+  console.count('userManager - addAccessTokenExpiring - fetching new token');
   const z = userManager
     .getUser()
     .then((user) => {
@@ -45,11 +45,9 @@ userManager.events.addAccessTokenExpiring(() => {
           localStorage.setItem('fetchingApiToken', '1');
           fetchApiToken(user?.access_token)
             .then((apiToken) => {
-              const vv = userManager.querySessionStatus().then((aaa) => {
-                console.log('fetched token status aaa', aaa);
-              });
               console.log('got apiToken', apiToken);
               localStorage.setItem('apiToken', apiToken);
+              console.count('setting fetchingApiToken in localstorage to 0');
               localStorage.setItem('fetchingApiToken', '0');
             })
             .catch((error) => {
@@ -57,12 +55,12 @@ userManager.events.addAccessTokenExpiring(() => {
               console.error(error);
             });
         } else {
-          console.log(
+          console.count(
             'Not fetching API token because we are already fetching one'
           );
         }
       } else {
-        console.log(
+        console.count(
           'userManager.events.addAccessTokenExpiring getUser found no user.access_token'
         );
         console.log(user);
