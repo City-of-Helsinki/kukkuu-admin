@@ -5,6 +5,7 @@ include:
 
 variables:
   SERVICE_PORT: 80
+  POSTGRES_ENABLED: 0
 
 build-review:
   # These variables are available only for review env and are merged with the general variables defined above.
@@ -45,7 +46,6 @@ build-production:
 review:
   variables:
     DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-review'
-    POSTGRES_ENABLED: 0
 
 # This will enable staging ci-pipeline
 staging:
