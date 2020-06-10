@@ -7,6 +7,7 @@ const authProvider: AuthProvider = {
   login: (params) => Promise.resolve(),
   logout: async (params) => {
     localStorage.removeItem('apiToken');
+    localStorage.removeItem('fetchingApiToken');
     removeAdminProfile();
     console.log('logging out through authProvider -> logout');
     if (Boolean(await userManager.getUser())) {

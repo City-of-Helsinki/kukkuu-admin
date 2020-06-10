@@ -2,6 +2,7 @@ import { createUserManager } from 'redux-oidc';
 import { UserManagerSettings, Log, WebStorageStateStore } from 'oidc-client';
 
 import { fetchApiToken } from './api';
+import authProvider from './authProvider';
 
 const location = `${window.location.protocol}//${window.location.hostname}${
   window.location.port ? `:${window.location.port}` : ''
@@ -36,16 +37,17 @@ userManager.events.addUserSessionChanged(() => {
 
 userManager.events.addAccessTokenExpiring(() => {
   console.count('userManager - addAccessTokenExpiring - fetching new token');
-  const z = userManager
-    .getUser()
-    .then((user) => {
-      if (user?.access_token) {
-        console.log(user.access_token);
-        if (localStorage.getItem('fetchingApiToken') !== '1') {
+  if (localStorage.getItem('fetchingApiToken') !== '1') {
+    const z = userManager
+      .getUser()
+      .then((user) => {
+        if (user?.access_token) {
+          console.log(user.access_token);
+
           localStorage.setItem('fetchingApiToken', '1');
           fetchApiToken(user?.access_token)
             .then((apiToken) => {
-              console.log('got apiToken', apiToken);
+              console.count('userManager addAccessTokenExpiring fetchApiToken');
               localStorage.setItem('apiToken', apiToken);
               console.count('setting fetchingApiToken in localstorage to 0');
               localStorage.setItem('fetchingApiToken', '0');
@@ -56,20 +58,17 @@ userManager.events.addAccessTokenExpiring(() => {
             });
         } else {
           console.count(
-            'Not fetching API token because we are already fetching one'
+            'userManager.events.addAccessTokenExpiring getUser found no user.access_token'
           );
+          console.log(user);
         }
-      } else {
-        console.count(
-          'userManager.events.addAccessTokenExpiring getUser found no user.access_token'
-        );
-        console.log(user);
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  console.log('usermanager addAccessTokenExpiring finished', z);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  } else {
+    console.count('Not fetching API token because we are already fetching one');
+  }
 });
 
 userManager.events.addSilentRenewError((error) => {
@@ -78,7 +77,7 @@ userManager.events.addSilentRenewError((error) => {
 
 userManager.events.addUserSignedOut(async () => {
   // TODO: Find out if this code is called under any circumstances.
-  console.log('userManager -> addUserSignedOut! Calling signoutRedirect');
+  console.count('userManager -> addUserSignedOut! Calling signoutRedirect');
   try {
     await userManager.signoutRedirect();
   } catch (error) {
@@ -87,41 +86,10 @@ userManager.events.addUserSignedOut(async () => {
 });
 
 userManager.events.addAccessTokenExpired(() => {
-  // Redirect to the login page.
   // TODO: Decide whether this is a good idea.
-  console.log('Access token expired, (not) fetching new token...');
-
-  // userManager
-  //   .getUser()
-  //   .then((user) => {
-  //     if (user?.access_token) {
-  //       console.log(user.access_token);
-  //       console.log('not fetching access token');
-
-  //       // fetchApiToken(user?.access_token)
-  //       //   .then((apiToken) => {
-  //       //     console.log('got apiToken', apiToken);
-  //       //     localStorage.setItem('apiToken', apiToken);
-  //       //   })
-  //       //   .catch((error) => {
-  //       //     console.error('fetchApiToken in expiring caught error');
-  //       //     console.error(error);
-  //       //   });
-  //     } else {
-  //       console.log(
-  //         'userManager.events.addAccessTokenExpired getUserfound no user.access_token'
-  //       );
-  //       console.log(user);
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     console.error(
-  //       'userManager.events.addAccessTokenExpired userManager.getUser failed'
-  //     );
-  //     console.error(error);
-  //   });
-
-  //authProvider.logout({});
+  console.count('Access token expired, (not) fetching new token...');
+  console.count('Should we log the user out here?');
+  authProvider.logout({});
 });
 
 export default userManager;
