@@ -14,7 +14,7 @@ ENV NPM_CONFIG_PREFIX=/app/.npm-global
 ENV PATH=$PATH:/app/.npm-global/bin
 
 # Yarn
-ENV YARN_VERSION 1.19.1
+ENV YARN_VERSION 1.22.4
 RUN yarn policies set-version $YARN_VERSION
 
 # Use non-root user
@@ -28,9 +28,13 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 USER root
 
-RUN apt-install.sh build-essential \
-    && su -c "yarn && yarn cache clean --force" appuser \
-    && apt-cleanup.sh build-essential
+RUN apt-install.sh build-essential
+
+USER appuser
+RUN yarn && yarn cache clean --force
+
+USER root
+RUN apt-cleanup.sh build-essential
 
 # =============================
 FROM appbase as development

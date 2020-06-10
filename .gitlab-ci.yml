@@ -34,11 +34,13 @@ build-production:
   variables:
     DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-production'
     DOCKER_BUILD_ARG_REACT_APP_ENVIRONMENT: 'production'
-    DOCKER_BUILD_ARG_REACT_APP_OIDC_AUTHORITY: 'https://tunnistamo.test.kuva.hel.ninja'
-    DOCKER_BUILD_ARG_REACT_APP_API_URI: 'https://kukkuu.test.kuva.hel.ninja/graphql'
+    DOCKER_BUILD_ARG_REACT_APP_OIDC_AUTHORITY: 'https://api.hel.fi/sso/'
+    DOCKER_BUILD_ARG_REACT_APP_API_URI: 'https://kukkuu-api.prod.hel.ninja/kukkuu/graphql'
   only:
     refs:
       - master
+      # this regexp will match release-tags
+      - /^release-.*$/
 
 review:
   variables:
@@ -52,3 +54,7 @@ staging:
   only:
     refs:
       - develop
+
+production:
+  variables:
+    DOCKER_IMAGE_NAME: "$CI_PROJECT_NAME-production"
