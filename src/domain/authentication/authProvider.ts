@@ -5,14 +5,13 @@ import { removeAdminProfile, getProjectId } from '../profile/utils';
 
 const authProvider: AuthProvider = {
   login: (params) => Promise.resolve(),
-  logout: (params) => {
-    // TODO Add Tunnistamo logout, which requires resolving the eternal loop issue
-    // where you get redirected directly to logout when returning from
-    // userManager.signoutRedirect()
+  logout: async (params) => {
     localStorage.removeItem('apiToken');
     removeAdminProfile();
     console.log('logging out through authProvider -> logout');
-    return userManager.removeUser();
+    if (Boolean(await userManager.getUser())) {
+      return '/logout';
+    }
   },
   checkAuth: (params) => {
     if (!localStorage.getItem('apiToken')) {
