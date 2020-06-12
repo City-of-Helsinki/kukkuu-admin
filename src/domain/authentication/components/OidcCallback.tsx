@@ -21,7 +21,7 @@ function OidcCallback(props: RouteChildrenProps) {
   const logout = useLogout();
 
   const handleError = (error: Error) => {
-    localStorage.setItem('loggingOut', '1');
+    localStorage.setItem('fetchingApiToken', '0');
     notify(translate('ra.message.error'), 'warning');
     Sentry.captureException(error);
     console.error('OidcCallback handleError', error);
@@ -29,28 +29,25 @@ function OidcCallback(props: RouteChildrenProps) {
   };
 
   const onSuccess = (user: User) => {
-    localStorage.setItem('loggingOut', '0');
-    if (localStorage.getItem('fetchingApiToken') !== '1') {
-      localStorage.setItem('fetchingApiToken', '1');
+    localStorage.setItem('fetchingApiToken', '1');
 
-      fetchApiToken(user.access_token)
-        .then((apiToken) => {
-          console.count('OidcCallback onSuccess fetchApiToken');
-          localStorage.setItem('apiToken', apiToken);
-          localStorage.setItem('fetchingApiToken', '0');
-          return dataProvider.getMyAdminProfile();
-        })
-        .then(({ data }) => {
-          setAdminProfile(data);
-          props.history.push('/');
-        })
-        .catch((error) => {
-          console.error(
-            'OidcCallback onSuccess fetchApiToken fetchApiToken caught error'
-          );
-          handleError(error);
-        });
-    }
+    fetchApiToken(user.access_token)
+      .then((apiToken) => {
+        console.count('OidcCallback onSuccess fetchApiToken');
+        localStorage.setItem('apiToken', apiToken);
+        localStorage.setItem('fetchingApiToken', '0');
+        return dataProvider.getMyAdminProfile();
+      })
+      .then(({ data }) => {
+        setAdminProfile(data);
+        props.history.push('/');
+      })
+      .catch((error) => {
+        console.error(
+          'OidcCallback onSuccess fetchApiToken fetchApiToken caught error'
+        );
+        handleError(error);
+      });
   };
   const onError = (error: Error) => {
     handleError(error);

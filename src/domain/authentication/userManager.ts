@@ -1,11 +1,9 @@
 import { createUserManager } from 'redux-oidc';
 import { UserManagerSettings, Log, WebStorageStateStore } from 'oidc-client';
 import JwtDecode from 'jwt-decode';
-import * as Sentry from '@sentry/browser';
 import moment from 'moment-timezone';
 
 import { fetchApiToken } from './api';
-import authProvider from './authProvider';
 
 const location = `${window.location.protocol}//${window.location.hostname}${
   window.location.port ? `:${window.location.port}` : ''
@@ -23,8 +21,8 @@ const settings: UserManagerSettings = {
   client_id: process.env.REACT_APP_OIDC_CLIENT_ID,
   redirect_uri: `${location}/callback`,
   // For debugging, set it to 1 minute by removing comment:
-  // accessTokenExpiringNotificationTime: 59.65 * 60,
-  automaticSilentRenew: true,
+  accessTokenExpiringNotificationTime: 59.65 * 60,
+  automaticSilentRenew: false,
   silent_redirect_uri: `${location}/silent_renew.html`,
   response_type: 'id_token token',
   scope: process.env.REACT_APP_OIDC_SCOPE,
@@ -39,42 +37,25 @@ userManager.events.addUserSessionChanged(() => {
 });
 
 userManager.events.addAccessTokenExpiring(() => {
-  console.count('userManager - addAccessTokenExpiring - fetching new token');
-  if (localStorage.getItem('fetchingApiToken') !== '1') {
-    const z = userManager
-      .getUser()
-      .then((user) => {
-        if (user?.access_token) {
-          console.log(user.access_token);
-
-          localStorage.setItem('fetchingApiToken', '1');
-          fetchApiToken(user?.access_token)
-            .then((apiToken) => {
-              console.count('userManager addAccessTokenExpiring fetchApiToken');
-              const { exp } = JwtDecode(apiToken);
-              const expir = moment(exp * 1000).toISOString();
-              console.log(expir);
-              localStorage.setItem('apiToken', apiToken);
-              console.count('setting fetchingApiToken in localstorage to 0');
-              localStorage.setItem('fetchingApiToken', '0');
-            })
-            .catch((error) => {
-              console.error('addAccessTokenExpiring in expiring caught error');
-              console.error(error);
-            });
-        } else {
-          console.count(
-            'userManager.events.addAccessTokenExpiring getUser found no user.access_token'
-          );
-          console.log(user);
-        }
+  console.count('addAccessTokenExpiring');
+  userManager.signinSilent().then((user) => {
+    console.count('addAccessTokenExpiring - signinSilent');
+    console.count(user.access_token);
+    fetchApiToken(user.access_token)
+      .then((apiToken) => {
+        console.count('userManager addAccessTokenExpired fetchApiToken');
+        const { exp } = JwtDecode(apiToken);
+        const expir = moment(exp * 1000).toISOString();
+        console.log(expir);
+        localStorage.setItem('apiToken', apiToken);
+        console.count('setting fetchingApiToken in localstorage to 0');
+        localStorage.setItem('fetchingApiToken', '0');
       })
       .catch((error) => {
+        console.error('addAccessTokenExpired in expiring caught error');
         console.error(error);
       });
-  } else {
-    console.count('Not fetching API token because we are already fetching one');
-  }
+  });
 });
 
 userManager.events.addSilentRenewError((error) => {
@@ -93,44 +74,6 @@ userManager.events.addUserSignedOut(async () => {
 
 userManager.events.addAccessTokenExpired(() => {
   // TODO: Decide whether this is a good idea.
-  console.count(
-    'addAccessTokenExpired - Access token expired, fetching new token...'
-  );
-  if (localStorage.getItem('fetchingApiToken') !== '1') {
-    const z = userManager
-      .getUser()
-      .then((user) => {
-        if (user?.access_token) {
-          localStorage.setItem('fetchingApiToken', '1');
-          fetchApiToken(user?.access_token)
-            .then((apiToken) => {
-              console.count('userManager addAccessTokenExpired fetchApiToken');
-              const { exp } = JwtDecode(apiToken);
-              const expir = moment(exp * 1000).toISOString();
-              console.log(expir);
-              localStorage.setItem('apiToken', apiToken);
-              console.count('setting fetchingApiToken in localstorage to 0');
-              localStorage.setItem('fetchingApiToken', '0');
-            })
-            .catch((error) => {
-              console.error('addAccessTokenExpired in expiring caught error');
-              console.error(error);
-            });
-        } else {
-          console.count(
-            'userManager.events.addAccessTokenExpired getUser found no user.access_token'
-          );
-          console.log(user);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  } else {
-    console.count(
-      'addAccessTokenExpired - Not fetching API token because we are already fetching one'
-    );
-  }
   console.count('addAccessTokenExpired');
   // authProvider.logout({});
 });
