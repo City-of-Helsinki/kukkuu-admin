@@ -21,7 +21,7 @@ const settings: UserManagerSettings = {
   client_id: process.env.REACT_APP_OIDC_CLIENT_ID,
   redirect_uri: `${location}/callback`,
   // For debugging, set it to 1 minute by removing comment:
-  accessTokenExpiringNotificationTime: 59.65 * 60,
+  // accessTokenExpiringNotificationTime: 59.65 * 60,
   automaticSilentRenew: false,
   silent_redirect_uri: `${location}/silent_renew.html`,
   response_type: 'id_token token',
@@ -39,6 +39,7 @@ userManager.events.addUserSessionChanged(() => {
 userManager.events.addAccessTokenExpiring(() => {
   console.count('addAccessTokenExpiring');
   userManager.signinSilent().then((user) => {
+    userManager.storeUser(user);
     console.count('addAccessTokenExpiring - signinSilent');
     console.count(user.access_token);
     fetchApiToken(user.access_token)
