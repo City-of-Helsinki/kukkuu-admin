@@ -59,6 +59,8 @@ const addVenue: MethodHandler = async (params: MethodHandlerParams) => {
 const updateVenue: MethodHandler = async (params: MethodHandlerParams) => {
   const { occurrences, ...localUpdateData } = params.data;
   const data = mapLocalDataToApiData(localUpdateData as AdminVenue);
+  // At the moment, the backend doesn't support project for updateVenueMutation
+  data.project = undefined;
   const response = await mutationHandler({
     mutation: updateVenueMutation,
     variables: { input: data },

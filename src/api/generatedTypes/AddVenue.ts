@@ -17,6 +17,7 @@ export interface addVenue_addVenue_venue_translations {
   accessibilityInfo: string;
   arrivalInstructions: string;
   additionalInfo: string;
+  wcAndFacilities: string;
 }
 
 export interface addVenue_addVenue_venue {

@@ -6,10 +6,23 @@ export const venuesQuery = gql`
       edges {
         node {
           id
+          project {
+            id
+            translations {
+              languageCode
+              name
+            }
+          }
           translations {
-            name
-            address
             languageCode
+            name
+            description
+            address
+            accessibilityInfo
+            arrivalInstructions
+            additionalInfo
+            wcAndFacilities
+            wwwUrl
           }
           occurrences {
             pageInfo {
@@ -26,14 +39,19 @@ export const venueQuery = gql`
   query Venue($id: ID!) {
     venue(id: $id) {
       id
+      project {
+        id
+      }
       translations {
-        name
-        address
         languageCode
+        name
         description
+        address
         accessibilityInfo
         arrivalInstructions
         additionalInfo
+        wcAndFacilities
+        wwwUrl
       }
       occurrences {
         pageInfo {

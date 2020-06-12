@@ -9,14 +9,23 @@ import { Language } from "./globalTypes";
 // GraphQL query operation: Venue
 // ====================================================
 
+export interface Venue_venue_project {
+  /**
+   * The ID of the object.
+   */
+  id: string;
+}
+
 export interface Venue_venue_translations {
-  name: string;
-  address: string;
   languageCode: Language;
+  name: string;
   description: string;
+  address: string;
   accessibilityInfo: string;
   arrivalInstructions: string;
   additionalInfo: string;
+  wcAndFacilities: string;
+  wwwUrl: string;
 }
 
 export interface Venue_venue_occurrences_pageInfo {
@@ -38,6 +47,7 @@ export interface Venue_venue {
    * The ID of the object.
    */
   id: string;
+  project: Venue_venue_project;
   translations: Venue_venue_translations[];
   occurrences: Venue_venue_occurrences;
 }

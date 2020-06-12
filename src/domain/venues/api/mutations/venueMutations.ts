@@ -13,6 +13,7 @@ export const addVenueMutation = gql`
           accessibilityInfo
           arrivalInstructions
           additionalInfo
+          wcAndFacilities
         }
       }
     }
@@ -32,6 +33,7 @@ export const updateVenueMutation = gql`
           accessibilityInfo
           arrivalInstructions
           additionalInfo
+          wcAndFacilities
         }
       }
     }

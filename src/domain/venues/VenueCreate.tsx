@@ -64,6 +64,13 @@ const VenueCreate = (props: any) => {
             multiline
             fullWidth
           />
+          <TextInput
+            source={`${translation}.wcAndFacilities`}
+            label="venues.fields.wcAndFacilities.label"
+            helperText="venues.fields.wcAndFacilities.helperText"
+            multiline
+            fullWidth
+          />
         </SimpleForm>
       </Create>
     </Grid>
