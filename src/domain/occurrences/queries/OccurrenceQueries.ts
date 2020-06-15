@@ -20,21 +20,24 @@ export const occurrencesQuery = gql`
               name
             }
           }
-          children {
+          enrolments {
             edges {
               node {
                 id
-                firstName
-                lastName
-                birthdate
-                guardians {
-                  edges {
-                    node {
-                      id
-                      email
-                      firstName
-                      lastName
-                      language
+                attended
+                child {
+                  firstName
+                  lastName
+                  birthdate
+                  guardians {
+                    edges {
+                      node {
+                        id
+                        email
+                        firstName
+                        lastName
+                        language
+                      }
                     }
                   }
                 }
@@ -65,21 +68,24 @@ export const occurrenceQuery = gql`
           name
         }
       }
-      children {
+      enrolments {
         edges {
           node {
             id
-            firstName
-            lastName
-            birthdate
-            guardians {
-              edges {
-                node {
-                  id
-                  email
-                  firstName
-                  lastName
-                  language
+            attended
+            child {
+              firstName
+              lastName
+              birthdate
+              guardians {
+                edges {
+                  node {
+                    id
+                    email
+                    firstName
+                    lastName
+                    language
+                  }
                 }
               }
             }

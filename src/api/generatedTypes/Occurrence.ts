@@ -34,7 +34,7 @@ export interface Occurrence_occurrence_venue {
   translations: Occurrence_occurrence_venue_translations[];
 }
 
-export interface Occurrence_occurrence_children_edges_node_guardians_edges_node {
+export interface Occurrence_occurrence_enrolments_edges_node_child_guardians_edges_node {
   /**
    * The ID of the object.
    */
@@ -48,43 +48,48 @@ export interface Occurrence_occurrence_children_edges_node_guardians_edges_node 
   language: Language;
 }
 
-export interface Occurrence_occurrence_children_edges_node_guardians_edges {
+export interface Occurrence_occurrence_enrolments_edges_node_child_guardians_edges {
   /**
    * The item at the end of the edge
    */
-  node: Occurrence_occurrence_children_edges_node_guardians_edges_node | null;
+  node: Occurrence_occurrence_enrolments_edges_node_child_guardians_edges_node | null;
 }
 
-export interface Occurrence_occurrence_children_edges_node_guardians {
+export interface Occurrence_occurrence_enrolments_edges_node_child_guardians {
   /**
    * Contains the nodes in this connection.
    */
-  edges: (Occurrence_occurrence_children_edges_node_guardians_edges | null)[];
+  edges: (Occurrence_occurrence_enrolments_edges_node_child_guardians_edges | null)[];
 }
 
-export interface Occurrence_occurrence_children_edges_node {
+export interface Occurrence_occurrence_enrolments_edges_node_child {
+  firstName: string;
+  lastName: string;
+  birthdate: any;
+  guardians: Occurrence_occurrence_enrolments_edges_node_child_guardians;
+}
+
+export interface Occurrence_occurrence_enrolments_edges_node {
   /**
    * The ID of the object.
    */
   id: string;
-  firstName: string;
-  lastName: string;
-  birthdate: any;
-  guardians: Occurrence_occurrence_children_edges_node_guardians;
+  attended: boolean | null;
+  child: Occurrence_occurrence_enrolments_edges_node_child;
 }
 
-export interface Occurrence_occurrence_children_edges {
+export interface Occurrence_occurrence_enrolments_edges {
   /**
    * The item at the end of the edge
    */
-  node: Occurrence_occurrence_children_edges_node | null;
+  node: Occurrence_occurrence_enrolments_edges_node | null;
 }
 
-export interface Occurrence_occurrence_children {
+export interface Occurrence_occurrence_enrolments {
   /**
    * Contains the nodes in this connection.
    */
-  edges: (Occurrence_occurrence_children_edges | null)[];
+  edges: (Occurrence_occurrence_enrolments_edges | null)[];
 }
 
 export interface Occurrence_occurrence {
@@ -96,7 +101,7 @@ export interface Occurrence_occurrence {
   event: Occurrence_occurrence_event;
   enrolmentCount: number;
   venue: Occurrence_occurrence_venue;
-  children: Occurrence_occurrence_children;
+  enrolments: Occurrence_occurrence_enrolments;
 }
 
 export interface Occurrence {

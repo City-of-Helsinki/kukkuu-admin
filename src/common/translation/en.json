@@ -37,10 +37,10 @@
       }
     },
     "list": {
-      "title": "Culture Kids",
       "aside": {
         "content": ""
-      }
+      },
+      "title": "Culture Kids"
     },
     "show": {
       "title": "Culture Kid"
@@ -49,39 +49,46 @@
   "dashboard": {
     "title": "Culture Kids admin"
   },
+  "enrolments": {
+    "fields": {
+      "attended": {
+        "label": ""
+      }
+    }
+  },
   "events": {
     "create": {
-      "title": "Create event",
       "aside": {
         "content": ""
-      }
+      },
+      "title": "Create event"
     },
     "edit": {
       "title": "Edit event"
     },
     "fields": {
       "capacityPerOccurrence": {
-        "label": "Capacity per occurrence",
-        "helperText": ""
+        "helperText": "",
+        "label": "Capacity per occurrence"
       },
       "description": {
-        "label": "Description",
-        "helperText": ""
+        "helperText": "",
+        "label": "Description"
       },
       "duration": {
-        "label": "Duration",
-        "helperText": ""
+        "helperText": "",
+        "label": "Duration"
       },
       "id": {
         "label": "ID"
       },
       "image": {
-        "label": "Image",
-        "helperText": ""
+        "helperText": "",
+        "label": "Image"
       },
       "imageAltText": {
-        "label": "Image alt text",
-        "helperText": ""
+        "helperText": "",
+        "label": "Image alt text"
       },
       "imageInput": {
         "label": "Select image to upload"
@@ -104,22 +111,22 @@
             "label": "Family"
           }
         },
-        "label": "Participants per invite",
-        "helperText": ""
+        "helperText": "",
+        "label": "Participants per invite"
       },
       "publishedAt": {
         "label": "Published at"
       },
       "shortDescription": {
-        "label": "Short Description",
-        "helperText": ""
+        "helperText": "",
+        "label": "Short Description"
       }
     },
     "list": {
-      "title": "Events",
       "aside": {
         "content": ""
-      }
+      },
+      "title": "Events"
     },
     "show": {
       "publish": {
@@ -164,6 +171,17 @@
       "children": {
         "label": "Enrolled children"
       },
+      "enrolments": {
+        "fields": {
+          "attended": {
+            "choices": {
+              "null": "",
+              "true": "",
+              "false": ""
+            }
+          }
+        }
+      },
       "enrolmentsCount": {
         "label": "Number of enrolments"
       },
@@ -175,8 +193,8 @@
           "date": {
             "errorMessage": "Date invalid, use format dd.mm.yyyy",
             "format": "dd.mm.yyyy",
-            "label": "Date",
-            "helperText": ""
+            "helperText": "",
+            "label": "Date"
           },
           "time": {
             "errorMessage": "Time invalid, use format hh:mm",
@@ -184,12 +202,12 @@
             "label": "Time"
           }
         },
-        "label": "Time",
-        "helperText": ""
+        "helperText": "",
+        "label": "Time"
       },
       "venue": {
-        "label": "Venue",
-        "helperText": ""
+        "helperText": "",
+        "label": "Venue"
       }
     },
     "show": {
@@ -198,41 +216,44 @@
   },
   "venues": {
     "create": {
-      "title": "Create venue",
       "aside": {
         "content": ""
-      }
+      },
+      "title": "Create venue"
     },
     "fields": {
       "accessibilityInfo": {
-        "label": "Accessibility info",
-        "helperText": ""
+        "helperText": "",
+        "label": "Accessibility info"
       },
       "additionalInfo": {
-        "label": "Additional info",
-        "helperText": ""
+        "helperText": "",
+        "label": "Additional info"
       },
       "address": {
-        "label": "Address",
-        "helperText": ""
+        "helperText": "",
+        "label": "Address"
       },
       "arrivalInstructions": {
-        "label": "Arrival instructions",
-        "helperText": ""
+        "helperText": "",
+        "label": "Arrival instructions"
       },
       "description": {
         "label": "Description"
       },
       "name": {
-        "label": "Name",
-        "helperText": ""
+        "helperText": "",
+        "label": "Name"
+      },
+      "wcAndFacilities": {
+        "label": "WCs and child care facilities"
       }
     },
     "list": {
-      "title": "Venues",
       "aside": {
         "content": ""
-      }
+      },
+      "title": "Venues"
     }
   }
 }
