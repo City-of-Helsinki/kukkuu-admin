@@ -7,9 +7,15 @@ export const venuesQuery = gql`
         node {
           id
           translations {
-            name
-            address
             languageCode
+            name
+            description
+            address
+            accessibilityInfo
+            arrivalInstructions
+            additionalInfo
+            wcAndFacilities
+            wwwUrl
           }
           occurrences {
             pageInfo {
@@ -27,13 +33,15 @@ export const venueQuery = gql`
     venue(id: $id) {
       id
       translations {
-        name
-        address
         languageCode
+        name
         description
+        address
         accessibilityInfo
         arrivalInstructions
         additionalInfo
+        wcAndFacilities
+        wwwUrl
       }
       occurrences {
         pageInfo {

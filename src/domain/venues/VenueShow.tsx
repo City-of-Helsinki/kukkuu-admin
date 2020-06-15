@@ -44,6 +44,10 @@ const VenueShow = (props: any) => {
           source={`${translation}.additionalInfo`}
           label={translate('venues.fields.additionalInfo.label')}
         />
+        <TextField
+          source={`${translation}.wcAndFacilities`}
+          label={translate('venues.fields.wcAndFacilities.label')}
+        />
       </SimpleShowLayout>
     </Show>
   );

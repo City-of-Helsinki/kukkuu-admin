@@ -10,9 +10,15 @@ import { Language } from "./globalTypes";
 // ====================================================
 
 export interface Venues_venues_edges_node_translations {
-  name: string;
-  address: string;
   languageCode: Language;
+  name: string;
+  description: string;
+  address: string;
+  accessibilityInfo: string;
+  arrivalInstructions: string;
+  additionalInfo: string;
+  wcAndFacilities: string;
+  wwwUrl: string;
 }
 
 export interface Venues_venues_edges_node_occurrences_pageInfo {
