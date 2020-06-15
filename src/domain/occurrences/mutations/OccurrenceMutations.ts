@@ -55,3 +55,16 @@ export const deleteOccurrenceMutation = gql`
     }
   }
 `;
+
+export const setEnrolmentAttendanceMutation = gql`
+  mutation setEnrolmentAttendance(
+    $input: SetEnrolmentAttendanceMutationInput!
+  ) {
+    setEnrolmentAttendance(input: $input) {
+      enrolment {
+        id
+        attended
+      }
+    }
+  }
+`;

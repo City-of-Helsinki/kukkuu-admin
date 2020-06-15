@@ -49,6 +49,13 @@
   "dashboard": {
     "title": "Kulttuurin kummilapset ylläpito"
   },
+  "enrolments": {
+    "fields": {
+      "attended": {
+        "label": "Paikallaolo"
+      }
+    }
+  },
   "events": {
     "create": {
       "aside": {
@@ -163,6 +170,17 @@
       },
       "children": {
         "label": "Osallistujat"
+      },
+      "enrolments": {
+        "fields": {
+          "attended": {
+            "choices": {
+              "null": "Ei valintaa",
+              "true": "Kyllä",
+              "false": "Ei"
+            }
+          }
+        }
       },
       "enrolmentsCount": {
         "label": "Osallistujia"

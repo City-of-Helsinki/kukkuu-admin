@@ -18,6 +18,7 @@ import {
   addOccurrenceMutation,
   updateOccurrenceMutation,
   deleteOccurrenceMutation,
+  setEnrolmentAttendanceMutation,
 } from '../mutations/OccurrenceMutations';
 import { getProjectId } from '../../profile/utils';
 
@@ -101,10 +102,22 @@ const deleteOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
   return { id: params.id };
 };
 
+const setEnrolmentAttendance = async (
+  enrolmentId: string,
+  attended: boolean | null
+) => {
+  const response = await mutationHandler({
+    mutation: setEnrolmentAttendanceMutation,
+    variables: { input: { enrolmentId, attended } },
+  });
+  return response.data;
+};
+
 export {
   getOccurrences,
   getOccurrence,
   addOccurrence,
   updateOccurrence,
   deleteOccurrence,
+  setEnrolmentAttendance,
 };

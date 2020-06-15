@@ -25,6 +25,7 @@ import {
   getOccurrence,
   updateOccurrence,
   deleteOccurrence,
+  setEnrolmentAttendance,
 } from '../domain/occurrences/api/OccurrenceApi';
 import { getChild, getChildren } from '../domain/children/api/ChildApi';
 import { getMyAdminProfile } from '../domain/profile/api';
@@ -130,6 +131,10 @@ const dataProvider = {
   },
   getMyAdminProfile: async () => {
     const data = await getMyAdminProfile();
+    return { data };
+  },
+  setEnrolmentAttendance: async (enrolmentId: string, attended: boolean) => {
+    const data = await setEnrolmentAttendance(enrolmentId, attended);
     return { data };
   },
 };

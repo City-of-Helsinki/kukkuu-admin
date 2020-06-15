@@ -12,10 +12,73 @@ import {
   EmailField,
   ArrayField,
   FunctionField,
+  useDataProvider,
 } from 'react-admin';
+import PropTypes from 'prop-types';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
 
-import { Children_children_edges as ChildEdge } from '../../api/generatedTypes/Children';
 import { OccurrenceTimeRangeField } from './fields';
+import {
+  Occurrences_occurrences_edges_node_enrolments_edges as EnrolmentEdge,
+  Occurrences_occurrences_edges_node_enrolments_edges_node as Enrolment,
+} from '../../api/generatedTypes/Occurrences';
+
+type AttendedFieldProps = {
+  record?: EnrolmentEdge;
+};
+
+const AttendedField = ({ record }: AttendedFieldProps) => {
+  const enrolment = record?.node as Enrolment; // enrolment should be never undefined or null here
+  const [attended, setAttended] = React.useState(
+    JSON.stringify(enrolment.attended)
+  );
+  const dataProvider = useDataProvider();
+  const translate = useTranslate();
+  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const value = event.target.value as string;
+    dataProvider.setEnrolmentAttendance(enrolment.id, JSON.parse(value));
+    setAttended(value);
+  };
+  return (
+    <FormControl fullWidth>
+      <Select
+        style={{ fontSize: '0.875rem' }}
+        disableUnderline
+        value={attended}
+        onChange={handleChange}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <MenuItem value="null">
+          <em>
+            {translate(
+              'occurrences.fields.enrolments.fields.attended.choices.null'
+            )}
+          </em>
+        </MenuItem>
+        <MenuItem value="true">
+          {translate(
+            'occurrences.fields.enrolments.fields.attended.choices.true'
+          )}
+        </MenuItem>
+        <MenuItem value="false">
+          {translate(
+            'occurrences.fields.enrolments.fields.attended.choices.false'
+          )}
+        </MenuItem>
+      </Select>
+    </FormControl>
+  );
+};
+
+AttendedField.propTypes = {
+  record: PropTypes.object,
+};
+
+AttendedField.defaultProps = {
+  label: 'enrolments.fields.attended.label',
+};
 
 const OccurrenceShow = (props: any) => {
   const locale = useLocale();
@@ -52,42 +115,44 @@ const OccurrenceShow = (props: any) => {
         />
         <ArrayField
           label="occurrences.fields.children.label"
-          source="children.edges"
+          source="enrolments.edges"
         >
           <Datagrid
-            rowClick={(id: string, basePath: string, record: ChildEdge) =>
+            rowClick={(id: string, basePath: string, record: EnrolmentEdge) =>
               escape(`/children/${record?.node?.id}/show`)
             }
           >
             <FunctionField
               label="children.fields.name.label"
-              render={(record: ChildEdge) =>
-                `${record.node?.firstName} ${record.node?.lastName}`.trim()
+              render={(record: EnrolmentEdge) =>
+                `${record.node?.child.firstName} ${record.node?.child.lastName}`.trim()
               }
             />
             <DateField
-              source="node.birthdate"
+              source="node.child.birthdate"
               label="children.fields.birthdate.label"
               locales={locale}
             />
             <FunctionField
-              render={(record: ChildEdge) =>
-                `${record.node?.guardians.edges[0]?.node?.firstName} ${record.node?.guardians.edges[0]?.node?.lastName}`.trim()
+              render={(record: EnrolmentEdge) =>
+                // eslint-disable-next-line max-len
+                `${record.node?.child.guardians.edges[0]?.node?.firstName} ${record.node?.child.guardians.edges[0]?.node?.lastName}`.trim()
               }
               label="guardian.name"
             />
             <EmailField
-              source="node.guardians.edges.0.node.email"
+              source="node.child.guardians.edges.0.node.email"
               label="children.fields.guardians.fields.email.label"
             />
             <FunctionField
-              render={(record: ChildEdge) =>
+              render={(record: EnrolmentEdge) =>
                 translate(
-                  `languages.${record?.node?.guardians.edges[0]?.node?.language}`
+                  `languages.${record?.node?.child.guardians.edges[0]?.node?.language}`
                 )
               }
               label="events.fields.language.label"
             />
+            <AttendedField />
           </Datagrid>
         </ArrayField>
       </SimpleShowLayout>

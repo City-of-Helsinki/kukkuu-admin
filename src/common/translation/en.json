@@ -49,6 +49,13 @@
   "dashboard": {
     "title": "Culture Kids admin"
   },
+  "enrolments": {
+    "fields": {
+      "attended": {
+        "label": ""
+      }
+    }
+  },
   "events": {
     "create": {
       "aside": {
@@ -163,6 +170,17 @@
       },
       "children": {
         "label": "Enrolled children"
+      },
+      "enrolments": {
+        "fields": {
+          "attended": {
+            "choices": {
+              "null": "",
+              "true": "",
+              "false": ""
+            }
+          }
+        }
       },
       "enrolmentsCount": {
         "label": "Number of enrolments"
