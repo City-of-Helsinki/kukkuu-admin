@@ -205,7 +205,7 @@ const EventShow: FunctionComponent = (props: any) => {
                 label="occurrences.fields.venue.label"
                 source="venue.id"
                 reference="venues"
-                link="show"
+                link={false}
               >
                 <TextField source="translations.FI.name" />
               </ReferenceField>
