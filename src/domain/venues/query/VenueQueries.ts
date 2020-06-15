@@ -6,13 +6,6 @@ export const venuesQuery = gql`
       edges {
         node {
           id
-          project {
-            id
-            translations {
-              languageCode
-              name
-            }
-          }
           translations {
             languageCode
             name
@@ -39,9 +32,6 @@ export const venueQuery = gql`
   query Venue($id: ID!) {
     venue(id: $id) {
       id
-      project {
-        id
-      }
       translations {
         languageCode
         name

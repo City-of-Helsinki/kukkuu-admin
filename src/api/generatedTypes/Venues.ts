@@ -9,19 +9,6 @@ import { Language } from "./globalTypes";
 // GraphQL query operation: Venues
 // ====================================================
 
-export interface Venues_venues_edges_node_project_translations {
-  languageCode: Language;
-  name: string;
-}
-
-export interface Venues_venues_edges_node_project {
-  /**
-   * The ID of the object.
-   */
-  id: string;
-  translations: Venues_venues_edges_node_project_translations[];
-}
-
 export interface Venues_venues_edges_node_translations {
   languageCode: Language;
   name: string;
@@ -53,7 +40,6 @@ export interface Venues_venues_edges_node {
    * The ID of the object.
    */
   id: string;
-  project: Venues_venues_edges_node_project;
   translations: Venues_venues_edges_node_translations[];
   occurrences: Venues_venues_edges_node_occurrences;
 }
