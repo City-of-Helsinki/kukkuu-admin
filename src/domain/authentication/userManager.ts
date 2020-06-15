@@ -1,5 +1,6 @@
 import { createUserManager } from 'redux-oidc';
 import { UserManagerSettings, Log, WebStorageStateStore } from 'oidc-client';
+import * as Sentry from '@sentry/browser';
 
 import { fetchApiToken } from './api';
 import authProvider from './authProvider';
@@ -8,19 +9,22 @@ const location = `${window.location.protocol}//${window.location.hostname}${
   window.location.port ? `:${window.location.port}` : ''
 }`;
 
-// Show oidc debugging info in the console - should only be active on development
-Log.logger = console;
-Log.level = Log.ERROR;
+if (process.env.NODE_ENV === 'development') {
+  // Show oidc debugging info in the console - should only be active on development
+  Log.logger = console;
+  Log.level = Log.INFO;
+}
 
 /* eslint-disable @typescript-eslint/camelcase */
 const settings: UserManagerSettings = {
+  loadUserInfo: true,
   userStore: new WebStorageStateStore({ store: window.localStorage }),
   authority: process.env.REACT_APP_OIDC_AUTHORITY,
   client_id: process.env.REACT_APP_OIDC_CLIENT_ID,
   redirect_uri: `${location}/callback`,
   // For debugging, set it to 1 minute by removing comment:
   // accessTokenExpiringNotificationTime: 59.65 * 60,
-  automaticSilentRenew: true,
+  automaticSilentRenew: false,
   silent_redirect_uri: `${location}/silent_renew.html`,
   response_type: 'id_token token',
   scope: process.env.REACT_APP_OIDC_SCOPE,
@@ -30,47 +34,41 @@ const settings: UserManagerSettings = {
 
 const userManager = createUserManager(settings);
 
-userManager.events.addUserSessionChanged(() => {
-  console.log('zzz user session changed');
-});
-
-userManager.events.addAccessTokenExpiring(() => {
-  console.log('userManager - addAccessTokenExpiring - fetching new token');
-  // TODO: Find out if this is needed and smart.
-  userManager
-    .getUser()
-    .then((user) => {
-      if (user?.access_token) {
-        console.log(user.access_token);
-        fetchApiToken(user?.access_token)
-          .then((apiToken) => {
-            localStorage.setItem('apiToken', apiToken);
-          })
-          .catch((error) => {
-            console.error('fetchApiToken in expring caught error');
-            console.error(error);
-          });
-      }
-    })
-    .catch((error) => {
-      console.error('Could not find user');
-    });
+userManager.events.addAccessTokenExpiring(async () => {
+  try {
+    console.count('userManager addAccessTokenExpiring fetchApiToken');
+    const newUser = await userManager.signinSilent();
+    await userManager.storeUser(newUser);
+    const apiToken = await fetchApiToken(newUser.access_token);
+    localStorage.setItem('apiToken', apiToken);
+  } catch (error) {
+    // This happens if you're offline for example, seems responsible to log out.
+    authProvider.logout({});
+    Sentry.captureException(error);
+    // eslint-disable-next-line no-console
+    console.error(error);
+  }
 });
 
 userManager.events.addSilentRenewError((error) => {
+  // eslint-disable-next-line no-console
   console.error('userManager addSilentRenewError', error);
 });
 
 userManager.events.addUserSignedOut(async () => {
   // TODO: Find out if this code is called under any circumstances.
-  console.log('userManager -> addUserSignedOut! Calling signoutRedirect');
-  await userManager.signoutRedirect();
+  console.count('userManager -> addUserSignedOut! Calling signoutRedirect');
+  try {
+    await userManager.signoutRedirect();
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+    Sentry.captureException(error);
+  }
 });
 
 userManager.events.addAccessTokenExpired(() => {
-  // Redirect to the login page.
-  // TODO: Decide whether this is a good idea.
-  console.log('Access token expired, logging out...');
+  console.count('addAccessTokenExpired');
   authProvider.logout({});
 });
 
