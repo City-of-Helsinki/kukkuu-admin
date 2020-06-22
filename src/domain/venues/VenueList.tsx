@@ -10,7 +10,6 @@ import { CardHeader } from '@material-ui/core';
 
 import { getTranslatedField } from '../../common/translation/TranslationUtils';
 import Aside from '../../common/components/aside/Aside';
-import AppTitle from '../../common/components/AppTitle';
 
 const VenueList = (props: any) => {
   const translate = useTranslate();
@@ -21,7 +20,6 @@ const VenueList = (props: any) => {
       <List
         bulkActionButtons={false}
         aside={<Aside content="venues.list.aside.content" />}
-        title={<AppTitle />}
         {...props}
       >
         <Datagrid rowClick="show">

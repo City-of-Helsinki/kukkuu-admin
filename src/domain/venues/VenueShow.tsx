@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import { Show, TextField, useTranslate, SimpleShowLayout } from 'react-admin';
+import { CardHeader } from '@material-ui/core';
 
 import LanguageTabs from '../../common/components/languageTab/LanguageTabs';
 import { Language } from '../../api/generatedTypes/globalTypes';
 
-const VenueTitle = ({ record }: { record?: any }) => {
-  return <span>{record ? `${record.translations.FI.name}` : ''}</span>;
+const VenueTitle = ({
+  basePath,
+  record,
+}: {
+  basePath?: string;
+  record?: any;
+}) => {
+  return <CardHeader title={record ? `${record.translations.FI.name}` : ''} />;
 };
 
 const VenueShow = (props: any) => {
@@ -14,8 +21,9 @@ const VenueShow = (props: any) => {
   const translation = `translations.${selectedLanguage}`;
 
   return (
-    <Show title={<VenueTitle />} {...props}>
+    <Show {...props}>
       <SimpleShowLayout>
+        <VenueTitle />
         <LanguageTabs
           selectedLanguage={selectedLanguage}
           onSelect={selectLanguage}

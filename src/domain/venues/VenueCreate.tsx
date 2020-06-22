@@ -12,7 +12,6 @@ import { Language } from '../../api/generatedTypes/globalTypes';
 import LanguageTabs from '../../common/components/languageTab/LanguageTabs';
 import { validateVenue } from './validations';
 import Aside from '../../common/components/aside/Aside';
-import AppTitle from '../../common/components/AppTitle';
 
 const VenueCreate = (props: any) => {
   const translate = useTranslate();
@@ -23,7 +22,6 @@ const VenueCreate = (props: any) => {
     <Grid container direction="column" xs={6} item={true}>
       <CardHeader title={translate('venues.create.title')} />
       <Create
-        title={<AppTitle />}
         aside={<Aside content="venues.create.aside.content" />}
         {...props}
       >

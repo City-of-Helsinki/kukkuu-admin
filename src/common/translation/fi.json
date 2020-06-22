@@ -221,6 +221,9 @@
       },
       "title": "Luo uusi tapahtumapaikka"
     },
+    "edit": {
+      "title": "Muokkaa tapahtumapaikkaa"
+    },
     "fields": {
       "accessibilityInfo": {
         "helperText": "Kerro tiedot paikan esteettömyydestä. Kerro erityisesti miten paikalle pääsee lastenvaunuilla ja voiko ne jättää johonkin",
