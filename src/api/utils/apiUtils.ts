@@ -9,7 +9,6 @@ import * as Sentry from '@sentry/browser';
 import client from '../client';
 import { API_ERROR_MESSAGE } from '../constants/ApiConstants';
 import { Language as EventTranslationLanguageCode } from '../generatedTypes/globalTypes';
-import userManager from '../../domain/authentication/userManager';
 
 type ApiTranslation = {
   languageCode: EventTranslationLanguageCode;
@@ -48,9 +47,9 @@ export const queryHandler = async (
       'GraphQL error: Invalid Authorization header. JWT has expired.'
     ) {
       console.error(
-        'WIP: JWT has expired. Not sure if we should be able to reach this place if silent renew works. TODO: Find out! Consider if we want to log in automatically'
+        'JWT has expired. Probably because user has been offline. Remove old apiToken.'
       );
-      userManager.signinRedirect();
+      localStorage.removeItem('apiToken');
     }
 
     if (error.graphQLErrors[0].extensions.code === 'PERMISSION_DENIED_ERROR') {

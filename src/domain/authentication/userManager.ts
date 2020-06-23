@@ -3,7 +3,6 @@ import { UserManagerSettings, Log, WebStorageStateStore } from 'oidc-client';
 import * as Sentry from '@sentry/browser';
 
 import { fetchApiToken } from './api';
-import authProvider from './authProvider';
 
 const location = `${window.location.protocol}//${window.location.hostname}${
   window.location.port ? `:${window.location.port}` : ''
@@ -12,7 +11,7 @@ const location = `${window.location.protocol}//${window.location.hostname}${
 if (process.env.NODE_ENV === 'development') {
   // Show oidc debugging info in the console - should only be active on development
   Log.logger = console;
-  Log.level = Log.INFO;
+  Log.level = Log.DEBUG;
 }
 
 /* eslint-disable @typescript-eslint/camelcase */
@@ -37,13 +36,32 @@ const userManager = createUserManager(settings);
 userManager.events.addAccessTokenExpiring(async () => {
   try {
     console.count('userManager addAccessTokenExpiring fetchApiToken');
-    const newUser = await userManager.signinSilent();
-    await userManager.storeUser(newUser);
-    const apiToken = await fetchApiToken(newUser.access_token);
-    localStorage.setItem('apiToken', apiToken);
+
+    try {
+      const newUser = await userManager.signinSilent();
+      console.count('1 userManager addAccessTokenExpiring newUser');
+      await userManager.storeUser(newUser);
+      console.count('2 userManager addAccessTokenExpiring storeUser');
+      localStorage.removeItem('apiToken');
+      try {
+        const apiToken = await fetchApiToken(newUser.access_token);
+        localStorage.setItem('apiToken', apiToken);
+        console.count('3 userManager addAccessTokenExpiring fetchApiToken');
+      } catch (error) {
+        console.log('userManager addAccessTokenExpiring fetchApiToken error');
+        console.error(error);
+      }
+    } catch (error) {
+      console.log('addAccessTokenExpiring - signinSilent error');
+      console.error(error);
+    }
   } catch (error) {
     // This happens if you're offline for example, seems responsible to log out.
-    authProvider.logout({});
+    console.error(
+      'XXXX addAccessTokenExpiring caught error somewhere in addAccessTokenExpiring XXXX'
+    );
+    localStorage.removeItem('apiToken');
+    //await userManager.signoutRedirect();
     Sentry.captureException(error);
     // eslint-disable-next-line no-console
     console.error(error);
@@ -59,7 +77,7 @@ userManager.events.addUserSignedOut(async () => {
   // TODO: Find out if this code is called under any circumstances.
   console.count('userManager -> addUserSignedOut! Calling signoutRedirect');
   try {
-    await userManager.signoutRedirect();
+    // await userManager.signoutRedirect();
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(error);
@@ -67,9 +85,16 @@ userManager.events.addUserSignedOut(async () => {
   }
 });
 
-userManager.events.addAccessTokenExpired(() => {
+userManager.events.addAccessTokenExpired(async () => {
   console.count('addAccessTokenExpired');
-  authProvider.logout({});
+  try {
+    localStorage.removeItem('apiToken');
+    // await userManager.signoutRedirect();
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+    Sentry.captureException(error);
+  }
 });
 
 export default userManager;

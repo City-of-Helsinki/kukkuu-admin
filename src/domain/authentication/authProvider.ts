@@ -24,7 +24,9 @@ const authProvider: AuthProvider = {
   },
   checkError: (error) => {
     console.log('authProvider checkError', error);
-    return Promise.resolve();
+    return localStorage.getItem('apiToken')
+      ? Promise.resolve()
+      : Promise.reject();
   },
   getPermissions: (params) => {
     console.log('authProvider getPermissions', params);
