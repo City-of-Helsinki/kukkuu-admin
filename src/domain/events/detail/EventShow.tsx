@@ -33,6 +33,7 @@ import { Language } from '../../../api/generatedTypes/globalTypes';
 import { Occurrences_occurrences_edges_node as Occurrence } from '../../../api/generatedTypes/Occurrences';
 import { OccurrenceTimeRangeField } from '../../occurrences/fields';
 import { AdminEvent } from '../types/EventTypes';
+import ViewTitle from '../../../common/components/viewTitle/ViewTitle';
 
 const styles = createStyles({
   button: {
@@ -131,15 +132,14 @@ const EventShowActions = ({
 
 const EventShow: FunctionComponent = (props: any) => {
   const locale = useLocale();
-  const EventTitle = ({ record }: { record?: any }) => {
-    return <span>{record ? `${record.translations.FI.name}` : ''}</span>;
-  };
 
   const [language, selectLanguage] = useState(Language.FI);
+
   return (
-    <Show title={<EventTitle />} actions={<EventShowActions />} {...props}>
+    <Show actions={<EventShowActions />} {...props}>
       <TabbedShowLayout>
         <Tab label={'events.show.tab.label'}>
+          <ViewTitle source="events.show.tab.label" />
           <LanguageTabs selectedLanguage={language} onSelect={selectLanguage} />
           <ImageField source="image" />
           <TextField

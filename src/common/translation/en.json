@@ -221,6 +221,9 @@
       },
       "title": "Create venue"
     },
+    "edit": {
+      "title": "Edit venue"
+    },
     "fields": {
       "accessibilityInfo": {
         "helperText": "",

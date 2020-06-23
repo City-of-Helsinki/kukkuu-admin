@@ -25,6 +25,7 @@ import ChildList from '../children/ChildList';
 import OccurrenceShow from '../occurrences/OccurrenceShow';
 import OccurrenceEdit from '../occurrences/OccurrenceEdit';
 import ChildShow from '../children/ChildShow';
+import KukkuuLayout from '../../common/components/layout/KukkuuLayout';
 
 const history = createHistory();
 
@@ -32,6 +33,7 @@ const App: React.FC = () => {
   const translate = useTranslate();
   return (
     <Admin
+      layout={KukkuuLayout}
       dataProvider={dataProvider}
       i18nProvider={i18nProvider}
       theme={theme}

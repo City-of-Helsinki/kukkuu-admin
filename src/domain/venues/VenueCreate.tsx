@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
-import { Create, SimpleForm, TextInput, required } from 'react-admin';
-import { Grid } from '@material-ui/core';
+import {
+  Create,
+  SimpleForm,
+  TextInput,
+  required,
+  useTranslate,
+} from 'react-admin';
+import { CardHeader, Grid } from '@material-ui/core';
 
 import { Language } from '../../api/generatedTypes/globalTypes';
 import LanguageTabs from '../../common/components/languageTab/LanguageTabs';
@@ -8,13 +14,14 @@ import { validateVenue } from './validations';
 import Aside from '../../common/components/aside/Aside';
 
 const VenueCreate = (props: any) => {
+  const translate = useTranslate();
   const [selectedLanguage, selectLanguage] = useState(Language.FI);
   const translation = `translations.${selectedLanguage}`;
 
   return (
     <Grid container direction="column" xs={6} item={true}>
+      <CardHeader title={translate('venues.create.title')} />
       <Create
-        title="venues.create.title"
         aside={<Aside content="venues.create.aside.content" />}
         {...props}
       >
