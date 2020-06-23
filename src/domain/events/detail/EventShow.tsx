@@ -21,7 +21,12 @@ import {
   useRefresh,
   Confirm,
 } from 'react-admin';
-import { withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
+import {
+  withStyles,
+  WithStyles,
+  createStyles,
+  makeStyles,
+} from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
@@ -38,6 +43,14 @@ import ViewTitle from '../../../common/components/viewTitle/ViewTitle';
 const styles = createStyles({
   button: {
     marginBottom: '1em',
+  },
+});
+
+const useStyles = makeStyles({
+  root: {
+    '&> .MuiToolbar-regular  ': {
+      justifyContent: 'flex-start',
+    },
   },
 });
 
@@ -132,11 +145,15 @@ const EventShowActions = ({
 
 const EventShow: FunctionComponent = (props: any) => {
   const locale = useLocale();
-
+  const classes = useStyles();
   const [language, selectLanguage] = useState(Language.FI);
 
   return (
-    <Show actions={<EventShowActions />} {...props}>
+    <Show
+      actions={<EventShowActions />}
+      classes={{ root: classes.root }}
+      {...props}
+    >
       <TabbedShowLayout>
         <Tab label={'events.show.tab.label'}>
           <ViewTitle source="events.show.tab.label" />

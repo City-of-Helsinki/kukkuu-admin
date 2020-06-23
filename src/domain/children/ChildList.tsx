@@ -10,20 +10,31 @@ import {
   FunctionField,
   useTranslate,
 } from 'react-admin';
-import { CardHeader } from '@material-ui/core';
+import { CardHeader, makeStyles } from '@material-ui/core';
 
 import { Children_children_edges_node as Child } from '../../api/generatedTypes/Children';
 import { languageChoices } from '../../common/choices';
 import Aside from '../../common/components/aside/Aside';
 
+const useStyles = makeStyles({
+  root: {
+    '&> .MuiToolbar-regular ': {
+      justifyContent: 'left',
+    },
+  },
+});
+
 const ChildList = (props: any) => {
   const translate = useTranslate();
   const locale = useLocale();
+  const classes = useStyles();
+
   return (
     <>
       <CardHeader title={translate('children.list.title')} />
       <List
         bulkActionButtons={false}
+        classes={{ root: classes.root }}
         aside={<Aside content="children.list.aside.content" />}
         {...props}
       >

@@ -11,7 +11,7 @@ import {
   DeleteButton,
   useTranslate,
 } from 'react-admin';
-import { CardHeader, Grid } from '@material-ui/core';
+import { CardHeader, Grid, makeStyles } from '@material-ui/core';
 
 import LanguageTabs from '../../../common/components/languageTab/LanguageTabs';
 import { Language } from '../../../api/generatedTypes/globalTypes';
@@ -26,6 +26,14 @@ import { participantsPerInviteChoices } from '../choices';
 import ImageUploadField from '../../../common/components/imageField/ImageUploadField';
 import ViewTitle from '../../../common/components/viewTitle/ViewTitle';
 
+const useStyles = makeStyles({
+  root: {
+    '&> .MuiToolbar-regular  ': {
+      justifyContent: 'flex-start',
+    },
+  },
+});
+
 const EventEditToolbar = (props: any) => {
   return (
     <Toolbar style={{ justifyContent: 'space-between' }} {...props}>
@@ -39,13 +47,19 @@ const EventEdit = (props: any) => {
   const translate = useTranslate();
   const [selectedLanguage, selectLanguage] = useState(Language.FI);
   const translation = `translations.${selectedLanguage}`;
+  const classes = useStyles();
 
   // Undoable is false to prevent image from appearing while waiting for backend result.
   return (
     <>
       <CardHeader title={translate('events.edit.title')} />
       <Grid container direction="column" xs={6} item={true}>
-        <Edit undoable={false} title={'events.edit.title'} {...props}>
+        <Edit
+          undoable={false}
+          title={'events.edit.title'}
+          {...props}
+          classes={{ root: classes.root }}
+        >
           <SimpleForm
             variant="outlined"
             redirect="show"

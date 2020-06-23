@@ -9,12 +9,20 @@ import {
   DeleteButton,
   useTranslate,
 } from 'react-admin';
-import { CardHeader, Grid } from '@material-ui/core';
+import { CardHeader, Grid, makeStyles } from '@material-ui/core';
 
 import { Language } from '../../api/generatedTypes/globalTypes';
 import LanguageTabs from '../../common/components/languageTab/LanguageTabs';
 import { validateVenue } from './validations';
 import ViewTitle from '../../common/components/viewTitle/ViewTitle';
+
+const useStyles = makeStyles({
+  root: {
+    '&> .MuiToolbar-regular  ': {
+      justifyContent: 'flex-start',
+    },
+  },
+});
 
 const VenueEditToolbar = (props: any) => {
   return (
@@ -31,12 +39,13 @@ const VenueEdit = (props: any) => {
   const translate = useTranslate();
   const [selectedLanguage, selectLanguage] = useState(Language.FI);
   const translation = `translations.${selectedLanguage}`;
+  const classes = useStyles();
 
   return (
     <>
       <CardHeader title={translate('venues.edit.title')} />
       <Grid container direction="column" xs={6} item={true}>
-        <Edit {...props}>
+        <Edit classes={{ root: classes.root }} {...props}>
           <SimpleForm
             variant="outlined"
             redirect="show"

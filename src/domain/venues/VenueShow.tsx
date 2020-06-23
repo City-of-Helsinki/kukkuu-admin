@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
 import { Show, TextField, useTranslate, SimpleShowLayout } from 'react-admin';
-import { CardHeader } from '@material-ui/core';
+import { CardHeader, makeStyles } from '@material-ui/core';
 
 import LanguageTabs from '../../common/components/languageTab/LanguageTabs';
 import { Language } from '../../api/generatedTypes/globalTypes';
+
+const useStyles = makeStyles({
+  root: {
+    '&> .MuiToolbar-regular  ': {
+      justifyContent: 'flex-start',
+    },
+  },
+});
 
 const VenueTitle = ({
   basePath,
@@ -16,12 +24,13 @@ const VenueTitle = ({
 };
 
 const VenueShow = (props: any) => {
+  const classes = useStyles();
   const translate = useTranslate();
   const [selectedLanguage, selectLanguage] = useState(Language.FI);
   const translation = `translations.${selectedLanguage}`;
 
   return (
-    <Show {...props}>
+    <Show classes={{ root: classes.root }} {...props}>
       <SimpleShowLayout>
         <VenueTitle />
         <LanguageTabs

@@ -9,21 +9,31 @@ import {
   SelectField,
   DateField,
 } from 'react-admin';
-import { CardHeader } from '@material-ui/core';
+import { CardHeader, makeStyles } from '@material-ui/core';
 
 import { getTranslatedField } from '../../../common/translation/TranslationUtils';
 import { participantsPerInviteChoices } from '../choices';
 import Aside from '../../../common/components/aside/Aside';
 
+const useStyles = makeStyles({
+  root: {
+    '&> .MuiToolbar-regular ': {
+      justifyContent: 'left',
+    },
+  },
+});
+
 const EventList = (props: any) => {
   const translate = useTranslate();
   const locale = useLocale();
+  const classes = useStyles();
 
   return (
     <>
       <CardHeader title={translate('events.list.title')} />
       <List
         bulkActionButtons={false}
+        classes={{ root: classes.root }}
         aside={<Aside content="events.list.aside.content" />}
         {...props}
       >
