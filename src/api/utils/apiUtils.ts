@@ -46,13 +46,11 @@ export const queryHandler = async (
       error.message ===
       'GraphQL error: Invalid Authorization header. JWT has expired.'
     ) {
-      console.error(
-        'JWT has expired. Probably because user has been offline. Remove old apiToken.'
-      );
+      // JWT has expired. Probably because user has been offline. Remove old apiToken to trigger logout
       localStorage.removeItem('apiToken');
-    }
-
-    if (error.graphQLErrors[0].extensions.code === 'PERMISSION_DENIED_ERROR') {
+    } else if (
+      error.graphQLErrors[0].extensions.code === 'PERMISSION_DENIED_ERROR'
+    ) {
       console.error('Permission denied');
     } else {
       console.error(error);

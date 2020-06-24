@@ -8,10 +8,10 @@ const location = `${window.location.protocol}//${window.location.hostname}${
   window.location.port ? `:${window.location.port}` : ''
 }`;
 
+// Show oidc debugging info in the console only while developing
 if (process.env.NODE_ENV === 'development') {
-  // Show oidc debugging info in the console - should only be active on development
   Log.logger = console;
-  Log.level = Log.DEBUG;
+  Log.level = Log.INFO;
 }
 
 /* eslint-disable @typescript-eslint/camelcase */
@@ -35,33 +35,16 @@ const userManager = createUserManager(settings);
 
 userManager.events.addAccessTokenExpiring(async () => {
   try {
-    console.count('userManager addAccessTokenExpiring fetchApiToken');
-
-    try {
-      const newUser = await userManager.signinSilent();
-      console.count('1 userManager addAccessTokenExpiring newUser');
-      await userManager.storeUser(newUser);
-      console.count('2 userManager addAccessTokenExpiring storeUser');
-      localStorage.removeItem('apiToken');
-      try {
-        const apiToken = await fetchApiToken(newUser.access_token);
-        localStorage.setItem('apiToken', apiToken);
-        console.count('3 userManager addAccessTokenExpiring fetchApiToken');
-      } catch (error) {
-        console.log('userManager addAccessTokenExpiring fetchApiToken error');
-        console.error(error);
-      }
-    } catch (error) {
-      console.log('addAccessTokenExpiring - signinSilent error');
-      console.error(error);
-    }
-  } catch (error) {
-    // This happens if you're offline for example, seems responsible to log out.
-    console.error(
-      'XXXX addAccessTokenExpiring caught error somewhere in addAccessTokenExpiring XXXX'
-    );
+    const newUser = await userManager.signinSilent();
+    await userManager.storeUser(newUser);
+    // Remove API token to force logout if renewal fails (see authProvider.ts)
     localStorage.removeItem('apiToken');
-    //await userManager.signoutRedirect();
+    const apiToken = await fetchApiToken(newUser.access_token);
+    localStorage.setItem('apiToken', apiToken);
+  } catch (error) {
+    // This happens if you're offline for example, and it is responsible to log out.
+    localStorage.removeItem('apiToken');
+    // TODO: Decide if we want these errors to go to Sentry
     Sentry.captureException(error);
     // eslint-disable-next-line no-console
     console.error(error);
@@ -73,27 +56,16 @@ userManager.events.addSilentRenewError((error) => {
   console.error('userManager addSilentRenewError', error);
 });
 
-userManager.events.addUserSignedOut(async () => {
-  // TODO: Find out if this code is called under any circumstances.
-  console.count('userManager -> addUserSignedOut! Calling signoutRedirect');
-  try {
-    // await userManager.signoutRedirect();
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error(error);
-    Sentry.captureException(error);
-  }
-});
-
 userManager.events.addAccessTokenExpired(async () => {
-  console.count('addAccessTokenExpired');
+  // This is probably torta på torta because the apiToken will be removed in
+  // addAccessTokenExpiring
   try {
     localStorage.removeItem('apiToken');
-    // await userManager.signoutRedirect();
   } catch (error) {
+    // TODO: Decide if we want these errors to go to Sentry
+    Sentry.captureException(error);
     // eslint-disable-next-line no-console
     console.error(error);
-    Sentry.captureException(error);
   }
 });
 
