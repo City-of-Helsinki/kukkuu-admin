@@ -8,7 +8,6 @@ const authProvider: AuthProvider = {
   logout: async (params) => {
     localStorage.removeItem('apiToken');
     removeAdminProfile();
-    console.log('logging out through authProvider -> logout');
     if (Boolean(await userManager.getUser())) {
       return '/logout';
     }
@@ -23,11 +22,12 @@ const authProvider: AuthProvider = {
     return Promise.resolve();
   },
   checkError: (error) => {
-    console.log('authProvider checkError', error);
-    return Promise.resolve();
+    // Trigger a logout if the apiToken is not in place
+    return localStorage.getItem('apiToken')
+      ? Promise.resolve()
+      : Promise.reject();
   },
   getPermissions: (params) => {
-    console.log('authProvider getPermissions', params);
     return Promise.resolve();
   },
 };

@@ -3,14 +3,13 @@ import { UserManagerSettings, Log, WebStorageStateStore } from 'oidc-client';
 import * as Sentry from '@sentry/browser';
 
 import { fetchApiToken } from './api';
-import authProvider from './authProvider';
 
 const location = `${window.location.protocol}//${window.location.hostname}${
   window.location.port ? `:${window.location.port}` : ''
 }`;
 
+// Show oidc debugging info in the console only while developing
 if (process.env.NODE_ENV === 'development') {
-  // Show oidc debugging info in the console - should only be active on development
   Log.logger = console;
   Log.level = Log.INFO;
 }
@@ -36,14 +35,16 @@ const userManager = createUserManager(settings);
 
 userManager.events.addAccessTokenExpiring(async () => {
   try {
-    console.count('userManager addAccessTokenExpiring fetchApiToken');
     const newUser = await userManager.signinSilent();
     await userManager.storeUser(newUser);
+    // Remove API token to force logout if renewal fails (see authProvider.ts)
+    localStorage.removeItem('apiToken');
     const apiToken = await fetchApiToken(newUser.access_token);
     localStorage.setItem('apiToken', apiToken);
   } catch (error) {
-    // This happens if you're offline for example, seems responsible to log out.
-    authProvider.logout({});
+    // This happens if you're offline for example, and it is responsible to log out.
+    localStorage.removeItem('apiToken');
+    // TODO: Decide if we want these errors to go to Sentry
     Sentry.captureException(error);
     // eslint-disable-next-line no-console
     console.error(error);
@@ -55,21 +56,17 @@ userManager.events.addSilentRenewError((error) => {
   console.error('userManager addSilentRenewError', error);
 });
 
-userManager.events.addUserSignedOut(async () => {
-  // TODO: Find out if this code is called under any circumstances.
-  console.count('userManager -> addUserSignedOut! Calling signoutRedirect');
+userManager.events.addAccessTokenExpired(async () => {
+  // This is probably torta på torta because the apiToken will be removed in
+  // addAccessTokenExpiring
   try {
-    await userManager.signoutRedirect();
+    localStorage.removeItem('apiToken');
   } catch (error) {
+    // TODO: Decide if we want these errors to go to Sentry
+    Sentry.captureException(error);
     // eslint-disable-next-line no-console
     console.error(error);
-    Sentry.captureException(error);
   }
-});
-
-userManager.events.addAccessTokenExpired(() => {
-  console.count('addAccessTokenExpired');
-  authProvider.logout({});
 });
 
 export default userManager;
