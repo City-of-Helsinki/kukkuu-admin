@@ -6,6 +6,7 @@ import {
   useLocale,
   EmailField,
   SelectField,
+  TextField,
   FunctionField,
   useTranslate,
 } from 'react-admin';
@@ -37,6 +38,10 @@ const ChildList = (props: any) => {
             source="birthdate"
             label="children.fields.birthdate.label"
             locales={locale}
+          />
+          <TextField
+            source="postalCode"
+            label="children.fields.guardians.fields.postalCode.label"
           />
           <EmailField
             source="guardians.edges.0.node.email"

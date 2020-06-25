@@ -73,6 +73,12 @@ export interface PublishEventMutationInput {
   clientMutationId?: string | null;
 }
 
+export interface SetEnrolmentAttendanceMutationInput {
+  enrolmentId: string;
+  attended?: boolean | null;
+  clientMutationId?: string | null;
+}
+
 export interface UpdateEventMutationInput {
   id: string;
   duration?: number | null;

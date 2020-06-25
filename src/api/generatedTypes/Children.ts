@@ -45,6 +45,7 @@ export interface Children_children_edges_node {
   firstName: string;
   lastName: string;
   birthdate: any;
+  postalCode: string;
   guardians: Children_children_edges_node_guardians;
 }
 
