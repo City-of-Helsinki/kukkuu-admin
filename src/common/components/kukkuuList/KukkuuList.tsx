@@ -1,10 +1,8 @@
 import { List } from 'react-admin';
 import { styled } from '@material-ui/core/styles';
 
-const KukkuuList = styled(List)({
-  '&> .MuiToolbar-regular ': {
-    justifyContent: 'left',
-  },
-});
+import { kukkuuToolbar } from '../../materialUI/kukkuuStyles';
+
+const KukkuuList = styled(List)(kukkuuToolbar);
 
 export default KukkuuList;
