@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Show,
   TextField,
   NumberField,
   DateField,
@@ -24,6 +23,7 @@ import {
   Occurrences_occurrences_edges_node_enrolments_edges as EnrolmentEdge,
   Occurrences_occurrences_edges_node_enrolments_edges_node as Enrolment,
 } from '../../api/generatedTypes/Occurrences';
+import KukkuuShow from '../../common/components/kukkuuShow/KukkuuShow';
 
 type AttendedFieldProps = {
   record?: EnrolmentEdge;
@@ -85,7 +85,7 @@ const OccurrenceShow = (props: any) => {
   const translate = useTranslate();
 
   return (
-    <Show {...props} title="occurrences.show.title">
+    <KukkuuShow {...props} title="occurrences.show.title">
       <SimpleShowLayout>
         <ReferenceField
           label="occurrences.fields.event.label"
@@ -156,7 +156,7 @@ const OccurrenceShow = (props: any) => {
           </Datagrid>
         </ArrayField>
       </SimpleShowLayout>
-    </Show>
+    </KukkuuShow>
   );
 };
 

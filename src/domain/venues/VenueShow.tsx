@@ -1,17 +1,10 @@
 import React, { useState } from 'react';
-import { Show, TextField, useTranslate, SimpleShowLayout } from 'react-admin';
-import { CardHeader, makeStyles } from '@material-ui/core';
+import { TextField, useTranslate, SimpleShowLayout } from 'react-admin';
+import { CardHeader } from '@material-ui/core';
 
 import LanguageTabs from '../../common/components/languageTab/LanguageTabs';
 import { Language } from '../../api/generatedTypes/globalTypes';
-
-const useStyles = makeStyles({
-  root: {
-    '&> .MuiToolbar-regular  ': {
-      justifyContent: 'flex-start',
-    },
-  },
-});
+import KukkuuShow from '../../common/components/kukkuuShow/KukkuuShow';
 
 const VenueTitle = ({
   basePath,
@@ -24,13 +17,12 @@ const VenueTitle = ({
 };
 
 const VenueShow = (props: any) => {
-  const classes = useStyles();
   const translate = useTranslate();
   const [selectedLanguage, selectLanguage] = useState(Language.FI);
   const translation = `translations.${selectedLanguage}`;
 
   return (
-    <Show classes={{ root: classes.root }} {...props}>
+    <KukkuuShow {...props}>
       <SimpleShowLayout>
         <VenueTitle />
         <LanguageTabs
@@ -66,7 +58,7 @@ const VenueShow = (props: any) => {
           label={translate('venues.fields.wcAndFacilities.label')}
         />
       </SimpleShowLayout>
-    </Show>
+    </KukkuuShow>
   );
 };
 
