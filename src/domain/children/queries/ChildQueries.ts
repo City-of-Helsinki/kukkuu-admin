@@ -9,6 +9,7 @@ export const childrenQuery = gql`
           firstName
           lastName
           birthdate
+          postalCode
           guardians {
             edges {
               node {
