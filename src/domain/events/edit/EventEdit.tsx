@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  Edit,
   TextInput,
   SimpleForm,
   SelectInput,
@@ -25,6 +24,7 @@ import {
 import { participantsPerInviteChoices } from '../choices';
 import ImageUploadField from '../../../common/components/imageField/ImageUploadField';
 import ViewTitle from '../../../common/components/viewTitle/ViewTitle';
+import KukkuuEdit from '../../../common/components/kukkuuEdit/KukkuuEdit';
 
 const EventEditToolbar = (props: any) => {
   return (
@@ -45,7 +45,7 @@ const EventEdit = (props: any) => {
     <>
       <CardHeader title={translate('events.edit.title')} />
       <Grid container direction="column" xs={6} item={true}>
-        <Edit undoable={false} title={'events.edit.title'} {...props}>
+        <KukkuuEdit undoable={false} title={'events.edit.title'} {...props}>
           <SimpleForm
             variant="outlined"
             redirect="show"
@@ -115,7 +115,7 @@ const EventEdit = (props: any) => {
               fullWidth
             />
           </SimpleForm>
-        </Edit>
+        </KukkuuEdit>
       </Grid>
     </>
   );

@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useState, Fragment } from 'react';
 import {
-  Show,
   TabbedShowLayout,
   TextField,
   Tab,
@@ -34,6 +33,7 @@ import { Occurrences_occurrences_edges_node as Occurrence } from '../../../api/g
 import { OccurrenceTimeRangeField } from '../../occurrences/fields';
 import { AdminEvent } from '../types/EventTypes';
 import ViewTitle from '../../../common/components/viewTitle/ViewTitle';
+import KukkuuShow from '../../../common/components/kukkuuShow/KukkuuShow';
 
 const styles = createStyles({
   button: {
@@ -132,11 +132,10 @@ const EventShowActions = ({
 
 const EventShow: FunctionComponent = (props: any) => {
   const locale = useLocale();
-
   const [language, selectLanguage] = useState(Language.FI);
 
   return (
-    <Show actions={<EventShowActions />} {...props}>
+    <KukkuuShow actions={<EventShowActions />} {...props}>
       <TabbedShowLayout>
         <Tab label={'events.show.tab.label'}>
           <ViewTitle source="events.show.tab.label" />
@@ -222,7 +221,7 @@ const EventShow: FunctionComponent = (props: any) => {
           <AddOccurrenceButton />
         </Tab>
       </TabbedShowLayout>
-    </Show>
+    </KukkuuShow>
   );
 };
 

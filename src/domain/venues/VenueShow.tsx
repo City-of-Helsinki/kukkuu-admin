@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Show, TextField, useTranslate, SimpleShowLayout } from 'react-admin';
+import { TextField, useTranslate, SimpleShowLayout } from 'react-admin';
 import { CardHeader } from '@material-ui/core';
 
 import LanguageTabs from '../../common/components/languageTab/LanguageTabs';
 import { Language } from '../../api/generatedTypes/globalTypes';
+import KukkuuShow from '../../common/components/kukkuuShow/KukkuuShow';
 
 const VenueTitle = ({
   basePath,
@@ -21,7 +22,7 @@ const VenueShow = (props: any) => {
   const translation = `translations.${selectedLanguage}`;
 
   return (
-    <Show {...props}>
+    <KukkuuShow {...props}>
       <SimpleShowLayout>
         <VenueTitle />
         <LanguageTabs
@@ -57,7 +58,7 @@ const VenueShow = (props: any) => {
           label={translate('venues.fields.wcAndFacilities.label')}
         />
       </SimpleShowLayout>
-    </Show>
+    </KukkuuShow>
   );
 };
 

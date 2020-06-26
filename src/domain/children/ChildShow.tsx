@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Show,
   TextField,
   SimpleShowLayout,
   DateField,
@@ -21,6 +20,7 @@ import {
   Child_child_occurrences_edges as OccurrenceEdges,
 } from '../../api/generatedTypes/Child';
 import { OccurrenceTimeRangeField } from '../occurrences/fields';
+import KukkuuShow from '../../common/components/kukkuuShow/KukkuuShow';
 
 interface RowClickParams<T> {
   id: string;
@@ -35,7 +35,7 @@ const ChildShow = (props: any) => {
   return (
     <>
       <CardHeader title={translate('children.show.title')} />
-      <Show title="children.show.title" {...props}>
+      <KukkuuShow title="children.show.title" {...props}>
         <SimpleShowLayout>
           <FunctionField
             label="children.fields.name.label"
@@ -112,7 +112,7 @@ const ChildShow = (props: any) => {
             </Datagrid>
           </ArrayField>
         </SimpleShowLayout>
-      </Show>
+      </KukkuuShow>
     </>
   );
 };

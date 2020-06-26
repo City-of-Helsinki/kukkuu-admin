@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  List,
   Datagrid,
   TextField,
   useTranslate,
@@ -14,6 +13,7 @@ import { CardHeader } from '@material-ui/core';
 import { getTranslatedField } from '../../../common/translation/TranslationUtils';
 import { participantsPerInviteChoices } from '../choices';
 import Aside from '../../../common/components/aside/Aside';
+import KukkuuList from '../../../common/components/kukkuuList/KukkuuList';
 
 const EventList = (props: any) => {
   const translate = useTranslate();
@@ -22,7 +22,7 @@ const EventList = (props: any) => {
   return (
     <>
       <CardHeader title={translate('events.list.title')} />
-      <List
+      <KukkuuList
         bulkActionButtons={false}
         aside={<Aside content="events.list.aside.content" />}
         {...props}
@@ -56,7 +56,7 @@ const EventList = (props: any) => {
             locales={locale}
           />
         </Datagrid>
-      </List>
+      </KukkuuList>
     </>
   );
 };
