@@ -99,6 +99,9 @@
       "name": {
         "label": "Nimi"
       },
+      "numOfOccurrences": {
+        "label": "Esiintymiä"
+      },
       "occurrences": {
         "label": "Esiintymät"
       },
@@ -115,11 +118,17 @@
         "label": "Osallistujat kutsua kohden"
       },
       "publishedAt": {
-        "label": "Julkaisu"
+        "label": "Julkaisu",
+        "values": {
+          "NOT_PUBLISHED": "Ei julkaistu"
+        }
       },
       "shortDescription": {
         "helperText": "Tämä näkyy kummilapsen omalla sivulla ilmestyvässä kutsussa. Maksimissaan 140 merkkiä",
         "label": "Lyhyt kuvaus"
+      },
+      "totalCapacity": {
+        "label": "Kokonaiskapasiteetti"
       }
     },
     "list": {

@@ -7,12 +7,14 @@ import {
   NumberField,
   SelectField,
   DateField,
+  FunctionField,
 } from 'react-admin';
 import { CardHeader } from '@material-ui/core';
 
 import { getTranslatedField } from '../../../common/translation/TranslationUtils';
 import { participantsPerInviteChoices } from '../choices';
 import KukkuuList from '../../../common/components/kukkuuList/KukkuuList';
+import { Events_events_edges_node as Event } from '../../../api/generatedTypes/Events';
 
 const EventList = (props: any) => {
   const translate = useTranslate();
@@ -36,13 +38,18 @@ const EventList = (props: any) => {
             source="duration"
             label={translate('events.fields.duration.label')}
           />
-          <NumberField
-            source="capacityPerOccurrence"
-            label={translate('events.fields.capacityPerOccurrence.label')}
+          <FunctionField
+            label="events.fields.totalCapacity.label"
+            textAlign="right"
+            render={(record: Event) =>
+              `${
+                record.capacityPerOccurrence * record.occurrences.edges.length
+              }`
+            }
           />
           <NumberField
             source="occurrences.edges.length"
-            label={translate('events.fields.occurrences.label')}
+            label="events.fields.numOfOccurrences.label"
           />
           <DateField
             source={`publishedAt`}

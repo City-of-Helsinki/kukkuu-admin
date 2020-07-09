@@ -99,6 +99,9 @@
       "name": {
         "label": "Name"
       },
+      "numOfOccurrences": {
+        "label": "Occcurences"
+      },
       "occurrences": {
         "label": "Occurrences"
       },
@@ -115,11 +118,17 @@
         "label": "Participants per invite"
       },
       "publishedAt": {
-        "label": "Published at"
+        "label": "Published at",
+        "values": {
+          "NOT_PUBLISHED": "Not published"
+        }
       },
       "shortDescription": {
         "helperText": "",
         "label": "Short Description"
+      },
+      "totalCapacity": {
+        "label": "Total capacity"
       }
     },
     "list": {
