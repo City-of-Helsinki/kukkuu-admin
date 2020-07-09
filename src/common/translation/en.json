@@ -123,9 +123,6 @@
       }
     },
     "list": {
-      "aside": {
-        "content": ""
-      },
       "title": "Events"
     },
     "show": {
