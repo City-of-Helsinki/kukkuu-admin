@@ -14,13 +14,6 @@ import { Grid } from '@material-ui/core';
 import DateTimeTextInput from '../../common/components/dateTimeTextField/DateTimeTextField';
 import KukkuuEdit from '../../common/components/kukkuuEdit/KukkuuEdit';
 
-const OccurrenceEditTitle = ({ record }: any) => {
-  return (
-    // TODO make translatable
-    <span>{'Muokkaa ajankohta'}</span>
-  );
-};
-
 const OccurrenceEditToolbar = (props: any) => {
   const redirect = `/events/${props.record.event.id}/show/1`;
   return (
@@ -40,7 +33,7 @@ const OccurrenceEdit = (props: any) => {
   // would be better to move that logic to the fields yes.
   return (
     <Grid container direction="column" xs={6} item={true}>
-      <KukkuuEdit title={<OccurrenceEditTitle />} undoable={false} {...props}>
+      <KukkuuEdit undoable={false} {...props}>
         <SimpleForm
           variant="outlined"
           redirect={redirect}
