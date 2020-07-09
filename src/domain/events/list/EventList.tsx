@@ -12,7 +12,6 @@ import { CardHeader } from '@material-ui/core';
 
 import { getTranslatedField } from '../../../common/translation/TranslationUtils';
 import { participantsPerInviteChoices } from '../choices';
-import Aside from '../../../common/components/aside/Aside';
 import KukkuuList from '../../../common/components/kukkuuList/KukkuuList';
 
 const EventList = (props: any) => {
@@ -22,11 +21,7 @@ const EventList = (props: any) => {
   return (
     <>
       <CardHeader title={translate('events.list.title')} />
-      <KukkuuList
-        bulkActionButtons={false}
-        aside={<Aside content="events.list.aside.content" />}
-        {...props}
-      >
+      <KukkuuList bulkActionButtons={false} {...props}>
         <Datagrid rowClick="show">
           <TextField
             source={getTranslatedField('name', locale)}
