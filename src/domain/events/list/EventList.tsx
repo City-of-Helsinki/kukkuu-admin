@@ -6,7 +6,6 @@ import {
   useLocale,
   NumberField,
   SelectField,
-  DateField,
   FunctionField,
 } from 'react-admin';
 import { CardHeader } from '@material-ui/core';
@@ -15,6 +14,7 @@ import { getTranslatedField } from '../../../common/translation/TranslationUtils
 import { participantsPerInviteChoices } from '../choices';
 import KukkuuList from '../../../common/components/kukkuuList/KukkuuList';
 import { Events_events_edges_node as Event } from '../../../api/generatedTypes/Events';
+import { PublishedField } from '../fields';
 
 const EventList = (props: any) => {
   const translate = useTranslate();
@@ -51,12 +51,7 @@ const EventList = (props: any) => {
             source="occurrences.edges.length"
             label="events.fields.numOfOccurrences.label"
           />
-          <DateField
-            source={`publishedAt`}
-            label={translate('events.fields.publishedAt.label')}
-            showTime={true}
-            locales={locale}
-          />
+          <PublishedField locale={locale} />
         </Datagrid>
       </KukkuuList>
     </>

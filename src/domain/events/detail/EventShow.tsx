@@ -34,6 +34,7 @@ import { OccurrenceTimeRangeField } from '../../occurrences/fields';
 import { AdminEvent } from '../types/EventTypes';
 import ViewTitle from '../../../common/components/viewTitle/ViewTitle';
 import KukkuuShow from '../../../common/components/kukkuuShow/KukkuuShow';
+import { PublishedField } from '../fields';
 
 const styles = createStyles({
   button: {
@@ -183,6 +184,8 @@ const EventShow: FunctionComponent = (props: any) => {
             showTime={true}
             locales={locale}
           />
+
+          <PublishedField locale={locale} />
         </Tab>
         <Tab label="events.fields.occurrences.label">
           <ReferenceManyField
