@@ -6,14 +6,15 @@ import {
   useLocale,
   NumberField,
   SelectField,
-  DateField,
+  FunctionField,
 } from 'react-admin';
 import { CardHeader } from '@material-ui/core';
 
 import { getTranslatedField } from '../../../common/translation/TranslationUtils';
 import { participantsPerInviteChoices } from '../choices';
-import Aside from '../../../common/components/aside/Aside';
 import KukkuuList from '../../../common/components/kukkuuList/KukkuuList';
+import { Events_events_edges_node as Event } from '../../../api/generatedTypes/Events';
+import { PublishedField } from '../fields';
 
 const EventList = (props: any) => {
   const translate = useTranslate();
@@ -22,11 +23,7 @@ const EventList = (props: any) => {
   return (
     <>
       <CardHeader title={translate('events.list.title')} />
-      <KukkuuList
-        bulkActionButtons={false}
-        aside={<Aside content="events.list.aside.content" />}
-        {...props}
-      >
+      <KukkuuList bulkActionButtons={false} {...props}>
         <Datagrid rowClick="show">
           <TextField
             source={getTranslatedField('name', locale)}
@@ -41,20 +38,20 @@ const EventList = (props: any) => {
             source="duration"
             label={translate('events.fields.duration.label')}
           />
-          <NumberField
-            source="capacityPerOccurrence"
-            label={translate('events.fields.capacityPerOccurrence.label')}
+          <FunctionField
+            label="events.fields.totalCapacity.label"
+            textAlign="right"
+            render={(record: Event) =>
+              `${
+                record.capacityPerOccurrence * record.occurrences.edges.length
+              }`
+            }
           />
           <NumberField
             source="occurrences.edges.length"
-            label={translate('events.fields.occurrences.label')}
+            label="events.fields.numOfOccurrences.label"
           />
-          <DateField
-            source={`publishedAt`}
-            label={translate('events.fields.publishedAt.label')}
-            showTime={true}
-            locales={locale}
-          />
+          <PublishedField locale={locale} />
         </Datagrid>
       </KukkuuList>
     </>

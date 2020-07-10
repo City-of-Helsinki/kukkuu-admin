@@ -59,7 +59,7 @@
   "events": {
     "create": {
       "aside": {
-        "content": "Luo tapahtuma, lisää sille kuva, kuvaus ja kuvausteksti. Muista lisätä tiedot myös ruotsiksi ja englanniksi. Lisää tapahtumalle tapahtumapaikat ja ajankohdat Tapahtuma-ajankohdat osiossa"
+        "content": "Luo tapahtuma, lisää sille kuva, kuvaus ja kuvausteksti. Muista lisätä tiedot myös ruotsiksi ja englanniksi. Lisää tapahtumalle tapahtumapaikat ja esiintymään Tapahtumaesiintymät osiossa"
       },
       "title": "Luo tapahtuma"
     },
@@ -68,8 +68,8 @@
     },
     "fields": {
       "capacityPerOccurrence": {
-        "helperText": "Montako ilmoittautumista tapahtumaan vastaanotetaan. Huomioithan että todellinen osallistujamäärä on kapasiteetti kerrottuna sillä montako henkilöä kutsua kohti tapahtumana voi osallistua.",
-        "label": "Tilaisuuden kapasiteetti"
+        "helperText": "Montako ilmoittautumista tapahtumaesiintymään vastaanotetaan. Huomioithan että todellinen osallistujamäärä on kapasiteetti kerrottuna sillä montako henkilöä kutsua kohti tapahtumana voi osallistua.",
+        "label": "Esiintymän kapasiteetti"
       },
       "description": {
         "helperText": "Tämä kuvaus näkyy tapahtumasivulla ja kummilapselle lähtevässä tapahtumakutsusähköpostiviestissä.",
@@ -99,8 +99,11 @@
       "name": {
         "label": "Nimi"
       },
+      "numOfOccurrences": {
+        "label": "Esiintymiä"
+      },
       "occurrences": {
-        "label": "Ajankohdat"
+        "label": "Esiintymät"
       },
       "participantsPerInvite": {
         "choices": {
@@ -115,17 +118,20 @@
         "label": "Osallistujat kutsua kohden"
       },
       "publishedAt": {
-        "label": "Julkaistu"
+        "label": "Julkaisu",
+        "values": {
+          "NOT_PUBLISHED": "Ei julkaistu"
+        }
       },
       "shortDescription": {
         "helperText": "Tämä näkyy kummilapsen omalla sivulla ilmestyvässä kutsussa. Maksimissaan 140 merkkiä",
         "label": "Lyhyt kuvaus"
+      },
+      "totalCapacity": {
+        "label": "Kokonaiskapasiteetti"
       }
     },
     "list": {
-      "aside": {
-        "content": "Täältä näet listan tapahtumistasi."
-      },
       "title": "Tapahtumat"
     },
     "show": {
@@ -159,10 +165,10 @@
   },
   "occurrences": {
     "addOccurrenceButton": {
-      "label": "Lisää ajankohta"
+      "label": "Lisää esiintymä"
     },
     "create": {
-      "title": "Lisää ajankohta"
+      "title": "Lisää esiintymä"
     },
     "fields": {
       "capacity": {
@@ -211,13 +217,13 @@
       }
     },
     "show": {
-      "title": "Tapahtuma-ajankohta"
+      "title": "Esiintymä"
     }
   },
   "venues": {
     "create": {
       "aside": {
-        "content": "Lisää tapahtumapaikkoja. Lisättyäsi tapahtumapaikan voit helposti liittää sen tapahtuma-ajankohtaan"
+        "content": "Lisää tapahtumapaikkoja. Lisättyäsi tapahtumapaikan voit liittää sen tapahtumaesiintymään."
       },
       "title": "Luo uusi tapahtumapaikka"
     },
@@ -254,7 +260,7 @@
     },
     "list": {
       "aside": {
-        "content": "Täältä näet lisäämäsi tapahtumapaikat. Lisättyäsi tapahtumapaikan voit helposti liittää sen tapahtuma-ajankohtaan"
+        "content": "Täältä näet lisäämäsi tapahtumapaikat. Lisättyäsi tapahtumapaikan voit liittää sen esiintymään."
       },
       "title": "Tapahtumapaikat"
     }
