@@ -37,9 +37,6 @@
       }
     },
     "list": {
-      "aside": {
-        "content": "Täältä näet kaikki palveluun rekisteröityneet käyttäjät ja kummilapset. "
-      },
       "title": "Kummilapset"
     },
     "show": {
