@@ -13,7 +13,6 @@ import { CardHeader } from '@material-ui/core';
 
 import { Children_children_edges_node as Child } from '../../api/generatedTypes/Children';
 import { languageChoices } from '../../common/choices';
-import Aside from '../../common/components/aside/Aside';
 import KukkuuList from '../../common/components/kukkuuList/KukkuuList';
 
 const ChildList = (props: any) => {
@@ -23,11 +22,7 @@ const ChildList = (props: any) => {
   return (
     <>
       <CardHeader title={translate('children.list.title')} />
-      <KukkuuList
-        bulkActionButtons={false}
-        aside={<Aside content="children.list.aside.content" />}
-        {...props}
-      >
+      <KukkuuList bulkActionButtons={false} {...props}>
         <Datagrid rowClick="show">
           <FunctionField
             label="children.fields.name.label"
