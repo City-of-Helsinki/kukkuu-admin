@@ -1,19 +1,16 @@
 import { ApolloQueryResult } from 'apollo-client';
 
-import { queryHandler, mapApiDataToLocalData } from '../../api/utils/apiUtils';
+import { queryHandler, handleApiNode } from '../../api/utils/apiUtils';
 import { myAdminProfileQuery } from './queries';
-import {
-  MyAdminProfile as MyAdminProfileQueryResult,
-  MyAdminProfile_myAdminProfile as MyAdminProfile,
-} from '../../api/generatedTypes/MyAdminProfile';
+import { MyAdminProfile as MyAdminProfileQueryResult } from '../../api/generatedTypes/MyAdminProfile';
 
-const getMyAdminProfile = async (): Promise<MyAdminProfile> => {
+const getMyAdminProfile = async () => {
   const response: ApolloQueryResult<MyAdminProfileQueryResult> = await queryHandler(
     {
       query: myAdminProfileQuery,
     }
   );
-  return mapApiDataToLocalData(response.data.myAdminProfile);
+  return handleApiNode(response.data.myAdminProfile);
 };
 
 export { getMyAdminProfile };

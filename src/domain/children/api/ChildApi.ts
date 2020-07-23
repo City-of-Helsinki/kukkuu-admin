@@ -4,7 +4,8 @@ import { Children } from '../../../api/generatedTypes/Children';
 import { MethodHandler, MethodHandlerParams } from '../../../api/types';
 import {
   queryHandler,
-  mapApiDataToLocalData,
+  handleApiConnection,
+  handleApiNode,
 } from '../../../api/utils/apiUtils';
 import { childrenQuery, childQuery } from '../queries/ChildQueries';
 import { Child as ApiChild } from '../../../api/generatedTypes/Child';
@@ -15,9 +16,7 @@ const getChildren: MethodHandler = async (params: MethodHandlerParams) => {
     query: childrenQuery,
     variables: { projectId: getProjectId(), occurrenceId: params.id },
   });
-  return response.data.children?.edges.map((edge) =>
-    edge?.node ? mapApiDataToLocalData(edge.node) : null
-  );
+  return handleApiConnection(response.data.children);
 };
 
 const getChild: MethodHandler = async (params: MethodHandlerParams) => {
@@ -25,9 +24,7 @@ const getChild: MethodHandler = async (params: MethodHandlerParams) => {
     query: childQuery,
     variables: { id: params.id },
   });
-  return response.data.child
-    ? mapApiDataToLocalData(response.data.child)
-    : null;
+  return handleApiNode(response.data.child);
 };
 
 export { getChildren, getChild };

@@ -4,9 +4,10 @@ import moment from 'moment-timezone';
 import { MethodHandler, MethodHandlerParams } from '../../../api/types';
 import {
   queryHandler,
-  mapApiDataToLocalData,
   mapLocalDataToApiData,
   mutationHandler,
+  handleApiConnection,
+  handleApiNode,
 } from '../../../api/utils/apiUtils';
 import {
   occurrencesQuery,
@@ -29,10 +30,7 @@ const getOccurrences: MethodHandler = async (params: MethodHandlerParams) => {
     query: occurrencesQuery,
     variables: { projectId: getProjectId(), eventId: params.id },
   });
-  const data = response.data.occurrences?.edges.map((edge) =>
-    edge?.node ? mapApiDataToLocalData(edge.node) : null
-  );
-  return data;
+  return handleApiConnection(response.data.occurrences);
 };
 
 const getOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
@@ -40,8 +38,7 @@ const getOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
     query: occurrenceQuery,
     variables: { id: params.id },
   });
-  const data = response.data ? mapApiDataToLocalData(response.data) : null;
-  return data;
+  return handleApiNode(response.data);
 };
 
 // Combine two fields into one:
@@ -61,9 +58,8 @@ const addOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
     mutation: addOccurrenceMutation,
     variables: { input: data },
   });
-  return response?.data?.addOccurrence.occurrence
-    ? mapApiDataToLocalData(response.data.addOccurrence.occurrence)
-    : null;
+
+  return handleApiNode(response.data?.addOccurrence.occurrence);
 };
 
 const updateOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
@@ -89,9 +85,8 @@ const updateOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
     mutation: updateOccurrenceMutation,
     variables: { input: data },
   });
-  return response.data?.updateOccurrence.occurrence
-    ? mapApiDataToLocalData(response.data.updateOccurrence.occurrence)
-    : null;
+
+  return handleApiNode(response.data?.updateOccurrence.occurrence);
 };
 
 const deleteOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
@@ -99,7 +94,7 @@ const deleteOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
     mutation: deleteOccurrenceMutation,
     variables: { input: { id: params.id } },
   });
-  return { id: params.id };
+  return { data: { id: params.id } };
 };
 
 const setEnrolmentAttendance = async (
@@ -110,7 +105,7 @@ const setEnrolmentAttendance = async (
     mutation: setEnrolmentAttendanceMutation,
     variables: { input: { enrolmentId, attended } },
   });
-  return response.data;
+  return { data: response.data };
 };
 
 export {

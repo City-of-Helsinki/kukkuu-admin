@@ -3,12 +3,12 @@ import { ApolloQueryResult } from 'apollo-client';
 import { MethodHandler, MethodHandlerParams } from '../../../api/types';
 import {
   queryHandler,
-  mapApiDataToLocalData,
   mapLocalDataToApiData,
   mutationHandler,
+  handleApiNode,
+  handleApiConnection,
 } from '../../../api/utils/apiUtils';
 import { eventsQuery, eventQuery } from '../queries/EventQueries';
-import { Events_events as ApiEvents } from '../../../api/generatedTypes/Events';
 import { Event as ApiEvent } from '../../../api/generatedTypes/Event';
 import {
   addEventMutation,
@@ -23,9 +23,7 @@ const getEvents: MethodHandler = async (params: MethodHandlerParams) => {
     query: eventsQuery,
     variables: { projectId: getProjectId() },
   });
-  return (response.data.events as ApiEvents).edges.map((edge) =>
-    edge?.node ? mapApiDataToLocalData(edge.node) : null
-  );
+  return handleApiConnection(response.data.events);
 };
 
 const getEvent: MethodHandler = async (params: MethodHandlerParams) => {
@@ -33,9 +31,7 @@ const getEvent: MethodHandler = async (params: MethodHandlerParams) => {
     query: eventQuery,
     variables: { id: params.id },
   });
-  return response.data.event
-    ? mapApiDataToLocalData(response.data.event)
-    : null;
+  return handleApiNode(response.data.event);
 };
 
 const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
@@ -50,9 +46,7 @@ const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
     variables: { input: data },
   });
 
-  return response?.data?.addEvent.event
-    ? mapApiDataToLocalData(response.data.addEvent.event)
-    : null;
+  return handleApiNode(response.data?.addEvent.event);
 };
 
 const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
@@ -67,9 +61,8 @@ const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
     mutation: updateEventMutation,
     variables: { input: data },
   });
-  return response?.data?.updateEvent.event
-    ? mapApiDataToLocalData(response.data.updateEvent.event)
-    : null;
+
+  return handleApiNode(response.data?.updateEvent.event);
 };
 
 const publishEvent: MethodHandler = async (params: MethodHandlerParams) => {
@@ -77,9 +70,7 @@ const publishEvent: MethodHandler = async (params: MethodHandlerParams) => {
     mutation: publishEventMutation,
     variables: { input: { id: params.id } },
   });
-  return response?.data?.publishEvent.event
-    ? mapApiDataToLocalData(response.data.publishEvent.event)
-    : null;
+  return handleApiNode(response.data?.publishEvent.event);
 };
 
 const deleteEvent: MethodHandler = async (params: MethodHandlerParams) => {
@@ -87,7 +78,7 @@ const deleteEvent: MethodHandler = async (params: MethodHandlerParams) => {
     mutation: deleteEventMutation,
     variables: { input: { id: params.id } },
   });
-  return { id: params.id };
+  return { data: { id: params.id } };
 };
 
 export {

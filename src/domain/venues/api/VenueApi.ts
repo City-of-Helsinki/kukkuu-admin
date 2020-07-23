@@ -1,9 +1,6 @@
 import { ApolloQueryResult } from 'apollo-client';
 
-import {
-  Venues_venues as ApiDetailVenues,
-  Venues as ApiVenues,
-} from '../../../api/generatedTypes/Venues';
+import { Venues as ApiVenues } from '../../../api/generatedTypes/Venues';
 import { Venue as ApiDetailVenue } from '../../../api/generatedTypes/Venue';
 import { venuesQuery, venueQuery } from '../query/VenueQueries';
 import {
@@ -15,8 +12,9 @@ import { MethodHandler, MethodHandlerParams } from '../../../api/types';
 import {
   queryHandler,
   mutationHandler,
-  mapApiDataToLocalData,
   mapLocalDataToApiData,
+  handleApiNode,
+  handleApiConnection,
 } from '../../../api/utils/apiUtils';
 import { AdminVenue } from '../types/VenueTypes';
 import { getProjectId } from '../../profile/utils';
@@ -29,9 +27,7 @@ const getVenues: MethodHandler = async (params: MethodHandlerParams) => {
     query: venuesQuery,
     variables: { projectId: getProjectId() },
   });
-  return (response.data.venues as ApiDetailVenues).edges.map((edge) =>
-    edge?.node ? mapApiDataToLocalData(edge.node) : null
-  );
+  return handleApiConnection(response.data.venues);
 };
 
 const getVenue: MethodHandler = async (params: MethodHandlerParams) => {
@@ -39,9 +35,7 @@ const getVenue: MethodHandler = async (params: MethodHandlerParams) => {
     query: venueQuery,
     variables: { id: params.id },
   });
-  return response.data.venue
-    ? mapApiDataToLocalData(response.data.venue)
-    : null;
+  return handleApiNode(response.data.venue);
 };
 
 const addVenue: MethodHandler = async (params: MethodHandlerParams) => {
@@ -51,9 +45,7 @@ const addVenue: MethodHandler = async (params: MethodHandlerParams) => {
     mutation: addVenueMutation,
     variables: { input: data },
   });
-  return response?.data?.addVenue.venue
-    ? mapApiDataToLocalData(response.data.addVenue.venue)
-    : null;
+  return handleApiNode(response.data?.addVenue.venue);
 };
 
 const updateVenue: MethodHandler = async (params: MethodHandlerParams) => {
@@ -63,9 +55,7 @@ const updateVenue: MethodHandler = async (params: MethodHandlerParams) => {
     mutation: updateVenueMutation,
     variables: { input: data },
   });
-  return response.data?.updateVenue.venue
-    ? mapApiDataToLocalData(response.data.updateVenue.venue)
-    : null;
+  return handleApiNode(response.data?.updateVenue.venue);
 };
 
 const deleteVenue: MethodHandler = async (params: MethodHandlerParams) => {
@@ -73,7 +63,7 @@ const deleteVenue: MethodHandler = async (params: MethodHandlerParams) => {
     mutation: deleteVenueMutation,
     variables: { input: { id: params.id } },
   });
-  return { id: params.id };
+  return { data: { id: params.id } };
 };
 
 export { getVenues, getVenue, addVenue, updateVenue, deleteVenue };
