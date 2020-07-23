@@ -63,4 +63,5 @@ export type ApiConnection = {
   edges: Array<{
     node: ApiNode | null;
   } | null>;
+  count?: number;
 };

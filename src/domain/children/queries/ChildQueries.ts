@@ -1,8 +1,9 @@
 import gql from 'graphql-tag';
 
 export const childrenQuery = gql`
-  query Children($projectId: ID) {
-    children(projectId: $projectId) {
+  query Children($projectId: ID, $limit: Int, $offset: Int) {
+    children(projectId: $projectId, limit: $limit, offset: $offset) {
+      count
       edges {
         node {
           id

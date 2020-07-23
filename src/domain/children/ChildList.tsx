@@ -8,6 +8,7 @@ import {
   TextField,
   FunctionField,
   useTranslate,
+  Pagination,
 } from 'react-admin';
 import { CardHeader } from '@material-ui/core';
 
@@ -22,7 +23,12 @@ const ChildList = (props: any) => {
   return (
     <>
       <CardHeader title={translate('children.list.title')} />
-      <KukkuuList bulkActionButtons={false} {...props}>
+      <KukkuuList
+        bulkActionButtons={false}
+        {...props}
+        pagination={<Pagination rowsPerPageOptions={[20, 100]} />}
+        perPage={20}
+      >
         <Datagrid rowClick="show">
           <FunctionField
             label="children.fields.name.label"

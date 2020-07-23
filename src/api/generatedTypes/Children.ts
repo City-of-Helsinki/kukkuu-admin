@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { Language } from './globalTypes';
+import { Language } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: Children
@@ -57,6 +57,7 @@ export interface Children_children_edges {
 }
 
 export interface Children_children {
+  count: number;
   /**
    * Contains the nodes in this connection.
    */
@@ -69,4 +70,6 @@ export interface Children {
 
 export interface ChildrenVariables {
   projectId?: string | null;
+  limit?: number | null;
+  offset?: number | null;
 }

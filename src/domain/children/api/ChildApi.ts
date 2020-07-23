@@ -14,7 +14,12 @@ import { getProjectId } from '../../profile/utils';
 const getChildren: MethodHandler = async (params: MethodHandlerParams) => {
   const response: ApolloQueryResult<Children> = await queryHandler({
     query: childrenQuery,
-    variables: { projectId: getProjectId(), occurrenceId: params.id },
+    variables: {
+      projectId: getProjectId(),
+      occurrenceId: params.id,
+      limit: params.pagination.limit,
+      offset: params.pagination.offset,
+    },
   });
   return handleApiConnection(response.data.children);
 };

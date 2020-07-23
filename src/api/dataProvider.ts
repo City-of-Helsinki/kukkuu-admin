@@ -84,6 +84,12 @@ const runHandler = async (
     );
   }
 
+  if (['LIST', 'MANY_REFERENCE'].includes(method)) {
+    params.pagination.limit = params.pagination.perPage;
+    params.pagination.offset =
+      params.pagination.perPage * (params.pagination.page - 1);
+  }
+
   return handler(params);
 };
 

@@ -151,7 +151,8 @@ export const handleApiConnection = (connection: ApiConnection | Nullish) => {
     connection?.edges?.flatMap(
       (edge) => mapApiDataToLocalData(edge?.node) ?? []
     ) ?? [];
-  return { data, total: data.length };
+  const total = connection?.count ?? data.length;
+  return { data, total };
 };
 
 export const handleApiNode = (node: ApiNode | Nullish) => {
