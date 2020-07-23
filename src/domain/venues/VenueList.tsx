@@ -15,6 +15,7 @@ const VenueList = (props: any) => {
       <CardHeader title={translate('venues.list.title')} />
       <KukkuuList
         bulkActionButtons={false}
+        pagination={false}
         aside={<Aside content="venues.list.aside.content" />}
         {...props}
       >
