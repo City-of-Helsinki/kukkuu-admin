@@ -1,4 +1,4 @@
-import { AdminUITranslation } from '../../../api/utils/apiUtils';
+import { AdminUITranslation } from '../../../api/types';
 import { Venue_venue_translations as ApiVenueTranslation } from '../../../api/generatedTypes/Venue';
 export interface AdminVenue {
   id: string;

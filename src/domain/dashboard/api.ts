@@ -1,7 +1,7 @@
 import { ApolloQueryResult } from 'apollo-client';
 
 import { MethodHandler, MethodHandlerParams } from '../../api/types';
-import { mapApiDataToLocalData, queryHandler } from '../../api/utils/apiUtils';
+import { queryHandler, handleApiNode } from '../../api/utils/apiUtils';
 import { projectQuery } from './queries';
 import { Project } from '../../api/generatedTypes/Project';
 
@@ -13,7 +13,7 @@ const getProject: MethodHandler = async (params: MethodHandlerParams) => {
     query: projectQuery,
     variables: { id: params.id },
   });
-  return mapApiDataToLocalData(response.data.project);
+  return handleApiNode(response.data.project);
 };
 
 export { getProject };

@@ -84,59 +84,34 @@ const runHandler = async (
     );
   }
 
+  if (['LIST', 'MANY_REFERENCE'].includes(method)) {
+    params.pagination.limit = params.pagination.perPage;
+    params.pagination.offset =
+      params.pagination.perPage * (params.pagination.page - 1);
+  }
+
   return handler(params);
 };
 
 const dataProvider = {
-  getList: async (resource: Resource, params: Params) => {
-    const data = await runHandler('LIST', resource, params);
-    return {
-      data: data,
-      total: data.length,
-    };
-  },
-  getOne: async (resource: Resource, params: Params) => {
-    const data = await runHandler('ONE', resource, params);
-    return { data };
-  },
-  getMany: async (resource: Resource, params: Params) => {
-    const data = await runHandler('MANY', resource, params);
-    return {
-      data: data,
-      total: data.length,
-    };
-  },
-  getManyReference: async (resource: Resource, params: Params) => {
-    const data = await runHandler('MANY_REFERENCE', resource, params);
-    return {
-      data: data,
-      total: data.length,
-    };
-  },
-  create: async (resource: Resource, params: Params) => {
-    const data = await runHandler('CREATE', resource, params);
-    return { data };
-  },
-  update: async (resource: Resource, params: Params) => {
-    const data = await runHandler('UPDATE', resource, params);
-    return { data };
-  },
-  delete: async (resource: Resource, params: Params) => {
-    const data = await runHandler('DELETE', resource, params);
-    return { data };
-  },
-  publish: async (resource: Resource, params: Params) => {
-    const data = await runHandler('PUBLISH', resource, params);
-    return { data };
-  },
-  getMyAdminProfile: async () => {
-    const data = await getMyAdminProfile();
-    return { data };
-  },
-  setEnrolmentAttendance: async (enrolmentId: string, attended: boolean) => {
-    const data = await setEnrolmentAttendance(enrolmentId, attended);
-    return { data };
-  },
+  getList: async (resource: Resource, params: Params) =>
+    runHandler('LIST', resource, params),
+  getOne: async (resource: Resource, params: Params) =>
+    runHandler('ONE', resource, params),
+  getMany: async (resource: Resource, params: Params) =>
+    runHandler('MANY', resource, params),
+  getManyReference: async (resource: Resource, params: Params) =>
+    runHandler('MANY_REFERENCE', resource, params),
+  create: async (resource: Resource, params: Params) =>
+    runHandler('CREATE', resource, params),
+  update: async (resource: Resource, params: Params) =>
+    runHandler('UPDATE', resource, params),
+  delete: async (resource: Resource, params: Params) =>
+    runHandler('DELETE', resource, params),
+  publish: async (resource: Resource, params: Params) =>
+    runHandler('PUBLISH', resource, params),
+  getMyAdminProfile,
+  setEnrolmentAttendance,
 };
 
 export default dataProvider;

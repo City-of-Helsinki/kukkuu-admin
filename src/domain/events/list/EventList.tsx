@@ -23,7 +23,7 @@ const EventList = (props: any) => {
   return (
     <>
       <CardHeader title={translate('events.list.title')} />
-      <KukkuuList bulkActionButtons={false} {...props}>
+      <KukkuuList bulkActionButtons={false} pagination={false} {...props}>
         <Datagrid rowClick="show">
           <TextField
             source={getTranslatedField('name', locale)}

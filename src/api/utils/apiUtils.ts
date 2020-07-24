@@ -8,27 +8,13 @@ import * as Sentry from '@sentry/browser';
 
 import client from '../client';
 import { API_ERROR_MESSAGE } from '../constants/ApiConstants';
-import { Language as EventTranslationLanguageCode } from '../generatedTypes/globalTypes';
-
-type ApiTranslation = {
-  languageCode: EventTranslationLanguageCode;
-};
-
-export type AdminUITranslation<F> = {
-  [EventTranslationLanguageCode.EN]?: F;
-  [EventTranslationLanguageCode.FI]?: F;
-  [EventTranslationLanguageCode.SV]?: F;
-};
-
-export type EntityNode = {
-  id: string;
-  translations?: ApiTranslation[];
-};
-
-export type LocalEntity<T> = {
-  id: string;
-  translations?: [T];
-};
+import {
+  Nullish,
+  AdminUITranslation,
+  ApiTranslation,
+  ApiNode,
+  ApiConnection,
+} from '../types';
 
 /**
  * Add generic error handler for Apollo query
@@ -138,10 +124,11 @@ export const denormalizeLocalTranslations = <T>(
  *   ...rest
  * }
  */
-export const mapApiDataToLocalData = <E extends EntityNode>(
-  apiEntityNode: E | null
+export const mapApiDataToLocalData = <T extends ApiNode>(
+  apiNode: T | Nullish
 ) => {
-  const apiData = Object.assign({}, apiEntityNode);
+  if (!apiNode) return null;
+  const apiData = Object.assign({}, apiNode);
   delete (apiData as { __typename?: string }).__typename;
   return apiData.translations
     ? Object.assign({}, apiData, {
@@ -157,4 +144,17 @@ export const mapLocalDataToApiData = (record: any) => {
         translations: denormalizeLocalTranslations(record.translations),
       })
     : record;
+};
+
+export const handleApiConnection = (connection: ApiConnection | Nullish) => {
+  const data =
+    connection?.edges?.flatMap(
+      (edge) => mapApiDataToLocalData(edge?.node) ?? []
+    ) ?? [];
+  const total = connection?.count ?? data.length;
+  return { data, total };
+};
+
+export const handleApiNode = (node: ApiNode | Nullish) => {
+  return { data: mapApiDataToLocalData(node) };
 };
