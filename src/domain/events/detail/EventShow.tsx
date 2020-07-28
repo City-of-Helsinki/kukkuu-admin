@@ -178,13 +178,6 @@ const EventShow: FunctionComponent = (props: any) => {
             label={'events.fields.capacityPerOccurrence.label'}
           />
 
-          <DateField
-            source={`publishedAt`}
-            label={'events.fields.publishedAt.label'}
-            showTime={true}
-            locales={locale}
-          />
-
           <PublishedField locale={locale} />
         </Tab>
         <Tab label="events.fields.occurrences.label">

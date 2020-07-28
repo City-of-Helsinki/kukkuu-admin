@@ -1,5 +1,6 @@
 import get from 'lodash/get';
 import React from 'react';
+import Typography from '@material-ui/core/Typography';
 
 import { Occurrences_occurrences_edges_node as Occurrence } from '../../api/generatedTypes/Occurrences';
 
@@ -23,12 +24,14 @@ export const OccurrenceTimeRangeField = ({
   const start = new Date(Date.parse(occurrence.time));
   const startString = start.toLocaleString(locales, options);
   const duration = occurrence.event.duration;
-  if (!duration) {
-    return <span>{startString}</span>;
-  }
-  const end = new Date(start.getTime() + 60000 * duration);
   return (
-    <span>{`${startString} – ${end.toLocaleString(locales, options)}`}</span>
+    <Typography variant="body2" component="span">
+      {duration
+        ? `${startString} – ${new Date(
+            start.getTime() + 60000 * duration
+          ).toLocaleString(locales, options)}`
+        : startString}
+    </Typography>
   );
 };
 
