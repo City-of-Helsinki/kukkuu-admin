@@ -167,6 +167,14 @@
     "create": {
       "title": "Add occurrence"
     },
+    "edit": {
+      "delete": {
+        "confirm": {
+          "content": "This occurrence has been published already. Are you sure you still want to delete it?",
+          "title": "Delete occurrence"
+        }
+      }
+    },
     "fields": {
       "capacity": {
         "label": "Capacity"

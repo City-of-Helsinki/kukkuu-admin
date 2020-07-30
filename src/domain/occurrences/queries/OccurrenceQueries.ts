@@ -11,6 +11,7 @@ export const occurrencesQuery = gql`
             id
             capacityPerOccurrence
             duration
+            publishedAt
           }
           enrolmentCount
           venue {
@@ -59,6 +60,7 @@ export const occurrenceQuery = gql`
         id
         capacityPerOccurrence
         duration
+        publishedAt
       }
       enrolmentCount
       venue {

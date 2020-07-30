@@ -19,6 +19,7 @@ export interface Occurrence_occurrence_event {
    * In minutes
    */
   duration: number | null;
+  publishedAt: any | null;
 }
 
 export interface Occurrence_occurrence_venue_translations {
