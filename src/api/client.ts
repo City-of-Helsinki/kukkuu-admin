@@ -16,6 +16,7 @@ const uploadLink = createUploadLink({
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
     graphQLErrors.forEach((graphQLError) => {
+      // eslint-disable-next-line max-len
       const errorMessage = `[GraphQL error]: Message: ${graphQLError.message}, Location: ${graphQLError.locations}, Path: ${graphQLError.path}`;
       if (process.env.NODE_ENV === 'development') {
         // eslint-disable-next-line no-console
@@ -27,6 +28,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
         graphQLError.message ===
         'Invalid Authorization header. JWT has expired.'
       ) {
+        // eslint-disable-next-line no-console
         console.error('JWT expired');
       } else {
         Sentry.captureException(graphQLError);
@@ -36,6 +38,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 
   if (networkError) {
     // We don't want to log network errors to Sentry
+    // eslint-disable-next-line no-console
     console.error(networkError);
   }
 });

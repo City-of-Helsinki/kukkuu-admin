@@ -77,6 +77,7 @@ const PublishButton = ({ record }: { record?: AdminEvent }) => {
         refresh();
       },
       onFailure: (error: Error) => {
+        // eslint-disable-next-line no-console
         console.error(error);
         Sentry.captureException(error);
         notify('events.show.publish.onSuccess.message', 'warning');
