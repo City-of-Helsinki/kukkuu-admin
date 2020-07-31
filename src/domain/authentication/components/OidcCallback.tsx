@@ -23,6 +23,7 @@ function OidcCallback(props: RouteChildrenProps) {
   const handleError = (error: Error) => {
     notify(translate('ra.message.error'), 'warning');
     Sentry.captureException(error);
+    // eslint-disable-next-line no-console
     console.error(error);
     logout();
   };
@@ -38,6 +39,7 @@ function OidcCallback(props: RouteChildrenProps) {
         props.history.push('/');
       })
       .catch((error) => {
+        // eslint-disable-next-line no-console
         console.error('fetchApiToken caught error');
         handleError(error);
       });
