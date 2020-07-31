@@ -7,6 +7,7 @@ import {
   Toolbar,
   SaveButton,
   DeleteButton,
+  DeleteWithConfirmButton,
 } from 'react-admin';
 import { parse } from 'query-string';
 import { Grid } from '@material-ui/core';
@@ -19,7 +20,15 @@ const OccurrenceEditToolbar = (props: any) => {
   return (
     <Toolbar style={{ justifyContent: 'space-between' }} {...props}>
       <SaveButton />
-      <DeleteButton disabled={false} redirect={redirect} />
+      {Boolean(props.record.event.publishedAt) ? (
+        <DeleteWithConfirmButton
+          confirmTitle="occurrences.edit.delete.confirm.title"
+          confirmContent="occurrences.edit.delete.confirm.content"
+          redirect={redirect}
+        />
+      ) : (
+        <DeleteButton redirect={redirect} />
+      )}
     </Toolbar>
   );
 };

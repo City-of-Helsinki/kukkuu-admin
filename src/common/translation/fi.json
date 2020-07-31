@@ -167,6 +167,14 @@
     "create": {
       "title": "Lisää esiintymä"
     },
+    "edit": {
+      "delete": {
+        "confirm": {
+          "content": "Tämä esiintymä on jo julkaistu. Oletko varma, että haluat silti poistaa sen?",
+          "title": "Poista esiintymä"
+        }
+      }
+    },
     "fields": {
       "capacity": {
         "label": "Paikkoja"

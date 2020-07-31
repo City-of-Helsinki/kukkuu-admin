@@ -19,6 +19,7 @@ export interface Occurrences_occurrences_edges_node_event {
    * In minutes
    */
   duration: number | null;
+  publishedAt: any | null;
 }
 
 export interface Occurrences_occurrences_edges_node_venue_translations {
