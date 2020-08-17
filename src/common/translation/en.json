@@ -1,0 +1,273 @@
+{
+  "authentication": {
+    "redirect": {
+      "text": "Authenticating..."
+    },
+    "unauthorizedPage": {
+      "backToLoginPage": "Back to login page",
+      "contactEmail": "kulttuurin.kummilapset@hel.fi",
+      "content": "Your account is not authorized to use Culture Kids Admin UI. If you need access, please contact",
+      "title": "Not authorized."
+    }
+  },
+  "children": {
+    "fields": {
+      "birthdate": {
+        "label": "Date of birth"
+      },
+      "guardians": {
+        "fields": {
+          "email": {
+            "label": "Email"
+          },
+          "phoneNumber": {
+            "label": "Phone number"
+          },
+          "postalCode": {
+            "label": "Postal code"
+          }
+        },
+        "label": "Guardian"
+      },
+      "name": {
+        "label": "Name"
+      },
+      "occurrences": {
+        "label": "Events"
+      }
+    },
+    "list": {
+      "title": "Culture Kids"
+    },
+    "show": {
+      "title": "Culture Kid"
+    }
+  },
+  "dashboard": {
+    "title": "Culture Kids admin"
+  },
+  "enrolments": {
+    "fields": {
+      "attended": {
+        "label": ""
+      }
+    }
+  },
+  "events": {
+    "create": {
+      "aside": {
+        "content": ""
+      },
+      "title": "Create event"
+    },
+    "edit": {
+      "title": "Edit event"
+    },
+    "fields": {
+      "capacityPerOccurrence": {
+        "helperText": "",
+        "label": "Capacity per occurrence"
+      },
+      "description": {
+        "helperText": "",
+        "label": "Description"
+      },
+      "duration": {
+        "helperText": "",
+        "label": "Duration"
+      },
+      "id": {
+        "label": "ID"
+      },
+      "image": {
+        "helperText": "",
+        "label": "Image"
+      },
+      "imageAltText": {
+        "helperText": "",
+        "label": "Image alt text"
+      },
+      "imageInput": {
+        "label": "Select image to upload"
+      },
+      "language": {
+        "label": "Language"
+      },
+      "name": {
+        "label": "Name"
+      },
+      "numOfOccurrences": {
+        "label": "Occcurences"
+      },
+      "occurrences": {
+        "label": "Occurrences"
+      },
+      "participantsPerInvite": {
+        "choices": {
+          "CHILD_AND_GUARDIAN": {
+            "label": "Child and guardian"
+          },
+          "FAMILY": {
+            "label": "Family"
+          }
+        },
+        "helperText": "",
+        "label": "Participants per invite"
+      },
+      "publishedAt": {
+        "label": "Published at",
+        "values": {
+          "NOT_PUBLISHED": "Not published"
+        }
+      },
+      "shortDescription": {
+        "helperText": "",
+        "label": "Short Description"
+      },
+      "totalCapacity": {
+        "label": "Total capacity"
+      }
+    },
+    "list": {
+      "title": "Events"
+    },
+    "show": {
+      "publish": {
+        "button": {
+          "label": "Publish"
+        },
+        "confirm": {
+          "content": "Are you sure that you want to publish this event?",
+          "title": "Publish event \"%{eventName}\""
+        },
+        "onFailure": {
+          "message": "Event publish error."
+        },
+        "onSuccess": {
+          "message": "Event published!"
+        }
+      },
+      "tab": {
+        "label": "Event detail"
+      }
+    }
+  },
+  "guardian": {
+    "name": "Guardian's name"
+  },
+  "languages": {
+    "EN": "English",
+    "FI": "Finnish",
+    "SV": "Swedish"
+  },
+  "occurrences": {
+    "addOccurrenceButton": {
+      "label": "Add occurrence"
+    },
+    "create": {
+      "title": "Add occurrence"
+    },
+    "edit": {
+      "delete": {
+        "confirm": {
+          "content": "This occurrence has been published already. Are you sure you still want to delete it?",
+          "title": "Delete occurrence"
+        }
+      }
+    },
+    "fields": {
+      "capacity": {
+        "label": "Capacity"
+      },
+      "children": {
+        "label": "Enrolled children"
+      },
+      "enrolments": {
+        "fields": {
+          "attended": {
+            "choices": {
+              "null": "",
+              "true": "",
+              "false": ""
+            }
+          }
+        }
+      },
+      "enrolmentsCount": {
+        "label": "Number of enrolments"
+      },
+      "event": {
+        "label": "Event"
+      },
+      "time": {
+        "fields": {
+          "date": {
+            "errorMessage": "Date invalid, use format dd.mm.yyyy",
+            "format": "dd.mm.yyyy",
+            "helperText": "",
+            "label": "Date"
+          },
+          "time": {
+            "errorMessage": "Time invalid, use format hh:mm",
+            "format": "hh:mm",
+            "label": "Time"
+          }
+        },
+        "helperText": "",
+        "label": "Time"
+      },
+      "venue": {
+        "helperText": "",
+        "label": "Venue"
+      }
+    },
+    "show": {
+      "title": "Occurrence"
+    }
+  },
+  "venues": {
+    "create": {
+      "aside": {
+        "content": ""
+      },
+      "title": "Create venue"
+    },
+    "edit": {
+      "title": "Edit venue"
+    },
+    "fields": {
+      "accessibilityInfo": {
+        "helperText": "",
+        "label": "Accessibility info"
+      },
+      "additionalInfo": {
+        "helperText": "",
+        "label": "Additional info"
+      },
+      "address": {
+        "helperText": "",
+        "label": "Address"
+      },
+      "arrivalInstructions": {
+        "helperText": "",
+        "label": "Arrival instructions"
+      },
+      "description": {
+        "label": "Description"
+      },
+      "name": {
+        "helperText": "",
+        "label": "Name"
+      },
+      "wcAndFacilities": {
+        "label": "WCs and child care facilities"
+      }
+    },
+    "list": {
+      "aside": {
+        "content": ""
+      },
+      "title": "Venues"
+    }
+  }
+}

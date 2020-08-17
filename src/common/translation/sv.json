@@ -1,0 +1,189 @@
+{
+  "dashboard": {
+    "title": "Culture Kids admin"
+  },
+  "languages": {
+    "FI": "Finnish",
+    "SV": "Swedish",
+    "EN": "English"
+  },
+  "venues": {
+    "list": {
+      "title": "Venues"
+    },
+    "create": {
+      "title": "Create venue"
+    },
+    "fields": {
+      "name": {
+        "label": "Name"
+      },
+      "address": {
+        "label": "Address"
+      },
+      "description": {
+        "label": "Description"
+      },
+      "accessibilityInfo": {
+        "label": "Accessibility info"
+      },
+      "arrivalInstructions": {
+        "label": "Arrival instructions"
+      },
+      "additionalInfo": {
+        "label": "Additional info"
+      }
+    }
+  },
+  "events": {
+    "list": {
+      "title": "Events"
+    },
+    "show": {
+      "tab": {
+        "label": "Event detail"
+      },
+      "publish": {
+        "button": {
+          "label": "Publish"
+        },
+        "onSuccess": {
+          "message": "Event published!"
+        },
+        "onFailure": {
+          "message": "Event publish error."
+        },
+        "confirm": {
+          "title": "Publish event \"%{eventName}\"",
+          "content": "Are you sure that you want to publish this event?"
+        }
+      }
+    },
+    "create": {
+      "title": "Create event"
+    },
+    "edit": {
+      "title": "Edit event"
+    },
+    "fields": {
+      "id": {
+        "label": "ID"
+      },
+      "name": {
+        "label": "Name"
+      },
+      "participantsPerInvite": {
+        "label": "Participants per invite",
+        "choices": {
+          "CHILD_AND_GUARDIAN": {
+            "label": "Child and guardian"
+          },
+          "FAMILY": {
+            "label": "Family"
+          }
+        }
+      },
+      "duration": {
+        "label": "Duration"
+      },
+      "occurrences": {
+        "label": "Occurrences"
+      },
+      "capacityPerOccurrence": {
+        "label": "Capacity per occurrence"
+      },
+      "publishedAt": {
+        "label": "Published at"
+      },
+      "description": {
+        "label": "Description"
+      },
+      "shortDescription": {
+        "label": "Short Description"
+      },
+      "language": {
+        "label": "Language"
+      }
+    }
+  },
+  "occurrences": {
+    "create": {
+      "title": "Add occurrence"
+    },
+    "show": {
+      "title": "Occurrence"
+    },
+    "fields": {
+      "time": {
+        "label": "Time",
+        "fields": {
+          "date": {
+            "label": "Date"
+          },
+          "time": {
+            "label": "Time"
+          }
+        }
+      },
+      "venue": {
+        "label": "Venue"
+      },
+      "event": {
+        "label": "Event"
+      },
+      "capacity": {
+        "label": "Capacity"
+      },
+      "enrolmentsCount": {
+        "label": "Number of enrolments"
+      },
+      "children": {
+        "label": "Enrolled children"
+      }
+    },
+    "addOccurrenceButton": {
+      "label": "Add occurrence"
+    }
+  },
+  "children": {
+    "list": {
+      "title": "Culture kids"
+    },
+    "fields": {
+      "name": {
+        "label": "Name"
+      },
+      "birthdate": {
+        "label": "Date of birth"
+      },
+      "guardians": {
+        "label": "Guardian",
+        "fields": {
+          "postalCode": {
+            "label": "Postal code"
+          },
+          "email": {
+            "label": "Email"
+          },
+          "phoneNumber": {
+            "label": "Phone number"
+          }
+        }
+      },
+      "occurrences": {
+        "label": "Events"
+      }
+    }
+  },
+  "authentication": {
+    "redirect": {
+      "text": "Authenticating..."
+    },
+    "unauthorizedPage": {
+      "title": "Not authorized.",
+      "content": "Your account is not authorized to use Culture Kids Admin UI. If you need access, please contact",
+      "contactEmail": "kulttuurin.kummilapset@hel.fi",
+      "backToLoginPage": "Back to login page"
+    }
+  }
+}
