@@ -35,7 +35,7 @@ build-production:
   variables:
     DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-production'
     DOCKER_BUILD_ARG_REACT_APP_ENVIRONMENT: 'production'
-    DOCKER_BUILD_ARG_REACT_APP_OIDC_AUTHORITY: 'https://api.hel.fi/sso/'
+    DOCKER_BUILD_ARG_REACT_APP_OIDC_AUTHORITY: 'https://api.hel.fi/sso'
     DOCKER_BUILD_ARG_REACT_APP_API_URI: 'https://kukkuu-api.prod.hel.ninja/kukkuu/graphql'
   only:
     refs:
