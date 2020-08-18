@@ -12,5 +12,5 @@ export const fetchApiToken = async (accessToken: string) => {
       },
     }
   );
-  return response.data['https://api.hel.fi/auth/kukkuu'];
+  return response.data[process.env.REACT_APP_KUKKUU_API_OIDC_SCOPE || ''];
 };
