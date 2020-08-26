@@ -5,6 +5,7 @@ import { CardHeader } from '@material-ui/core';
 import LanguageTabs from '../../common/components/languageTab/LanguageTabs';
 import { Language } from '../../api/generatedTypes/globalTypes';
 import KukkuuShow from '../../common/components/kukkuuShow/KukkuuShow';
+import LongTextField from '../../common/components/longTextField/LongTextField';
 
 const VenueTitle = ({
   basePath,
@@ -33,27 +34,27 @@ const VenueShow = (props: any) => {
           source={`${translation}.name`}
           label={translate('venues.fields.name.label')}
         />
-        <TextField
+        <LongTextField
           source={`${translation}.address`}
           label={translate('venues.fields.address.label')}
         />
-        <TextField
+        <LongTextField
           source={`${translation}.description`}
           label={translate('venues.fields.description.label')}
         />
-        <TextField
+        <LongTextField
           source={`${translation}.accessibilityInfo`}
           label={translate('venues.fields.accessibilityInfo.label')}
         />
-        <TextField
+        <LongTextField
           source={`${translation}.arrivalInstructions`}
           label={translate('venues.fields.arrivalInstructions.label')}
         />
-        <TextField
+        <LongTextField
           source={`${translation}.additionalInfo`}
           label={translate('venues.fields.additionalInfo.label')}
         />
-        <TextField
+        <LongTextField
           source={`${translation}.wcAndFacilities`}
           label={translate('venues.fields.wcAndFacilities.label')}
         />
