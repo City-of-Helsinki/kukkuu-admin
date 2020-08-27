@@ -105,7 +105,10 @@
       "participantsPerInvite": {
         "choices": {
           "CHILD_AND_GUARDIAN": {
-            "label": "Lapsi ja huoltaja"
+            "label": "1 lapsi + 1 huoltaja"
+          },
+          "CHILD_AND_1_OR_2_GUARDIANS": {
+            "label": "1 lapsi + 1–2 huoltajaa"
           },
           "FAMILY": {
             "label": "Perhe"

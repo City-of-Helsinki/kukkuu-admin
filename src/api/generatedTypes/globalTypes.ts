@@ -8,6 +8,7 @@
 //==============================================================
 
 export enum EventParticipantsPerInvite {
+  CHILD_AND_1_OR_2_GUARDIANS = "CHILD_AND_1_OR_2_GUARDIANS",
   CHILD_AND_GUARDIAN = "CHILD_AND_GUARDIAN",
   FAMILY = "FAMILY",
 }
