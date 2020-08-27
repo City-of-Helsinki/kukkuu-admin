@@ -65,7 +65,7 @@
     },
     "fields": {
       "capacityPerOccurrence": {
-        "helperText": "Montako ilmoittautumista tapahtumaesiintymään vastaanotetaan. Huomioithan että todellinen osallistujamäärä on kapasiteetti kerrottuna sillä montako henkilöä kutsua kohti tapahtumana voi osallistua.",
+        "helperText": "Montako ilmoittautumista tapahtumaesiintymään vastaanotetaan. Huomioithan että todellinen osallistujamäärä on kapasiteetti kerrottuna sillä montako henkilöä kutsua kohti tapahtumaan voi osallistua.",
         "label": "Esiintymän kapasiteetti"
       },
       "description": {
