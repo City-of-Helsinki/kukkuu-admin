@@ -33,6 +33,22 @@ const OccurrenceEditToolbar = (props: any) => {
   );
 };
 
+const OccurrenceEditDateTimeTextInput = (props: any) => (
+  <DateTimeTextInput
+    {...props}
+    disabled={Boolean(props.record.event.publishedAt)}
+  />
+);
+
+const OccurrenceEditReferenceInput = (props: any) => {
+  return (
+    <ReferenceInput
+      {...props}
+      disabled={Boolean(props.record.event.publishedAt)}
+    />
+  );
+};
+
 const OccurrenceEdit = (props: any) => {
   const { event_id: eventId } = parse(props.location.search);
   const redirect = eventId ? `/events/${eventId}/show/1` : 'show';
@@ -48,8 +64,8 @@ const OccurrenceEdit = (props: any) => {
           redirect={redirect}
           toolbar={<OccurrenceEditToolbar redirect={redirect} />}
         >
-          <DateTimeTextInput required={true} source="time" />
-          <ReferenceInput
+          <OccurrenceEditDateTimeTextInput required={true} source="time" />
+          <OccurrenceEditReferenceInput
             label="occurrences.fields.venue.label"
             source="venue.id"
             reference="venues"
@@ -60,7 +76,7 @@ const OccurrenceEdit = (props: any) => {
               optionText="translations.FI.name"
               helperText="occurrences.fields.venue.helperText"
             />
-          </ReferenceInput>
+          </OccurrenceEditReferenceInput>
         </SimpleForm>
       </KukkuuEdit>
     </Grid>
