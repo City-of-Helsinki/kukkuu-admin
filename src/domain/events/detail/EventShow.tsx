@@ -35,6 +35,7 @@ import { AdminEvent } from '../types/EventTypes';
 import ViewTitle from '../../../common/components/viewTitle/ViewTitle';
 import KukkuuShow from '../../../common/components/kukkuuShow/KukkuuShow';
 import { PublishedField } from '../fields';
+import LongTextField from '../../../common/components/longTextField/LongTextField';
 
 const styles = createStyles({
   button: {
@@ -153,12 +154,12 @@ const EventShow: FunctionComponent = (props: any) => {
             label={'events.fields.name.label'}
           />
 
-          <TextField
+          <LongTextField
             source={`translations.${language}.shortDescription`}
             label={'events.fields.shortDescription.label'}
           />
 
-          <TextField
+          <LongTextField
             source={`translations.${language}.description`}
             label={'events.fields.description.label'}
           />
