@@ -25,6 +25,7 @@ const ChildList = (props: any) => {
       <CardHeader title={translate('children.list.title')} />
       <KukkuuList
         bulkActionButtons={false}
+        exporter={false}
         {...props}
         pagination={<Pagination rowsPerPageOptions={[20, 100]} />}
         perPage={20}

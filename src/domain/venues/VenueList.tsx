@@ -16,6 +16,7 @@ const VenueList = (props: any) => {
       <KukkuuList
         bulkActionButtons={false}
         pagination={false}
+        exporter={false}
         aside={<Aside content="venues.list.aside.content" />}
         {...props}
       >
