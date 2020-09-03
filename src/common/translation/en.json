@@ -105,7 +105,10 @@
       "participantsPerInvite": {
         "choices": {
           "CHILD_AND_GUARDIAN": {
-            "label": "Child and guardian"
+            "label": "1 child + 1 adult"
+          },
+          "CHILD_AND_1_OR_2_GUARDIANS": {
+            "label": "1 child + 1–2 adults"
           },
           "FAMILY": {
             "label": "Family"

@@ -18,7 +18,7 @@ const BoundedTextField = (props: Props & TextFieldProps) => {
   const translate = useTranslate();
   const classes = useStyles();
 
-  const { label, variant, defaultValue } = props;
+  const { label, variant, defaultValue, disabled } = props;
   const {
     input: { name, onChange },
     meta: { touched, error },
@@ -37,6 +37,7 @@ const BoundedTextField = (props: Props & TextFieldProps) => {
       helperText={touched && translate(error)}
       required={isRequired}
       defaultValue={defaultValue}
+      disabled={disabled}
     />
   );
 };
@@ -83,6 +84,7 @@ const DateTimeTextInput = (props: any) => {
             defaultValue={defaultDate}
             required={props.required}
             variant={props.variant}
+            disabled={props.disabled}
           />
         </Grid>
         <Grid item md={6}>
@@ -93,6 +95,7 @@ const DateTimeTextInput = (props: any) => {
             defaultValue={defaultTime}
             required={props.required}
             variant={props.variant}
+            disabled={props.disabled}
           />
         </Grid>
       </Grid>

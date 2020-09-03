@@ -64,20 +64,12 @@ const addOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
 
 const updateOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
   const { ...localUpdateData } = params.data;
-  const {
-    id,
-    timeField,
-    date,
-    venue,
-    occurrenceLanguage,
-    event,
-  } = localUpdateData;
+  const { id, timeField, date, venue, event } = localUpdateData;
 
   const data = {
     id,
     venueId: venue.id,
     time: normalizeTime(date, timeField),
-    occurrenceLanguage,
     eventId: event.id,
   };
 
