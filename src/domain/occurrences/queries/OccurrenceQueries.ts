@@ -14,6 +14,8 @@ export const occurrencesQuery = gql`
             publishedAt
           }
           enrolmentCount
+          capacity
+          capacityOverride
           venue {
             id
             translations {
@@ -63,6 +65,8 @@ export const occurrenceQuery = gql`
         publishedAt
       }
       enrolmentCount
+      capacity
+      capacityOverride
       venue {
         id
         translations {

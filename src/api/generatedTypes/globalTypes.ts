@@ -37,6 +37,7 @@ export interface AddOccurrenceMutationInput {
   eventId: string;
   venueId: string;
   occurrenceLanguage?: Language | null;
+  capacityOverride?: number | null;
   clientMutationId?: string | null;
 }
 
@@ -97,6 +98,7 @@ export interface UpdateOccurrenceMutationInput {
   eventId?: string | null;
   venueId?: string | null;
   occurrenceLanguage?: Language | null;
+  capacityOverride?: number | null;
   clientMutationId?: string | null;
 }
 
