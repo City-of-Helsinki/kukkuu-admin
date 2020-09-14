@@ -65,7 +65,7 @@
     },
     "fields": {
       "capacityPerOccurrence": {
-        "helperText": "Montako ilmoittautumista tapahtumaesiintymään vastaanotetaan. Huomioithan että todellinen osallistujamäärä on kapasiteetti kerrottuna sillä montako henkilöä kutsua kohti tapahtumaan voi osallistua.",
+        "helperText": "Montako ilmoittautumista tapahtumaesiintymään vastaanotetaan. Huomioithan että todellinen osallistujamäärä on kapasiteetti kerrottuna sillä montako henkilöä kutsua kohti tapahtumaan voi osallistua. Voit halutessasi muuttaa kapasiteettia myös esiintymäkohtaisesti.",
         "label": "Esiintymän kapasiteetti"
       },
       "description": {
@@ -181,6 +181,10 @@
     "fields": {
       "capacity": {
         "label": "Paikkoja"
+      },
+      "capacityOverride": {
+        "label": "Esiintymäkohtainen kapasiteetti",
+        "helperText": "Voit halutessasi muuttaa yksittäisen esiintymän kapasiteettia tapahtuman oletusarvosta (%{capacityPerOccurrence}). Tämä ei vaikuta muihin esiintymiin."
       },
       "children": {
         "label": "Osallistujat"

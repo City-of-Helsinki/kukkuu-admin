@@ -43,6 +43,11 @@ export interface updateOccurrence_updateOccurrence_occurrence {
   event: updateOccurrence_updateOccurrence_occurrence_event;
   enrolmentCount: number;
   venue: updateOccurrence_updateOccurrence_occurrence_venue;
+  capacity: number | null;
+  /**
+   * When set will be used as the capacity of this occurrence instead of the value coming from the event.
+   */
+  capacityOverride: number | null;
 }
 
 export interface updateOccurrence_updateOccurrence {

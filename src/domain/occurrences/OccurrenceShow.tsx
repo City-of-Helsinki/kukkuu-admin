@@ -110,7 +110,7 @@ const OccurrenceShow = (props: any) => {
           <TextField source="translations.FI.name" />
         </ReferenceField>
         <NumberField
-          source="event.capacityPerOccurrence"
+          source="capacity"
           label="occurrences.fields.capacity.label"
         />
         <ArrayField

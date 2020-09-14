@@ -101,6 +101,11 @@ export interface Occurrences_occurrences_edges_node {
   time: any;
   event: Occurrences_occurrences_edges_node_event;
   enrolmentCount: number;
+  capacity: number | null;
+  /**
+   * When set will be used as the capacity of this occurrence instead of the value coming from the event.
+   */
+  capacityOverride: number | null;
   venue: Occurrences_occurrences_edges_node_venue;
   enrolments: Occurrences_occurrences_edges_node_enrolments;
 }

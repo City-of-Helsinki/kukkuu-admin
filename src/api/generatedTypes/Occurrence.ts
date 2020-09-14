@@ -101,6 +101,11 @@ export interface Occurrence_occurrence {
   time: any;
   event: Occurrence_occurrence_event;
   enrolmentCount: number;
+  capacity: number | null;
+  /**
+   * When set will be used as the capacity of this occurrence instead of the value coming from the event.
+   */
+  capacityOverride: number | null;
   venue: Occurrence_occurrence_venue;
   enrolments: Occurrence_occurrence_enrolments;
 }

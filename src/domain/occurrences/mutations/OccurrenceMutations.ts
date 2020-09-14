@@ -19,6 +19,8 @@ export const addOccurrenceMutation = gql`
             name
           }
         }
+        capacity
+        capacityOverride
       }
     }
   }
@@ -41,6 +43,32 @@ export const updateOccurrenceMutation = gql`
           translations {
             languageCode
             name
+          }
+        }
+        capacity
+        capacityOverride
+        enrolments {
+          edges {
+            node {
+              id
+              attended
+              child {
+                firstName
+                lastName
+                birthdate
+                guardians {
+                  edges {
+                    node {
+                      id
+                      email
+                      firstName
+                      lastName
+                      language
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
