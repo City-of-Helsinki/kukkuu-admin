@@ -14,6 +14,7 @@ import { Grid } from '@material-ui/core';
 
 import DateTimeTextInput from '../../common/components/dateTimeTextField/DateTimeTextField';
 import KukkuuEdit from '../../common/components/kukkuuEdit/KukkuuEdit';
+import { OccurrenceCapacityOverrideInput } from './inputs';
 
 const OccurrenceEditToolbar = (props: any) => {
   const redirect = `/events/${props.record.event.id}/show/1`;
@@ -50,7 +51,7 @@ const OccurrenceEditReferenceInput = (props: any) => {
 };
 
 const OccurrenceEdit = (props: any) => {
-  const { event_id: eventId } = parse(props.location.search);
+  const eventId = parse(props.location.search).event_id as string | undefined;
   const redirect = eventId ? `/events/${eventId}/show/1` : 'show';
 
   // Undoable is false because the DateTimeTextInput returns values
@@ -77,6 +78,7 @@ const OccurrenceEdit = (props: any) => {
               helperText="occurrences.fields.venue.helperText"
             />
           </OccurrenceEditReferenceInput>
+          <OccurrenceCapacityOverrideInput eventId={eventId} />
         </SimpleForm>
       </KukkuuEdit>
     </Grid>

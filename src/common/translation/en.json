@@ -182,6 +182,10 @@
       "capacity": {
         "label": "Capacity"
       },
+      "capacityOverride": {
+        "label": "Occurrence capacity",
+        "helperText": ""
+      },
       "children": {
         "label": "Enrolled children"
       },

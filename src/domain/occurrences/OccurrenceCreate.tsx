@@ -7,12 +7,13 @@ import {
   required,
 } from 'react-admin';
 import { parse } from 'query-string';
-import { Grid } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 
 import DateTimeTextInput from '../../common/components/dateTimeTextField/DateTimeTextField';
+import { OccurrenceCapacityOverrideInput } from './inputs';
 
 const OccurrenceCreate = (props: any) => {
-  const { event_id: eventId } = parse(props.location.search);
+  const eventId = parse(props.location.search).event_id as string | undefined;
   const redirect = eventId ? `/events/${eventId}/show/1` : 'show';
 
   return (
@@ -36,6 +37,7 @@ const OccurrenceCreate = (props: any) => {
               helperText="occurrences.fields.venue.helperText"
             />
           </ReferenceInput>
+          <OccurrenceCapacityOverrideInput eventId={eventId} />
         </SimpleForm>
       </Create>
     </Grid>
