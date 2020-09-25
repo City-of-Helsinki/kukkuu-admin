@@ -156,7 +156,8 @@
     }
   },
   "guardian": {
-    "name": "Guardian's name"
+    "name": "Guardian's name",
+    "doesNotExist": "<No guardian>"
   },
   "languages": {
     "EN": "English",
@@ -267,7 +268,7 @@
         "label": "Name"
       },
       "wcAndFacilities": {
-        "label": "WCs and child care facilities"
+        "label": "Toilets and child care facilities"
       }
     },
     "list": {

@@ -22,6 +22,7 @@ import { OccurrenceTimeRangeField } from './fields';
 import {
   Occurrences_occurrences_edges_node_enrolments_edges as EnrolmentEdge,
   Occurrences_occurrences_edges_node_enrolments_edges_node as Enrolment,
+  Occurrences_occurrences_edges_node_enrolments_edges_node_child_guardians_edges_node as Guardian,
 } from '../../api/generatedTypes/Occurrences';
 import KukkuuShow from '../../common/components/kukkuuShow/KukkuuShow';
 
@@ -84,6 +85,31 @@ const OccurrenceShow = (props: any) => {
   const locale = useLocale();
   const translate = useTranslate();
 
+  const renderGuardian = (
+    enrollmentRecord: EnrolmentEdge,
+    render: (guardian: Guardian) => string
+  ) => {
+    const guardian = enrollmentRecord.node?.child.guardians.edges[0]?.node;
+
+    if (guardian) {
+      return render(guardian);
+    }
+
+    return translate('guardian.doesNotExist');
+  };
+
+  const getGuardianFullName = (enrollmentRecord: EnrolmentEdge) => {
+    return renderGuardian(enrollmentRecord, (guardian) =>
+      `${guardian.firstName} ${guardian.lastName}`.trim()
+    );
+  };
+
+  const getGuardianLanguage = (enrollmentRecord: EnrolmentEdge) => {
+    return renderGuardian(enrollmentRecord, (guardian) =>
+      translate(`languages.${guardian.language}`)
+    );
+  };
+
   return (
     <KukkuuShow {...props} title="occurrences.show.title">
       <SimpleShowLayout>
@@ -134,22 +160,16 @@ const OccurrenceShow = (props: any) => {
               locales={locale}
             />
             <FunctionField
-              render={(record: EnrolmentEdge) =>
-                // eslint-disable-next-line max-len
-                `${record.node?.child.guardians.edges[0]?.node?.firstName} ${record.node?.child.guardians.edges[0]?.node?.lastName}`.trim()
-              }
+              render={(record: EnrolmentEdge) => getGuardianFullName(record)}
               label="guardian.name"
             />
             <EmailField
               source="node.child.guardians.edges.0.node.email"
               label="children.fields.guardians.fields.email.label"
+              emptyText={translate('guardian.doesNotExist')}
             />
             <FunctionField
-              render={(record: EnrolmentEdge) =>
-                translate(
-                  `languages.${record?.node?.child.guardians.edges[0]?.node?.language}`
-                )
-              }
+              render={(record: EnrolmentEdge) => getGuardianLanguage(record)}
               label="events.fields.language.label"
             />
             <AttendedField />

@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+- Occurrence enrollments with no guardians now have placeholder values
+
 ### Fixed
 
 - Reloading occurrence show field no longer returns a blank page
