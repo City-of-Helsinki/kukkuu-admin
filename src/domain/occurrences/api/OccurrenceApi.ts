@@ -14,7 +14,7 @@ import {
   occurrenceQuery,
 } from '../queries/OccurrenceQueries';
 import { Occurrences as ApiOccurrences } from '../../../api/generatedTypes/Occurrences';
-import { Occurrence_occurrence as ApiOccurrence } from '../../../api/generatedTypes/Occurrence';
+import { Occurrence as ApiOccurrence } from '../../../api/generatedTypes/Occurrence';
 import {
   addOccurrenceMutation,
   updateOccurrenceMutation,
@@ -38,7 +38,7 @@ const getOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
     query: occurrenceQuery,
     variables: { id: params.id },
   });
-  return handleApiNode(response.data);
+  return handleApiNode(response.data.occurrence);
 };
 
 // Combine two fields into one:

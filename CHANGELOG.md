@@ -1,5 +1,11 @@
 # Change Log
 
+## Unreleased
+
+### Fixed
+
+- Reloading occurrence show field no longer returns a blank page
+
 # 1.1.0
 
 - Hide export buttons
