@@ -207,6 +207,9 @@
       "event": {
         "label": "Tapahtuma"
       },
+      "freeSpotNotificationSubscriptions": {
+        "label": "Jonossa"
+      },
       "time": {
         "fields": {
           "date": {

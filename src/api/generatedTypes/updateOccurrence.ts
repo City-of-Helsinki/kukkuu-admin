@@ -34,6 +34,64 @@ export interface updateOccurrence_updateOccurrence_occurrence_venue {
   translations: updateOccurrence_updateOccurrence_occurrence_venue_translations[];
 }
 
+export interface updateOccurrence_updateOccurrence_occurrence_enrolments_edges_node_child_guardians_edges_node {
+  /**
+   * The ID of the object.
+   */
+  id: string;
+  /**
+   * If left blank, will be populated with the user's email.
+   */
+  email: string;
+  firstName: string;
+  lastName: string;
+  language: Language;
+}
+
+export interface updateOccurrence_updateOccurrence_occurrence_enrolments_edges_node_child_guardians_edges {
+  /**
+   * The item at the end of the edge
+   */
+  node: updateOccurrence_updateOccurrence_occurrence_enrolments_edges_node_child_guardians_edges_node | null;
+}
+
+export interface updateOccurrence_updateOccurrence_occurrence_enrolments_edges_node_child_guardians {
+  /**
+   * Contains the nodes in this connection.
+   */
+  edges: (updateOccurrence_updateOccurrence_occurrence_enrolments_edges_node_child_guardians_edges | null)[];
+}
+
+export interface updateOccurrence_updateOccurrence_occurrence_enrolments_edges_node_child {
+  firstName: string;
+  lastName: string;
+  birthdate: any;
+  guardians: updateOccurrence_updateOccurrence_occurrence_enrolments_edges_node_child_guardians;
+}
+
+export interface updateOccurrence_updateOccurrence_occurrence_enrolments_edges_node {
+  /**
+   * The ID of the object.
+   */
+  id: string;
+  attended: boolean | null;
+  child: updateOccurrence_updateOccurrence_occurrence_enrolments_edges_node_child;
+}
+
+export interface updateOccurrence_updateOccurrence_occurrence_enrolments_edges {
+  /**
+   * The item at the end of the edge
+   */
+  node: updateOccurrence_updateOccurrence_occurrence_enrolments_edges_node | null;
+}
+
+export interface updateOccurrence_updateOccurrence_occurrence_enrolments {
+  /**
+   * Contains the nodes in this connection.
+   */
+  edges: (updateOccurrence_updateOccurrence_occurrence_enrolments_edges | null)[];
+}
+
 export interface updateOccurrence_updateOccurrence_occurrence {
   /**
    * The ID of the object.
@@ -48,6 +106,7 @@ export interface updateOccurrence_updateOccurrence_occurrence {
    * When set will be used as the capacity of this occurrence instead of the value coming from the event.
    */
   capacityOverride: number | null;
+  enrolments: updateOccurrence_updateOccurrence_occurrence_enrolments;
 }
 
 export interface updateOccurrence_updateOccurrence {

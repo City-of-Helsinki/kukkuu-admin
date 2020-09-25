@@ -5,6 +5,8 @@
 ### Added
 
 - Occurrence enrollments with no guardians now have placeholder values
+- Number of people in queue and enrolled to event occurrence
+- Number of people in queue to event page
 
 ### Fixed
 

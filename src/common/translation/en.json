@@ -207,6 +207,9 @@
       "event": {
         "label": "Event"
       },
+      "freeSpotNotificationSubscriptions": {
+        "label": "In Queue"
+      },
       "time": {
         "fields": {
           "date": {

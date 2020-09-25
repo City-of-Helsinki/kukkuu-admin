@@ -12,17 +12,20 @@ import {
   ArrayField,
   FunctionField,
   useDataProvider,
+  useGetOne,
 } from 'react-admin';
 import PropTypes from 'prop-types';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
+import makeStyles from '@material-ui/styles/makeStyles';
 
 import { OccurrenceTimeRangeField } from './fields';
 import {
   Occurrences_occurrences_edges_node_enrolments_edges as EnrolmentEdge,
   Occurrences_occurrences_edges_node_enrolments_edges_node as Enrolment,
   Occurrences_occurrences_edges_node_enrolments_edges_node_child_guardians_edges_node as Guardian,
+  Occurrences_occurrences_edges_node as Occurrence,
 } from '../../api/generatedTypes/Occurrences';
 import KukkuuShow from '../../common/components/kukkuuShow/KukkuuShow';
 
@@ -79,6 +82,29 @@ AttendedField.propTypes = {
 
 AttendedField.defaultProps = {
   label: 'enrolments.fields.attended.label',
+};
+
+const useDataGridTitleStyles = makeStyles({
+  fakeValue: {
+    fontSize: 18,
+    color: 'rgba(0, 0, 0, 0.87)',
+    marginLeft: 16,
+  },
+});
+
+const OccurrenceDataGridTitle = ({ occurrenceId }: any) => {
+  const styles = useDataGridTitleStyles();
+  const translate = useTranslate();
+  const { data: record } = useGetOne('occurrences', occurrenceId);
+
+  return (
+    <>
+      {translate('occurrences.fields.children.label')}
+      <span className={styles.fakeValue}>
+        {record.enrolments?.edges.length || ''}
+      </span>
+    </>
+  );
 };
 
 const OccurrenceShow = (props: any) => {
@@ -139,8 +165,14 @@ const OccurrenceShow = (props: any) => {
           source="capacity"
           label="occurrences.fields.capacity.label"
         />
+        <FunctionField
+          render={(occurrence: Occurrence) =>
+            occurrence.freeSpotNotificationSubscriptions?.edges.length || '0'
+          }
+          label="occurrences.fields.freeSpotNotificationSubscriptions.label"
+        />
         <ArrayField
-          label="occurrences.fields.children.label"
+          label={<OccurrenceDataGridTitle occurrenceId={props.id} />}
           source="enrolments.edges"
         >
           <Datagrid
