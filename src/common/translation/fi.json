@@ -156,7 +156,8 @@
     }
   },
   "guardian": {
-    "name": "Huoltajan nimi"
+    "name": "Huoltajan nimi",
+    "doesNotExist": "<Ei huoltajaa>"
   },
   "languages": {
     "EN": "englanti",
@@ -205,6 +206,9 @@
       },
       "event": {
         "label": "Tapahtuma"
+      },
+      "freeSpotNotificationSubscriptions": {
+        "label": "Jonossa"
       },
       "time": {
         "fields": {

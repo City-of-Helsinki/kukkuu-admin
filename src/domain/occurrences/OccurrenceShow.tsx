@@ -12,16 +12,20 @@ import {
   ArrayField,
   FunctionField,
   useDataProvider,
+  useGetOne,
 } from 'react-admin';
 import PropTypes from 'prop-types';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
+import makeStyles from '@material-ui/styles/makeStyles';
 
 import { OccurrenceTimeRangeField } from './fields';
 import {
   Occurrences_occurrences_edges_node_enrolments_edges as EnrolmentEdge,
   Occurrences_occurrences_edges_node_enrolments_edges_node as Enrolment,
+  Occurrences_occurrences_edges_node_enrolments_edges_node_child_guardians_edges_node as Guardian,
+  Occurrences_occurrences_edges_node as Occurrence,
 } from '../../api/generatedTypes/Occurrences';
 import KukkuuShow from '../../common/components/kukkuuShow/KukkuuShow';
 
@@ -80,9 +84,57 @@ AttendedField.defaultProps = {
   label: 'enrolments.fields.attended.label',
 };
 
+const useDataGridTitleStyles = makeStyles({
+  fakeValue: {
+    fontSize: 18,
+    color: 'rgba(0, 0, 0, 0.87)',
+    marginLeft: 16,
+  },
+});
+
+const OccurrenceDataGridTitle = ({ occurrenceId }: any) => {
+  const styles = useDataGridTitleStyles();
+  const translate = useTranslate();
+  const { data: record } = useGetOne('occurrences', occurrenceId);
+
+  return (
+    <>
+      {translate('occurrences.fields.children.label')}
+      <span className={styles.fakeValue}>
+        {record.enrolments?.edges.length || ''}
+      </span>
+    </>
+  );
+};
+
 const OccurrenceShow = (props: any) => {
   const locale = useLocale();
   const translate = useTranslate();
+
+  const renderGuardian = (
+    enrollmentRecord: EnrolmentEdge,
+    render: (guardian: Guardian) => string
+  ) => {
+    const guardian = enrollmentRecord.node?.child.guardians.edges[0]?.node;
+
+    if (guardian) {
+      return render(guardian);
+    }
+
+    return translate('guardian.doesNotExist');
+  };
+
+  const getGuardianFullName = (enrollmentRecord: EnrolmentEdge) => {
+    return renderGuardian(enrollmentRecord, (guardian) =>
+      `${guardian.firstName} ${guardian.lastName}`.trim()
+    );
+  };
+
+  const getGuardianLanguage = (enrollmentRecord: EnrolmentEdge) => {
+    return renderGuardian(enrollmentRecord, (guardian) =>
+      translate(`languages.${guardian.language}`)
+    );
+  };
 
   return (
     <KukkuuShow {...props} title="occurrences.show.title">
@@ -113,8 +165,14 @@ const OccurrenceShow = (props: any) => {
           source="capacity"
           label="occurrences.fields.capacity.label"
         />
+        <FunctionField
+          render={(occurrence: Occurrence) =>
+            occurrence.freeSpotNotificationSubscriptions?.edges.length || '0'
+          }
+          label="occurrences.fields.freeSpotNotificationSubscriptions.label"
+        />
         <ArrayField
-          label="occurrences.fields.children.label"
+          label={<OccurrenceDataGridTitle occurrenceId={props.id} />}
           source="enrolments.edges"
         >
           <Datagrid
@@ -134,22 +192,16 @@ const OccurrenceShow = (props: any) => {
               locales={locale}
             />
             <FunctionField
-              render={(record: EnrolmentEdge) =>
-                // eslint-disable-next-line max-len
-                `${record.node?.child.guardians.edges[0]?.node?.firstName} ${record.node?.child.guardians.edges[0]?.node?.lastName}`.trim()
-              }
+              render={(record: EnrolmentEdge) => getGuardianFullName(record)}
               label="guardian.name"
             />
             <EmailField
               source="node.child.guardians.edges.0.node.email"
               label="children.fields.guardians.fields.email.label"
+              emptyText={translate('guardian.doesNotExist')}
             />
             <FunctionField
-              render={(record: EnrolmentEdge) =>
-                translate(
-                  `languages.${record?.node?.child.guardians.edges[0]?.node?.language}`
-                )
-              }
+              render={(record: EnrolmentEdge) => getGuardianLanguage(record)}
               label="events.fields.language.label"
             />
             <AttendedField />

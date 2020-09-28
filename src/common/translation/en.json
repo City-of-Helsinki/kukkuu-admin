@@ -156,7 +156,8 @@
     }
   },
   "guardian": {
-    "name": "Guardian's name"
+    "name": "Guardian's name",
+    "doesNotExist": "<No guardian>"
   },
   "languages": {
     "EN": "English",
@@ -205,6 +206,9 @@
       },
       "event": {
         "label": "Event"
+      },
+      "freeSpotNotificationSubscriptions": {
+        "label": "In Queue"
       },
       "time": {
         "fields": {
@@ -267,7 +271,7 @@
         "label": "Name"
       },
       "wcAndFacilities": {
-        "label": "WCs and child care facilities"
+        "label": "Toilets and child care facilities"
       }
     },
     "list": {
