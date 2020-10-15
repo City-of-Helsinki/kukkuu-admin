@@ -164,6 +164,11 @@
     "FI": "suomi",
     "SV": "ruotsi"
   },
+  "manualMessages": {
+    "list": {
+      "title": "Viestit"
+    }
+  },
   "occurrences": {
     "addOccurrenceButton": {
       "label": "Lisää esiintymä"

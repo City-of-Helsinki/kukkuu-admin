@@ -164,6 +164,11 @@
     "FI": "Finnish",
     "SV": "Swedish"
   },
+  "manualMessages": {
+    "list": {
+      "title": "Messages"
+    }
+  },
   "occurrences": {
     "addOccurrenceButton": {
       "label": "Add occurrence"
