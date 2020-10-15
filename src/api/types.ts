@@ -11,7 +11,8 @@ export type Resource =
   | 'events'
   | 'occurrences'
   | 'children'
-  | 'projects';
+  | 'projects'
+  | 'manualMessages';
 
 export type Method =
   | 'LIST'
@@ -23,7 +24,8 @@ export type Method =
   | 'UPDATE_MANY'
   | 'DELETE'
   | 'DELETE_MANY'
-  | 'PUBLISH';
+  | 'PUBLISH'
+  | 'SEND';
 
 export type Record = { [index: string]: any; id: string };
 

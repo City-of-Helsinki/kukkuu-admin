@@ -30,6 +30,7 @@ import {
 import { getChild, getChildren } from '../domain/children/api/ChildApi';
 import { getMyAdminProfile } from '../domain/profile/api';
 import { getProject } from '../domain/dashboard/api';
+import ManualMessagesApi from '../domain/manualMessages/api/manualMessagesApi';
 
 const METHOD_HANDLERS: MethodHandlers = {
   venues: {
@@ -64,6 +65,15 @@ const METHOD_HANDLERS: MethodHandlers = {
   },
   projects: {
     ONE: getProject,
+  },
+  manualMessages: {
+    LIST: ManualMessagesApi.getManualMessages,
+    ONE: ManualMessagesApi.getManualMessage,
+    MANY: ManualMessagesApi.getManualMessages,
+    CREATE: ManualMessagesApi.addManualMessage,
+    UPDATE: ManualMessagesApi.updateManualMessage,
+    DELETE: ManualMessagesApi.deleteManualMessage,
+    SEND: ManualMessagesApi.sendManualMessage,
   },
 };
 
