@@ -12,6 +12,12 @@
 
 - Reloading occurrence show field no longer returns a blank page
 
+# 1.2.0
+
+- Add occurrence `capacityOverride` field handling in create, edit and show occurrence views
+
+This version requires Kukkuu backend v1.4.0 or newer.
+
 # 1.1.0
 
 - Hide export buttons
