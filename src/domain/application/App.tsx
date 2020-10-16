@@ -2,6 +2,7 @@ import React from 'react';
 import { Admin, Resource, useTranslate } from 'react-admin';
 import PlaceIcon from '@material-ui/icons/Place';
 import EventIcon from '@material-ui/icons/Event';
+import ManualMessageIcon from '@material-ui/icons/EmailOutlined';
 import { createBrowserHistory as createHistory } from 'history';
 import ChildCareIcon from '@material-ui/icons/ChildCare';
 
@@ -26,6 +27,10 @@ import OccurrenceShow from '../occurrences/OccurrenceShow';
 import OccurrenceEdit from '../occurrences/OccurrenceEdit';
 import ChildShow from '../children/ChildShow';
 import KukkuuLayout from '../../common/components/layout/KukkuuLayout';
+import ManualMessagesList from '../manualMessages/list/ManualMessagesList';
+import ManualMessagesDetail from '../manualMessages/detail/ManualMessagesDetail';
+import ManualMessagesEdit from '../manualMessages/edit/ManualMessagesEdit';
+import ManualMessagesCreate from '../manualMessages/create/ManualMessagesCreate';
 
 const history = createHistory();
 
@@ -73,6 +78,15 @@ const App: React.FC = () => {
         create={OccurrenceCreate}
         show={OccurrenceShow}
         edit={OccurrenceEdit}
+      />
+      <Resource
+        name="manual-messages"
+        options={{ label: translate('manualMessages.list.title') }}
+        icon={ManualMessageIcon}
+        list={ManualMessagesList}
+        show={ManualMessagesDetail}
+        create={ManualMessagesCreate}
+        edit={ManualMessagesEdit}
       />
     </Admin>
   );
