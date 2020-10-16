@@ -19,6 +19,7 @@ import {
   useNotify,
   useRefresh,
   Confirm,
+  FunctionField,
 } from 'react-admin';
 import { withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
@@ -213,6 +214,13 @@ const EventShow: FunctionComponent = (props: any) => {
               <NumberField
                 source="enrolmentCount"
                 label="occurrences.fields.enrolmentsCount.label"
+              />
+              <FunctionField
+                render={(record: Occurrence) =>
+                  record.freeSpotNotificationSubscriptions.edges.length || '0'
+                }
+                label="occurrences.fields.freeSpotNotificationSubscriptions.label"
+                textAlign="right"
               />
             </Datagrid>
           </ReferenceManyField>

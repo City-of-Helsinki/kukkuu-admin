@@ -93,6 +93,27 @@ export interface Occurrence_occurrence_enrolments {
   edges: (Occurrence_occurrence_enrolments_edges | null)[];
 }
 
+export interface Occurrence_occurrence_freeSpotNotificationSubscriptions_edges_node {
+  /**
+   * The ID of the object.
+   */
+  id: string;
+}
+
+export interface Occurrence_occurrence_freeSpotNotificationSubscriptions_edges {
+  /**
+   * The item at the end of the edge
+   */
+  node: Occurrence_occurrence_freeSpotNotificationSubscriptions_edges_node | null;
+}
+
+export interface Occurrence_occurrence_freeSpotNotificationSubscriptions {
+  /**
+   * Contains the nodes in this connection.
+   */
+  edges: (Occurrence_occurrence_freeSpotNotificationSubscriptions_edges | null)[];
+}
+
 export interface Occurrence_occurrence {
   /**
    * The ID of the object.
@@ -108,6 +129,7 @@ export interface Occurrence_occurrence {
   capacityOverride: number | null;
   venue: Occurrence_occurrence_venue;
   enrolments: Occurrence_occurrence_enrolments;
+  freeSpotNotificationSubscriptions: Occurrence_occurrence_freeSpotNotificationSubscriptions;
 }
 
 export interface Occurrence {
