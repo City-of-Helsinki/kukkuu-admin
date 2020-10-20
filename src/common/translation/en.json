@@ -164,7 +164,43 @@
     "FI": "Finnish",
     "SV": "Swedish"
   },
-  "manualMessages": {
+  "messages": {
+    "fields": {
+      "recipientSelection": {
+        "choices": {
+          "ALL": {
+            "label": "All"
+          },
+          "INVITED": {
+            "label": "Invited"
+          },
+          "ENROLLED": {
+            "label": "Enrolled"
+          },
+          "ATTENDED": {
+            "label": "Attended"
+          },
+          "SUBSCRIBED_TO_FREE_SPOT_MESSAGE": {
+            "label": "Subscribed to free spot message"
+          }
+        },
+        "label": "Recipients"
+      },
+      "subject": {
+        "label": "Name"
+      },
+      "event": {
+        "label": "Event"
+      },
+      "recipientCount": {
+        "label": "Recipient count"
+      },
+      "sentAt": {
+        "label": "Published",
+        "sent": "Sent",
+        "notSent": "Not sent"
+      }
+    },
     "list": {
       "title": "Messages"
     }

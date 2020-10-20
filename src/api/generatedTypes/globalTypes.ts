@@ -22,6 +22,14 @@ export enum Language {
   SV = "SV",
 }
 
+export enum RecipientSelectionEnum {
+  ALL = "ALL",
+  ATTENDED = "ATTENDED",
+  ENROLLED = "ENROLLED",
+  INVITED = "INVITED",
+  SUBSCRIBED_TO_FREE_SPOT_MESSAGE = "SUBSCRIBED_TO_FREE_SPOT_MESSAGE",
+}
+
 export interface AddEventMutationInput {
   translations?: (EventTranslationsInput | null)[] | null;
   duration?: number | null;
