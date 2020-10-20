@@ -25,6 +25,8 @@ const VenueCreate = (props: any) => {
         aside={<Aside content="venues.create.aside.content" />}
         {...props}
       >
+        {/* eslint-disable-next-line @typescript-eslint/ban-ts-ignore */}
+        {/* @ts-ignore */}
         <SimpleForm variant="outlined" redirect="show" validate={validateVenue}>
           <LanguageTabs
             selectedLanguage={selectedLanguage}
@@ -34,6 +36,8 @@ const VenueCreate = (props: any) => {
             source={`${translation}.name`}
             label="venues.fields.name.label"
             helperText="venues.fields.name.helperText"
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
             validate={selectedLanguage === Language.FI ? required() : null}
             fullWidth
           />

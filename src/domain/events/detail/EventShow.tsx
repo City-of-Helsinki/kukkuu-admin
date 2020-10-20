@@ -216,6 +216,8 @@ const EventShow: FunctionComponent = (props: any) => {
                 label="occurrences.fields.enrolmentsCount.label"
               />
               <FunctionField
+                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                // @ts-ignore
                 render={(record: Occurrence) =>
                   record.freeSpotNotificationSubscriptions.edges.length || '0'
                 }
