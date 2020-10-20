@@ -1,43 +1,49 @@
 import { MethodHandlerResponse, MethodHandlerParams } from '../../../api/types';
+import { queryHandler, handleApiConnection } from '../../../api/utils/apiUtils';
+import { MessagesQuery } from '../queries/MessageQueries';
 
-function getManualMessages(
+async function getMessages(
+  params: MethodHandlerParams
+): Promise<MethodHandlerResponse | null> {
+  const response = await queryHandler({
+    query: MessagesQuery,
+  });
+
+  return handleApiConnection(response.data.messages);
+}
+function getMessage(
   params: MethodHandlerParams
 ): Promise<MethodHandlerResponse | null> {
   return Promise.resolve(null);
 }
-function getManualMessage(
+function addMessage(
   params: MethodHandlerParams
 ): Promise<MethodHandlerResponse | null> {
   return Promise.resolve(null);
 }
-function addManualMessage(
+function updateMessage(
   params: MethodHandlerParams
 ): Promise<MethodHandlerResponse | null> {
   return Promise.resolve(null);
 }
-function updateManualMessage(
+function deleteMessage(
   params: MethodHandlerParams
 ): Promise<MethodHandlerResponse | null> {
   return Promise.resolve(null);
 }
-function deleteManualMessage(
-  params: MethodHandlerParams
-): Promise<MethodHandlerResponse | null> {
-  return Promise.resolve(null);
-}
-function sendManualMessage(
+function sendMessage(
   params: MethodHandlerParams
 ): Promise<MethodHandlerResponse | null> {
   return Promise.resolve(null);
 }
 
-const manualMessagesApi = {
-  getManualMessages,
-  getManualMessage,
-  addManualMessage,
-  updateManualMessage,
-  deleteManualMessage,
-  sendManualMessage,
+const messagesApi = {
+  getMessages,
+  getMessage,
+  addMessage,
+  updateMessage,
+  deleteMessage,
+  sendMessage,
 };
 
-export default manualMessagesApi;
+export default messagesApi;
