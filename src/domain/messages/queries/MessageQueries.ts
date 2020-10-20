@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const MessagesQuery = gql`
-  query Messages {
-    messages {
+  query Messages($projectId: ID) {
+    messages(projectId: $projectId) {
       edges {
         node {
           id

@@ -1,12 +1,14 @@
 import { MethodHandlerResponse, MethodHandlerParams } from '../../../api/types';
 import { queryHandler, handleApiConnection } from '../../../api/utils/apiUtils';
 import { MessagesQuery } from '../queries/MessageQueries';
+import { getProjectId } from '../../profile/utils';
 
 async function getMessages(
   params: MethodHandlerParams
 ): Promise<MethodHandlerResponse | null> {
   const response = await queryHandler({
     query: MessagesQuery,
+    variables: { projectId: getProjectId() },
   });
 
   return handleApiConnection(response.data.messages);
