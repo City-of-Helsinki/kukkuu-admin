@@ -39,6 +39,11 @@ const App: React.FC = () => {
   return (
     <Admin
       layout={KukkuuLayout}
+      // FIXME: In version 3.9.0 typescript support was added into
+      // react-admin and our implementation of dataProvider is not type
+      // compatible.
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
       dataProvider={dataProvider}
       i18nProvider={i18nProvider}
       theme={theme}

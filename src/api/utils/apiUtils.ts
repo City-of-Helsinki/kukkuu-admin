@@ -44,7 +44,7 @@ export const queryHandler = async (
       console.error(error);
       Sentry.captureException(error);
     }
-    throw new HttpError(error.message || API_ERROR_MESSAGE);
+    throw new HttpError(error.message || API_ERROR_MESSAGE, error.status);
   }
 };
 
@@ -57,7 +57,7 @@ export const mutationHandler = async (
     // eslint-disable-next-line no-console
     console.error(error);
     Sentry.captureException(error);
-    throw new HttpError(error.message || API_ERROR_MESSAGE);
+    throw new HttpError(error.message || API_ERROR_MESSAGE, error.status);
   }
 };
 

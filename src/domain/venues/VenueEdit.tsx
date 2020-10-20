@@ -40,6 +40,8 @@ const VenueEdit = (props: any) => {
           <SimpleForm
             variant="outlined"
             redirect="show"
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
             validate={validateVenue}
             toolbar={<VenueEditToolbar />}
           >
@@ -52,6 +54,8 @@ const VenueEdit = (props: any) => {
               source={`${translation}.name`}
               label="venues.fields.name.label"
               helperText="venues.fields.name.helperText"
+              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+              // @ts-ignore
               validate={selectedLanguage === Language.FI ? required() : null}
               fullWidth
             />

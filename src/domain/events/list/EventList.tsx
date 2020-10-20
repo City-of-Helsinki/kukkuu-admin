@@ -46,6 +46,8 @@ const EventList = (props: any) => {
           <FunctionField
             label="events.fields.totalCapacity.label"
             textAlign="right"
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
             render={(record: Event) =>
               `${
                 record.capacityPerOccurrence * record.occurrences.edges.length

@@ -33,8 +33,10 @@ const ChildList = (props: any) => {
         <Datagrid rowClick="show">
           <FunctionField
             label="children.fields.name.label"
-            render={(record: Child) =>
-              `${record.firstName} ${record.lastName}`.trim()
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            render={(record?: Child) =>
+              record && `${record.firstName} ${record.lastName}`.trim()
             }
           />
           <DateField

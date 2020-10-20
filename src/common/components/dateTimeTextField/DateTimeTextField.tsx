@@ -23,6 +23,8 @@ const BoundedTextField = (props: Props & TextFieldProps) => {
     input: { name, onChange },
     meta: { touched, error },
     isRequired,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
   } = useInput(props);
 
   return (

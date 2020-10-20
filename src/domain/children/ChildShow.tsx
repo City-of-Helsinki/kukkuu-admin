@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactText } from 'react';
 import {
   TextField,
   SimpleShowLayout,
@@ -39,6 +39,8 @@ const ChildShow = (props: any) => {
         <SimpleShowLayout>
           <FunctionField
             label="children.fields.name.label"
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
             render={(record: Child) =>
               `${record.firstName} ${record.lastName}`.trim()
             }
@@ -59,7 +61,10 @@ const ChildShow = (props: any) => {
           />
           <FunctionField
             label="children.fields.guardians.label"
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
             render={(record: Child) =>
+              record &&
               `${record.guardians.edges[0]?.node?.firstName} ${record.guardians.edges[0]?.node?.lastName}`.trim()
             }
           />
@@ -76,8 +81,10 @@ const ChildShow = (props: any) => {
             label="children.fields.occurrences.label"
           >
             <Datagrid
+              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+              // @ts-ignore
               rowClick={(
-                id: string,
+                id: ReactText,
                 basePath: string,
                 record: OccurrenceEdges
               ) =>

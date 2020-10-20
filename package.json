@@ -38,7 +38,7 @@
     "ra-language-finnish": "^3.6.0",
     "ra-language-swedish": "^1.0.0",
     "react": "^16.13.1",
-    "react-admin": "^3.8.5",
+    "react-admin": "3.9.4",
     "react-apollo": "^3.1.5",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.1",
