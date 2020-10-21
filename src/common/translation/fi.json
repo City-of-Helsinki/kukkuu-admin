@@ -164,7 +164,43 @@
     "FI": "suomi",
     "SV": "ruotsi"
   },
-  "manualMessages": {
+  "messages": {
+    "fields": {
+      "recipientSelection": {
+        "choices": {
+          "ALL": {
+            "label": "Kaikki"
+          },
+          "INVITED": {
+            "label": "Kutsutut"
+          },
+          "ENROLLED": {
+            "label": "Ilmoittautuneet"
+          },
+          "ATTENDED": {
+            "label": "Saapuneet"
+          },
+          "SUBSCRIBED_TO_FREE_SPOT_MESSAGE": {
+            "label": "Ilmoituksen tilanneet"
+          }
+        },
+        "label": "Vastaanottajat"
+      },
+      "subject": {
+        "label": "Nimi"
+      },
+      "event": {
+        "label": "Tapahtuma"
+      },
+      "recipientCount": {
+        "label": "Vastaanottajia"
+      },
+      "sentAt": {
+        "label": "Julkaisu",
+        "sent": "Lähetetty",
+        "notSent": "Ei lähetetty"
+      }
+    },
     "list": {
       "title": "Viestit"
     }

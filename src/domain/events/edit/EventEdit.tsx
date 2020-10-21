@@ -49,6 +49,8 @@ const EventEdit = (props: any) => {
           <SimpleForm
             variant="outlined"
             redirect="show"
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
             validate={validateVenue}
             toolbar={<EventEditToolbar />}
           >
@@ -67,12 +69,16 @@ const EventEdit = (props: any) => {
               source={`${translation}.imageAltText`}
               label="events.fields.imageAltText.label"
               helperText="events.fields.imageAltText.helperText"
+              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+              // @ts-ignore
               validate={null}
               fullWidth
             />
             <TextInput
               source={`${translation}.name`}
               label="events.fields.name.label"
+              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+              // @ts-ignore
               validate={selectedLanguage === Language.FI ? required() : null}
               fullWidth
               helperText="Tähän laitetaan tapahtuman nimi"

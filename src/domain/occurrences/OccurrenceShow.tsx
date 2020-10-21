@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactText } from 'react';
 import {
   TextField,
   NumberField,
@@ -101,6 +101,8 @@ const OccurrenceDataGridTitle = ({ occurrenceId }: any) => {
     <>
       {translate('occurrences.fields.children.label')}
       <span className={styles.fakeValue}>
+        {/* eslint-disable-next-line @typescript-eslint/ban-ts-ignore */}
+        {/* @ts-ignore */}
         {record.enrolments?.edges.length || ''}
       </span>
     </>
@@ -166,6 +168,8 @@ const OccurrenceShow = (props: any) => {
           label="occurrences.fields.capacity.label"
         />
         <FunctionField
+          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+          // @ts-ignore
           render={(occurrence: Occurrence) =>
             occurrence.freeSpotNotificationSubscriptions?.edges.length || '0'
           }
@@ -176,12 +180,18 @@ const OccurrenceShow = (props: any) => {
           source="enrolments.edges"
         >
           <Datagrid
-            rowClick={(id: string, basePath: string, record: EnrolmentEdge) =>
-              escape(`/children/${record?.node?.id}/show`)
-            }
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            rowClick={(
+              id: ReactText,
+              basePath: string,
+              record: EnrolmentEdge
+            ) => escape(`/children/${record?.node?.id}/show`)}
           >
             <FunctionField
               label="children.fields.name.label"
+              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+              // @ts-ignore
               render={(record: EnrolmentEdge) =>
                 `${record.node?.child.firstName} ${record.node?.child.lastName}`.trim()
               }
@@ -192,6 +202,8 @@ const OccurrenceShow = (props: any) => {
               locales={locale}
             />
             <FunctionField
+              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+              // @ts-ignore
               render={(record: EnrolmentEdge) => getGuardianFullName(record)}
               label="guardian.name"
             />
@@ -201,6 +213,8 @@ const OccurrenceShow = (props: any) => {
               emptyText={translate('guardian.doesNotExist')}
             />
             <FunctionField
+              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+              // @ts-ignore
               render={(record: EnrolmentEdge) => getGuardianLanguage(record)}
               label="events.fields.language.label"
             />

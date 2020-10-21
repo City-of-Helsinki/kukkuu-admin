@@ -34,6 +34,8 @@ const OccurrenceCapacityOverrideInput = (
       dataProvider
         // fallback to fetching event data from the API
         .getOne('events', { id: eventId })
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
         .then(({ data }: { data: AdminEvent }) => {
           setEvent(data);
         })
