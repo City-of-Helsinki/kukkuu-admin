@@ -24,7 +24,7 @@ const PublishedField = ({
 
   if (!record) return null;
 
-  const sourceData = get(record, source) || new Date();
+  const sourceData = get(record, source);
   const date = new Date(sourceData);
 
   return (
