@@ -1,4 +1,4 @@
-export const recipientSelectionOptions = [
+export const recipientSelectionChoices = [
   {
     id: 'ALL',
     name: 'messages.fields.recipientSelection.choices.ALL.label',

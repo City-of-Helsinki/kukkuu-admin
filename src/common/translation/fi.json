@@ -186,11 +186,16 @@
         },
         "label": "Vastaanottajat"
       },
+      "bodyText": {
+        "label": "Viestin teksti"
+      },
       "subject": {
-        "label": "Nimi"
+        "label": "Nimi",
+        "label2": "Viestin otsikko"
       },
       "event": {
-        "label": "Tapahtuma"
+        "label": "Tapahtuma",
+        "all": "Kaikki tapahtumat"
       },
       "recipientCount": {
         "label": "Vastaanottajia"
@@ -200,6 +205,9 @@
         "sent": "Lähetetty",
         "notSent": "Ei lähetetty"
       }
+    },
+    "create": {
+      "title": "Uusi viesti"
     },
     "list": {
       "title": "Viestit"
