@@ -9,3 +9,13 @@ export const addMessageMutation = gql`
     }
   }
 `;
+
+export const updateMessageMutation = gql`
+  mutation UpdateMessage($input: UpdateMessageMutationInput!) {
+    updateMessage(input: $input) {
+      message {
+        id
+      }
+    }
+  }
+`;
