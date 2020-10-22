@@ -23,7 +23,7 @@ const TitleFromSource = ({ source, reactAdminProps }: TitleFromSourceProps) => {
     reactAdminProps.id
   );
 
-  return <KukkuuPageTitle title={get(data, source)} />;
+  return <KukkuuPageTitle>{get(data, source)}</KukkuuPageTitle>;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -69,7 +69,7 @@ const KukkuuPageLayout = ({
           reactAdminProps={reactAdminProps}
         />
       )}
-      {!pageTitleSource && <KukkuuPageTitle title={pageTitle} />}
+      {!pageTitleSource && <KukkuuPageTitle>{pageTitle}</KukkuuPageTitle>}
       <Grid container direction="column" xs={6} item={true}>
         {children}
       </Grid>
