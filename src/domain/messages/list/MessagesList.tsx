@@ -53,7 +53,7 @@ const MessagesList = (props: ResourceComponentPropsWithId) => {
             minute: '2-digit',
           })}`
         }
-        placeholder="messages.fields.sentAt.notSent"
+        emptyText={t('messages.fields.sentAt.notSent')}
         className={styles.bold}
       />
     </KukkuuListPage>
