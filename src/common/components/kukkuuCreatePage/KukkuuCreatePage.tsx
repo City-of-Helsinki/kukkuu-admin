@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 import { Create, CreateProps } from 'react-admin';
-import { CardHeader, Grid } from '@material-ui/core';
+
+import KukkuuPageLayout from '../kukkuuCardPageLayout/KukkuuCardPageLayout';
 
 type Props = {
   pageTitle: string;
@@ -10,12 +11,15 @@ type Props = {
 
 const KukkuuCreatePage = ({ children, pageTitle, reactAdminProps }: Props) => {
   return (
-    <>
-      <CardHeader title={pageTitle} />
-      <Grid container direction="column" xs={6} item={true}>
-        <Create {...reactAdminProps}>{children}</Create>
-      </Grid>
-    </>
+    <KukkuuPageLayout pageTitle={pageTitle} reactAdminProps={reactAdminProps}>
+      <Create
+        {...reactAdminProps}
+        // Use empty actions so that no extra margin is applied
+        actions={<></>}
+      >
+        {children}
+      </Create>
+    </KukkuuPageLayout>
   );
 };
 

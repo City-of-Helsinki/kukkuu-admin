@@ -1,32 +1,30 @@
 import React, { ReactElement } from 'react';
-import { EditProps, useGetOne } from 'react-admin';
-import { CardHeader, Grid } from '@material-ui/core';
+import { ResourceComponentPropsWithId } from 'react-admin';
 
+import KukkuuPageLayout from '../kukkuuCardPageLayout/KukkuuCardPageLayout';
 import KukkuuEdit from '../../../common/components/kukkuuEdit/KukkuuEdit';
 
 type Props = {
-  reactAdminProps: EditProps;
+  reactAdminProps: ResourceComponentPropsWithId;
   children: ReactElement;
+  pageTitleSource: string;
 };
 
-const EventEdit = ({ children, reactAdminProps }: Props) => {
-  const { data } = useGetOne(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
-    reactAdminProps.resource,
-    reactAdminProps.id
-  );
-
+const KukkuuEditPage = ({
+  children,
+  reactAdminProps,
+  pageTitleSource,
+}: Props) => {
   return (
-    <>
-      <CardHeader title={data?.subject || ''} />
-      <Grid container direction="column" xs={6} item={true}>
-        <KukkuuEdit undoable={false} actions={<></>} {...reactAdminProps}>
-          {children}
-        </KukkuuEdit>
-      </Grid>
-    </>
+    <KukkuuPageLayout
+      pageTitleSource={pageTitleSource}
+      reactAdminProps={reactAdminProps}
+    >
+      <KukkuuEdit undoable={false} actions={<></>} {...reactAdminProps}>
+        {children}
+      </KukkuuEdit>
+    </KukkuuPageLayout>
   );
 };
 
-export default EventEdit;
+export default KukkuuEditPage;

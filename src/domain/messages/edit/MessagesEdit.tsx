@@ -6,7 +6,7 @@ import MessageForm from '../form/MessageForm';
 
 const MessagesEdit = (props: ResourceComponentProps) => {
   return (
-    <KukkuuEditPage reactAdminProps={props}>
+    <KukkuuEditPage pageTitleSource="subject" reactAdminProps={props}>
       <MessageForm />
     </KukkuuEditPage>
   );
