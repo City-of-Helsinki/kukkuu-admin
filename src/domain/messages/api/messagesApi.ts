@@ -1,6 +1,3 @@
-import { ApolloQueryResult } from 'apollo-client';
-
-import { Message } from '../../../api/generatedTypes/Message';
 import { MethodHandlerResponse, MethodHandlerParams } from '../../../api/types';
 import {
   queryHandler,
@@ -13,6 +10,7 @@ import { messagesQuery, messageQuery } from '../queries/MessageQueries';
 import {
   addMessageMutation,
   updateMessageMutation,
+  deleteMessageMutation,
 } from '../mutations/MessageMutations';
 import { getProjectId } from '../../profile/utils';
 
@@ -30,7 +28,7 @@ async function getMessages(
 async function getMessage(
   params: MethodHandlerParams
 ): Promise<MethodHandlerResponse | null> {
-  const response: ApolloQueryResult<Message> = await queryHandler({
+  const response = await queryHandler({
     query: messageQuery,
     variables: { id: params.id },
   });
@@ -100,10 +98,16 @@ async function updateMessage(
 
   return handleApiNode(response.data?.updateMessage.message);
 }
-function deleteMessage(
+
+async function deleteMessage(
   params: MethodHandlerParams
 ): Promise<MethodHandlerResponse | null> {
-  return Promise.resolve(null);
+  await mutationHandler({
+    mutation: deleteMessageMutation,
+    variables: { input: { id: params.id } },
+  });
+
+  return { data: { id: params.id } };
 }
 function sendMessage(
   params: MethodHandlerParams

@@ -329,5 +329,10 @@
       },
       "title": "Venues"
     }
+  },
+  "ra": {
+    "message": {
+      "delete_title": "Delete"
+    }
   }
 }
