@@ -40,6 +40,15 @@ export interface AddEventMutationInput {
   clientMutationId?: string | null;
 }
 
+export interface AddMessageMutationInput {
+  translations?: (MessageTranslationsInput | null)[] | null;
+  projectId: string;
+  recipientSelection: RecipientSelectionEnum;
+  eventId?: string | null;
+  occurrenceIds?: string[] | null;
+  clientMutationId?: string | null;
+}
+
 export interface AddOccurrenceMutationInput {
   time: any;
   eventId: string;
@@ -78,6 +87,12 @@ export interface EventTranslationsInput {
   languageCode: Language;
 }
 
+export interface MessageTranslationsInput {
+  languageCode: Language;
+  subject?: string | null;
+  bodyText?: string | null;
+}
+
 export interface PublishEventMutationInput {
   id: string;
   clientMutationId?: string | null;
@@ -97,6 +112,16 @@ export interface UpdateEventMutationInput {
   image?: any | null;
   translations?: (EventTranslationsInput | null)[] | null;
   projectId?: string | null;
+  clientMutationId?: string | null;
+}
+
+export interface UpdateMessageMutationInput {
+  id: string;
+  translations?: (MessageTranslationsInput | null)[] | null;
+  projectId?: string | null;
+  recipientSelection?: RecipientSelectionEnum | null;
+  eventId?: string | null;
+  occurrenceIds?: string[] | null;
   clientMutationId?: string | null;
 }
 

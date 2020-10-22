@@ -186,11 +186,16 @@
         },
         "label": "Recipients"
       },
+      "bodyText": {
+        "label": "Message text"
+      },
       "subject": {
-        "label": "Name"
+        "label": "Name",
+        "label2": "Message subject"
       },
       "event": {
-        "label": "Event"
+        "label": "Event",
+        "all": "All Events"
       },
       "recipientCount": {
         "label": "Recipient count"
@@ -200,6 +205,9 @@
         "sent": "Sent",
         "notSent": "Not sent"
       }
+    },
+    "create": {
+      "title": "New message"
     },
     "list": {
       "title": "Messages"

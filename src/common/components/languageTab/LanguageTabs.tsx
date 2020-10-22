@@ -4,6 +4,8 @@ import Tab from '@material-ui/core/Tab';
 import { useTranslate } from 'react-admin';
 
 import { Language } from '../../../api/generatedTypes/globalTypes';
+import styles from './languageTabs.module.css';
+
 /**
  * Use as a wrapper for translatable content view
  * as render props, (please forgive me, HOC is worse).
@@ -24,7 +26,11 @@ const LanguageTabs: React.FunctionComponent<{
 
   return (
     <>
-      <Tabs value={selectedLanguage} onChange={(e, value) => onSelect(value)}>
+      <Tabs
+        value={selectedLanguage}
+        onChange={(e, value) => onSelect(value)}
+        className={styles.languageTabs}
+      >
         <Tab value={Language.FI} label={translate('languages.FI')} />
         <Tab value={Language.SV} label={translate('languages.SV')} />
         <Tab value={Language.EN} label={translate('languages.EN')} />

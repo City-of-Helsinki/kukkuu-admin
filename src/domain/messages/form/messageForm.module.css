@@ -1,0 +1,5 @@
+.inline {
+  display: inline-flex;
+  margin-right: 1rem;
+  width: calc(50% - 1rem);
+}

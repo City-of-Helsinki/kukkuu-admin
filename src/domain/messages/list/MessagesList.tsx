@@ -9,7 +9,7 @@ import {
 
 import KukkuuListPage from '../../../common/components/kukkuuListPage/KukkuuListPage';
 import PublishedField from '../../../common/components/publishedField/PublishedField';
-import { recipientSelectionOptions } from '../choices';
+import { recipientSelectionChoices } from '../choices';
 import styles from './messageList.module.css';
 
 const MessagesList = (props: ResourceComponentPropsWithId) => {
@@ -29,7 +29,7 @@ const MessagesList = (props: ResourceComponentPropsWithId) => {
       <SelectField
         label={t('messages.fields.recipientSelection.label')}
         source="recipientSelection"
-        choices={recipientSelectionOptions}
+        choices={recipientSelectionChoices}
       />
       <TextField label={t('messages.fields.event.label')} source="event.name" />
       <TextField
