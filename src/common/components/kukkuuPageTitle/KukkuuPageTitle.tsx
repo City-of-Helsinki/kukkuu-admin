@@ -1,20 +1,25 @@
 import React from 'react';
-import { CardHeader, CardHeaderProps, makeStyles } from '@material-ui/core';
+import { makeStyles, TypographyProps, Typography } from '@material-ui/core';
 
 const useTitleStyles = makeStyles((theme) => ({
   title: {
-    paddingLeft: 0,
     paddingTop: theme.spacing(7),
-    '& .MuiCardHeader-title': {
-      fontWeight: theme.typography.fontWeightBold,
-    },
+    paddingBottom: theme.spacing(1.5),
+    fontWeight: theme.typography.fontWeightBold,
   },
 }));
 
-const KukkuuPageTitle = (props: CardHeaderProps) => {
+const KukkuuPageTitle = (props: TypographyProps<'h1'>) => {
   const classes = useTitleStyles();
 
-  return <CardHeader {...props} className={classes.title} />;
+  return (
+    <Typography
+      component="h1"
+      variant="h5"
+      {...props}
+      className={classes.title}
+    />
+  );
 };
 
 export default KukkuuPageTitle;

@@ -25,7 +25,7 @@ const KukkuuListPage = ({ pageTitle, children, reactAdminProps }: Props) => {
 
   return (
     <>
-      <KukkuuPageTitle title={pageTitle} />
+      <KukkuuPageTitle>{pageTitle}</KukkuuPageTitle>
       <KukkuuList
         bulkActionButtons={false}
         pagination={false}
