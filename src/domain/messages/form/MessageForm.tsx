@@ -1,4 +1,4 @@
-import React, { useState, ReactElement } from 'react';
+import React from 'react';
 import {
   TextInput,
   SimpleForm,
@@ -6,9 +6,8 @@ import {
   SimpleFormProps,
 } from 'react-admin';
 
-import LanguageTabs from '../../../common/components/languageTab/LanguageTabs';
-import { Language } from '../../../api/generatedTypes/globalTypes';
 import EventSelect from '../../events/eventSelect/EventSelect';
+import useLanguageTabs from '../hooks/useLanguageTabs';
 import {
   validateRecipientSelection,
   validateSubject,
@@ -16,25 +15,6 @@ import {
 } from '../validations';
 import { recipientSelectionChoices } from '../choices';
 import styles from './messageForm.module.css';
-
-function useLanguageTabs(): [
-  ReactElement,
-  (fieldName: string) => string,
-  Language,
-  (language: Language) => void
-] {
-  const [selectedLanguage, selectLanguage] = useState(Language.FI);
-  const tField = (fieldName: string) =>
-    `translations.${selectedLanguage}.${fieldName}`;
-  const component = (
-    <LanguageTabs
-      selectedLanguage={selectedLanguage}
-      onSelect={selectLanguage}
-    />
-  );
-
-  return [component, tField, selectedLanguage, selectLanguage];
-}
 
 type Props = Omit<SimpleFormProps, 'children'>;
 
