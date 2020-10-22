@@ -16,7 +16,11 @@ const KukkuuDetailPage = ({
   reactAdminProps: { hasShow, ...props },
 }: Props) => {
   return (
-    <KukkuuPageLayout pageTitleSource={pageTitleSource} reactAdminProps={props}>
+    <KukkuuPageLayout
+      pageTitleSource={pageTitleSource}
+      reactAdminProps={props}
+      breadcrumbs
+    >
       <KukkuuShow {...props}>{children}</KukkuuShow>
     </KukkuuPageLayout>
   );
