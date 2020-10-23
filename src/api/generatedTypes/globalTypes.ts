@@ -112,6 +112,11 @@ export interface PublishEventMutationInput {
   clientMutationId?: string | null;
 }
 
+export interface SendMessageMutationInput {
+  id: string;
+  clientMutationId?: string | null;
+}
+
 export interface SetEnrolmentAttendanceMutationInput {
   enrolmentId: string;
   attended?: boolean | null;

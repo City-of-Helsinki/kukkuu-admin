@@ -27,3 +27,13 @@ export const deleteMessageMutation = gql`
     }
   }
 `;
+
+export const sendMessageMutation = gql`
+  mutation SendMessage($input: SendMessageMutationInput!) {
+    sendMessage(input: $input) {
+      message {
+        id
+      }
+    }
+  }
+`;

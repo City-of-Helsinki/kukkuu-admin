@@ -165,6 +165,15 @@
     "SV": "ruotsi"
   },
   "messages": {
+    "send": {
+      "do": "Lähetä",
+      "success": "Viesti lähetetty",
+      "error": "Viestin lähetys epäonnistui",
+      "confirm": {
+        "title": "Lähetä viesti \"%{messageSubject}\"",
+        "content": "Oletko varma, että haluat lähettää tämän viestin?"
+      }
+    },
     "fields": {
       "recipientSelection": {
         "choices": {
