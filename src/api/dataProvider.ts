@@ -120,6 +120,8 @@ const dataProvider = {
     runHandler('DELETE', resource, params),
   publish: async (resource: Resource, params: Params) =>
     runHandler('PUBLISH', resource, params),
+  send: async (resource: Resource, params: Params) =>
+    runHandler('SEND', resource, params),
   getMyAdminProfile,
   setEnrolmentAttendance,
 };

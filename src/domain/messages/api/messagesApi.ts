@@ -9,6 +9,7 @@ import {
 import { messagesQuery, messageQuery } from '../queries/MessageQueries';
 import {
   addMessageMutation,
+  sendMessageMutation,
   updateMessageMutation,
   deleteMessageMutation,
 } from '../mutations/MessageMutations';
@@ -109,10 +110,16 @@ async function deleteMessage(
 
   return { data: { id: params.id } };
 }
-function sendMessage(
+
+async function sendMessage(
   params: MethodHandlerParams
 ): Promise<MethodHandlerResponse | null> {
-  return Promise.resolve(null);
+  const response = await mutationHandler({
+    mutation: sendMessageMutation,
+    variables: { input: { id: params.id } },
+  });
+
+  return response.data?.message.id;
 }
 
 const messagesApi = {
