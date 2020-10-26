@@ -31,6 +31,9 @@ const useMessageDetailsToolbarStyles = makeStyles((theme) => ({
     fontWeight: theme.typography.fontWeightBold,
     fontSize: theme.typography.body2.fontSize,
   },
+  sendButton: {
+    marginLeft: theme.spacing(1),
+  },
 }));
 
 type MessageDetailToolbarProps = {
@@ -71,7 +74,11 @@ const MessageDetailToolbar = ({
     <TopToolbar>
       {data && <EditButton basePath={basePath} record={data} />}
       {data && basePath && (
-        <MessageSendButton basePath={basePath} record={data} />
+        <MessageSendButton
+          basePath={basePath}
+          record={data}
+          className={classes.sendButton}
+        />
       )}
     </TopToolbar>
   );
