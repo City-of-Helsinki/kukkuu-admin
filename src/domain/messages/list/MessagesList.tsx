@@ -7,6 +7,7 @@ import {
   useLocale,
 } from 'react-admin';
 
+import { toDateTimeString } from '../../../common/utils';
 import KukkuuListPage from '../../../common/components/kukkuuListPage/KukkuuListPage';
 import PublishedField from '../../../common/components/publishedField/PublishedField';
 import { recipientSelectionChoices } from '../choices';
@@ -45,13 +46,10 @@ const MessagesList = (props: ResourceComponentPropsWithId) => {
         label={t('messages.fields.sentAt.label')}
         source="sentAt"
         render={(date: Date) =>
-          `${t('messages.fields.sentAt.sent')} ${date.toLocaleString(locale, {
-            year: 'numeric',
-            month: 'numeric',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-          })}`
+          `${t('messages.fields.sentAt.sent')} ${toDateTimeString(
+            date,
+            locale
+          )}`
         }
         emptyText={t('messages.fields.sentAt.notSent')}
         className={styles.bold}
