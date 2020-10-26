@@ -185,5 +185,10 @@
       "contactEmail": "kulttuurin.kummilapset@hel.fi",
       "backToLoginPage": "Back to login page"
     }
+  },
+  "ra": {
+    "message": {
+      "delete_title": "Delete"
+    }
   }
 }

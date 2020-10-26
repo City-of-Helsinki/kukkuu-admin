@@ -22,6 +22,15 @@ export enum Language {
   SV = "SV",
 }
 
+/**
+ * An enumeration.
+ */
+export enum LanguageTranslationLanguageCode {
+  EN = "EN",
+  FI = "FI",
+  SV = "SV",
+}
+
 export enum RecipientSelectionEnum {
   ALL = "ALL",
   ATTENDED = "ATTENDED",
@@ -65,6 +74,11 @@ export interface AddVenueMutationInput {
 }
 
 export interface DeleteEventMutationInput {
+  id: string;
+  clientMutationId?: string | null;
+}
+
+export interface DeleteMessageMutationInput {
   id: string;
   clientMutationId?: string | null;
 }

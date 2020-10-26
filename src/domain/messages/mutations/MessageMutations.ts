@@ -19,3 +19,11 @@ export const updateMessageMutation = gql`
     }
   }
 `;
+
+export const deleteMessageMutation = gql`
+  mutation DeleteMessage($input: DeleteMessageMutationInput!) {
+    deleteMessage(input: $input) {
+      clientMutationId
+    }
+  }
+`;

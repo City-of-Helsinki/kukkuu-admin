@@ -329,5 +329,10 @@
       },
       "title": "Tapahtumapaikat"
     }
+  },
+  "ra": {
+    "message": {
+      "delete_title": "Poista"
+    }
   }
 }

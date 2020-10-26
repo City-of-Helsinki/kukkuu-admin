@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { RecipientSelectionEnum } from "./globalTypes";
+import { RecipientSelectionEnum, LanguageTranslationLanguageCode } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: Messages
@@ -11,6 +11,12 @@ import { RecipientSelectionEnum } from "./globalTypes";
 
 export interface Messages_messages_edges_node_event {
   name: string | null;
+}
+
+export interface Messages_messages_edges_node_translations {
+  languageCode: LanguageTranslationLanguageCode;
+  subject: string;
+  bodyText: string;
 }
 
 export interface Messages_messages_edges_node {
@@ -24,6 +30,7 @@ export interface Messages_messages_edges_node {
   recipientCount: number | null;
   sentAt: any | null;
   event: Messages_messages_edges_node_event | null;
+  translations: Messages_messages_edges_node_translations[];
 }
 
 export interface Messages_messages_edges {
