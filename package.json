@@ -53,7 +53,9 @@
     "lint": "eslint --ext js,ts,tsx src",
     "ci": "CI=true yarn test --verbose --runInBand --coverage",
     "graphql-types": "apollo client:codegen --target=typescript --no-addTypename --outputFlat src/api/generatedTypes",
-    "update-translations": "fetch-translations 1hmdfJ-iVIqsD4AN2vx2YMMM2BQs-en1xxsX2Vu5_7vY -l fi,en -o ./src/common/translation"
+    "update-translations": "fetch-translations 1hmdfJ-iVIqsD4AN2vx2YMMM2BQs-en1xxsX2Vu5_7vY -l fi,en -o ./src/common/translation",
+    "test:browser": "TEST_ENV=local testcafe \"chrome --window-size='1920,1080'\" browser-tests/ --live",
+    "test:browser:ci": "testcafe \"chrome:headless --disable-gpu --window-size='1920,1080'\" browser-tests/ -s takeOnFails=true --lang=fi-FI"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -71,10 +73,12 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/testcafe": "^4.2.3",
     "apollo": "^2.30.1",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "helsinki-utils": "City-of-Helsinki/helsinki-utils-js.git#0.1.0",
-    "prettier": "2.0.5"
+    "prettier": "2.0.5",
+    "testcafe": "^1.9.4"
   }
 }

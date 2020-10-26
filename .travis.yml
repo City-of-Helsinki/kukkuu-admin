@@ -17,5 +17,9 @@ jobs:
       name: "Run (test) build"
       if: branch IN (master, develop)
       script: yarn build
+    - stage: 'Browser test' 
+      name: 'Run browser tests'
+      if: type = cron
+      script: yarn test:browser:ci
 after_success:
   - ./node_modules/.bin/codecov < coverage/lcov.info
