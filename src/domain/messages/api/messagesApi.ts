@@ -119,7 +119,7 @@ async function sendMessage(
     variables: { input: { id: params.id } },
   });
 
-  return response.data?.message.id;
+  return handleApiNode(response.data?.sendMessage.message);
 }
 
 const messagesApi = {
