@@ -8,6 +8,7 @@ import {
 } from 'react-admin';
 
 import { toDateTimeString } from '../../../common/utils';
+import useTranslationDataKey from '../../../common/hooks/useTranslationDataKey';
 import KukkuuListPage from '../../../common/components/kukkuuListPage/KukkuuListPage';
 import PublishedField from '../../../common/components/publishedField/PublishedField';
 import { recipientSelectionChoices } from '../choices';
@@ -16,6 +17,7 @@ import styles from './messageList.module.css';
 const MessagesList = (props: ResourceComponentPropsWithId) => {
   const t = useTranslate();
   const locale = useLocale();
+  const getKey = useTranslationDataKey();
 
   return (
     <KukkuuListPage
@@ -24,7 +26,7 @@ const MessagesList = (props: ResourceComponentPropsWithId) => {
     >
       <TextField
         label={t('messages.fields.subject.label')}
-        source="subject"
+        source={getKey('subject')}
         className={styles.bold}
       />
       <SelectField

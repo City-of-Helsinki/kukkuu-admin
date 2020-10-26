@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 
 import { Message_message as Message } from '../../../api/generatedTypes/Message';
+import useTranslationDataKey from '../../../common/hooks/useTranslationDataKey';
 import { toDateTimeString } from '../../../common/utils';
 import KukkuuDetailPage from '../../../common/components/kukkuuDetailPage/KukkuuDetailPage';
 import useLanguageTabs from '../hooks/useLanguageTabs';
@@ -95,10 +96,11 @@ const MessagesDetail = (props: ResourceComponentPropsWithId) => {
   const classes = useStyles();
   const [languageTabsComponent, translatableField] = useLanguageTabs();
   const t = useTranslate();
+  const getKey = useTranslationDataKey();
 
   return (
     <KukkuuDetailPage
-      pageTitleSource="subject"
+      pageTitleSource={getKey('subject')}
       reactAdminProps={props}
       actions={<MessageDetailToolbar />}
     >
