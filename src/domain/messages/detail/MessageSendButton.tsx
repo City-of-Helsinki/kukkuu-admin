@@ -17,9 +17,10 @@ import { Message_message as Message } from '../../../api/generatedTypes/Message'
 type Props = {
   basePath: string;
   record: Message;
+  className?: string;
 };
 
-const MessagesSendButton = ({ basePath, record }: Props) => {
+const MessagesSendButton = ({ basePath, record, className }: Props) => {
   const t = useTranslate();
   const history = useHistory();
   const notify = useNotify();
@@ -59,7 +60,12 @@ const MessagesSendButton = ({ basePath, record }: Props) => {
 
   return (
     <>
-      <Button onClick={handleDialogOpen} label="messages.send.do" key="button">
+      <Button
+        onClick={handleDialogOpen}
+        label="messages.send.do"
+        key="button"
+        className={className}
+      >
         <SendIcon />
       </Button>
       <Confirm
