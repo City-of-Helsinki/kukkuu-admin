@@ -1,30 +1,29 @@
 import React, { ReactElement } from 'react';
 import { ResourceComponentPropsWithId } from 'react-admin';
 
+import KukkuuShow from '../kukkuuShow/KukkuuShow';
 import KukkuuPageLayout from '../kukkuuCardPageLayout/KukkuuCardPageLayout';
-import KukkuuEdit from '../../../common/components/kukkuuEdit/KukkuuEdit';
 
 type Props = {
-  reactAdminProps: ResourceComponentPropsWithId;
   children: ReactElement;
+  reactAdminProps: ResourceComponentPropsWithId;
   pageTitleSource: string;
 };
 
-const KukkuuEditPage = ({
+const KukkuuDetailPage = ({
   children,
-  reactAdminProps,
   pageTitleSource,
+  reactAdminProps: { hasShow, ...props },
 }: Props) => {
   return (
     <KukkuuPageLayout
       pageTitleSource={pageTitleSource}
-      reactAdminProps={reactAdminProps}
+      reactAdminProps={props}
+      breadcrumbs
     >
-      <KukkuuEdit undoable={false} actions={<></>} {...reactAdminProps}>
-        {children}
-      </KukkuuEdit>
+      <KukkuuShow {...props}>{children}</KukkuuShow>
     </KukkuuPageLayout>
   );
 };
 
-export default KukkuuEditPage;
+export default KukkuuDetailPage;

@@ -31,7 +31,11 @@ const MessagesList = (props: ResourceComponentPropsWithId) => {
         source="recipientSelection"
         choices={recipientSelectionChoices}
       />
-      <TextField label={t('messages.fields.event.label')} source="event.name" />
+      <TextField
+        label={t('messages.fields.event.label')}
+        source="event.name"
+        emptyText={t('messages.fields.event.all')}
+      />
       <TextField
         label={t('messages.fields.recipientCount.label')}
         source="recipientCount"
@@ -49,7 +53,7 @@ const MessagesList = (props: ResourceComponentPropsWithId) => {
             minute: '2-digit',
           })}`
         }
-        placeholder="messages.fields.sentAt.notSent"
+        emptyText={t('messages.fields.sentAt.notSent')}
         className={styles.bold}
       />
     </KukkuuListPage>
