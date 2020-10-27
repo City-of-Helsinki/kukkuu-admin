@@ -87,7 +87,7 @@ const useStyles = makeStyles({
   inline: {
     display: 'inline-flex',
     width: '50%',
-    '& > *': {
+    '& &': {
       width: '100%',
     },
   },
