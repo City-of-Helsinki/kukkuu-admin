@@ -9,9 +9,7 @@ import {
 import { useHistory } from 'react-router';
 import SendIcon from '@material-ui/icons/Check';
 import * as Sentry from '@sentry/browser';
-import get from 'lodash/get';
 
-import useTranslationDataKey from '../../../common/hooks/useTranslationDataKey';
 import { Message_message as Message } from '../../../api/generatedTypes/Message';
 
 type Props = {
@@ -42,7 +40,6 @@ const MessagesSendButton = ({ basePath, record, className }: Props) => {
     }
   );
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const getKey = useTranslationDataKey();
 
   const handleDialogOpen = () => {
     setIsDialogOpen(true);
@@ -72,7 +69,7 @@ const MessagesSendButton = ({ basePath, record, className }: Props) => {
         isOpen={isDialogOpen}
         loading={loading}
         title={t('messages.send.confirm.title', {
-          messageSubject: get(record, getKey('subject')),
+          messageSubject: record.subject,
         })}
         content="messages.send.confirm.content"
         onConfirm={handleSend}
