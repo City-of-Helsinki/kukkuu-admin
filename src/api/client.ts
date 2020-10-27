@@ -6,6 +6,8 @@ import { ApolloLink } from 'apollo-link';
 import { createUploadLink } from 'apollo-upload-client';
 import * as Sentry from '@sentry/browser';
 
+import i18nProvider from '../common/translation/i18nProvider';
+
 const uploadLink = createUploadLink({
   uri: process.env.REACT_APP_API_URI,
   headers: {
@@ -49,6 +51,7 @@ const authLink = setContext((_, { headers }) => {
     headers: {
       ...headers,
       authorization: token ? `Bearer ${token}` : null,
+      'accept-language': i18nProvider.getLocale() || 'fi',
     },
   };
 });

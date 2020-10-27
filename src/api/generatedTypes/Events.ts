@@ -43,6 +43,7 @@ export interface Events_events_edges_node {
    * The ID of the object.
    */
   id: string;
+  name: string | null;
   image: string;
   participantsPerInvite: EventParticipantsPerInvite;
   /**
