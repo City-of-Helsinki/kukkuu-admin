@@ -187,7 +187,7 @@
             "label": "Ilmoittautuneet"
           },
           "ATTENDED": {
-            "label": "Saapuneet"
+            "label": "Tapahtumaan osallistuneet"
           },
           "SUBSCRIBED_TO_FREE_SPOT_MESSAGE": {
             "label": "Ilmoituksen tilanneet"
