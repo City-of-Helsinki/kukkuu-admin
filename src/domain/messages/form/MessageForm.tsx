@@ -12,6 +12,7 @@ import {
   validateRecipientSelection,
   validateSubject,
   validateBodyText,
+  validateMessageForm,
 } from '../validations';
 import { recipientSelectionChoices } from '../choices';
 import styles from './messageForm.module.css';
@@ -26,7 +27,12 @@ const MessageForm = (props: Props) => {
   ] = useLanguageTabs();
 
   return (
-    <SimpleForm variant="outlined" redirect="show" {...props}>
+    <SimpleForm
+      variant="outlined"
+      redirect="show"
+      validate={validateMessageForm}
+      {...props}
+    >
       {languageTabsComponent}
       <SelectInput
         source="recipientSelection"
@@ -50,6 +56,7 @@ const MessageForm = (props: Props) => {
         InputLabelProps={{
           shrink: true,
         }}
+        initialValue={props?.record?.event?.id || 'all'}
       />
       <TextInput
         source={translatableField('subject')}

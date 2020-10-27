@@ -43,6 +43,7 @@ export interface Event_event {
    * The ID of the object.
    */
   id: string;
+  name: string | null;
   image: string;
   participantsPerInvite: EventParticipantsPerInvite;
   /**

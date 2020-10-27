@@ -6,6 +6,7 @@ export const eventsQuery = gql`
       edges {
         node {
           id
+          name
           image
           participantsPerInvite
           duration
@@ -35,6 +36,7 @@ export const eventQuery = gql`
   query Event($id: ID!) {
     event(id: $id) {
       id
+      name
       image
       participantsPerInvite
       duration

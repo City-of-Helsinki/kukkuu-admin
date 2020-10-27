@@ -10,6 +10,10 @@ import { RecipientSelectionEnum, LanguageTranslationLanguageCode } from "./globa
 // ====================================================
 
 export interface MessageFragment_event {
+  /**
+   * The ID of the object.
+   */
+  id: string;
   name: string | null;
 }
 

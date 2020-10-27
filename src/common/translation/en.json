@@ -165,6 +165,15 @@
     "SV": "Swedish"
   },
   "messages": {
+    "send": {
+      "do": "Send",
+      "success": "Message sent",
+      "error": "Message send failed",
+      "confirm": {
+        "title": "Send message \"%{messageSubject}\"",
+        "content": "Are you sure that you want to send this message?"
+      }
+    },
     "fields": {
       "recipientSelection": {
         "choices": {
@@ -211,6 +220,18 @@
     },
     "list": {
       "title": "Messages"
+    }
+  },
+  "message": {
+    "translations": {
+      "FI": {
+        "subject": {
+          "required": "A Finnish subject is required. Check the message's Finnish language version."
+        },
+        "bodyText": {
+          "required": "A Finnish message text is required. Check the message's Finnish language version."
+        }
+      }
     }
   },
   "occurrences": {
