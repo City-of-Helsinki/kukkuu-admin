@@ -97,6 +97,10 @@ const useStyles = makeStyles({
       marginBottom: '1rem',
     },
   },
+  textField: {
+    maxWidth: '600px',
+    whiteSpace: 'break-spaces',
+  },
 });
 
 const MessagesDetail = (props: ResourceComponentPropsWithId) => {
@@ -133,6 +137,7 @@ const MessagesDetail = (props: ResourceComponentPropsWithId) => {
           component="pre"
           source={translatableField('bodyText')}
           label="messages.fields.bodyText.label"
+          className={classes.textField}
         />
       </SimpleShowLayout>
     </KukkuuDetailPage>
