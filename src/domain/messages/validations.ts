@@ -9,6 +9,5 @@ export const validateBodyText = required();
 export const validateCapacityPerOccurrence = [minValue(0), required()];
 
 export const validateRecipientSelection = [
-  required(),
   choices(recipientSelectionChoices.map((choice) => choice.id)),
 ];
