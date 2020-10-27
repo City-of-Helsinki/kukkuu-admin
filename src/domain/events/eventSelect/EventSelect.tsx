@@ -61,7 +61,12 @@ type Props = Omit<SelectInputProps, 'choices'> & {
   allLabel?: string;
 };
 
-const EventSelect = ({ allowAll, allLabel, ...rest }: Props) => {
+const EventSelect = ({
+  allowAll,
+  allLabel,
+  initialValue: externalInitialValue,
+  ...rest
+}: Props) => {
   // Due to a reason I could not understand, the useGetList query always
   // returned an empty result.
   const { data, loading, error } = useQuery({
@@ -77,9 +82,12 @@ const EventSelect = ({ allowAll, allLabel, ...rest }: Props) => {
   const locale = useLocale();
 
   const isReady = data && !loading && !error;
-  const choices = isReady ? getOptions(data, locale) : [];
+  const choices = isReady ? getOptions(data, locale) : undefined;
+  const initialValue = isReady ? externalInitialValue : undefined;
 
-  return <SelectInput {...rest} choices={choices} />;
+  return (
+    <SelectInput {...rest} initialValue={initialValue} choices={choices} />
+  );
 };
 
 export default EventSelect;
