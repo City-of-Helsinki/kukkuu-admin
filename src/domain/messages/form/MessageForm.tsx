@@ -50,6 +50,7 @@ const MessageForm = (props: Props) => {
         InputLabelProps={{
           shrink: true,
         }}
+        initialValue={props?.record?.event?.id || 'all'}
       />
       <TextInput
         source={translatableField('subject')}

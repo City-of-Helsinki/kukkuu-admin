@@ -9,6 +9,7 @@ const MessageFragment = gql`
     recipientCount
     sentAt
     event {
+      id
       name
     }
     translations {
