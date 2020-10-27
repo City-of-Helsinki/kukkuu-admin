@@ -37,11 +37,18 @@ async function getMessage(
   return handleApiNode(response.data.message);
 }
 
+// When the event id field is empty, the message applies to all
+// events. Hence when eventId is empty, we want to show a label that
+// tells the user they are targeting all events. But react-admin
+// doesn't seems to support showing empty values (null) as selected. To
+// circumvent, we are using "all" as the empty value. Here we are
+// cleaning field before sending it to the backend. In essence, if
+// eventId is "all", we change its contents to "null".
 function cleanEventId(data: any): any {
   if (data?.eventId === 'all') {
     const { eventId, ...cleanData } = data;
 
-    return cleanData;
+    return { ...cleanData, eventId: null };
   }
 
   return data;
@@ -50,13 +57,6 @@ function cleanEventId(data: any): any {
 async function addMessage(
   params: MethodHandlerParams
 ): Promise<MethodHandlerResponse | null> {
-  // When the event id field is empty, the message applies to all
-  // events. Hence when eventId is empty, we want to show a label that
-  // tells the user they are targeting all event. But react-admin
-  // doesn't seems to support showing empty values as selected. To
-  // circumvent, we are using "all" as the empty value. Here we are
-  // cleaning field before sending it to the backend. In essence, if
-  // eventId is "all", we remove the field from the data.
   const cleanedData = cleanEventId(params.data);
   const data = mapLocalDataToApiData(cleanedData);
   const response = await mutationHandler({
@@ -82,13 +82,6 @@ async function updateMessage(
     eventId: params.data.eventId,
     occurrenceIds: params.data.occurrenceIds,
   };
-  // When the event id field is empty, the message applies to all
-  // events. Hence when eventId is empty, we want to show a label that
-  // tells the user they are targeting all event. But react-admin
-  // doesn't seems to support showing empty values as selected. To
-  // circumvent, we are using "all" as the empty value. Here we are
-  // cleaning field before sending it to the backend. In essence, if
-  // eventId is "all", we remove the field from the data.
   const cleanedData = cleanEventId(updateData);
   const data = mapLocalDataToApiData(cleanedData);
 
