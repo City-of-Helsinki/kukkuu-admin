@@ -222,6 +222,18 @@
       "title": "Messages"
     }
   },
+  "message": {
+    "translations": {
+      "FI": {
+        "subject": {
+          "required": "A Finnish subject is required. Check the message's Finnish language version."
+        },
+        "bodyText": {
+          "required": "A Finnish message text is required. Check the message's Finnish language version."
+        }
+      }
+    }
+  },
   "occurrences": {
     "addOccurrenceButton": {
       "label": "Add occurrence"

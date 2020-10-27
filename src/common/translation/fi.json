@@ -222,6 +222,18 @@
       "title": "Viestit"
     }
   },
+  "message": {
+    "translations": {
+      "FI": {
+        "subject": {
+          "required": "Suomenkielinen otsikko on pakollinen kenttä. Tarkista viestin suomenkielinen versio."
+        },
+        "bodyText": {
+          "required": "Suomenkielinen viestin teksti on pakollinen kenttä. Tarkista viestin suomenkielinen versio."
+        }
+      }
+    }
+  },
   "occurrences": {
     "addOccurrenceButton": {
       "label": "Lisää esiintymä"
