@@ -16,8 +16,8 @@ export const recipientSelectionChoices = [
     name: 'messages.fields.recipientSelection.choices.ATTENDED.label',
   },
   {
-    id: 'SUBSCRIBED_TO_FREE_SPOT_MESSAGE',
+    id: 'SUBSCRIBED_TO_FREE_SPOT_NOTIFICATION',
     name:
-      'messages.fields.recipientSelection.choices.SUBSCRIBED_TO_FREE_SPOT_MESSAGE.label',
+      'messages.fields.recipientSelection.choices.SUBSCRIBED_TO_FREE_SPOT_NOTIFICATION.label',
   },
 ];
