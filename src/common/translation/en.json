@@ -189,7 +189,7 @@
           "ATTENDED": {
             "label": "Attended"
           },
-          "SUBSCRIBED_TO_FREE_SPOT_MESSAGE": {
+          "SUBSCRIBED_TO_FREE_SPOT_NOTIFICATION": {
             "label": "Subscribed to free spot message"
           }
         },
