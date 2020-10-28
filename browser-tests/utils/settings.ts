@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 
-dotenv.config({ path: '.env.local' });
+dotenv.config();
 
 const TEST_ENV_URL = 'https://kukkuu-admin.test.kuva.hel.ninja';
 const LOCAL_ENV_URL = 'http://localhost:3001';
