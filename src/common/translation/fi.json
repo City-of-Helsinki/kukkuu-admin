@@ -189,7 +189,7 @@
           "ATTENDED": {
             "label": "Tapahtumaan osallistuneet"
           },
-          "SUBSCRIBED_TO_FREE_SPOT_MESSAGE": {
+          "SUBSCRIBED_TO_FREE_SPOT_NOTIFICATION": {
             "label": "Ilmoituksen tilanneet"
           }
         },
