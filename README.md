@@ -125,6 +125,16 @@ Fetches the schema from backend and updates typing information.
 
 Updates translation files from the Google spreadsheet
 
+### `yarn test:browser`
+
+Runs browser tests against your local version of the application (assumes port `3001`).
+
+For this command to work, you need to add the environment variables in the `kukkuu-admin_e2e-test-keys.txt` file in the secrets repo into your environment. The test script supports the `.env` file for setting up the environment.
+
+The `yarn test:browser:ci` variant of this command is meant to run in the CI, and it targets the staging server. It uses headless mode and may therefore behave differently compared to the local test runner.
+
+Travis is configured to run a cron job daily. The browser tests are hooked to this cron job and should be ran once per day against the `develop` branch. Should the test run fail, Travis won't send notifications so the results need to be checked "manually".
+
 ## Debugging
 
 See instructions in the sister project: https://github.com/City-of-Helsinki/kukkuu-ui/
