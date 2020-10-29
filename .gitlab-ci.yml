@@ -14,9 +14,11 @@ build-review:
     DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-review'
     DOCKER_BUILD_ARG_REACT_APP_ENVIRONMENT: 'review'
     DOCKER_BUILD_ARG_REACT_APP_OIDC_AUTHORITY: 'https://tunnistamo.test.kuva.hel.ninja'
+    DOCKER_BUILD_ARG_REACT_APP_OIDC_CLIENT: 'https://api.hel.fi/auth/kukkuu-admin-ui'
     DOCKER_BUILD_ARG_REACT_APP_OIDC_SCOPE: 'openid profile https://api.hel.fi/auth/kukkuu'
     DOCKER_BUILD_ARG_REACT_APP_KUKKUU_API_OIDC_SCOPE: 'https://api.hel.fi/auth/kukkuu'
     DOCKER_BUILD_ARG_REACT_APP_API_URI: 'https://kukkuu.test.kuva.hel.ninja/graphql'
+    DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: 'https://c89ee3f57dc94ffd940d1df1a353b97f@sentry.hel.ninja/55'
   only:
     refs:
       - external_pull_requests
@@ -27,9 +29,11 @@ build-staging:
     DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-staging'
     DOCKER_BUILD_ARG_REACT_APP_ENVIRONMENT: 'staging'
     DOCKER_BUILD_ARG_REACT_APP_OIDC_AUTHORITY: 'https://tunnistamo.test.kuva.hel.ninja'
+    DOCKER_BUILD_ARG_REACT_APP_OIDC_CLIENT: 'https://api.hel.fi/auth/kukkuu-admin-ui'
     DOCKER_BUILD_ARG_REACT_APP_OIDC_SCOPE: 'openid profile https://api.hel.fi/auth/kukkuu'
     DOCKER_BUILD_ARG_REACT_APP_KUKKUU_API_OIDC_SCOPE: 'https://api.hel.fi/auth/kukkuu'
     DOCKER_BUILD_ARG_REACT_APP_API_URI: 'https://kukkuu.test.kuva.hel.ninja/graphql'
+    DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: 'https://c89ee3f57dc94ffd940d1df1a353b97f@sentry.hel.ninja/55'
   only:
     refs:
       - develop
@@ -40,9 +44,11 @@ build-production:
     DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-production'
     DOCKER_BUILD_ARG_REACT_APP_ENVIRONMENT: 'production'
     DOCKER_BUILD_ARG_REACT_APP_OIDC_AUTHORITY: 'https://api.hel.fi/sso'
+    DOCKER_BUILD_ARG_REACT_APP_OIDC_CLIENT: 'https://api.hel.fi/auth/kukkuu-admin-ui'
     DOCKER_BUILD_ARG_REACT_APP_OIDC_SCOPE: 'openid profile https://api.hel.fi/auth/kukkuuapiprod'
     DOCKER_BUILD_ARG_REACT_APP_KUKKUU_API_OIDC_SCOPE: 'https://api.hel.fi/auth/kukkuuapiprod'
     DOCKER_BUILD_ARG_REACT_APP_API_URI: 'https://kukkuu-api.prod.hel.ninja/kukkuu/graphql'
+    DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: 'https://c89ee3f57dc94ffd940d1df1a353b97f@sentry.hel.ninja/55'
   only:
     refs:
       - master
