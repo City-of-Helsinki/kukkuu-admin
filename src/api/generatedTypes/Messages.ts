@@ -28,6 +28,7 @@ export interface Messages_messages_edges_node_occurrences_edges_node {
    * The ID of the object.
    */
   id: string;
+  time: any;
 }
 
 export interface Messages_messages_edges_node_occurrences_edges {
