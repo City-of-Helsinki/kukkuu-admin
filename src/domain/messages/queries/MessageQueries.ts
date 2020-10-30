@@ -17,6 +17,13 @@ const MessageFragment = gql`
       subject
       bodyText
     }
+    occurrences {
+      edges {
+        node {
+          id
+        }
+      }
+    }
   }
 `;
 

@@ -1,3 +1,5 @@
+import { get, omit } from 'lodash';
+
 import { MethodHandlerResponse, MethodHandlerParams } from '../../../api/types';
 import {
   queryHandler,
@@ -37,6 +39,23 @@ async function getMessage(
   return handleApiNode(response.data.message);
 }
 
+function cleanAll(data: any, field: string): any {
+  const value = get(data, field);
+  const isAllArrayField =
+    Array.isArray(value) && value.length === 1 && value[0] === 'all';
+  const isAllStringField = value === 'all';
+
+  if (isAllArrayField) {
+    return { ...omit(data, field) };
+  }
+
+  if (isAllStringField) {
+    return { ...omit(data, field), [field]: null };
+  }
+
+  return data;
+}
+
 // When the event id field is empty, the message applies to all
 // events. Hence when eventId is empty, we want to show a label that
 // tells the user they are targeting all events. But react-admin
@@ -45,19 +64,21 @@ async function getMessage(
 // cleaning field before sending it to the backend. In essence, if
 // eventId is "all", we change its contents to "null".
 function cleanEventId(data: any): any {
-  if (data?.eventId === 'all') {
-    const { eventId, ...cleanData } = data;
+  return cleanAll(data, 'eventId');
+}
 
-    return { ...cleanData, eventId: null };
-  }
+function cleanOccurrences(data: any): any {
+  return cleanAll(data, 'occurrenceIds');
+}
 
-  return data;
+function cleanMessage(data: any): any {
+  return cleanOccurrences(cleanEventId(data));
 }
 
 async function addMessage(
   params: MethodHandlerParams
 ): Promise<MethodHandlerResponse | null> {
-  const cleanedData = cleanEventId(params.data);
+  const cleanedData = cleanMessage(params.data);
   const data = mapLocalDataToApiData(cleanedData);
   const response = await mutationHandler({
     mutation: addMessageMutation,
@@ -82,7 +103,7 @@ async function updateMessage(
     eventId: params.data.eventId,
     occurrenceIds: params.data.occurrenceIds,
   };
-  const cleanedData = cleanEventId(updateData);
+  const cleanedData = cleanMessage(updateData);
   const data = mapLocalDataToApiData(cleanedData);
 
   const response = await mutationHandler({

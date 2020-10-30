@@ -213,6 +213,10 @@
         "label": "Published",
         "sent": "Sent",
         "notSent": "Not sent"
+      },
+      "occurrences": {
+        "label": "Occurrences",
+        "all": "All Occurrences"
       }
     },
     "create": {
