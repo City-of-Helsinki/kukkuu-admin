@@ -359,5 +359,8 @@
     "message": {
       "delete_title": "Poista"
     }
+  },
+  "generic": {
+    "all": "Kaikki"
   }
 }
