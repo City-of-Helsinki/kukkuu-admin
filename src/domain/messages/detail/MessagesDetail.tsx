@@ -8,12 +8,14 @@ import {
   EditButton,
   TopToolbar,
   useLocale,
+  FunctionField,
 } from 'react-admin';
 import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
+import Chip from '@material-ui/core/Chip';
 
 import { Message_message as Message } from '../../../api/generatedTypes/Message';
-import { toDateTimeString } from '../../../common/utils';
+import { toDateTimeString, toShortDateTimeString } from '../../../common/utils';
 import KukkuuDetailPage from '../../../common/components/kukkuuDetailPage/KukkuuDetailPage';
 import useLanguageTabs from '../hooks/useLanguageTabs';
 import { recipientSelectionChoices } from '../choices';
@@ -83,29 +85,40 @@ const MessageDetailToolbar = ({
   );
 };
 
-const useStyles = makeStyles({
-  inline: {
-    display: 'inline-flex',
-    width: '50%',
-    '& &': {
-      width: '100%',
+const useStyles = makeStyles((theme) => ({
+  showLayout: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gridTemplateRows: 'auto',
+    columnGap: theme.spacing(2) + 'px',
+    rowGap: theme.spacing(2) + 'px',
+    '& > *': {
+      gridColumn: '1 / -1',
     },
   },
-  showLayout: {
-    '& > .ra-field': {
-      marginBottom: '1rem',
-    },
+  recipientSelection: {
+    gridColumn: '1 !important',
+  },
+  event: {
+    gridColumn: '2 !important',
   },
   textField: {
     maxWidth: '600px',
     whiteSpace: 'break-spaces',
   },
-});
+  chip: {
+    marginBottom: theme.spacing(0.5) + 'px',
+    '&:not(:last-child)': {
+      marginRight: theme.spacing(0.5) + 'px',
+    },
+  },
+}));
 
 const MessagesDetail = (props: ResourceComponentPropsWithId) => {
   const classes = useStyles();
   const [languageTabsComponent, translatableField] = useLanguageTabs();
   const t = useTranslate();
+  const locale = useLocale();
 
   return (
     <KukkuuDetailPage
@@ -119,13 +132,32 @@ const MessagesDetail = (props: ResourceComponentPropsWithId) => {
           source="recipientSelection"
           label="messages.fields.recipientSelection.label"
           choices={recipientSelectionChoices}
-          className={classes.inline}
+          className={classes.recipientSelection}
         />
         <TextField
           source="event.name"
           label="messages.fields.event.label"
-          className={classes.inline}
+          className={classes.event}
           emptyText={t('messages.fields.event.all')}
+        />
+        <FunctionField
+          source="occurrences"
+          label="messages.fields.occurrences.label"
+          render={(record?: any) => {
+            const stringifiedRecords =
+              record &&
+              record.occurrences.edges.map((connection: any) =>
+                toShortDateTimeString(new Date(connection.node.time), locale)
+              );
+
+            if (stringifiedRecords.length === 0) {
+              return t('messages.fields.occurrences.all');
+            }
+
+            return stringifiedRecords.map((record: string) => (
+              <Chip key={record} label={record} className={classes.chip} />
+            ));
+          }}
         />
         <TextField
           source={translatableField('subject')}
