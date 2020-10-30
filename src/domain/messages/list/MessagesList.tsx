@@ -5,7 +5,9 @@ import {
   TextField,
   SelectField,
   useLocale,
+  FunctionField,
 } from 'react-admin';
+import { get } from 'lodash';
 
 import { toDateTimeString } from '../../../common/utils';
 import KukkuuListPage from '../../../common/components/kukkuuListPage/KukkuuListPage';
@@ -36,6 +38,19 @@ const MessagesList = (props: ResourceComponentPropsWithId) => {
         label={t('messages.fields.event.label')}
         source="event.name"
         emptyText={t('messages.fields.event.all')}
+      />
+      <FunctionField
+        label={t('messages.fields.occurrences.label')}
+        source="occurrences"
+        render={(record: any) => {
+          const occurrences = get(record, 'occurrences.edges', []);
+
+          if (occurrences.length === 0) {
+            return t('generic.all');
+          }
+
+          return occurrences.length;
+        }}
       />
       <TextField
         label={t('messages.fields.recipientCount.label')}
