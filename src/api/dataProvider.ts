@@ -26,6 +26,7 @@ import {
   updateOccurrence,
   deleteOccurrence,
   setEnrolmentAttendance,
+  getOccurrencesManyReference,
 } from '../domain/occurrences/api/OccurrenceApi';
 import { getChild, getChildren } from '../domain/children/api/ChildApi';
 import { getMyAdminProfile } from '../domain/profile/api';
@@ -51,12 +52,13 @@ const METHOD_HANDLERS: MethodHandlers = {
     PUBLISH: publishEvent,
   },
   occurrences: {
-    LIST: getEvents,
+    LIST: getOccurrences,
     ONE: getOccurrence,
+    MANY: getOccurrences,
     CREATE: addOccurrence,
     UPDATE: updateOccurrence,
     DELETE: deleteOccurrence,
-    MANY_REFERENCE: getOccurrences,
+    MANY_REFERENCE: getOccurrencesManyReference,
   },
   children: {
     LIST: getChildren,

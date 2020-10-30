@@ -23,6 +23,27 @@ export interface MessageFragment_translations {
   bodyText: string;
 }
 
+export interface MessageFragment_occurrences_edges_node {
+  /**
+   * The ID of the object.
+   */
+  id: string;
+}
+
+export interface MessageFragment_occurrences_edges {
+  /**
+   * The item at the end of the edge
+   */
+  node: MessageFragment_occurrences_edges_node | null;
+}
+
+export interface MessageFragment_occurrences {
+  /**
+   * Contains the nodes in this connection.
+   */
+  edges: (MessageFragment_occurrences_edges | null)[];
+}
+
 export interface MessageFragment {
   /**
    * The ID of the object.
@@ -35,4 +56,5 @@ export interface MessageFragment {
   sentAt: any | null;
   event: MessageFragment_event | null;
   translations: MessageFragment_translations[];
+  occurrences: MessageFragment_occurrences;
 }

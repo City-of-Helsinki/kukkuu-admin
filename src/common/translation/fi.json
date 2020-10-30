@@ -213,6 +213,10 @@
         "label": "Julkaisu",
         "sent": "Lähetetty",
         "notSent": "Ei lähetetty"
+      },
+      "occurrences": {
+        "label": "Esiintymät",
+        "all": "Kaikki Esiintymät"
       }
     },
     "create": {
