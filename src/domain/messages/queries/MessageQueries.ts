@@ -21,6 +21,7 @@ const MessageFragment = gql`
       edges {
         node {
           id
+          time
         }
       }
     }
