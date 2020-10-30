@@ -23,6 +23,27 @@ export interface Messages_messages_edges_node_translations {
   bodyText: string;
 }
 
+export interface Messages_messages_edges_node_occurrences_edges_node {
+  /**
+   * The ID of the object.
+   */
+  id: string;
+}
+
+export interface Messages_messages_edges_node_occurrences_edges {
+  /**
+   * The item at the end of the edge
+   */
+  node: Messages_messages_edges_node_occurrences_edges_node | null;
+}
+
+export interface Messages_messages_edges_node_occurrences {
+  /**
+   * Contains the nodes in this connection.
+   */
+  edges: (Messages_messages_edges_node_occurrences_edges | null)[];
+}
+
 export interface Messages_messages_edges_node {
   /**
    * The ID of the object.
@@ -35,6 +56,7 @@ export interface Messages_messages_edges_node {
   sentAt: any | null;
   event: Messages_messages_edges_node_event | null;
   translations: Messages_messages_edges_node_translations[];
+  occurrences: Messages_messages_edges_node_occurrences;
 }
 
 export interface Messages_messages_edges {

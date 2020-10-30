@@ -28,7 +28,10 @@ moment.tz.setDefault('Europe/Helsinki');
 const getOccurrences: MethodHandler = async (params: MethodHandlerParams) => {
   const response: ApolloQueryResult<ApiOccurrences> = await queryHandler({
     query: occurrencesQuery,
-    variables: { projectId: getProjectId(), eventId: params.id },
+    variables: {
+      projectId: getProjectId(),
+      ...params.filter,
+    },
   });
   return handleApiConnection(response.data.occurrences);
 };
@@ -108,6 +111,14 @@ const setEnrolmentAttendance = async (
   return { data: response.data };
 };
 
+const getOccurrencesManyReference = async (params: MethodHandlerParams) => {
+  const response: ApolloQueryResult<ApiOccurrences> = await queryHandler({
+    query: occurrencesQuery,
+    variables: { projectId: getProjectId(), eventId: params.id },
+  });
+  return handleApiConnection(response.data.occurrences);
+};
+
 export {
   getOccurrences,
   getOccurrence,
@@ -115,4 +126,5 @@ export {
   updateOccurrence,
   deleteOccurrence,
   setEnrolmentAttendance,
+  getOccurrencesManyReference,
 };
