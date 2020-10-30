@@ -359,5 +359,8 @@
     "message": {
       "delete_title": "Delete"
     }
+  },
+  "generic": {
+    "all": "All"
   }
 }

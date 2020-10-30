@@ -3,6 +3,7 @@ export const includesHeaders = (element: Element, id: number) => {
     'Nimi',
     'Vastaanottajat',
     'Tapahtuma',
+    'Esiintymät',
     'Vastaanottajia',
     'Julkaisu',
   ];
