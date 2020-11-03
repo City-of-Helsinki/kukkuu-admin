@@ -46,7 +46,7 @@ function cleanAll(data: any, field: string): any {
   const isAllStringField = value === 'all';
 
   if (isAllArrayField) {
-    return { ...omit(data, field) };
+    return { ...omit(data, field), [field]: [] };
   }
 
   if (isAllStringField) {
