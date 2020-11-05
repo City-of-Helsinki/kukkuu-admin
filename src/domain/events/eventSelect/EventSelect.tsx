@@ -1,15 +1,6 @@
 import React from 'react';
-import {
-  ChoicesInputProps,
-  TextFieldProps,
-  SelectInput,
-  ReferenceInput,
-} from 'react-admin';
-
-// react-admin does not export the type for props for SelectInput. In
-// version 3.9.4 it used the following type.
-type SelectInputProps = ChoicesInputProps<TextFieldProps> &
-  Omit<TextFieldProps, 'label' | 'helperText'>;
+import { SelectInput, ReferenceInput } from 'react-admin';
+import omit from 'lodash/omit';
 
 // The type is missing from the bundle although the original source
 // exports it.
@@ -18,10 +9,33 @@ type Props = Omit<ReferenceInputProps, 'children' | 'reference'> & {
   source: string;
 };
 
+function ignoreNoReferenceErrorWhenEmptyValue(props: any) {
+  const {
+    meta,
+    input: { value },
+    emptyValue,
+  } = props;
+
+  if (value === emptyValue) {
+    return { ...props, meta: omit(meta, 'error') };
+  }
+
+  return props;
+}
+
+const HideNoReferenceError = ({ children, ...props }: any) => {
+  return React.cloneElement(
+    children,
+    ignoreNoReferenceErrorWhenEmptyValue(props)
+  );
+};
+
 const EventSelect = (props: Props) => {
   return (
     <ReferenceInput {...props} resource="events" reference="events">
-      <SelectInput optionText="name" />
+      <HideNoReferenceError>
+        <SelectInput optionText="name" />
+      </HideNoReferenceError>
     </ReferenceInput>
   );
 };
