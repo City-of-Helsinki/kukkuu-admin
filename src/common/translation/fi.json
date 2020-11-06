@@ -171,7 +171,7 @@
       "error": "Viestin lähetys epäonnistui",
       "confirm": {
         "title": "Lähetä viesti \"%{messageSubject}\"",
-        "content": "Oletko varma, että haluat lähettää tämän viestin?"
+        "content": "%{recipientCount} vastaanottajaa. Oletko varma, että haluat lähettää tämän viestin?"
       }
     },
     "fields": {

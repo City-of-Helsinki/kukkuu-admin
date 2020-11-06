@@ -171,7 +171,7 @@
       "error": "Message send failed",
       "confirm": {
         "title": "Send message \"%{messageSubject}\"",
-        "content": "Are you sure that you want to send this message?"
+        "content": "%{recipientCount} recipients. Are you sure that you want to send this message?"
       }
     },
     "fields": {
