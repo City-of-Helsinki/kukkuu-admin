@@ -207,7 +207,8 @@
         "all": "All Events"
       },
       "recipientCount": {
-        "label": "Recipient count"
+        "label": "Recipient count",
+        "label2": "Recipients"
       },
       "sentAt": {
         "label": "Published",

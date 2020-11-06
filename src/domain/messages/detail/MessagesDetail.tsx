@@ -85,6 +85,37 @@ const MessageDetailToolbar = ({
   );
 };
 
+const useRecipientCountFieldStyles = makeStyles((theme) => ({
+  container: {
+    fontSize: theme.typography.fontSize,
+    fontFamily: theme.typography.fontFamily,
+  },
+  value: {
+    fontWeight: theme.typography.fontWeightBold,
+  },
+}));
+
+const RecipientCountField = ({ record }: any) => {
+  const t = useTranslate();
+  const classes = useRecipientCountFieldStyles();
+
+  const sentAt = record?.sentAt;
+  const recipientCount = record?.recipientCount || '?';
+
+  // If message is sent, the recipient count is shown under the message
+  // title and we don't need to show it in the message body.
+  if (sentAt) {
+    return null;
+  }
+
+  return (
+    <div className={classes.container}>
+      <span className={classes.value}>{recipientCount}</span>{' '}
+      {t('messages.fields.recipientCount.label2')}
+    </div>
+  );
+};
+
 const useStyles = makeStyles((theme) => ({
   showLayout: {
     display: 'grid',
@@ -128,6 +159,7 @@ const MessagesDetail = (props: ResourceComponentPropsWithId) => {
     >
       <SimpleShowLayout className={classes.showLayout}>
         {languageTabsComponent}
+        <RecipientCountField />
         <SelectField
           source="recipientSelection"
           label="messages.fields.recipientSelection.label"
