@@ -74,6 +74,9 @@ const MessagesSendButton = ({ basePath, record, className }: Props) => {
         content="messages.send.confirm.content"
         onConfirm={handleSend}
         onClose={handleDialogClose}
+        translateOptions={{
+          recipientCount: record?.recipientCount || '?',
+        }}
       />
     </>
   );
