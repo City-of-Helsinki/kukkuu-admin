@@ -148,9 +148,10 @@ const MessageForm = (props: Props) => {
         }
       </FormDataConsumer>
       <FormDataConsumer formClassName={classes.occurrences}>
-        {({ formData: { eventId }, ...rest }) =>
+        {({ formData: { eventId, recipientSelection }, ...rest }) =>
           eventId &&
-          eventId !== 'all' && (
+          eventId !== 'all' &&
+          recipientSelection !== 'INVITED' && (
             <OccurrenceArraySelect
               {...rest}
               source="occurrenceIds"
