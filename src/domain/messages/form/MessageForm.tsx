@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import {
   TextInput,
   SimpleForm,
@@ -7,6 +7,7 @@ import {
   FormDataConsumer,
 } from 'react-admin';
 import { makeStyles } from '@material-ui/core';
+import { useForm } from 'react-final-form';
 
 import EventSelect from '../../events/eventSelect/EventSelect';
 import OccurrenceArraySelect from '../../occurrences/OccurrenceArraySelect';
@@ -18,6 +19,15 @@ import {
   validateMessageForm,
 } from '../validations';
 import { recipientSelectionChoices } from '../choices';
+
+const CustomOnChange = ({ children, onChange, ...rest }: any) => {
+  const form = useForm();
+
+  return React.cloneElement(children, {
+    ...rest,
+    onChange: (e: ChangeEvent<HTMLInputElement>) => onChange(e, form),
+  });
+};
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -61,6 +71,40 @@ const MessageForm = (props: Props) => {
   const [languageTabsComponent, translatableField] = useLanguageTabs();
   const classes = useStyles();
 
+  const handleRecipientSelectionChange = (
+    event: ChangeEvent<HTMLInputElement>,
+    form: any
+  ) => {
+    const value = event?.target.value;
+    const name = event?.target.name;
+
+    form.batch(() => {
+      // When the user sets recipient as all, event and occurrence
+      // choices are reset
+      if (value === 'ALL') {
+        form.change('eventId', 'all');
+        form.change('occurrenceIds', ['all']);
+      }
+
+      form.change(name, value);
+    });
+  };
+
+  const handleEvenIdChange = (
+    event: ChangeEvent<HTMLInputElement>,
+    form: any
+  ) => {
+    const value = event?.target.value;
+    const name = event?.target.name;
+
+    form.batch(() => {
+      // Any time the user changes the event selection, reset
+      // occurrenceIds
+      form.change('occurrenceIds', ['all']);
+      form.change(name, value);
+    });
+  };
+
   return (
     <SimpleForm
       variant="outlined"
@@ -70,28 +114,39 @@ const MessageForm = (props: Props) => {
       className={classes.form}
     >
       {languageTabsComponent}
-      <SelectInput
-        source="recipientSelection"
-        label="messages.fields.recipientSelection.label"
-        choices={recipientSelectionChoices}
-        validate={validateRecipientSelection}
-        defaultValue="ALL"
-        fullWidth
-        formClassName={classes.recipientSelection}
-      />
-      <EventSelect
-        source="eventId"
-        label="messages.fields.event.label"
-        fullWidth
-        allowEmpty
-        emptyValue="all"
-        emptyText="messages.fields.event.all"
-        formClassName={classes.event}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        initialValue={props?.record?.event?.id || 'all'}
-      />
+      <CustomOnChange onChange={handleRecipientSelectionChange}>
+        <SelectInput
+          source="recipientSelection"
+          label="messages.fields.recipientSelection.label"
+          choices={recipientSelectionChoices}
+          validate={validateRecipientSelection}
+          defaultValue="ALL"
+          fullWidth
+          formClassName={classes.recipientSelection}
+        />
+      </CustomOnChange>
+      <FormDataConsumer formClassName={classes.event}>
+        {({ formData: { recipientSelection }, ...rest }) =>
+          recipientSelection !== 'ALL' && (
+            <CustomOnChange onChange={handleEvenIdChange}>
+              <EventSelect
+                {...rest}
+                source="eventId"
+                label="messages.fields.event.label"
+                fullWidth
+                className={classes.fullWidth}
+                allowEmpty
+                emptyValue="all"
+                emptyText="messages.fields.event.all"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                initialValue={props?.record?.event?.id || 'all'}
+              />
+            </CustomOnChange>
+          )
+        }
+      </FormDataConsumer>
       <FormDataConsumer formClassName={classes.occurrences}>
         {({ formData: { eventId }, ...rest }) =>
           eventId &&
