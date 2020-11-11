@@ -1,6 +1,6 @@
 {
   "name": "kukkuu-admin",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "private": true,
   "dependencies": {
     "@sentry/browser": "^5.20.0",
