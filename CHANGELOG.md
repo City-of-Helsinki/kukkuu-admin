@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [1.4.0] - 2020-11-11
+
 ### Added
 
 - Messages feature
