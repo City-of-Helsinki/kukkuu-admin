@@ -13,7 +13,7 @@ import AppRoutes from '../../routes';
 import Dashboard from '../dashboard/Dashboard';
 import dataProvider from '../../api/dataProvider';
 import authProvider from '../authentication/authProvider';
-import LoginPage from '../authentication/components/LoginPage';
+import LoginPage from '../authentication/LoginPage';
 import VenuesResource from '../venues/VenuesResource';
 import EventResource from '../events/EventsResource';
 import OccurrencesResource from '../occurrences/OccurrencesResource';
@@ -41,6 +41,10 @@ const App = () => {
       dashboard={Dashboard}
       history={history}
       authProvider={authProvider}
+      // react-admin does not export types for LoginPage yet, so the
+      // prop type is incorrect
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
       loginPage={LoginPage}
       customRoutes={AppRoutes}
     >

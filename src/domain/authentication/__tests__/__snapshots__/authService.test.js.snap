@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`authService fetchApiToken should call axios.get with the right arguments 1`] = `
+Array [
+  "https://tunnistamo.test.kuva.hel.ninja/api-tokens/",
+  Object {
+    "baseURL": "https://tunnistamo.test.kuva.hel.ninja",
+    "headers": Object {
+      "Authorization": "bearer db237bc3-e197-43de-8c86-3feea4c5f886",
+    },
+  },
+]
+`;
+
+exports[`authService fetchApiToken should call localStorage.setItem with the right arguments 1`] = `
+Array [
+  "apiToken",
+  undefined,
+]
+`;
