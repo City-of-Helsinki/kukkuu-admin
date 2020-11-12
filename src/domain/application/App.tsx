@@ -1,44 +1,32 @@
 import React from 'react';
 import { Admin, Resource, useTranslate } from 'react-admin';
+import { createBrowserHistory as createHistory } from 'history';
 import PlaceIcon from '@material-ui/icons/Place';
 import EventIcon from '@material-ui/icons/Event';
 import MessageIcon from '@material-ui/icons/EmailOutlined';
-import { createBrowserHistory as createHistory } from 'history';
 import ChildCareIcon from '@material-ui/icons/ChildCare';
 
 import i18nProvider from '../../common/translation/i18nProvider';
-import Dashboard from '../dashboard/Dashboard';
-import theme from '../../common/materialUI/themeConfig';
-import authProvider from '../authentication/authProvider';
-import AppRoutes from '../../routes';
-import LoginPage from '../authentication/components/LoginPage';
-import dataProvider from '../../api/dataProvider';
-import VenueList from '../venues/VenueList';
-import VenueShow from '../venues/VenueShow';
-import EventShow from '../events/detail/EventShow';
-import VenueEdit from '../venues/VenueEdit';
-import VenueCreate from '../venues/VenueCreate';
-import EventCreate from '../events/create/EventCreate';
-import EventEdit from '../events/edit/EventEdit';
-import OccurrenceCreate from '../occurrences/OccurrenceCreate';
-import ChildList from '../children/ChildList';
-import OccurrenceShow from '../occurrences/OccurrenceShow';
-import OccurrenceEdit from '../occurrences/OccurrenceEdit';
-import ChildShow from '../children/ChildShow';
 import KukkuuLayout from '../../common/components/layout/KukkuuLayout';
-import MessagesList from '../messages/list/MessagesList';
-import MessagesDetail from '../messages/detail/MessagesDetail';
-import MessagesEdit from '../messages/edit/MessagesEdit';
-import MessagesCreate from '../messages/create/MessagesCreate';
-import EventGroupsDetails from '../eventGroups/details/EventGroupsDetails';
-import EventGroupsCreate from '../eventGroups/create/EventGroupsCreate';
-import EventGroupsEdit from '../eventGroups/edit/EventGroupsEdit';
-import EventsAndEventGroupsList from '../eventsAndEventGroups/list/EventsAndEventGroupsList';
+import theme from '../../common/materialUI/themeConfig';
+import AppRoutes from '../../routes';
+import Dashboard from '../dashboard/Dashboard';
+import dataProvider from '../../api/dataProvider';
+import authProvider from '../authentication/authProvider';
+import LoginPage from '../authentication/components/LoginPage';
+import VenuesResource from '../venues/VenuesResource';
+import EventResource from '../events/EventsResource';
+import OccurrencesResource from '../occurrences/OccurrencesResource';
+import ChildResource from '../children/ChildResource';
+import MessageResource from '../messages/MessagesResource';
+import EventGroupsResource from '../eventGroups/EventGroupsResource';
+import EventsAndEventGroupsResource from '../eventsAndEventGroups/EventsAndEventGroupsResource';
 
 const history = createHistory();
 
-const App: React.FC = () => {
+const App = () => {
   const translate = useTranslate();
+
   return (
     <Admin
       layout={KukkuuLayout}
@@ -59,51 +47,51 @@ const App: React.FC = () => {
       <Resource
         name="events-and-event-groups"
         options={{ label: translate('events.list.title') }}
-        list={EventsAndEventGroupsList}
+        list={EventsAndEventGroupsResource.List}
       />
       <Resource
         name="events"
         icon={EventIcon}
-        show={EventShow}
-        create={EventCreate}
-        edit={EventEdit}
+        show={EventResource.Detail}
+        create={EventResource.Create}
+        edit={EventResource.Edit}
       />
       <Resource
         name="venues"
         options={{ label: translate('venues.list.title') }}
         icon={PlaceIcon}
-        list={VenueList}
-        show={VenueShow}
-        create={VenueCreate}
-        edit={VenueEdit}
+        list={VenuesResource.List}
+        show={VenuesResource.Detail}
+        create={VenuesResource.Create}
+        edit={VenuesResource.Edit}
       />
       <Resource
         name="children"
         options={{ label: 'children.list.title' }}
         icon={ChildCareIcon}
-        list={ChildList}
-        show={ChildShow}
+        list={ChildResource.List}
+        show={ChildResource.Detail}
       />
       <Resource
         name="occurrences"
-        create={OccurrenceCreate}
-        show={OccurrenceShow}
-        edit={OccurrenceEdit}
+        create={OccurrencesResource.Create}
+        show={OccurrencesResource.Detail}
+        edit={OccurrencesResource.Edit}
       />
       <Resource
         name="messages"
         options={{ label: translate('messages.list.title') }}
         icon={MessageIcon}
-        list={MessagesList}
-        show={MessagesDetail}
-        create={MessagesCreate}
-        edit={MessagesEdit}
+        list={MessageResource.List}
+        show={MessageResource.Detail}
+        create={MessageResource.Create}
+        edit={MessageResource.Edit}
       />
       <Resource
         name="event-groups"
-        show={EventGroupsDetails}
-        create={EventGroupsCreate}
-        edit={EventGroupsEdit}
+        show={EventGroupsResource.Detail}
+        create={EventGroupsResource.Create}
+        edit={EventGroupsResource.Edit}
       />
     </Admin>
   );
