@@ -54,6 +54,9 @@
     }
   },
   "events": {
+    "actions": {
+      "create": "Uusi tapahtuma"
+    },
     "create": {
       "aside": {
         "content": "Luo tapahtuma, lisää sille kuva, kuvaus ja kuvausteksti. Muista lisätä tiedot myös ruotsiksi ja englanniksi. Lisää tapahtumalle tapahtumapaikat ja esiintymään Tapahtumaesiintymät osiossa"
@@ -158,6 +161,11 @@
   "guardian": {
     "name": "Huoltajan nimi",
     "doesNotExist": "<Ei huoltajaa>"
+  },
+  "eventGroups": {
+    "actions": {
+      "create": "Uusi tapahtumaryhmä"
+    }
   },
   "languages": {
     "EN": "englanti",

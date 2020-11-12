@@ -15,7 +15,6 @@ import LoginPage from '../authentication/components/LoginPage';
 import dataProvider from '../../api/dataProvider';
 import VenueList from '../venues/VenueList';
 import VenueShow from '../venues/VenueShow';
-import EventList from '../events/list/EventList';
 import EventShow from '../events/detail/EventShow';
 import VenueEdit from '../venues/VenueEdit';
 import VenueCreate from '../venues/VenueCreate';
@@ -31,6 +30,10 @@ import MessagesList from '../messages/list/MessagesList';
 import MessagesDetail from '../messages/detail/MessagesDetail';
 import MessagesEdit from '../messages/edit/MessagesEdit';
 import MessagesCreate from '../messages/create/MessagesCreate';
+import EventGroupsDetails from '../eventGroups/details/EventGroupsDetails';
+import EventGroupsCreate from '../eventGroups/create/EventGroupsCreate';
+import EventGroupsEdit from '../eventGroups/edit/EventGroupsEdit';
+import EventsAndEventGroupsList from '../eventsAndEventGroups/list/EventsAndEventGroupsList';
 
 const history = createHistory();
 
@@ -54,10 +57,13 @@ const App: React.FC = () => {
       customRoutes={AppRoutes}
     >
       <Resource
-        name="events"
+        name="events-and-event-groups"
         options={{ label: translate('events.list.title') }}
+        list={EventsAndEventGroupsList}
+      />
+      <Resource
+        name="events"
         icon={EventIcon}
-        list={EventList}
         show={EventShow}
         create={EventCreate}
         edit={EventEdit}
@@ -92,6 +98,12 @@ const App: React.FC = () => {
         show={MessagesDetail}
         create={MessagesCreate}
         edit={MessagesEdit}
+      />
+      <Resource
+        name="event-groups"
+        show={EventGroupsDetails}
+        create={EventGroupsCreate}
+        edit={EventGroupsEdit}
       />
     </Admin>
   );

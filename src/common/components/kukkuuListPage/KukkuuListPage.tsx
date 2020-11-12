@@ -1,5 +1,9 @@
 import React, { ReactNode } from 'react';
-import { Datagrid, ResourceComponentPropsWithId } from 'react-admin';
+import {
+  Datagrid,
+  ResourceComponentPropsWithId,
+  DatagridProps,
+} from 'react-admin';
 import { makeStyles } from '@material-ui/core';
 
 import KukkuuList from '../kukkuuList/KukkuuList';
@@ -18,9 +22,15 @@ type Props = {
   pageTitle: string;
   children: ReactNode;
   reactAdminProps: ResourceComponentPropsWithId;
+  datagridProps?: DatagridProps;
 };
 
-const KukkuuListPage = ({ pageTitle, children, reactAdminProps }: Props) => {
+const KukkuuListPage = ({
+  pageTitle,
+  children,
+  reactAdminProps,
+  datagridProps = {},
+}: Props) => {
   const classes = useStyles();
 
   return (
@@ -33,7 +43,9 @@ const KukkuuListPage = ({ pageTitle, children, reactAdminProps }: Props) => {
         {...reactAdminProps}
         className={classes.list}
       >
-        <Datagrid rowClick="show">{children}</Datagrid>
+        <Datagrid rowClick="show" {...datagridProps}>
+          {children}
+        </Datagrid>
       </KukkuuList>
     </>
   );

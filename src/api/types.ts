@@ -12,7 +12,9 @@ export type Resource =
   | 'occurrences'
   | 'children'
   | 'projects'
-  | 'messages';
+  | 'messages'
+  | 'event-groups'
+  | 'events-and-event-groups';
 
 export type Method =
   | 'LIST'
