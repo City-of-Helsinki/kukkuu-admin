@@ -54,6 +54,9 @@
     }
   },
   "events": {
+    "actions": {
+      "create": "New Event"
+    },
     "create": {
       "aside": {
         "content": ""
@@ -158,6 +161,11 @@
   "guardian": {
     "name": "Guardian's name",
     "doesNotExist": "<No guardian>"
+  },
+  "eventGroups": {
+    "actions": {
+      "create": "New Event Group"
+    }
   },
   "languages": {
     "EN": "English",
