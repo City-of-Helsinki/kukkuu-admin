@@ -6,7 +6,6 @@ import './assets/styles/index.css';
 import packageJson from '../package.json';
 import App from './domain/application/App';
 import * as serviceWorker from './serviceWorker';
-import enableOidcLogging from './domain/authentication/enableOidcLogging';
 
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({
@@ -14,10 +13,6 @@ if (process.env.NODE_ENV === 'production') {
     environment: process.env.REACT_APP_ENVIRONMENT,
     release: `${packageJson.name}@${packageJson.version}`,
   });
-}
-
-if (process.env.NODE_ENV === 'development') {
-  enableOidcLogging();
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));

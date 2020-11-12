@@ -6,12 +6,10 @@
 import * as React from 'react';
 import { Route } from 'react-router';
 
-import OidcCallback from './domain/authentication/components/OidcCallback';
-import UnauthorizedPage from './domain/authentication/components/UnauthorizedPage';
-import Logout from './domain/authentication/components/Logout';
+import CallbackPage from './domain/authentication/CallbackPage';
+import UnauthorizedPage from './domain/authentication/UnauthorizedPage';
 
 export default [
-  <Route exact path="/callback" component={OidcCallback} />,
+  <Route exact path="/callback" component={CallbackPage} noLayout />,
   <Route exact path="/unauthorized" component={UnauthorizedPage} noLayout />,
-  <Route exact path="/logout" component={Logout} />,
 ];
