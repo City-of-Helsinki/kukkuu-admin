@@ -41,12 +41,20 @@ const EventGroupsDetailActions = ({ data, basePath }: any) => {
 };
 
 const EventGroupsDetail = (props: ResourceComponentPropsWithId) => {
+  const t = useTranslate();
+
   return (
     <KukkuuDetailPage
       pageTitleSource="name"
       reactAdminProps={props}
       actions={<EventGroupsDetailActions />}
       layout={KukkuuPageLayout}
+      breadcrumbs={[
+        {
+          label: t('eventsAndEventGroups.list.label'),
+          link: '/events-and-event-groups',
+        },
+      ]}
     >
       <LocalDataGrid source="events">
         <TextField source="name" label="Name" />

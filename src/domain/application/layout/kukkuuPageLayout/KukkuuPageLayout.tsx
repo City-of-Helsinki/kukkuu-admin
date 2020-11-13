@@ -1,18 +1,16 @@
 import React, { ReactElement } from 'react';
-import {
-  EditProps,
-  ResourceComponentPropsWithId,
-  useGetOne,
-} from 'react-admin';
+import { EditProps, useGetOne } from 'react-admin';
 import { makeStyles } from '@material-ui/core';
 import get from 'lodash/get';
 
 import KukkuuPageTitle from '../kukkuuPageTitle/KukkuuPageTitle';
-import BreadCrumbs, { CrumbConfig } from './BreadCrumbs';
+import BreadCrumbs, {
+  Crumb,
+} from '../../../../common/components/breadcrumbs/Breadcrumbs';
 
 type TitleFromSourceProps = {
   source: string;
-  reactAdminProps: ResourceComponentPropsWithId;
+  reactAdminProps: EditProps;
 };
 
 const TitleFromSource = ({ source, reactAdminProps }: TitleFromSourceProps) => {
@@ -43,7 +41,7 @@ export type KukkuuLayoutProps = {
   children: ReactElement;
   pageTitle?: string;
   pageTitleSource?: string;
-  breadcrumbs?: boolean | CrumbConfig[];
+  breadcrumbs?: Crumb[];
 };
 
 const KukkuuPageLayout = ({
@@ -58,10 +56,7 @@ const KukkuuPageLayout = ({
   return (
     <div className={classes.pageWrapper}>
       {breadcrumbs && (
-        <BreadCrumbs
-          reactAdminProps={reactAdminProps}
-          className={classes.breadCrumbs}
-        />
+        <BreadCrumbs className={classes.breadCrumbs} crumbs={breadcrumbs} />
       )}
       {pageTitleSource && (
         <TitleFromSource
