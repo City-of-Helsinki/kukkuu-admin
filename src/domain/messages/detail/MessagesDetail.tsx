@@ -16,7 +16,7 @@ import Chip from '@material-ui/core/Chip';
 
 import { Message_message as Message } from '../../../api/generatedTypes/Message';
 import { toDateTimeString, toShortDateTimeString } from '../../../common/utils';
-import KukkuuDetailPage from '../../../common/components/kukkuuDetailPage/KukkuuDetailPage';
+import KukkuuDetailPage from '../../application/layout/kukkuuDetailPage/KukkuuDetailPage';
 import useLanguageTabs from '../hooks/useLanguageTabs';
 import MessageRecipientCountField from '../fields/MessageRecipientCountField';
 import { recipientSelectionChoices } from '../choices';

@@ -13,7 +13,7 @@ import {
 import { makeStyles } from '@material-ui/core';
 
 import { getTranslatedField } from '../../../common/translation/TranslationUtils';
-import KukkuuListPage from '../../../common/components/kukkuuListPage/KukkuuListPage';
+import KukkuuListPage from '../../application/layout/kukkuuListPage/KukkuuListPage';
 import { participantsPerInviteChoices } from '../../events/choices';
 import { PublishedField } from '../../events/fields';
 
