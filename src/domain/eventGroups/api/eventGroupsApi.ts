@@ -2,7 +2,14 @@ async function getEventGroup() {
   return {
     data: {
       id: '1',
-      name: 'mock event',
+      name: 'mock event group',
+      events: [
+        {
+          id: '123',
+          name: 'mock event',
+          participantCount: 13,
+        },
+      ],
     },
   };
 }
