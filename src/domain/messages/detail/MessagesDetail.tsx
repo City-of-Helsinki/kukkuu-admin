@@ -126,6 +126,12 @@ const MessagesDetail = (props: ResourceComponentPropsWithId) => {
       pageTitleSource="subject"
       reactAdminProps={props}
       actions={<MessageDetailToolbar />}
+      breadcrumbs={[
+        {
+          label: t(props.options.label),
+          link: props.basePath || null,
+        },
+      ]}
     >
       <SimpleShowLayout className={classes.showLayout}>
         {languageTabsComponent}

@@ -181,6 +181,11 @@
       }
     }
   },
+  "eventsAndEventGroups": {
+    "list": {
+      "label": "Tapahtumalista"
+    }
+  },
   "languages": {
     "EN": "englanti",
     "FI": "suomi",

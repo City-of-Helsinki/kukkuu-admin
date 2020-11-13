@@ -181,6 +181,11 @@
       }
     }
   },
+  "eventsAndEventGroups": {
+    "list": {
+      "label": "Event list"
+    }
+  },
   "languages": {
     "EN": "English",
     "FI": "Finnish",
