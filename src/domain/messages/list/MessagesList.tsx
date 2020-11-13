@@ -10,7 +10,7 @@ import {
 import { get } from 'lodash';
 
 import { toDateTimeString } from '../../../common/utils';
-import KukkuuListPage from '../../../common/components/kukkuuListPage/KukkuuListPage';
+import KukkuuListPage from '../../application/layout/kukkuuListPage/KukkuuListPage';
 import PublishedField from '../../../common/components/publishedField/PublishedField';
 import { recipientSelectionChoices } from '../choices';
 import styles from './messageList.module.css';

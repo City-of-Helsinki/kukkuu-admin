@@ -34,7 +34,7 @@ import { Occurrences_occurrences_edges_node as Occurrence } from '../../../api/g
 import { OccurrenceTimeRangeField } from '../../occurrences/fields';
 import { AdminEvent } from '../types/EventTypes';
 import ViewTitle from '../../../common/components/viewTitle/ViewTitle';
-import KukkuuShow from '../../../common/components/kukkuuShow/KukkuuShow';
+import KukkuuShow from '../../application/layout/kukkuuShow/KukkuuShow';
 import { PublishedField } from '../fields';
 import LongTextField from '../../../common/components/longTextField/LongTextField';
 

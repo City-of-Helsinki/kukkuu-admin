@@ -7,7 +7,6 @@ import MessageIcon from '@material-ui/icons/EmailOutlined';
 import ChildCareIcon from '@material-ui/icons/ChildCare';
 
 import i18nProvider from '../../common/translation/i18nProvider';
-import KukkuuLayout from '../../common/components/layout/KukkuuLayout';
 import theme from '../../common/materialUI/themeConfig';
 import AppRoutes from '../../routes';
 import Dashboard from '../dashboard/Dashboard';
@@ -21,6 +20,7 @@ import ChildResource from '../children/ChildResource';
 import MessageResource from '../messages/MessagesResource';
 import EventGroupsResource from '../eventGroups/EventGroupsResource';
 import EventsAndEventGroupsResource from '../eventsAndEventGroups/EventsAndEventGroupsResource';
+import KukkuuLayout from './layout/kukkuuApplayout/KukkuuAppLayout';
 
 const history = createHistory();
 
