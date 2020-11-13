@@ -10,8 +10,8 @@ import {
 } from 'react-admin';
 import { makeStyles } from '@material-ui/core';
 
-import KukkuuPageLayout from '../../../common/components/kukkuuPageLayout/KukkuuPageLayout';
-import KukkuuDetailPage from '../../../common/components/kukkuuDetailPage/KukkuuDetailPage';
+import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPageLayout';
+import KukkuuDetailPage from '../../application/layout/kukkuuDetailPage/KukkuuDetailPage';
 import LocalDataGrid from '../../../common/components/localDataGrid/LocalDataGrid';
 import PublishEventGroupButton from './PublishEventGroupButton';
 

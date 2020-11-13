@@ -27,7 +27,7 @@ import {
   Occurrences_occurrences_edges_node_enrolments_edges_node_child_guardians_edges_node as Guardian,
   Occurrences_occurrences_edges_node as Occurrence,
 } from '../../api/generatedTypes/Occurrences';
-import KukkuuShow from '../../common/components/kukkuuShow/KukkuuShow';
+import KukkuuShow from '../application/layout/kukkuuShow/KukkuuShow';
 
 type AttendedFieldProps = {
   record?: EnrolmentEdge;
