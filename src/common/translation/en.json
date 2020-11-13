@@ -164,7 +164,21 @@
   },
   "eventGroups": {
     "actions": {
-      "create": "New Event Group"
+      "create": {
+        "do": "New Event Group"
+      },
+      "publish": {
+        "do": "Publish Event Group",
+        "success": "Event group published!",
+        "error": "Event group publish error",
+        "confirm": {
+          "title": "Publish event group \"%{eventGroupName}\"",
+          "content": "Are you sure that you want to publish this event group?"
+        }
+      },
+      "addEvent": {
+        "do": "Add Event"
+      }
     }
   },
   "languages": {
