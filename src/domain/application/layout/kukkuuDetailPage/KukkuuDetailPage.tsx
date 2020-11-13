@@ -2,7 +2,7 @@ import React, { ComponentType, ReactElement } from 'react';
 import { ResourceComponentPropsWithId } from 'react-admin';
 import omit from 'lodash/omit';
 
-import KukkuuShow from '../kukkuuShow/KukkuuShow';
+import KukkuuShow from './KukkuuShow';
 import { KukkuuLayoutProps } from '../kukkuuPageLayout/KukkuuPageLayout';
 import KukkuuCardPageLayout from '../kukkuuCardPageLayout/KukkuuCardPageLayout';
 

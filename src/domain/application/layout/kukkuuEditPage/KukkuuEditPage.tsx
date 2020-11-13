@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { ResourceComponentPropsWithId } from 'react-admin';
 
 import KukkuuPageLayout from '../kukkuuCardPageLayout/KukkuuCardPageLayout';
-import KukkuuEdit from '../kukkuuEdit/KukkuuEdit';
+import KukkuuEdit from './KukkuuEdit';
 
 type Props = {
   reactAdminProps: ResourceComponentPropsWithId;

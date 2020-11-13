@@ -6,7 +6,7 @@ import {
 } from 'react-admin';
 import { makeStyles } from '@material-ui/core';
 
-import KukkuuList from '../kukkuuList/KukkuuList';
+import KukkuuList from './KukkuuList';
 import KukkuuPageTitle from '../kukkuuPageTitle/KukkuuPageTitle';
 
 const useStyles = makeStyles({

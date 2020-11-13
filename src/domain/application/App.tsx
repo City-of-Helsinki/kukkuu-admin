@@ -20,7 +20,7 @@ import ChildResource from '../children/ChildResource';
 import MessageResource from '../messages/MessagesResource';
 import EventGroupsResource from '../eventGroups/EventGroupsResource';
 import EventsAndEventGroupsResource from '../eventsAndEventGroups/EventsAndEventGroupsResource';
-import KukkuuLayout from './layout/kukkuuApplayout/KukkuuAppLayout';
+import KukkuuLayout from './layout/kukkuuAppLayout/KukkuuAppLayout';
 
 const history = createHistory();
 

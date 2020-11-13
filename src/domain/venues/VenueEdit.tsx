@@ -13,7 +13,7 @@ import { CardHeader, Grid } from '@material-ui/core';
 import { Language } from '../../api/generatedTypes/globalTypes';
 import LanguageTabs from '../../common/components/languageTab/LanguageTabs';
 import ViewTitle from '../../common/components/viewTitle/ViewTitle';
-import KukkuuEdit from '../application/layout/kukkuuEdit/KukkuuEdit';
+import KukkuuEdit from '../application/layout/kukkuuEditPage/KukkuuEdit';
 import { validateVenue } from './validations';
 
 const VenueEditToolbar = (props: any) => {
