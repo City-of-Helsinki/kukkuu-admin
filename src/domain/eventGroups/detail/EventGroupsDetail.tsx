@@ -1,16 +1,18 @@
 import React from 'react';
 import {
   ResourceComponentPropsWithId,
-  SimpleShowLayout,
-  TextField,
   TopToolbar,
   useTranslate,
   CreateButton,
   EditButton,
+  TextField,
+  NumberField,
 } from 'react-admin';
 import { makeStyles } from '@material-ui/core';
 
+import KukkuuPageLayout from '../../../common/components/kukkuuPageLayout/KukkuuPageLayout';
 import KukkuuDetailPage from '../../../common/components/kukkuuDetailPage/KukkuuDetailPage';
+import LocalDataGrid from '../../../common/components/localDataGrid/LocalDataGrid';
 import PublishEventGroupButton from './PublishEventGroupButton';
 
 const useStyles = makeStyles((theme) => ({
@@ -44,10 +46,12 @@ const EventGroupsDetail = (props: ResourceComponentPropsWithId) => {
       pageTitleSource="name"
       reactAdminProps={props}
       actions={<EventGroupsDetailActions />}
+      layout={KukkuuPageLayout}
     >
-      <SimpleShowLayout>
-        <TextField source="name" label="Temporary" />
-      </SimpleShowLayout>
+      <LocalDataGrid source="events">
+        <TextField source="name" label="Name" />
+        <NumberField source="participantCount" label="Participant Count" />
+      </LocalDataGrid>
     </KukkuuDetailPage>
   );
 };

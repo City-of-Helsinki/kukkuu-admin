@@ -1,15 +1,17 @@
-import React, { ReactElement } from 'react';
+import React, { ComponentType, ReactElement } from 'react';
 import { ResourceComponentPropsWithId } from 'react-admin';
 import omit from 'lodash/omit';
 
 import KukkuuShow from '../kukkuuShow/KukkuuShow';
-import KukkuuPageLayout from '../kukkuuCardPageLayout/KukkuuCardPageLayout';
+import { KukkuuLayoutProps } from '../kukkuuPageLayout/KukkuuPageLayout';
+import KukkuuCardPageLayout from '../kukkuuCardPageLayout/KukkuuCardPageLayout';
 
 type Props = {
   children: ReactElement;
   reactAdminProps: ResourceComponentPropsWithId;
   pageTitleSource: string;
   actions?: ReactElement;
+  layout?: ComponentType<KukkuuLayoutProps>;
 };
 
 const KukkuuDetailPage = ({
@@ -17,9 +19,10 @@ const KukkuuDetailPage = ({
   pageTitleSource,
   reactAdminProps,
   actions,
+  layout: Layout = KukkuuCardPageLayout,
 }: Props) => {
   return (
-    <KukkuuPageLayout
+    <Layout
       pageTitleSource={pageTitleSource}
       reactAdminProps={reactAdminProps}
       breadcrumbs
@@ -27,7 +30,7 @@ const KukkuuDetailPage = ({
       <KukkuuShow actions={actions} {...omit(reactAdminProps, 'hasShow')}>
         {children}
       </KukkuuShow>
-    </KukkuuPageLayout>
+    </Layout>
   );
 };
 
