@@ -164,7 +164,21 @@
   },
   "eventGroups": {
     "actions": {
-      "create": "Uusi tapahtumaryhmä"
+      "create": {
+        "do": "Uusi tapahtumaryhmä"
+      },
+      "publish": {
+        "do": "Julkaise tapahtumaryhmä",
+        "success": "Tapahtumaryhmä julkaistu!",
+        "error": "Tapahtumaryhmän julkaisussa tapahtui virhe.",
+        "confirm": {
+          "title": "Julkaise tapahtumaryhmä \"%{eventGroupName}\"",
+          "content": "Oletko varma, että haluat julkaista tämän tapahtumaryhmän?"
+        }
+      },
+      "addEvent": {
+        "do": "Lisää tapahtuma"
+      }
     }
   },
   "languages": {

@@ -9,7 +9,7 @@ type Props = {
   children: ReactElement;
   reactAdminProps: ResourceComponentPropsWithId;
   pageTitleSource: string;
-  actions: ReactElement;
+  actions?: ReactElement;
 };
 
 const KukkuuDetailPage = ({
