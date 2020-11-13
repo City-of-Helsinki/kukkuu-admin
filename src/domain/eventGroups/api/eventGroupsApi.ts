@@ -1,5 +1,10 @@
 async function getEventGroup() {
-  return null;
+  return {
+    data: {
+      id: '1',
+      name: 'mock event',
+    },
+  };
 }
 
 async function addEventGroup() {

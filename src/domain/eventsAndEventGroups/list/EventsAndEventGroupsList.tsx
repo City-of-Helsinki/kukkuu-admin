@@ -35,7 +35,7 @@ const EventsAndEventGroupsListToolbar = ({ data }: any) => {
       {data && (
         <CreateButton
           basePath="event-groups"
-          label={t('eventGroups.actions.create')}
+          label={t('eventGroups.actions.create.do')}
         />
       )}
       {data && (
