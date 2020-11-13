@@ -5,7 +5,7 @@ import { CardHeader } from '@material-ui/core';
 import LanguageTabs from '../../common/components/languageTab/LanguageTabs';
 import { Language } from '../../api/generatedTypes/globalTypes';
 import LongTextField from '../../common/components/longTextField/LongTextField';
-import KukkuuShow from '../application/layout/kukkuuShow/KukkuuShow';
+import KukkuuShow from '../application/layout/kukkuuDetailPage/KukkuuShow';
 
 const VenueTitle = ({
   basePath,

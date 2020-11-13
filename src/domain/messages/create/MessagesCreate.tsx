@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslate, ResourceComponentProps } from 'react-admin';
 
 import KukkuuCreatePage from '../../application/layout/kukkuuCreatePage/KukkuuCreatePage';
-import KukkuuCreateToolbar from '../../application/layout/kukkuuCreateToolbar/KukkuuCreateToolbar';
+import KukkuuCreateToolbar from '../../application/layout/kukkuuCreatePage/KukkuuCreateToolbar';
 import MessageForm from '../form/MessageForm';
 
 const MessageCreate = (props: ResourceComponentProps) => {
