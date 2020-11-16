@@ -131,7 +131,8 @@ export class AuthService {
         Authorization: `bearer ${user.access_token}`,
       },
     });
-    const apiToken = apiTokens['https://api.hel.fi/auth/kukkuu'];
+    const apiToken =
+      apiTokens[process.env.REACT_APP_KUKKUU_API_OIDC_SCOPE as string];
 
     localStorage.setItem(API_TOKEN, apiToken);
   }
