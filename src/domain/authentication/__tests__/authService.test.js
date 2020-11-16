@@ -165,7 +165,9 @@ describe('authService', () => {
 
   describe('renewToken', () => {
     it('should call signinSilent from oidc', () => {
-      const signinSilent = jest.spyOn(userManager, 'signinSilent');
+      const signinSilent = jest
+        .spyOn(userManager, 'signinSilent')
+        .mockResolvedValue();
 
       authService.renewToken();
 
