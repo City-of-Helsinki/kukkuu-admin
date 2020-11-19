@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { setContext } from 'apollo-link-context';
-import { onError } from 'apollo-link-error';
-import { ApolloLink } from 'apollo-link';
+import { ApolloClient, ApolloLink } from '@apollo/client';
+import { InMemoryCache } from '@apollo/client/cache';
+import { setContext } from '@apollo/client/link/context';
+import { onError } from '@apollo/client/link/error';
 import { createUploadLink } from 'apollo-upload-client';
 import * as Sentry from '@sentry/browser';
 import { OperationDefinitionNode } from 'graphql';

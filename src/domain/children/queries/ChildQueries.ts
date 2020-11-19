@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 export const childrenQuery = gql`
   query Children($projectId: ID, $limit: Int, $offset: Int) {

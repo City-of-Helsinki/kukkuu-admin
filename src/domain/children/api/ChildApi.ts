@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from '@apollo/client';
 
 import { Children } from '../../../api/generatedTypes/Children';
 import { MethodHandler, MethodHandlerParams } from '../../../api/types';
