@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 export const projectQuery = gql`
   query Project($id: ID!) {

@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from '@apollo/client';
 import moment from 'moment-timezone';
 
 import { MethodHandler, MethodHandlerParams } from '../../../api/types';

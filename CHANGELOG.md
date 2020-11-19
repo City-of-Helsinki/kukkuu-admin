@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- apollo-client version to 3.0 branch
+
 ## [1.4.0] - 2020-11-11
 
 ### Added
