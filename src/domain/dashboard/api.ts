@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from '@apollo/client';
 
 import { MethodHandler, MethodHandlerParams } from '../../api/types';
 import { queryHandler, handleApiNode } from '../../api/utils/apiUtils';

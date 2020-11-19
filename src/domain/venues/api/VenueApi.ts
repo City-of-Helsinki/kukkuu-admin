@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from '@apollo/client';
 
 import { Venues as ApiVenues } from '../../../api/generatedTypes/Venues';
 import { Venue as ApiDetailVenue } from '../../../api/generatedTypes/Venue';

@@ -2,7 +2,7 @@ import {
   QueryOptions,
   OperationVariables,
   MutationOptions,
-} from 'apollo-client';
+} from '@apollo/client';
 import { HttpError } from 'react-admin';
 import * as Sentry from '@sentry/browser';
 
