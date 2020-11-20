@@ -8,5 +8,7 @@ export const login = async (t: TestController) => {
     .click(ssoLogin.loginLink)
     .typeText(ssoLogin.username, testUsername())
     .typeText(ssoLogin.password, testUserPassword())
-    .click(ssoLogin.loginButton);
+    .click(ssoLogin.loginButton)
+    // Wait for authorization to finish
+    .wait(3000); // 3s
 };

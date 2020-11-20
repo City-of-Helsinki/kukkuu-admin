@@ -122,6 +122,9 @@
       },
       "publishedAt": {
         "label": "Julkaisu",
+        "published": {
+          "label": "Julkaistu"
+        },
         "values": {
           "NOT_PUBLISHED": "Ei julkaistu"
         }
@@ -183,7 +186,19 @@
   },
   "eventsAndEventGroups": {
     "list": {
-      "label": "Tapahtumalista"
+      "label": "Tapahtumalista",
+      "type": {
+        "label": "Tyyppi",
+        "event": {
+          "label": "Tapahtuma"
+        },
+        "eventGroup": {
+          "label": "Tapahtumaryhmä"
+        }
+      },
+      "eventCount": {
+        "label": "Tapahtumia"
+      }
     }
   },
   "languages": {

@@ -4,18 +4,23 @@ import {
   useTranslate,
   useLocale,
   NumberField,
-  SelectField,
   FunctionField,
   Record,
   TopToolbar,
   CreateButton,
+  ReactAdminComponentProps,
 } from 'react-admin';
 import { makeStyles } from '@material-ui/core';
 
-import { getTranslatedField } from '../../../common/translation/TranslationUtils';
+import {
+  EventsAndEventGroups_eventsAndEventGroups_edges_node_EventGroupNode as EventGroupNode,
+  EventsAndEventGroups_eventsAndEventGroups_edges_node as EventOrEventGroupNode,
+} from '../../../api/generatedTypes/EventsAndEventGroups';
+import { EventFragment as EventNode } from '../../../api/generatedTypes/EventFragment';
+import RelayList from '../../../api/relayList';
+import { toDateTimeString } from '../../../common/utils';
+import PublishedField from '../../../common/components/publishedField/PublishedField';
 import KukkuuListPage from '../../application/layout/kukkuuListPage/KukkuuListPage';
-import { participantsPerInviteChoices } from '../../events/choices';
-import { PublishedField } from '../../events/fields';
 
 const useEventsAndEventGroupsListToolbarStyles = makeStyles((theme) => ({
   toolbar: {
@@ -45,9 +50,58 @@ const EventsAndEventGroupsListToolbar = ({ data }: any) => {
   );
 };
 
-const EventsAndEventGroupsList = (props: any) => {
+const EvenList = RelayList<EventNode>();
+
+function sum(numbers: number[]): number {
+  return numbers.reduce((sum: number, capacity: number) => sum + capacity, 0);
+}
+
+function countCapacity(...events: EventNode[]): number {
+  return sum(
+    events.map(
+      ({ capacityPerOccurrence, occurrences }: EventNode) =>
+        capacityPerOccurrence * occurrences.edges.length
+    )
+  );
+}
+
+function countOccurrences(...events: EventNode[]): number {
+  return sum(
+    events.map(({ occurrences }: EventNode) => occurrences.edges.length)
+  );
+}
+
+function when(
+  record: EventOrEventGroupNode,
+  whenEvent: (record: EventNode) => any,
+  whenEventGroup: (record: EventGroupNode) => any
+): any {
+  const isEventGroup = record.hasOwnProperty('events');
+
+  if (isEventGroup) {
+    const eventGroup = record as EventGroupNode;
+
+    return whenEventGroup(eventGroup);
+  } else {
+    const event = record as EventNode;
+
+    return whenEvent(event);
+  }
+}
+
+const useStyles = makeStyles((theme) => ({
+  uppercase: {
+    textTransform: 'uppercase',
+  },
+  bold: {
+    fontWeight: theme.typography.fontWeightBold,
+  },
+}));
+
+const EventsAndEventGroupsList = (props: ReactAdminComponentProps) => {
   const translate = useTranslate();
   const locale = useLocale();
+  const classes = useStyles();
 
   const handleRowClick = (id: ReactText, basePath: string, record: Record) => {
     const isEvent = !record.hasOwnProperty('events');
@@ -76,33 +130,80 @@ const EventsAndEventGroupsList = (props: any) => {
       }}
     >
       <TextField
-        source={getTranslatedField('name', locale)}
+        source="name"
         label={translate('events.fields.name.label')}
+        className={classes.bold}
       />
-      <SelectField
-        source="participantsPerInvite"
-        label={translate('events.fields.participantsPerInvite.label')}
-        choices={participantsPerInviteChoices}
+      <FunctionField
+        label="eventsAndEventGroups.list.type.label"
+        render={(record) => {
+          if (!record) {
+            return null;
+          }
+
+          return when(
+            record as EventOrEventGroupNode,
+            () => translate('eventsAndEventGroups.list.type.event.label'),
+            () => translate('eventsAndEventGroups.list.type.eventGroup.label')
+          );
+        }}
+        className={[classes.uppercase, classes.bold].join(' ')}
       />
       <NumberField
-        source="duration"
-        label={translate('events.fields.duration.label')}
+        label="eventsAndEventGroups.list.eventCount.label"
+        source="events.edges.length"
+        emptyText="1"
+        className={classes.bold}
       />
       <FunctionField
         label="events.fields.totalCapacity.label"
         textAlign="right"
-        render={(record?: Record) =>
-          `${
-            (record?.capacityPerOccurrence || 0) *
-            (record?.occurrences.edges.length || 0)
-          }`
-        }
+        render={(record?: Record) => {
+          if (!record) {
+            return null;
+          }
+
+          return when(
+            record as EventOrEventGroupNode,
+            (event: EventNode) => {
+              return countCapacity(event);
+            },
+            (eventGroup: EventGroupNode) => {
+              return countCapacity(...EvenList(eventGroup.events).items);
+            }
+          );
+        }}
       />
-      <NumberField
-        source="occurrences.edges.length"
+      <FunctionField
         label="events.fields.numOfOccurrences.label"
+        textAlign="right"
+        render={(record?: Record) => {
+          if (!record) {
+            return null;
+          }
+
+          return when(
+            record as EventOrEventGroupNode,
+            (event: EventNode) => {
+              return countOccurrences(event);
+            },
+            (eventGroup: EventGroupNode) => {
+              return countOccurrences(...EvenList(eventGroup.events).items);
+            }
+          );
+        }}
       />
-      <PublishedField locale={locale} />
+      <PublishedField
+        label={translate('events.fields.publishedAt.label')}
+        source="publishedAt"
+        render={(date: Date) =>
+          `${translate(
+            'events.fields.publishedAt.published.label'
+          )} ${toDateTimeString(date, locale)}`
+        }
+        emptyText={translate('events.fields.publishedAt.values.NOT_PUBLISHED')}
+        className={classes.bold}
+      />
     </KukkuuListPage>
   );
 };

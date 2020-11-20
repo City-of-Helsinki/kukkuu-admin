@@ -122,6 +122,9 @@
       },
       "publishedAt": {
         "label": "Published at",
+        "published": {
+          "label": "Published"
+        },
         "values": {
           "NOT_PUBLISHED": "Not published"
         }
@@ -183,7 +186,19 @@
   },
   "eventsAndEventGroups": {
     "list": {
-      "label": "Event list"
+      "label": "Event list",
+      "type": {
+        "label": "Type",
+        "event": {
+          "label": "Event"
+        },
+        "eventGroup": {
+          "label": "Event Group"
+        }
+      },
+      "eventCount": {
+        "label": "Events"
+      }
     }
   },
   "languages": {
