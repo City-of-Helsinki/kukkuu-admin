@@ -1,9 +1,5 @@
 import React, { ReactNode } from 'react';
-import {
-  Datagrid,
-  ResourceComponentPropsWithId,
-  DatagridProps,
-} from 'react-admin';
+import { Datagrid, DatagridProps, ListProps } from 'react-admin';
 import { makeStyles } from '@material-ui/core';
 
 import KukkuuList from './KukkuuList';
@@ -21,7 +17,7 @@ const useStyles = makeStyles({
 type Props = {
   pageTitle: string;
   children: ReactNode;
-  reactAdminProps: ResourceComponentPropsWithId;
+  reactAdminProps: ListProps;
   datagridProps?: DatagridProps;
 };
 

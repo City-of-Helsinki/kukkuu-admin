@@ -26,9 +26,6 @@ fixture`Messages feature`
   .beforeEach(async (t) => {
     await login(t);
 
-    // Wait for authorization to finish
-    await t.wait(3000); // 3s
-
     await t.click(navigation.messages);
 
     // Add a test message to context
