@@ -102,6 +102,9 @@
       "numOfOccurrences": {
         "label": "Esiintymiä"
       },
+      "numOfEnrolments": {
+        "label": "Ilmoittautuneita"
+      },
       "occurrences": {
         "label": "Esiintymät"
       },

@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- View for viewing event group details
+
 ### Changed
 
 - apollo-client version to 3.0 branch
