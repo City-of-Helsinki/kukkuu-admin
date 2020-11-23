@@ -28,9 +28,8 @@ describe('Breadcrumbs', () => {
   it('as a user I want to see a list of breadcrumbs to know where I am', () => {
     const { queryByRole } = getWrapper();
 
-    crumbs.forEach((crumb, i) => {
-      const isFirst = i === 0;
-      const name = (isFirst ? '< ' : '') + crumb.label;
+    crumbs.forEach((crumb) => {
+      const name = crumb.label;
       const link = queryByRole('link', {
         name,
       });
@@ -45,7 +44,7 @@ describe('Breadcrumbs', () => {
       label: 'link',
       link: '/',
     };
-    const crumbText = '< ' + crumb.label;
+    const crumbText = crumb.label;
     const { queryByRole, queryByText } = getWrapper({
       crumbs: [crumb],
     });

@@ -124,8 +124,10 @@ const MessagesDetail = (props: ResourceComponentPropsWithId) => {
   return (
     <KukkuuDetailPage
       pageTitleSource="subject"
-      reactAdminProps={props}
-      actions={<MessageDetailToolbar />}
+      reactAdminProps={{
+        ...props,
+        actions: <MessageDetailToolbar />,
+      }}
       breadcrumbs={[
         {
           label: t(props.options.label),
