@@ -5,6 +5,7 @@
 ### Added
 
 - View for viewing event group details
+- Breadcrumbs to event and event group views
 
 ### Changed
 

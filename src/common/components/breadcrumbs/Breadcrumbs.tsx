@@ -14,6 +14,11 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.typography.body2.fontSize,
     fontWeight: theme.typography.fontWeightBold,
   },
+  wrapper: {
+    '& .MuiBreadcrumbs-separator': {
+      fontWeight: theme.typography.fontWeightBold,
+    },
+  },
 }));
 
 type CrumbsProps = {
@@ -26,17 +31,24 @@ const BreadCrumbs = ({ className, crumbs }: CrumbsProps) => {
   const location = useLocation();
 
   return (
-    <Breadcrumbs separator="‹" className={className}>
-      {crumbs.map(({ label, link }, i) => {
+    <Breadcrumbs
+      separator="<"
+      className={[classes.wrapper, className].join(' ')}
+    >
+      {
+        // The breadcrumbs component adds a separator between all
+        // children. By having this empty component, we are tricking it
+        // into adding a starting separator.
+      }
+      <span aria-hidden="true"></span>
+      {crumbs.map(({ label, link }) => {
         const isActive = location.pathname === link;
-        const isFirst = i === 0;
         const key = label + link;
-        const decoratedLabel = `${isFirst ? '< ' : ''}${label}`;
 
         if (isActive) {
           return (
             <Typography key={key} color="textPrimary" className={classes.crumb}>
-              {decoratedLabel}
+              {label}
             </Typography>
           );
         }
@@ -47,7 +59,7 @@ const BreadCrumbs = ({ className, crumbs }: CrumbsProps) => {
 
         return (
           <Link key={key} color="inherit" to={link} className={classes.crumb}>
-            {decoratedLabel}
+            {label}
           </Link>
         );
       })}

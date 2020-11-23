@@ -17,6 +17,14 @@ export interface Event_event_translations {
   shortDescription: string;
 }
 
+export interface Event_event_eventGroup {
+  /**
+   * The ID of the object.
+   */
+  id: string;
+  name: string | null;
+}
+
 export interface Event_event_occurrences_edges_node {
   /**
    * The ID of the object.
@@ -53,6 +61,7 @@ export interface Event_event {
   translations: Event_event_translations[];
   capacityPerOccurrence: number;
   publishedAt: any | null;
+  eventGroup: Event_event_eventGroup | null;
   occurrences: Event_event_occurrences;
 }
 
