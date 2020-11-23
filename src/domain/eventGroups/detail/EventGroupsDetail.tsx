@@ -57,8 +57,10 @@ const EventGroupsDetail = (props: ResourceComponentPropsWithId) => {
   return (
     <KukkuuDetailPage
       pageTitleSource="name"
-      reactAdminProps={props}
-      actions={<EventGroupsDetailActions />}
+      reactAdminProps={{
+        ...props,
+        actions: <EventGroupsDetailActions />,
+      }}
       layout={KukkuuPageLayout}
       breadcrumbs={[
         {

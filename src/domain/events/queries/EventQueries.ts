@@ -49,6 +49,10 @@ export const eventQuery = gql`
       }
       capacityPerOccurrence
       publishedAt
+      eventGroup {
+        id
+        name
+      }
       occurrences {
         edges {
           node {

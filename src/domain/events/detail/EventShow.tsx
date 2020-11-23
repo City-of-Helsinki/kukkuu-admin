@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import {
   TabbedShowLayout,
   TextField,
@@ -20,6 +20,8 @@ import {
   useRefresh,
   Confirm,
   FunctionField,
+  ResourceComponentPropsWithId,
+  Record,
 } from 'react-admin';
 import { withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
@@ -27,16 +29,17 @@ import AddIcon from '@material-ui/icons/Add';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import * as Sentry from '@sentry/browser';
 
-import { participantsPerInviteChoices } from '../choices';
-import LanguageTabs from '../../../common/components/languageTab/LanguageTabs';
 import { Language } from '../../../api/generatedTypes/globalTypes';
 import { Occurrences_occurrences_edges_node as Occurrence } from '../../../api/generatedTypes/Occurrences';
+import LanguageTabs from '../../../common/components/languageTab/LanguageTabs';
+import ViewTitle from '../../../common/components/viewTitle/ViewTitle';
+import LongTextField from '../../../common/components/longTextField/LongTextField';
+import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPageLayout';
+import KukkuuDetailPage from '../../application/layout/kukkuuDetailPage/KukkuuDetailPage';
 import { OccurrenceTimeRangeField } from '../../occurrences/fields';
 import { AdminEvent } from '../types/EventTypes';
-import ViewTitle from '../../../common/components/viewTitle/ViewTitle';
-import KukkuuShow from '../../application/layout/kukkuuDetailPage/KukkuuShow';
 import { PublishedField } from '../fields';
-import LongTextField from '../../../common/components/longTextField/LongTextField';
+import { participantsPerInviteChoices } from '../choices';
 
 const styles = createStyles({
   button: {
@@ -74,7 +77,7 @@ const PublishButton = ({ record }: { record?: AdminEvent }) => {
       payload: { id: record?.id },
     },
     {
-      onSuccess: ({ data }: { data: any }) => {
+      onSuccess: () => {
         notify('events.show.publish.onSuccess.message');
         refresh();
       },
@@ -86,9 +89,11 @@ const PublishButton = ({ record }: { record?: AdminEvent }) => {
       },
     }
   );
+
   if (record?.publishedAt) {
     return null;
   }
+
   const handleClick = () => setOpen(true);
   const handleDialogClose = () => setOpen(false);
   const handleConfirm = () => {
@@ -122,11 +127,9 @@ const PublishButton = ({ record }: { record?: AdminEvent }) => {
 const EventShowActions = ({
   basePath,
   data,
-  resource,
 }: {
   basePath?: string;
   data?: AdminEvent;
-  resource?: string;
 }) => (
   <TopToolbar>
     <EditButton basePath={basePath} record={data} />
@@ -134,12 +137,36 @@ const EventShowActions = ({
   </TopToolbar>
 );
 
-const EventShow: FunctionComponent = (props: any) => {
+const EventShow = (props: ResourceComponentPropsWithId) => {
   const locale = useLocale();
   const [language, selectLanguage] = useState(Language.FI);
+  const t = useTranslate();
+
+  const getCrumbs = (record?: Record) => {
+    const crumbs = [
+      {
+        label: t('events.list.title'),
+        link: `/events-and-event-groups`,
+      },
+    ];
+
+    if (record?.eventGroup) {
+      crumbs.push({
+        label: record?.eventGroup?.name,
+        link: `/event-groups/${record?.eventGroup?.id}/show`,
+      });
+    }
+
+    return crumbs;
+  };
 
   return (
-    <KukkuuShow actions={<EventShowActions />} {...props}>
+    <KukkuuDetailPage
+      reactAdminProps={{ ...props, actions: <EventShowActions /> }}
+      layout={KukkuuPageLayout}
+      breadcrumbs={(record?: Record) => getCrumbs(record)}
+      pageTitleSource="name"
+    >
       <TabbedShowLayout>
         <Tab label={'events.show.tab.label'}>
           <ViewTitle source="events.show.tab.label" />
@@ -149,38 +176,31 @@ const EventShow: FunctionComponent = (props: any) => {
             source={`translations.${language}.imageAltText`}
             label={'events.fields.imageAltText.label'}
           />
-
           <TextField
             source={`translations.${language}.name`}
             label={'events.fields.name.label'}
           />
-
           <LongTextField
             source={`translations.${language}.shortDescription`}
             label={'events.fields.shortDescription.label'}
           />
-
           <LongTextField
             source={`translations.${language}.description`}
             label={'events.fields.description.label'}
           />
-
           <SelectField
             source="participantsPerInvite"
             label={'events.fields.participantsPerInvite.label'}
             choices={participantsPerInviteChoices}
           />
-
           <NumberField
             source={`duration`}
             label={'events.fields.duration.label'}
           />
-
           <NumberField
             source={`capacityPerOccurrence`}
             label={'events.fields.capacityPerOccurrence.label'}
           />
-
           <PublishedField locale={locale} />
         </Tab>
         <Tab label="events.fields.occurrences.label">
@@ -229,7 +249,7 @@ const EventShow: FunctionComponent = (props: any) => {
           <AddOccurrenceButton />
         </Tab>
       </TabbedShowLayout>
-    </KukkuuShow>
+    </KukkuuDetailPage>
   );
 };
 
