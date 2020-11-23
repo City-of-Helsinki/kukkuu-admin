@@ -21,6 +21,7 @@ import RelayList from '../../../api/relayList';
 import { toDateTimeString } from '../../../common/utils';
 import PublishedField from '../../../common/components/publishedField/PublishedField';
 import KukkuuListPage from '../../application/layout/kukkuuListPage/KukkuuListPage';
+import { countCapacity, countOccurrences } from '../../events/utils';
 
 const useEventsAndEventGroupsListToolbarStyles = makeStyles((theme) => ({
   toolbar: {
@@ -51,25 +52,6 @@ const EventsAndEventGroupsListToolbar = ({ data }: any) => {
 };
 
 const EvenList = RelayList<EventNode>();
-
-function sum(numbers: number[]): number {
-  return numbers.reduce((sum: number, capacity: number) => sum + capacity, 0);
-}
-
-function countCapacity(...events: EventNode[]): number {
-  return sum(
-    events.map(
-      ({ capacityPerOccurrence, occurrences }: EventNode) =>
-        capacityPerOccurrence * occurrences.edges.length
-    )
-  );
-}
-
-function countOccurrences(...events: EventNode[]): number {
-  return sum(
-    events.map(({ occurrences }: EventNode) => occurrences.edges.length)
-  );
-}
 
 function when(
   record: EventOrEventGroupNode,

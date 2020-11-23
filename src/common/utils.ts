@@ -19,3 +19,7 @@ export function toShortDateTimeString(date: Date, locale?: string) {
 
   return dateTimeString;
 }
+
+export function sum(numbers: number[]): number {
+  return numbers.reduce((sum: number, capacity: number) => sum + capacity, 0);
+}
