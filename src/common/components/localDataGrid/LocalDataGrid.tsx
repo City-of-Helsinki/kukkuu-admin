@@ -24,9 +24,16 @@ const LocalDataGrid = ({
   record,
   source,
   basePath,
+  rowClick,
 }: any) => {
   const classes = useDatagridStyles();
+
+  const handleRowClick = (localRecord?: any) => {
+    rowClick(localRecord);
+  };
+
   const localRecords = get(record, source, []);
+  const isHover = Boolean(handleRowClick);
 
   return (
     <Table className={classes.table} size="small">
@@ -52,7 +59,11 @@ const LocalDataGrid = ({
       </TableHead>
       <TableBody>
         {localRecords.map((localRecord: any) => (
-          <TableRow key={localRecord.id}>
+          <TableRow
+            key={localRecord.id}
+            hover={isHover}
+            onClick={() => handleRowClick(localRecord)}
+          >
             {React.Children.map(children, (field, index) => (
               <DatagridCell
                 key={`${localRecord.id}-${
