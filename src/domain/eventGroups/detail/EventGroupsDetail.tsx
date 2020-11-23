@@ -13,10 +13,12 @@ import {
 } from 'react-admin';
 import { makeStyles } from '@material-ui/core';
 
+import { EventGroup_eventGroup_events_edges_node as EventNode } from '../../../api/generatedTypes/EventGroup';
 import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPageLayout';
 import KukkuuDetailPage from '../../application/layout/kukkuuDetailPage/KukkuuDetailPage';
 import LocalDataGrid from '../../../common/components/localDataGrid/LocalDataGrid';
 import { participantsPerInviteChoices } from '../../events/choices';
+import { countCapacity, countEnrollments } from '../../events/utils';
 import PublishEventGroupButton from './PublishEventGroupButton';
 
 const useStyles = makeStyles((theme) => ({
@@ -74,12 +76,7 @@ const EventGroupsDetail = (props: ResourceComponentPropsWithId) => {
         <FunctionField
           label="events.fields.totalCapacity.label"
           textAlign="right"
-          render={(record?: Record) =>
-            `${
-              (record?.capacityPerOccurrence || 0) *
-              (record?.occurrences.edges.length || 0)
-            }`
-          }
+          render={(record?: Record) => countCapacity(record as EventNode)}
         />
         <NumberField
           source="occurrences.edges.length"
@@ -88,13 +85,7 @@ const EventGroupsDetail = (props: ResourceComponentPropsWithId) => {
         <FunctionField
           label="events.fields.numOfEnrolments.label"
           textAlign="right"
-          render={(record?: Record) =>
-            record?.occurrences.edges.reduce(
-              (sum: number, { node: { enrolmentCount = 0 } }) =>
-                sum + enrolmentCount,
-              0
-            )
-          }
+          render={(record?: Record) => countEnrollments(record as EventNode)}
         />
       </LocalDataGrid>
     </KukkuuDetailPage>
