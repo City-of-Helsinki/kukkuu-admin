@@ -1,4 +1,4 @@
-import React, { Children } from 'react';
+import React, { Children, ReactElement } from 'react';
 import { Table, TableHead, TableRow, TableBody } from '@material-ui/core';
 import {
   useDatagridStyles,
@@ -6,6 +6,17 @@ import {
   DatagridCell,
 } from 'react-admin';
 import get from 'lodash/get';
+
+function disableSorting(field: ReactElement) {
+  return {
+    ...field,
+    props: {
+      ...field.props,
+
+      sortable: false,
+    },
+  };
+}
 
 const LocalDataGrid = ({
   children,
@@ -24,7 +35,7 @@ const LocalDataGrid = ({
           {Children.map(children, (field, index) => (
             <DatagridHeaderCell
               className={classes.headerCell}
-              field={field}
+              field={disableSorting(field)}
               isSorting={false}
               key={(field.props as any).source || index}
               resource={resource}

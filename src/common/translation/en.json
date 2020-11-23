@@ -102,6 +102,9 @@
       "numOfOccurrences": {
         "label": "Occcurences"
       },
+      "numOfEnrolments": {
+        "label": "Enrolments"
+      },
       "occurrences": {
         "label": "Occurrences"
       },
