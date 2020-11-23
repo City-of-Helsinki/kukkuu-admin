@@ -7,12 +7,16 @@ import {
   EditButton,
   TextField,
   NumberField,
+  SelectField,
+  FunctionField,
+  Record,
 } from 'react-admin';
 import { makeStyles } from '@material-ui/core';
 
 import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPageLayout';
 import KukkuuDetailPage from '../../application/layout/kukkuuDetailPage/KukkuuDetailPage';
 import LocalDataGrid from '../../../common/components/localDataGrid/LocalDataGrid';
+import { participantsPerInviteChoices } from '../../events/choices';
 import PublishEventGroupButton from './PublishEventGroupButton';
 
 const useStyles = makeStyles((theme) => ({
@@ -57,8 +61,41 @@ const EventGroupsDetail = (props: ResourceComponentPropsWithId) => {
       ]}
     >
       <LocalDataGrid source="events">
-        <TextField source="name" label="Name" />
-        <NumberField source="participantCount" label="Participant Count" />
+        <TextField source="name" label={t('events.fields.name.label')} />
+        <SelectField
+          source="participantsPerInvite"
+          label={t('events.fields.participantsPerInvite.label')}
+          choices={participantsPerInviteChoices}
+        />
+        <NumberField
+          source="duration"
+          label={t('events.fields.duration.label')}
+        />
+        <FunctionField
+          label="events.fields.totalCapacity.label"
+          textAlign="right"
+          render={(record?: Record) =>
+            `${
+              (record?.capacityPerOccurrence || 0) *
+              (record?.occurrences.edges.length || 0)
+            }`
+          }
+        />
+        <NumberField
+          source="occurrences.edges.length"
+          label="events.fields.numOfOccurrences.label"
+        />
+        <FunctionField
+          label="events.fields.numOfEnrolments.label"
+          textAlign="right"
+          render={(record?: Record) =>
+            record?.occurrences.edges.reduce(
+              (sum: number, { node: { enrolmentCount = 0 } }) =>
+                sum + enrolmentCount,
+              0
+            )
+          }
+        />
       </LocalDataGrid>
     </KukkuuDetailPage>
   );
