@@ -47,7 +47,12 @@ const EventGroupsDetailActions = ({ data, basePath }: any) => {
 };
 
 const EventGroupsDetail = (props: ResourceComponentPropsWithId) => {
+  const { history } = props;
   const t = useTranslate();
+
+  const handleRowClick = (record?: Record) => {
+    history?.push(`/events/${record?.id}/show`);
+  };
 
   return (
     <KukkuuDetailPage
@@ -62,7 +67,7 @@ const EventGroupsDetail = (props: ResourceComponentPropsWithId) => {
         },
       ]}
     >
-      <LocalDataGrid source="events">
+      <LocalDataGrid source="events" rowClick={handleRowClick}>
         <TextField source="name" label={t('events.fields.name.label')} />
         <SelectField
           source="participantsPerInvite"
