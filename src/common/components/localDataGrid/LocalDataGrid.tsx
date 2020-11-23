@@ -63,6 +63,7 @@ const LocalDataGrid = ({
             key={localRecord.id}
             hover={isHover}
             onClick={() => handleRowClick(localRecord)}
+            className={rowClick ? classes.clickableRow : undefined}
           >
             {React.Children.map(children, (field, index) => (
               <DatagridCell
