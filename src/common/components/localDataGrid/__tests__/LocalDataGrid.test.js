@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import LocalDataGrid from '../LocalDataGrid';
 
@@ -45,6 +45,15 @@ describe('<LocalDataGrid />', () => {
         expect(queryByText(record.name)).toBeTruthy();
         expect(queryByText(record.count.toString())).toBeTruthy();
       });
+    });
+
+    it('should call rowClick when a row is clicked', () => {
+      const rowClick = jest.fn();
+      const { getByText } = getWrapper({ rowClick });
+
+      fireEvent.click(getByText(records[0].name), {});
+
+      expect(rowClick).toHaveBeenCalledTimes(1);
     });
   });
 });
