@@ -39,6 +39,13 @@ export enum RecipientSelectionEnum {
   SUBSCRIBED_TO_FREE_SPOT_NOTIFICATION = "SUBSCRIBED_TO_FREE_SPOT_NOTIFICATION",
 }
 
+export interface AddEventGroupMutationInput {
+  translations?: (EventGroupTranslationsInput | null)[] | null;
+  image?: any | null;
+  projectId: string;
+  clientMutationId?: string | null;
+}
+
 export interface AddEventMutationInput {
   translations?: (EventTranslationsInput | null)[] | null;
   duration?: number | null;
@@ -46,6 +53,7 @@ export interface AddEventMutationInput {
   capacityPerOccurrence: number;
   image?: any | null;
   projectId: string;
+  eventGroupId?: string | null;
   clientMutationId?: string | null;
 }
 
@@ -93,6 +101,14 @@ export interface DeleteVenueMutationInput {
   clientMutationId?: string | null;
 }
 
+export interface EventGroupTranslationsInput {
+  name?: string | null;
+  shortDescription?: string | null;
+  description?: string | null;
+  imageAltText?: string | null;
+  languageCode: Language;
+}
+
 export interface EventTranslationsInput {
   name?: string | null;
   shortDescription?: string | null;
@@ -131,6 +147,7 @@ export interface UpdateEventMutationInput {
   image?: any | null;
   translations?: (EventTranslationsInput | null)[] | null;
   projectId?: string | null;
+  eventGroupId?: string | null;
   clientMutationId?: string | null;
 }
 

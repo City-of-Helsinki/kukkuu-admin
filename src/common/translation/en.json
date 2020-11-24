@@ -185,6 +185,31 @@
       "addEvent": {
         "do": "Add Event"
       }
+    },
+    "fields": {
+      "name": {
+        "label": "Name"
+      },
+      "shortDescription": {
+        "label": "Short Description",
+        "helperText": "This will appear on the invite that is visible on the godchild's own page. Maximum 140 characters."
+      },
+      "description": {
+        "label": "Description",
+        "helperText": "This description will appear on the event page and in the event invitation email sent to the godchild."
+      }
+    },
+    "translations": {
+      "FI": {
+        "name": {
+          "required": "A Finnish name is required. Check the message's Finnish language version."
+        }
+      }
+    },
+    "create": {
+      "title": {
+        "label": "New Event Group"
+      }
     }
   },
   "eventsAndEventGroups": {

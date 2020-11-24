@@ -1,7 +1,7 @@
 import React, { useState, ReactElement } from 'react';
 
-import LanguageTabs from '../../../common/components/languageTab/LanguageTabs';
-import { Language } from '../../../api/generatedTypes/globalTypes';
+import LanguageTabs from '../components/languageTab/LanguageTabs';
+import { Language } from '../../api/generatedTypes/globalTypes';
 
 function useLanguageTabs(): [
   ReactElement,
