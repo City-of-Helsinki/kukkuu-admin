@@ -3,11 +3,18 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { EventParticipantsPerInvite } from "./globalTypes";
+import { Language, EventParticipantsPerInvite } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: EventGroup
 // ====================================================
+
+export interface EventGroup_eventGroup_translations {
+  languageCode: Language;
+  name: string;
+  shortDescription: string;
+  description: string;
+}
 
 export interface EventGroup_eventGroup_events_edges_node_occurrences_edges_node {
   /**
@@ -68,6 +75,7 @@ export interface EventGroup_eventGroup {
    */
   id: string;
   name: string | null;
+  translations: EventGroup_eventGroup_translations[];
   events: EventGroup_eventGroup_events;
 }
 
