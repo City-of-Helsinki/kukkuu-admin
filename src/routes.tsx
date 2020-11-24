@@ -13,4 +13,5 @@ export default [
   <Route exact path="/callback" component={CallbackPage} noLayout />,
   <Route exact path="/unauthorized" component={UnauthorizedPage} noLayout />,
   <Redirect exact from="/event-groups" to="/events-and-event-groups" />,
+  <Redirect exact path="/events" to="/events-and-event-groups" />,
 ];
