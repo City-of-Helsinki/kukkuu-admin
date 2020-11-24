@@ -7,6 +7,11 @@ export const eventGroupsDetailPage = {
   eventList: Selector('.MuiTableBody-root'),
   breadcrumbs: Selector('.MuiBreadcrumbs-ol .MuiBreadcrumbs-li a'),
   editButton: screen.getByRole('button', { name: 'Muokkaa' }),
+  addEventToEventGroupButton: screen.getByRole('button', {
+    name: 'Lisää tapahtuma',
+  }),
+  getEventGroup: (name: string) =>
+    Selector('.MuiTableBody-root tr td:first-child').withExactText(name),
 };
 
 export const eventGroupsCreatePage = {

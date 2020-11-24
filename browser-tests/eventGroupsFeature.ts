@@ -1,7 +1,11 @@
 import { routes } from './pages/routes';
 import { login } from './utils/login';
 import { navigation } from './pages/navigation';
-import { eventsListPage } from './pages/events';
+import {
+  eventsListPage,
+  eventsCreatePage,
+  fillCreationForm,
+} from './pages/events';
 import {
   eventGroupsCreatePage,
   eventGroupsDetailPage,
@@ -26,6 +30,14 @@ function buildEventGroup(overrides: any = {}) {
   };
 }
 
+function buildEvent() {
+  return {
+    name: `Browser test: add event to event group ${new Date().toLocaleDateString()}`,
+    participantsPerInvite: 'Perhe',
+    capacityPerOccurrence: 5,
+  };
+}
+
 fixture`Event groups feature`
   .page(routes.eventsList())
   .beforeEach(async (t) => {
@@ -36,9 +48,12 @@ fixture`Event groups feature`
     t.ctx.updateEventGroup = buildEventGroup({
       shortDescription: 'Browser test event group (updated)',
     });
+    t.ctx.addEventToEventGroup = buildEvent();
   })
   .afterEach(async (t) => {
     delete t.ctx.eventGroup;
+    delete t.ctx.updateEventGroup;
+    delete t.ctx.addEventToEventGroup;
   });
 
 test('As an admin I want to see event groups within the event list', async (t) => {
@@ -111,7 +126,7 @@ test('As an admin I want to be able to create, update and delete event groups', 
   await t.expect(eventsListPage.title.exists).ok();
 
   // Select the event group we created and edited
-  await t.click(eventsListPage.itemByName(name));
+  await t.click(eventsListPage.eventOrEventGroupByName(name));
 
   // Go to edit view
   await t.click(eventGroupsDetailPage.editButton);
@@ -123,4 +138,29 @@ test('As an admin I want to be able to create, update and delete event groups', 
 
   // Assert that we have been redirected to the events list
   await t.expect(eventsListPage.title.exists).ok();
+});
+
+test('As an admin I want to be able to add events to an event group', async (t) => {
+  const event = t.ctx.addEventToEventGroup;
+
+  // Select any event group
+  await t.click(eventsListPage.anyEventGroup);
+
+  // Save its name so we can assert on it later
+  const eventGroupName = await eventGroupsDetailPage.title.textContent;
+
+  // Go to view for adding an event into the event group
+  await t.click(eventGroupsDetailPage.addEventToEventGroupButton);
+
+  // Assert that we are in the event creation view
+  await t.expect(eventsCreatePage.title.exists).ok();
+
+  // Fill the form and submit
+  await fillCreationForm(t, event);
+  await t.click(eventsCreatePage.submitButton);
+
+  // Assert that we are back on the event group details page
+  await t.expect(eventGroupsDetailPage.title.textContent).eql(eventGroupName);
+  // Assert that the created event can be found from the event list
+  await t.expect(eventGroupsDetailPage.getEventGroup(event.name).exists).ok();
 });

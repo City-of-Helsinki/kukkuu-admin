@@ -8,6 +8,7 @@
 - Breadcrumbs to event and event group views
 - Event group creation view
 - Event group editing view
+- View for adding an event to an event group
 
 ### Changed
 

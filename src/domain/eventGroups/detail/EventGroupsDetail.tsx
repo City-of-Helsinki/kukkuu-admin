@@ -37,7 +37,7 @@ const EventGroupsDetailActions = ({ data, basePath }: any) => {
   return (
     <TopToolbar className={classes.toolbar}>
       <CreateButton
-        basePath="events"
+        to={`/events/create?eventGroupId=${data?.id}`}
         label={t('eventGroups.actions.addEvent.do')}
       />
       <EditButton basePath="/event-groups" record={data} />
