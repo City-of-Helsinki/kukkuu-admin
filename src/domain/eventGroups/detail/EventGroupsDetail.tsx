@@ -40,7 +40,7 @@ const EventGroupsDetailActions = ({ data, basePath }: any) => {
         basePath="events"
         label={t('eventGroups.actions.addEvent.do')}
       />
-      <EditButton basePath="event-groups" />
+      <EditButton basePath="/event-groups" record={data} />
       {data && <PublishEventGroupButton basePath={basePath} record={data} />}
     </TopToolbar>
   );

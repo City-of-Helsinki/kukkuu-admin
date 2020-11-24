@@ -9,3 +9,21 @@ export const addEventGroupMutation = gql`
     }
   }
 `;
+
+export const updateEventGroupMutation = gql`
+  mutation updateEventGroup($input: UpdateEventGroupMutationInput!) {
+    updateEventGroup(input: $input) {
+      eventGroup {
+        id
+      }
+    }
+  }
+`;
+
+export const deleteEventGroupMutation = gql`
+  mutation deleteEventGroup($input: DeleteEventGroupMutationInput!) {
+    deleteEventGroup(input: $input) {
+      clientMutationId
+    }
+  }
+`;

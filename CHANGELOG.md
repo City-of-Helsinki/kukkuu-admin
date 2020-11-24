@@ -7,6 +7,7 @@
 - View for viewing event group details
 - Breadcrumbs to event and event group views
 - Event group creation view
+- Event group editing view
 
 ### Changed
 

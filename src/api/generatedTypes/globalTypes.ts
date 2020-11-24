@@ -81,6 +81,11 @@ export interface AddVenueMutationInput {
   clientMutationId?: string | null;
 }
 
+export interface DeleteEventGroupMutationInput {
+  id: string;
+  clientMutationId?: string | null;
+}
+
 export interface DeleteEventMutationInput {
   id: string;
   clientMutationId?: string | null;
@@ -136,6 +141,14 @@ export interface SendMessageMutationInput {
 export interface SetEnrolmentAttendanceMutationInput {
   enrolmentId: string;
   attended?: boolean | null;
+  clientMutationId?: string | null;
+}
+
+export interface UpdateEventGroupMutationInput {
+  id: string;
+  image?: any | null;
+  translations?: (EventGroupTranslationsInput | null)[] | null;
+  projectId?: string | null;
   clientMutationId?: string | null;
 }
 
