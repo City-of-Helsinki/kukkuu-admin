@@ -9,7 +9,11 @@ import {
 import RelayList from '../../../api/relayList';
 import { getProjectId } from '../../profile/utils';
 import { eventGroupQuery } from '../queries/EvenGroupQueries';
-import { addEventGroupMutation } from '../mutations/EventGroupMutations';
+import {
+  addEventGroupMutation,
+  updateEventGroupMutation,
+  deleteEventGroupMutation,
+} from '../mutations/EventGroupMutations';
 
 const EvenList = RelayList<EventNode>();
 
@@ -42,12 +46,33 @@ async function addEventGroup(params: MethodHandlerParams) {
   return handleApiNode(response.data?.addEventGroup.eventGroup);
 }
 
-async function updateEventGroup() {
-  return null;
+async function updateEventGroup(params: MethodHandlerParams) {
+  const { id, translations } = params.data;
+  const input = {
+    id,
+    translations,
+    projectId: getProjectId(),
+  };
+  const cleanedInput = mapLocalDataToApiData(input);
+  const response = await mutationHandler({
+    mutation: updateEventGroupMutation,
+    variables: {
+      input: cleanedInput,
+    },
+  });
+
+  return handleApiNode(response.data?.updateEventGroup.eventGroup);
 }
 
-async function deleteEventGroup() {
-  return null;
+async function deleteEventGroup({ id }: MethodHandlerParams) {
+  const input = { id };
+
+  await mutationHandler({
+    mutation: deleteEventGroupMutation,
+    variables: { input },
+  });
+
+  return { data: { id } };
 }
 
 async function publishEventGroup() {

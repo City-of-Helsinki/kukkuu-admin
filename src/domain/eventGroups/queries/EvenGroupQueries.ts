@@ -26,6 +26,12 @@ export const eventGroupQuery = gql`
     eventGroup(id: $id) {
       id
       name
+      translations {
+        languageCode
+        name
+        shortDescription
+        description
+      }
       events {
         edges {
           node {
