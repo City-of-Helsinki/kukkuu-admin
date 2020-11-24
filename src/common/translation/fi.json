@@ -185,6 +185,31 @@
       "addEvent": {
         "do": "Lisää tapahtuma"
       }
+    },
+    "fields": {
+      "name": {
+        "label": "Nimi"
+      },
+      "shortDescription": {
+        "label": "Lyhyt kuvaus",
+        "helperText": "Tämä näkyy kummilapsen omalla sivulla ilmestyvässä kutsussa. Maksimissaan 140 merkkiä"
+      },
+      "description": {
+        "label": "Kuvaus",
+        "helperText": "Tämä kuvaus näkyy tapahtumasivulla ja kummilapselle lähtevässä tapahtumakutsusähköpostiviestissä."
+      }
+    },
+    "translations": {
+      "FI": {
+        "name": {
+          "required": "Suomenkielinen nimi on pakollinen kenttä. Tarkista viestin suomenkielinen versio."
+        }
+      }
+    },
+    "create": {
+      "title": {
+        "label": "Uusi tapahtumaryhmä"
+      }
     }
   },
   "eventsAndEventGroups": {
