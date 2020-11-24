@@ -9,9 +9,9 @@ import {
 import { makeStyles } from '@material-ui/core';
 import { useForm } from 'react-final-form';
 
+import useLanguageTabs from '../../../common/hooks/useLanguageTabs';
 import EventSelect from '../../events/eventSelect/EventSelect';
 import OccurrenceArraySelect from '../../occurrences/OccurrenceArraySelect';
-import useLanguageTabs from '../hooks/useLanguageTabs';
 import {
   validateRecipientSelection,
   validateSubject,
