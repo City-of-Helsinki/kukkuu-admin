@@ -10,6 +10,7 @@
 ### Changed
 
 - apollo-client version to 3.0 branch
+- Use GitHub Actions instead of Travis
 
 ## [1.4.0] - 2020-11-11
 
