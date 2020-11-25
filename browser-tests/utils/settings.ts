@@ -2,9 +2,6 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-const TEST_ENV_URL = 'https://kukkuu-admin.test.kuva.hel.ninja';
-const LOCAL_ENV_URL = 'http://localhost:3001';
-
 export const testUsername = (): string => {
   if (!process.env.BROWSER_TESTS_UID) {
     throw new Error('No BROWSER_TESTS_UID specified.');
@@ -20,19 +17,8 @@ export const testUserPassword = (): string => {
 };
 
 export const envUrl = (): string => {
-  switch (process.env.TEST_ENV) {
-    case 'local':
-      return LOCAL_ENV_URL;
-    case 'test':
-      return TEST_ENV_URL;
-    default:
-      return TEST_ENV_URL;
+  if (!process.env.BROWSER_TESTS_ENV_URL) {
+    throw new Error('No BROWSER_ENV_URL specified.');
   }
-};
-
-export const graphQLUrl = (): string => {
-  if (!process.env.REACT_APP_API_URI) {
-    throw new Error('REACT_APP_API_URI specified.');
-  }
-  return `${process.env.REACT_APP_API_URI}/graphql`;
+  return process.env.BROWSER_TESTS_ENV_URL;
 };
