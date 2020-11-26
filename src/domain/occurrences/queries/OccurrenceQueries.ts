@@ -8,9 +8,14 @@ const OccurrenceShowPage = {
         time
         event {
           id
+          name
           capacityPerOccurrence
           duration
           publishedAt
+          eventGroup {
+            id
+            name
+          }
         }
         enrolmentCount
         capacity

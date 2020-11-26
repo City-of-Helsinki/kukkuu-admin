@@ -13,6 +13,7 @@ import {
   FunctionField,
   useDataProvider,
   useGetOne,
+  Record,
 } from 'react-admin';
 import PropTypes from 'prop-types';
 import Select from '@material-ui/core/Select';
@@ -20,14 +21,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import makeStyles from '@material-ui/styles/makeStyles';
 
-import { OccurrenceTimeRangeField } from './fields';
 import {
   Occurrences_occurrences_edges_node_enrolments_edges as EnrolmentEdge,
   Occurrences_occurrences_edges_node_enrolments_edges_node as Enrolment,
   Occurrences_occurrences_edges_node_enrolments_edges_node_child_guardians_edges_node as Guardian,
-  Occurrences_occurrences_edges_node as Occurrence,
+  Occurrences_occurrences_edges_node as OccurrenceType,
 } from '../../api/generatedTypes/Occurrences';
-import KukkuuShow from '../application/layout/kukkuuDetailPage/KukkuuShow';
+import KukkuuPageLayout from '../application/layout/kukkuuPageLayout/KukkuuPageLayout';
+import KukkuuDetailPage from '../application/layout/kukkuuDetailPage/KukkuuDetailPage';
+import { OccurrenceTimeRangeField } from './fields';
+import Occurrence from './Occurrence';
 
 type AttendedFieldProps = {
   record?: EnrolmentEdge;
@@ -138,8 +141,41 @@ const OccurrenceShow = (props: any) => {
     );
   };
 
+  const getBreadCrumbs = (record?: Record) => {
+    const crumbs = [
+      {
+        label: translate('events.list.title'),
+        link: '/events-and-event-groups',
+      },
+    ];
+
+    const eventGroup = record?.event?.eventGroup;
+    const event = record?.event;
+
+    if (eventGroup) {
+      crumbs.push({
+        label: eventGroup?.name,
+        link: `/event-groups/${eventGroup?.id}/show`,
+      });
+    }
+
+    crumbs.push({
+      label: event?.name,
+      link: `/events/${event?.id}/show`,
+    });
+
+    return crumbs;
+  };
+
   return (
-    <KukkuuShow {...props} title="occurrences.show.title">
+    <KukkuuDetailPage
+      reactAdminProps={props}
+      layout={KukkuuPageLayout}
+      pageTitle={(record) =>
+        record && new Occurrence(record as OccurrenceType).title
+      }
+      breadcrumbs={getBreadCrumbs}
+    >
       <SimpleShowLayout>
         <ReferenceField
           label="occurrences.fields.event.label"
@@ -154,7 +190,7 @@ const OccurrenceShow = (props: any) => {
           source="time"
           locales={locale}
         />
-        <OccurrenceTimeRangeField locales={locale} />
+        <OccurrenceTimeRangeField />
         <ReferenceField
           label="occurrences.fields.venue.label"
           source="venue.id"
@@ -170,7 +206,7 @@ const OccurrenceShow = (props: any) => {
         <FunctionField
           // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
           // @ts-ignore
-          render={(occurrence: Occurrence) =>
+          render={(occurrence: OccurrenceType) =>
             occurrence.freeSpotNotificationSubscriptions?.edges.length || '0'
           }
           label="occurrences.fields.freeSpotNotificationSubscriptions.label"
@@ -222,7 +258,7 @@ const OccurrenceShow = (props: any) => {
           </Datagrid>
         </ArrayField>
       </SimpleShowLayout>
-    </KukkuuShow>
+    </KukkuuDetailPage>
   );
 };
 

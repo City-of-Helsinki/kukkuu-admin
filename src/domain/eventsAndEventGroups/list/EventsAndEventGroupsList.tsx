@@ -2,7 +2,6 @@ import React, { ReactText } from 'react';
 import {
   TextField,
   useTranslate,
-  useLocale,
   NumberField,
   FunctionField,
   Record,
@@ -82,7 +81,6 @@ const useStyles = makeStyles((theme) => ({
 
 const EventsAndEventGroupsList = (props: ReactAdminComponentProps) => {
   const translate = useTranslate();
-  const locale = useLocale();
   const classes = useStyles();
 
   const handleRowClick = (id: ReactText, basePath: string, record: Record) => {
@@ -181,7 +179,7 @@ const EventsAndEventGroupsList = (props: ReactAdminComponentProps) => {
         render={(date: Date) =>
           `${translate(
             'events.fields.publishedAt.published.label'
-          )} ${toDateTimeString(date, locale)}`
+          )} ${toDateTimeString(date)}`
         }
         emptyText={translate('events.fields.publishedAt.values.NOT_PUBLISHED')}
         className={classes.bold}

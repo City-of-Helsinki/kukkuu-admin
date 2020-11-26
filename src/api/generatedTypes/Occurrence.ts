@@ -9,17 +9,27 @@ import { Language } from "./globalTypes";
 // GraphQL query operation: Occurrence
 // ====================================================
 
+export interface Occurrence_occurrence_event_eventGroup {
+  /**
+   * The ID of the object.
+   */
+  id: string;
+  name: string | null;
+}
+
 export interface Occurrence_occurrence_event {
   /**
    * The ID of the object.
    */
   id: string;
+  name: string | null;
   capacityPerOccurrence: number;
   /**
    * In minutes
    */
   duration: number | null;
   publishedAt: any | null;
+  eventGroup: Occurrence_occurrence_event_eventGroup | null;
 }
 
 export interface Occurrence_occurrence_venue_translations {

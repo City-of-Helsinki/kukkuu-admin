@@ -1,5 +1,5 @@
-import React, { ReactElement } from 'react';
-import { EditProps, useGetOne } from 'react-admin';
+import React, { ReactElement, ReactText } from 'react';
+import { EditProps, useGetOne, Record } from 'react-admin';
 import { makeStyles } from '@material-ui/core';
 import get from 'lodash/get';
 
@@ -8,12 +8,15 @@ import BreadCrumbs, {
   Crumb,
 } from '../../../../common/components/breadcrumbs/Breadcrumbs';
 
-type TitleFromSourceProps = {
-  source: string;
+type TitleWithRecordProps = {
+  pageTitle: string | ((record?: Record) => ReactText);
   reactAdminProps: EditProps;
 };
 
-const TitleFromSource = ({ source, reactAdminProps }: TitleFromSourceProps) => {
+const TitleWithRecord = ({
+  pageTitle: pageTitleSource,
+  reactAdminProps,
+}: TitleWithRecordProps) => {
   const { data } = useGetOne(
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
@@ -21,7 +24,15 @@ const TitleFromSource = ({ source, reactAdminProps }: TitleFromSourceProps) => {
     reactAdminProps.id
   );
 
-  return <KukkuuPageTitle>{get(data, source)}</KukkuuPageTitle>;
+  const pageTitle = (() => {
+    if (typeof pageTitleSource === 'function') {
+      return pageTitleSource(data);
+    }
+
+    return get(data, pageTitleSource);
+  })();
+
+  return <KukkuuPageTitle>{pageTitle}</KukkuuPageTitle>;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -39,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 export type KukkuuLayoutProps = {
   reactAdminProps: EditProps;
   children: ReactElement;
-  pageTitle?: string;
+  pageTitle?: string | ((record?: Record) => ReactText | undefined);
   pageTitleSource?: string;
   breadcrumbs?: Crumb[];
 };
@@ -53,18 +64,25 @@ const KukkuuPageLayout = ({
 }: KukkuuLayoutProps) => {
   const classes = useStyles();
 
+  const isSourcePageTitle = Boolean(pageTitleSource);
+  const isFunctionPageTitle = typeof pageTitle === 'function';
+  const isPlainPageTitle =
+    !isSourcePageTitle && !isFunctionPageTitle && Boolean(pageTitle);
+
   return (
     <div className={classes.pageWrapper}>
       {breadcrumbs && (
         <BreadCrumbs className={classes.breadCrumbs} crumbs={breadcrumbs} />
       )}
-      {pageTitleSource && (
-        <TitleFromSource
-          source={pageTitleSource}
+      {(isSourcePageTitle || isFunctionPageTitle) && (
+        <TitleWithRecord
+          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+          // @ts-ignore
+          pageTitle={pageTitleSource || pageTitle}
           reactAdminProps={reactAdminProps}
         />
       )}
-      {!pageTitleSource && <KukkuuPageTitle>{pageTitle}</KukkuuPageTitle>}
+      {isPlainPageTitle && <KukkuuPageTitle>{pageTitle}</KukkuuPageTitle>}
       {children}
     </div>
   );

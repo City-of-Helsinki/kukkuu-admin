@@ -2,7 +2,6 @@ import React, { ChangeEvent } from 'react';
 import {
   SelectArrayInput,
   ReferenceArrayInput,
-  useLocale,
   useTranslate,
 } from 'react-admin';
 import { useField, useForm } from 'react-final-form';
@@ -41,7 +40,6 @@ type Props = Omit<ReferenceArrayInputProps, 'children' | 'reference'> & {
 };
 
 const OccurrenceArraySelect = ({ eventId, allText, ...rest }: Props) => {
-  const locale = useLocale();
   const filter = getFilters(eventId);
   const field = useField(rest.source);
   const form = useForm();
@@ -80,7 +78,7 @@ const OccurrenceArraySelect = ({ eventId, allText, ...rest }: Props) => {
   const getChoices = (records: Occurrence[]) => {
     return records.map(({ id, time }) => ({
       id,
-      name: toShortDateTimeString(new Date(time), locale),
+      name: toShortDateTimeString(new Date(time)),
     }));
   };
 

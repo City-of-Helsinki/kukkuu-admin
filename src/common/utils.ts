@@ -3,7 +3,10 @@ import get from 'lodash/get';
 import i18nProvider from './translation/i18nProvider';
 import { Language } from '../api/generatedTypes/globalTypes';
 
-export function toDateTimeString(date: Date, locale?: string) {
+export function toDateTimeString(
+  date: Date,
+  locale: string = i18nProvider.getLocale()
+) {
   return date.toLocaleString(locale, {
     year: 'numeric',
     month: 'numeric',
@@ -13,7 +16,10 @@ export function toDateTimeString(date: Date, locale?: string) {
   });
 }
 
-export function toShortDateTimeString(date: Date, locale?: string) {
+export function toShortDateTimeString(
+  date: Date,
+  locale: string = i18nProvider.getLocale()
+) {
   const dateTimeString = toDateTimeString(date, locale);
 
   if (dateTimeString && locale === 'fi') {
@@ -23,6 +29,23 @@ export function toShortDateTimeString(date: Date, locale?: string) {
   }
 
   return dateTimeString;
+}
+
+export function toDateString(
+  date: Date,
+  locale: string = i18nProvider.getLocale()
+) {
+  return date.toLocaleDateString(locale);
+}
+
+export function toTimeString(
+  date: Date,
+  locale: string = i18nProvider.getLocale()
+) {
+  return date.toLocaleTimeString(locale, {
+    hour: '2-digit',
+    minute: 'numeric',
+  });
 }
 
 export function sum(numbers: number[]): number {

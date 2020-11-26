@@ -7,7 +7,6 @@ import {
   useTranslate,
   EditButton,
   TopToolbar,
-  useLocale,
   FunctionField,
 } from 'react-admin';
 import { makeStyles } from '@material-ui/core';
@@ -48,7 +47,6 @@ const MessageDetailToolbar = ({
   data,
 }: MessageDetailToolbarProps) => {
   const classes = useMessageDetailsToolbarStyles();
-  const locale = useLocale();
   const t = useTranslate();
 
   const isSent = Boolean(data?.sentAt);
@@ -60,7 +58,7 @@ const MessageDetailToolbar = ({
           <Typography component="span" className={classes.metaTitle}>
             {t('messages.fields.sentAt.sent')}
           </Typography>
-          {` ${toDateTimeString(new Date(data?.sentAt), locale)}`}
+          {` ${toDateTimeString(new Date(data?.sentAt))}`}
         </Typography>
         <Typography className={classes.meta}>
           <Typography component="span" className={classes.metaTitle}>
@@ -119,7 +117,6 @@ const MessagesDetail = (props: ResourceComponentPropsWithId) => {
   const classes = useStyles();
   const [languageTabsComponent, translatableField] = useLanguageTabs();
   const t = useTranslate();
-  const locale = useLocale();
 
   return (
     <KukkuuDetailPage
@@ -157,7 +154,7 @@ const MessagesDetail = (props: ResourceComponentPropsWithId) => {
             const stringifiedRecords =
               record &&
               record.occurrences.edges.map((connection: any) =>
-                toShortDateTimeString(new Date(connection.node.time), locale)
+                toShortDateTimeString(new Date(connection.node.time))
               );
 
             if (stringifiedRecords.length === 0) {
