@@ -215,10 +215,7 @@ const EventShow = (props: ResourceComponentPropsWithId) => {
                 source="time"
                 locales={locale}
               />
-              <OccurrenceTimeRangeField
-                label="occurrences.fields.time.fields.time.label"
-                locales={locale}
-              />
+              <OccurrenceTimeRangeField label="occurrences.fields.time.fields.time.label" />
               <ReferenceField
                 label="occurrences.fields.venue.label"
                 source="venue.id"

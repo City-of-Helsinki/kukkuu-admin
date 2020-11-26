@@ -9,17 +9,27 @@ import { Language } from "./globalTypes";
 // GraphQL query operation: Occurrences
 // ====================================================
 
+export interface Occurrences_occurrences_edges_node_event_eventGroup {
+  /**
+   * The ID of the object.
+   */
+  id: string;
+  name: string | null;
+}
+
 export interface Occurrences_occurrences_edges_node_event {
   /**
    * The ID of the object.
    */
   id: string;
+  name: string | null;
   capacityPerOccurrence: number;
   /**
    * In minutes
    */
   duration: number | null;
   publishedAt: any | null;
+  eventGroup: Occurrences_occurrences_edges_node_event_eventGroup | null;
 }
 
 export interface Occurrences_occurrences_edges_node_venue_translations {

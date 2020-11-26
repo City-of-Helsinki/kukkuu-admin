@@ -2,6 +2,32 @@
   "name": "kukkuu-admin",
   "version": "1.4.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "TZ=Europe/Helsinki NODE_ICU_DATA=node_modules/full-icu react-scripts test --env=jsdom-fourteen",
+    "eject": "react-scripts eject",
+    "lint": "eslint --ext js,ts,tsx src",
+    "graphql-types": "apollo client:codegen --target=typescript --no-addTypename --outputFlat src/api/generatedTypes",
+    "update-translations": "fetch-translations 1hmdfJ-iVIqsD4AN2vx2YMMM2BQs-en1xxsX2Vu5_7vY -l fi,en -o ./src/common/translation",
+    "test:browser": "testcafe \"chrome --window-size='1920,1080'\" browser-tests/ --live",
+    "test:browser:ci": "testcafe \"chrome:headless --disable-gpu --window-size='1920,1080'\" browser-tests/ -s takeOnFails=true --lang=fi-FI"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "dependencies": {
     "@apollo/client": "^3.2.7",
     "@sentry/browser": "^5.20.0",
@@ -37,37 +63,12 @@
     "react-scripts": "3.4.4",
     "typescript": "~3.9.7"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom-fourteen",
-    "eject": "react-scripts eject",
-    "lint": "eslint --ext js,ts,tsx src",
-    "graphql-types": "apollo client:codegen --target=typescript --no-addTypename --outputFlat src/api/generatedTypes",
-    "update-translations": "fetch-translations 1hmdfJ-iVIqsD4AN2vx2YMMM2BQs-en1xxsX2Vu5_7vY -l fi,en -o ./src/common/translation",
-    "test:browser": "testcafe \"chrome --window-size='1920,1080'\" browser-tests/ --live",
-    "test:browser:ci": "testcafe \"chrome:headless --disable-gpu --window-size='1920,1080'\" browser-tests/ -s takeOnFails=true --lang=fi-FI"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
     "@testing-library/testcafe": "^4.2.3",
     "apollo": "^2.30.1",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "full-icu": "^1.3.1",
     "helsinki-utils": "City-of-Helsinki/helsinki-utils-js.git#0.1.0",
     "jest-localstorage-mock": "^2.4.3",
     "prettier": "2.0.5",

@@ -96,10 +96,7 @@ const ChildShow = (props: any) => {
                 source="node.time"
                 locales={locale}
               />
-              <OccurrenceTimeRangeField
-                occurrenceSource="node"
-                locales={locale}
-              />
+              <OccurrenceTimeRangeField occurrenceSource="node" />
               <ReferenceField
                 label="occurrences.fields.event.label"
                 source="node.event.id"
