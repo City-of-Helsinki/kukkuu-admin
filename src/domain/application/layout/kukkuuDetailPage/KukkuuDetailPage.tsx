@@ -1,4 +1,4 @@
-import React, { ComponentType, ReactElement } from 'react';
+import React, { ComponentType, ReactElement, ReactText } from 'react';
 import { useGetOne, Record, ShowProps } from 'react-admin';
 import omit from 'lodash/omit';
 
@@ -11,6 +11,7 @@ type Props = {
   children: ReactElement;
   reactAdminProps: ShowProps;
   pageTitleSource?: string;
+  pageTitle?: string | ((record?: Record) => ReactText | undefined);
   layout?: ComponentType<KukkuuLayoutProps>;
   breadcrumbs?: ((data?: Record) => Crumb[]) | Crumb[];
 };
@@ -18,6 +19,7 @@ type Props = {
 const KukkuuDetailPage = ({
   children,
   pageTitleSource,
+  pageTitle,
   reactAdminProps,
   layout: Layout = KukkuuCardPageLayout,
   breadcrumbs,
@@ -35,6 +37,7 @@ const KukkuuDetailPage = ({
   return (
     <Layout
       pageTitleSource={pageTitleSource}
+      pageTitle={pageTitle}
       reactAdminProps={reactAdminProps}
       breadcrumbs={crumbs}
     >

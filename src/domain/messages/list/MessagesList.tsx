@@ -4,7 +4,6 @@ import {
   useTranslate,
   TextField,
   SelectField,
-  useLocale,
   FunctionField,
 } from 'react-admin';
 import { get } from 'lodash';
@@ -17,7 +16,6 @@ import styles from './messageList.module.css';
 
 const MessagesList = (props: ResourceComponentPropsWithId) => {
   const t = useTranslate();
-  const locale = useLocale();
 
   return (
     <KukkuuListPage
@@ -61,10 +59,7 @@ const MessagesList = (props: ResourceComponentPropsWithId) => {
         label={t('messages.fields.sentAt.label')}
         source="sentAt"
         render={(date: Date) =>
-          `${t('messages.fields.sentAt.sent')} ${toDateTimeString(
-            date,
-            locale
-          )}`
+          `${t('messages.fields.sentAt.sent')} ${toDateTimeString(date)}`
         }
         emptyText={t('messages.fields.sentAt.notSent')}
         className={styles.bold}

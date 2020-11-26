@@ -1,4 +1,11 @@
-import { sum, requireFinnishFields } from '../utils';
+import {
+  sum,
+  requireFinnishFields,
+  toDateTimeString,
+  toShortDateTimeString,
+  toDateString,
+  toTimeString,
+} from '../utils';
 
 describe('common utils', () => {
   describe('sum', () => {
@@ -59,6 +66,22 @@ describe('common utils', () => {
 
       checkErrors(errors, 'name', errorMessage);
       checkErrors(errors, 'description', errorMessage2);
+    });
+  });
+
+  describe('date formatters', () => {
+    const date = new Date(0);
+    const formatters = [
+      toDateTimeString,
+      toShortDateTimeString,
+      toDateString,
+      toTimeString,
+    ];
+
+    formatters.forEach((formatter) => {
+      it(`${formatter.name} should return a correctly formatted string`, () => {
+        expect(formatter(date)).toMatchSnapshot();
+      });
     });
   });
 });
