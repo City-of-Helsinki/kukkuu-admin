@@ -12,20 +12,36 @@ export const eventsListPage = {
   createEventGroupButton: screen.getByRole('button', {
     name: 'Uusi tapahtumaryhmä',
   }),
+  createEventButton: screen.getByRole('button', {
+    name: 'Uusi tapahtuma',
+  }),
 };
 
 export const eventsDetailPage = {
   breadcrumbs: Selector('.MuiBreadcrumbs-ol .MuiBreadcrumbs-li a'),
+  editButton: screen.getByRole('button', {
+    name: 'Muokkaa',
+  }),
+  title: (name: string) => Selector('h1'),
 };
 
-export const eventsCreatePage = {
-  title: Selector('h1').withExactText('Luo tapahtuma'),
+const eventForm = {
   nameInput: screen.getByLabelText('Nimi *'),
   participantsPerInviteSelect: screen.getByLabelText(
     'Osallistujat kutsua kohden *'
   ),
   capacityPerOccurrence: screen.getByLabelText('Esiintymän kapasiteetti *'),
   submitButton: screen.getByRole('button', { name: 'Tallenna' }),
+};
+
+export const eventsCreatePage = {
+  title: Selector('h1').withExactText('Luo tapahtuma'),
+  ...eventForm,
+};
+
+export const eventsEditPage = {
+  ...eventForm,
+  deleteButton: screen.getAllByRole('button', { name: 'Poista' }).nth(1),
 };
 
 type CreateEvent = {
