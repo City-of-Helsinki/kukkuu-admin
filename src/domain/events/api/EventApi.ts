@@ -50,12 +50,20 @@ const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
 };
 
 const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
-  const { publishedAt, occurrences, image, ...localUpdateData } = params.data;
+  const {
+    publishedAt,
+    occurrences,
+    image,
+    name,
+    eventGroup,
+    ...localUpdateData
+  } = params.data;
   const data = mapLocalDataToApiData(localUpdateData);
 
   if (params.data.image) {
     data.image = params.data.image.rawFile;
   }
+  data.eventGroupId = eventGroup ? eventGroup.id : null;
 
   const response = await mutationHandler({
     mutation: updateEventMutation,
