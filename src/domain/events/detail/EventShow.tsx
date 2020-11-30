@@ -36,7 +36,7 @@ import ViewTitle from '../../../common/components/viewTitle/ViewTitle';
 import LongTextField from '../../../common/components/longTextField/LongTextField';
 import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPageLayout';
 import KukkuuDetailPage from '../../application/layout/kukkuuDetailPage/KukkuuDetailPage';
-import { OccurrenceTimeRangeField } from '../../occurrences/fields';
+import OccurrenceTimeRangeField from '../../occurrences/fields/OccurrenceTimeRangeField';
 import { AdminEvent } from '../types/EventTypes';
 import { PublishedField } from '../fields';
 import { participantsPerInviteChoices } from '../choices';

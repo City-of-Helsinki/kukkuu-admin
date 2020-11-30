@@ -19,7 +19,7 @@ import {
   Child_child as Child,
   Child_child_occurrences_edges as OccurrenceEdges,
 } from '../../api/generatedTypes/Child';
-import { OccurrenceTimeRangeField } from '../occurrences/fields';
+import OccurrenceTimeRangeField from '../occurrences/fields/OccurrenceTimeRangeField';
 import KukkuuShow from '../application/layout/kukkuuDetailPage/KukkuuShow';
 
 interface RowClickParams<T> {
