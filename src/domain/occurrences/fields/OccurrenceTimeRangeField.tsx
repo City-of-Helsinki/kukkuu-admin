@@ -2,10 +2,10 @@ import get from 'lodash/get';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import { Occurrences_occurrences_edges_node as OccurrenceType } from '../../api/generatedTypes/Occurrences';
-import Occurrence from './Occurrence';
+import { Occurrences_occurrences_edges_node as OccurrenceType } from '../../../api/generatedTypes/Occurrences';
+import Occurrence from '../Occurrence';
 
-export const OccurrenceTimeRangeField = ({
+const OccurrenceTimeRangeField = ({
   record,
   occurrenceSource,
 }: {
@@ -32,3 +32,5 @@ OccurrenceTimeRangeField.defaultProps = {
   addLabel: true,
   label: 'occurrences.fields.time.fields.time.label',
 };
+
+export default OccurrenceTimeRangeField;
