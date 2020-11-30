@@ -11,81 +11,21 @@ import {
   EmailField,
   ArrayField,
   FunctionField,
-  useDataProvider,
   useGetOne,
   Record,
 } from 'react-admin';
-import PropTypes from 'prop-types';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
 import makeStyles from '@material-ui/styles/makeStyles';
 
 import {
   Occurrences_occurrences_edges_node_enrolments_edges as EnrolmentEdge,
-  Occurrences_occurrences_edges_node_enrolments_edges_node as Enrolment,
   Occurrences_occurrences_edges_node_enrolments_edges_node_child_guardians_edges_node as Guardian,
   Occurrences_occurrences_edges_node as OccurrenceType,
 } from '../../api/generatedTypes/Occurrences';
 import KukkuuPageLayout from '../application/layout/kukkuuPageLayout/KukkuuPageLayout';
 import KukkuuDetailPage from '../application/layout/kukkuuDetailPage/KukkuuDetailPage';
-import { OccurrenceTimeRangeField } from './fields';
+import OccurrenceTimeRangeField from './fields/OccurrenceTimeRangeField';
+import OccurrenceAttendedField from './fields/OccurrenceAttendedField';
 import Occurrence from './Occurrence';
-
-type AttendedFieldProps = {
-  record?: EnrolmentEdge;
-};
-
-const AttendedField = ({ record }: AttendedFieldProps) => {
-  const enrolment = record?.node as Enrolment; // enrolment should be never undefined or null here
-  const [attended, setAttended] = React.useState(
-    JSON.stringify(enrolment.attended)
-  );
-  const dataProvider = useDataProvider();
-  const translate = useTranslate();
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    const value = event.target.value as string;
-    dataProvider.setEnrolmentAttendance(enrolment.id, JSON.parse(value));
-    setAttended(value);
-  };
-  return (
-    <FormControl fullWidth>
-      <Select
-        style={{ fontSize: '0.875rem' }}
-        disableUnderline
-        value={attended}
-        onChange={handleChange}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <MenuItem value="null">
-          <em>
-            {translate(
-              'occurrences.fields.enrolments.fields.attended.choices.null'
-            )}
-          </em>
-        </MenuItem>
-        <MenuItem value="true">
-          {translate(
-            'occurrences.fields.enrolments.fields.attended.choices.true'
-          )}
-        </MenuItem>
-        <MenuItem value="false">
-          {translate(
-            'occurrences.fields.enrolments.fields.attended.choices.false'
-          )}
-        </MenuItem>
-      </Select>
-    </FormControl>
-  );
-};
-
-AttendedField.propTypes = {
-  record: PropTypes.object,
-};
-
-AttendedField.defaultProps = {
-  label: 'enrolments.fields.attended.label',
-};
 
 const useDataGridTitleStyles = makeStyles({
   fakeValue: {
@@ -254,7 +194,7 @@ const OccurrenceShow = (props: any) => {
               render={(record: EnrolmentEdge) => getGuardianLanguage(record)}
               label="events.fields.language.label"
             />
-            <AttendedField />
+            <OccurrenceAttendedField />
           </Datagrid>
         </ArrayField>
       </SimpleShowLayout>
