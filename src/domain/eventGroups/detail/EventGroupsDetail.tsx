@@ -34,6 +34,8 @@ const EventGroupsDetailActions = ({ data, basePath }: any) => {
   const t = useTranslate();
   const classes = useStyles();
 
+  const isPublished = Boolean(data?.publishedAt);
+
   return (
     <TopToolbar className={classes.toolbar}>
       <CreateButton
@@ -41,7 +43,9 @@ const EventGroupsDetailActions = ({ data, basePath }: any) => {
         label={t('eventGroups.actions.addEvent.do')}
       />
       <EditButton basePath="/event-groups" record={data} />
-      {data && <PublishEventGroupButton basePath={basePath} record={data} />}
+      {data && !isPublished && (
+        <PublishEventGroupButton basePath={basePath} record={data} />
+      )}
     </TopToolbar>
   );
 };

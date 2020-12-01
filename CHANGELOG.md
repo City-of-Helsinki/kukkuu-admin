@@ -10,6 +10,7 @@
 - Event group editing view
 - View for adding an event to an event group
 - Breadcrumb to occurrence detail view
+- Event group publish button
 
 ### Changed
 

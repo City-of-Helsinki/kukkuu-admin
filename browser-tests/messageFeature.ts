@@ -36,7 +36,7 @@ fixture`Messages feature`
     delete t.ctx.message;
   });
 
-test('As a user I can see a list of messages', async (t) => {
+test('As an admin I want see a list of messages', async (t) => {
   // The list displays the expected fields
   await t
     .expect(messagesListPage.listHeader.filter(includesHeaders).exists)
@@ -46,7 +46,7 @@ test('As a user I can see a list of messages', async (t) => {
   await t.expect(messagesListPage.listBody.childElementCount).gt(0);
 });
 
-test('As a user I can create and delete messages', async (t) => {
+test('As an admin I want to create and delete messages', async (t) => {
   // From message list view go into create message view
   await t.click(messagesListPage.createMessageLink);
 

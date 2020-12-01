@@ -13,6 +13,7 @@ import {
   addEventGroupMutation,
   updateEventGroupMutation,
   deleteEventGroupMutation,
+  publishEventGroupMutation,
 } from '../mutations/EventGroupMutations';
 
 const EvenList = RelayList<EventNode>();
@@ -75,8 +76,13 @@ async function deleteEventGroup({ id }: MethodHandlerParams) {
   return { data: { id } };
 }
 
-async function publishEventGroup() {
-  return null;
+async function publishEventGroup({ id }: MethodHandlerParams) {
+  const response = await mutationHandler({
+    mutation: publishEventGroupMutation,
+    variables: { input: { id } },
+  });
+
+  return handleApiNode(response.data?.publishEventGroup.eventGroup);
 }
 
 const eventGroupsApi = {

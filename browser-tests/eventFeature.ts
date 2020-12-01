@@ -7,6 +7,7 @@ import {
   eventsDetailPage,
   eventsEditPage,
   fillCreationForm,
+  deleteEvent,
 } from './pages/events';
 
 function buildEvent(overrides: any = {}) {
@@ -59,11 +60,7 @@ test('As an admin I want to be able to create, update and delete events', async 
   // Assert that we have been redirected to the events details
   await t.expect(eventsDetailPage.title(updateEvent.name).exists).ok();
 
-  // Go to edit view
-  await t.click(eventsDetailPage.editButton);
-
-  // Delete the event
-  await t.click(eventsEditPage.deleteButton);
+  await deleteEvent(t);
 
   // Assert that we have been redirected to the events list
   await t.expect(eventsListPage.title.exists).ok();
