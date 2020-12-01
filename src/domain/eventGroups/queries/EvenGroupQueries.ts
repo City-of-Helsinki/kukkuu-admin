@@ -26,6 +26,7 @@ export const eventGroupQuery = gql`
     eventGroup(id: $id) {
       id
       name
+      publishedAt
       translations {
         languageCode
         name

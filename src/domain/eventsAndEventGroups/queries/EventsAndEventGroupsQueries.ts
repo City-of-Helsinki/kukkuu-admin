@@ -31,6 +31,7 @@ export const eventsAndEventGroupsQuery = gql`
           ... on EventGroupNode {
             id
             name
+            publishedAt
             events {
               edges {
                 node {

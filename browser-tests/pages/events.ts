@@ -7,7 +7,7 @@ export const eventsListPage = {
   title: Selector('h1').withExactText('Tapahtumat'),
   listBody: Selector('.MuiTableBody-root'),
   anyEventGroup: Selector('.MuiTableBody-root tr').withText('TAPAHTUMARYHMÄ'),
-  eventOrEventGroupByName: (name) =>
+  eventOrEventGroupByName: (name: string) =>
     Selector('.MuiTableBody-root tr td:first-child').withExactText(name),
   createEventGroupButton: screen.getByRole('button', {
     name: 'Uusi tapahtumaryhmä',
@@ -61,4 +61,12 @@ export async function fillCreationForm(t: TestController, event: CreateEvent) {
     eventsCreatePage.capacityPerOccurrence,
     event.capacityPerOccurrence.toString()
   );
+}
+
+export async function deleteEvent(t: TestController) {
+  // Go to edit view
+  await t.click(eventsDetailPage.editButton);
+
+  // Delete the event
+  await t.click(eventsEditPage.deleteButton);
 }

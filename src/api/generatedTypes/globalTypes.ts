@@ -128,6 +128,11 @@ export interface MessageTranslationsInput {
   bodyText?: string | null;
 }
 
+export interface PublishEventGroupMutationInput {
+  id: string;
+  clientMutationId?: string | null;
+}
+
 export interface PublishEventMutationInput {
   id: string;
   clientMutationId?: string | null;

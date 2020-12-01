@@ -75,6 +75,7 @@ export interface EventGroup_eventGroup {
    */
   id: string;
   name: string | null;
+  publishedAt: any | null;
   translations: EventGroup_eventGroup_translations[];
   events: EventGroup_eventGroup_events;
 }
