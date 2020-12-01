@@ -4,12 +4,14 @@ import { navigation } from './pages/navigation';
 import {
   eventsListPage,
   eventsCreatePage,
-  fillCreationForm,
+  fillCreationForm as fillEventCreationForm,
+  deleteEvent,
 } from './pages/events';
 import {
-  eventGroupsCreatePage,
   eventGroupsDetailPage,
   eventGroupsEditPage,
+  createEventGroup,
+  deleteEventGroup,
 } from './pages/eventGroups';
 
 function includes(text: string, values: string[]): boolean {
@@ -20,21 +22,32 @@ function includes(text: string, values: string[]): boolean {
 }
 
 function buildEventGroup(overrides: any = {}) {
+  const {
+    name = 'Browser test: add event to event group',
+    ...rest
+  } = overrides;
+
   return {
-    name: `Browser test created event group ${new Date().toLocaleDateString()}`,
+    name: `${name} ${new Date().toLocaleDateString()}`,
     shortDescription: 'Browser test event group',
     description:
       // eslint-disable-next-line max-len
-      'If you are seeing this event, it means that a browser test has failed. You can use the date in the title to find out the date of the failure.',
-    ...overrides,
+      'If you are seeing this event group, it means that a browser test has failed. You can use the date in the title to find out the date of the failure.',
+    ...rest,
   };
 }
 
-function buildEvent() {
+function buildEvent(overrides: any = {}) {
+  const {
+    name = 'Browser test: add event to event group',
+    ...rest
+  } = overrides;
+
   return {
-    name: `Browser test: add event to event group ${new Date().toLocaleDateString()}`,
+    name: `${name} ${new Date().toLocaleDateString()}`,
     participantsPerInvite: 'Perhe',
     capacityPerOccurrence: 5,
+    ...rest,
   };
 }
 
@@ -49,11 +62,14 @@ fixture`Event groups feature`
       shortDescription: 'Browser test event group (updated)',
     });
     t.ctx.addEventToEventGroup = buildEvent();
+    t.ctx.publishEventGroup = buildEventGroup({
+      name: 'Browser test: publish event group',
+    });
   })
   .afterEach(async (t) => {
     delete t.ctx.eventGroup;
     delete t.ctx.updateEventGroup;
-    delete t.ctx.addEventToEventGroup;
+    delete t.ctx.publishEventGroup;
   });
 
 test('As an admin I want to see event groups within the event list', async (t) => {
@@ -95,14 +111,7 @@ test('As an admin I want to be able to create, update and delete event groups', 
   const { updateEventGroup } = t.ctx;
 
   // Go to creation form
-  await t.click(eventsListPage.createEventGroupButton);
-
-  // Fill the form and submit it
-  await t
-    .typeText(eventGroupsCreatePage.nameInput, name)
-    .typeText(eventGroupsCreatePage.shortDescriptionInput, shortDescription)
-    .typeText(eventGroupsCreatePage.descriptionInput, description)
-    .click(eventGroupsCreatePage.submitButton);
+  await createEventGroup(t, { name, shortDescription, description });
 
   // Assert that we have been redirected to the events list
   await t.expect(eventsListPage.title.exists).ok();
@@ -156,11 +165,39 @@ test('As an admin I want to be able to add events to an event group', async (t) 
   await t.expect(eventsCreatePage.title.exists).ok();
 
   // Fill the form and submit
-  await fillCreationForm(t, event);
+  await fillEventCreationForm(t, event);
   await t.click(eventsCreatePage.submitButton);
 
   // Assert that we are back on the event group details page
   await t.expect(eventGroupsDetailPage.title.textContent).eql(eventGroupName);
   // Assert that the created event can be found from the event list
-  await t.expect(eventGroupsDetailPage.getEventGroup(event.name).exists).ok();
+  await t.expect(eventGroupsDetailPage.getEvent(event.name).exists).ok();
+}).after(async (t) => {
+  const event = t.ctx.addEventToEventGroup;
+
+  await t.click(eventGroupsDetailPage.getEvent(event.name));
+
+  await deleteEvent(t);
+});
+
+test('As an admin I wan to be able to publish an event group', async (t) => {
+  const { publishEventGroup } = t.ctx;
+
+  await createEventGroup(t, publishEventGroup);
+
+  // Select created event
+  await t.click(eventsListPage.eventOrEventGroupByName(publishEventGroup.name));
+
+  // Publish
+  await t
+    .click(eventGroupsDetailPage.publishButton)
+    .click(eventGroupsDetailPage.publishConfirmButton);
+
+  // Select published event
+  await t.click(eventsListPage.eventOrEventGroupByName(publishEventGroup.name));
+
+  // Expect publish button to be hidden
+  await t.expect(eventGroupsDetailPage.publishButton.exists).notOk();
+}).after(async (t) => {
+  await deleteEventGroup(t);
 });

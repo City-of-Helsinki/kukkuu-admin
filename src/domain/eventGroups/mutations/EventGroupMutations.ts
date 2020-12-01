@@ -27,3 +27,14 @@ export const deleteEventGroupMutation = gql`
     }
   }
 `;
+
+export const publishEventGroupMutation = gql`
+  mutation publishEventGroup($input: PublishEventGroupMutationInput!) {
+    publishEventGroup(input: $input) {
+      eventGroup {
+        id
+        publishedAt
+      }
+    }
+  }
+`;

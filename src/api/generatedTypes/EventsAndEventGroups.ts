@@ -105,6 +105,7 @@ export interface EventsAndEventGroups_eventsAndEventGroups_edges_node_EventGroup
    */
   id: string;
   name: string | null;
+  publishedAt: any | null;
   events: EventsAndEventGroups_eventsAndEventGroups_edges_node_EventGroupNode_events;
 }
 
