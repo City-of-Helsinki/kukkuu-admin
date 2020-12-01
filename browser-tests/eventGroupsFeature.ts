@@ -180,7 +180,7 @@ test('As an admin I want to be able to add events to an event group', async (t) 
   await deleteEvent(t);
 });
 
-test('As an admin I wan to be able to publish an event group', async (t) => {
+test('As an admin I want to be able to publish an event group', async (t) => {
   const { publishEventGroup } = t.ctx;
 
   await createEventGroup(t, publishEventGroup);
