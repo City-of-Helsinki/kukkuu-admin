@@ -22,7 +22,9 @@ const AllChoice = ({
   });
 };
 
-function getFilters(eventId?: string): Record<string, string> | undefined {
+export function getFilters(
+  eventId?: string
+): Record<string, string> | undefined {
   if (!eventId) {
     return;
   }
@@ -31,6 +33,29 @@ function getFilters(eventId?: string): Record<string, string> | undefined {
     eventId,
   };
 }
+
+export const getChoices = (records: Occurrence[]) => {
+  return records.map(({ id, time }) => ({
+    id,
+    name: toShortDateTimeString(new Date(time)),
+  }));
+};
+
+export const getValues = (previousValues: string[], nextValues: string[]) => {
+  const wasAllSelected = previousValues.includes('all');
+  const willHaveOtherValueThanAll = nextValues.length > 0;
+  const willHaveNoValue = nextValues.length === 0;
+  const allWillBeAdded =
+    !previousValues.includes('all') && nextValues.includes('all');
+
+  if (wasAllSelected && willHaveOtherValueThanAll) {
+    return nextValues.filter((value: string) => value !== 'all');
+  } else if (willHaveNoValue || allWillBeAdded) {
+    return ['all'];
+  } else {
+    return nextValues;
+  }
+};
 
 type ReferenceArrayInputProps = Parameters<typeof ReferenceArrayInput>[0];
 type Props = Omit<ReferenceArrayInputProps, 'children' | 'reference'> & {
@@ -57,29 +82,9 @@ const OccurrenceArraySelect = ({ eventId, allText, ...rest }: Props) => {
     // The value is actually an array because we are using a
     // multi select
     const nextValues = (e.target.value as unknown) as string[];
-    const wasAllSelected = previousValues.includes('all');
-    const willHaveOtherValueThanAll = nextValues.length > 0;
-    const willHaveNoValue = nextValues.length === 0;
-    const allWillBeAdded =
-      !previousValues.includes('all') && nextValues.includes('all');
+    const values = getValues(previousValues, nextValues);
 
-    if (wasAllSelected && willHaveOtherValueThanAll) {
-      form.change(
-        field.input.name,
-        nextValues.filter((value: string) => value !== 'all')
-      );
-    } else if (willHaveNoValue || allWillBeAdded) {
-      form.change(field.input.name, ['all']);
-    } else {
-      form.change(field.input.name, nextValues);
-    }
-  };
-
-  const getChoices = (records: Occurrence[]) => {
-    return records.map(({ id, time }) => ({
-      id,
-      name: toShortDateTimeString(new Date(time)),
-    }));
+    form.change(field.input.name, values);
   };
 
   return (

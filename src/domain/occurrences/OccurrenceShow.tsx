@@ -18,7 +18,7 @@ import makeStyles from '@material-ui/styles/makeStyles';
 
 import {
   Occurrences_occurrences_edges_node_enrolments_edges as EnrolmentEdge,
-  Occurrences_occurrences_edges_node_enrolments_edges_node_child_guardians_edges_node as Guardian,
+  Occurrences_occurrences_edges_node_enrolments_edges_node_child_guardians_edges_node as GuardianType,
   Occurrences_occurrences_edges_node as OccurrenceType,
 } from '../../api/generatedTypes/Occurrences';
 import KukkuuPageLayout from '../application/layout/kukkuuPageLayout/KukkuuPageLayout';
@@ -26,6 +26,7 @@ import KukkuuDetailPage from '../application/layout/kukkuuDetailPage/KukkuuDetai
 import OccurrenceTimeRangeField from './fields/OccurrenceTimeRangeField';
 import OccurrenceAttendedField from './fields/OccurrenceAttendedField';
 import Occurrence from './Occurrence';
+import Guardian from './Guardian';
 
 const useDataGridTitleStyles = makeStyles({
   fakeValue: {
@@ -52,68 +53,56 @@ const OccurrenceDataGridTitle = ({ occurrenceId }: any) => {
   );
 };
 
+export const withEnrolment = (
+  hasRecord: (record: EnrolmentEdge) => any,
+  otherwise: () => any
+) => (record: Record | undefined | null) => {
+  if (record) {
+    const enrolmentEdge = (record as unknown) as EnrolmentEdge;
+
+    return hasRecord(enrolmentEdge);
+  }
+
+  return otherwise();
+};
+
+export const withGuardian = (
+  hasRecord: (guardian: GuardianType) => string,
+  otherwise: () => any
+) => (enrollmentRecord: EnrolmentEdge) => {
+  const guardian = enrollmentRecord.node?.child.guardians.edges[0]?.node;
+
+  if (guardian) {
+    return hasRecord(guardian as GuardianType);
+  }
+
+  return otherwise();
+};
+
+export const getGuardianFullName = (guardian: GuardianType) =>
+  new Guardian(guardian).fullName;
+
+export const getGuardianLanguage = (guardian: GuardianType) =>
+  new Guardian(guardian).language;
+
+export const getBreadCrumbs = (record?: Record) =>
+  new Occurrence(record as OccurrenceType).breadcrumbs;
+
+export const getTitle = (record?: Record) =>
+  new Occurrence(record as OccurrenceType).title;
+
+export const getChildFullName = (enrolmentEdge: EnrolmentEdge) =>
+  `${enrolmentEdge.node?.child.firstName} ${enrolmentEdge.node?.child.lastName}`.trim();
+
 const OccurrenceShow = (props: any) => {
   const locale = useLocale();
   const translate = useTranslate();
-
-  const renderGuardian = (
-    enrollmentRecord: EnrolmentEdge,
-    render: (guardian: Guardian) => string
-  ) => {
-    const guardian = enrollmentRecord.node?.child.guardians.edges[0]?.node;
-
-    if (guardian) {
-      return render(guardian);
-    }
-
-    return translate('guardian.doesNotExist');
-  };
-
-  const getGuardianFullName = (enrollmentRecord: EnrolmentEdge) => {
-    return renderGuardian(enrollmentRecord, (guardian) =>
-      `${guardian.firstName} ${guardian.lastName}`.trim()
-    );
-  };
-
-  const getGuardianLanguage = (enrollmentRecord: EnrolmentEdge) => {
-    return renderGuardian(enrollmentRecord, (guardian) =>
-      translate(`languages.${guardian.language}`)
-    );
-  };
-
-  const getBreadCrumbs = (record?: Record) => {
-    const crumbs = [
-      {
-        label: translate('events.list.title'),
-        link: '/events-and-event-groups',
-      },
-    ];
-
-    const eventGroup = record?.event?.eventGroup;
-    const event = record?.event;
-
-    if (eventGroup) {
-      crumbs.push({
-        label: eventGroup?.name,
-        link: `/event-groups/${eventGroup?.id}/show`,
-      });
-    }
-
-    crumbs.push({
-      label: event?.name,
-      link: `/events/${event?.id}/show`,
-    });
-
-    return crumbs;
-  };
 
   return (
     <KukkuuDetailPage
       reactAdminProps={props}
       layout={KukkuuPageLayout}
-      pageTitle={(record) =>
-        record && new Occurrence(record as OccurrenceType).title
-      }
+      pageTitle={getTitle}
       breadcrumbs={getBreadCrumbs}
     >
       <SimpleShowLayout>
@@ -143,12 +132,9 @@ const OccurrenceShow = (props: any) => {
           source="capacity"
           label="occurrences.fields.capacity.label"
         />
-        <FunctionField
-          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-          // @ts-ignore
-          render={(occurrence: OccurrenceType) =>
-            occurrence.freeSpotNotificationSubscriptions?.edges.length || '0'
-          }
+        <NumberField
+          source="occurrence.freeSpotNotificationSubscriptions?.edges.length"
+          emptyText="0"
           label="occurrences.fields.freeSpotNotificationSubscriptions.label"
         />
         <ArrayField
@@ -166,11 +152,7 @@ const OccurrenceShow = (props: any) => {
           >
             <FunctionField
               label="children.fields.name.label"
-              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-              // @ts-ignore
-              render={(record: EnrolmentEdge) =>
-                `${record.node?.child.firstName} ${record.node?.child.lastName}`.trim()
-              }
+              render={withEnrolment(getChildFullName, () => null)}
             />
             <DateField
               source="node.child.birthdate"
@@ -178,9 +160,12 @@ const OccurrenceShow = (props: any) => {
               locales={locale}
             />
             <FunctionField
-              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-              // @ts-ignore
-              render={(record: EnrolmentEdge) => getGuardianFullName(record)}
+              render={withEnrolment(
+                withGuardian(getGuardianFullName, () =>
+                  translate('guardian.doesNotExist')
+                ),
+                () => null
+              )}
               label="guardian.name"
             />
             <EmailField
@@ -189,9 +174,12 @@ const OccurrenceShow = (props: any) => {
               emptyText={translate('guardian.doesNotExist')}
             />
             <FunctionField
-              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-              // @ts-ignore
-              render={(record: EnrolmentEdge) => getGuardianLanguage(record)}
+              render={withEnrolment(
+                withGuardian(getGuardianLanguage, () =>
+                  translate('guardian.doesNotExist')
+                ),
+                () => null
+              )}
               label="events.fields.language.label"
             />
             <OccurrenceAttendedField />
