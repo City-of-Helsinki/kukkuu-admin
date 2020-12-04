@@ -22,7 +22,7 @@ export const eventsDetailPage = {
   editButton: screen.getByRole('button', {
     name: 'Muokkaa',
   }),
-  title: (name: string) => Selector('h1'),
+  title: (name: string) => Selector('h1').withExactText(name),
 };
 
 const eventForm = {
@@ -69,4 +69,11 @@ export async function deleteEvent(t: TestController) {
 
   // Delete the event
   await t.click(eventsEditPage.deleteButton);
+
+  // Click anywhere on the page to cancel the undo waiting time for
+  // completing the action
+  await t.click(eventsListPage.title);
+
+  // Wait for undo timer to be canceled
+  await t.wait(100);
 }
