@@ -1,5 +1,3 @@
-import { Selector } from 'testcafe';
-
 import { routes } from './pages/routes';
 import { login } from './utils/login';
 import { navigation } from './pages/navigation';
