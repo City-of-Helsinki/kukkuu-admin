@@ -36,7 +36,7 @@ fixture`Messages feature`
     delete t.ctx.message;
   });
 
-test('As an admin I want see a list of messages', async (t) => {
+test('As an admin I want to see a list of messages', async (t) => {
   // The list displays the expected fields
   await t
     .expect(messagesListPage.listHeader.filter(includesHeaders).exists)

@@ -1,3 +1,5 @@
+import { Selector } from 'testcafe';
+
 import { routes } from './pages/routes';
 import { login } from './utils/login';
 import { navigation } from './pages/navigation';
@@ -48,6 +50,9 @@ test('As an admin I want to be able to create, update and delete events', async 
   // Assert that we have been redirected to the events details
   await t.expect(eventsDetailPage.title(createEvent.name).exists).ok();
 
+  // Wait some time for data to be fetched, so that the edit button
+  // points to the correct resource.
+  await t.wait(1000);
   // Go to edit view
   await t.click(eventsDetailPage.editButton);
 
@@ -64,6 +69,7 @@ test('As an admin I want to be able to create, update and delete events', async 
 
   // Assert that we have been redirected to the events list
   await t.expect(eventsListPage.title.exists).ok();
+
   // And that the event no longer exists
   await t
     .expect(eventsListPage.eventOrEventGroupByName(updateEvent.name).exists)
