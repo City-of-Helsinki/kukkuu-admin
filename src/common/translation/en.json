@@ -138,6 +138,9 @@
       },
       "totalCapacity": {
         "label": "Total capacity"
+      },
+      "ready": {
+        "label": "Ready to be published"
       }
     },
     "list": {

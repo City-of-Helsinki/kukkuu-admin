@@ -89,6 +89,10 @@ const deleteEvent: MethodHandler = async (params: MethodHandlerParams) => {
   return { data: { id: params.id } };
 };
 
+const setReady: MethodHandler = async (params: MethodHandlerParams) => {
+  return Promise.resolve(null);
+};
+
 export {
   getEvents,
   getEvent,
@@ -96,4 +100,5 @@ export {
   updateEvent,
   publishEvent,
   deleteEvent,
+  setReady,
 };
