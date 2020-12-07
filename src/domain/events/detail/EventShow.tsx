@@ -130,12 +130,17 @@ const EventShowActions = ({
 }: {
   basePath?: string;
   data?: AdminEvent;
-}) => (
-  <TopToolbar>
-    <EditButton basePath={basePath} record={data} />
-    <PublishButton record={data} />
-  </TopToolbar>
-);
+}) => {
+  const hasData = Boolean(data);
+  const hasEventGroup = Boolean(data?.eventGroup);
+
+  return (
+    <TopToolbar>
+      <EditButton basePath={basePath} record={data} />
+      {hasData && !hasEventGroup && <PublishButton record={data} />}
+    </TopToolbar>
+  );
+};
 
 const EventShow = (props: ResourceComponentPropsWithId) => {
   const locale = useLocale();
