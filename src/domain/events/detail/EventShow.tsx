@@ -27,6 +27,9 @@ import { withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { makeStyles } from '@material-ui/core';
 import * as Sentry from '@sentry/browser';
 
 import { Language } from '../../../api/generatedTypes/globalTypes';
@@ -37,6 +40,7 @@ import LongTextField from '../../../common/components/longTextField/LongTextFiel
 import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPageLayout';
 import KukkuuDetailPage from '../../application/layout/kukkuuDetailPage/KukkuuDetailPage';
 import OccurrenceTimeRangeField from '../../occurrences/fields/OccurrenceTimeRangeField';
+import config from '../../config';
 import { AdminEvent } from '../types/EventTypes';
 import { PublishedField } from '../fields';
 import { participantsPerInviteChoices } from '../choices';
@@ -124,6 +128,45 @@ const PublishButton = ({ record }: { record?: AdminEvent }) => {
   );
 };
 
+type IsReadyToggleProps = {
+  record: AdminEvent;
+  className?: string;
+};
+
+const IsReadyToggle = ({ record, className }: IsReadyToggleProps) => {
+  const [setReady] = useMutation({
+    type: 'setReady',
+    resource: 'events',
+    payload: { id: record.id },
+  });
+
+  const handleClick = () => {
+    setReady();
+  };
+
+  return (
+    <FormControlLabel
+      className={className}
+      control={
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        <Switch checked={Boolean(record.ready)} onClick={handleClick} />
+      }
+      label="Valmis julkaistavaksi"
+      labelPlacement="start"
+    />
+  );
+};
+
+const useEventShowActions = makeStyles(() => ({
+  toolbar: {
+    display: 'flex',
+  },
+  isReadyToggle: {
+    marginLeft: 'auto',
+  },
+}));
+
 const EventShowActions = ({
   basePath,
   data,
@@ -131,13 +174,16 @@ const EventShowActions = ({
   basePath?: string;
   data?: AdminEvent;
 }) => {
-  const hasData = Boolean(data);
   const hasEventGroup = Boolean(data?.eventGroup);
+  const classes = useEventShowActions();
 
   return (
     <TopToolbar>
       <EditButton basePath={basePath} record={data} />
-      {hasData && !hasEventGroup && <PublishButton record={data} />}
+      {data && !hasEventGroup && <PublishButton record={data} />}
+      {config.enableEventReadyTick && data && hasEventGroup && (
+        <IsReadyToggle className={classes.isReadyToggle} record={data} />
+      )}
     </TopToolbar>
   );
 };
