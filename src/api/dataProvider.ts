@@ -18,6 +18,7 @@ import {
   updateEvent,
   publishEvent,
   deleteEvent,
+  setReady,
 } from '../domain/events/api/EventApi';
 import {
   addOccurrence,
@@ -52,6 +53,7 @@ const METHOD_HANDLERS: MethodHandlers = {
     UPDATE: updateEvent,
     DELETE: deleteEvent,
     PUBLISH: publishEvent,
+    SET_READY: setReady,
   },
   occurrences: {
     LIST: getOccurrences,
@@ -138,6 +140,8 @@ const dataProvider = {
     runHandler('SEND', resource, params),
   getMyAdminProfile,
   setEnrolmentAttendance,
+  setReady: async (resource: Resource, params: Params) =>
+    runHandler('SET_READY', resource, params),
 };
 
 export default dataProvider;
