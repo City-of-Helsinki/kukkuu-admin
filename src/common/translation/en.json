@@ -140,7 +140,12 @@
         "label": "Total capacity"
       },
       "ready": {
-        "label": "Ready to be published"
+        "label": "Ready to be published",
+        "label2": "Status",
+        "options": {
+          "ready": "Ready",
+          "notReady": "Unfinished"
+        }
       }
     },
     "list": {

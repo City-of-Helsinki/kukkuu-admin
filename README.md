@@ -141,6 +141,6 @@ See instructions in the sister project: https://github.com/City-of-Helsinki/kukk
 
 ## Feature Flags
 
-`REACT_APP_ENABLE_EVENT_READY_TICK`
+`REACT_APP_ENABLE_EVENT_READY_FEATURE`
 
-Can be used to toggle a toggle used for marking an event as ready on or off. At the time when this feature was first implemented, the API was not yet finalized so this feature could not be put live. In order to avoid leaving the code in an open branch indefinitely, a feature flag was used to toggle off the functionality until it can be integrated with the API.
+Can be used to toggle on the feature for making an event ready. At the time when this feature was first implemented, the API was not yet finalized so this feature could not be put live. In order to avoid leaving the code in an open branch indefinitely, a feature flag was used to toggle off the functionality until it can be integrated with the API.

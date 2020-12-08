@@ -140,7 +140,12 @@
         "label": "Kokonaiskapasiteetti"
       },
       "ready": {
-        "label": "Valmis julkaistavaksi"
+        "label": "Valmis julkaistavaksi",
+        "label2": "Status",
+        "options": {
+          "ready": "Valmis",
+          "notReady": "Keskeneräinen"
+        }
       }
     },
     "list": {
