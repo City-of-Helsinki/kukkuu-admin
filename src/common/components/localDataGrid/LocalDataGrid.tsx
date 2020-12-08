@@ -12,7 +12,6 @@ function disableSorting(field: ReactElement) {
     ...field,
     props: {
       ...field.props,
-
       sortable: false,
     },
   };
@@ -39,22 +38,26 @@ const LocalDataGrid = ({
     <Table className={classes.table} size="small">
       <TableHead className={classes.thead}>
         <TableRow className={[classes.row, classes.headerRow].join(' ')}>
-          {Children.map(children, (field, index) => (
-            <DatagridHeaderCell
-              className={classes.headerCell}
-              field={disableSorting(field)}
-              isSorting={false}
-              key={(field.props as any).source || index}
-              resource={resource}
-              currentSort={{
-                field: 'any',
-                order: 'ASC',
-              }}
-              updateSort={() => {
-                // pass
-              }}
-            />
-          ))}
+          {Children.map(
+            children,
+            (field, index) =>
+              field && (
+                <DatagridHeaderCell
+                  className={classes.headerCell}
+                  field={disableSorting(field)}
+                  isSorting={false}
+                  key={(field.props as any).source || index}
+                  resource={resource}
+                  currentSort={{
+                    field: 'any',
+                    order: 'ASC',
+                  }}
+                  updateSort={() => {
+                    // pass
+                  }}
+                />
+              )
+          )}
         </TableRow>
       </TableHead>
       <TableBody>

@@ -1,10 +1,7 @@
 import React from 'react';
 import {
   ResourceComponentPropsWithId,
-  TopToolbar,
   useTranslate,
-  CreateButton,
-  EditButton,
   TextField,
   NumberField,
   SelectField,
@@ -13,46 +10,27 @@ import {
 } from 'react-admin';
 import { makeStyles } from '@material-ui/core';
 
+import Config from '../../config';
 import { EventGroup_eventGroup_events_edges_node as EventNode } from '../../../api/generatedTypes/EventGroup';
 import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPageLayout';
 import KukkuuDetailPage from '../../application/layout/kukkuuDetailPage/KukkuuDetailPage';
 import LocalDataGrid from '../../../common/components/localDataGrid/LocalDataGrid';
 import { participantsPerInviteChoices } from '../../events/choices';
 import { countCapacity, countEnrollments } from '../../events/utils';
-import PublishEventGroupButton from './PublishEventGroupButton';
+import EventReadyField from './EventReadyField';
+import EventGroupsDetailActions from './EventGroupsDetailActions';
 
 const useStyles = makeStyles((theme) => ({
-  toolbar: {
-    margin: `0 -${theme.spacing(1)}px`,
-    '& > *': {
-      margin: `0 ${theme.spacing(1)}px`,
-    },
+  center: {
+    margin: '0 auto',
+    textAlign: 'center',
   },
 }));
-
-const EventGroupsDetailActions = ({ data, basePath }: any) => {
-  const t = useTranslate();
-  const classes = useStyles();
-
-  const isPublished = Boolean(data?.publishedAt);
-
-  return (
-    <TopToolbar className={classes.toolbar}>
-      <CreateButton
-        to={`/events/create?eventGroupId=${data?.id}`}
-        label={t('eventGroups.actions.addEvent.do')}
-      />
-      <EditButton basePath="/event-groups" record={data} />
-      {data && !isPublished && (
-        <PublishEventGroupButton basePath={basePath} record={data} />
-      )}
-    </TopToolbar>
-  );
-};
 
 const EventGroupsDetail = (props: ResourceComponentPropsWithId) => {
   const { history } = props;
   const t = useTranslate();
+  const classes = useStyles();
 
   const handleRowClick = (record?: Record) => {
     history?.push(`/events/${record?.id}/show`);
@@ -98,6 +76,15 @@ const EventGroupsDetail = (props: ResourceComponentPropsWithId) => {
           textAlign="right"
           render={(record?: Record) => countEnrollments(record as EventNode)}
         />
+        {Config.enableEventReadyFeature && (
+          <FunctionField
+            headerClassName={classes.center}
+            label="events.fields.ready.label2"
+            render={(record?: Record) => (
+              <EventReadyField record={record} className={classes.center} />
+            )}
+          />
+        )}
       </LocalDataGrid>
     </KukkuuDetailPage>
   );
