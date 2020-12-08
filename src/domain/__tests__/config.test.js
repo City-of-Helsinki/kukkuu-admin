@@ -22,12 +22,12 @@ describe('Config', () => {
   });
 
   it('provides enableEventReadyTick', () => {
-    delete process.env.REACT_APP_ENABLE_EVENT_READY_TICK;
+    delete process.env.REACT_APP_ENABLE_EVENT_READY_FEATURE;
 
-    expect(Config.enableEventReadyTick).toBeFalsy();
+    expect(Config.enableEventReadyFeature).toEqual(false);
 
-    process.env.REACT_APP_ENABLE_EVENT_READY_TICK = 'true';
+    process.env.REACT_APP_ENABLE_EVENT_READY_FEATURE = 'true';
 
-    expect(Config.enableEventReadyTick).toBeTruthy();
+    expect(Config.enableEventReadyFeature).toEqual(true);
   });
 });
