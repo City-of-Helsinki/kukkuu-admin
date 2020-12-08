@@ -141,7 +141,7 @@
       },
       "ready": {
         "label": "Valmis julkaistavaksi",
-        "label2": "Status",
+        "label2": "Tila",
         "options": {
           "ready": "Valmis",
           "notReady": "Keskeneräinen"
