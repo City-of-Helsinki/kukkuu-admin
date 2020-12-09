@@ -55,5 +55,11 @@ describe('<LocalDataGrid />', () => {
 
       expect(rowClick).toHaveBeenCalledTimes(1);
     });
+
+    it('should not throw when it has an empty field', () => {
+      expect(() => {
+        render(<LocalDataGrid {...defaultProps}>{null}</LocalDataGrid>);
+      }).not.toThrowError();
+    });
   });
 });
