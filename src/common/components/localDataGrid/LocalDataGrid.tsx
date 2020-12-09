@@ -68,19 +68,23 @@ const LocalDataGrid = ({
             onClick={() => handleRowClick(localRecord)}
             className={rowClick ? classes.clickableRow : undefined}
           >
-            {React.Children.map(children, (field, index) => (
-              <DatagridCell
-                key={`${localRecord.id}-${
-                  (field.props as any).source || index
-                }`}
-                className={[
-                  `column-${(field.props as any).source}`,
-                  classes.rowCell,
-                ].join(' ')}
-                record={localRecord}
-                {...{ field, basePath, resource }}
-              />
-            ))}
+            {React.Children.map(
+              children,
+              (field, index) =>
+                field && (
+                  <DatagridCell
+                    key={`${localRecord.id}-${
+                      (field.props as any).source || index
+                    }`}
+                    className={[
+                      `column-${(field.props as any).source}`,
+                      classes.rowCell,
+                    ].join(' ')}
+                    record={localRecord}
+                    {...{ field, basePath, resource }}
+                  />
+                )
+            )}
           </TableRow>
         ))}
       </TableBody>
