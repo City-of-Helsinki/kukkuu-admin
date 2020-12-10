@@ -28,6 +28,18 @@ describe('Occurrence helper class', () => {
       expect(occurrence.endTime).toMatchInlineSnapshot(`"03.30"`);
     });
 
+    it('endTime without duration', () => {
+      expect(
+        new Occurrence({
+          ...occurrenceData,
+          event: {
+            ...occurrenceData.event,
+            duration: null,
+          },
+        }).endTime
+      ).toMatchInlineSnapshot(`""`);
+    });
+
     it('duration', () => {
       expect(occurrence.duration).toMatchInlineSnapshot(`"03.00 - 03.30"`);
     });
@@ -41,7 +53,7 @@ describe('Occurrence helper class', () => {
       });
 
       expect(occurrenceWithoutDuration.duration).toMatchInlineSnapshot(
-        `"03.00 - null"`
+        `"03.00 - "`
       );
     });
 

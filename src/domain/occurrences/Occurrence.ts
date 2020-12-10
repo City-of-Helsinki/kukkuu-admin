@@ -33,7 +33,7 @@ class Occurrence {
     const duration = this.occurrence.event.duration; // minutes
 
     if (!duration) {
-      return null;
+      return '';
     }
 
     const startTime = new Date(this.occurrence.time);
