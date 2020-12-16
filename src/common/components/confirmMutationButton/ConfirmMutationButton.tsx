@@ -12,7 +12,7 @@ type Props = {
   buttonLabel: string;
   mutation: Mutation;
   successMessage: string;
-  errorMessage: string;
+  errorMessage: string | ((error: Error) => string);
   confirmModalProps: {
     title: string;
     content: string;
@@ -27,7 +27,7 @@ const ConfirmMutationButton = ({
   buttonLabel,
   mutation,
   successMessage,
-  errorMessage,
+  errorMessage: errorMessageSource,
   confirmModalProps: { title, content, translateOptions },
   icon: Icon,
 }: Props) => {
@@ -40,6 +40,12 @@ const ConfirmMutationButton = ({
     },
     onFailure: (error: Error) => {
       Sentry.captureException(error);
+
+      const errorMessage =
+        typeof errorMessageSource === 'string'
+          ? errorMessageSource
+          : errorMessageSource(error);
+
       notify(errorMessage, 'warning');
     },
   });
