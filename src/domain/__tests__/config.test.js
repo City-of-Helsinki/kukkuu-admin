@@ -20,14 +20,4 @@ describe('Config', () => {
 
     expect(Config.NODE_ENV).toEqual('development');
   });
-
-  it('provides enableEventReadyTick', () => {
-    delete process.env.REACT_APP_ENABLE_EVENT_READY_FEATURE;
-
-    expect(Config.enableEventReadyFeature).toEqual(false);
-
-    process.env.REACT_APP_ENABLE_EVENT_READY_FEATURE = 'true';
-
-    expect(Config.enableEventReadyFeature).toEqual(true);
-  });
 });

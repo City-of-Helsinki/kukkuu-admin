@@ -10,7 +10,6 @@ import {
 } from 'react-admin';
 import { makeStyles } from '@material-ui/core';
 
-import Config from '../../config';
 import { EventGroup_eventGroup_events_edges_node as EventNode } from '../../../api/generatedTypes/EventGroup';
 import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPageLayout';
 import KukkuuDetailPage from '../../application/layout/kukkuuDetailPage/KukkuuDetailPage';
@@ -20,7 +19,7 @@ import { countCapacity, countEnrollments } from '../../events/utils';
 import EventReadyField from './EventReadyField';
 import EventGroupsDetailActions from './EventGroupsDetailActions';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   center: {
     margin: '0 auto',
     textAlign: 'center',
@@ -76,15 +75,13 @@ const EventGroupsDetail = (props: ResourceComponentPropsWithId) => {
           textAlign="right"
           render={(record?: Record) => countEnrollments(record as EventNode)}
         />
-        {Config.enableEventReadyFeature && (
-          <FunctionField
-            headerClassName={classes.center}
-            label="events.fields.ready.label2"
-            render={(record?: Record) => (
-              <EventReadyField record={record} className={classes.center} />
-            )}
-          />
-        )}
+        <FunctionField
+          headerClassName={classes.center}
+          label="events.fields.ready.label2"
+          render={(record?: Record) => (
+            <EventReadyField record={record} className={classes.center} />
+          )}
+        />
       </LocalDataGrid>
     </KukkuuDetailPage>
   );

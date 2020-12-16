@@ -4,7 +4,6 @@ import { render } from '@testing-library/react';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core';
 
-import Config from '../../../config';
 import EventShowActions from '../EventShowActions';
 
 const defaultProps = {
@@ -38,7 +37,10 @@ describe('<EventShowActions />', () => {
     const getWrapperWithEvent = (props) =>
       getWrapper({
         data: {
-          eventGroup: {},
+          eventGroup: {
+            readyForEventGroupPublishing: true,
+            publishedAt: new Date(),
+          },
         },
         ...props,
       });
@@ -52,10 +54,6 @@ describe('<EventShowActions />', () => {
     });
 
     it('should show a button for setting the event as ready', () => {
-      jest
-        .spyOn(Config, 'enableEventReadyFeature', 'get')
-        .mockReturnValueOnce(true);
-
       const { getByLabelText } = getWrapperWithEvent();
 
       expect(getByLabelText('events.fields.ready.label')).toBeTruthy();
@@ -73,6 +71,17 @@ describe('<EventShowActions />', () => {
           name: 'events.show.publish.button.label',
         })
       ).toBeFalsy();
+    });
+
+    it('the set ready button should be hidden', () => {
+      const { queryByLabelText } = getWrapper({
+        data: {
+          readyForEventGroupPublishing: true,
+          publishedAt: new Date().toJSON(),
+        },
+      });
+
+      expect(queryByLabelText('events.fields.ready.label')).toBeFalsy();
     });
   });
 });

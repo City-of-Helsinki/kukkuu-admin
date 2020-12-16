@@ -11,4 +11,5 @@ export interface AdminEvent {
   publishedAt?: string;
   translations: AdminUITranslation<Omit<ApiEventTranslation, 'languageCode'>>;
   eventGroup?: EventGroup;
+  readyForEventGroupPublishing: boolean;
 }

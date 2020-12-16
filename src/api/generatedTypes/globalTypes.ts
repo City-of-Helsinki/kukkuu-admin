@@ -54,6 +54,7 @@ export interface AddEventMutationInput {
   image?: any | null;
   projectId: string;
   eventGroupId?: string | null;
+  readyForEventGroupPublishing?: boolean | null;
   clientMutationId?: string | null;
 }
 
@@ -166,6 +167,7 @@ export interface UpdateEventMutationInput {
   translations?: (EventTranslationsInput | null)[] | null;
   projectId?: string | null;
   eventGroupId?: string | null;
+  readyForEventGroupPublishing?: boolean | null;
   clientMutationId?: string | null;
 }
 
