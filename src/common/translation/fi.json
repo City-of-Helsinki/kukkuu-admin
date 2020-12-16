@@ -185,7 +185,7 @@
         "do": "Julkaise tapahtumaryhmä",
         "success": "Tapahtumaryhmä julkaistu!",
         "error": "Tapahtumaryhmän julkaisussa tapahtui virhe.",
-        "eventsNotReadyError": "Kaikki tapahtumat eivät ole valmiit julkaisua varten.",
+        "eventsNotReadyError": "Kaikki tapahtumat eivät ole valmiita julkaisua varten.",
         "confirm": {
           "title": "Julkaise tapahtumaryhmä \"%{eventGroupName}\"",
           "content": "Oletko varma, että haluat julkaista tämän tapahtumaryhmän?"
