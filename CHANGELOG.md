@@ -11,6 +11,7 @@
 - View for adding an event to an event group
 - Breadcrumb to occurrence detail view
 - Event group publish button
+- Event ready button for event in an event group
 
 ### Changed
 

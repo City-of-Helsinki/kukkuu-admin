@@ -28,7 +28,7 @@ type Props = {
 const EventReadyField = ({ record, className }: Props) => {
   const classes = useStyles();
   const t = useTranslate();
-  const isReady = Boolean(record?.ready);
+  const isReady = Boolean(record?.readyForEventGroupPublishing);
   const classNames = [
     classes.iconWithBackground,
     isReady ? 'is-ready' : null,

@@ -52,6 +52,7 @@ export interface EventGroup_eventGroup_events_edges_node {
   duration: number | null;
   capacityPerOccurrence: number;
   publishedAt: any | null;
+  readyForEventGroupPublishing: boolean;
   occurrences: EventGroup_eventGroup_events_edges_node_occurrences;
 }
 

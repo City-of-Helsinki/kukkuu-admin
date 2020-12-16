@@ -61,6 +61,7 @@ export interface Event_event {
   translations: Event_event_translations[];
   capacityPerOccurrence: number;
   publishedAt: any | null;
+  readyForEventGroupPublishing: boolean;
   eventGroup: Event_event_eventGroup | null;
   occurrences: Event_event_occurrences;
 }

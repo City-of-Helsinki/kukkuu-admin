@@ -9,7 +9,9 @@ const getWrapper = (props) =>
 
 describe('<EventReadyField />', () => {
   it('should render ready when event is marked as ready', () => {
-    const { getByRole } = getWrapper({ record: { ready: true } });
+    const { getByRole } = getWrapper({
+      record: { readyForEventGroupPublishing: true },
+    });
 
     expect(
       getByRole('img', { name: 'events.fields.ready.options.ready' })
@@ -17,7 +19,9 @@ describe('<EventReadyField />', () => {
   });
 
   it('should render not ready when event is not ready', () => {
-    const { getByRole } = getWrapper({ record: { ready: false } });
+    const { getByRole } = getWrapper({
+      record: { readyForEventGroupPublishing: false },
+    });
 
     expect(
       getByRole('img', { name: 'events.fields.ready.options.notReady' })

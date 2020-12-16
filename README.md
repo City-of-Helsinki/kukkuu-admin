@@ -138,9 +138,3 @@ Travis is configured to run a cron job daily. The browser tests are hooked to th
 ## Debugging
 
 See instructions in the sister project: https://github.com/City-of-Helsinki/kukkuu-ui/
-
-## Feature Flags
-
-`REACT_APP_ENABLE_EVENT_READY_FEATURE`
-
-Can be used to toggle on the feature for making an event ready. At the time when this feature was first implemented, the API was not yet finalized so this feature could not be put live. In order to avoid leaving the code in an open branch indefinitely, a feature flag was used to toggle off the functionality until it can be integrated with the API.

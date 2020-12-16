@@ -45,5 +45,6 @@ export interface EventGroupEventFragment {
   duration: number | null;
   capacityPerOccurrence: number;
   publishedAt: any | null;
+  readyForEventGroupPublishing: boolean;
   occurrences: EventGroupEventFragment_occurrences;
 }

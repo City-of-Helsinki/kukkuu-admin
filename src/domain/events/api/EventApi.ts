@@ -90,7 +90,18 @@ const deleteEvent: MethodHandler = async (params: MethodHandlerParams) => {
 };
 
 const setReady: MethodHandler = async (params: MethodHandlerParams) => {
-  return Promise.resolve(null);
+  const { id, readyForEventGroupPublishing } = params;
+  const response = await mutationHandler({
+    mutation: updateEventMutation,
+    variables: {
+      input: {
+        id,
+        readyForEventGroupPublishing,
+      },
+    },
+  });
+
+  return handleApiNode(response.data?.updateEvent.event);
 };
 
 export {

@@ -2,7 +2,6 @@ import React from 'react';
 import { EditButton, TopToolbar } from 'react-admin';
 import { makeStyles } from '@material-ui/core';
 
-import Config from '../../config';
 import { AdminEvent } from '../types/EventTypes';
 import EventReadyToggle from './EventReadyToggle';
 import EventPublishButton from './EventPublishButton';
@@ -32,7 +31,7 @@ const EventShowActions = ({ basePath, data }: Props) => {
       {data && !hasEventGroup && !isPublished && (
         <EventPublishButton basePath={basePath} record={data} />
       )}
-      {Config.enableEventReadyFeature && data && hasEventGroup && (
+      {data && hasEventGroup && !isPublished && (
         <EventReadyToggle className={classes.isReadyToggle} record={data} />
       )}
     </TopToolbar>

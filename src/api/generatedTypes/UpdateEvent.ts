@@ -50,6 +50,7 @@ export interface UpdateEvent_updateEvent_event {
    * In minutes
    */
   duration: number | null;
+  readyForEventGroupPublishing: boolean;
   translations: UpdateEvent_updateEvent_event_translations[];
   occurrences: UpdateEvent_updateEvent_event_occurrences;
 }

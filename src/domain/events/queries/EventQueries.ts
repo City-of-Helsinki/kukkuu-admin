@@ -49,6 +49,7 @@ export const eventQuery = gql`
       }
       capacityPerOccurrence
       publishedAt
+      readyForEventGroupPublishing
       eventGroup {
         id
         name

@@ -30,6 +30,7 @@ export const updateEventMutation = gql`
         participantsPerInvite
         capacityPerOccurrence
         duration
+        readyForEventGroupPublishing
         translations {
           imageAltText
           languageCode
