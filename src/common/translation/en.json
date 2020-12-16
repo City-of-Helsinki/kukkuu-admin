@@ -185,6 +185,7 @@
         "do": "Publish Event Group",
         "success": "Event group published!",
         "error": "Event group publish error",
+        "eventsNotReadyError": "All events are not ready for event group publishing.",
         "confirm": {
           "title": "Publish event group \"%{eventGroupName}\"",
           "content": "Are you sure that you want to publish this event group?"

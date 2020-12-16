@@ -18,6 +18,16 @@ type Props = {
 const PublishEventGroupButton = ({ basePath, record, className }: Props) => {
   const t = useTranslate();
 
+  const handleErrorMessage = (error: Error) => {
+    if (
+      error.message === 'All events are not ready for event group publishing.'
+    ) {
+      return 'eventGroups.actions.publish.eventsNotReadyError';
+    }
+
+    return 'eventGroups.actions.publish.error';
+  };
+
   return (
     <ConfirmMutationButton
       basePath={basePath}
@@ -25,7 +35,7 @@ const PublishEventGroupButton = ({ basePath, record, className }: Props) => {
       buttonLabel="eventGroups.actions.publish.do"
       icon={<SendIcon />}
       successMessage="eventGroups.actions.publish.success"
-      errorMessage="eventGroups.actions.publish.error"
+      errorMessage={handleErrorMessage}
       mutation={{
         type: 'publish',
         resource: 'event-groups',
