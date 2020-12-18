@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Use GitHub flow instead of GitFlow
+
 ## [1.5.0] - 2020-12-17
 
 ### Added
