@@ -3,8 +3,6 @@ on:
   push:
     tags:
       - 'release-*'
-    branches:
-      - master
 
 env:
   CONTAINER_REGISTRY: ghcr.io
@@ -19,7 +17,6 @@ env:
 
 jobs:
   build:
-    if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')
     runs-on: ubuntu-latest
     name: Build
     steps:
@@ -37,7 +34,6 @@ jobs:
           DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: 'https://c89ee3f57dc94ffd940d1df1a353b97f@sentry.hel.ninja/55'
 
   production:
-    if: startsWith(github.ref, 'refs/tags')
     runs-on: ubuntu-latest
     needs: build
     name: Production

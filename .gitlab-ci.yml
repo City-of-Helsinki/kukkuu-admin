@@ -36,7 +36,7 @@ build-staging:
     DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: 'https://c89ee3f57dc94ffd940d1df1a353b97f@sentry.hel.ninja/55'
   only:
     refs:
-      - develop
+      - master
 
 build-production:
   extends: .build
@@ -63,9 +63,6 @@ review:
 staging:
   variables:
     DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-staging'
-  only:
-    refs:
-      - develop
 
 production:
   variables:
