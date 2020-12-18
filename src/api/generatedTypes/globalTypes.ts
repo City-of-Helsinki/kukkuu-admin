@@ -39,6 +39,13 @@ export enum RecipientSelectionEnum {
   SUBSCRIBED_TO_FREE_SPOT_NOTIFICATION = "SUBSCRIBED_TO_FREE_SPOT_NOTIFICATION",
 }
 
+export interface AddEventGroupMutationInput {
+  translations?: (EventGroupTranslationsInput | null)[] | null;
+  image?: any | null;
+  projectId: string;
+  clientMutationId?: string | null;
+}
+
 export interface AddEventMutationInput {
   translations?: (EventTranslationsInput | null)[] | null;
   duration?: number | null;
@@ -46,6 +53,8 @@ export interface AddEventMutationInput {
   capacityPerOccurrence: number;
   image?: any | null;
   projectId: string;
+  eventGroupId?: string | null;
+  readyForEventGroupPublishing?: boolean | null;
   clientMutationId?: string | null;
 }
 
@@ -73,6 +82,11 @@ export interface AddVenueMutationInput {
   clientMutationId?: string | null;
 }
 
+export interface DeleteEventGroupMutationInput {
+  id: string;
+  clientMutationId?: string | null;
+}
+
 export interface DeleteEventMutationInput {
   id: string;
   clientMutationId?: string | null;
@@ -93,6 +107,14 @@ export interface DeleteVenueMutationInput {
   clientMutationId?: string | null;
 }
 
+export interface EventGroupTranslationsInput {
+  name?: string | null;
+  shortDescription?: string | null;
+  description?: string | null;
+  imageAltText?: string | null;
+  languageCode: Language;
+}
+
 export interface EventTranslationsInput {
   name?: string | null;
   shortDescription?: string | null;
@@ -105,6 +127,11 @@ export interface MessageTranslationsInput {
   languageCode: Language;
   subject?: string | null;
   bodyText?: string | null;
+}
+
+export interface PublishEventGroupMutationInput {
+  id: string;
+  clientMutationId?: string | null;
 }
 
 export interface PublishEventMutationInput {
@@ -123,6 +150,14 @@ export interface SetEnrolmentAttendanceMutationInput {
   clientMutationId?: string | null;
 }
 
+export interface UpdateEventGroupMutationInput {
+  id: string;
+  image?: any | null;
+  translations?: (EventGroupTranslationsInput | null)[] | null;
+  projectId?: string | null;
+  clientMutationId?: string | null;
+}
+
 export interface UpdateEventMutationInput {
   id: string;
   duration?: number | null;
@@ -131,6 +166,8 @@ export interface UpdateEventMutationInput {
   image?: any | null;
   translations?: (EventTranslationsInput | null)[] | null;
   projectId?: string | null;
+  eventGroupId?: string | null;
+  readyForEventGroupPublishing?: boolean | null;
   clientMutationId?: string | null;
 }
 

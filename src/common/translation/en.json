@@ -54,6 +54,9 @@
     }
   },
   "events": {
+    "actions": {
+      "create": "New Event"
+    },
     "create": {
       "aside": {
         "content": ""
@@ -99,6 +102,9 @@
       "numOfOccurrences": {
         "label": "Occcurences"
       },
+      "numOfEnrolments": {
+        "label": "Enrolments"
+      },
       "occurrences": {
         "label": "Occurrences"
       },
@@ -119,6 +125,9 @@
       },
       "publishedAt": {
         "label": "Published at",
+        "published": {
+          "label": "Published"
+        },
         "values": {
           "NOT_PUBLISHED": "Not published"
         }
@@ -129,6 +138,14 @@
       },
       "totalCapacity": {
         "label": "Total capacity"
+      },
+      "ready": {
+        "label": "Ready to be published",
+        "label2": "Status",
+        "options": {
+          "ready": "Ready",
+          "notReady": "Unfinished"
+        }
       }
     },
     "list": {
@@ -158,6 +175,68 @@
   "guardian": {
     "name": "Guardian's name",
     "doesNotExist": "<No guardian>"
+  },
+  "eventGroups": {
+    "actions": {
+      "create": {
+        "do": "New Event Group"
+      },
+      "publish": {
+        "do": "Publish Event Group",
+        "success": "Event group published!",
+        "error": "Event group publish error",
+        "eventsNotReadyError": "All events are not ready for event group publishing.",
+        "confirm": {
+          "title": "Publish event group \"%{eventGroupName}\"",
+          "content": "Are you sure that you want to publish this event group?"
+        }
+      },
+      "addEvent": {
+        "do": "Add Event"
+      }
+    },
+    "fields": {
+      "name": {
+        "label": "Name"
+      },
+      "shortDescription": {
+        "label": "Short Description",
+        "helperText": "This will appear on the invite that is visible on the godchild's own page. Maximum 140 characters."
+      },
+      "description": {
+        "label": "Description",
+        "helperText": "This description will appear on the event page and in the event invitation email sent to the godchild."
+      }
+    },
+    "translations": {
+      "FI": {
+        "name": {
+          "required": "A Finnish name is required. Check the message's Finnish language version."
+        }
+      }
+    },
+    "create": {
+      "title": {
+        "label": "New Event Group"
+      }
+    }
+  },
+  "eventsAndEventGroups": {
+    "list": {
+      "label": "Event list",
+      "type": {
+        "label": "Type",
+        "event": {
+          "label": "Event"
+        },
+        "eventGroup": {
+          "label": "Event Group"
+        }
+      },
+      "eventCount": {
+        "label": "Events"
+      }
+    }
   },
   "languages": {
     "EN": "English",

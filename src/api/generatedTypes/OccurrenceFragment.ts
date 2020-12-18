@@ -9,17 +9,27 @@ import { Language } from "./globalTypes";
 // GraphQL fragment: OccurrenceFragment
 // ====================================================
 
+export interface OccurrenceFragment_event_eventGroup {
+  /**
+   * The ID of the object.
+   */
+  id: string;
+  name: string | null;
+}
+
 export interface OccurrenceFragment_event {
   /**
    * The ID of the object.
    */
   id: string;
+  name: string | null;
   capacityPerOccurrence: number;
   /**
    * In minutes
    */
   duration: number | null;
   publishedAt: any | null;
+  eventGroup: OccurrenceFragment_event_eventGroup | null;
 }
 
 export interface OccurrenceFragment_venue_translations {

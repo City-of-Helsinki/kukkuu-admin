@@ -2,6 +2,24 @@
 
 ## [Unreleased]
 
+## [1.5.0] - 2020-12-17
+
+### Added
+
+- [#109](https://github.com/City-of-Helsinki/kukkuu-admin/pull/109) View for viewing event group details
+- [#110](https://github.com/City-of-Helsinki/kukkuu-admin/pull/110) Breadcrumbs to event and event group views
+- [#111](https://github.com/City-of-Helsinki/kukkuu-admin/pull/111) Event group creation view
+- [#111](https://github.com/City-of-Helsinki/kukkuu-admin/pull/111) Event group editing view
+- [#115](https://github.com/City-of-Helsinki/kukkuu-admin/pull/115) View for adding an event to an event group
+- [#117](https://github.com/City-of-Helsinki/kukkuu-admin/pull/117) Breadcrumb to occurrence detail view
+- [#118](https://github.com/City-of-Helsinki/kukkuu-admin/pull/118) Event group publish button
+- [#127](https://github.com/City-of-Helsinki/kukkuu-admin/pull/127) Event ready button for event in an event group
+
+### Changed
+
+- [#107](https://github.com/City-of-Helsinki/kukkuu-admin/pull/107) apollo-client version to 3.0 branch
+- [#112](https://github.com/City-of-Helsinki/kukkuu-admin/pull/112) Use GitHub Actions instead of Travis
+
 ## [1.4.0] - 2020-11-11
 
 ### Added

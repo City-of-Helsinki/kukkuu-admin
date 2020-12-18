@@ -12,9 +12,9 @@ import { CardHeader, Grid } from '@material-ui/core';
 
 import { Language } from '../../api/generatedTypes/globalTypes';
 import LanguageTabs from '../../common/components/languageTab/LanguageTabs';
-import { validateVenue } from './validations';
 import ViewTitle from '../../common/components/viewTitle/ViewTitle';
-import KukkuuEdit from '../../common/components/kukkuuEdit/KukkuuEdit';
+import KukkuuEdit from '../application/layout/kukkuuEditPage/KukkuuEdit';
+import { validateVenue } from './validations';
 
 const VenueEditToolbar = (props: any) => {
   return (

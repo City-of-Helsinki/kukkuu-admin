@@ -24,7 +24,7 @@ import {
 import { participantsPerInviteChoices } from '../choices';
 import ImageUploadField from '../../../common/components/imageField/ImageUploadField';
 import ViewTitle from '../../../common/components/viewTitle/ViewTitle';
-import KukkuuEdit from '../../../common/components/kukkuuEdit/KukkuuEdit';
+import KukkuuEdit from '../../application/layout/kukkuuEditPage/KukkuuEdit';
 
 const EventEditToolbar = (props: any) => {
   return (

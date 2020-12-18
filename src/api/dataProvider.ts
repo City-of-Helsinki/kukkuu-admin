@@ -18,6 +18,7 @@ import {
   updateEvent,
   publishEvent,
   deleteEvent,
+  setReady,
 } from '../domain/events/api/EventApi';
 import {
   addOccurrence,
@@ -32,6 +33,8 @@ import { getChild, getChildren } from '../domain/children/api/ChildApi';
 import { getMyAdminProfile } from '../domain/profile/api';
 import { getProject } from '../domain/dashboard/api';
 import MessagesApi from '../domain/messages/api/messagesApi';
+import EventGroupsApi from '../domain/eventGroups/api/eventGroupsApi';
+import EventsAndEventGroupsApi from '../domain/eventsAndEventGroups/api/eventsAndEventGroupsApi';
 
 const METHOD_HANDLERS: MethodHandlers = {
   venues: {
@@ -50,6 +53,7 @@ const METHOD_HANDLERS: MethodHandlers = {
     UPDATE: updateEvent,
     DELETE: deleteEvent,
     PUBLISH: publishEvent,
+    SET_READY: setReady,
   },
   occurrences: {
     LIST: getOccurrences,
@@ -76,6 +80,16 @@ const METHOD_HANDLERS: MethodHandlers = {
     UPDATE: MessagesApi.updateMessage,
     DELETE: MessagesApi.deleteMessage,
     SEND: MessagesApi.sendMessage,
+  },
+  'event-groups': {
+    ONE: EventGroupsApi.getEventGroup,
+    CREATE: EventGroupsApi.addEventGroup,
+    UPDATE: EventGroupsApi.updateEventGroup,
+    DELETE: EventGroupsApi.deleteEventGroup,
+    PUBLISH: EventGroupsApi.publishEventGroup,
+  },
+  'events-and-event-groups': {
+    LIST: EventsAndEventGroupsApi.getEventsAndEventGroups,
   },
 };
 
@@ -126,6 +140,8 @@ const dataProvider = {
     runHandler('SEND', resource, params),
   getMyAdminProfile,
   setEnrolmentAttendance,
+  setReady: async (resource: Resource, params: Params) =>
+    runHandler('SET_READY', resource, params),
 };
 
 export default dataProvider;

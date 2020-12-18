@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from '@apollo/client';
 
 import { queryHandler, handleApiNode } from '../../api/utils/apiUtils';
 import { myAdminProfileQuery } from './queries';

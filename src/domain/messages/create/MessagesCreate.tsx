@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTranslate, ResourceComponentProps } from 'react-admin';
 
-import KukkuuCreatePage from '../../../common/components/kukkuuCreatePage/KukkuuCreatePage';
-import KukkuuCreateToolbar from '../../../common/components/kukkuuCreateToolbar/KukkuuCreateToolbar';
+import KukkuuCreatePage from '../../application/layout/kukkuuCreatePage/KukkuuCreatePage';
+import KukkuuCreateToolbar from '../../application/layout/kukkuuCreatePage/KukkuuCreateToolbar';
 import MessageForm from '../form/MessageForm';
 
 const MessageCreate = (props: ResourceComponentProps) => {

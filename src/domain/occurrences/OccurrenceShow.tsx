@@ -11,78 +11,22 @@ import {
   EmailField,
   ArrayField,
   FunctionField,
-  useDataProvider,
   useGetOne,
+  Record,
 } from 'react-admin';
-import PropTypes from 'prop-types';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
 import makeStyles from '@material-ui/styles/makeStyles';
 
-import { OccurrenceTimeRangeField } from './fields';
 import {
   Occurrences_occurrences_edges_node_enrolments_edges as EnrolmentEdge,
-  Occurrences_occurrences_edges_node_enrolments_edges_node as Enrolment,
-  Occurrences_occurrences_edges_node_enrolments_edges_node_child_guardians_edges_node as Guardian,
-  Occurrences_occurrences_edges_node as Occurrence,
+  Occurrences_occurrences_edges_node_enrolments_edges_node_child_guardians_edges_node as GuardianType,
+  Occurrences_occurrences_edges_node as OccurrenceType,
 } from '../../api/generatedTypes/Occurrences';
-import KukkuuShow from '../../common/components/kukkuuShow/KukkuuShow';
-
-type AttendedFieldProps = {
-  record?: EnrolmentEdge;
-};
-
-const AttendedField = ({ record }: AttendedFieldProps) => {
-  const enrolment = record?.node as Enrolment; // enrolment should be never undefined or null here
-  const [attended, setAttended] = React.useState(
-    JSON.stringify(enrolment.attended)
-  );
-  const dataProvider = useDataProvider();
-  const translate = useTranslate();
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    const value = event.target.value as string;
-    dataProvider.setEnrolmentAttendance(enrolment.id, JSON.parse(value));
-    setAttended(value);
-  };
-  return (
-    <FormControl fullWidth>
-      <Select
-        style={{ fontSize: '0.875rem' }}
-        disableUnderline
-        value={attended}
-        onChange={handleChange}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <MenuItem value="null">
-          <em>
-            {translate(
-              'occurrences.fields.enrolments.fields.attended.choices.null'
-            )}
-          </em>
-        </MenuItem>
-        <MenuItem value="true">
-          {translate(
-            'occurrences.fields.enrolments.fields.attended.choices.true'
-          )}
-        </MenuItem>
-        <MenuItem value="false">
-          {translate(
-            'occurrences.fields.enrolments.fields.attended.choices.false'
-          )}
-        </MenuItem>
-      </Select>
-    </FormControl>
-  );
-};
-
-AttendedField.propTypes = {
-  record: PropTypes.object,
-};
-
-AttendedField.defaultProps = {
-  label: 'enrolments.fields.attended.label',
-};
+import KukkuuPageLayout from '../application/layout/kukkuuPageLayout/KukkuuPageLayout';
+import KukkuuDetailPage from '../application/layout/kukkuuDetailPage/KukkuuDetailPage';
+import OccurrenceTimeRangeField from './fields/OccurrenceTimeRangeField';
+import OccurrenceAttendedField from './fields/OccurrenceAttendedField';
+import Occurrence from './Occurrence';
+import Guardian from './Guardian';
 
 const useDataGridTitleStyles = makeStyles({
   fakeValue: {
@@ -109,37 +53,58 @@ const OccurrenceDataGridTitle = ({ occurrenceId }: any) => {
   );
 };
 
+export const withEnrolment = (
+  hasRecord: (record: EnrolmentEdge) => any,
+  otherwise: () => any
+) => (record: Record | undefined | null) => {
+  if (record) {
+    const enrolmentEdge = (record as unknown) as EnrolmentEdge;
+
+    return hasRecord(enrolmentEdge);
+  }
+
+  return otherwise();
+};
+
+export const withGuardian = (
+  hasRecord: (guardian: GuardianType) => string,
+  otherwise: () => any
+) => (enrollmentRecord: EnrolmentEdge) => {
+  const guardian = enrollmentRecord.node?.child.guardians.edges[0]?.node;
+
+  if (guardian) {
+    return hasRecord(guardian as GuardianType);
+  }
+
+  return otherwise();
+};
+
+export const getGuardianFullName = (guardian: GuardianType) =>
+  new Guardian(guardian).fullName;
+
+export const getGuardianLanguage = (guardian: GuardianType) =>
+  new Guardian(guardian).language;
+
+export const getBreadCrumbs = (record?: Record) =>
+  new Occurrence(record as OccurrenceType).breadcrumbs;
+
+export const getTitle = (record?: Record) =>
+  new Occurrence(record as OccurrenceType).title;
+
+export const getChildFullName = (enrolmentEdge: EnrolmentEdge) =>
+  `${enrolmentEdge.node?.child.firstName} ${enrolmentEdge.node?.child.lastName}`.trim();
+
 const OccurrenceShow = (props: any) => {
   const locale = useLocale();
   const translate = useTranslate();
 
-  const renderGuardian = (
-    enrollmentRecord: EnrolmentEdge,
-    render: (guardian: Guardian) => string
-  ) => {
-    const guardian = enrollmentRecord.node?.child.guardians.edges[0]?.node;
-
-    if (guardian) {
-      return render(guardian);
-    }
-
-    return translate('guardian.doesNotExist');
-  };
-
-  const getGuardianFullName = (enrollmentRecord: EnrolmentEdge) => {
-    return renderGuardian(enrollmentRecord, (guardian) =>
-      `${guardian.firstName} ${guardian.lastName}`.trim()
-    );
-  };
-
-  const getGuardianLanguage = (enrollmentRecord: EnrolmentEdge) => {
-    return renderGuardian(enrollmentRecord, (guardian) =>
-      translate(`languages.${guardian.language}`)
-    );
-  };
-
   return (
-    <KukkuuShow {...props} title="occurrences.show.title">
+    <KukkuuDetailPage
+      reactAdminProps={props}
+      layout={KukkuuPageLayout}
+      pageTitle={getTitle}
+      breadcrumbs={getBreadCrumbs}
+    >
       <SimpleShowLayout>
         <ReferenceField
           label="occurrences.fields.event.label"
@@ -154,7 +119,7 @@ const OccurrenceShow = (props: any) => {
           source="time"
           locales={locale}
         />
-        <OccurrenceTimeRangeField locales={locale} />
+        <OccurrenceTimeRangeField />
         <ReferenceField
           label="occurrences.fields.venue.label"
           source="venue.id"
@@ -167,12 +132,9 @@ const OccurrenceShow = (props: any) => {
           source="capacity"
           label="occurrences.fields.capacity.label"
         />
-        <FunctionField
-          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-          // @ts-ignore
-          render={(occurrence: Occurrence) =>
-            occurrence.freeSpotNotificationSubscriptions?.edges.length || '0'
-          }
+        <NumberField
+          source="occurrence.freeSpotNotificationSubscriptions?.edges.length"
+          emptyText="0"
           label="occurrences.fields.freeSpotNotificationSubscriptions.label"
         />
         <ArrayField
@@ -190,11 +152,7 @@ const OccurrenceShow = (props: any) => {
           >
             <FunctionField
               label="children.fields.name.label"
-              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-              // @ts-ignore
-              render={(record: EnrolmentEdge) =>
-                `${record.node?.child.firstName} ${record.node?.child.lastName}`.trim()
-              }
+              render={withEnrolment(getChildFullName, () => null)}
             />
             <DateField
               source="node.child.birthdate"
@@ -202,9 +160,12 @@ const OccurrenceShow = (props: any) => {
               locales={locale}
             />
             <FunctionField
-              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-              // @ts-ignore
-              render={(record: EnrolmentEdge) => getGuardianFullName(record)}
+              render={withEnrolment(
+                withGuardian(getGuardianFullName, () =>
+                  translate('guardian.doesNotExist')
+                ),
+                () => null
+              )}
               label="guardian.name"
             />
             <EmailField
@@ -213,16 +174,19 @@ const OccurrenceShow = (props: any) => {
               emptyText={translate('guardian.doesNotExist')}
             />
             <FunctionField
-              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-              // @ts-ignore
-              render={(record: EnrolmentEdge) => getGuardianLanguage(record)}
+              render={withEnrolment(
+                withGuardian(getGuardianLanguage, () =>
+                  translate('guardian.doesNotExist')
+                ),
+                () => null
+              )}
               label="events.fields.language.label"
             />
-            <AttendedField />
+            <OccurrenceAttendedField />
           </Datagrid>
         </ArrayField>
       </SimpleShowLayout>
-    </KukkuuShow>
+    </KukkuuDetailPage>
   );
 };
 

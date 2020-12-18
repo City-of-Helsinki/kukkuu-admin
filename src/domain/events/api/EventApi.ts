@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from '@apollo/client';
 
 import { MethodHandler, MethodHandlerParams } from '../../../api/types';
 import {
@@ -50,12 +50,20 @@ const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
 };
 
 const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
-  const { publishedAt, occurrences, image, ...localUpdateData } = params.data;
+  const {
+    publishedAt,
+    occurrences,
+    image,
+    name,
+    eventGroup,
+    ...localUpdateData
+  } = params.data;
   const data = mapLocalDataToApiData(localUpdateData);
 
   if (params.data.image) {
     data.image = params.data.image.rawFile;
   }
+  data.eventGroupId = eventGroup ? eventGroup.id : null;
 
   const response = await mutationHandler({
     mutation: updateEventMutation,
@@ -81,6 +89,21 @@ const deleteEvent: MethodHandler = async (params: MethodHandlerParams) => {
   return { data: { id: params.id } };
 };
 
+const setReady: MethodHandler = async (params: MethodHandlerParams) => {
+  const { id, readyForEventGroupPublishing } = params;
+  const response = await mutationHandler({
+    mutation: updateEventMutation,
+    variables: {
+      input: {
+        id,
+        readyForEventGroupPublishing,
+      },
+    },
+  });
+
+  return handleApiNode(response.data?.updateEvent.event);
+};
+
 export {
   getEvents,
   getEvent,
@@ -88,4 +111,5 @@ export {
   updateEvent,
   publishEvent,
   deleteEvent,
+  setReady,
 };

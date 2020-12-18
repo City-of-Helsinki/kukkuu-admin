@@ -4,7 +4,7 @@ import { CardHeader } from '@material-ui/core';
 
 import { getTranslatedField } from '../../common/translation/TranslationUtils';
 import Aside from '../../common/components/aside/Aside';
-import KukkuuList from '../../common/components/kukkuuList/KukkuuList';
+import KukkuuList from '../application/layout/kukkuuListPage/KukkuuList';
 
 const VenueList = (props: any) => {
   const translate = useTranslate();

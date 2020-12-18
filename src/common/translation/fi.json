@@ -54,6 +54,9 @@
     }
   },
   "events": {
+    "actions": {
+      "create": "Uusi tapahtuma"
+    },
     "create": {
       "aside": {
         "content": "Luo tapahtuma, lisää sille kuva, kuvaus ja kuvausteksti. Muista lisätä tiedot myös ruotsiksi ja englanniksi. Lisää tapahtumalle tapahtumapaikat ja esiintymään Tapahtumaesiintymät osiossa"
@@ -99,6 +102,9 @@
       "numOfOccurrences": {
         "label": "Esiintymiä"
       },
+      "numOfEnrolments": {
+        "label": "Ilmoittautuneita"
+      },
       "occurrences": {
         "label": "Esiintymät"
       },
@@ -119,6 +125,9 @@
       },
       "publishedAt": {
         "label": "Julkaisu",
+        "published": {
+          "label": "Julkaistu"
+        },
         "values": {
           "NOT_PUBLISHED": "Ei julkaistu"
         }
@@ -129,6 +138,14 @@
       },
       "totalCapacity": {
         "label": "Kokonaiskapasiteetti"
+      },
+      "ready": {
+        "label": "Valmis julkaistavaksi",
+        "label2": "Tila",
+        "options": {
+          "ready": "Valmis",
+          "notReady": "Keskeneräinen"
+        }
       }
     },
     "list": {
@@ -158,6 +175,68 @@
   "guardian": {
     "name": "Huoltajan nimi",
     "doesNotExist": "<Ei huoltajaa>"
+  },
+  "eventGroups": {
+    "actions": {
+      "create": {
+        "do": "Uusi tapahtumaryhmä"
+      },
+      "publish": {
+        "do": "Julkaise tapahtumaryhmä",
+        "success": "Tapahtumaryhmä julkaistu!",
+        "error": "Tapahtumaryhmän julkaisussa tapahtui virhe.",
+        "eventsNotReadyError": "Kaikki tapahtumat eivät ole valmiita julkaisua varten.",
+        "confirm": {
+          "title": "Julkaise tapahtumaryhmä \"%{eventGroupName}\"",
+          "content": "Oletko varma, että haluat julkaista tämän tapahtumaryhmän?"
+        }
+      },
+      "addEvent": {
+        "do": "Lisää tapahtuma"
+      }
+    },
+    "fields": {
+      "name": {
+        "label": "Nimi"
+      },
+      "shortDescription": {
+        "label": "Lyhyt kuvaus",
+        "helperText": "Tämä näkyy kummilapsen omalla sivulla ilmestyvässä kutsussa. Maksimissaan 140 merkkiä"
+      },
+      "description": {
+        "label": "Kuvaus",
+        "helperText": "Tämä kuvaus näkyy tapahtumasivulla ja kummilapselle lähtevässä tapahtumakutsusähköpostiviestissä."
+      }
+    },
+    "translations": {
+      "FI": {
+        "name": {
+          "required": "Suomenkielinen nimi on pakollinen kenttä. Tarkista viestin suomenkielinen versio."
+        }
+      }
+    },
+    "create": {
+      "title": {
+        "label": "Uusi tapahtumaryhmä"
+      }
+    }
+  },
+  "eventsAndEventGroups": {
+    "list": {
+      "label": "Tapahtumalista",
+      "type": {
+        "label": "Tyyppi",
+        "event": {
+          "label": "Tapahtuma"
+        },
+        "eventGroup": {
+          "label": "Tapahtumaryhmä"
+        }
+      },
+      "eventCount": {
+        "label": "Tapahtumia"
+      }
+    }
   },
   "languages": {
     "EN": "englanti",

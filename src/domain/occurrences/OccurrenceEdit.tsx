@@ -13,7 +13,7 @@ import { parse } from 'query-string';
 import { Grid } from '@material-ui/core';
 
 import DateTimeTextInput from '../../common/components/dateTimeTextField/DateTimeTextField';
-import KukkuuEdit from '../../common/components/kukkuuEdit/KukkuuEdit';
+import KukkuuEdit from '../application/layout/kukkuuEditPage/KukkuuEdit';
 import { OccurrenceCapacityOverrideInput } from './inputs';
 
 const OccurrenceEditToolbar = (props: any) => {

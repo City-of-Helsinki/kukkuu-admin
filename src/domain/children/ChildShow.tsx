@@ -19,8 +19,8 @@ import {
   Child_child as Child,
   Child_child_occurrences_edges as OccurrenceEdges,
 } from '../../api/generatedTypes/Child';
-import { OccurrenceTimeRangeField } from '../occurrences/fields';
-import KukkuuShow from '../../common/components/kukkuuShow/KukkuuShow';
+import OccurrenceTimeRangeField from '../occurrences/fields/OccurrenceTimeRangeField';
+import KukkuuShow from '../application/layout/kukkuuDetailPage/KukkuuShow';
 
 interface RowClickParams<T> {
   id: string;
@@ -96,10 +96,7 @@ const ChildShow = (props: any) => {
                 source="node.time"
                 locales={locale}
               />
-              <OccurrenceTimeRangeField
-                occurrenceSource="node"
-                locales={locale}
-              />
+              <OccurrenceTimeRangeField occurrenceSource="node" />
               <ReferenceField
                 label="occurrences.fields.event.label"
                 source="node.event.id"

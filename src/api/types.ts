@@ -12,7 +12,9 @@ export type Resource =
   | 'occurrences'
   | 'children'
   | 'projects'
-  | 'messages';
+  | 'messages'
+  | 'event-groups'
+  | 'events-and-event-groups';
 
 export type Method =
   | 'LIST'
@@ -25,7 +27,8 @@ export type Method =
   | 'DELETE'
   | 'DELETE_MANY'
   | 'PUBLISH'
-  | 'SEND';
+  | 'SEND'
+  | 'SET_READY';
 
 export type Record = { [index: string]: any; id: string };
 

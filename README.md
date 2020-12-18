@@ -1,6 +1,6 @@
 [![codecov](https://codecov.io/gh/City-of-Helsinki/kukkuu-admin/branch/develop/graph/badge.svg)](https://codecov.io/gh/City-of-Helsinki/kukkuu-admin)
-[![Build Status](https://travis-ci.org/City-of-Helsinki/kukkuu-admin.svg?branch=develop)](https://travis-ci.org/City-of-Helsinki/kukkuu-admin)
-
+![Build status](https://github.com/City-of-Helsinki/kukkuu-admin/workflows/CI/badge.svg)
+![Browser tests](https://github.com/City-of-Helsinki/kukkuu-admin/workflows/Browser%20tests/badge.svg)
 
 # Staff interface for Kulttuurin kummilapset / Culture Kids
 
@@ -14,7 +14,7 @@ https://github.com/City-of-Helsinki/kukkuu-ui/
 ## Deployments
 
 Production environment:
-TODO
+https://kummilapset.hel.fi
 
 Testing environment:
 https://kukkuu-admin.test.kuva.hel.ninja/

@@ -1,14 +1,14 @@
 /* eslint-disable no-console */
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { setContext } from 'apollo-link-context';
-import { onError } from 'apollo-link-error';
-import { ApolloLink } from 'apollo-link';
+import { ApolloClient, ApolloLink } from '@apollo/client';
+import { InMemoryCache } from '@apollo/client/cache';
+import { setContext } from '@apollo/client/link/context';
+import { onError, ErrorHandler } from '@apollo/client/link/error';
 import { createUploadLink } from 'apollo-upload-client';
 import * as Sentry from '@sentry/browser';
 import { OperationDefinitionNode } from 'graphql';
 
 import i18nProvider from '../common/translation/i18nProvider';
+import Config from '../domain/config';
 
 const uploadLink = createUploadLink({
   uri: process.env.REACT_APP_API_URI,
@@ -19,12 +19,17 @@ const uploadLink = createUploadLink({
 
 const stringify = (value: unknown) => JSON.stringify(value, null, 2);
 
-const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
+export const handleError: ErrorHandler = ({
+  graphQLErrors,
+  networkError,
+  operation,
+}) => {
   if (graphQLErrors) {
     graphQLErrors.forEach((graphQLError) => {
       // eslint-disable-next-line max-len
       const errorMessage = `[GraphQL error]: Message: ${graphQLError.message}, Location: ${graphQLError.locations}, Path: ${graphQLError.path}`;
-      if (process.env.NODE_ENV === 'development') {
+
+      if (Config.NODE_ENV === 'development') {
         console.error(errorMessage);
       }
 
@@ -93,7 +98,9 @@ const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
     // eslint-disable-next-line no-console
     console.error(networkError);
   }
-});
+};
+
+const errorLink = onError(handleError);
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('apiToken');

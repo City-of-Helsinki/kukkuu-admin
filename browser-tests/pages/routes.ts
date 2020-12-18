@@ -6,4 +6,5 @@ export const routes = {
   messagesDetails: (messageId: string) =>
     `${envUrl()}/messages/${messageId}/show`,
   messagesEdit: (messageId: string) => `${envUrl()}/messages/${messageId}`,
+  eventsList: () => `${envUrl()}/events-and-event-groups`,
 };

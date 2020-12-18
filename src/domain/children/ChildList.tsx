@@ -14,7 +14,7 @@ import { CardHeader } from '@material-ui/core';
 
 import { Children_children_edges_node as Child } from '../../api/generatedTypes/Children';
 import { languageChoices } from '../../common/choices';
-import KukkuuList from '../../common/components/kukkuuList/KukkuuList';
+import KukkuuList from '../application/layout/kukkuuListPage/KukkuuList';
 
 const ChildList = (props: any) => {
   const translate = useTranslate();

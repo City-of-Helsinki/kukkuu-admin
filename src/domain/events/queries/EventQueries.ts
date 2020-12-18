@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 export const eventsQuery = gql`
   query Events($projectId: ID) {
@@ -49,6 +49,11 @@ export const eventQuery = gql`
       }
       capacityPerOccurrence
       publishedAt
+      readyForEventGroupPublishing
+      eventGroup {
+        id
+        name
+      }
       occurrences {
         edges {
           node {

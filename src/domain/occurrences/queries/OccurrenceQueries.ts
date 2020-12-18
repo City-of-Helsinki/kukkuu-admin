@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 const OccurrenceShowPage = {
   fragments: {
@@ -8,9 +8,14 @@ const OccurrenceShowPage = {
         time
         event {
           id
+          name
           capacityPerOccurrence
           duration
           publishedAt
+          eventGroup {
+            id
+            name
+          }
         }
         enrolmentCount
         capacity
