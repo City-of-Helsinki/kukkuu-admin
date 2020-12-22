@@ -21,7 +21,7 @@ import {
   deleteOccurrenceMutation,
   setEnrolmentAttendanceMutation,
 } from '../mutations/OccurrenceMutations';
-import { getProjectId } from '../../profile/utils';
+import profileService from '../../profile/profileService';
 
 moment.tz.setDefault('Europe/Helsinki');
 
@@ -29,7 +29,7 @@ const getOccurrences: MethodHandler = async (params: MethodHandlerParams) => {
   const response: ApolloQueryResult<ApiOccurrences> = await queryHandler({
     query: occurrencesQuery,
     variables: {
-      projectId: getProjectId(),
+      projectId: profileService.projectId,
       ...params.filter,
     },
   });
@@ -114,7 +114,7 @@ const setEnrolmentAttendance = async (
 const getOccurrencesManyReference = async (params: MethodHandlerParams) => {
   const response: ApolloQueryResult<ApiOccurrences> = await queryHandler({
     query: occurrencesQuery,
-    variables: { projectId: getProjectId(), eventId: params.id },
+    variables: { projectId: profileService.projectId, eventId: params.id },
   });
   return handleApiConnection(response.data.occurrences);
 };

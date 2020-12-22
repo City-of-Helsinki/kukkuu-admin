@@ -1,4 +1,4 @@
-import * as profileUtils from '../../profile/utils';
+import profileService from '../../profile/profileService';
 import authProvider from '../authProvider';
 import authService from '../authService';
 import authorizationService from '../authorizationService';
@@ -6,11 +6,11 @@ import authorizationService from '../authorizationService';
 const fakeToken = 'token content';
 
 describe('authProvider', () => {
-  let getProjectIdSpy;
+  let projectIdSpy;
 
   beforeEach(() => {
     jest.restoreAllMocks();
-    getProjectIdSpy = jest.spyOn(profileUtils, 'getProjectId');
+    projectIdSpy = jest.spyOn(profileService, 'projectId', 'get');
   });
 
   describe('login', () => {
@@ -76,7 +76,7 @@ describe('authProvider', () => {
     it('should resolve when tokens are present', () => {
       expect.assertions(1);
       jest.spyOn(authService, 'getToken').mockReturnValueOnce(fakeToken);
-      getProjectIdSpy.mockReturnValueOnce('123');
+      projectIdSpy.mockReturnValueOnce('123');
 
       return expect(authProvider.checkError()).resolves.toEqual();
     });
@@ -84,7 +84,7 @@ describe('authProvider', () => {
     it('should reject when required tokens are missing', () => {
       expect.assertions(1);
       jest.spyOn(authService, 'getToken').mockReturnValueOnce(null);
-      getProjectIdSpy.mockReturnValueOnce('123');
+      projectIdSpy.mockReturnValueOnce('123');
 
       return expect(authProvider.checkError()).rejects.toEqual();
     });
@@ -92,7 +92,7 @@ describe('authProvider', () => {
     it('should reject when user does not have project id', () => {
       expect.assertions(1);
       jest.spyOn(authService, 'getToken').mockReturnValueOnce(fakeToken);
-      getProjectIdSpy.mockReturnValueOnce();
+      projectIdSpy.mockReturnValueOnce();
 
       return expect(authProvider.checkAuth()).rejects.toEqual();
     });

@@ -1,12 +1,12 @@
 import { MethodHandlerParams } from '../../../api/types';
 import { queryHandler, handleApiConnection } from '../../../api/utils/apiUtils';
-import { getProjectId } from '../../profile/utils';
+import profileService from '../../profile/profileService';
 import { eventsAndEventGroupsQuery } from '../queries/EventsAndEventGroupsQueries';
 
 async function getEventsAndEventGroups(params: MethodHandlerParams) {
   const response = await queryHandler({
     query: eventsAndEventGroupsQuery,
-    variables: { projectId: getProjectId() },
+    variables: { projectId: profileService.projectId },
   });
 
   return handleApiConnection(response.data.eventsAndEventGroups);

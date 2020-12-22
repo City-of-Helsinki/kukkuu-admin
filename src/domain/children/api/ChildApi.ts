@@ -9,13 +9,13 @@ import {
 } from '../../../api/utils/apiUtils';
 import { childrenQuery, childQuery } from '../queries/ChildQueries';
 import { Child as ApiChild } from '../../../api/generatedTypes/Child';
-import { getProjectId } from '../../profile/utils';
+import profileService from '../../profile/profileService';
 
 const getChildren: MethodHandler = async (params: MethodHandlerParams) => {
   const response: ApolloQueryResult<Children> = await queryHandler({
     query: childrenQuery,
     variables: {
-      projectId: getProjectId(),
+      projectId: profileService.projectId,
       occurrenceId: params.id,
       limit: params.pagination.limit,
       offset: params.pagination.offset,

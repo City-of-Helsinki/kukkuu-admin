@@ -12,6 +12,8 @@ export interface MyAdminProfile_myAdminProfile_projects_edges_node {
    * The ID of the object.
    */
   id: string;
+  year: number;
+  name: string | null;
 }
 
 export interface MyAdminProfile_myAdminProfile_projects_edges {
