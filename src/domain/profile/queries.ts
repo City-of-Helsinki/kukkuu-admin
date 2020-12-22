@@ -8,6 +8,8 @@ export const myAdminProfileQuery = gql`
         edges {
           node {
             id
+            year
+            name
           }
         }
       }

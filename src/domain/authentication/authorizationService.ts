@@ -1,7 +1,11 @@
+import { MyAdminProfile_myAdminProfile_projects_edges_node as ProjectNode } from '../../api/generatedTypes/MyAdminProfile';
+import RelayList from '../../api/relayList';
 import dataProvider from '../../api/dataProvider';
-import { setAdminProfile } from '../profile/utils';
+import projectService from '../profile/profileService';
 
 export const PERMISSIONS = 'permissions';
+
+const ProjectList = RelayList<ProjectNode>();
 
 export class AuthorizationService {
   constructor() {
@@ -14,8 +18,9 @@ export class AuthorizationService {
   async fetchRole(): Promise<void> {
     try {
       const { data } = await dataProvider.getMyAdminProfile();
+      const projects = ProjectList((data as any)?.projects).items;
 
-      setAdminProfile(data as any);
+      projectService.setDefaultProjectId(projects);
       sessionStorage.setItem(PERMISSIONS, 'admin');
     } catch (e) {
       sessionStorage.setItem(PERMISSIONS, 'none');

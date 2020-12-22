@@ -1,6 +1,6 @@
 import { AuthProvider } from 'ra-core';
 
-import { getProjectId } from '../profile/utils';
+import profileService from '../profile/profileService';
 import authService from './authService';
 import authorizationService from './authorizationService';
 
@@ -30,7 +30,7 @@ const authProvider: AuthProvider = {
   },
   checkError: () => {
     const hasTokens = Boolean(authService.getToken());
-    const hasProject = Boolean(getProjectId());
+    const hasProject = Boolean(profileService.projectId);
 
     if (hasTokens && hasProject) {
       return Promise.resolve();

@@ -1,5 +1,5 @@
 import dataProvider from '../../../api/dataProvider';
-import * as profileUtils from '../../profile/utils';
+import profileService from '../../profile/profileService';
 import authorizationService, { PERMISSIONS } from '../authorizationService';
 
 const setPermissions = (permissions = 'admin') => {
@@ -10,7 +10,7 @@ const setPermissions = (permissions = 'admin') => {
 
 describe('authorizationService', () => {
   let dataProviderSpy;
-  let setAdminProfileSpy;
+  let profileServiceSpy;
 
   beforeEach(() => {
     dataProviderSpy = jest
@@ -18,8 +18,8 @@ describe('authorizationService', () => {
       .mockResolvedValue({
         data: {},
       });
-    setAdminProfileSpy = jest
-      .spyOn(profileUtils, 'setAdminProfile')
+    profileServiceSpy = jest
+      .spyOn(profileService, 'setDefaultProjectId')
       .mockReturnValue();
   });
 
@@ -56,12 +56,12 @@ describe('authorizationService', () => {
       expect(sessionStorage.getItem(PERMISSIONS)).toEqual('none');
     });
 
-    it('should call setAdminProfile', async () => {
+    it('should call profileService.profileServiceSpy', async () => {
       expect.assertions(1);
 
       await authorizationService.fetchRole();
 
-      expect(setAdminProfileSpy).toHaveBeenCalledTimes(1);
+      expect(profileServiceSpy).toHaveBeenCalledTimes(1);
     });
   });
 

@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Add project select
+
 ### Changed
 
 - Use GitHub flow instead of GitFlow

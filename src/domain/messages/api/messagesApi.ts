@@ -15,14 +15,14 @@ import {
   updateMessageMutation,
   deleteMessageMutation,
 } from '../mutations/MessageMutations';
-import { getProjectId } from '../../profile/utils';
+import profileService from '../../profile/profileService';
 
 async function getMessages(
   params: MethodHandlerParams
 ): Promise<MethodHandlerResponse | null> {
   const response = await queryHandler({
     query: messagesQuery,
-    variables: { projectId: getProjectId() },
+    variables: { projectId: profileService.projectId },
   });
 
   return handleApiConnection(response.data.messages);
@@ -85,7 +85,7 @@ async function addMessage(
     variables: {
       input: {
         ...data,
-        projectId: getProjectId(),
+        projectId: profileService.projectId,
       },
     },
   });

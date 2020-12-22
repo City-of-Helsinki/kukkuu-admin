@@ -3,6 +3,7 @@ import { AppBar } from 'react-admin';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
+import ProfileProjectDropdown from '../../../domain/profile/ProfileProjectDropdown';
 import AppTitle from '../appTitle/AppTitle';
 
 const useStyles = makeStyles({
@@ -19,11 +20,14 @@ const useStyles = makeStyles({
 
 const KukkuuAppBar = (props: any) => {
   const classes = useStyles();
+
   return (
     <AppBar {...props}>
       <Typography variant="h6" color="inherit" className={classes.title}>
         <AppTitle />
       </Typography>
+      <div className={classes.spacer} />
+      <ProfileProjectDropdown />
     </AppBar>
   );
 };
