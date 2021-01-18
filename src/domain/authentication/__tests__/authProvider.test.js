@@ -1,3 +1,4 @@
+import { history } from '../../application/App';
 import profileService from '../../profile/profileService';
 import authProvider from '../authProvider';
 import authService from '../authService';
@@ -57,9 +58,12 @@ describe('authProvider', () => {
   });
 
   describe('checkAuth', () => {
-    it('should resolve when user is authenticated according to authService', () => {
+    it('should resolve when user is authenticated and authorized', () => {
       expect.assertions(1);
       jest.spyOn(authService, 'isAuthenticated').mockReturnValueOnce(true);
+      jest
+        .spyOn(authorizationService, 'isAuthorized')
+        .mockReturnValueOnce(true);
 
       return expect(authProvider.checkAuth()).resolves.toEqual();
     });
@@ -69,6 +73,20 @@ describe('authProvider', () => {
       jest.spyOn(authService, 'isAuthenticated').mockReturnValueOnce(false);
 
       return expect(authProvider.checkAuth()).rejects.toEqual();
+    });
+
+    it('should redirect when the use is authenticated, authorized but not an admin', async () => {
+      expect.assertions(2);
+      jest.spyOn(authService, 'isAuthenticated').mockReturnValueOnce(true);
+      jest
+        .spyOn(authorizationService, 'isAuthorized')
+        .mockReturnValueOnce(true);
+      jest.spyOn(authorizationService, 'getRole').mockReturnValueOnce('none');
+      const historySpy = jest.spyOn(history, 'replace');
+
+      await expect(authProvider.checkAuth()).resolves.toEqual();
+
+      expect(historySpy).toHaveBeenCalledTimes(1);
     });
   });
 

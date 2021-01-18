@@ -1,5 +1,6 @@
 import { AuthProvider } from 'ra-core';
 
+import { history } from '../application/App';
 import authService from './authService';
 import authorizationService from './authorizationService';
 
@@ -20,8 +21,20 @@ const authProvider: AuthProvider = {
   },
   checkAuth: () => {
     const isAuthenticated = authService.isAuthenticated();
+    const isAuthorized = authorizationService.isAuthorized();
+    const isAdmin = authorizationService.getRole() === 'admin';
+    const isAdminOrPermissionNotChecked =
+      isAuthenticated && (!isAuthorized || isAdmin);
+    const isNotAdmin = isAuthenticated && isAuthorized && !isAdmin;
 
-    if (isAuthenticated) {
+    if (isAdminOrPermissionNotChecked) {
+      return Promise.resolve();
+    }
+
+    if (isNotAdmin) {
+      history.replace('/unauthorized');
+
+      // Resolve promise so the user is not logged out
       return Promise.resolve();
     }
 
