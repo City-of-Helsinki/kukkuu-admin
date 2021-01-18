@@ -1,24 +1,28 @@
 import * as dotenv from 'dotenv';
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
+const get = require('lodash/get');
+
 dotenv.config();
 
-export const testUsername = (): string => {
-  if (!process.env.BROWSER_TESTS_UID) {
-    throw new Error('No BROWSER_TESTS_UID specified.');
-  }
-  return process.env.BROWSER_TESTS_UID;
-};
+function getOrError(variableName: string) {
+  const variable = get(process.env, variableName);
 
-export const testUserPassword = (): string => {
-  if (!process.env.BROWSER_TESTS_PWD) {
-    throw new Error('No BROWSER_TESTS_PWD specified.');
+  if (!variable) {
+    throw new Error(`No ${variableName} specified.`);
   }
-  return process.env.BROWSER_TESTS_PWD;
-};
 
-export const envUrl = (): string => {
-  if (!process.env.BROWSER_TESTS_ENV_URL) {
-    throw new Error('No BROWSER_ENV_URL specified.');
-  }
-  return process.env.BROWSER_TESTS_ENV_URL;
-};
+  return variable;
+}
+
+export const testUsername = (): string => getOrError('BROWSER_TESTS_UID');
+
+export const testUserPassword = (): string => getOrError('BROWSER_TESTS_PWD');
+
+export const testUnauthorizedUsername = (): string =>
+  getOrError('BROWSER_TESTS_UNAUTHORIZED_UID');
+
+export const testUnauthorizedUserPassword = (): string =>
+  getOrError('BROWSER_TESTS_UNAUTHORIZED_PWD');
+
+export const envUrl = (): string => getOrError('BROWSER_TESTS_ENV_URL');
