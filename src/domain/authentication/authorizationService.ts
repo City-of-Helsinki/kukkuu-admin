@@ -19,9 +19,10 @@ export class AuthorizationService {
     try {
       const { data } = await dataProvider.getMyAdminProfile();
       const projects = ProjectList((data as any)?.projects).items;
+      const role = projects.length > 0 ? 'admin' : 'none';
 
       projectService.setDefaultProjectId(projects);
-      sessionStorage.setItem(PERMISSIONS, 'admin');
+      sessionStorage.setItem(PERMISSIONS, role);
     } catch (e) {
       sessionStorage.setItem(PERMISSIONS, 'none');
     }

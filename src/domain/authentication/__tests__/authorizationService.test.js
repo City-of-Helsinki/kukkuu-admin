@@ -16,7 +16,11 @@ describe('authorizationService', () => {
     dataProviderSpy = jest
       .spyOn(dataProvider, 'getMyAdminProfile')
       .mockResolvedValue({
-        data: {},
+        data: {
+          projects: {
+            edges: [{ node: {} }],
+          },
+        },
       });
     profileServiceSpy = jest
       .spyOn(profileService, 'setDefaultProjectId')
@@ -38,7 +42,7 @@ describe('authorizationService', () => {
       expect(dataProviderSpy).toHaveBeenCalledTimes(1);
     });
 
-    it('should save admin role into session storage when getMyAdminProfile call works', async () => {
+    it('should save admin role into session storage when getMyAdminProfile call works and the profile has projects', async () => {
       expect.assertions(1);
 
       await authorizationService.fetchRole();
@@ -46,10 +50,14 @@ describe('authorizationService', () => {
       expect(sessionStorage.getItem(PERMISSIONS)).toEqual('admin');
     });
 
-    it('should save none role into session storage when getMyAdminProfile call fails', async () => {
+    it('should save none role into session storage when getMyAdminProfile returns a profile that does not have projects', async () => {
       expect.assertions(1);
 
-      dataProviderSpy.mockRejectedValue({});
+      dataProviderSpy.mockResolvedValue({
+        projects: {
+          edges: [],
+        },
+      });
 
       await authorizationService.fetchRole();
 
