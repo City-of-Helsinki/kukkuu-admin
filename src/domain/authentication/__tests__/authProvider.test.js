@@ -57,7 +57,7 @@ describe('authProvider', () => {
   });
 
   describe('checkAuth', () => {
-    it('should resolve when user is authenticated according to authService and the user has a project id', () => {
+    it('should resolve when user is authenticated according to authService', () => {
       expect.assertions(1);
       jest.spyOn(authService, 'isAuthenticated').mockReturnValueOnce(true);
 
@@ -88,14 +88,6 @@ describe('authProvider', () => {
 
       return expect(authProvider.checkError()).rejects.toEqual();
     });
-
-    it('should reject when user does not have project id', () => {
-      expect.assertions(1);
-      jest.spyOn(authService, 'getToken').mockReturnValueOnce(fakeToken);
-      projectIdSpy.mockReturnValueOnce();
-
-      return expect(authProvider.checkAuth()).rejects.toEqual();
-    });
   });
 
   describe('getPermissions', () => {
@@ -106,17 +98,6 @@ describe('authProvider', () => {
       jest.spyOn(authorizationService, 'getRole').mockReturnValue(role);
 
       return expect(authProvider.getPermissions()).resolves.toEqual(role);
-    });
-
-    it('should reject when permission is none', () => {
-      expect.assertions(1);
-      const role = 'none';
-
-      jest.spyOn(authorizationService, 'getRole').mockReturnValue(role);
-
-      return expect(authProvider.getPermissions()).rejects.toEqual({
-        redirectTo: '/unauthorized',
-      });
     });
   });
 });

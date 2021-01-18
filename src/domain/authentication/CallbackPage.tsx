@@ -10,6 +10,7 @@ import * as Sentry from '@sentry/browser';
 import { User } from 'oidc-client';
 
 import authService from './authService';
+import authorizationService from './authorizationService';
 
 function CallBackPage({ history }: RouteComponentProps) {
   const t = useTranslate();
@@ -21,7 +22,13 @@ function CallBackPage({ history }: RouteComponentProps) {
     authService
       .endLogin()
       .then((user: User) => {
-        history.replace(user?.state.path);
+        const role = authorizationService.getRole();
+
+        if (role === 'none') {
+          history.push('/unauthorized');
+        } else {
+          history.replace(user?.state.path);
+        }
       })
       .catch((error) => {
         notify(t('ra.message.error'), 'warning');

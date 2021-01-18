@@ -1,6 +1,5 @@
 import { AuthProvider } from 'ra-core';
 
-import profileService from '../profile/profileService';
 import authService from './authService';
 import authorizationService from './authorizationService';
 
@@ -30,9 +29,8 @@ const authProvider: AuthProvider = {
   },
   checkError: () => {
     const hasTokens = Boolean(authService.getToken());
-    const hasProject = Boolean(profileService.projectId);
 
-    if (hasTokens && hasProject) {
+    if (hasTokens) {
       return Promise.resolve();
     }
 
@@ -40,13 +38,8 @@ const authProvider: AuthProvider = {
   },
   getPermissions: () => {
     const role = authorizationService.getRole();
-    const hasAuthorization = role === 'admin';
 
-    if (hasAuthorization) {
-      return Promise.resolve(role);
-    }
-
-    return Promise.reject({ redirectTo: '/unauthorized' });
+    return Promise.resolve(role);
   },
 };
 
