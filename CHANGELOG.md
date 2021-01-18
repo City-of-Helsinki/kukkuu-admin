@@ -10,6 +10,11 @@
 
 - Use GitHub flow instead of GitFlow
 
+### Fixed
+
+- Authorization check
+- Unauthorized view styles
+
 ## [1.5.0] - 2020-12-17
 
 ### Added
