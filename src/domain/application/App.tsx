@@ -22,7 +22,7 @@ import EventGroupsResource from '../eventGroups/EventGroupsResource';
 import EventsAndEventGroupsResource from '../eventsAndEventGroups/EventsAndEventGroupsResource';
 import KukkuuLayout from './layout/kukkuuAppLayout/KukkuuAppLayout';
 
-const history = createHistory();
+export const history = createHistory();
 
 const App = () => {
   const translate = useTranslate();

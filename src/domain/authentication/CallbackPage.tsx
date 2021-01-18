@@ -25,7 +25,7 @@ function CallBackPage({ history }: RouteComponentProps) {
         const role = authorizationService.getRole();
 
         if (role === 'none') {
-          history.push('/unauthorized');
+          history.replace('/unauthorized');
         } else {
           history.replace(user?.state.path);
         }
