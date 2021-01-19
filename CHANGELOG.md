@@ -2,18 +2,20 @@
 
 ## [Unreleased]
 
+## [1.5.1] - 2021-01-19
+
 ### Added
 
-- Add project select
+- [#132](https://github.com/City-of-Helsinki/kukkuu-admin/pull/132) Add project select
 
 ### Changed
 
-- Use GitHub flow instead of GitFlow
+- [#130](https://github.com/City-of-Helsinki/kukkuu-admin/pull/130) Use GitHub flow instead of GitFlow
 
 ### Fixed
 
-- Authorization check
-- Unauthorized view styles
+- [#134](https://github.com/City-of-Helsinki/kukkuu-admin/pull/134) Authorization check
+- [#134](https://github.com/City-of-Helsinki/kukkuu-admin/pull/134) Unauthorized view styles
 
 ## [1.5.0] - 2020-12-17
 
