@@ -37,3 +37,5 @@ jobs:
         BROWSER_TESTS_ENV_URL: https://kukkuu-admin.test.kuva.hel.ninja
         BROWSER_TESTS_UID: ${{ secrets.BROWSER_TESTS_UID }}
         BROWSER_TESTS_PWD: ${{ secrets.BROWSER_TESTS_PWD }}
+        BROWSER_TESTS_UNAUTHORIZED_UID: ${{ secrets.BROWSER_TESTS_UNAUTHORIZED_UID }}
+        BROWSER_TESTS_UNAUTHORIZED_PWD: ${{ secrets.BROWSER_TESTS_UNAUTHORIZED_PWD }}
