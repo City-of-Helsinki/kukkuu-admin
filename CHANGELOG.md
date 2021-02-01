@@ -5,6 +5,7 @@
 ### Changed
 
 - Application title
+- Distinct test environment from production environment
 
 ## [1.5.1] - 2021-01-19
 
