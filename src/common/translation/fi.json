@@ -44,7 +44,7 @@
     }
   },
   "dashboard": {
-    "title": "Kulttuurin kummilapset ylläpito"
+    "title": "Kulttuurin kummilapset admin-käyttöliittymä"
   },
   "enrolments": {
     "fields": {
