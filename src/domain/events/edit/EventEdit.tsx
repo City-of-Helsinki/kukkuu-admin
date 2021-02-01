@@ -53,6 +53,7 @@ const EventEdit = (props: any) => {
             // @ts-ignore
             validate={validateVenue}
             toolbar={<EventEditToolbar />}
+            sanitizeEmptyValues={false}
           >
             <ViewTitle source={'events.edit.title'} />
             <LanguageTabs
