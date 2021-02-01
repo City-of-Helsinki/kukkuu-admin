@@ -1,4 +1,7 @@
 {
+  "application": {
+    "test": "Test"
+  },
   "authentication": {
     "redirect": {
       "text": "Authenticating..."

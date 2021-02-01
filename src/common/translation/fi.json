@@ -1,4 +1,7 @@
 {
+  "application": {
+    "test": "Testi"
+  },
   "authentication": {
     "redirect": {
       "text": "Tunnistaudutaan..."
