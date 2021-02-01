@@ -16,6 +16,10 @@
 
 - Helper text from venue amenities field
 
+### Fixed
+
+- Event editing leading to an error when user set a non-required string value as empty
+
 ## [1.5.1] - 2021-01-19
 
 ### Added
