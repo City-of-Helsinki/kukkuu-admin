@@ -78,7 +78,6 @@ const VenueCreate = (props: any) => {
           <TextInput
             source={`${translation}.wcAndFacilities`}
             label="venues.fields.wcAndFacilities.label"
-            helperText="venues.fields.wcAndFacilities.helperText"
             multiline
             fullWidth
           />
