@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   spacer: {
     flex: 1,
   },
-  red: {
+  highlight: {
     backgroundColor: '#00D7A7',
   },
 });
@@ -32,7 +32,7 @@ const KukkuuAppBar = (props: any) => {
     <AppBar
       {...props}
       className={classNames(props.className, {
-        [classes.red]: isTestEnvironment,
+        [classes.highlight]: isTestEnvironment,
       })}
     >
       <Typography variant="h6" color="inherit" className={classes.title}>
