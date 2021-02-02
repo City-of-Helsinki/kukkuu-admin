@@ -42,6 +42,7 @@ export const eventsCreatePage = {
 export const eventsEditPage = {
   ...eventForm,
   deleteButton: screen.getAllByRole('button', { name: 'Poista' }).nth(1),
+  confirmDeleteButton: screen.getByRole('button', { name: 'Vahvista' }),
 };
 
 type CreateEvent = {
@@ -70,10 +71,9 @@ export async function deleteEvent(t: TestController) {
   // Delete the event
   await t.click(eventsEditPage.deleteButton);
 
-  // Click anywhere on the page to cancel the undo waiting time for
-  // completing the action
-  await t.click(eventsListPage.title);
+  // Confirm the delete
+  await t.click(eventsEditPage.confirmDeleteButton);
 
-  // Wait for undo timer to be canceled
+  // Wait for view data to sync
   await t.wait(100);
 }

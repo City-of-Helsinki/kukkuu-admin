@@ -30,7 +30,10 @@ const EventEditToolbar = (props: any) => {
   return (
     <Toolbar style={{ justifyContent: 'space-between' }} {...props}>
       <SaveButton />
-      <DeleteButton disabled={Boolean(props.record.occurrences.edges.length)} />
+      <DeleteButton
+        disabled={Boolean(props.record.occurrences.edges.length)}
+        undoable={props.undoable}
+      />
     </Toolbar>
   );
 };
