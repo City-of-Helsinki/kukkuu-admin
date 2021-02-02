@@ -7,6 +7,10 @@
 - Application title
 - Distinct test environment from production environment
 
+### Fixed
+
+- Missing labels in venue and event detail views
+
 ## [1.5.1] - 2021-01-19
 
 ### Added
