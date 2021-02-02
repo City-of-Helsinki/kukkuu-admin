@@ -10,6 +10,7 @@
 ### Fixed
 
 - Missing labels in venue and event detail views
+- Fix slow update od event and event group list by using confirmation pattern instead of undo pattern when deleting events
 
 ## [1.5.1] - 2021-01-19
 
