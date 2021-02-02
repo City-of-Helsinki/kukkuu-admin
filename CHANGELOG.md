@@ -11,6 +11,10 @@
 
 - Missing labels in venue and event detail views
 
+### Removed
+
+- Helper text from venue amenities field
+
 ## [1.5.1] - 2021-01-19
 
 ### Added
