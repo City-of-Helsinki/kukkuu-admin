@@ -44,6 +44,7 @@ const VenueEdit = (props: any) => {
             // @ts-ignore
             validate={validateVenue}
             toolbar={<VenueEditToolbar />}
+            sanitizeEmptyValues={false}
           >
             <ViewTitle source={`${translation}.name`} />
             <LanguageTabs
