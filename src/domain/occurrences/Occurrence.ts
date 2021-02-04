@@ -15,21 +15,33 @@ type OccurrenceType = {
 };
 
 class Occurrence {
-  occurrence: OccurrenceType;
+  occurrence?: OccurrenceType;
 
   constructor(occurrence: OccurrenceType) {
     this.occurrence = occurrence;
   }
 
   get time() {
+    if (!this.occurrence) {
+      return null;
+    }
+
     return toDateTimeString(new Date(this.occurrence.time));
   }
 
   get startTime() {
+    if (!this.occurrence) {
+      return null;
+    }
+
     return toTimeString(new Date(this.occurrence.time));
   }
 
   get endTime() {
+    if (!this.occurrence) {
+      return null;
+    }
+
     const duration = this.occurrence.event.duration; // minutes
 
     if (!duration) {
@@ -43,14 +55,26 @@ class Occurrence {
   }
 
   get duration() {
+    if (!this.occurrence) {
+      return null;
+    }
+
     return `${this.startTime} - ${this.endTime}`;
   }
 
   get occurrenceDateAndDuration() {
+    if (!this.occurrence) {
+      return null;
+    }
+
     return `${this.time} - ${this.endTime}`;
   }
 
   get title() {
+    if (!this.occurrence) {
+      return null;
+    }
+
     const translatedResourceName = i18nProvider.translate(
       'occurrences.show.title'
     );
