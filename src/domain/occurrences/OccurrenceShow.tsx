@@ -89,7 +89,7 @@ export const getBreadCrumbs = (record?: Record) =>
   new Occurrence(record as OccurrenceType).breadcrumbs;
 
 export const getTitle = (record?: Record) =>
-  new Occurrence(record as OccurrenceType).title;
+  new Occurrence(record as OccurrenceType).title || '';
 
 export const getChildFullName = (enrolmentEdge: EnrolmentEdge) =>
   `${enrolmentEdge.node?.child.firstName} ${enrolmentEdge.node?.child.lastName}`.trim();
