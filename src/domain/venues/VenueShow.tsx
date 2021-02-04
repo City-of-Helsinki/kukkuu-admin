@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, useTranslate, SimpleShowLayout } from 'react-admin';
 import { CardHeader } from '@material-ui/core';
+import omit from 'lodash/omit';
 
 import LanguageTabs from '../../common/components/languageTab/LanguageTabs';
 import { Language } from '../../api/generatedTypes/globalTypes';
@@ -23,7 +24,7 @@ const VenueShow = (props: any) => {
   const translation = `translations.${selectedLanguage}`;
 
   return (
-    <KukkuuShow {...props}>
+    <KukkuuShow {...omit(props, 'hasShow')}>
       <SimpleShowLayout>
         <VenueTitle />
         <LanguageTabs

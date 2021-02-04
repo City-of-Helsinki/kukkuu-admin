@@ -13,6 +13,7 @@ import {
   ArrayField,
 } from 'react-admin';
 import { CardHeader } from '@material-ui/core';
+import omit from 'lodash/omit';
 
 import { languageChoices } from '../../common/choices';
 import {
@@ -35,7 +36,7 @@ const ChildShow = (props: any) => {
   return (
     <>
       <CardHeader title={translate('children.show.title')} />
-      <KukkuuShow title="children.show.title" {...props}>
+      <KukkuuShow title="children.show.title" {...omit(props, 'hasShow')}>
         <SimpleShowLayout>
           <FunctionField
             label="children.fields.name.label"
