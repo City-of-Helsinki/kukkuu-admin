@@ -1,4 +1,5 @@
 import { ApolloQueryResult } from '@apollo/client';
+import pick from 'lodash/pick';
 
 import { MethodHandler, MethodHandlerParams } from '../../../api/types';
 import {
@@ -50,14 +51,15 @@ const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
 };
 
 const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
-  const {
-    publishedAt,
-    occurrences,
-    image,
-    name,
-    eventGroup,
-    ...localUpdateData
-  } = params.data;
+  const localUpdateData = pick(params.data, [
+    'id',
+    'duration',
+    'participantsPerInvite',
+    'capacityPerOccurrence',
+    'translations',
+    'readyForEventGroupPublishing',
+  ]);
+  const eventGroup = params.eventGroup;
   const data = mapLocalDataToApiData(localUpdateData);
 
   if (params.data.image) {
