@@ -31,8 +31,17 @@ describe('<EventGroupsDetailActions />', () => {
     expect(getByRole('button', { name: 'ra.action.edit' })).toBeTruthy();
   });
 
-  it('should render a publish button when there is data', () => {
-    const { getByRole } = getWrapper({ data: {} });
+  it('should render a publish button when there is data and the user has publish permissions', () => {
+    const { getByRole } = getWrapper({
+      data: {
+        project: {
+          id: '123',
+        },
+      },
+      permissions: {
+        canPublishWithinProject: () => true,
+      },
+    });
 
     expect(
       getByRole('button', { name: 'eventGroups.actions.publish.do' })
