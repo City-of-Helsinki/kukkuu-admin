@@ -1,13 +1,18 @@
 import React from 'react';
 import { TestContext } from 'react-admin';
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core';
 
+import authorizationService from '../../../authentication/authorizationService';
 import EventShowActions from '../EventShowActions';
 
 const defaultProps = {
-  data: {},
+  data: {
+    project: {
+      id: '123',
+    },
+  },
 };
 const getWrapper = (props) =>
   render(
@@ -25,12 +30,20 @@ describe('<EventShowActions />', () => {
     expect(getByRole('button', { name: 'ra.action.edit' })).toBeTruthy();
   });
 
-  it('should render event publish button', () => {
-    const { getByRole } = getWrapper();
+  describe('when the user has publish permissions', () => {
+    it('should render event publish button', async () => {
+      const { getByRole } = getWrapper({
+        permissions: {
+          canPublishWithinProject: () => true,
+        },
+      });
 
-    expect(
-      getByRole('button', { name: 'events.show.publish.button.label' })
-    ).toBeTruthy();
+      await waitFor(() =>
+        expect(
+          getByRole('button', { name: 'events.show.publish.button.label' })
+        ).toBeTruthy()
+      );
+    });
   });
 
   describe('when the event has an event group', () => {

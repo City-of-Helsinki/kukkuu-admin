@@ -3,9 +3,11 @@ import profileService from '../../profile/profileService';
 import authorizationService, { PERMISSIONS } from '../authorizationService';
 
 const setPermissions = (permissions = 'admin') => {
-  sessionStorage.setItem(PERMISSIONS, permissions);
+  sessionStorage.setItem(PERMISSIONS, JSON.stringify({ role: permissions }));
 
-  expect(sessionStorage.getItem(PERMISSIONS)).toBe(permissions);
+  expect(JSON.parse(sessionStorage.getItem(PERMISSIONS)).role).toBe(
+    permissions
+  );
 };
 
 describe('authorizationService', () => {
@@ -18,7 +20,16 @@ describe('authorizationService', () => {
       .mockResolvedValue({
         data: {
           projects: {
-            edges: [{ node: {} }],
+            edges: [
+              {
+                node: {
+                  id: '123',
+                  myPermissions: {
+                    publish: true,
+                  },
+                },
+              },
+            ],
           },
         },
       });
@@ -42,14 +53,18 @@ describe('authorizationService', () => {
       expect(dataProviderSpy).toHaveBeenCalledTimes(1);
     });
 
+    // eslint-disable-next-line max-len
     it('should save admin role into session storage when getMyAdminProfile call works and the profile has projects', async () => {
       expect.assertions(1);
 
       await authorizationService.fetchRole();
 
-      expect(sessionStorage.getItem(PERMISSIONS)).toEqual('admin');
+      expect(JSON.parse(sessionStorage.getItem(PERMISSIONS)).role).toEqual(
+        'admin'
+      );
     });
 
+    // eslint-disable-next-line max-len
     it('should save none role into session storage when getMyAdminProfile returns a profile that does not have projects', async () => {
       expect.assertions(1);
 
@@ -61,7 +76,9 @@ describe('authorizationService', () => {
 
       await authorizationService.fetchRole();
 
-      expect(sessionStorage.getItem(PERMISSIONS)).toEqual('none');
+      expect(JSON.parse(sessionStorage.getItem(PERMISSIONS)).role).toEqual(
+        'none'
+      );
     });
 
     it('should call profileService.profileServiceSpy', async () => {
@@ -70,6 +87,19 @@ describe('authorizationService', () => {
       await authorizationService.fetchRole();
 
       expect(profileServiceSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should set project permissions', async () => {
+      await authorizationService.fetchRole();
+
+      expect(JSON.parse(sessionStorage.getItem(PERMISSIONS)).projects)
+        .toMatchInlineSnapshot(`
+        Object {
+          "123": Array [
+            "publish",
+          ],
+        }
+      `);
     });
   });
 

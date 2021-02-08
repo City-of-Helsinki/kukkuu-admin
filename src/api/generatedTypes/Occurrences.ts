@@ -86,7 +86,7 @@ export interface Occurrences_occurrences_edges_node_enrolments_edges_node {
    */
   id: string;
   attended: boolean | null;
-  child: Occurrences_occurrences_edges_node_enrolments_edges_node_child;
+  child: Occurrences_occurrences_edges_node_enrolments_edges_node_child | null;
 }
 
 export interface Occurrences_occurrences_edges_node_enrolments_edges {

@@ -4,6 +4,11 @@ import { history } from '../application/App';
 import authService from './authService';
 import authorizationService from './authorizationService';
 
+export type Permissions = {
+  role: null | 'admin' | 'none';
+  canPublishWithinProject: (projectId?: string) => boolean | null;
+};
+
 const authProvider: AuthProvider = {
   login: (next?: string) => authService.login(next),
   logout: async () => {
@@ -49,10 +54,13 @@ const authProvider: AuthProvider = {
 
     return Promise.reject();
   },
-  getPermissions: () => {
+  getPermissions: (): Promise<Permissions> => {
     const role = authorizationService.getRole();
 
-    return Promise.resolve(role);
+    return Promise.resolve({
+      role,
+      canPublishWithinProject: authorizationService.canPublishWithinProject,
+    });
   },
 };
 

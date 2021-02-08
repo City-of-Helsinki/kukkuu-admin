@@ -61,6 +61,12 @@ export const eventQuery = gql`
           }
         }
       }
+      project {
+        id
+        myPermissions {
+          publish
+        }
+      }
     }
   }
 `;
