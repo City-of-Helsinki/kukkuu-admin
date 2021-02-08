@@ -10,6 +10,9 @@ export const myAdminProfileQuery = gql`
             id
             year
             name
+            myPermissions {
+              publish
+            }
           }
         }
       }

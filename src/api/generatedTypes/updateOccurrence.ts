@@ -75,7 +75,7 @@ export interface updateOccurrence_updateOccurrence_occurrence_enrolments_edges_n
    */
   id: string;
   attended: boolean | null;
-  child: updateOccurrence_updateOccurrence_occurrence_enrolments_edges_node_child;
+  child: updateOccurrence_updateOccurrence_occurrence_enrolments_edges_node_child | null;
 }
 
 export interface updateOccurrence_updateOccurrence_occurrence_enrolments_edges {

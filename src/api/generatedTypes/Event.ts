@@ -46,6 +46,14 @@ export interface Event_event_occurrences {
   edges: (Event_event_occurrences_edges | null)[];
 }
 
+export interface Event_event_project_myPermissions {
+  publish: boolean | null;
+}
+
+export interface Event_event_project {
+  myPermissions: Event_event_project_myPermissions | null;
+}
+
 export interface Event_event {
   /**
    * The ID of the object.
@@ -64,6 +72,7 @@ export interface Event_event {
   readyForEventGroupPublishing: boolean;
   eventGroup: Event_event_eventGroup | null;
   occurrences: Event_event_occurrences;
+  project: Event_event_project;
 }
 
 export interface Event {

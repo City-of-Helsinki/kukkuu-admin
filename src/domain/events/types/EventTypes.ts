@@ -12,4 +12,7 @@ export interface AdminEvent {
   translations: AdminUITranslation<Omit<ApiEventTranslation, 'languageCode'>>;
   eventGroup?: EventGroup;
   readyForEventGroupPublishing: boolean;
+  project: {
+    id: string;
+  };
 }

@@ -81,7 +81,10 @@ const EventShow = (props: ResourceComponentPropsWithId) => {
 
   return (
     <KukkuuDetailPage
-      reactAdminProps={{ ...props, actions: <EventShowActions /> }}
+      reactAdminProps={{
+        ...props,
+        actions: <EventShowActions permissions={props.permissions} />,
+      }}
       layout={KukkuuPageLayout}
       breadcrumbs={(record?: Record) => getCrumbs(record)}
       pageTitleSource="name"

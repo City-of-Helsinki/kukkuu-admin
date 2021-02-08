@@ -115,7 +115,13 @@ describe('authProvider', () => {
 
       jest.spyOn(authorizationService, 'getRole').mockReturnValue(role);
 
-      return expect(authProvider.getPermissions()).resolves.toEqual(role);
+      return expect(authProvider.getPermissions()).resolves
+        .toMatchInlineSnapshot(`
+                Object {
+                  "canPublishWithinProject": [Function],
+                  "role": "admin",
+                }
+              `);
     });
   });
 });

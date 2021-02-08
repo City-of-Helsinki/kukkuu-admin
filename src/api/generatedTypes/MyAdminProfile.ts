@@ -7,6 +7,10 @@
 // GraphQL query operation: MyAdminProfile
 // ====================================================
 
+export interface MyAdminProfile_myAdminProfile_projects_edges_node_myPermissions {
+  publish: boolean | null;
+}
+
 export interface MyAdminProfile_myAdminProfile_projects_edges_node {
   /**
    * The ID of the object.
@@ -14,6 +18,7 @@ export interface MyAdminProfile_myAdminProfile_projects_edges_node {
   id: string;
   year: number;
   name: string | null;
+  myPermissions: MyAdminProfile_myAdminProfile_projects_edges_node_myPermissions | null;
 }
 
 export interface MyAdminProfile_myAdminProfile_projects_edges {
@@ -35,7 +40,7 @@ export interface MyAdminProfile_myAdminProfile {
    * The ID of the object.
    */
   id: string;
-  projects: MyAdminProfile_myAdminProfile_projects;
+  projects: MyAdminProfile_myAdminProfile_projects | null;
 }
 
 export interface MyAdminProfile {

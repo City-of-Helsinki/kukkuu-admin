@@ -70,7 +70,7 @@ export const withGuardian = (
   hasRecord: (guardian: GuardianType) => string,
   otherwise: () => any
 ) => (enrollmentRecord: EnrolmentEdge) => {
-  const guardian = enrollmentRecord.node?.child.guardians.edges[0]?.node;
+  const guardian = enrollmentRecord.node?.child?.guardians.edges[0]?.node;
 
   if (guardian) {
     return hasRecord(guardian as GuardianType);
@@ -92,7 +92,7 @@ export const getTitle = (record?: Record) =>
   new Occurrence(record as OccurrenceType).title || '';
 
 export const getChildFullName = (enrolmentEdge: EnrolmentEdge) =>
-  `${enrolmentEdge.node?.child.firstName} ${enrolmentEdge.node?.child.lastName}`.trim();
+  `${enrolmentEdge.node?.child?.firstName} ${enrolmentEdge.node?.child?.lastName}`.trim();
 
 const OccurrenceShow = (props: any) => {
   const locale = useLocale();
