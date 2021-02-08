@@ -27,7 +27,7 @@ const EventShowActions = ({ basePath, data, permissions }: Props) => {
   const isPublished = Boolean(data?.publishedAt);
   const classes = useStyles();
 
-  const canPublish = permissions?.canPublishWithinProject(data?.project.id);
+  const canPublish = permissions?.canPublishWithinProject(data?.project?.id);
 
   return (
     <TopToolbar>
