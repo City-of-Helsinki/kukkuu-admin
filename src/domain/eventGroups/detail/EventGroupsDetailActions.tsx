@@ -18,11 +18,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EventGroupsDetailActions = ({ data, basePath }: any) => {
+const EventGroupsDetailActions = ({ data, basePath, permissions }: any) => {
   const t = useTranslate();
   const classes = useStyles();
 
   const isPublished = Boolean(data?.publishedAt);
+  const canPublish = permissions?.canPublishWithinProject(data?.project?.id);
 
   return (
     <TopToolbar className={classes.toolbar}>
@@ -31,7 +32,7 @@ const EventGroupsDetailActions = ({ data, basePath }: any) => {
         label={t('eventGroups.actions.addEvent.do')}
       />
       <EditButton basePath="/event-groups" record={data} />
-      {data && !isPublished && (
+      {data && !isPublished && canPublish && (
         <PublishEventGroupButton basePath={basePath} record={data} />
       )}
     </TopToolbar>

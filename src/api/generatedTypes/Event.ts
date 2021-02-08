@@ -51,6 +51,10 @@ export interface Event_event_project_myPermissions {
 }
 
 export interface Event_event_project {
+  /**
+   * The ID of the object.
+   */
+  id: string;
   myPermissions: Event_event_project_myPermissions | null;
 }
 

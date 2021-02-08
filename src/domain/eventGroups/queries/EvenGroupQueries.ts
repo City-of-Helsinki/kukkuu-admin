@@ -41,6 +41,9 @@ export const eventGroupQuery = gql`
           }
         }
       }
+      project {
+        id
+      }
     }
   }
 

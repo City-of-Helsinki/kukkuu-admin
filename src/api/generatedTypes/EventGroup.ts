@@ -70,6 +70,13 @@ export interface EventGroup_eventGroup_events {
   edges: (EventGroup_eventGroup_events_edges | null)[];
 }
 
+export interface EventGroup_eventGroup_project {
+  /**
+   * The ID of the object.
+   */
+  id: string;
+}
+
 export interface EventGroup_eventGroup {
   /**
    * The ID of the object.
@@ -79,6 +86,7 @@ export interface EventGroup_eventGroup {
   publishedAt: any | null;
   translations: EventGroup_eventGroup_translations[];
   events: EventGroup_eventGroup_events;
+  project: EventGroup_eventGroup_project;
 }
 
 export interface EventGroup {
