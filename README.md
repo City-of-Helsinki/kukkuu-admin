@@ -1,6 +1,5 @@
 [![codecov](https://codecov.io/gh/City-of-Helsinki/kukkuu-admin/branch/develop/graph/badge.svg)](https://codecov.io/gh/City-of-Helsinki/kukkuu-admin)
-![Build status](https://github.com/City-of-Helsinki/kukkuu-admin/workflows/CI/badge.svg)
-![Browser tests](https://github.com/City-of-Helsinki/kukkuu-admin/workflows/Browser%20tests/badge.svg)
+![Build & Staging](https://github.com/City-of-Helsinki/kukkuu-admin/workflows/Build%20&%20Staging%20&%20Accept/badge.svg)
 
 # Staff interface for Kulttuurin kummilapset / Culture Kids
 
@@ -133,7 +132,7 @@ For this command to work, you need to add the environment variables in the `kukk
 
 The `yarn test:browser:ci` variant of this command is meant to run in the CI, and it targets the staging server. It uses headless mode and may therefore behave differently compared to the local test runner.
 
-Travis is configured to run a cron job daily. The browser tests are hooked to this cron job and should be ran once per day against the `develop` branch. Should the test run fail, Travis won't send notifications so the results need to be checked "manually".
+Browser tests are ran against PR and staging environments when after they have been built and deployed.
 
 ## Debugging
 
