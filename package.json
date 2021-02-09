@@ -9,7 +9,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint --ext js,ts,tsx src",
     "graphql-types": "apollo client:codegen --target=typescript --no-addTypename --outputFlat src/api/generatedTypes",
-    "update-translations": "fetch-translations 1hmdfJ-iVIqsD4AN2vx2YMMM2BQs-en1xxsX2Vu5_7vY -l fi,en -o ./src/common/translation",
+    "update-translations": "fetch-translations 1lixUcdpxyEy5wVsI8b74_eoIvAjvPgNTcO0Ngy-WJ-c -l fi,en -o ./src/common/translation",
     "test:browser": "testcafe \"chrome --window-size='1920,1080'\" browser-tests/ --live",
     "test:browser:ci": "testcafe \"chrome:headless --disable-gpu --window-size='1920,1080'\" browser-tests/ -s takeOnFails=true --lang=fi-FI"
   },
