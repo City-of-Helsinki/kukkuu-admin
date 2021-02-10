@@ -26,6 +26,10 @@
 
 - [#140](https://github.com/City-of-Helsinki/kukkuu-admin/pull/140), [#145](https://github.com/City-of-Helsinki/kukkuu-admin/pull/145) Event editing leading to an error when user set a non-required string value as empty
 
+## [1.5.2] - 2021-01-28
+
+No changes to source. Transferred infrastructure.
+
 ## [1.5.1] - 2021-01-19
 
 ### Added
