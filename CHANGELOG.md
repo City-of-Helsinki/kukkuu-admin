@@ -2,26 +2,29 @@
 
 ## [Unreleased]
 
+## [1.5.3] - 2021-02-10
+
 ### Changed
 
-- Application title
-- Distinct test environment from production environment
-- Translation sheet to one controlled by the executive office
+- [#139](https://github.com/City-of-Helsinki/kukkuu-admin/pull/139) Application title
+- [#141](https://github.com/City-of-Helsinki/kukkuu-admin/pull/141) Distinct test environment from production environment
+- [#152](https://github.com/City-of-Helsinki/kukkuu-admin/pull/152) Translation sheet to one controlled by the executive office
+- [#148](https://github.com/City-of-Helsinki/kukkuu-admin/pull/148) Hide publish button if user does not have permission to publish
 
 ### Fixed
 
-- Missing labels in venue and event detail views
-- Fix slow update od event and event group list by using confirmation pattern instead of undo pattern when deleting events
-- Occurrence view crash on reload
-- Crashing venue editing field when re-entering after a successful edit
+- [#142](https://github.com/City-of-Helsinki/kukkuu-admin/pull/142) Missing labels in venue and event detail views
+- [#144](https://github.com/City-of-Helsinki/kukkuu-admin/pull/144) Slow update od event and event group list by using confirmation pattern instead of undo pattern when deleting events
+- [#147](https://github.com/City-of-Helsinki/kukkuu-admin/pull/147) Occurrence view crash on reload
+- [#151](https://github.com/City-of-Helsinki/kukkuu-admin/pull/151) Crashing venue editing field when re-entering after a successful edit
 
 ### Removed
 
-- Helper text from venue amenities field
+- [#143](https://github.com/City-of-Helsinki/kukkuu-admin/pull/143) Helper text from venue amenities field
 
 ### Fixed
 
-- Event editing leading to an error when user set a non-required string value as empty
+- [#140](https://github.com/City-of-Helsinki/kukkuu-admin/pull/140), [#145](https://github.com/City-of-Helsinki/kukkuu-admin/pull/145) Event editing leading to an error when user set a non-required string value as empty
 
 ## [1.5.1] - 2021-01-19
 
