@@ -72,7 +72,7 @@
     "fields": {
       "capacityPerOccurrence": {
         "helperText": "",
-        "label": "Capacity per occurrence"
+        "label": "Invitation count per occurrence"
       },
       "description": {
         "helperText": "",
@@ -140,7 +140,7 @@
         "label": "Short Description"
       },
       "totalCapacity": {
-        "label": "Total capacity"
+        "label": "Invitation count in total"
       },
       "ready": {
         "label": "Ready to be published",
@@ -341,7 +341,7 @@
         "label": "Capacity"
       },
       "capacityOverride": {
-        "label": "Occurrence capacity",
+        "label": "Occurrence invitation count",
         "helperText": ""
       },
       "children": {

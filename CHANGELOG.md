@@ -7,6 +7,7 @@
 - Application title
 - Distinct test environment from production environment
 - Translation sheet to one controlled by the executive office
+- Term capacity into invitation count
 
 ### Fixed
 
