@@ -17,14 +17,11 @@
 - [#144](https://github.com/City-of-Helsinki/kukkuu-admin/pull/144) Slow update od event and event group list by using confirmation pattern instead of undo pattern when deleting events
 - [#147](https://github.com/City-of-Helsinki/kukkuu-admin/pull/147) Occurrence view crash on reload
 - [#151](https://github.com/City-of-Helsinki/kukkuu-admin/pull/151) Crashing venue editing field when re-entering after a successful edit
+- [#140](https://github.com/City-of-Helsinki/kukkuu-admin/pull/140), [#145](https://github.com/City-of-Helsinki/kukkuu-admin/pull/145) Event editing leading to an error when user set a non-required string value as empty
 
 ### Removed
 
 - [#143](https://github.com/City-of-Helsinki/kukkuu-admin/pull/143) Helper text from venue amenities field
-
-### Fixed
-
-- [#140](https://github.com/City-of-Helsinki/kukkuu-admin/pull/140), [#145](https://github.com/City-of-Helsinki/kukkuu-admin/pull/145) Event editing leading to an error when user set a non-required string value as empty
 
 ## [1.5.2] - 2021-01-28
 
