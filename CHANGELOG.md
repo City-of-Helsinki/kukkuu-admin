@@ -2,8 +2,10 @@
 
 ## [Unreleased]
 
+## [1.5.4] - 2021-02-11
+
 ### Fixed
-- Production build API URL
+- [#154](https://github.com/City-of-Helsinki/kukkuu-admin/pull/154) Production build API URL
 
 ## [1.5.3] - 2021-02-10
 
