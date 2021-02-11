@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Fixed
+- Production build API URL
+
 ## [1.5.3] - 2021-02-10
 
 ### Changed

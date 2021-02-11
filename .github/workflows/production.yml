@@ -30,7 +30,7 @@ jobs:
           DOCKER_BUILD_ARG_REACT_APP_OIDC_CLIENT_ID: 'https://api.hel.fi/auth/kukkuu-admin-ui'
           DOCKER_BUILD_ARG_REACT_APP_OIDC_SCOPE: 'openid profile https://api.hel.fi/auth/kukkuuapiprod'
           DOCKER_BUILD_ARG_REACT_APP_KUKKUU_API_OIDC_SCOPE: 'https://api.hel.fi/auth/kukkuuapiprod'
-          DOCKER_BUILD_ARG_REACT_APP_API_URI: 'https://kukkuu-api.prod.hel.ninja/kukkuu/graphql'
+          DOCKER_BUILD_ARG_REACT_APP_API_URI: 'https://kukkuu.api.hel.fi/graphql'
           DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: 'https://c89ee3f57dc94ffd940d1df1a353b97f@sentry.hel.ninja/55'
 
   production:
