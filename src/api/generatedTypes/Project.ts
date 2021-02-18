@@ -20,6 +20,10 @@ export interface Project_project {
    */
   id: string;
   year: number;
+  /**
+   * Whether it is allowed to create events outside event groups.
+   */
+  singleEventsAllowed: boolean;
   translations: Project_project_translations[];
 }
 

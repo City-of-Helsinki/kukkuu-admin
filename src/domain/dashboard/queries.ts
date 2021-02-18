@@ -5,6 +5,7 @@ export const projectQuery = gql`
     project(id: $id) {
       id
       year
+      singleEventsAllowed
       translations {
         languageCode
         name

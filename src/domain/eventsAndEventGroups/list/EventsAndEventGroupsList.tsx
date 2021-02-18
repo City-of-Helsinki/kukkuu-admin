@@ -8,6 +8,7 @@ import {
   TopToolbar,
   CreateButton,
   ReactAdminComponentProps,
+  useQuery,
 } from 'react-admin';
 import { makeStyles } from '@material-ui/core';
 
@@ -21,6 +22,7 @@ import { toDateTimeString } from '../../../common/utils';
 import PublishedField from '../../../common/components/publishedField/PublishedField';
 import KukkuuListPage from '../../application/layout/kukkuuListPage/KukkuuListPage';
 import { countCapacity, countOccurrences } from '../../events/utils';
+import ProfileService from '../../profile/profileService';
 
 const useEventsAndEventGroupsListToolbarStyles = makeStyles((theme) => ({
   toolbar: {
@@ -34,6 +36,13 @@ const useEventsAndEventGroupsListToolbarStyles = makeStyles((theme) => ({
 const EventsAndEventGroupsListToolbar = ({ data }: any) => {
   const t = useTranslate();
   const classes = useEventsAndEventGroupsListToolbarStyles();
+  const { data: profileData } = useQuery({
+    type: 'getOne',
+    resource: 'projects',
+    payload: {
+      id: ProfileService.projectId,
+    },
+  });
 
   return (
     <TopToolbar className={classes.toolbar}>
@@ -43,7 +52,7 @@ const EventsAndEventGroupsListToolbar = ({ data }: any) => {
           label={t('eventGroups.actions.create.do')}
         />
       )}
-      {data && (
+      {data && profileData?.singleEventsAllowed && (
         <CreateButton basePath="events" label={t('events.actions.create')} />
       )}
     </TopToolbar>
