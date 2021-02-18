@@ -2,9 +2,14 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Hide create event button when project does not allow loose events
+
 ## [1.5.4] - 2021-02-11
 
 ### Fixed
+
 - [#154](https://github.com/City-of-Helsinki/kukkuu-admin/pull/154) Production build API URL
 
 ## [1.5.3] - 2021-02-10
