@@ -26,7 +26,12 @@ describe('<EventGroupsDetailActions />', () => {
   });
 
   it('should show an edit button', () => {
-    const { getByRole } = getWrapper();
+    const { getByRole } = getWrapper({
+      permissions: {
+        canPublishWithinProject: () => true,
+        canManageEventGroupsWithinProject: () => true,
+      },
+    });
 
     expect(getByRole('button', { name: 'ra.action.edit' })).toBeTruthy();
   });
@@ -40,6 +45,7 @@ describe('<EventGroupsDetailActions />', () => {
       },
       permissions: {
         canPublishWithinProject: () => true,
+        canManageEventGroupsWithinProject: () => true,
       },
     });
 
