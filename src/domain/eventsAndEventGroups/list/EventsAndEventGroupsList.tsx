@@ -36,7 +36,7 @@ const useEventsAndEventGroupsListToolbarStyles = makeStyles((theme) => ({
 const EventsAndEventGroupsListToolbar = ({ data }: any) => {
   const t = useTranslate();
   const classes = useEventsAndEventGroupsListToolbarStyles();
-  const { data: profileData } = useQuery({
+  const { data: projectData } = useQuery({
     type: 'getOne',
     resource: 'projects',
     payload: {
@@ -52,7 +52,7 @@ const EventsAndEventGroupsListToolbar = ({ data }: any) => {
           label={t('eventGroups.actions.create.do')}
         />
       )}
-      {data && profileData?.singleEventsAllowed && (
+      {data && projectData?.singleEventsAllowed && (
         <CreateButton basePath="events" label={t('events.actions.create')} />
       )}
     </TopToolbar>
