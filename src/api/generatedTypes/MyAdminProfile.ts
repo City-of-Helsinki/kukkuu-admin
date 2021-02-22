@@ -9,6 +9,7 @@
 
 export interface MyAdminProfile_myAdminProfile_projects_edges_node_myPermissions {
   publish: boolean | null;
+  manageEventGroups: boolean | null;
 }
 
 export interface MyAdminProfile_myAdminProfile_projects_edges_node {

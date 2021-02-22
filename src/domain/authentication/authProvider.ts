@@ -60,6 +60,8 @@ const authProvider: AuthProvider = {
     return Promise.resolve({
       role,
       canPublishWithinProject: authorizationService.canPublishWithinProject,
+      canManageEventGroupsWithinProject:
+        authorizationService.canManageEventGroupsWithinProject,
     });
   },
 };

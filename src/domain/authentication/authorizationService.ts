@@ -52,6 +52,9 @@ export class AuthorizationService {
     this.getRole = this.getRole.bind(this);
     this.clear = this.clear.bind(this);
     this.canPublishWithinProject = this.canPublishWithinProject.bind(this);
+    this.canManageEventGroupsWithinProject = this.canManageEventGroupsWithinProject.bind(
+      this
+    );
   }
 
   private get permissionStorage(): null | PermissionStorage {
@@ -98,6 +101,16 @@ export class AuthorizationService {
     const projectPermissions = this.getProjectPermissions(projectId);
 
     return projectPermissions.includes('publish');
+  }
+
+  canManageEventGroupsWithinProject(projectId?: string) {
+    if (!projectId) {
+      return null;
+    }
+
+    const projectPermissions = this.getProjectPermissions(projectId);
+
+    return projectPermissions.includes('manageEventGroups');
   }
 
   private getProjectPermissions(projectId: string) {

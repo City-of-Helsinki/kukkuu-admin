@@ -12,6 +12,7 @@ export const myAdminProfileQuery = gql`
             name
             myPermissions {
               publish
+              manageEventGroups
             }
           }
         }
