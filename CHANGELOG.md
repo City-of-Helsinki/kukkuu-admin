@@ -5,6 +5,7 @@
 ### Changed
 
 - Hide create event button when project does not allow loose events
+- Hide event group create and edit button when the user is not authorized with CRUD permissions
 
 ## [1.5.4] - 2021-02-11
 
