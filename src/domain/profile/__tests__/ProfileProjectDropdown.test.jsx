@@ -4,7 +4,7 @@ import { render, fireEvent } from '@testing-library/react';
 import * as DataProvider from 'ra-core/lib/dataProvider';
 import * as SideEffect from 'ra-core/lib/sideEffect';
 
-import profileService from '../profileService';
+import projectService from '../../projects/projectService';
 import ProfileProjectDropdown from '../ProfileProjectDropdown';
 
 const getWrapper = () =>
@@ -37,7 +37,7 @@ const getProjects = (projects) => ({
 
 describe('<ProfileProjectDropdown />', () => {
   beforeEach(() => {
-    jest.spyOn(profileService, 'projectId', 'get').mockReturnValue('1');
+    jest.spyOn(projectService, 'projectId', 'get').mockReturnValue('1');
   });
 
   it('should render null when loading', () => {
@@ -71,7 +71,7 @@ describe('<ProfileProjectDropdown />', () => {
   });
 
   it('should render null when there is not selected project', () => {
-    jest.spyOn(profileService, 'projectId', 'get').mockReturnValue(null);
+    jest.spyOn(projectService, 'projectId', 'get').mockReturnValue(null);
     jest
       .spyOn(DataProvider, 'useQueryWithStore')
       .mockReturnValue({ loading: false, data: getProjects(projects) });
@@ -97,7 +97,7 @@ describe('<ProfileProjectDropdown />', () => {
       loading: false,
       data: getProjects(projects),
     });
-    const projectServiceSpy = jest.spyOn(profileService, 'projectId', 'set');
+    const projectServiceSpy = jest.spyOn(projectService, 'projectId', 'set');
     const mockRefresh = jest.fn();
     const refreshSpy = jest
       .spyOn(SideEffect, 'useRefresh')

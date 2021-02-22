@@ -7,7 +7,7 @@ import {
   mutationHandler,
 } from '../../../api/utils/apiUtils';
 import RelayList from '../../../api/relayList';
-import profileService from '../../profile/profileService';
+import projectService from '../../projects/projectService';
 import { eventGroupQuery } from '../queries/EvenGroupQueries';
 import {
   addEventGroupMutation,
@@ -39,7 +39,7 @@ async function addEventGroup(params: MethodHandlerParams) {
     variables: {
       input: {
         ...data,
-        projectId: profileService.projectId,
+        projectId: projectService.projectId,
       },
     },
   });
@@ -52,7 +52,7 @@ async function updateEventGroup(params: MethodHandlerParams) {
   const input = {
     id,
     translations,
-    projectId: profileService.projectId,
+    projectId: projectService.projectId,
   };
   const cleanedInput = mapLocalDataToApiData(input);
   const response = await mutationHandler({

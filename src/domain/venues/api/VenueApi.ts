@@ -17,7 +17,7 @@ import {
   handleApiConnection,
 } from '../../../api/utils/apiUtils';
 import { AdminVenue } from '../types/VenueTypes';
-import profileService from '../../profile/profileService';
+import projectService from '../../projects/projectService';
 
 /**
  * Get list of venues
@@ -25,7 +25,7 @@ import profileService from '../../profile/profileService';
 const getVenues: MethodHandler = async (params: MethodHandlerParams) => {
   const response: ApolloQueryResult<ApiVenues> = await queryHandler({
     query: venuesQuery,
-    variables: { projectId: profileService.projectId },
+    variables: { projectId: projectService.projectId },
   });
   return handleApiConnection(response.data.venues);
 };
@@ -40,7 +40,7 @@ const getVenue: MethodHandler = async (params: MethodHandlerParams) => {
 
 const addVenue: MethodHandler = async (params: MethodHandlerParams) => {
   const data = mapLocalDataToApiData(params.data as AdminVenue);
-  data['projectId'] = profileService.projectId;
+  data['projectId'] = projectService.projectId;
   const response = await mutationHandler({
     mutation: addVenueMutation,
     variables: { input: data },

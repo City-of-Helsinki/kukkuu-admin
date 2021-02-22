@@ -4,7 +4,7 @@ import {
 } from '../../api/generatedTypes/MyAdminProfile';
 import RelayList from '../../api/relayList';
 import dataProvider from '../../api/dataProvider';
-import projectService from '../profile/profileService';
+import projectService from '../projects/projectService';
 
 export const PERMISSIONS = 'permissions';
 

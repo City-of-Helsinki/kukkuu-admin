@@ -22,7 +22,7 @@ import { toDateTimeString } from '../../../common/utils';
 import PublishedField from '../../../common/components/publishedField/PublishedField';
 import KukkuuListPage from '../../application/layout/kukkuuListPage/KukkuuListPage';
 import { countCapacity, countOccurrences } from '../../events/utils';
-import ProfileService from '../../profile/profileService';
+import projectService from '../../projects/projectService';
 
 const useEventsAndEventGroupsListToolbarStyles = makeStyles((theme) => ({
   toolbar: {
@@ -40,12 +40,12 @@ const EventsAndEventGroupsListToolbar = ({ data, permissions }: any) => {
     type: 'getOne',
     resource: 'projects',
     payload: {
-      id: ProfileService.projectId,
+      id: projectService.projectId,
     },
   });
 
   const canManageEventGroups = permissions?.canManageEventGroupsWithinProject(
-    ProfileService.projectId
+    projectService.projectId
   );
 
   return (

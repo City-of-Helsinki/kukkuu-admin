@@ -17,12 +17,12 @@ import {
   updateEventMutation,
   deleteEventMutation,
 } from '../mutations/EventMutations';
-import profileService from '../../profile/profileService';
+import projectService from '../../projects/projectService';
 
 const getEvents: MethodHandler = async (params: MethodHandlerParams) => {
   const response = await queryHandler({
     query: eventsQuery,
-    variables: { projectId: profileService.projectId },
+    variables: { projectId: projectService.projectId },
   });
   return handleApiConnection(response.data.events);
 };
@@ -37,7 +37,7 @@ const getEvent: MethodHandler = async (params: MethodHandlerParams) => {
 
 const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
   const data = mapLocalDataToApiData(params.data);
-  data['projectId'] = profileService.projectId;
+  data['projectId'] = projectService.projectId;
   if (params.data.image) {
     data.image = params.data.image.rawFile;
   }

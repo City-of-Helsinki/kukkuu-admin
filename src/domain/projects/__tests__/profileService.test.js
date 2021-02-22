@@ -1,14 +1,14 @@
-import profileService from '../profileService';
+import projectService from '../projectService';
 
-describe('profileService', () => {
+describe('projectService', () => {
   describe('projectId', () => {
     it('should allow project id to be set and got', () => {
-      expect(profileService.projectId).toEqual(null);
+      expect(projectService.projectId).toEqual(null);
 
-      profileService.projectId = '1';
+      projectService.projectId = '1';
 
       expect(localStorage.setItem).toHaveBeenCalledTimes(1);
-      expect(profileService.projectId).toEqual('1');
+      expect(projectService.projectId).toEqual('1');
       expect(localStorage.getItem).toHaveBeenCalledTimes(2);
     });
   });
@@ -26,25 +26,25 @@ describe('profileService', () => {
         },
       ];
 
-      profileService.setDefaultProjectId(projects);
+      projectService.setDefaultProjectId(projects);
 
-      expect(profileService.projectId).toEqual('1');
+      expect(projectService.projectId).toEqual('1');
     });
   });
 
   describe('clear', () => {
     it('should clear localStorage of data from this service', () => {
-      profileService.clear();
+      projectService.clear();
 
       expect(localStorage.removeItem).toHaveBeenCalledTimes(1);
     });
 
     it('should clear project id', () => {
-      profileService.projectId = '1';
+      projectService.projectId = '1';
 
-      profileService.clear();
+      projectService.clear();
 
-      expect(profileService.projectId).toEqual(null);
+      expect(projectService.projectId).toEqual(null);
     });
   });
 });
