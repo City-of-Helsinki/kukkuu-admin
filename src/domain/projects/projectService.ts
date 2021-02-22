@@ -3,7 +3,7 @@ import { MyAdminProfile_myAdminProfile_projects_edges_node as ProjectNode } from
 
 const PROJECT_ID_KEY = 'projectId';
 
-class ProfileService {
+class ProjectService {
   set projectId(id: string | null) {
     if (id) {
       localStorage.setItem(PROJECT_ID_KEY, id);
@@ -29,4 +29,4 @@ class ProfileService {
   }
 }
 
-export default new ProfileService();
+export default new ProjectService();

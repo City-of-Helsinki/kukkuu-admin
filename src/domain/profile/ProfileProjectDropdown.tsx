@@ -9,7 +9,7 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 // eslint-disable-next-line max-len
 import { MyAdminProfile_myAdminProfile_projects_edges_node as ProjectNode } from '../../api/generatedTypes/MyAdminProfile';
 import RelayList from '../../api/relayList';
-import profileService from './profileService';
+import projectService from '../projects/projectService';
 
 const ProjectList = RelayList<ProjectNode>();
 
@@ -37,7 +37,7 @@ const ProfileProjectDropdown = () => {
   const handleMenuItemClick = (event: any) => {
     const value = event.target.dataset.value;
 
-    profileService.projectId = value as string;
+    projectService.projectId = value as string;
 
     refresh();
     handleClose();
@@ -62,7 +62,7 @@ const ProfileProjectDropdown = () => {
   }
 
   const selectedProject = projects.find(
-    (project) => project.id === profileService.projectId
+    (project) => project.id === projectService.projectId
   ) as ProjectNode;
 
   if (!selectedProject) {

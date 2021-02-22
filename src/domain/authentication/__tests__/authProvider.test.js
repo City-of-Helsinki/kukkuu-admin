@@ -1,5 +1,5 @@
 import { history } from '../../application/App';
-import profileService from '../../profile/profileService';
+import projectService from '../../projects/projectService';
 import authProvider from '../authProvider';
 import authService from '../authService';
 import authorizationService from '../authorizationService';
@@ -11,7 +11,7 @@ describe('authProvider', () => {
 
   beforeEach(() => {
     jest.restoreAllMocks();
-    projectIdSpy = jest.spyOn(profileService, 'projectId', 'get');
+    projectIdSpy = jest.spyOn(projectService, 'projectId', 'get');
   });
 
   describe('login', () => {

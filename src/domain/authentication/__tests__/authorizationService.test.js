@@ -1,5 +1,5 @@
 import dataProvider from '../../../api/dataProvider';
-import profileService from '../../profile/profileService';
+import projectService from '../../projects/projectService';
 import authorizationService, { PERMISSIONS } from '../authorizationService';
 
 const setPermissions = (permissions = 'admin') => {
@@ -12,7 +12,7 @@ const setPermissions = (permissions = 'admin') => {
 
 describe('authorizationService', () => {
   let dataProviderSpy;
-  let profileServiceSpy;
+  let projectServiceSpy;
 
   beforeEach(() => {
     dataProviderSpy = jest
@@ -33,8 +33,8 @@ describe('authorizationService', () => {
           },
         },
       });
-    profileServiceSpy = jest
-      .spyOn(profileService, 'setDefaultProjectId')
+    projectServiceSpy = jest
+      .spyOn(projectService, 'setDefaultProjectId')
       .mockReturnValue();
   });
 
@@ -81,12 +81,12 @@ describe('authorizationService', () => {
       );
     });
 
-    it('should call profileService.profileServiceSpy', async () => {
+    it('should call projectService.projectServiceSpy', async () => {
       expect.assertions(1);
 
       await authorizationService.fetchRole();
 
-      expect(profileServiceSpy).toHaveBeenCalledTimes(1);
+      expect(projectServiceSpy).toHaveBeenCalledTimes(1);
     });
 
     it('should set project permissions', async () => {

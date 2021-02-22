@@ -8,7 +8,7 @@ import {
 import axios from 'axios';
 import * as Sentry from '@sentry/browser';
 
-import profileService from '../profile/profileService';
+import projectService from '../projects/projectService';
 import authorizationService from './authorizationService';
 
 const origin = window.location.origin;
@@ -117,7 +117,7 @@ export class AuthService {
 
   public async logout(): Promise<void> {
     localStorage.removeItem(API_TOKEN);
-    profileService.clear();
+    projectService.clear();
     this.userManager.clearStaleState();
     authorizationService.clear();
     await this.userManager.signoutRedirect();

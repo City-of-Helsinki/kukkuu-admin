@@ -12,7 +12,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import * as Sentry from '@sentry/browser';
 
-import profileService from '../profile/profileService';
+import projectService from '../projects/projectService';
 import { getTranslatedField } from '../../common/translation/TranslationUtils';
 
 export default () => {
@@ -26,7 +26,7 @@ export default () => {
     {
       type: 'getOne',
       resource: 'projects',
-      payload: { id: profileService.projectId },
+      payload: { id: projectService.projectId },
     },
     {
       onFailure: (error: Error) => {
