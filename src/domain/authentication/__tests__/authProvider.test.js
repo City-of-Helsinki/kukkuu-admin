@@ -118,6 +118,7 @@ describe('authProvider', () => {
       return expect(authProvider.getPermissions()).resolves
         .toMatchInlineSnapshot(`
                 Object {
+                  "canManageEventGroupsWithinProject": [Function],
                   "canPublishWithinProject": [Function],
                   "role": "admin",
                 }

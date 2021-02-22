@@ -33,7 +33,7 @@ const useEventsAndEventGroupsListToolbarStyles = makeStyles((theme) => ({
   },
 }));
 
-const EventsAndEventGroupsListToolbar = ({ data }: any) => {
+const EventsAndEventGroupsListToolbar = ({ data, permissions }: any) => {
   const t = useTranslate();
   const classes = useEventsAndEventGroupsListToolbarStyles();
   const { data: projectData } = useQuery({
@@ -44,9 +44,13 @@ const EventsAndEventGroupsListToolbar = ({ data }: any) => {
     },
   });
 
+  const canManageEventGroups = permissions?.canManageEventGroupsWithinProject(
+    ProfileService.projectId
+  );
+
   return (
     <TopToolbar className={classes.toolbar}>
-      {data && (
+      {data && canManageEventGroups && (
         <CreateButton
           basePath="event-groups"
           label={t('eventGroups.actions.create.do')}
@@ -112,7 +116,9 @@ const EventsAndEventGroupsList = (props: ReactAdminComponentProps) => {
       pageTitle={translate('events.list.title')}
       reactAdminProps={{
         ...props,
-        actions: <EventsAndEventGroupsListToolbar />,
+        actions: (
+          <EventsAndEventGroupsListToolbar permissions={props.permissions} />
+        ),
       }}
       datagridProps={{
         rowClick: handleRowClick,
