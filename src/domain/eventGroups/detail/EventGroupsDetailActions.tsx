@@ -24,6 +24,9 @@ const EventGroupsDetailActions = ({ data, basePath, permissions }: any) => {
 
   const isPublished = Boolean(data?.publishedAt);
   const canPublish = permissions?.canPublishWithinProject(data?.project?.id);
+  const canManageEventGroups = permissions?.canManageEventGroupsWithinProject(
+    data?.project?.id
+  );
 
   return (
     <TopToolbar className={classes.toolbar}>
@@ -31,7 +34,9 @@ const EventGroupsDetailActions = ({ data, basePath, permissions }: any) => {
         to={`/events/create?eventGroupId=${data?.id}`}
         label={t('eventGroups.actions.addEvent.do')}
       />
-      <EditButton basePath="/event-groups" record={data} />
+      {canManageEventGroups && (
+        <EditButton basePath="/event-groups" record={data} />
+      )}
       {data && !isPublished && canPublish && (
         <PublishEventGroupButton basePath={basePath} record={data} />
       )}
