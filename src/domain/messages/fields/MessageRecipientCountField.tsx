@@ -17,7 +17,7 @@ const MessageRecipientCountField = ({ record }: any) => {
   const classes = useStyles();
 
   const sentAt = record?.sentAt;
-  const recipientCount = record?.recipientCount || '?';
+  const recipientCount = record?.recipientCount;
 
   // If message is sent, the recipient count is shown under the message
   // title and we don't need to show it in the message body.
