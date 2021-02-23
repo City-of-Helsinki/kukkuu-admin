@@ -7,6 +7,10 @@
 - Hide create event button when project does not allow loose events
 - Hide event group create and edit button when the user is not authorized with CRUD permissions
 
+### Fixed
+
+- Zero recipient count being shown as a question mark
+
 ## [1.5.4] - 2021-02-11
 
 ### Fixed
