@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Test label in the login view int he test environment
+
 ### Changed
 
 - Hide create event button when project does not allow loose events
