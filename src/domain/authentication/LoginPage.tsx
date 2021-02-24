@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { RouteComponentProps, StaticContext } from 'react-router';
 
 import theme from '../../common/materialUI/themeConfig';
+import IsTestEnvironmentLabel from '../../common/components/isTestEnvironmentLabel/IsTestEnvironmentLabel';
 
 const useStyles = makeStyles({
   container: {
@@ -45,7 +46,10 @@ const LoginPage = ({ location }: Props) => {
         <Card>
           <CardContent>
             <div className={classes.container}>
-              <p>{translate('dashboard.title')}</p>
+              <p>
+                {translate('dashboard.title')}
+                <IsTestEnvironmentLabel />
+              </p>
               <Button
                 className={classes.button}
                 variant="contained"
