@@ -10,6 +10,7 @@
 ### Fixed
 
 - Zero recipient count being shown as a question mark
+- Image being unremovable after saving
 
 ## [1.5.4] - 2021-02-11
 

@@ -64,6 +64,8 @@ const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
 
   if (params.data.image) {
     data.image = params.data.image.rawFile;
+  } else {
+    data.image = '';
   }
   data.eventGroupId = eventGroup ? eventGroup.id : null;
 
