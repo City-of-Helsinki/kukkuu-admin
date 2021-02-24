@@ -7,8 +7,13 @@ import { RouteComponentProps, StaticContext } from 'react-router';
 
 import theme from '../../common/materialUI/themeConfig';
 import IsTestEnvironmentLabel from '../../common/components/isTestEnvironmentLabel/IsTestEnvironmentLabel';
+import Config from '../config';
 
-const useStyles = makeStyles({
+type StyleProps = {
+  isTest: boolean;
+};
+
+const useStyles = makeStyles<null, StyleProps>({
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -18,6 +23,10 @@ const useStyles = makeStyles({
   button: {
     marginTop: '1rem',
     width: '100%',
+    backgroundColor: (props) => (props.isTest ? '#00D7A7' : undefined),
+    '&:hover': {
+      backgroundColor: (props) => (props.isTest ? '#00a17d' : undefined),
+    },
   },
 });
 
@@ -30,7 +39,7 @@ type Props = RouteComponentProps<
 >;
 
 const LoginPage = ({ location }: Props) => {
-  const classes = useStyles();
+  const classes = useStyles({ isTest: Config.IS_TEST_ENVIRONMENT });
   const translate = useTranslate();
   const login = useLogin();
 
