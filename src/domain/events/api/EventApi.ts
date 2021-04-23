@@ -59,7 +59,6 @@ const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
     'translations',
     'readyForEventGroupPublishing',
   ]);
-  const eventGroup = params.eventGroup;
   const data = mapLocalDataToApiData(localUpdateData);
 
   if (params.data.image) {
@@ -67,7 +66,6 @@ const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
   } else {
     data.image = '';
   }
-  data.eventGroupId = eventGroup ? eventGroup.id : null;
 
   const response = await mutationHandler({
     mutation: updateEventMutation,
