@@ -15,6 +15,7 @@
 
 - Zero recipient count being shown as a question mark
 - Image being unremovable after saving
+- Event editing causing its event group to be nullified
 
 ## [1.5.4] - 2021-02-11
 
