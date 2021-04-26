@@ -2,20 +2,22 @@
 
 ## [Unreleased]
 
+## [1.5.5] - 2021-04-26
+
 ### Added
 
-- Test label in the login view int he test environment
+- [#161](https://github.com/City-of-Helsinki/kukkuu-admin/pull/161) Test label in the login view in the test environment
 
 ### Changed
 
-- Hide create event button when project does not allow loose events
-- Hide event group create and edit button when the user is not authorized with CRUD permissions
+- [#157](https://github.com/City-of-Helsinki/kukkuu-admin/pull/157) Hide create event button when project does not allow loose events
+- [#158](https://github.com/City-of-Helsinki/kukkuu-admin/pull/158) Hide event group create and edit button when the user is not authorized with CRUD permissions
 
 ### Fixed
 
-- Zero recipient count being shown as a question mark
-- Image being unremovable after saving
-- Event editing causing its event group to be nullified
+- [#159](https://github.com/City-of-Helsinki/kukkuu-admin/pull/159) Zero recipient count being shown as a question mark
+- [#160](https://github.com/City-of-Helsinki/kukkuu-admin/pull/160) Image being unremovable after saving
+- [#165](https://github.com/City-of-Helsinki/kukkuu-admin/pull/165) Event editing causing its event group to be nullified
 
 ## [1.5.4] - 2021-02-11
 
