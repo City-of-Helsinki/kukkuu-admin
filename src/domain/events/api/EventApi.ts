@@ -58,6 +58,7 @@ const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
     'capacityPerOccurrence',
     'translations',
     'readyForEventGroupPublishing',
+    'ticketSystem.type',
   ]);
   const data = mapLocalDataToApiData(localUpdateData);
 

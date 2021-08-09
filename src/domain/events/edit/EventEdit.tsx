@@ -21,7 +21,7 @@ import {
   validateParticipantsPerInvite,
   validateShortDescription,
 } from '../validations';
-import { participantsPerInviteChoices } from '../choices';
+import { participantsPerInviteChoices, ticketSystemChoices } from '../choices';
 import ImageUploadField from '../../../common/components/imageField/ImageUploadField';
 import ViewTitle from '../../../common/components/viewTitle/ViewTitle';
 import KukkuuEdit from '../../application/layout/kukkuuEditPage/KukkuuEdit';
@@ -122,6 +122,12 @@ const EventEdit = (props: any) => {
               label="events.fields.duration.label"
               helperText="events.fields.duration.helperText"
               validate={validateDuration}
+              fullWidth
+            />
+            <SelectInput
+              source="ticketSystem.type"
+              label="events.fields.ticketSystem.label"
+              choices={ticketSystemChoices}
               fullWidth
             />
           </SimpleForm>
