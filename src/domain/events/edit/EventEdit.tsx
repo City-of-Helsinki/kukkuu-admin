@@ -38,6 +38,10 @@ const EventEditToolbar = (props: any) => {
   );
 };
 
+const TicketSystemInput = (props: any) => (
+  <SelectInput disabled={!!props.record?.publishedAt} {...props} />
+);
+
 const EventEdit = (props: any) => {
   const translate = useTranslate();
   const [selectedLanguage, selectLanguage] = useState(Language.FI);
@@ -124,7 +128,7 @@ const EventEdit = (props: any) => {
               validate={validateDuration}
               fullWidth
             />
-            <SelectInput
+            <TicketSystemInput
               source="ticketSystem.type"
               label="events.fields.ticketSystem.label"
               choices={ticketSystemChoices}
