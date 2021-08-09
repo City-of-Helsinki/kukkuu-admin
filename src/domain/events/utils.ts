@@ -62,7 +62,7 @@ export function countEnrollments(
 type RecordWithTicketSystem = {
   ticketSystem: {
     type: TicketSystem;
-  };
+  } | null;
 };
 
 export function hasInternalTicketSystem(record?: RecordWithTicketSystem) {
