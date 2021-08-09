@@ -379,6 +379,9 @@
       "freeSpotNotificationSubscriptions": {
         "label": "In Queue"
       },
+      "ticketSystemUrl": {
+        "label": "Ticket system URL"
+      },
       "time": {
         "fields": {
           "date": {

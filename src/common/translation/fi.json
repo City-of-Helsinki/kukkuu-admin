@@ -379,6 +379,9 @@
       "freeSpotNotificationSubscriptions": {
         "label": "Jonossa"
       },
+      "ticketSystemUrl": {
+        "label": "Lippujärjestelmän URL-osoite"
+      },
       "time": {
         "fields": {
           "date": {

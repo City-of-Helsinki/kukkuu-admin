@@ -16,6 +16,7 @@ import {
   ResourceComponentPropsWithId,
   Record,
   useShowController,
+  UrlField,
 } from 'react-admin';
 import { withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
@@ -177,6 +178,12 @@ const EventShow = (props: ResourceComponentPropsWithId) => {
                   label="occurrences.fields.freeSpotNotificationSubscriptions.label"
                   textAlign="right"
                   emptyText="0"
+                />
+              )}
+              {!internalTicketSystem && (
+                <UrlField
+                  source="ticketSystem.url"
+                  label="occurrences.fields.ticketSystemUrl.label"
                 />
               )}
             </Datagrid>
