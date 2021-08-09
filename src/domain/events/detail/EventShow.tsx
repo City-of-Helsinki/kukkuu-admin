@@ -15,6 +15,7 @@ import {
   Button,
   ResourceComponentPropsWithId,
   Record,
+  useShowController,
 } from 'react-admin';
 import { withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
@@ -29,8 +30,10 @@ import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPa
 import KukkuuDetailPage from '../../application/layout/kukkuuDetailPage/KukkuuDetailPage';
 import OccurrenceTimeRangeField from '../../occurrences/fields/OccurrenceTimeRangeField';
 import { PublishedField } from '../fields';
-import { participantsPerInviteChoices } from '../choices';
+import { participantsPerInviteChoices, ticketSystemChoices } from '../choices';
 import EventShowActions from './EventShowActions';
+import { hasInternalTicketSystem } from '../utils';
+import { AdminEvent } from '../types/EventTypes';
 
 const styles = createStyles({
   button: {
@@ -60,6 +63,8 @@ const EventShow = (props: ResourceComponentPropsWithId) => {
   const locale = useLocale();
   const [language, selectLanguage] = useState(Language.FI);
   const t = useTranslate();
+  const { record } = useShowController<AdminEvent>(props);
+  const internalTicketSystem = hasInternalTicketSystem(record);
 
   const getCrumbs = (record?: Record) => {
     const crumbs = [
@@ -119,10 +124,18 @@ const EventShow = (props: ResourceComponentPropsWithId) => {
             source={`duration`}
             label={'events.fields.duration.label'}
           />
-          <NumberField
-            source={`capacityPerOccurrence`}
-            label={'events.fields.capacityPerOccurrence.label'}
-          />
+          {internalTicketSystem ? (
+            <NumberField
+              source="capacityPerOccurrence"
+              label="events.fields.capacityPerOccurrence.label"
+            />
+          ) : (
+            <SelectField
+              source="ticketSystem.type"
+              label="events.fields.ticketSystem.label"
+              choices={ticketSystemChoices}
+            />
+          )}
           <PublishedField locale={locale} />
         </Tab>
         <Tab label="events.fields.occurrences.label">
@@ -146,20 +159,26 @@ const EventShow = (props: ResourceComponentPropsWithId) => {
               >
                 <TextField source="translations.FI.name" />
               </ReferenceField>
-              <NumberField
-                source="capacity"
-                label="occurrences.fields.capacity.label"
-              />
-              <NumberField
-                source="enrolmentCount"
-                label="occurrences.fields.enrolmentsCount.label"
-              />
-              <NumberField
-                source="record.freeSpotNotificationSubscriptions.edges.length"
-                label="occurrences.fields.freeSpotNotificationSubscriptions.label"
-                textAlign="right"
-                emptyText="0"
-              />
+              {internalTicketSystem && (
+                <NumberField
+                  source="capacity"
+                  label="occurrences.fields.capacity.label"
+                />
+              )}
+              {internalTicketSystem && (
+                <NumberField
+                  source="enrolmentCount"
+                  label="occurrences.fields.enrolmentsCount.label"
+                />
+              )}
+              {internalTicketSystem && (
+                <NumberField
+                  source="record.freeSpotNotificationSubscriptions.edges.length"
+                  label="occurrences.fields.freeSpotNotificationSubscriptions.label"
+                  textAlign="right"
+                  emptyText="0"
+                />
+              )}
             </Datagrid>
           </ReferenceManyField>
           <AddOccurrenceButton />

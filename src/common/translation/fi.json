@@ -150,6 +150,17 @@
           "ready": "Valmis",
           "notReady": "Keskeneräinen"
         }
+      },
+      "ticketSystem": {
+        "label": "Lippujärjestelmä",
+        "choices": {
+          "INTERNAL": {
+            "label": "Ei ulkoista lippujärjestelmää"
+          },
+          "TICKETMASTER": {
+            "label": "Ticketmaster"
+          }
+        }
       }
     },
     "list": {

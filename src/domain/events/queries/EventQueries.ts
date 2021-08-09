@@ -26,6 +26,9 @@ export const eventsQuery = gql`
               }
             }
           }
+          ticketSystem {
+            type
+          }
         }
       }
     }
@@ -66,6 +69,9 @@ export const eventQuery = gql`
         myPermissions {
           publish
         }
+      }
+      ticketSystem {
+        type
       }
     }
   }
