@@ -9,7 +9,10 @@ import {
   ReactAdminComponentProps,
 } from 'react-admin';
 
-import { Language } from '../../../api/generatedTypes/globalTypes';
+import {
+  Language,
+  TicketSystem,
+} from '../../../api/generatedTypes/globalTypes';
 import ImageUploadField from '../../../common/components/imageField/ImageUploadField';
 import Aside from '../../../common/components/aside/Aside';
 import useLanguageTabs from '../../../common/hooks/useLanguageTabs';
@@ -21,7 +24,7 @@ import {
   validateParticipantsPerInvite,
   validateShortDescription,
 } from '../validations';
-import { participantsPerInviteChoices } from '../choices';
+import { participantsPerInviteChoices, ticketSystemChoices } from '../choices';
 
 const EventCreate = (props: ReactAdminComponentProps) => {
   const { location } = props;
@@ -122,6 +125,13 @@ const EventCreate = (props: ReactAdminComponentProps) => {
           label="events.fields.duration.label"
           helperText="events.fields.duration.helperText"
           validate={validateDuration}
+          fullWidth
+        />
+        <SelectInput
+          source="ticketSystem.type"
+          label="events.fields.ticketSystem.label"
+          choices={ticketSystemChoices}
+          initialValue={TicketSystem.INTERNAL}
           fullWidth
         />
       </SimpleForm>

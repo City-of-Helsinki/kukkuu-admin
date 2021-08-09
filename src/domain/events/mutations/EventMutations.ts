@@ -9,6 +9,9 @@ export const addEventMutation = gql`
         participantsPerInvite
         capacityPerOccurrence
         duration
+        ticketSystem {
+          type
+        }
         translations {
           languageCode
           name
@@ -44,6 +47,9 @@ export const updateEventMutation = gql`
               id
             }
           }
+        }
+        ticketSystem {
+          type
         }
       }
     }
