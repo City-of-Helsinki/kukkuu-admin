@@ -103,6 +103,17 @@
       },
       "language": {
         "label": "Language"
+      },
+      "ticketSystem": {
+        "label": "Ticket system",
+        "choices": {
+          "INTERNAL": {
+            "label": "No external ticket system"
+          },
+          "TICKETMASTER": {
+            "label": "Ticketmaster"
+          }
+        }
       }
     }
   },

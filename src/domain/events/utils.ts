@@ -1,4 +1,5 @@
 import { sum } from '../../common/utils';
+import { TicketSystem } from '../../api/generatedTypes/globalTypes';
 
 // Using minimum types so that events of different compositions can be
 // used with the utility, but to the kind of events that don't include
@@ -56,4 +57,15 @@ export function countEnrollments(
       )
     )
   );
+}
+
+type RecordWithTicketSystem = {
+  ticketSystem: {
+    type: TicketSystem;
+  };
+};
+
+export function hasInternalTicketSystem(record?: RecordWithTicketSystem) {
+  const type = record?.ticketSystem?.type;
+  return type ? type === TicketSystem.INTERNAL : true;
 }

@@ -150,6 +150,17 @@
           "ready": "Ready",
           "notReady": "Unfinished"
         }
+      },
+      "ticketSystem": {
+        "label": "Ticket system",
+        "choices": {
+          "INTERNAL": {
+            "label": "No external ticket system"
+          },
+          "TICKETMASTER": {
+            "label": "Ticketmaster"
+          }
+        }
       }
     },
     "list": {
