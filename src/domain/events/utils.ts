@@ -5,17 +5,20 @@ import { sum } from '../../common/utils';
 // the relevant fields.
 
 type CapacityEventNode = {
-  capacityPerOccurrence: number;
+  capacityPerOccurrence: number | null;
   occurrences: {
     edges: Array<unknown>;
   };
 };
 
-export function countCapacity(...events: CapacityEventNode[]): number {
+export function countCapacity(...events: CapacityEventNode[]): number | null {
+  if (events.some((event) => event.capacityPerOccurrence === null)) {
+    return null;
+  }
   return sum(
     events.map(
       ({ capacityPerOccurrence, occurrences }: CapacityEventNode) =>
-        capacityPerOccurrence * occurrences.edges.length
+        (capacityPerOccurrence as number) * occurrences.edges.length
     )
   );
 }

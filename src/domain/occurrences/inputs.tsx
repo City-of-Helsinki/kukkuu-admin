@@ -58,7 +58,7 @@ const OccurrenceCapacityOverrideInput = (
             'occurrences.fields.capacityOverride.helperText',
             {
               capacityPerOccurrence:
-                event?.capacityPerOccurrence.toString() ?? '---',
+                event?.capacityPerOccurrence?.toString() ?? '---',
             }
           )}
           validate={validateCapacityOverride}

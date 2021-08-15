@@ -63,7 +63,7 @@ const EventsAndEventGroupsListToolbar = ({ data, permissions }: any) => {
   );
 };
 
-const EvenList = RelayList<EventNode>();
+const EventList = RelayList<EventNode>();
 
 function when(
   record: EventOrEventGroupNode,
@@ -161,10 +161,16 @@ const EventsAndEventGroupsList = (props: ReactAdminComponentProps) => {
           return when(
             record as EventOrEventGroupNode,
             (event: EventNode) => {
-              return countCapacity(event);
+              return (
+                countCapacity(event) ??
+                translate('events.fields.totalCapacity.unknown')
+              );
             },
             (eventGroup: EventGroupNode) => {
-              return countCapacity(...EvenList(eventGroup.events).items);
+              return (
+                countCapacity(...EventList(eventGroup.events).items) ??
+                translate('events.fields.totalCapacity.unknown')
+              );
             }
           );
         }}
@@ -183,7 +189,7 @@ const EventsAndEventGroupsList = (props: ReactAdminComponentProps) => {
               return countOccurrences(event);
             },
             (eventGroup: EventGroupNode) => {
-              return countOccurrences(...EvenList(eventGroup.events).items);
+              return countOccurrences(...EventList(eventGroup.events).items);
             }
           );
         }}

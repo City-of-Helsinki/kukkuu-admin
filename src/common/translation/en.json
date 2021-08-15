@@ -140,7 +140,8 @@
         "label": "Short Description"
       },
       "totalCapacity": {
-        "label": "Total capacity"
+        "label": "Total capacity",
+        "unknown": "unknown"
       },
       "ready": {
         "label": "Ready to be published",
