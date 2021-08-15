@@ -8,13 +8,18 @@ import {
   SaveButton,
   DeleteButton,
   DeleteWithConfirmButton,
+  useEditController,
 } from 'react-admin';
-import { parse } from 'query-string';
 import { Grid } from '@material-ui/core';
 
 import DateTimeTextInput from '../../common/components/dateTimeTextField/DateTimeTextField';
 import KukkuuEdit from '../application/layout/kukkuuEditPage/KukkuuEdit';
-import { OccurrenceCapacityOverrideInput } from './inputs';
+import {
+  OccurrenceCapacityOverrideInput,
+  TicketSystemUrlInput,
+} from './inputs';
+import { Occurrence_occurrence as OccurrenceType } from '../../api/generatedTypes/Occurrence';
+import { hasInternalTicketSystem } from '../events/utils';
 
 const OccurrenceEditToolbar = (props: any) => {
   const redirect = `/events/${props.record.event.id}/show/1`;
@@ -51,8 +56,11 @@ const OccurrenceEditReferenceInput = (props: any) => {
 };
 
 const OccurrenceEdit = (props: any) => {
-  const eventId = parse(props.location.search).event_id as string | undefined;
-  const redirect = eventId ? `/events/${eventId}/show/1` : 'show';
+  const { record } = useEditController<OccurrenceType>(props);
+  const internalTicketSystem = hasInternalTicketSystem(record);
+  const redirect = record?.event.id
+    ? `/events/${record.event.id}/show/1`
+    : 'show';
 
   // Undoable is false because the DateTimeTextInput returns values
   // that are invalid as time source. They are merged in OccurrenceApi,
@@ -78,7 +86,11 @@ const OccurrenceEdit = (props: any) => {
               helperText="occurrences.fields.venue.helperText"
             />
           </OccurrenceEditReferenceInput>
-          <OccurrenceCapacityOverrideInput eventId={eventId} />
+          {internalTicketSystem ? (
+            <OccurrenceCapacityOverrideInput />
+          ) : (
+            <TicketSystemUrlInput />
+          )}
         </SimpleForm>
       </KukkuuEdit>
     </Grid>

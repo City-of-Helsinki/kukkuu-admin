@@ -21,6 +21,12 @@ export const addOccurrenceMutation = gql`
         }
         capacity
         capacityOverride
+        ticketSystem {
+          type
+          ... on TicketmasterOccurrenceTicketSystem {
+            url
+          }
+        }
       }
     }
   }
@@ -69,6 +75,12 @@ export const updateOccurrenceMutation = gql`
                 }
               }
             }
+          }
+        }
+        ticketSystem {
+          type
+          ... on TicketmasterOccurrenceTicketSystem {
+            url
           }
         }
       }
