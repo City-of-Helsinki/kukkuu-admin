@@ -140,7 +140,8 @@
         "label": "Lyhyt kuvaus"
       },
       "totalCapacity": {
-        "label": "Kokonaiskapasiteetti"
+        "label": "Kokonaiskapasiteetti",
+        "unknown": "ei tiedossa"
       },
       "ready": {
         "label": "Valmis julkaistavaksi",

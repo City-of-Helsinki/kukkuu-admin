@@ -64,7 +64,10 @@ const EventGroupsDetail = (props: ResourceComponentPropsWithId) => {
         <FunctionField
           label="events.fields.totalCapacity.label"
           textAlign="right"
-          render={(record?: Record) => countCapacity(record as EventNode)}
+          render={(record?: Record) =>
+            countCapacity(record as EventNode) ??
+            t('events.fields.totalCapacity.unknown')
+          }
         />
         <NumberField
           source="occurrences.edges.length"
