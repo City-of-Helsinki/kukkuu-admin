@@ -50,7 +50,7 @@ export interface EventGroup_eventGroup_events_edges_node {
    * In minutes
    */
   duration: number | null;
-  capacityPerOccurrence: number;
+  capacityPerOccurrence: number | null;
   publishedAt: any | null;
   readyForEventGroupPublishing: boolean;
   occurrences: EventGroup_eventGroup_events_edges_node_occurrences;

@@ -22,7 +22,7 @@ export interface PublishEvent_publishEvent_event {
    */
   id: string;
   participantsPerInvite: EventParticipantsPerInvite;
-  capacityPerOccurrence: number;
+  capacityPerOccurrence: number | null;
   /**
    * In minutes
    */

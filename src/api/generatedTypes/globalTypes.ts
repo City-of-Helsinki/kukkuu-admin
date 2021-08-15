@@ -39,6 +39,11 @@ export enum RecipientSelectionEnum {
   SUBSCRIBED_TO_FREE_SPOT_NOTIFICATION = "SUBSCRIBED_TO_FREE_SPOT_NOTIFICATION",
 }
 
+export enum TicketSystem {
+  INTERNAL = "INTERNAL",
+  TICKETMASTER = "TICKETMASTER",
+}
+
 export interface AddEventGroupMutationInput {
   translations?: (EventGroupTranslationsInput | null)[] | null;
   image?: any | null;
@@ -50,11 +55,12 @@ export interface AddEventMutationInput {
   translations?: (EventTranslationsInput | null)[] | null;
   duration?: number | null;
   participantsPerInvite: EventParticipantsPerInvite;
-  capacityPerOccurrence: number;
+  capacityPerOccurrence?: number | null;
   image?: any | null;
   projectId: string;
   eventGroupId?: string | null;
   readyForEventGroupPublishing?: boolean | null;
+  ticketSystem?: EventTicketSystemInput | null;
   clientMutationId?: string | null;
 }
 
@@ -73,6 +79,7 @@ export interface AddOccurrenceMutationInput {
   venueId: string;
   occurrenceLanguage?: Language | null;
   capacityOverride?: number | null;
+  ticketSystem?: OccurrenceTicketSystemInput | null;
   clientMutationId?: string | null;
 }
 
@@ -115,6 +122,10 @@ export interface EventGroupTranslationsInput {
   languageCode: Language;
 }
 
+export interface EventTicketSystemInput {
+  type: TicketSystem;
+}
+
 export interface EventTranslationsInput {
   name?: string | null;
   shortDescription?: string | null;
@@ -127,6 +138,10 @@ export interface MessageTranslationsInput {
   languageCode: Language;
   subject?: string | null;
   bodyText?: string | null;
+}
+
+export interface OccurrenceTicketSystemInput {
+  url?: string | null;
 }
 
 export interface PublishEventGroupMutationInput {
@@ -168,6 +183,7 @@ export interface UpdateEventMutationInput {
   projectId?: string | null;
   eventGroupId?: string | null;
   readyForEventGroupPublishing?: boolean | null;
+  ticketSystem?: EventTicketSystemInput | null;
   clientMutationId?: string | null;
 }
 
@@ -188,6 +204,7 @@ export interface UpdateOccurrenceMutationInput {
   venueId?: string | null;
   occurrenceLanguage?: Language | null;
   capacityOverride?: number | null;
+  ticketSystem?: OccurrenceTicketSystemInput | null;
   clientMutationId?: string | null;
 }
 

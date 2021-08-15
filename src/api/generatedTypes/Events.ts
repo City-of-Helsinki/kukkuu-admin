@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { EventParticipantsPerInvite, Language } from "./globalTypes";
+import { EventParticipantsPerInvite, Language, TicketSystem } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: Events
@@ -38,6 +38,10 @@ export interface Events_events_edges_node_occurrences {
   edges: (Events_events_edges_node_occurrences_edges | null)[];
 }
 
+export interface Events_events_edges_node_ticketSystem {
+  type: TicketSystem;
+}
+
 export interface Events_events_edges_node {
   /**
    * The ID of the object.
@@ -51,9 +55,10 @@ export interface Events_events_edges_node {
    */
   duration: number | null;
   translations: Events_events_edges_node_translations[];
-  capacityPerOccurrence: number;
+  capacityPerOccurrence: number | null;
   publishedAt: any | null;
   occurrences: Events_events_edges_node_occurrences;
+  ticketSystem: Events_events_edges_node_ticketSystem | null;
 }
 
 export interface Events_events_edges {

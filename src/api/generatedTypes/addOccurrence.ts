@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AddOccurrenceMutationInput, Language } from "./globalTypes";
+import { AddOccurrenceMutationInput, Language, TicketSystem } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: addOccurrence
@@ -14,7 +14,7 @@ export interface addOccurrence_addOccurrence_occurrence_event {
    * The ID of the object.
    */
   id: string;
-  capacityPerOccurrence: number;
+  capacityPerOccurrence: number | null;
   /**
    * In minutes
    */
@@ -34,6 +34,17 @@ export interface addOccurrence_addOccurrence_occurrence_venue {
   translations: addOccurrence_addOccurrence_occurrence_venue_translations[];
 }
 
+export interface addOccurrence_addOccurrence_occurrence_ticketSystem_InternalOccurrenceTicketSystem {
+  type: TicketSystem;
+}
+
+export interface addOccurrence_addOccurrence_occurrence_ticketSystem_TicketmasterOccurrenceTicketSystem {
+  type: TicketSystem;
+  url: string;
+}
+
+export type addOccurrence_addOccurrence_occurrence_ticketSystem = addOccurrence_addOccurrence_occurrence_ticketSystem_InternalOccurrenceTicketSystem | addOccurrence_addOccurrence_occurrence_ticketSystem_TicketmasterOccurrenceTicketSystem;
+
 export interface addOccurrence_addOccurrence_occurrence {
   /**
    * The ID of the object.
@@ -48,6 +59,7 @@ export interface addOccurrence_addOccurrence_occurrence {
    * When set will be used as the capacity of this occurrence instead of the value coming from the event.
    */
   capacityOverride: number | null;
+  ticketSystem: addOccurrence_addOccurrence_occurrence_ticketSystem | null;
 }
 
 export interface addOccurrence_addOccurrence {
