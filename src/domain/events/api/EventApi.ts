@@ -18,6 +18,7 @@ import {
   deleteEventMutation,
 } from '../mutations/EventMutations';
 import projectService from '../../projects/projectService';
+import { hasInternalTicketSystem } from '../utils';
 
 const getEvents: MethodHandler = async (params: MethodHandlerParams) => {
   const response = await queryHandler({
@@ -40,6 +41,10 @@ const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
   data['projectId'] = projectService.projectId;
   if (params.data.image) {
     data.image = params.data.image.rawFile;
+  }
+
+  if (!hasInternalTicketSystem(data)) {
+    data.capacityPerOccurrence = null;
   }
 
   const response = await mutationHandler({
@@ -66,6 +71,10 @@ const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
     data.image = params.data.image.rawFile;
   } else {
     data.image = '';
+  }
+
+  if (!hasInternalTicketSystem(data)) {
+    data.capacityPerOccurrence = null;
   }
 
   const response = await mutationHandler({

@@ -7,6 +7,7 @@ import {
   required,
   useTranslate,
   ReactAdminComponentProps,
+  FormDataConsumer,
 } from 'react-admin';
 
 import {
@@ -25,6 +26,7 @@ import {
   validateShortDescription,
 } from '../validations';
 import { participantsPerInviteChoices, ticketSystemChoices } from '../choices';
+import { hasInternalTicketSystem } from '../utils';
 
 const EventCreate = (props: ReactAdminComponentProps) => {
   const { location } = props;
@@ -113,25 +115,36 @@ const EventCreate = (props: ReactAdminComponentProps) => {
           validate={validateParticipantsPerInvite}
           fullWidth
         />
-        <NumberInput
-          source="capacityPerOccurrence"
-          label="events.fields.capacityPerOccurrence.label"
-          helperText="events.fields.capacityPerOccurrence.helperText"
-          validate={validateCapacityPerOccurrence}
-          fullWidth
-        />
-        <NumberInput
-          source="duration"
-          label="events.fields.duration.label"
-          helperText="events.fields.duration.helperText"
-          validate={validateDuration}
-          fullWidth
-        />
         <SelectInput
           source="ticketSystem.type"
           label="events.fields.ticketSystem.label"
           choices={ticketSystemChoices}
           initialValue={TicketSystem.INTERNAL}
+          fullWidth
+        />
+        <FormDataConsumer>
+          {({ formData, ...rest }) =>
+            hasInternalTicketSystem(formData) && (
+              <NumberInput
+                source="capacityPerOccurrence"
+                label="events.fields.capacityPerOccurrence.label"
+                helperText="events.fields.capacityPerOccurrence.helperText"
+                validate={validateCapacityPerOccurrence}
+                style={{ width: '100%' }}
+                {...rest}
+                // aria-describedby should be set automatically but it is not.
+                // Seems like a bug related to FormDataConsumer.
+                aria-describedby="capacityPerOccurrence-helper-text"
+                id="capacityPerOccurrence"
+              />
+            )
+          }
+        </FormDataConsumer>
+        <NumberInput
+          source="duration"
+          label="events.fields.duration.label"
+          helperText="events.fields.duration.helperText"
+          validate={validateDuration}
           fullWidth
         />
       </SimpleForm>

@@ -9,6 +9,7 @@ import {
   SaveButton,
   DeleteButton,
   useTranslate,
+  FormDataConsumer,
 } from 'react-admin';
 import { CardHeader, Grid } from '@material-ui/core';
 
@@ -25,6 +26,7 @@ import { participantsPerInviteChoices, ticketSystemChoices } from '../choices';
 import ImageUploadField from '../../../common/components/imageField/ImageUploadField';
 import ViewTitle from '../../../common/components/viewTitle/ViewTitle';
 import KukkuuEdit from '../../application/layout/kukkuuEditPage/KukkuuEdit';
+import { hasInternalTicketSystem } from '../utils';
 
 const EventEditToolbar = (props: any) => {
   return (
@@ -114,24 +116,35 @@ const EventEdit = (props: any) => {
               validate={validateParticipantsPerInvite}
               fullWidth
             />
-            <NumberInput
-              source="capacityPerOccurrence"
-              label="events.fields.capacityPerOccurrence.label"
-              helperText="events.fields.capacityPerOccurrence.helperText"
-              validate={validateCapacityPerOccurrence}
+            <TicketSystemInput
+              source="ticketSystem.type"
+              label="events.fields.ticketSystem.label"
+              choices={ticketSystemChoices}
               fullWidth
             />
+            <FormDataConsumer>
+              {({ formData, ...rest }) =>
+                hasInternalTicketSystem(formData) && (
+                  <NumberInput
+                    source="capacityPerOccurrence"
+                    label="events.fields.capacityPerOccurrence.label"
+                    helperText="events.fields.capacityPerOccurrence.helperText"
+                    validate={validateCapacityPerOccurrence}
+                    style={{ width: '100%' }}
+                    {...rest}
+                    // aria-describedby should be set automatically but it is not.
+                    // Seems like a bug related to FormDataConsumer.
+                    aria-describedby="capacityPerOccurrence-helper-text"
+                    id="capacityPerOccurrence"
+                  />
+                )
+              }
+            </FormDataConsumer>
             <NumberInput
               source="duration"
               label="events.fields.duration.label"
               helperText="events.fields.duration.helperText"
               validate={validateDuration}
-              fullWidth
-            />
-            <TicketSystemInput
-              source="ticketSystem.type"
-              label="events.fields.ticketSystem.label"
-              choices={ticketSystemChoices}
               fullWidth
             />
           </SimpleForm>
