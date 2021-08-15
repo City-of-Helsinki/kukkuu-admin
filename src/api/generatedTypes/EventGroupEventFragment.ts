@@ -43,7 +43,7 @@ export interface EventGroupEventFragment {
    * In minutes
    */
   duration: number | null;
-  capacityPerOccurrence: number;
+  capacityPerOccurrence: number | null;
   publishedAt: any | null;
   readyForEventGroupPublishing: boolean;
   occurrences: EventGroupEventFragment_occurrences;

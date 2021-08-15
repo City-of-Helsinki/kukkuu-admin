@@ -3,11 +3,15 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AddEventMutationInput, EventParticipantsPerInvite, Language } from "./globalTypes";
+import { AddEventMutationInput, EventParticipantsPerInvite, TicketSystem, Language } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: AddEvent
 // ====================================================
+
+export interface AddEvent_addEvent_event_ticketSystem {
+  type: TicketSystem;
+}
 
 export interface AddEvent_addEvent_event_translations {
   languageCode: Language;
@@ -24,11 +28,12 @@ export interface AddEvent_addEvent_event {
   id: string;
   image: string;
   participantsPerInvite: EventParticipantsPerInvite;
-  capacityPerOccurrence: number;
+  capacityPerOccurrence: number | null;
   /**
    * In minutes
    */
   duration: number | null;
+  ticketSystem: AddEvent_addEvent_event_ticketSystem | null;
   translations: AddEvent_addEvent_event_translations[];
 }
 

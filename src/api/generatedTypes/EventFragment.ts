@@ -42,7 +42,7 @@ export interface EventFragment {
    * In minutes
    */
   duration: number | null;
-  capacityPerOccurrence: number;
+  capacityPerOccurrence: number | null;
   publishedAt: any | null;
   occurrences: EventFragment_occurrences;
 }

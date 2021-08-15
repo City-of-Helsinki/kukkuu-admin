@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { UpdateEventMutationInput, EventParticipantsPerInvite, Language } from "./globalTypes";
+import { UpdateEventMutationInput, EventParticipantsPerInvite, Language, TicketSystem } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: UpdateEvent
@@ -38,6 +38,10 @@ export interface UpdateEvent_updateEvent_event_occurrences {
   edges: (UpdateEvent_updateEvent_event_occurrences_edges | null)[];
 }
 
+export interface UpdateEvent_updateEvent_event_ticketSystem {
+  type: TicketSystem;
+}
+
 export interface UpdateEvent_updateEvent_event {
   /**
    * The ID of the object.
@@ -45,7 +49,7 @@ export interface UpdateEvent_updateEvent_event {
   id: string;
   image: string;
   participantsPerInvite: EventParticipantsPerInvite;
-  capacityPerOccurrence: number;
+  capacityPerOccurrence: number | null;
   /**
    * In minutes
    */
@@ -53,6 +57,7 @@ export interface UpdateEvent_updateEvent_event {
   readyForEventGroupPublishing: boolean;
   translations: UpdateEvent_updateEvent_event_translations[];
   occurrences: UpdateEvent_updateEvent_event_occurrences;
+  ticketSystem: UpdateEvent_updateEvent_event_ticketSystem | null;
 }
 
 export interface UpdateEvent_updateEvent {

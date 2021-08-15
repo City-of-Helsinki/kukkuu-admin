@@ -42,7 +42,7 @@ export interface EventsAndEventGroups_eventsAndEventGroups_edges_node_EventNode 
    * In minutes
    */
   duration: number | null;
-  capacityPerOccurrence: number;
+  capacityPerOccurrence: number | null;
   publishedAt: any | null;
   occurrences: EventsAndEventGroups_eventsAndEventGroups_edges_node_EventNode_occurrences;
 }
@@ -80,7 +80,7 @@ export interface EventsAndEventGroups_eventsAndEventGroups_edges_node_EventGroup
    * In minutes
    */
   duration: number | null;
-  capacityPerOccurrence: number;
+  capacityPerOccurrence: number | null;
   publishedAt: any | null;
   occurrences: EventsAndEventGroups_eventsAndEventGroups_edges_node_EventGroupNode_events_edges_node_occurrences;
 }

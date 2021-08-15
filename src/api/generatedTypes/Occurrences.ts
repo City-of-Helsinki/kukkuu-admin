@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { Language } from "./globalTypes";
+import { Language, TicketSystem } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: Occurrences
@@ -23,7 +23,7 @@ export interface Occurrences_occurrences_edges_node_event {
    */
   id: string;
   name: string | null;
-  capacityPerOccurrence: number;
+  capacityPerOccurrence: number | null;
   /**
    * In minutes
    */
@@ -124,6 +124,17 @@ export interface Occurrences_occurrences_edges_node_freeSpotNotificationSubscrip
   edges: (Occurrences_occurrences_edges_node_freeSpotNotificationSubscriptions_edges | null)[];
 }
 
+export interface Occurrences_occurrences_edges_node_ticketSystem_InternalOccurrenceTicketSystem {
+  type: TicketSystem;
+}
+
+export interface Occurrences_occurrences_edges_node_ticketSystem_TicketmasterOccurrenceTicketSystem {
+  type: TicketSystem;
+  url: string;
+}
+
+export type Occurrences_occurrences_edges_node_ticketSystem = Occurrences_occurrences_edges_node_ticketSystem_InternalOccurrenceTicketSystem | Occurrences_occurrences_edges_node_ticketSystem_TicketmasterOccurrenceTicketSystem;
+
 export interface Occurrences_occurrences_edges_node {
   /**
    * The ID of the object.
@@ -140,6 +151,7 @@ export interface Occurrences_occurrences_edges_node {
   venue: Occurrences_occurrences_edges_node_venue;
   enrolments: Occurrences_occurrences_edges_node_enrolments;
   freeSpotNotificationSubscriptions: Occurrences_occurrences_edges_node_freeSpotNotificationSubscriptions;
+  ticketSystem: Occurrences_occurrences_edges_node_ticketSystem | null;
 }
 
 export interface Occurrences_occurrences_edges {

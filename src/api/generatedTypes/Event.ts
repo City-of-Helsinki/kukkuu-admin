@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { EventParticipantsPerInvite, Language } from "./globalTypes";
+import { EventParticipantsPerInvite, Language, TicketSystem } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: Event
@@ -58,6 +58,10 @@ export interface Event_event_project {
   myPermissions: Event_event_project_myPermissions | null;
 }
 
+export interface Event_event_ticketSystem {
+  type: TicketSystem;
+}
+
 export interface Event_event {
   /**
    * The ID of the object.
@@ -71,12 +75,13 @@ export interface Event_event {
    */
   duration: number | null;
   translations: Event_event_translations[];
-  capacityPerOccurrence: number;
+  capacityPerOccurrence: number | null;
   publishedAt: any | null;
   readyForEventGroupPublishing: boolean;
   eventGroup: Event_event_eventGroup | null;
   occurrences: Event_event_occurrences;
   project: Event_event_project;
+  ticketSystem: Event_event_ticketSystem | null;
 }
 
 export interface Event {
