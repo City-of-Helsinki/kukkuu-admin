@@ -5,15 +5,23 @@ import {
   SelectInput,
   ReferenceInput,
   required,
+  useGetOne,
 } from 'react-admin';
 import { parse } from 'query-string';
 import Grid from '@material-ui/core/Grid';
 
 import DateTimeTextInput from '../../common/components/dateTimeTextField/DateTimeTextField';
-import { OccurrenceCapacityOverrideInput } from './inputs';
+import {
+  OccurrenceCapacityOverrideInput,
+  TicketSystemUrlInput,
+} from './inputs';
+import { hasInternalTicketSystem } from '../events/utils';
+import { AdminEvent } from '../events/types/EventTypes';
 
 const OccurrenceCreate = (props: any) => {
-  const eventId = parse(props.location.search).event_id as string | undefined;
+  const eventId = parse(props.location.search).event_id as string;
+  const { data: event } = useGetOne<AdminEvent>('events', eventId);
+  const internalTicketSystem = hasInternalTicketSystem(event);
   const redirect = eventId ? `/events/${eventId}/show/1` : 'show';
 
   return (
@@ -37,7 +45,11 @@ const OccurrenceCreate = (props: any) => {
               helperText="occurrences.fields.venue.helperText"
             />
           </ReferenceInput>
-          <OccurrenceCapacityOverrideInput eventId={eventId} />
+          {internalTicketSystem ? (
+            <OccurrenceCapacityOverrideInput eventId={eventId} />
+          ) : (
+            <TicketSystemUrlInput />
+          )}
         </SimpleForm>
       </Create>
     </Grid>
