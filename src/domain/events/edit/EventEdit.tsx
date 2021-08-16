@@ -27,6 +27,7 @@ import ImageUploadField from '../../../common/components/imageField/ImageUploadF
 import ViewTitle from '../../../common/components/viewTitle/ViewTitle';
 import KukkuuEdit from '../../application/layout/kukkuuEditPage/KukkuuEdit';
 import { hasInternalTicketSystem } from '../utils';
+import Config from '../../config';
 
 const EventEditToolbar = (props: any) => {
   return (
@@ -116,12 +117,14 @@ const EventEdit = (props: any) => {
               validate={validateParticipantsPerInvite}
               fullWidth
             />
-            <TicketSystemInput
-              source="ticketSystem.type"
-              label="events.fields.ticketSystem.label"
-              choices={ticketSystemChoices}
-              fullWidth
-            />
+            {Config.featureFlagExternalTicketSystemSupport && (
+              <TicketSystemInput
+                source="ticketSystem.type"
+                label="events.fields.ticketSystem.label"
+                choices={ticketSystemChoices}
+                fullWidth
+              />
+            )}
             <FormDataConsumer>
               {({ formData, ...rest }) =>
                 hasInternalTicketSystem(formData) && (
