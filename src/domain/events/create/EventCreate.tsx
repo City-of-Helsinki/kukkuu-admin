@@ -27,6 +27,7 @@ import {
 } from '../validations';
 import { participantsPerInviteChoices, ticketSystemChoices } from '../choices';
 import { hasInternalTicketSystem } from '../utils';
+import Config from '../../config';
 
 const EventCreate = (props: ReactAdminComponentProps) => {
   const { location } = props;
@@ -115,13 +116,15 @@ const EventCreate = (props: ReactAdminComponentProps) => {
           validate={validateParticipantsPerInvite}
           fullWidth
         />
-        <SelectInput
-          source="ticketSystem.type"
-          label="events.fields.ticketSystem.label"
-          choices={ticketSystemChoices}
-          initialValue={TicketSystem.INTERNAL}
-          fullWidth
-        />
+        {Config.featureFlagExternalTicketSystemSupport && (
+          <SelectInput
+            source="ticketSystem.type"
+            label="events.fields.ticketSystem.label"
+            choices={ticketSystemChoices}
+            initialValue={TicketSystem.INTERNAL}
+            fullWidth
+          />
+        )}
         <FormDataConsumer>
           {({ formData, ...rest }) =>
             hasInternalTicketSystem(formData) && (
