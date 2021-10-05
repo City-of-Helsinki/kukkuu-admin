@@ -71,7 +71,8 @@ and execute the following four commands inside your docker container:
 ./manage.py add_oidc_client -n kukkuu-admin-ui -t "id_token token" -u "http://localhost:3001/callback" -i https://api.hel.fi/auth/kukkuu-admin-ui -m github -s dev
 ./manage.py add_oidc_client -n kukkuu-api -t "code" -u http://localhost:8081/return -i https://api.hel.fi/auth/kukkuu -m github -s dev -c
 ./manage.py add_oidc_api -n kukkuu -d https://api.hel.fi/auth -s email,profile -c https://api.hel.fi/auth/kukkuu
-./manage.py add_oidc_api_scope -an kukkuu -c https://api.hel.fi/auth/kukkuu-admin-ui -n "Kulttuurin kummilapset Admin UI" -d"Lorem ipsum"
+./manage.py add_oidc_api_scope -an kukkuu -c https://api.hel.fi/auth/kukkuu -n "Kulttuurin kummilapset" -d"Lorem ipsum"
+./manage.py add_oidc_client_to_api_scope -asi https://api.hel.fi/auth/kukkuu -c https://api.hel.fi/auth/kukkuu-admin-ui
 ```
 
 To make Kukkuu Admin use the local Tunnistamo set `REACT_APP_OIDC_AUTHORITY="http://tunnistamo-backend:8000"` for example in file `.env.local`.
