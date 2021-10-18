@@ -17,6 +17,7 @@ import {
   Record,
   useShowController,
   UrlField,
+  FunctionField,
 } from 'react-admin';
 import { withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
@@ -173,11 +174,13 @@ const EventShow = (props: ResourceComponentPropsWithId) => {
                 />
               )}
               {internalTicketSystem && (
-                <NumberField
-                  source="record.freeSpotNotificationSubscriptions.edges.length"
+                <FunctionField
                   label="occurrences.fields.freeSpotNotificationSubscriptions.label"
                   textAlign="right"
-                  emptyText="0"
+                  render={(entity) =>
+                    entity?.freeSpotNotificationSubscriptions?.edges?.length ??
+                    0
+                  }
                 />
               )}
               {!internalTicketSystem && (

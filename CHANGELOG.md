@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Occurrence notification subscription always being shown as 0
+
 ## [1.5.5] - 2021-04-26
 
 ### Added
