@@ -140,8 +140,10 @@ const OccurrenceShow = (props: any) => {
           />
         )}
         {internalTicketSystem && (
-          <NumberField
-            source="occurrence.freeSpotNotificationSubscriptions?.edges.length"
+          <FunctionField
+            render={(occurrence) =>
+              occurrence?.freeSpotNotificationSubscriptions?.edges?.length ?? 0
+            }
             emptyText="0"
             label="occurrences.fields.freeSpotNotificationSubscriptions.label"
           />
