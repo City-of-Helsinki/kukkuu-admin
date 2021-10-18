@@ -14,6 +14,10 @@ export interface EventsAndEventGroups_eventsAndEventGroups_edges_node_EventNode_
    * The ID of the object.
    */
   id: string;
+  /**
+   * When set will be used as the capacity of this occurrence instead of the value coming from the event.
+   */
+  capacityOverride: number | null;
 }
 
 export interface EventsAndEventGroups_eventsAndEventGroups_edges_node_EventNode_occurrences_edges {
@@ -52,6 +56,10 @@ export interface EventsAndEventGroups_eventsAndEventGroups_edges_node_EventGroup
    * The ID of the object.
    */
   id: string;
+  /**
+   * When set will be used as the capacity of this occurrence instead of the value coming from the event.
+   */
+  capacityOverride: number | null;
 }
 
 export interface EventsAndEventGroups_eventsAndEventGroups_edges_node_EventGroupNode_events_edges_node_occurrences_edges {

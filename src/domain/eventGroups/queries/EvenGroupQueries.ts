@@ -16,6 +16,7 @@ const EventGroupEventFragment = gql`
         node {
           id
           enrolmentCount
+          capacityOverride
         }
       }
     }

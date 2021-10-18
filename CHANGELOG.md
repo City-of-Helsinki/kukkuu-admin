@@ -5,6 +5,7 @@
 ### Fixed
 
 - Occurrence notification subscription always being shown as 0
+- Total capacity count in event and event groups list
 
 ## [1.5.5] - 2021-04-26
 

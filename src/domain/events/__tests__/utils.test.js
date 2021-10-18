@@ -5,7 +5,15 @@ describe('event utils', () => {
     const mockEvent = {
       capacityPerOccurrence: 5,
       occurrences: {
-        edges: [null, null, null],
+        edges: [
+          null,
+          null,
+          {
+            node: {
+              capacityOverride: 1,
+            },
+          },
+        ],
       },
     };
     const mockEventWithoutCapacity = {
@@ -16,11 +24,11 @@ describe('event utils', () => {
     };
 
     it('should return the capacity for an event', () => {
-      expect(countCapacity(mockEvent)).toEqual(15);
+      expect(countCapacity(mockEvent)).toEqual(11);
     });
 
     it('should return the capacity for many events', () => {
-      expect(countCapacity(mockEvent, mockEvent)).toEqual(30);
+      expect(countCapacity(mockEvent, mockEvent)).toEqual(22);
     });
 
     it('should return null if any event is missing a capacity', () => {
