@@ -14,6 +14,7 @@ const EventFragment = gql`
       edges {
         node {
           id
+          capacityOverride
         }
       }
     }

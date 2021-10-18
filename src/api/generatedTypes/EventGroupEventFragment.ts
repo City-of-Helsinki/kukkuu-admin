@@ -15,6 +15,10 @@ export interface EventGroupEventFragment_occurrences_edges_node {
    */
   id: string;
   enrolmentCount: number;
+  /**
+   * When set will be used as the capacity of this occurrence instead of the value coming from the event.
+   */
+  capacityOverride: number | null;
 }
 
 export interface EventGroupEventFragment_occurrences_edges {

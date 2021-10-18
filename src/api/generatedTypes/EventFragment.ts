@@ -14,6 +14,10 @@ export interface EventFragment_occurrences_edges_node {
    * The ID of the object.
    */
   id: string;
+  /**
+   * When set will be used as the capacity of this occurrence instead of the value coming from the event.
+   */
+  capacityOverride: number | null;
 }
 
 export interface EventFragment_occurrences_edges {

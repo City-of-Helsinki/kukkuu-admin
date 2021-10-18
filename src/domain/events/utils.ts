@@ -2,26 +2,43 @@ import { sum } from '../../common/utils';
 import { TicketSystem } from '../../api/generatedTypes/globalTypes';
 
 // Using minimum types so that events of different compositions can be
-// used with the utility, but to the kind of events that don't include
-// the relevant fields.
-
+// used with the utility.
+type Occurrence = {
+  capacityOverride?: number | null;
+};
 type CapacityEventNode = {
   capacityPerOccurrence: number | null;
   occurrences: {
-    edges: Array<unknown>;
+    edges: ({
+      node?: Occurrence | null;
+    } | null)[];
   };
+};
+type CapacityEventNodeWithCapacityPerOccurrence = CapacityEventNode & {
+  capacityPerOccurrence: number;
 };
 
 export function countCapacity(...events: CapacityEventNode[]): number | null {
-  if (events.some((event) => event.capacityPerOccurrence === null)) {
+  const eventsWithCapacities = events.filter(
+    (event): event is CapacityEventNodeWithCapacityPerOccurrence =>
+      event.capacityPerOccurrence !== null
+  );
+
+  if (events.length !== eventsWithCapacities.length) {
     return null;
   }
-  return sum(
-    events.map(
-      ({ capacityPerOccurrence, occurrences }: CapacityEventNode) =>
-        (capacityPerOccurrence as number) * occurrences.edges.length
-    )
+
+  const occurrenceCapacities = eventsWithCapacities.flatMap(
+    ({ capacityPerOccurrence, occurrences }) => {
+      return occurrences.edges.map((occurrenceEdge) => {
+        const capacityOverride = occurrenceEdge?.node?.capacityOverride;
+
+        return capacityOverride ?? capacityPerOccurrence;
+      });
+    }
   );
+
+  return sum(occurrenceCapacities);
 }
 
 type CountEventNode = {
