@@ -179,7 +179,7 @@ const EventShow = (props: ResourceComponentPropsWithId) => {
                   textAlign="right"
                   render={(entity) =>
                     entity?.freeSpotNotificationSubscriptions?.edges?.length ??
-                    0
+                    '?'
                   }
                 />
               )}

@@ -142,7 +142,8 @@ const OccurrenceShow = (props: any) => {
         {internalTicketSystem && (
           <FunctionField
             render={(occurrence) =>
-              occurrence?.freeSpotNotificationSubscriptions?.edges?.length ?? 0
+              occurrence?.freeSpotNotificationSubscriptions?.edges?.length ??
+              '?'
             }
             label="occurrences.fields.freeSpotNotificationSubscriptions.label"
           />
