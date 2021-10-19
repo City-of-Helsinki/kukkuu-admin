@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Error page for authentication
+
 ### Fixed
 
 - Occurrence notification subscription always being shown as 0
