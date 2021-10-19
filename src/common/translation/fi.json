@@ -3,8 +3,14 @@
     "test": "Testi"
   },
   "authentication": {
-    "redirect": {
-      "text": "Tunnistaudutaan..."
+    "callbackPage": {
+      "finishingAuthentication": "Viimeistellään tunnistautumista",
+      "authorization": "Tarkistetaan lupia"
+    },
+    "authError": {
+      "title": "Kirjautuminen epäonnistui",
+      "description": "Kirjaudu ulos ja yritä udelleen",
+      "logOut": "Kirjaudu ulos"
     },
     "unauthorizedPage": {
       "backToLoginPage": "Takaisin kirjautumissivulle",

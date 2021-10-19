@@ -3,8 +3,14 @@
     "test": "Test"
   },
   "authentication": {
-    "redirect": {
-      "text": "Authenticating..."
+    "callbackPage": {
+      "finishingAuthentication": "Finishing authentication",
+      "authorization": "Checking authorization"
+    },
+    "authError": {
+      "title": "Login Failed",
+      "description": "Log out and try again",
+      "logOut": "Log out"
     },
     "unauthorizedPage": {
       "backToLoginPage": "Back to login page",
