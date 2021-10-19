@@ -27,7 +27,7 @@ function CallBackPage({ history }: RouteComponentProps) {
         if (role === 'none') {
           history.replace('/unauthorized');
         } else {
-          history.replace(user?.state.path);
+          history.replace(user.state?.path ?? '');
         }
       })
       .catch((error) => {

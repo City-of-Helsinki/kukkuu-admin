@@ -6,6 +6,7 @@
 
 - Occurrence notification subscription always being shown as 0
 - Total capacity count in event and event groups list
+- Login routine failures when redirect target is unclear
 
 ## [1.5.5] - 2021-04-26
 
