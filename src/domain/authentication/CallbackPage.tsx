@@ -48,6 +48,8 @@ function CallBackPage({
       })
       .catch((error) => {
         setPhase('error');
+        // Clear auth state from the failed login attempt
+        authService.resetAuthState();
         notify(t('ra.message.error'), 'warning');
         Sentry.captureException(error);
       });
