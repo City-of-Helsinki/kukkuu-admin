@@ -21,22 +21,18 @@ function getRedirectPath(
   return redirectTarget;
 }
 
-type CallbackPageState = 'authentication' | 'authorization' | 'error';
-
 function CallBackPage({
   history,
   location: { pathname },
 }: RouteComponentProps) {
   const t = useTranslate();
   const dataProvider = useDataProvider();
-  const [phase, setPhase] = useState<CallbackPageState>('authentication');
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     authService
       .endLogin()
       .then((user: User) => {
-        setPhase('authorization');
-
         const role = authorizationService.getRole();
 
         if (role === 'none') {
@@ -46,7 +42,7 @@ function CallBackPage({
         }
       })
       .catch((error) => {
-        setPhase('error');
+        setError(error);
         // Clear auth state from the failed login attempt
         authService.resetAuthState();
         Sentry.captureException(error);
@@ -55,13 +51,10 @@ function CallBackPage({
 
   return (
     <>
-      {phase === 'authentication' && (
+      {!error && (
         <Loading loadingPrimary="authentication.callbackPage.finishingAuthentication" />
       )}
-      {phase === 'authorization' && (
-        <Loading loadingPrimary="authentication.callbackPage.authorization" />
-      )}
-      {phase === 'error' && <AuthError />}
+      {error && <AuthError />}
     </>
   );
 }

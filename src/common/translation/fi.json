@@ -4,8 +4,7 @@
   },
   "authentication": {
     "callbackPage": {
-      "finishingAuthentication": "Viimeistellään tunnistautumista",
-      "authorization": "Tarkastetaan lupia"
+      "finishingAuthentication": "Viimeistellään tunnistautumista"
     },
     "authError": {
       "title": "Kirjautuminen epäonnistui",

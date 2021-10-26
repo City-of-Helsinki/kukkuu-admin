@@ -4,8 +4,7 @@
   },
   "authentication": {
     "callbackPage": {
-      "finishingAuthentication": "Finishing authentication",
-      "authorization": "Checking authorization"
+      "finishingAuthentication": "Finishing authentication"
     },
     "authError": {
       "title": "Login Failed",
