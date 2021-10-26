@@ -117,11 +117,15 @@ export class AuthService {
     return this.userManager.signinSilent();
   }
 
-  public async logout(): Promise<void> {
+  public resetAuthState() {
     localStorage.removeItem(API_TOKEN);
     projectService.clear();
     this.userManager.clearStaleState();
     authorizationService.clear();
+  }
+
+  public async logout(): Promise<void> {
+    this.resetAuthState();
     await this.userManager.signoutRedirect();
   }
 
