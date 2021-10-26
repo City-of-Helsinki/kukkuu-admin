@@ -49,13 +49,12 @@ function CallBackPage({
       });
   }, [dataProvider, history, pathname, t]);
 
+  if (error) {
+    return <AuthError />;
+  }
+
   return (
-    <>
-      {!error && (
-        <Loading loadingPrimary="authentication.callbackPage.finishingAuthentication" />
-      )}
-      {error && <AuthError />}
-    </>
+    <Loading loadingPrimary="authentication.callbackPage.finishingAuthentication" />
   );
 }
 
