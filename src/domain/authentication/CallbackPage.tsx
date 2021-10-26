@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useTranslate, useNotify, useDataProvider, Loading } from 'react-admin';
+import { useTranslate, useDataProvider, Loading } from 'react-admin';
 import { RouteComponentProps } from 'react-router';
 import * as Sentry from '@sentry/browser';
 import { User } from 'oidc-client';
@@ -28,7 +28,6 @@ function CallBackPage({
   location: { pathname },
 }: RouteComponentProps) {
   const t = useTranslate();
-  const notify = useNotify();
   const dataProvider = useDataProvider();
   const [phase, setPhase] = useState<CallbackPageState>('authentication');
 
@@ -50,10 +49,9 @@ function CallBackPage({
         setPhase('error');
         // Clear auth state from the failed login attempt
         authService.resetAuthState();
-        notify(t('ra.message.error'), 'warning');
         Sentry.captureException(error);
       });
-  }, [dataProvider, history, notify, pathname, t]);
+  }, [dataProvider, history, pathname, t]);
 
   return (
     <>
