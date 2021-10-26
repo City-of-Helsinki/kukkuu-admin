@@ -96,8 +96,10 @@ export class AuthService {
     try {
       return this.userManager.signinRedirect({ data: { path } });
     } catch (error) {
-      if (error.message !== 'Network Error') {
-        Sentry.captureException(error);
+      if (error instanceof Error) {
+        if (error.message !== 'Network Error') {
+          Sentry.captureException(error);
+        }
       }
     }
   }
