@@ -8,9 +8,25 @@ import authService from './authService';
 import authorizationService from './authorizationService';
 import AuthError from './AuthErrorPage';
 
+function getRedirectPath(
+  redirectTarget: string | undefined | string,
+  currentPathname: string
+): string {
+  // If the redirectTarget is the same as the current pathname, redirect to
+  // default view instead.
+  if (!redirectTarget || redirectTarget === currentPathname) {
+    return '/';
+  }
+
+  return redirectTarget;
+}
+
 type CallbackPageState = 'authentication' | 'authorization' | 'error';
 
-function CallBackPage({ history }: RouteComponentProps) {
+function CallBackPage({
+  history,
+  location: { pathname },
+}: RouteComponentProps) {
   const t = useTranslate();
   const notify = useNotify();
   const dataProvider = useDataProvider();
@@ -27,7 +43,7 @@ function CallBackPage({ history }: RouteComponentProps) {
         if (role === 'none') {
           history.replace('/unauthorized');
         } else {
-          history.replace(user.state?.path ?? '');
+          history.replace(getRedirectPath(user.state?.path, pathname));
         }
       })
       .catch((error) => {
@@ -35,7 +51,7 @@ function CallBackPage({ history }: RouteComponentProps) {
         notify(t('ra.message.error'), 'warning');
         Sentry.captureException(error);
       });
-  }, [dataProvider, history, notify, t]);
+  }, [dataProvider, history, notify, pathname, t]);
 
   return (
     <>
