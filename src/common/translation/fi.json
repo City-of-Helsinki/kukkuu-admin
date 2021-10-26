@@ -5,11 +5,11 @@
   "authentication": {
     "callbackPage": {
       "finishingAuthentication": "Viimeistellään tunnistautumista",
-      "authorization": "Tarkistetaan lupia"
+      "authorization": "Tarkastetaan lupia"
     },
     "authError": {
       "title": "Kirjautuminen epäonnistui",
-      "description": "Kirjaudu ulos ja yritä udelleen",
+      "description": "Kirjaudu ulos ja yritä uudelleen",
       "logOut": "Kirjaudu ulos"
     },
     "unauthorizedPage": {
