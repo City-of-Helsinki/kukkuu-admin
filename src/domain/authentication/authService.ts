@@ -52,6 +52,7 @@ export class AuthService {
     this.endLogin = this.endLogin.bind(this);
     this.renewToken = this.renewToken.bind(this);
     this.logout = this.logout.bind(this);
+    this.resetAuthState = this.resetAuthState.bind(this);
 
     // Events
     this.userManager.events.addAccessTokenExpired(() => {
@@ -63,9 +64,7 @@ export class AuthService {
     });
 
     this.userManager.events.addUserSignedOut(() => {
-      this.userManager.clearStaleState();
-      authorizationService.clear();
-      localStorage.removeItem(API_TOKEN);
+      this.resetAuthState();
     });
 
     this.userManager.events.addUserLoaded(async (user) => {
