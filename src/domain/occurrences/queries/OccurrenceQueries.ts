@@ -33,6 +33,7 @@ const OccurrenceShowPage = {
               id
               attended
               child {
+                id
                 firstName
                 lastName
                 birthdate

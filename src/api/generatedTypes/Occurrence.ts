@@ -75,6 +75,10 @@ export interface Occurrence_occurrence_enrolments_edges_node_child_guardians {
 }
 
 export interface Occurrence_occurrence_enrolments_edges_node_child {
+  /**
+   * The ID of the object.
+   */
+  id: string;
   firstName: string;
   lastName: string;
   birthdate: any;

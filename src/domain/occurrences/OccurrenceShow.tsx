@@ -169,7 +169,7 @@ const OccurrenceShow = (props: any) => {
                 id: ReactText,
                 basePath: string,
                 record: EnrolmentEdge
-              ) => escape(`/children/${record?.node?.id}/show`)}
+              ) => escape(`/children/${record?.node?.child?.id}/show`)}
             >
               <FunctionField
                 label="children.fields.name.label"
