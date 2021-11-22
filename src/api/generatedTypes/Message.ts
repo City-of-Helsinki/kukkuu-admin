@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { RecipientSelectionEnum, LanguageTranslationLanguageCode } from "./globalTypes";
+import { RecipientSelectionEnum, MessageTranslationLanguageCode } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: Message
@@ -18,7 +18,7 @@ export interface Message_message_event {
 }
 
 export interface Message_message_translations {
-  languageCode: LanguageTranslationLanguageCode;
+  languageCode: MessageTranslationLanguageCode;
   subject: string;
   bodyText: string;
 }
@@ -61,9 +61,6 @@ export interface Message_message {
 }
 
 export interface Message {
-  /**
-   * The ID of the object
-   */
   message: Message_message | null;
 }
 

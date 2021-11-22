@@ -44,6 +44,7 @@ const OccurrenceShowPage = {
                       firstName
                       lastName
                       language
+                      phoneNumber
                     }
                   }
                 }

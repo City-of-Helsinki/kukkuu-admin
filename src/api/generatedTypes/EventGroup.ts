@@ -94,9 +94,6 @@ export interface EventGroup_eventGroup {
 }
 
 export interface EventGroup {
-  /**
-   * The ID of the object
-   */
   eventGroup: EventGroup_eventGroup | null;
 }
 

@@ -88,6 +88,9 @@ export const getGuardianFullName = (guardian: GuardianType) =>
 export const getGuardianLanguage = (guardian: GuardianType) =>
   new Guardian(guardian).language;
 
+export const getGuardianPhoneNumber = (guardian: GuardianType) =>
+  new Guardian(guardian).phoneNumber;
+
 export const getBreadCrumbs = (record?: Record) =>
   new Occurrence(record as OccurrenceType).breadcrumbs;
 
@@ -190,6 +193,15 @@ const OccurrenceShow = (props: any) => {
                 source="node.child.guardians.edges.0.node.email"
                 label="children.fields.guardians.fields.email.label"
                 emptyText={translate('guardian.doesNotExist')}
+              />
+              <FunctionField
+                render={withEnrolment(
+                  withGuardian(getGuardianPhoneNumber, () =>
+                    translate('guardian.doesNotExist')
+                  ),
+                  () => null
+                )}
+                label="children.fields.guardians.fields.phoneNumber.label"
               />
               <FunctionField
                 render={withEnrolment(

@@ -28,9 +28,6 @@ export interface Project_project {
 }
 
 export interface Project {
-  /**
-   * The ID of the object
-   */
   project: Project_project | null;
 }
 

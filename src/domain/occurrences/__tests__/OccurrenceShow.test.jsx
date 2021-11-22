@@ -6,6 +6,7 @@ import OccurrenceShow, {
   withGuardian,
   getGuardianFullName,
   getGuardianLanguage,
+  getGuardianPhoneNumber,
   getBreadCrumbs,
   getTitle,
   getChildFullName,
@@ -18,6 +19,7 @@ describe('OccurrenceShow utils', () => {
     firstName: 'Leo',
     lastName: 'Garri',
     language: 'FI',
+    phoneNumber: '555-1234567',
   };
   const enrollment = {
     node: {
@@ -118,6 +120,14 @@ describe('OccurrenceShow utils', () => {
   describe('getGuardianLanguage', () => {
     it('should return the translated language of the guardian', () => {
       expect(getGuardianLanguage(guardian)).toMatchInlineSnapshot(`"suomi"`);
+    });
+  });
+
+  describe('getGuardianPhoneNumber', () => {
+    it('should return the phone number of the guardian', () => {
+      expect(getGuardianPhoneNumber(guardian)).toMatchInlineSnapshot(
+        `"555-1234567"`
+      );
     });
   });
 });
