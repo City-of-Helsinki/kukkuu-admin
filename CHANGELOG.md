@@ -12,6 +12,7 @@
 - Occurrence notification subscription always being shown as 0
 - Total capacity count in event and event groups list
 - Flaky login when redirect target was unclear or the sign in callback page itself
+- Clicking a child in occurrence show enrolments list
 
 ## [1.5.5] - 2021-04-26
 
