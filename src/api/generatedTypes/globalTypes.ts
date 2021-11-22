@@ -25,7 +25,7 @@ export enum Language {
 /**
  * An enumeration.
  */
-export enum LanguageTranslationLanguageCode {
+export enum MessageTranslationLanguageCode {
   EN = "EN",
   FI = "FI",
   SV = "SV",

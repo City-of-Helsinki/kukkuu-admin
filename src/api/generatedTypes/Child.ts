@@ -94,9 +94,6 @@ export interface Child_child {
 }
 
 export interface Child {
-  /**
-   * The ID of the object
-   */
   child: Child_child | null;
 }
 

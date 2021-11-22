@@ -5,6 +5,7 @@
 ### Added
 
 - Error page for authentication
+- Guardian phone number to occurrence show view enrolments list
 
 ### Fixed
 

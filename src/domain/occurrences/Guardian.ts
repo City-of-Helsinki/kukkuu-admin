@@ -4,6 +4,7 @@ type GuardianType = {
   firstName: string | null;
   lastName: string | null;
   language: string | null;
+  phoneNumber: string;
 };
 
 class Guardian {
@@ -19,6 +20,10 @@ class Guardian {
 
   get language() {
     return i18nProvider.translate(`languages.${this.guardian.language}`);
+  }
+
+  get phoneNumber() {
+    return this.guardian.phoneNumber;
   }
 }
 

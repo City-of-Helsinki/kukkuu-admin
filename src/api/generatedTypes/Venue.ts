@@ -45,9 +45,6 @@ export interface Venue_venue {
 }
 
 export interface Venue {
-  /**
-   * The ID of the object
-   */
   venue: Venue_venue | null;
 }
 

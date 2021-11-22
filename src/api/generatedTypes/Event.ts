@@ -85,9 +85,6 @@ export interface Event_event {
 }
 
 export interface Event {
-  /**
-   * The ID of the object
-   */
   event: Event_event | null;
 }
 

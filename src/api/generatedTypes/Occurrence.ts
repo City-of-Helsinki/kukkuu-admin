@@ -57,6 +57,7 @@ export interface Occurrence_occurrence_enrolments_edges_node_child_guardians_edg
   firstName: string;
   lastName: string;
   language: Language;
+  phoneNumber: string;
 }
 
 export interface Occurrence_occurrence_enrolments_edges_node_child_guardians_edges {
@@ -155,9 +156,6 @@ export interface Occurrence_occurrence {
 }
 
 export interface Occurrence {
-  /**
-   * The ID of the object
-   */
   occurrence: Occurrence_occurrence | null;
 }
 
