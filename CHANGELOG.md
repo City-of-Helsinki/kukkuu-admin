@@ -2,17 +2,19 @@
 
 ## [Unreleased]
 
+## [1.6.0] - 2021-11-23
+
 ### Added
 
-- Error page for authentication
-- Guardian phone number to occurrence show view enrolments list
+- [#178](https://github.com/City-of-Helsinki/kukkuu-admin/pull/178) Error page for authentication
+- [#179](https://github.com/City-of-Helsinki/kukkuu-admin/pull/179) Guardian phone number to occurrence show view enrolments list
 
 ### Fixed
 
-- Occurrence notification subscription always being shown as 0
-- Total capacity count in event and event groups list
-- Flaky login when redirect target was unclear or the sign in callback page itself
-- Clicking a child in occurrence show enrolments list
+- [#176](https://github.com/City-of-Helsinki/kukkuu-admin/pull/176) Occurrence notification subscription always being shown as 0
+- [#177](https://github.com/City-of-Helsinki/kukkuu-admin/pull/177) Total capacity count in event and event groups list
+- [#178](https://github.com/City-of-Helsinki/kukkuu-admin/pull/178) Flaky login when redirect target was unclear or the sign in callback page itself
+- [#179](https://github.com/City-of-Helsinki/kukkuu-admin/pull/179) Clicking a row in occurrence show view enrolments list
 
 ## [1.5.5] - 2021-04-26
 
