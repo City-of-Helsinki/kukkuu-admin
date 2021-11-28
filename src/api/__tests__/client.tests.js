@@ -85,6 +85,12 @@ describe('client', () => {
             extensions: {},
           },
           {
+            message: 'foobar',
+            extensions: {
+              code: 'AUTHENTICATION_EXPIRED_ERROR',
+            },
+          },
+          {
             message: '123',
             extensions: {
               code: 'PERMISSION_DENIED_ERROR',
@@ -128,7 +134,8 @@ describe('client', () => {
         graphQLErrors
           .map(
             (graphQLError) =>
-              `[GraphQL error]: Message: ${graphQLError.message}, Location: ${graphQLError.locations}, Path: ${graphQLError.path}`
+              // eslint-disable-next-line max-len
+              `[GraphQL error]: Message: ${graphQLError.message}, Code: ${graphQLError.extensions?.code}, Location: ${graphQLError.locations}, Path: ${graphQLError.path}`
           )
           .forEach((errorMessage) => {
             expect(consoleErrorSpy).toHaveBeenCalledWith(errorMessage);
