@@ -4,7 +4,6 @@ import {
   MutationOptions,
 } from '@apollo/client';
 import { HttpError } from 'react-admin';
-import * as Sentry from '@sentry/browser';
 
 import client from '../client';
 import { API_ERROR_MESSAGE } from '../constants/ApiConstants';
@@ -28,22 +27,6 @@ export const queryHandler = async (
     const res = await client.query(queryOptions);
     return res;
   } catch (error) {
-    if (
-      error.message ===
-      'GraphQL error: Invalid Authorization header. JWT has expired.'
-    ) {
-      // JWT has expired. Probably because user has been offline. Remove old apiToken to trigger logout
-      localStorage.removeItem('apiToken');
-    } else if (
-      error.graphQLErrors[0].extensions.code === 'PERMISSION_DENIED_ERROR'
-    ) {
-      // eslint-disable-next-line no-console
-      console.error('Permission denied');
-    } else {
-      // eslint-disable-next-line no-console
-      console.error(error);
-      Sentry.captureException(error);
-    }
     throw new HttpError(error.message || API_ERROR_MESSAGE, error.status);
   }
 };
@@ -54,9 +37,6 @@ export const mutationHandler = async (
   try {
     return await client.mutate(mutationOptions);
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error(error);
-    Sentry.captureException(error);
     throw new HttpError(error.message || API_ERROR_MESSAGE, error.status);
   }
 };

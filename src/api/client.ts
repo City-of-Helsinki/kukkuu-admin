@@ -7,6 +7,7 @@ import { createUploadLink } from 'apollo-upload-client';
 import * as Sentry from '@sentry/browser';
 import { OperationDefinitionNode } from 'graphql';
 
+import authService from '../domain/authentication/authService';
 import i18nProvider from '../common/translation/i18nProvider';
 import Config from '../domain/config';
 
@@ -26,20 +27,24 @@ export const handleError: ErrorHandler = ({
 }) => {
   if (graphQLErrors) {
     graphQLErrors.forEach((graphQLError) => {
+      const errorCode = graphQLError?.extensions?.code;
+
       // eslint-disable-next-line max-len
-      const errorMessage = `[GraphQL error]: Message: ${graphQLError.message}, Location: ${graphQLError.locations}, Path: ${graphQLError.path}`;
+      const errorMessage = `[GraphQL error]: Message: ${graphQLError.message}, Code: ${errorCode}, Location: ${graphQLError.locations}, Path: ${graphQLError.path}`;
 
       if (Config.NODE_ENV === 'development') {
         console.error(errorMessage);
       }
 
       if (
+        // This first check is just to maintain compatibility with old backend versions, it can be removed later.
         graphQLError.message ===
-        'Invalid Authorization header. JWT has expired.'
+          'Invalid Authorization header. JWT has expired.' ||
+        errorCode === 'AUTHENTICATION_EXPIRED_ERROR'
       ) {
         // If JWT is expired it means that we want people to log in again. We don't need to log this to sentry.
         console.error('JWT expired');
-      } else if (graphQLError?.extensions?.code === 'PERMISSION_DENIED_ERROR') {
+      } else if (errorCode === 'PERMISSION_DENIED_ERROR') {
         // Most permission errors happen when user authentication
         // expires or when the user accesses the application before
         // authentication. Due to how react-admin's optimistic nature,
@@ -48,6 +53,7 @@ export const handleError: ErrorHandler = ({
         // worth it to ignore them in our opinion even with the chance
         // that we miss a few edge cases.
         console.error('Permissions denied');
+        authService.resetAuthState();
       } else {
         const {
           originalError,
@@ -87,6 +93,10 @@ export const handleError: ErrorHandler = ({
             Sentry.captureException(originalError);
           } else {
             Sentry.captureMessage(message);
+          }
+
+          if (errorCode === 'AUTHENTICATION_ERROR') {
+            authService.resetAuthState();
           }
         });
       }
