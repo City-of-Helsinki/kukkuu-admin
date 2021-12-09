@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.6.1] - 2021-12-09
+
+### Added
+
+- [#183](https://github.com/City-of-Helsinki/kukkuu-admin/pull/183) Use backend's new authentication error codes
+
 ## [1.6.0] - 2021-11-23
 
 ### Added
