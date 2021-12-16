@@ -53,12 +53,13 @@ const chooseSelectInputOption = async (container, selectInput, optionLabel) => {
 };
 
 describe('<MessageForm />', () => {
-  it('should not show event select unless the user has chosen some other recipient count than all', async () => {
+  it('should not show event select unless the user has chosen some other recipient count than all or invited', async () => {
     const { container, queryAllByText } = getWrapper();
 
     expect(
       querySelectInputByLabelText(container, 'messages.fields.event.label')
     ).toBeFalsy();
+    expect(queryAllByText('messages.fields.event.label').length).toBe(0);
 
     await chooseSelectInputOption(
       container,
@@ -67,6 +68,17 @@ describe('<MessageForm />', () => {
         'messages.fields.recipientSelection.label'
       ),
       'messages.fields.recipientSelection.choices.INVITED.label'
+    );
+
+    expect(queryAllByText('messages.fields.event.label').length).toBe(0);
+
+    await chooseSelectInputOption(
+      container,
+      getSelectInputByLabelText(
+        container,
+        'messages.fields.recipientSelection.label'
+      ),
+      'messages.fields.recipientSelection.choices.ENROLLED.label'
     );
 
     expect(

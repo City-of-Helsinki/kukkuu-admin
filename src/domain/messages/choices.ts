@@ -1,4 +1,11 @@
-export const recipientSelectionChoices = [
+export type RecipientId =
+  | 'ALL'
+  | 'INVITED'
+  | 'ENROLLED'
+  | 'ATTENDED'
+  | 'SUBSCRIBED_TO_FREE_SPOT_NOTIFICATION';
+
+export const recipientSelectionChoices: { id: RecipientId; name: string }[] = [
   {
     id: 'ALL',
     name: 'messages.fields.recipientSelection.choices.ALL.label',
@@ -20,4 +27,10 @@ export const recipientSelectionChoices = [
     name:
       'messages.fields.recipientSelection.choices.SUBSCRIBED_TO_FREE_SPOT_NOTIFICATION.label',
   },
+];
+
+export const recipientsWithEventSelection: RecipientId[] = [
+  'ENROLLED',
+  'ATTENDED',
+  'SUBSCRIBED_TO_FREE_SPOT_NOTIFICATION',
 ];

@@ -18,7 +18,10 @@ import {
   validateBodyText,
   validateMessageForm,
 } from '../validations';
-import { recipientSelectionChoices } from '../choices';
+import {
+  recipientSelectionChoices,
+  recipientsWithEventSelection,
+} from '../choices';
 
 const CustomOnChange = ({ children, onChange, ...rest }: any) => {
   const form = useForm();
@@ -127,7 +130,7 @@ const MessageForm = (props: Props) => {
       </CustomOnChange>
       <FormDataConsumer formClassName={classes.event}>
         {({ formData: { recipientSelection }, ...rest }) =>
-          recipientSelection !== 'ALL' && (
+          recipientsWithEventSelection.includes(recipientSelection) && (
             <CustomOnChange onChange={handleEvenIdChange}>
               <EventSelect
                 {...rest}
