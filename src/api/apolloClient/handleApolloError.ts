@@ -1,26 +1,14 @@
 /* eslint-disable no-console */
-import { ApolloClient, ApolloLink } from '@apollo/client';
-import { InMemoryCache } from '@apollo/client/cache';
-import { setContext } from '@apollo/client/link/context';
-import { onError, ErrorHandler } from '@apollo/client/link/error';
-import { createUploadLink } from 'apollo-upload-client';
+import { ErrorHandler } from '@apollo/client/link/error';
 import * as Sentry from '@sentry/browser';
 import { OperationDefinitionNode } from 'graphql';
 
-import authService from '../domain/authentication/authService';
-import i18nProvider from '../common/translation/i18nProvider';
-import Config from '../domain/config';
-
-const uploadLink = createUploadLink({
-  uri: process.env.REACT_APP_API_URI,
-  headers: {
-    'keep-alive': 'true',
-  },
-});
+import authService from '../../domain/authentication/authService';
+import Config from '../../domain/config';
 
 const stringify = (value: unknown) => JSON.stringify(value, null, 2);
 
-export const handleError: ErrorHandler = ({
+const handleApolloError: ErrorHandler = ({
   graphQLErrors,
   networkError,
   operation,
@@ -110,30 +98,4 @@ export const handleError: ErrorHandler = ({
   }
 };
 
-const errorLink = onError(handleError);
-
-const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('apiToken');
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : null,
-      'accept-language': i18nProvider.getLocale() || 'fi',
-    },
-  };
-});
-
-const client = new ApolloClient({
-  link: ApolloLink.from([errorLink, authLink, uploadLink]),
-  defaultOptions: {
-    watchQuery: {
-      fetchPolicy: 'no-cache',
-    },
-    query: {
-      fetchPolicy: 'no-cache',
-    },
-  },
-  cache: new InMemoryCache(),
-});
-
-export default client;
+export default handleApolloError;

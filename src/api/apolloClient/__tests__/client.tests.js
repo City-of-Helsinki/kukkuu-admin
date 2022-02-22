@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/browser';
 
-import Config from '../../domain/config';
-import { handleError } from '../client';
+import Config from '../../../domain/config';
+import handleError from '../handleApolloError';
 
 const graphQLError = {
   message: 'Message',
@@ -25,7 +25,7 @@ const operation = {
 };
 
 describe('client', () => {
-  describe('handleError', () => {
+  describe('handleApolloError', () => {
     const mockScope = {
       setLevel: jest.fn(),
       setTag: jest.fn(),

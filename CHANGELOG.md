@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Ticket validation view
+
 ## [1.6.1] - 2021-12-09
 
 ### Added
