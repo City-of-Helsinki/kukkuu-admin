@@ -465,5 +465,10 @@
   },
   "generic": {
     "all": "Kaikki"
+  },
+  "ticketValidation": {
+    "valid": "Lippu on voimassa",
+    "invalid": "Lippu ei ole voimassa",
+    "error": "Lipun tarkistaminen epäonnistui"
   }
 }

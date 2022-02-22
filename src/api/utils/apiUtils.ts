@@ -5,7 +5,7 @@ import {
 } from '@apollo/client';
 import { HttpError } from 'react-admin';
 
-import client from '../client';
+import client from '../apolloClient/client';
 import { API_ERROR_MESSAGE } from '../constants/ApiConstants';
 import {
   Nullish,
