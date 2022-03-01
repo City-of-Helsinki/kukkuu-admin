@@ -5,10 +5,13 @@ import {
   SelectInput,
   SimpleFormProps,
   FormDataConsumer,
+  useTranslate,
 } from 'react-admin';
 import { makeStyles } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import { useForm } from 'react-final-form';
 
+import { ProtocolType } from '../../../api/generatedTypes/globalTypes';
 import useLanguageTabs from '../../../common/hooks/useLanguageTabs';
 import EventSelect from '../../events/eventSelect/EventSelect';
 import OccurrenceArraySelect from '../../occurrences/OccurrenceArraySelect';
@@ -17,6 +20,7 @@ import {
   validateSubject,
   validateBodyText,
   validateMessageForm,
+  validateSmsForm,
 } from '../validations';
 import {
   recipientSelectionChoices,
@@ -56,6 +60,9 @@ const useStyles = makeStyles((theme) => ({
   fullWidth: {
     width: '100%',
   },
+  formNoticeText: {
+    marginBottom: theme.spacing(1),
+  },
 }));
 
 function getInitialOccurrenceIds(record: any) {
@@ -68,10 +75,16 @@ function getInitialOccurrenceIds(record: any) {
   );
 }
 
-type Props = Omit<SimpleFormProps, 'children'>;
+type Props = Omit<SimpleFormProps, 'children'> & {
+  protocol?: ProtocolType;
+};
 
-const MessageForm = (props: Props) => {
-  const [languageTabsComponent, translatableField] = useLanguageTabs();
+const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
+  const { record } = delegatedProps ?? {};
+  const t = useTranslate();
+  const [languageTabsComponent, translatableField] = useLanguageTabs({
+    enabled: protocol !== ProtocolType.SMS,
+  });
   const classes = useStyles();
 
   const handleRecipientSelectionChange = (
@@ -112,8 +125,10 @@ const MessageForm = (props: Props) => {
     <SimpleForm
       variant="outlined"
       redirect="show"
-      validate={validateMessageForm}
-      {...props}
+      validate={
+        protocol === ProtocolType.SMS ? validateSmsForm : validateMessageForm
+      }
+      {...delegatedProps}
       className={classes.form}
     >
       {languageTabsComponent}
@@ -144,7 +159,7 @@ const MessageForm = (props: Props) => {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                initialValue={props?.record?.event?.id || 'all'}
+                initialValue={record?.event?.id || 'all'}
               />
             </CustomOnChange>
           )
@@ -162,21 +177,23 @@ const MessageForm = (props: Props) => {
               eventId={eventId}
               fullWidth
               className={classes.fullWidth}
-              initialValue={getInitialOccurrenceIds(props.record)}
+              initialValue={getInitialOccurrenceIds(record)}
               allText="messages.fields.occurrences.all"
             />
           )
         }
       </FormDataConsumer>
-      <TextInput
-        source={translatableField('subject')}
-        label="messages.fields.subject.label2"
-        validate={validateSubject}
-        fullWidth
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
+      {protocol === ProtocolType.EMAIL && (
+        <TextInput
+          source={translatableField('subject')}
+          label="messages.fields.subject.label2"
+          validate={validateSubject}
+          fullWidth
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+      )}
       <TextInput
         source={translatableField('bodyText')}
         label="messages.fields.bodyText.label"
@@ -188,6 +205,13 @@ const MessageForm = (props: Props) => {
           shrink: true,
         }}
       />
+      {protocol === ProtocolType.SMS && (
+        <>
+          <Typography variant="subtitle2" className={classes.formNoticeText}>
+            {t('sms.create.messageSentImmediatelyNotice')}
+          </Typography>
+        </>
+      )}
     </SimpleForm>
   );
 };

@@ -7,11 +7,15 @@ import {
   FunctionField,
 } from 'react-admin';
 import { get } from 'lodash';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import TextsmsOutlinedIcon from '@material-ui/icons/TextsmsOutlined';
 
+import { ProtocolType } from '../../../api/generatedTypes/globalTypes';
 import { toDateTimeString } from '../../../common/utils';
 import KukkuuListPage from '../../application/layout/kukkuuListPage/KukkuuListPage';
 import PublishedField from '../../../common/components/publishedField/PublishedField';
 import { recipientSelectionChoices } from '../choices';
+import MessagesListToolbar from './MessageListToolbar';
 import styles from './messageList.module.css';
 
 const MessagesList = (props: ResourceComponentPropsWithId) => {
@@ -19,13 +23,38 @@ const MessagesList = (props: ResourceComponentPropsWithId) => {
 
   return (
     <KukkuuListPage
-      reactAdminProps={props}
       pageTitle={t('messages.list.title')}
+      reactAdminProps={{
+        ...props,
+        actions: <MessagesListToolbar />,
+      }}
     >
-      <TextField
-        label={t('messages.fields.subject.label')}
-        source="subject"
+      <FunctionField
+        label="messages.fields.protocol.label"
+        render={(record) => {
+          if (!record) {
+            return null;
+          }
+
+          const labelMap: Record<ProtocolType, React.ReactElement> = {
+            [ProtocolType.EMAIL]: <MailOutlineIcon />,
+            [ProtocolType.SMS]: <TextsmsOutlinedIcon />,
+          };
+          const protocol = record.protocol as ProtocolType;
+
+          return labelMap[protocol] ?? null;
+        }}
+      />
+      <FunctionField
+        label="messages.fields.bodyText.label2"
         className={styles.bold}
+        render={(record) => {
+          const maxLength = 66;
+          const bodyText = record?.bodyText ?? '';
+          const hasEllipsis = bodyText?.length >= maxLength;
+
+          return `${bodyText?.substring(0, 66)}${hasEllipsis ? '...' : ''}`;
+        }}
       />
       <SelectField
         label={t('messages.fields.recipientSelection.label')}

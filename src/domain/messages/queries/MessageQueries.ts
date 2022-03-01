@@ -8,6 +8,7 @@ const MessageFragment = gql`
     recipientSelection
     recipientCount
     sentAt
+    protocol
     event {
       id
       name

@@ -25,10 +25,26 @@ export enum Language {
 /**
  * An enumeration.
  */
+export enum MessageProtocol {
+  EMAIL = "EMAIL",
+  SMS = "SMS",
+}
+
+/**
+ * An enumeration.
+ */
 export enum MessageTranslationLanguageCode {
   EN = "EN",
   FI = "FI",
   SV = "SV",
+}
+
+/**
+ * An enumeration.
+ */
+export enum ProtocolType {
+  EMAIL = "EMAIL",
+  SMS = "SMS",
 }
 
 export enum RecipientSelectionEnum {
@@ -65,11 +81,13 @@ export interface AddEventMutationInput {
 }
 
 export interface AddMessageMutationInput {
+  protocol: ProtocolType;
   translations?: (MessageTranslationsInput | null)[] | null;
   projectId: string;
   recipientSelection: RecipientSelectionEnum;
   eventId?: string | null;
   occurrenceIds?: string[] | null;
+  sendDirectly?: boolean | null;
   clientMutationId?: string | null;
 }
 
@@ -189,6 +207,7 @@ export interface UpdateEventMutationInput {
 
 export interface UpdateMessageMutationInput {
   id: string;
+  protocol?: ProtocolType | null;
   translations?: (MessageTranslationsInput | null)[] | null;
   projectId?: string | null;
   recipientSelection?: RecipientSelectionEnum | null;
