@@ -14,7 +14,8 @@ export type Resource =
   | 'projects'
   | 'messages'
   | 'event-groups'
-  | 'events-and-event-groups';
+  | 'events-and-event-groups'
+  | 'sms';
 
 export type Method =
   | 'LIST'

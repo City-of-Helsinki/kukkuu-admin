@@ -5,6 +5,7 @@
 ### Added
 
 - Ticket validation view
+- Sms messages
 
 ## [1.6.1] - 2021-12-09
 

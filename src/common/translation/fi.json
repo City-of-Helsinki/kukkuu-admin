@@ -295,7 +295,11 @@
         "label": "Vastaanottajat"
       },
       "bodyText": {
-        "label": "Viestin teksti"
+        "label": "Viestin teksti",
+        "label2": "Viesti",
+        "error": {
+          "required": "Pakollinen"
+        }
       },
       "subject": {
         "label": "Nimi",
@@ -317,10 +321,20 @@
       "occurrences": {
         "label": "Esiintymät",
         "all": "Kaikki esiintymät"
+      },
+      "protocol": {
+        "label": "Tyyppi"
       }
     },
     "create": {
-      "title": "Uusi viesti"
+      "do": {
+        "email": "Uusi sähköpostiviesti",
+        "sms": "Uusi tekstiviesti"
+      },
+      "title": {
+        "email": "Uusi sähköpostiviesti",
+        "sms": "Uusi tekstiviesti"
+      }
     },
     "list": {
       "title": "Viestit"
@@ -411,6 +425,12 @@
     },
     "show": {
       "title": "Esiintymä"
+    }
+  },
+  "sms": {
+    "create": {
+      "do": "Uusi tekstiviesti",
+      "messageSentImmediatelyNotice": "Tekstiviestiä ei tallenneta, vaan se lähetetään heti, kun klikkaat lähetä-painiketta."
     }
   },
   "venues": {

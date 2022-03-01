@@ -1,6 +1,6 @@
 export const includesHeaders = (element: Element, id: number) => {
   const words = [
-    'Nimi',
+    'Viesti',
     'Vastaanottajat',
     'Tapahtuma',
     'Esiintymät',

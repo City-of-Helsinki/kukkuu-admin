@@ -11,10 +11,12 @@ import {
 } from './pages/messages';
 import { includesHeaders } from './utils/valueUtils';
 
-function buildTestMessage() {
+function buildTestMessage(protocol = '') {
+  const protocolLabel = protocol ? ` (${protocol})` : '';
+
   return {
-    subject: `Browser test message ${new Date().toJSON()}`,
-    bodyText: 'Test body text',
+    subject: `Browser test message ${new Date().toJSON()}${protocolLabel}`,
+    bodyText: `Test body text ${new Date().toJSON()}${protocolLabel}`,
   };
 }
 
@@ -30,6 +32,7 @@ fixture`Messages feature`
 
     // Add a test message to context
     t.ctx.message = buildTestMessage();
+    t.ctx.sms = buildTestMessage('sms');
   })
   .afterEach(async (t) => {
     // Clean test message from context
@@ -62,9 +65,9 @@ test('As an admin I want to create and delete messages', async (t) => {
   // Assert that we have been redirected into the list view
   await t.expect(messagesListPage.title.exists).ok();
 
-  const messageSelector = within(messagesListPage.listBody).queryAllByText(
-    t.ctx.message.subject
-  );
+  const messageSelector = within(messagesListPage.listBody)
+    .queryByText(t.ctx.message.bodyText)
+    .with({ timeout: 1000 });
 
   // Assert that the new message can be found
   await t.expect(messageSelector.exists).ok();
@@ -98,9 +101,30 @@ test('As an admin I want to create and delete messages', async (t) => {
   // Assert that we have been redirected into the list view
   await t.expect(messagesListPage.title.exists).ok();
 
-  // Wait for UI cache to refresh (needed in headless mode)
-  await t.wait(1000); // 1s
-
   // Assert that the new message can no longer be found
   await t.expect(messageSelector.exists).notOk();
+});
+
+test('As an admin I should be able to send SMS messages', async (t) => {
+  await t.click(messagesListPage.createMessageSmsLink);
+
+  const smsSelector = within(messagesListPage.listBody)
+    .queryByText(t.ctx.sms.bodyText)
+    .with({ timeout: 1000 });
+
+  await t
+    .typeText(messagesCreatePage.bodyTextInput, t.ctx.sms.bodyText)
+    .click(messagesCreatePage.submitCreateMessageForm);
+
+  // Assert that we have been redirected into the list view
+  await t.expect(messagesListPage.title.exists).ok();
+
+  // Assert that the new message can be found
+  await t.expect(smsSelector.exists).ok();
+
+  // Open details page
+  await t.click(smsSelector);
+
+  // Assert that the SMS has been sent
+  await t.expect(messagesShowPage.isSent.exists).ok();
 });

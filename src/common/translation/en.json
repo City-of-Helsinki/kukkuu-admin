@@ -295,7 +295,11 @@
         "label": "Recipients"
       },
       "bodyText": {
-        "label": "Message text"
+        "label": "Message text",
+        "label2": "Message",
+        "error": {
+          "required": "Required"
+        }
       },
       "subject": {
         "label": "Name",
@@ -317,10 +321,20 @@
       "occurrences": {
         "label": "Occurrences",
         "all": "All Occurrences"
+      },
+      "protocol": {
+        "label": "Type"
       }
     },
     "create": {
-      "title": "New message"
+      "do": {
+        "email": "New email",
+        "sms": "New sms"
+      },
+      "title": {
+        "email": "New email",
+        "sms": "New sms"
+      }
     },
     "list": {
       "title": "Messages"

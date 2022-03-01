@@ -20,3 +20,10 @@ export const validateMessageForm = (values: any) => {
     ['bodyText', 'message.translations.FI.bodyText.required']
   );
 };
+
+export const validateSmsForm = (values: any) => {
+  return requireFinnishFields(values, [
+    'bodyText',
+    'message.translations.FI.bodyText.required',
+  ]);
+};
