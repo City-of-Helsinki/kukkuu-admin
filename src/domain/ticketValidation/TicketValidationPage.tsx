@@ -43,10 +43,8 @@ const TicketValidationPage = () => {
   const { data, error } = useVerifyTicketQuery({
     referenceId: cryptographicallySignedCode,
   });
-  const isValid = data?.verifyTicket?.validity;
-  const eventName = data?.verifyTicket?.eventName;
-  const venueName = data?.verifyTicket?.venueName;
-  const occurrenceTime = data?.verifyTicket?.occurrenceTime;
+  const { validity: isValid, eventName, venueName, occurrenceTime } =
+    data?.verifyTicket ?? {};
 
   if (error) {
     return (
