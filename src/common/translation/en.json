@@ -469,6 +469,6 @@
   "ticketValidation": {
     "valid": "Ticket is valid",
     "invalid": "Ticket is not valid",
-    "error": "TIcket validation failed"
+    "error": "Ticket validation failed"
   }
 }
