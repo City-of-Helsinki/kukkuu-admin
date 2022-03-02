@@ -3,7 +3,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { useParams } from 'react-router';
-import { useTranslate } from 'react-admin';
+import { useTranslate, Loading } from 'react-admin';
 import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
 import { ApolloProvider } from '@apollo/client';
@@ -40,11 +40,15 @@ const TicketValidationPage = () => {
   const t = useTranslate();
   const styles = useStyles();
   const { cryptographicallySignedCode } = useParams<Params>();
-  const { data, error } = useVerifyTicketQuery({
+  const { data, error, loading } = useVerifyTicketQuery({
     referenceId: cryptographicallySignedCode,
   });
   const { validity: isValid, eventName, venueName, occurrenceTime } =
     data?.verifyTicket ?? {};
+
+  if (loading) {
+    return <Loading />;
+  }
 
   if (error) {
     return (
