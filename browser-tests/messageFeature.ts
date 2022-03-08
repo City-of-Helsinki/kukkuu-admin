@@ -114,7 +114,7 @@ test('As an admin I should be able to send SMS messages', async (t) => {
 
   await t
     .typeText(messagesCreatePage.bodyTextInput, t.ctx.sms.bodyText)
-    .click(messagesCreatePage.submitCreateMessageForm);
+    .click(messagesCreatePage.submitAndSendMessage);
 
   // Assert that we have been redirected into the list view
   await t.expect(messagesListPage.title.exists).ok();

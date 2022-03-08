@@ -14,6 +14,7 @@ export const messagesCreatePage = {
   subjectInput: screen.getByLabelText('Viestin otsikko *'),
   bodyTextInput: screen.getByLabelText('Viestin teksti *'),
   submitCreateMessageForm: screen.getByText('Tallenna'),
+  submitAndSendMessage: screen.getByText('Lähetä'),
 };
 
 export const messagesShowPage = {

@@ -29,7 +29,13 @@ const MessageCreate = (props: ResourceComponentProps) => {
       }}
     >
       <MessageForm
-        toolbar={<KukkuuCreateToolbar />}
+        toolbar={
+          <KukkuuCreateToolbar
+            saveLabel={
+              protocol === ProtocolType.SMS ? t('action.send') : undefined
+            }
+          />
+        }
         redirect="list"
         protocol={protocol}
       />
