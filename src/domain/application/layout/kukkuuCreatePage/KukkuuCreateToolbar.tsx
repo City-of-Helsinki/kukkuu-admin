@@ -25,12 +25,16 @@ const useStyles = makeStyles({
   },
 });
 
-function KukkuuCreateToolbar(props: any) {
+type Props = React.ComponentProps<typeof Toolbar> & {
+  saveLabel?: string;
+};
+
+function KukkuuCreateToolbar({ saveLabel, ...delegatedProps }: Props) {
   const classes = useStyles();
 
   return (
-    <Toolbar {...props} className={classes.toolbar}>
-      <SaveButton />
+    <Toolbar {...delegatedProps} className={classes.toolbar}>
+      <SaveButton label={saveLabel} />
       <CancelButton />
     </Toolbar>
   );

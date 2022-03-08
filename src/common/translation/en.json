@@ -472,6 +472,9 @@
       "title": "Venues"
     }
   },
+  "action": {
+    "send": "Send"
+  },
   "ra": {
     "message": {
       "delete_title": "Delete"

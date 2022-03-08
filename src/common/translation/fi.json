@@ -478,6 +478,9 @@
       "title": "Tapahtumapaikat"
     }
   },
+  "action": {
+    "send": "Lähetä"
+  },
   "ra": {
     "message": {
       "delete_title": "Poista"
