@@ -12,7 +12,9 @@ import {
 import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
+import get from 'lodash/get';
 
+import { ProtocolType } from '../../../api/generatedTypes/globalTypes';
 import { Message_message as Message } from '../../../api/generatedTypes/Message';
 import useLanguageTabs from '../../../common/hooks/useLanguageTabs';
 import { toDateTimeString, toShortDateTimeString } from '../../../common/utils';
@@ -133,7 +135,9 @@ const MessagesDetail = (props: ResourceComponentPropsWithId) => {
       ]}
     >
       <SimpleShowLayout className={classes.showLayout}>
-        {languageTabsComponent}
+        <ShowWhen source="protocol" notIn={[ProtocolType.SMS]}>
+          {languageTabsComponent}
+        </ShowWhen>
         <MessageRecipientCountField />
         <SelectField
           source="recipientSelection"
@@ -180,5 +184,22 @@ const MessagesDetail = (props: ResourceComponentPropsWithId) => {
     </KukkuuDetailPage>
   );
 };
+
+type ShowWhenProps = {
+  record?: any;
+  source: string;
+  notIn: string[];
+  children: React.ReactNode;
+};
+
+function ShowWhen({ record, source, notIn, children }: ShowWhenProps) {
+  const actualValue = get(record, source, null);
+
+  if (notIn.includes(actualValue)) {
+    return null;
+  }
+
+  return <>{children}</>;
+}
 
 export default MessagesDetail;
