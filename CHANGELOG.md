@@ -1,11 +1,12 @@
 # Change Log
 
-## [Unreleased]
+## [1.7.0] - 2022-03-09
 
 ### Added
 
-- Ticket validation view
-- Sms messages
+- [#193](https://github.com/City-of-Helsinki/kukkuu-admin/pull/193) Ticket validation view
+- [#195](https://github.com/City-of-Helsinki/kukkuu-admin/pull/195) SMS messages
+- [#188](https://github.com/City-of-Helsinki/kukkuu-admin/pull/188) Azure-pipeline configurations
 
 ## [1.6.1] - 2021-12-09
 
