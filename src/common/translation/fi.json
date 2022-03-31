@@ -153,7 +153,8 @@
         "label2": "Tila",
         "options": {
           "ready": "Valmis",
-          "notReady": "Keskeneräinen"
+          "notReady": "Keskeneräinen",
+          "published": "Julkaistu"
         }
       },
       "ticketSystem": {
