@@ -8,13 +8,26 @@ const getWrapper = (props) =>
   render(<EventReadyField {...defaultProps} {...props} />);
 
 describe('<EventReadyField />', () => {
-  it('should render ready when event is marked as ready', () => {
+  it('should render ready when event is marked as ready but is not published yet', () => {
     const { getByRole } = getWrapper({
       record: { readyForEventGroupPublishing: true },
     });
 
     expect(
       getByRole('img', { name: 'events.fields.ready.options.ready' })
+    ).toBeTruthy();
+  });
+
+  it('should render ready when event is marked as ready and published', () => {
+    const { getByRole } = getWrapper({
+      record: {
+        readyForEventGroupPublishing: true,
+        publishedAt: new Date().toJSON(),
+      },
+    });
+
+    expect(
+      getByRole('img', { name: 'events.fields.ready.options.published' })
     ).toBeTruthy();
   });
 
