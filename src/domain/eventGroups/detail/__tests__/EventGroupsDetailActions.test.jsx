@@ -42,6 +42,13 @@ describe('<EventGroupsDetailActions />', () => {
         project: {
           id: '123',
         },
+        publishedAt: null,
+        events: [
+          {
+            publishedAt: null,
+            readyForEventGroupPublishing: true,
+          },
+        ],
       },
       permissions: {
         canPublishWithinProject: () => true,
@@ -54,13 +61,57 @@ describe('<EventGroupsDetailActions />', () => {
     ).toBeTruthy();
   });
 
-  it('should hide publish button when the event group is already published', () => {
+  it('should hide publish button when the event group and its events are already published', () => {
     const { queryByRole } = getWrapper({
-      data: { publishedAt: new Date().toJSON() },
+      data: {
+        project: {
+          id: '123',
+        },
+        publishedAt: new Date().toJSON(),
+        events: [
+          {
+            publishedAt: new Date().toJSON(),
+            readyForEventGroupPublishing: true,
+          },
+        ],
+      },
+      permissions: {
+        canPublishWithinProject: () => true,
+        canManageEventGroupsWithinProject: () => true,
+      },
     });
 
     expect(
       queryByRole('button', { name: 'eventGroups.actions.publish.do' })
     ).toBeFalsy();
+  });
+
+  it('should render a republish button when there is a mix of unpublished and published event data', () => {
+    const { getByRole } = getWrapper({
+      data: {
+        project: {
+          id: '123',
+        },
+        publishedAt: new Date().toJSON(),
+        events: [
+          {
+            publishedAt: true,
+            readyForEventGroupPublishing: true,
+          },
+          {
+            publishedAt: null,
+            readyForEventGroupPublishing: true,
+          },
+        ],
+      },
+      permissions: {
+        canPublishWithinProject: () => true,
+        canManageEventGroupsWithinProject: () => true,
+      },
+    });
+
+    expect(
+      getByRole('button', { name: 'eventGroups.actions.publish.redo' })
+    ).toBeTruthy();
   });
 });

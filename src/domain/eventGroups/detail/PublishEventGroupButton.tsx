@@ -13,9 +13,15 @@ type Props = {
   basePath: string;
   record: EvenGroup;
   className?: string;
+  buttonLabel?: string;
 };
 
-const PublishEventGroupButton = ({ basePath, record, className }: Props) => {
+const PublishEventGroupButton = ({
+  basePath,
+  record,
+  className,
+  buttonLabel = 'eventGroups.actions.publish.do',
+}: Props) => {
   const t = useTranslate();
 
   const handleErrorMessage = (error: Error) => {
@@ -32,7 +38,7 @@ const PublishEventGroupButton = ({ basePath, record, className }: Props) => {
     <ConfirmMutationButton
       basePath={basePath}
       className={className}
-      buttonLabel="eventGroups.actions.publish.do"
+      buttonLabel={buttonLabel}
       icon={<SendIcon />}
       successMessage="eventGroups.actions.publish.success"
       errorMessage={handleErrorMessage}

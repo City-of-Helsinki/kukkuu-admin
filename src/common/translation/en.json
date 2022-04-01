@@ -202,6 +202,7 @@
         "do": "New Event Group"
       },
       "publish": {
+        "redo": "Republish Event Group",
         "do": "Publish Event Group",
         "success": "Event group published!",
         "error": "Event group publish error",

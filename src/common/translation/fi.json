@@ -202,6 +202,7 @@
         "do": "Uusi tapahtumaryhmä"
       },
       "publish": {
+        "redo": "Uudelleen julkaise tapahtumaryhmä",
         "do": "Julkaise tapahtumaryhmä",
         "success": "Tapahtumaryhmä julkaistu!",
         "error": "Tapahtumaryhmän julkaisussa tapahtui virhe.",
