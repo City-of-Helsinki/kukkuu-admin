@@ -8,6 +8,10 @@ import {
 import { makeStyles } from '@material-ui/core';
 
 import PublishEventGroupButton from './PublishEventGroupButton';
+import {
+  EventGroupEventsPublishStatusEnum,
+  getEventGroupPublishStatus,
+} from '../utils';
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -21,12 +25,18 @@ const useStyles = makeStyles((theme) => ({
 const EventGroupsDetailActions = ({ data, basePath, permissions }: any) => {
   const t = useTranslate();
   const classes = useStyles();
-
-  const isPublished = Boolean(data?.publishedAt);
+  const publishStatus = getEventGroupPublishStatus(data);
   const canPublish = permissions?.canPublishWithinProject(data?.project?.id);
   const canManageEventGroups = permissions?.canManageEventGroupsWithinProject(
     data?.project?.id
   );
+  const showPublishButton =
+    data &&
+    [
+      EventGroupEventsPublishStatusEnum.ReadyForFirstPublish,
+      EventGroupEventsPublishStatusEnum.ReadyForRepublish,
+    ].includes(publishStatus) &&
+    canPublish;
 
   return (
     <TopToolbar className={classes.toolbar}>
@@ -37,8 +47,17 @@ const EventGroupsDetailActions = ({ data, basePath, permissions }: any) => {
       {canManageEventGroups && (
         <EditButton basePath="/event-groups" record={data} />
       )}
-      {data && !isPublished && canPublish && (
-        <PublishEventGroupButton basePath={basePath} record={data} />
+      {showPublishButton && (
+        <PublishEventGroupButton
+          basePath={basePath}
+          record={data}
+          buttonLabel={
+            publishStatus ===
+            EventGroupEventsPublishStatusEnum.ReadyForRepublish
+              ? 'eventGroups.actions.publish.redo'
+              : 'eventGroups.actions.publish.do'
+          }
+        />
       )}
     </TopToolbar>
   );
