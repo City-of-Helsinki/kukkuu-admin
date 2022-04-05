@@ -1,5 +1,11 @@
 # Change Log
 
+# [1.8.0] - 2022-06-04
+
+### Added
+
+- [#198](https://github.com/City-of-Helsinki/kukkuu-admin/pull/198) Event group republish features and status indicators
+
 ## [1.7.0] - 2022-03-09
 
 ### Added
@@ -119,7 +125,7 @@ No changes to source. Transferred infrastructure.
 
 ### Added
 
-- Occurrence enrollments with no guardians now have placeholder values
+- Occurrence enrolments with no guardians now have placeholder values
 - Number of people in queue and enrolled to event occurrence
 - Number of people in queue to event page
 
