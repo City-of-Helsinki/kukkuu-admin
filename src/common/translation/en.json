@@ -394,6 +394,9 @@
       "enrolmentsCount": {
         "label": "Number of enrolments"
       },
+      "attendedEnrolmentsCount": {
+        "label": "Attendee count"
+      },
       "event": {
         "label": "Event"
       },

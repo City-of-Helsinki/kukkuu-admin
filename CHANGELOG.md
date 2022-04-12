@@ -1,5 +1,11 @@
 # Change Log
 
+# [Unreleased]
+
+### Added
+
+- Attended enrolment count in occurrence list under event
+
 # [1.8.0] - 2022-06-04
 
 ### Added
