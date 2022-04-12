@@ -175,6 +175,20 @@ const EventShow = (props: ResourceComponentPropsWithId) => {
               )}
               {internalTicketSystem && (
                 <FunctionField
+                  label="occurrences.fields.attendedEnrolmentsCount.label"
+                  textAlign="right"
+                  render={(record: any) => {
+                    const attendedCount =
+                      record?.enrolments?.edges?.filter(
+                        (edge: any) => edge?.node?.attended
+                      )?.length ?? '?';
+
+                    return attendedCount;
+                  }}
+                />
+              )}
+              {internalTicketSystem && (
+                <FunctionField
                   label="occurrences.fields.freeSpotNotificationSubscriptions.label"
                   textAlign="right"
                   render={(entity) =>

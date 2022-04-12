@@ -394,6 +394,9 @@
       "enrolmentsCount": {
         "label": "Osallistujia"
       },
+      "attendedEnrolmentsCount": {
+        "label": "Läsnäolijoita"
+      },
       "event": {
         "label": "Tapahtuma"
       },
