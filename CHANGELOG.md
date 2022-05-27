@@ -1,12 +1,12 @@
 # Change Log
 
-# [Unreleased]
+## [1.9.0] - 2022-05-27
 
 ### Added
 
-- Attended enrolment count in occurrence list under event
+- [#201](https://github.com/City-of-Helsinki/kukkuu-admin/pull/201) [#202](https://github.com/City-of-Helsinki/kukkuu-admin/pull/202) Attended enrolment count in occurrence list under event
 
-# [1.8.0] - 2022-06-04
+## [1.8.0] - 2022-04-06
 
 ### Added
 
