@@ -51,7 +51,7 @@
     "graphql": "^15.3.0",
     "history": "^4.10.1",
     "moment": "^2.26.0",
-    "moment-timezone": "^0.5.31",
+    "moment-timezone": "^0.5.35",
     "oidc-client": "^1.10.1",
     "prop-types": "^15.7.2",
     "query-string": "^6.13.1",
