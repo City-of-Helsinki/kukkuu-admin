@@ -39,7 +39,7 @@ jobs:
           DOCKER_BUILD_ARG_REACT_APP_API_URI: 'https://kukkuu.${{ env.BASE_DOMAIN }}/graphql'
           DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: 'https://c89ee3f57dc94ffd940d1df1a353b97f@sentry.hel.ninja/55'
           DOCKER_BUILD_ARG_REACT_APP_IS_TEST_ENVIRONMENT: 'true'
-          DOCKER_BUILD_ARG_REACT_APP_FEATURE_FLAG_EXTERNAL_TICKET_SYSTEM_SUPPORT: false
+          DOCKER_BUILD_ARG_REACT_APP_FEATURE_FLAG_EXTERNAL_TICKET_SYSTEM_SUPPORT: true
 
   staging:
     runs-on: ubuntu-latest
