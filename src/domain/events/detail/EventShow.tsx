@@ -36,6 +36,7 @@ import { participantsPerInviteChoices, ticketSystemChoices } from '../choices';
 import EventShowActions from './EventShowActions';
 import { hasInternalTicketSystem } from '../utils';
 import { AdminEvent } from '../types/EventTypes';
+import ImportTicketSystemPasswordsFormDialog from '../../ticketSystemPassword/ImportTicketSystemPasswordsFormDialog';
 
 const styles = createStyles({
   button: {
@@ -43,23 +44,57 @@ const styles = createStyles({
   },
 });
 
-interface Props extends WithStyles<typeof styles> {
+interface AddOccurrenceButtonProps extends WithStyles<typeof styles> {
   record?: Occurrence;
 }
 
-const AddOccurrenceButton = withStyles(styles)(({ classes, record }: Props) => (
-  <Button
-    component={Link}
-    className={classes.button}
-    to={{
-      pathname: '/occurrences/create',
-      search: `?event_id=${record?.id}`,
-    }}
-    label="occurrences.create.title"
-  >
-    <AddIcon />
-  </Button>
-));
+const AddOccurrenceButton = withStyles(styles)(
+  ({ classes, record }: AddOccurrenceButtonProps) => (
+    <Button
+      component={Link}
+      className={classes.button}
+      to={{
+        pathname: '/occurrences/create',
+        search: `?event_id=${record?.id}`,
+      }}
+      label="occurrences.create.title"
+    >
+      <AddIcon />
+    </Button>
+  )
+);
+
+interface ImportTicketSystemPasswordsButtonProps
+  extends WithStyles<typeof styles> {
+  record?: Occurrence;
+  onClick: () => void;
+}
+
+const ImportTicketSystemPasswordsButton = withStyles(styles)(
+  ({ classes, record, onClick }: ImportTicketSystemPasswordsButtonProps) => (
+    <Button
+      component={Link}
+      className={classes.button}
+      label="occurrences.import.ticketSystemPassowords"
+      onClick={onClick}
+    >
+      <AddIcon />
+    </Button>
+  )
+);
+
+const OccurrenceTabHeaderControls = () => {
+  const [isDialogShown, setShowDialog] = useState(false);
+  return (
+    <div>
+      <ImportTicketSystemPasswordsButton onClick={() => setShowDialog(true)} />
+      <ImportTicketSystemPasswordsFormDialog
+        isOpen={isDialogShown}
+        onClose={() => setShowDialog(false)}
+      />
+    </div>
+  );
+};
 
 const EventShow = (props: ResourceComponentPropsWithId) => {
   const locale = useLocale();
@@ -141,6 +176,7 @@ const EventShow = (props: ResourceComponentPropsWithId) => {
           <PublishedField locale={locale} />
         </Tab>
         <Tab label="events.fields.occurrences.label">
+          <OccurrenceTabHeaderControls />
           <ReferenceManyField
             label=" "
             reference="occurrences"
