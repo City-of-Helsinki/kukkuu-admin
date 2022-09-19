@@ -152,6 +152,12 @@ export interface EventTranslationsInput {
   languageCode: Language;
 }
 
+export interface ImportTicketSystemPasswordsMutationInput {
+  eventId: string;
+  passwords: string[];
+  clientMutationId?: string | null;
+}
+
 export interface MessageTranslationsInput {
   languageCode: Language;
   subject?: string | null;
