@@ -66,12 +66,11 @@ const AddOccurrenceButton = withStyles(styles)(
 
 interface ImportTicketSystemPasswordsButtonProps
   extends WithStyles<typeof styles> {
-  record?: Occurrence;
   onClick: () => void;
 }
 
 const ImportTicketSystemPasswordsButton = withStyles(styles)(
-  ({ classes, record, onClick }: ImportTicketSystemPasswordsButtonProps) => (
+  ({ classes, onClick }: ImportTicketSystemPasswordsButtonProps) => (
     <Button
       component={Link}
       className={classes.button}
@@ -83,7 +82,13 @@ const ImportTicketSystemPasswordsButton = withStyles(styles)(
   )
 );
 
-const OccurrenceTabHeaderControls = () => {
+interface OccurrenceTabHeaderControlsProps {
+  record: AdminEvent;
+}
+
+const OccurrenceTabHeaderControls = ({
+  record,
+}: OccurrenceTabHeaderControlsProps) => {
   const [isDialogShown, setShowDialog] = useState(false);
   return (
     <div>
@@ -91,6 +96,7 @@ const OccurrenceTabHeaderControls = () => {
       <ImportTicketSystemPasswordsFormDialog
         isOpen={isDialogShown}
         onClose={() => setShowDialog(false)}
+        record={record}
       />
     </div>
   );
@@ -176,7 +182,7 @@ const EventShow = (props: ResourceComponentPropsWithId) => {
           <PublishedField locale={locale} />
         </Tab>
         <Tab label="events.fields.occurrences.label">
-          <OccurrenceTabHeaderControls />
+          {record && <OccurrenceTabHeaderControls record={record} />}
           <ReferenceManyField
             label=" "
             reference="occurrences"

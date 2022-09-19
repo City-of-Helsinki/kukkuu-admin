@@ -9,6 +9,9 @@ import Button from '@material-ui/core/Button';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import { useTranslate } from 'react-admin';
 
+import ticketSystemPasswordsApi from './api/ticketSystemPasswordsApi';
+import { AdminEvent } from '../events/types/EventTypes';
+
 const styles = createStyles({
   passwordsField: {
     width: '100%',
@@ -19,15 +22,42 @@ interface ImportTicketSystemPasswordsModalProps
   extends WithStyles<typeof styles> {
   isOpen: boolean;
   onClose: () => void;
+  record: AdminEvent;
 }
 
 const ImportTicketSystemPasswordsFormDialog = withStyles(styles)(
-  ({ isOpen, onClose, classes }: ImportTicketSystemPasswordsModalProps) => {
+  ({
+    isOpen,
+    onClose,
+    classes,
+    record,
+  }: ImportTicketSystemPasswordsModalProps) => {
     const translate = useTranslate();
-    const submitPasswords = () => {
-      // TODO: Collect the passwords in a list
+    const [passwordsText, setPasswordsText] = React.useState('');
 
-      // TODO: Submit the import event passwords mutation to the API
+    const onChangePasswordsText: React.ChangeEventHandler<HTMLTextAreaElement> = (
+      e
+    ) => {
+      setPasswordsText(e.currentTarget.value);
+    };
+
+    const submitPasswords = async () => {
+      // TODO: Handle messaging: errors and succefull import
+
+      // Collect the passwords in a list
+      // Every new line is a new password
+      const passwords = passwordsText.split(/\r?\n/);
+
+      // Submit the import event passwords mutation to the API
+      await ticketSystemPasswordsApi.importTicketSystemPasswords({
+        data: {
+          eventId: record.id,
+          passwords,
+        },
+      });
+
+      // Clear input
+      setPasswordsText('');
 
       // Close the dialog
       onClose();
@@ -54,6 +84,8 @@ const ImportTicketSystemPasswordsFormDialog = withStyles(styles)(
             )}
             placeholder={'0A1BC3D4E5\nABC123DEFG\n987A654B32'}
             rowsMin={10}
+            value={passwordsText}
+            onChange={onChangePasswordsText}
           />
         </DialogContent>
         <DialogActions>
