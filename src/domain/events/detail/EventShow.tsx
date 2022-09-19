@@ -70,16 +70,19 @@ interface ImportTicketSystemPasswordsButtonProps
 }
 
 const ImportTicketSystemPasswordsButton = withStyles(styles)(
-  ({ classes, onClick }: ImportTicketSystemPasswordsButtonProps) => (
-    <Button
-      component={Link}
-      className={classes.button}
-      label="occurrences.import.ticketSystemPassowords"
-      onClick={onClick}
-    >
-      <AddIcon />
-    </Button>
-  )
+  ({ classes, onClick }: ImportTicketSystemPasswordsButtonProps) => {
+    const translate = useTranslate();
+    return (
+      <Button
+        component={Link}
+        className={classes.button}
+        label={translate('ticketSystemPassword.import.dialog.openButton')}
+        onClick={onClick}
+      >
+        <AddIcon />
+      </Button>
+    );
+  }
 );
 
 interface OccurrenceTabHeaderControlsProps {

@@ -70,30 +70,32 @@ const ImportTicketSystemPasswordsFormDialog = withStyles(styles)(
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
-          {translate('event.ticketSystemPassword.import.dialog.title')}
+          {translate('ticketSystemPassword.import.dialog.title')}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {translate('event.ticketSystemPassword.import.dialog.text')}
+            {translate('ticketSystemPassword.import.dialog.text')}
           </DialogContentText>
           <TextareaAutosize
             name="passwords"
             className={classes.passwordsField}
             aria-label={translate(
-              'event.ticketSystemPassword.import.passwords.ariaLabel'
+              'ticketSystemPassword.import.passwords.ariaLabel'
             )}
-            placeholder={'0A1BC3D4E5\nABC123DEFG\n987A654B32'}
+            placeholder={translate(
+              'ticketSystemPassword.import.passwords.placeholder'
+            )}
             rowsMin={10}
             value={passwordsText}
             onChange={onChangePasswordsText}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose} color="primary">
-            {translate('event.ticketSystemPassword.import.action.cancel')}
+          <Button onClick={onClose}>
+            {translate('ticketSystemPassword.import.action.cancel')}
           </Button>
           <Button onClick={submitPasswords} color="primary">
-            {translate('event.ticketSystemPassword.import.action.import')}
+            {translate('ticketSystemPassword.import.action.import')}
           </Button>
         </DialogActions>
       </Dialog>
