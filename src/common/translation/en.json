@@ -513,6 +513,13 @@
       "action": {
         "import": "Import",
         "cancel": "Cancel"
+      },
+      "submit": {
+        "passwords": {
+          "error": "Some passwords could not be imported: %{passwords}"
+        },
+        "error": "Critical error in passwords importing",
+        "success": "Ticket system passwords imported!"
       }
     }
   }

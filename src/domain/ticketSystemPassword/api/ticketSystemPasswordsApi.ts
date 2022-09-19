@@ -1,3 +1,4 @@
+import { Event } from '../../../api/generatedTypes/Event';
 import { MethodHandlerParams } from '../../../api/types';
 import {
   handleApiNode,
@@ -5,6 +6,19 @@ import {
   mutationHandler,
 } from '../../../api/utils/apiUtils';
 import { importEventTicketSystemPasswordsMutation } from '../mutations/TicketSystemPasswordMutations';
+
+export type ErrorType = {
+  field: string;
+  message: string;
+  value: string;
+};
+
+// TODO: Generate
+export type ImportEventTicketSystemPasswordsMutation = {
+  event: Event;
+  passwords: string[];
+  errors: ErrorType[];
+};
 
 async function importTicketSystemPasswords(params: MethodHandlerParams) {
   const { eventId, passwords } = params.data;

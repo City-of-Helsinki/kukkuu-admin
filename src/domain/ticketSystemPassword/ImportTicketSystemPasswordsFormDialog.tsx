@@ -7,9 +7,11 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import { useTranslate } from 'react-admin';
+import { useNotify, useTranslate } from 'react-admin';
 
-import ticketSystemPasswordsApi from './api/ticketSystemPasswordsApi';
+import ticketSystemPasswordsApi, {
+  ImportEventTicketSystemPasswordsMutation,
+} from './api/ticketSystemPasswordsApi';
 import { AdminEvent } from '../events/types/EventTypes';
 
 const styles = createStyles({
@@ -34,7 +36,7 @@ const ImportTicketSystemPasswordsFormDialog = withStyles(styles)(
   }: ImportTicketSystemPasswordsModalProps) => {
     const translate = useTranslate();
     const [passwordsText, setPasswordsText] = React.useState('');
-
+    const notify = useNotify();
     const onChangePasswordsText: React.ChangeEventHandler<HTMLTextAreaElement> = (
       e
     ) => {
@@ -49,12 +51,33 @@ const ImportTicketSystemPasswordsFormDialog = withStyles(styles)(
       const passwords = passwordsText.split(/\r?\n/);
 
       // Submit the import event passwords mutation to the API
-      await ticketSystemPasswordsApi.importTicketSystemPasswords({
-        data: {
-          eventId: record.id,
-          passwords,
-        },
-      });
+      try {
+        const response = await ticketSystemPasswordsApi.importTicketSystemPasswords(
+          {
+            data: {
+              eventId: record.id,
+              passwords,
+            },
+          }
+        );
+        const data = response?.data
+          ? ((response.data as unknown) as ImportEventTicketSystemPasswordsMutation)
+          : null;
+
+        if (data?.errors?.length) {
+          const passwordsWithError = data.errors.map((error) => error.value);
+          notify(
+            translate('ticketSystemPassword.import.submit.passwords.error', {
+              passwords: passwordsWithError.join(', '),
+            }),
+            'warning'
+          );
+        }
+
+        notify(translate('ticketSystemPassword.import.submit.success'), 'info');
+      } catch (e) {
+        notify(translate('ticketSystemPassword.import.submit.error'), 'error');
+      }
 
       // Clear input
       setPasswordsText('');

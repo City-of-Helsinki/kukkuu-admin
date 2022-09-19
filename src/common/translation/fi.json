@@ -513,6 +513,13 @@
       "action": {
         "import": "Lisää",
         "cancel": "Peruuta"
+      },
+      "submit": {
+        "passwords": {
+          "error": "Joitakin salasanoja ei onnistuttu lisäämään: %{passwords}"
+        },
+        "error": "Kriittinen virhe salasanojen lisäämisessä",
+        "success": "Salasanat lisätty!"
       }
     }
   }
