@@ -329,11 +329,11 @@
       }
     },
     "create": {
-      "do": {
+      "title": {
         "email": "Uusi sähköpostiviesti",
         "sms": "Uusi tekstiviesti"
       },
-      "title": {
+      "do": {
         "email": "Uusi sähköpostiviesti",
         "sms": "Uusi tekstiviesti"
       }
@@ -498,5 +498,22 @@
     "valid": "Lippu on voimassa",
     "invalid": "Lippu ei ole voimassa",
     "error": "Lipun tarkistaminen epäonnistui"
+  },
+  "ticketSystemPassword": {
+    "import": {
+      "dialog": {
+        "openButton": "Lisää salasanoja",
+        "title": "Lisää salasanoja",
+        "text": "Kopioi saamasi salasanat ja liitä ne alla olevaan tekstikenttään tekstimuodossa listana allekain"
+      },
+      "passwords": {
+        "ariaLabel": "Liitä salasanat",
+        "placeholder": "0A1BC3D4E5"
+      },
+      "action": {
+        "import": "Lisää",
+        "cancel": "Peruuta"
+      }
+    }
   }
 }
