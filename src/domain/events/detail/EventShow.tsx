@@ -90,14 +90,21 @@ const OccurrenceTabHeaderControls = ({
   record,
 }: OccurrenceTabHeaderControlsProps) => {
   const [isDialogShown, setShowDialog] = useState(false);
+  const internalTicketSystem = hasInternalTicketSystem(record);
   return (
     <div>
-      <ImportTicketSystemPasswordsButton onClick={() => setShowDialog(true)} />
-      <ImportTicketSystemPasswordsFormDialog
-        isOpen={isDialogShown}
-        onClose={() => setShowDialog(false)}
-        record={record}
-      />
+      {!internalTicketSystem && (
+        <>
+          <ImportTicketSystemPasswordsButton
+            onClick={() => setShowDialog(true)}
+          />
+          <ImportTicketSystemPasswordsFormDialog
+            isOpen={isDialogShown}
+            onClose={() => setShowDialog(false)}
+            record={record}
+          />
+        </>
+      )}
     </div>
   );
 };
