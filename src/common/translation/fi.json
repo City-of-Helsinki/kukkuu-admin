@@ -504,11 +504,11 @@
       "dialog": {
         "openButton": "Lisää salasanoja",
         "title": "Lisää salasanoja",
-        "text": "Kopioi saamasi salasanat ja liitä ne alla olevaan tekstikenttään tekstimuodossa listana allekain"
+        "text": "Kopioi saamasi salasanat ja liitä ne alla olevaan tekstikenttään tekstimuodossa listana allekkain"
       },
       "passwords": {
         "ariaLabel": "Liitä salasanat",
-        "placeholder": "0A1BC3D4E5"
+        "placeholder": "0A1BC3D4E5\nABC123DEF\nXYZ098ASD"
       },
       "action": {
         "import": "Lisää",

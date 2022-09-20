@@ -508,7 +508,7 @@
       },
       "passwords": {
         "ariaLabel": "Import passwords",
-        "placeholder": "0A1BC3D4E5"
+        "placeholder": "0A1BC3D4E5\nABC123DEF\nXYZ098ASD"
       },
       "action": {
         "import": "Import",
