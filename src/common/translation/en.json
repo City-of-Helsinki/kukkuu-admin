@@ -329,11 +329,11 @@
       }
     },
     "create": {
-      "do": {
+      "title": {
         "email": "New email",
         "sms": "New sms"
       },
-      "title": {
+      "do": {
         "email": "New email",
         "sms": "New sms"
       }
@@ -432,6 +432,12 @@
       "title": "Occurrence"
     }
   },
+  "sms": {
+    "create": {
+      "do": "New sms",
+      "messageSentImmediatelyNotice": "The SMS is not saved, but sent immediately after send-button is clicked"
+    }
+  },
   "venues": {
     "create": {
       "aside": {
@@ -492,5 +498,29 @@
     "valid": "Ticket is valid",
     "invalid": "Ticket is not valid",
     "error": "Ticket validation failed"
+  },
+  "ticketSystemPassword": {
+    "import": {
+      "dialog": {
+        "openButton": "Add passwords",
+        "title": "Add passwords",
+        "text": "Copy the passwords you received and paste them in the text field below in text form as a list below"
+      },
+      "passwords": {
+        "ariaLabel": "Import passwords",
+        "placeholder": "0A1BC3D4E5\nABC123DEF\nXYZ098ASD"
+      },
+      "action": {
+        "import": "Import",
+        "cancel": "Cancel"
+      },
+      "submit": {
+        "passwords": {
+          "error": "Some passwords could not be imported: %{passwords}"
+        },
+        "error": "Critical error in passwords importing",
+        "success": "Ticket system passwords imported!"
+      }
+    }
   }
 }

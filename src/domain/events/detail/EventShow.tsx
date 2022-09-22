@@ -36,6 +36,7 @@ import { participantsPerInviteChoices, ticketSystemChoices } from '../choices';
 import EventShowActions from './EventShowActions';
 import { hasInternalTicketSystem } from '../utils';
 import { AdminEvent } from '../types/EventTypes';
+import ImportTicketSystemPasswordsFormDialog from '../../ticketSystemPassword/ImportTicketSystemPasswordsFormDialog';
 
 const styles = createStyles({
   button: {
@@ -43,23 +44,72 @@ const styles = createStyles({
   },
 });
 
-interface Props extends WithStyles<typeof styles> {
+interface AddOccurrenceButtonProps extends WithStyles<typeof styles> {
   record?: Occurrence;
 }
 
-const AddOccurrenceButton = withStyles(styles)(({ classes, record }: Props) => (
-  <Button
-    component={Link}
-    className={classes.button}
-    to={{
-      pathname: '/occurrences/create',
-      search: `?event_id=${record?.id}`,
-    }}
-    label="occurrences.create.title"
-  >
-    <AddIcon />
-  </Button>
-));
+const AddOccurrenceButton = withStyles(styles)(
+  ({ classes, record }: AddOccurrenceButtonProps) => (
+    <Button
+      component={Link}
+      className={classes.button}
+      to={{
+        pathname: '/occurrences/create',
+        search: `?event_id=${record?.id}`,
+      }}
+      label="occurrences.create.title"
+    >
+      <AddIcon />
+    </Button>
+  )
+);
+
+interface ImportTicketSystemPasswordsButtonProps
+  extends WithStyles<typeof styles> {
+  onClick: () => void;
+}
+
+const ImportTicketSystemPasswordsButton = withStyles(styles)(
+  ({ classes, onClick }: ImportTicketSystemPasswordsButtonProps) => {
+    const translate = useTranslate();
+    return (
+      <Button
+        className={classes.button}
+        label={translate('ticketSystemPassword.import.dialog.openButton')}
+        onClick={onClick}
+      >
+        <AddIcon />
+      </Button>
+    );
+  }
+);
+
+interface OccurrenceTabHeaderControlsProps {
+  record: AdminEvent;
+}
+
+const OccurrenceTabHeaderControls = ({
+  record,
+}: OccurrenceTabHeaderControlsProps) => {
+  const [isDialogShown, setShowDialog] = useState(false);
+  const internalTicketSystem = hasInternalTicketSystem(record);
+  return (
+    <div>
+      {!internalTicketSystem && (
+        <>
+          <ImportTicketSystemPasswordsButton
+            onClick={() => setShowDialog(true)}
+          />
+          <ImportTicketSystemPasswordsFormDialog
+            isOpen={isDialogShown}
+            onClose={() => setShowDialog(false)}
+            record={record}
+          />
+        </>
+      )}
+    </div>
+  );
+};
 
 const EventShow = (props: ResourceComponentPropsWithId) => {
   const locale = useLocale();
@@ -141,6 +191,7 @@ const EventShow = (props: ResourceComponentPropsWithId) => {
           <PublishedField locale={locale} />
         </Tab>
         <Tab label="events.fields.occurrences.label">
+          {record && <OccurrenceTabHeaderControls record={record} />}
           <ReferenceManyField
             label=" "
             reference="occurrences"
