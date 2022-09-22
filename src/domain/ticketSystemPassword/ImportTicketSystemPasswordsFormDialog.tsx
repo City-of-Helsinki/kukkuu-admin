@@ -9,10 +9,9 @@ import Button from '@material-ui/core/Button';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import { useNotify, useTranslate } from 'react-admin';
 
-import ticketSystemPasswordsApi, {
-  ImportEventTicketSystemPasswordsMutation,
-} from './api/ticketSystemPasswordsApi';
+import ticketSystemPasswordsApi from './api/ticketSystemPasswordsApi';
 import { AdminEvent } from '../events/types/EventTypes';
+import { ImportTicketSystemPasswordsMutation_importTicketSystemPasswords as ImportTicketSystemPasswords } from '../../api/generatedTypes/ImportTicketSystemPasswordsMutation';
 
 const styles = createStyles({
   passwordsField: {
@@ -44,8 +43,6 @@ const ImportTicketSystemPasswordsFormDialog = withStyles(styles)(
     };
 
     const submitPasswords = async () => {
-      // TODO: Handle messaging: errors and succefull import
-
       // Collect the passwords in a list
       // Every new line is a new password
       const passwords = passwordsText.split(/\r?\n/);
@@ -61,11 +58,11 @@ const ImportTicketSystemPasswordsFormDialog = withStyles(styles)(
           }
         );
         const data = response?.data
-          ? ((response.data as unknown) as ImportEventTicketSystemPasswordsMutation)
+          ? ((response.data as unknown) as ImportTicketSystemPasswords)
           : null;
 
         if (data?.errors?.length) {
-          const passwordsWithError = data.errors.map((error) => error.value);
+          const passwordsWithError = data.errors.map((error) => error?.value);
           notify(
             translate('ticketSystemPassword.import.submit.passwords.error', {
               passwords: passwordsWithError.join(', '),
