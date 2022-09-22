@@ -64,16 +64,17 @@ const ImportTicketSystemPasswordsFormDialog = withStyles(styles)(
         if (data?.errors?.length) {
           const passwordsWithError = data.errors.map((error) => error?.value);
           notify(
-            translate('ticketSystemPassword.import.submit.passwords.error', {
+            'ticketSystemPassword.import.submit.passwords.error',
+            'warning',
+            {
               passwords: passwordsWithError.join(', '),
-            }),
-            'warning'
+            }
           );
         }
 
-        notify(translate('ticketSystemPassword.import.submit.success'), 'info');
+        notify('ticketSystemPassword.import.submit.success', 'info');
       } catch (e) {
-        notify(translate('ticketSystemPassword.import.submit.error'), 'error');
+        notify('ticketSystemPassword.import.submit.error', 'error');
       }
 
       // Clear input

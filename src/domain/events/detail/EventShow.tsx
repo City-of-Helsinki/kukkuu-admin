@@ -74,7 +74,6 @@ const ImportTicketSystemPasswordsButton = withStyles(styles)(
     const translate = useTranslate();
     return (
       <Button
-        component={Link}
         className={classes.button}
         label={translate('ticketSystemPassword.import.dialog.openButton')}
         onClick={onClick}
