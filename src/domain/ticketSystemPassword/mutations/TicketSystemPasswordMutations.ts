@@ -5,11 +5,6 @@ export const importEventTicketSystemPasswordsMutation = gql`
     $input: ImportTicketSystemPasswordsMutationInput!
   ) {
     importTicketSystemPasswords(input: $input) {
-      event {
-        id
-        name
-      }
-      passwords
       errors {
         field
         message
