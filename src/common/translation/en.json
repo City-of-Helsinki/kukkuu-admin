@@ -500,6 +500,9 @@
     "error": "Ticket validation failed"
   },
   "ticketSystemPassword": {
+    "passwordsTab":{
+      "label": "Passwords"
+    },
     "fields": {
       "usedPasswordCount": {
         "label": "Used Ticketmaster passwords"
