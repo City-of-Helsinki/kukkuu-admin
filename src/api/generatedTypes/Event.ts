@@ -58,9 +58,17 @@ export interface Event_event_project {
   myPermissions: Event_event_project_myPermissions | null;
 }
 
-export interface Event_event_ticketSystem {
+export interface Event_event_ticketSystem_InternalEventTicketSystem {
   type: TicketSystem;
 }
+
+export interface Event_event_ticketSystem_TicketmasterEventTicketSystem {
+  type: TicketSystem;
+  usedPasswordCount: number;
+  freePasswordCount: number;
+}
+
+export type Event_event_ticketSystem = Event_event_ticketSystem_InternalEventTicketSystem | Event_event_ticketSystem_TicketmasterEventTicketSystem;
 
 export interface Event_event {
   /**

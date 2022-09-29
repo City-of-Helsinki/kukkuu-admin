@@ -500,6 +500,14 @@
     "error": "Ticket validation failed"
   },
   "ticketSystemPassword": {
+    "fields": {
+      "usedPasswordCount": {
+        "label": "Used Ticketmaster passwords"
+      },
+      "freePasswordCount": {
+        "label": "Free passwords"
+      }
+    },
     "import": {
       "dialog": {
         "openButton": "Add passwords",

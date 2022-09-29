@@ -500,6 +500,14 @@
     "error": "Lipun tarkistaminen epäonnistui"
   },
   "ticketSystemPassword": {
+    "fields": {
+      "usedPasswordCount": {
+        "label": "Tapahtuman varatut Ticketmaster-salasanat"
+      },
+      "freePasswordCount": {
+        "label": "Vapaat salasanat"
+      }
+    },
     "import": {
       "dialog": {
         "openButton": "Lisää salasanoja",
