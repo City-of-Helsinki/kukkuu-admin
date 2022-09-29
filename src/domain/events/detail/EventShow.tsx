@@ -191,6 +191,14 @@ const EventShow = (props: ResourceComponentPropsWithId) => {
           <PublishedField locale={locale} />
         </Tab>
         <Tab label="events.fields.occurrences.label">
+          <NumberField
+            source="ticketSystem.usedPasswordCount"
+            label="ticketSystemPassword.fields.usedPasswordCount.label"
+          />
+          <NumberField
+            source="ticketSystem.freePasswordCount"
+            label="ticketSystemPassword.fields.freePasswordCount.label"
+          />
           {record && <OccurrenceTabHeaderControls record={record} />}
           <ReferenceManyField
             label=" "
