@@ -16,7 +16,6 @@ import {
   ResourceComponentPropsWithId,
   Record,
   useShowController,
-  UrlField,
   FunctionField,
 } from 'react-admin';
 import { withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
@@ -84,13 +83,13 @@ const ImportTicketSystemPasswordsButton = withStyles(styles)(
   }
 );
 
-interface OccurrenceTabHeaderControlsProps {
+interface ImportTicketmasterPasswordsControlsProps {
   record: AdminEvent;
 }
 
-const OccurrenceTabHeaderControls = ({
+const ImportTicketmasterPasswordsControls = ({
   record,
-}: OccurrenceTabHeaderControlsProps) => {
+}: ImportTicketmasterPasswordsControlsProps) => {
   const [isDialogShown, setShowDialog] = useState(false);
   const internalTicketSystem = hasInternalTicketSystem(record);
   return (
@@ -190,49 +189,36 @@ const EventShow = (props: ResourceComponentPropsWithId) => {
           )}
           <PublishedField locale={locale} />
         </Tab>
-        <Tab label="events.fields.occurrences.label">
-          <NumberField
-            source="ticketSystem.usedPasswordCount"
-            label="ticketSystemPassword.fields.usedPasswordCount.label"
-          />
-          <NumberField
-            source="ticketSystem.freePasswordCount"
-            label="ticketSystemPassword.fields.freePasswordCount.label"
-          />
-          {record && <OccurrenceTabHeaderControls record={record} />}
-          <ReferenceManyField
-            label=" "
-            reference="occurrences"
-            target="event_id"
-          >
-            <Datagrid rowClick="show">
-              <DateField
-                label="occurrences.fields.time.fields.date.label"
-                source="time"
-                locales={locale}
-              />
-              <OccurrenceTimeRangeField label="occurrences.fields.time.fields.time.label" />
-              <ReferenceField
-                label="occurrences.fields.venue.label"
-                source="venue.id"
-                reference="venues"
-                link={false}
-              >
-                <TextField source="translations.FI.name" />
-              </ReferenceField>
-              {internalTicketSystem && (
+        {internalTicketSystem ? (
+          <Tab label="events.fields.occurrences.label">
+            <ReferenceManyField
+              label=" "
+              reference="occurrences"
+              target="event_id"
+            >
+              <Datagrid rowClick="show">
+                <DateField
+                  label="occurrences.fields.time.fields.date.label"
+                  source="time"
+                  locales={locale}
+                />
+                <OccurrenceTimeRangeField label="occurrences.fields.time.fields.time.label" />
+                <ReferenceField
+                  label="occurrences.fields.venue.label"
+                  source="venue.id"
+                  reference="venues"
+                  link={false}
+                >
+                  <TextField source="translations.FI.name" />
+                </ReferenceField>
                 <NumberField
                   source="capacity"
                   label="occurrences.fields.capacity.label"
                 />
-              )}
-              {internalTicketSystem && (
                 <NumberField
                   source="enrolmentCount"
                   label="occurrences.fields.enrolmentsCount.label"
                 />
-              )}
-              {internalTicketSystem && (
                 <FunctionField
                   label="occurrences.fields.attendedEnrolmentsCount.label"
                   textAlign="right"
@@ -245,8 +231,6 @@ const EventShow = (props: ResourceComponentPropsWithId) => {
                     return attendedCount;
                   }}
                 />
-              )}
-              {internalTicketSystem && (
                 <FunctionField
                   label="occurrences.fields.freeSpotNotificationSubscriptions.label"
                   textAlign="right"
@@ -255,17 +239,23 @@ const EventShow = (props: ResourceComponentPropsWithId) => {
                     '?'
                   }
                 />
-              )}
-              {!internalTicketSystem && (
-                <UrlField
-                  source="ticketSystem.url"
-                  label="occurrences.fields.ticketSystemUrl.label"
-                />
-              )}
-            </Datagrid>
-          </ReferenceManyField>
-          <AddOccurrenceButton />
-        </Tab>
+              </Datagrid>
+            </ReferenceManyField>
+            <AddOccurrenceButton />
+          </Tab>
+        ) : (
+          <Tab label="ticketSystemPassword.passwordsTab.label">
+            <NumberField
+              source="ticketSystem.usedPasswordCount"
+              label="ticketSystemPassword.fields.usedPasswordCount.label"
+            />
+            <NumberField
+              source="ticketSystem.freePasswordCount"
+              label="ticketSystemPassword.fields.freePasswordCount.label"
+            />
+            {record && <ImportTicketmasterPasswordsControls record={record} />}
+          </Tab>
+        )}
       </TabbedShowLayout>
     </KukkuuDetailPage>
   );
