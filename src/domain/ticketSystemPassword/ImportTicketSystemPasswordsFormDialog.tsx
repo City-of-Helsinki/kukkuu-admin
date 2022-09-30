@@ -7,7 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import { useNotify, useTranslate } from 'react-admin';
+import { useNotify, useTranslate, useRefresh } from 'react-admin';
 
 import ticketSystemPasswordsApi from './api/ticketSystemPasswordsApi';
 import { AdminEvent } from '../events/types/EventTypes';
@@ -35,6 +35,7 @@ const ImportTicketSystemPasswordsFormDialog = withStyles(styles)(
   }: ImportTicketSystemPasswordsModalProps) => {
     const translate = useTranslate();
     const [passwordsText, setPasswordsText] = React.useState('');
+    const refresh = useRefresh();
     const notify = useNotify();
     const onChangePasswordsText: React.ChangeEventHandler<HTMLTextAreaElement> = (
       e
@@ -82,6 +83,8 @@ const ImportTicketSystemPasswordsFormDialog = withStyles(styles)(
 
       // Close the dialog
       onClose();
+
+      refresh();
     };
 
     return (
