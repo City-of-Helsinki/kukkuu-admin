@@ -38,9 +38,16 @@ export interface Events_events_edges_node_occurrences {
   edges: (Events_events_edges_node_occurrences_edges | null)[];
 }
 
-export interface Events_events_edges_node_ticketSystem {
+export interface Events_events_edges_node_ticketSystem_InternalEventTicketSystem {
   type: TicketSystem;
 }
+
+export interface Events_events_edges_node_ticketSystem_TicketmasterEventTicketSystem {
+  type: TicketSystem;
+  url: string;
+}
+
+export type Events_events_edges_node_ticketSystem = Events_events_edges_node_ticketSystem_InternalEventTicketSystem | Events_events_edges_node_ticketSystem_TicketmasterEventTicketSystem;
 
 export interface Events_events_edges_node {
   /**

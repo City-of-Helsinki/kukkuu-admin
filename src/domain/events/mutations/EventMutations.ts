@@ -11,6 +11,9 @@ export const addEventMutation = gql`
         duration
         ticketSystem {
           type
+          ... on TicketmasterEventTicketSystem {
+            url
+          }
         }
         translations {
           languageCode
@@ -50,6 +53,9 @@ export const updateEventMutation = gql`
         }
         ticketSystem {
           type
+          ... on TicketmasterEventTicketSystem {
+            url
+          }
         }
       }
     }

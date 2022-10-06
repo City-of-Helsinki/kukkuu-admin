@@ -76,8 +76,13 @@ export interface AddEventMutationInput {
   projectId: string;
   eventGroupId?: string | null;
   readyForEventGroupPublishing?: boolean | null;
-  ticketSystem?: EventTicketSystemInput | null;
+  ticketSystem?: AddEventTicketSystemInput | null;
   clientMutationId?: string | null;
+}
+
+export interface AddEventTicketSystemInput {
+  type: TicketSystem;
+  url: string;
 }
 
 export interface AddMessageMutationInput {
@@ -138,10 +143,6 @@ export interface EventGroupTranslationsInput {
   description?: string | null;
   imageAltText?: string | null;
   languageCode: Language;
-}
-
-export interface EventTicketSystemInput {
-  type: TicketSystem;
 }
 
 export interface EventTranslationsInput {
@@ -207,8 +208,12 @@ export interface UpdateEventMutationInput {
   projectId?: string | null;
   eventGroupId?: string | null;
   readyForEventGroupPublishing?: boolean | null;
-  ticketSystem?: EventTicketSystemInput | null;
+  ticketSystem?: UpdateEventTicketSystemInput | null;
   clientMutationId?: string | null;
+}
+
+export interface UpdateEventTicketSystemInput {
+  url?: string | null;
 }
 
 export interface UpdateMessageMutationInput {

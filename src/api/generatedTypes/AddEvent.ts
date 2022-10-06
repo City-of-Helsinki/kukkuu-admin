@@ -9,9 +9,16 @@ import { AddEventMutationInput, EventParticipantsPerInvite, TicketSystem, Langua
 // GraphQL mutation operation: AddEvent
 // ====================================================
 
-export interface AddEvent_addEvent_event_ticketSystem {
+export interface AddEvent_addEvent_event_ticketSystem_InternalEventTicketSystem {
   type: TicketSystem;
 }
+
+export interface AddEvent_addEvent_event_ticketSystem_TicketmasterEventTicketSystem {
+  type: TicketSystem;
+  url: string;
+}
+
+export type AddEvent_addEvent_event_ticketSystem = AddEvent_addEvent_event_ticketSystem_InternalEventTicketSystem | AddEvent_addEvent_event_ticketSystem_TicketmasterEventTicketSystem;
 
 export interface AddEvent_addEvent_event_translations {
   languageCode: Language;
