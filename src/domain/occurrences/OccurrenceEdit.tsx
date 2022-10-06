@@ -14,12 +14,8 @@ import { Grid } from '@material-ui/core';
 
 import DateTimeTextInput from '../../common/components/dateTimeTextField/DateTimeTextField';
 import KukkuuEdit from '../application/layout/kukkuuEditPage/KukkuuEdit';
-import {
-  OccurrenceCapacityOverrideInput,
-  TicketSystemUrlInput,
-} from './inputs';
+import { OccurrenceCapacityOverrideInput } from './inputs';
 import { Occurrence_occurrence as OccurrenceType } from '../../api/generatedTypes/Occurrence';
-import { hasInternalTicketSystem } from '../events/utils';
 
 const OccurrenceEditToolbar = (props: any) => {
   const redirect = `/events/${props.record.event.id}/show/1`;
@@ -57,7 +53,6 @@ const OccurrenceEditReferenceInput = (props: any) => {
 
 const OccurrenceEdit = (props: any) => {
   const { record } = useEditController<OccurrenceType>(props);
-  const internalTicketSystem = hasInternalTicketSystem(record);
   const redirect = record?.event.id
     ? `/events/${record.event.id}/show/1`
     : 'show';
@@ -86,11 +81,7 @@ const OccurrenceEdit = (props: any) => {
               helperText="occurrences.fields.venue.helperText"
             />
           </OccurrenceEditReferenceInput>
-          {internalTicketSystem ? (
-            <OccurrenceCapacityOverrideInput />
-          ) : (
-            <TicketSystemUrlInput />
-          )}
+          <OccurrenceCapacityOverrideInput />
         </SimpleForm>
       </KukkuuEdit>
     </Grid>

@@ -60,12 +60,6 @@ const OccurrenceShowPage = {
             }
           }
         }
-        ticketSystem {
-          type
-          ... on TicketmasterOccurrenceTicketSystem {
-            url
-          }
-        }
       }
     `,
   },

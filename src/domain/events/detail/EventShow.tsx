@@ -176,24 +176,25 @@ const EventShow = (props: ResourceComponentPropsWithId) => {
             source={`duration`}
             label={'events.fields.duration.label'}
           />
-          {internalTicketSystem && (
+          {internalTicketSystem ? (
             <NumberField
               source="capacityPerOccurrence"
               label="events.fields.capacityPerOccurrence.label"
             />
-          )}
-          {!internalTicketSystem && (
-            <SelectField
-              source="ticketSystem.type"
-              label="events.fields.ticketSystem.label"
-              choices={ticketSystemChoices}
-            />
-          )}
-          {!internalTicketSystem && (
-            <UrlField
-              source="ticketSystem.url"
-              label="events.fields.ticketSystemUrl.label"
-            />
+          ) : (
+            [
+              <SelectField
+                source="ticketSystem.type"
+                label="events.fields.ticketSystem.label"
+                choices={ticketSystemChoices}
+                key="externalTicketSystemField1"
+              />,
+              <UrlField
+                source="ticketSystem.url"
+                label="events.fields.ticketSystemUrl.label"
+                key="externalTicketSystemField2"
+              />,
+            ]
           )}
           <PublishedField locale={locale} />
         </Tab>
