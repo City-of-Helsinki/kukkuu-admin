@@ -82,7 +82,6 @@ const updateOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
     time: normalizeTime(date, timeField),
     eventId: event.id,
     capacityOverride,
-    ticketSystem: { url: localUpdateData.ticketSystem?.url },
   };
 
   const response = await mutationHandler({

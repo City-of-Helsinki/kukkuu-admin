@@ -6,7 +6,6 @@ import {
   useTranslate,
   useDataProvider,
   NumberInput,
-  TextInput,
 } from 'react-admin';
 
 import { AdminEvent } from '../events/types/EventTypes';
@@ -69,22 +68,4 @@ const OccurrenceCapacityOverrideInput = (
   );
 };
 
-const TicketSystemUrlInput = (props: any) => (
-  <SanitizedGrid container spacing={1}>
-    <Grid item lg={6}>
-      <TextInput
-        source="ticketSystem.url"
-        type="url"
-        variant="outlined"
-        {...props}
-      />
-    </Grid>
-  </SanitizedGrid>
-);
-
-TicketSystemUrlInput.defaultProps = {
-  label: 'occurrences.fields.ticketSystemUrl.label',
-  fullWidth: true,
-};
-
-export { OccurrenceCapacityOverrideInput, TicketSystemUrlInput };
+export { OccurrenceCapacityOverrideInput };
