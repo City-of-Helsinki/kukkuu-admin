@@ -38,9 +38,16 @@ export interface UpdateEvent_updateEvent_event_occurrences {
   edges: (UpdateEvent_updateEvent_event_occurrences_edges | null)[];
 }
 
-export interface UpdateEvent_updateEvent_event_ticketSystem {
+export interface UpdateEvent_updateEvent_event_ticketSystem_InternalEventTicketSystem {
   type: TicketSystem;
 }
+
+export interface UpdateEvent_updateEvent_event_ticketSystem_TicketmasterEventTicketSystem {
+  type: TicketSystem;
+  url: string;
+}
+
+export type UpdateEvent_updateEvent_event_ticketSystem = UpdateEvent_updateEvent_event_ticketSystem_InternalEventTicketSystem | UpdateEvent_updateEvent_event_ticketSystem_TicketmasterEventTicketSystem;
 
 export interface UpdateEvent_updateEvent_event {
   /**

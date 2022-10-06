@@ -167,6 +167,12 @@
             "label": "Ticketmaster"
           }
         }
+      },
+      "ticketSystemUrl": {
+        "label": "The event's URL address in the external ticket system"
+      },
+      "validationErrors": {
+        "url": "Invalid URL address"
       }
     },
     "list": {

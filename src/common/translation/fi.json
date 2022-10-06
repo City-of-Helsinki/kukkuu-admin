@@ -167,6 +167,9 @@
             "label": "Ticketmaster"
           }
         }
+      },
+      "ticketSystemUrl": {
+        "label": "Tapahtuman URL-osoite lippujärjestelmässä"
       }
     },
     "list": {
@@ -191,6 +194,9 @@
       "tab": {
         "label": "Tapahtuman tiedot"
       }
+    },
+    "validationErrors": {
+      "url": "Virheellinen URL-osoite"
     }
   },
   "guardian": {

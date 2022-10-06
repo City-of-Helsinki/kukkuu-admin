@@ -28,6 +28,9 @@ export const eventsQuery = gql`
           }
           ticketSystem {
             type
+            ... on TicketmasterEventTicketSystem {
+              url
+            }
           }
         }
       }
@@ -75,6 +78,7 @@ export const eventQuery = gql`
         ... on TicketmasterEventTicketSystem {
           usedPasswordCount
           freePasswordCount
+          url
         }
       }
     }

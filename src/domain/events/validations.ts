@@ -18,3 +18,14 @@ export const validateEvent = ({
   }
   return {};
 };
+
+export const validateUrl = (input: string) => {
+  const error = 'events.validationErrors.url';
+  let url;
+  try {
+    url = new URL(input);
+  } catch (_) {
+    return error;
+  }
+  return ['http:', 'https:'].includes(url.protocol) ? undefined : error;
+};

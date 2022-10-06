@@ -66,6 +66,7 @@ export interface Event_event_ticketSystem_TicketmasterEventTicketSystem {
   type: TicketSystem;
   usedPasswordCount: number;
   freePasswordCount: number;
+  url: string;
 }
 
 export type Event_event_ticketSystem = Event_event_ticketSystem_InternalEventTicketSystem | Event_event_ticketSystem_TicketmasterEventTicketSystem;

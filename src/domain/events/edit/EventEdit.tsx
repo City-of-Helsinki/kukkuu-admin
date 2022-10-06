@@ -21,6 +21,7 @@ import {
   validateDuration,
   validateParticipantsPerInvite,
   validateShortDescription,
+  validateUrl,
 } from '../validations';
 import { participantsPerInviteChoices, ticketSystemChoices } from '../choices';
 import ImageUploadField from '../../../common/components/imageField/ImageUploadField';
@@ -127,7 +128,7 @@ const EventEdit = (props: any) => {
             )}
             <FormDataConsumer>
               {({ formData, ...rest }) =>
-                hasInternalTicketSystem(formData) && (
+                hasInternalTicketSystem(formData) ? (
                   <NumberInput
                     source="capacityPerOccurrence"
                     label="events.fields.capacityPerOccurrence.label"
@@ -139,6 +140,14 @@ const EventEdit = (props: any) => {
                     // Seems like a bug related to FormDataConsumer.
                     aria-describedby="capacityPerOccurrence-helper-text"
                     id="capacityPerOccurrence"
+                  />
+                ) : (
+                  <TextInput
+                    source="ticketSystem.url"
+                    label="events.fields.ticketSystemUrl.label"
+                    validate={validateUrl}
+                    style={{ width: '100%' }}
+                    {...rest}
                   />
                 )
               }
