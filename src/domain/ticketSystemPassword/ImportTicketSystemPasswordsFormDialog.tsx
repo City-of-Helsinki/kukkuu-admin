@@ -11,6 +11,7 @@ import { useNotify, useTranslate, useRefresh } from 'react-admin';
 
 import ticketSystemPasswordsApi from './api/ticketSystemPasswordsApi';
 import { AdminEvent } from '../events/types/EventTypes';
+// eslint-disable-next-line max-len
 import { ImportTicketSystemPasswordsMutation_importTicketSystemPasswords as ImportTicketSystemPasswords } from '../../api/generatedTypes/ImportTicketSystemPasswordsMutation';
 
 const styles = createStyles({
