@@ -168,6 +168,10 @@
           }
         }
       },
+      "ticketSystemEndTime": {
+        "label": "End time",
+        "helperText": "After this time, the event will be removed from event invites and upcoming events."
+      },
       "ticketSystemUrl": {
         "label": "The event's URL address in the external ticket system"
       },
