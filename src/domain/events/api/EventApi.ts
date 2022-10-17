@@ -43,8 +43,12 @@ const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
     data.image = params.data.image.rawFile;
   }
 
-  if (!hasInternalTicketSystem(data)) {
-    data.capacityPerOccurrence = null;
+  if (hasInternalTicketSystem(data)) {
+    delete data.ticketSystem.url;
+    delete data.ticketSystem.endTime;
+  } else {
+    delete data.capacityPerOccurrence;
+    delete data.duration;
   }
 
   const response = await mutationHandler({
@@ -64,6 +68,7 @@ const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
     'translations',
     'readyForEventGroupPublishing',
     'ticketSystem.url',
+    'ticketSystem.endTime',
   ]);
   const data = mapLocalDataToApiData(localUpdateData);
 
@@ -73,8 +78,14 @@ const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
     data.image = '';
   }
 
-  if (!hasInternalTicketSystem(data)) {
-    data.capacityPerOccurrence = null;
+  if (hasInternalTicketSystem(params.data)) {
+    if (data.ticketSystem) {
+      delete data.ticketSystem.url;
+      delete data.ticketSystem.endTime;
+    }
+  } else {
+    delete data.capacityPerOccurrence;
+    delete data.duration;
   }
 
   const response = await mutationHandler({

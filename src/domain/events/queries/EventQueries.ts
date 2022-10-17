@@ -30,6 +30,7 @@ export const eventsQuery = gql`
             type
             ... on TicketmasterEventTicketSystem {
               url
+              endTime
             }
           }
         }
@@ -79,6 +80,7 @@ export const eventQuery = gql`
           usedPasswordCount
           freePasswordCount
           url
+          endTime
         }
       }
     }

@@ -10,6 +10,7 @@ import {
   DeleteButton,
   useTranslate,
   FormDataConsumer,
+  DateTimeInput,
 } from 'react-admin';
 import { CardHeader, Grid } from '@material-ui/core';
 
@@ -128,37 +129,54 @@ const EventEdit = (props: any) => {
             )}
             <FormDataConsumer>
               {({ formData, ...rest }) =>
-                hasInternalTicketSystem(formData) ? (
-                  <NumberInput
-                    source="capacityPerOccurrence"
-                    label="events.fields.capacityPerOccurrence.label"
-                    helperText="events.fields.capacityPerOccurrence.helperText"
-                    validate={validateCapacityPerOccurrence}
-                    style={{ width: '100%' }}
-                    {...rest}
-                    // aria-describedby should be set automatically but it is not.
-                    // Seems like a bug related to FormDataConsumer.
-                    aria-describedby="capacityPerOccurrence-helper-text"
-                    id="capacityPerOccurrence"
-                  />
-                ) : (
-                  <TextInput
-                    source="ticketSystem.url"
-                    label="events.fields.ticketSystemUrl.label"
-                    validate={validateUrl}
-                    style={{ width: '100%' }}
-                    {...rest}
-                  />
-                )
+                // TODO this part is exactly the same as in EventCreate so there could be a common component for both
+                hasInternalTicketSystem(formData)
+                  ? [
+                      <NumberInput
+                        source="duration"
+                        key="duration"
+                        label="events.fields.duration.label"
+                        helperText="events.fields.duration.helperText"
+                        validate={validateDuration}
+                        style={{ width: '100%' }}
+                        {...rest}
+                      />,
+                      <NumberInput
+                        source="capacityPerOccurrence"
+                        key="capacityPerOccurrence"
+                        label="events.fields.capacityPerOccurrence.label"
+                        helperText="events.fields.capacityPerOccurrence.helperText"
+                        validate={validateCapacityPerOccurrence}
+                        style={{ width: '100%' }}
+                        {...rest}
+                        // aria-describedby should be set automatically but it is not.
+                        // Seems like a bug related to FormDataConsumer.
+                        aria-describedby="capacityPerOccurrence-helper-text"
+                        id="capacityPerOccurrence"
+                      />,
+                    ]
+                  : [
+                      <TextInput
+                        source="ticketSystem.url"
+                        key="ticketSystemUrl"
+                        label="events.fields.ticketSystemUrl.label"
+                        validate={validateUrl}
+                        style={{ width: '100%' }}
+                        {...rest}
+                      />,
+                      <DateTimeInput
+                        source="ticketSystem.endTime"
+                        key="ticketSystemEndTime"
+                        label="events.fields.ticketSystemEndTime.label"
+                        helperText="events.fields.ticketSystemEndTime.helperText"
+                        style={{ width: '100%' }}
+                        {...rest}
+                        aria-describedby="ticketSystemEndTime-helper-text"
+                        id="ticketSystemEndTime"
+                      />,
+                    ]
               }
             </FormDataConsumer>
-            <NumberInput
-              source="duration"
-              label="events.fields.duration.label"
-              helperText="events.fields.duration.helperText"
-              validate={validateDuration}
-              fullWidth
-            />
           </SimpleForm>
         </KukkuuEdit>
       </Grid>

@@ -168,6 +168,10 @@
           }
         }
       },
+      "ticketSystemEndTime": {
+        "label": "Loppuaika",
+        "helperText": "Tämän ajankohdan jälkeen tapahtuma poistuu tapahtumakutsuista ja tulevista tapahtumista."
+      },
       "ticketSystemUrl": {
         "label": "Tapahtuman URL-osoite lippujärjestelmässä"
       }

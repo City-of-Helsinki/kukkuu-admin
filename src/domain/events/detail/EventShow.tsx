@@ -172,30 +172,39 @@ const EventShow = (props: ResourceComponentPropsWithId) => {
             label={'events.fields.participantsPerInvite.label'}
             choices={participantsPerInviteChoices}
           />
-          <NumberField
-            source={`duration`}
-            label={'events.fields.duration.label'}
-          />
-          {internalTicketSystem ? (
-            <NumberField
-              source="capacityPerOccurrence"
-              label="events.fields.capacityPerOccurrence.label"
-            />
-          ) : (
-            [
-              <SelectField
-                source="ticketSystem.type"
-                label="events.fields.ticketSystem.label"
-                choices={ticketSystemChoices}
-                key="externalTicketSystemField1"
-              />,
-              <UrlField
-                source="ticketSystem.url"
-                label="events.fields.ticketSystemUrl.label"
-                key="externalTicketSystemField2"
-              />,
-            ]
-          )}
+          {internalTicketSystem
+            ? [
+                <NumberField
+                  source="duration"
+                  key="duration"
+                  label="events.fields.duration.label"
+                />,
+                <NumberField
+                  source="capacityPerOccurrence"
+                  key="capacityPerOccurrence"
+                  label="events.fields.capacityPerOccurrence.label"
+                />,
+              ]
+            : [
+                <SelectField
+                  source="ticketSystem.type"
+                  label="events.fields.ticketSystem.label"
+                  choices={ticketSystemChoices}
+                  key="ticketSystemType"
+                />,
+                <UrlField
+                  source="ticketSystem.url"
+                  label="events.fields.ticketSystemUrl.label"
+                  key="ticketSystemUrl"
+                />,
+                <DateField
+                  source="ticketSystem.endTime"
+                  label="events.fields.ticketSystemEndTime.label"
+                  key="ticketSystemEndTime"
+                  showTime={true}
+                  locales={locale}
+                />,
+              ]}
           <PublishedField locale={locale} />
         </Tab>
         {internalTicketSystem ? (

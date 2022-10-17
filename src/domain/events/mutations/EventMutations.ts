@@ -13,6 +13,7 @@ export const addEventMutation = gql`
           type
           ... on TicketmasterEventTicketSystem {
             url
+            endTime
           }
         }
         translations {
@@ -55,6 +56,7 @@ export const updateEventMutation = gql`
           type
           ... on TicketmasterEventTicketSystem {
             url
+            endTime
           }
         }
       }
