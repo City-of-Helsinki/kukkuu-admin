@@ -125,6 +125,7 @@ const EventEdit = (props: any) => {
                 label="events.fields.ticketSystem.label"
                 choices={ticketSystemChoices}
                 fullWidth
+                disabled
               />
             )}
             <FormDataConsumer>
