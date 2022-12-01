@@ -16,7 +16,6 @@ import {
   ResourceComponentPropsWithId,
   Record,
   useShowController,
-  FunctionField,
   UrlField,
 } from 'react-admin';
 import { withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
@@ -237,25 +236,13 @@ const EventShow = (props: ResourceComponentPropsWithId) => {
                   source="enrolmentCount"
                   label="occurrences.fields.enrolmentsCount.label"
                 />
-                <FunctionField
+                <NumberField
+                  source="attendedEnrolmentCount"
                   label="occurrences.fields.attendedEnrolmentsCount.label"
-                  textAlign="right"
-                  render={(record: any) => {
-                    const attendedCount =
-                      record?.enrolments?.edges?.filter(
-                        (edge: any) => edge?.node?.attended
-                      )?.length ?? '?';
-
-                    return attendedCount;
-                  }}
                 />
-                <FunctionField
+                <NumberField
+                  source="freeSpotNotificationSubscriptionCount"
                   label="occurrences.fields.freeSpotNotificationSubscriptions.label"
-                  textAlign="right"
-                  render={(entity) =>
-                    entity?.freeSpotNotificationSubscriptions?.edges?.length ??
-                    '?'
-                  }
                 />
               </Datagrid>
             </ReferenceManyField>
