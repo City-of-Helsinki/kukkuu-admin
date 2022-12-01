@@ -6,9 +6,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 
 import {
-  Occurrences_occurrences_edges_node_enrolments_edges as EnrolmentEdge,
-  Occurrences_occurrences_edges_node_enrolments_edges_node as Enrolment,
-} from '../../../api/generatedTypes/Occurrences';
+  Occurrence_occurrence_enrolments_edges as EnrolmentEdge,
+  Occurrence_occurrence_enrolments_edges_node as Enrolment,
+} from '../../../api/generatedTypes/Occurrence';
 
 type Props = {
   record?: EnrolmentEdge;
