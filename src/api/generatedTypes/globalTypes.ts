@@ -82,7 +82,8 @@ export interface AddEventMutationInput {
 
 export interface AddEventTicketSystemInput {
   type: TicketSystem;
-  url: string;
+  url?: string | null;
+  endTime?: string | null;
 }
 
 export interface AddMessageMutationInput {
@@ -214,6 +215,7 @@ export interface UpdateEventMutationInput {
 
 export interface UpdateEventTicketSystemInput {
   url?: string | null;
+  endTime?: string | null;
 }
 
 export interface UpdateMessageMutationInput {

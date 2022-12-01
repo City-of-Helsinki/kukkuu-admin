@@ -45,6 +45,7 @@ export interface UpdateEvent_updateEvent_event_ticketSystem_InternalEventTicketS
 export interface UpdateEvent_updateEvent_event_ticketSystem_TicketmasterEventTicketSystem {
   type: TicketSystem;
   url: string;
+  endTime: any | null;
 }
 
 export type UpdateEvent_updateEvent_event_ticketSystem = UpdateEvent_updateEvent_event_ticketSystem_InternalEventTicketSystem | UpdateEvent_updateEvent_event_ticketSystem_TicketmasterEventTicketSystem;

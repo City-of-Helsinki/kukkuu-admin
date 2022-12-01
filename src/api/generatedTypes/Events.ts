@@ -45,6 +45,7 @@ export interface Events_events_edges_node_ticketSystem_InternalEventTicketSystem
 export interface Events_events_edges_node_ticketSystem_TicketmasterEventTicketSystem {
   type: TicketSystem;
   url: string;
+  endTime: any | null;
 }
 
 export type Events_events_edges_node_ticketSystem = Events_events_edges_node_ticketSystem_InternalEventTicketSystem | Events_events_edges_node_ticketSystem_TicketmasterEventTicketSystem;
