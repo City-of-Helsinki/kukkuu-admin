@@ -1,94 +1,106 @@
 import { gql } from '@apollo/client';
 
-const OccurrenceShowPage = {
-  fragments: {
-    occurrenceFragment: gql`
-      fragment OccurrenceFragment on OccurrenceNode {
+export const occurrencesQuery = gql`
+  query Occurrences($projectId: String, $eventId: String) {
+    occurrences(projectId: $projectId, eventId: $eventId) {
+      edges {
+        node {
+          id
+          time
+          event {
+            duration
+            capacityPerOccurrence
+          }
+          enrolmentCount
+          capacity
+          capacityOverride
+          venue {
+            id
+            translations {
+              languageCode
+              name
+            }
+          }
+          enrolments {
+            edges {
+              node {
+                id
+                attended
+              }
+            }
+          }
+          freeSpotNotificationSubscriptions {
+            edges {
+              node {
+                id
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const occurrenceQuery = gql`
+  query Occurrence($id: ID!) {
+    occurrence(id: $id) {
+      id
+      time
+      event {
         id
-        time
-        event {
+        name
+        capacityPerOccurrence
+        duration
+        publishedAt
+        eventGroup {
           id
           name
-          capacityPerOccurrence
-          duration
-          publishedAt
-          eventGroup {
+        }
+      }
+      enrolmentCount
+      capacity
+      capacityOverride
+      venue {
+        id
+        translations {
+          languageCode
+          name
+        }
+      }
+      enrolments {
+        edges {
+          node {
             id
-            name
-          }
-        }
-        enrolmentCount
-        capacity
-        capacityOverride
-        venue {
-          id
-          translations {
-            languageCode
-            name
-          }
-        }
-        enrolments {
-          edges {
-            node {
+            attended
+            child {
               id
-              attended
-              child {
-                id
-                firstName
-                lastName
-                birthdate
-                guardians {
-                  edges {
-                    node {
-                      id
-                      email
-                      firstName
-                      lastName
-                      language
-                      phoneNumber
-                    }
+              firstName
+              lastName
+              birthdate
+              guardians {
+                edges {
+                  node {
+                    id
+                    email
+                    firstName
+                    lastName
+                    language
+                    phoneNumber
                   }
                 }
               }
             }
           }
         }
-        freeSpotNotificationSubscriptions {
-          edges {
-            node {
-              id
-            }
-          }
-        }
-        ticketSystem {
-          type
-          ... on TicketmasterOccurrenceTicketSystem {
-            url
-          }
-        }
       }
-    `,
-  },
-};
-
-export const occurrencesQuery = gql`
-  query Occurrences($projectId: String, $eventId: String) {
-    occurrences(projectId: $projectId, eventId: $eventId) {
-      edges {
-        node {
-          ...OccurrenceFragment
+      freeSpotNotificationSubscriptions {
+        edges {
+          node {
+            id
+          }
         }
       }
     }
   }
-  ${OccurrenceShowPage.fragments.occurrenceFragment}
-`;
-
-export const occurrenceQuery = gql`
-  query Occurrence($id: ID!) {
-    occurrence(id: $id) {
-      ...OccurrenceFragment
-    }
-  }
-  ${OccurrenceShowPage.fragments.occurrenceFragment}
 `;
