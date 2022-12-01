@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { Language, TicketSystem } from "./globalTypes";
+import { Language } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: Occurrence
@@ -129,17 +129,6 @@ export interface Occurrence_occurrence_freeSpotNotificationSubscriptions {
   edges: (Occurrence_occurrence_freeSpotNotificationSubscriptions_edges | null)[];
 }
 
-export interface Occurrence_occurrence_ticketSystem_InternalOccurrenceTicketSystem {
-  type: TicketSystem;
-}
-
-export interface Occurrence_occurrence_ticketSystem_TicketmasterOccurrenceTicketSystem {
-  type: TicketSystem;
-  url: string;
-}
-
-export type Occurrence_occurrence_ticketSystem = Occurrence_occurrence_ticketSystem_InternalOccurrenceTicketSystem | Occurrence_occurrence_ticketSystem_TicketmasterOccurrenceTicketSystem;
-
 export interface Occurrence_occurrence {
   /**
    * The ID of the object.
@@ -156,7 +145,6 @@ export interface Occurrence_occurrence {
   venue: Occurrence_occurrence_venue;
   enrolments: Occurrence_occurrence_enrolments;
   freeSpotNotificationSubscriptions: Occurrence_occurrence_freeSpotNotificationSubscriptions;
-  ticketSystem: Occurrence_occurrence_ticketSystem | null;
 }
 
 export interface Occurrence {
