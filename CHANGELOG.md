@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.9.1] - 2022-12-01
+
+### Fixed
+
+- [#217](https://github.com/City-of-Helsinki/kukkuu-admin/pull/217) Removed unneeded fields from occurrences query to make it faster
+
 ## [1.9.0] - 2022-05-27
 
 ### Added
