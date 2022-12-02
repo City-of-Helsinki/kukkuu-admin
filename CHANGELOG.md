@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.9.2] - 2022-12-02
+
+### Fixed
+
+- Fixed Azure pipeline configurations
+
 ## [1.9.1] - 2022-12-01
 
 ### Fixed
