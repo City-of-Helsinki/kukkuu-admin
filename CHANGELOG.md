@@ -1,5 +1,19 @@
 # Change Log
 
+## [1.10.0] - 2022-12-08
+
+### Added
+
+- [#212](https://github.com/City-of-Helsinki/kukkuu-admin/pull/212) Add import event passwords dialog
+- [#213](https://github.com/City-of-Helsinki/kukkuu-admin/pull/213) Add passwords tab for Ticketmaster events
+- [#214](https://github.com/City-of-Helsinki/kukkuu-admin/pull/214) Add event related external ticket system URL field
+- [#215](https://github.com/City-of-Helsinki/kukkuu-admin/pull/215) Add ticketmaster event end time
+
+### Fixed
+
+- [#217](https://github.com/City-of-Helsinki/kukkuu-admin/pull/217) Tune occurrences queries
+- [#218](https://github.com/City-of-Helsinki/kukkuu-admin/pull/218) Improve occurrences tab performance
+
 ## [1.9.2] - 2022-12-02
 
 ### Fixed
