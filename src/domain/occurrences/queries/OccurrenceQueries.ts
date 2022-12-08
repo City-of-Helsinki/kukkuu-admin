@@ -23,21 +23,6 @@ export const occurrencesQuery = gql`
           }
           attendedEnrolmentCount
           freeSpotNotificationSubscriptionCount
-          enrolments {
-            edges {
-              node {
-                id
-                attended
-              }
-            }
-          }
-          freeSpotNotificationSubscriptions {
-            edges {
-              node {
-                id
-              }
-            }
-          }
         }
       }
     }
