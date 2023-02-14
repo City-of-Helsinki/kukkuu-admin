@@ -60,7 +60,7 @@
     "ra-language-finnish": "^3.6.0",
     "ra-language-swedish": "^1.0.0",
     "react": "^16.13.1",
-    "react-admin": "3.9.4",
+    "react-admin": "3.19.12",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.4",
     "typescript": "~3.9.7"
