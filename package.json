@@ -11,7 +11,8 @@
     "graphql-types": "apollo client:codegen --target=typescript --no-addTypename --outputFlat src/api/generatedTypes",
     "update-translations": "fetch-translations 1lixUcdpxyEy5wVsI8b74_eoIvAjvPgNTcO0Ngy-WJ-c -l fi,en -o ./src/common/translation",
     "test:browser": "testcafe \"chrome --window-size='1920,1080'\" browser-tests/ --live",
-    "test:browser:ci": "testcafe \"chrome:headless --disable-gpu --window-size='1920,1080'\" browser-tests/ -s takeOnFails=true --lang=fi-FI"
+    "test:browser:wsl2win": "testcafe 'path:`/mnt/c/Program Files/Google/Chrome/Application/chrome.exe`' browser-tests/ --live --dev --lang=fi-FI",
+    "test:browser:ci": "testcafe \"chrome:headless --disable-gpu --window-size='1920,1080'\" --lang=fi-FI --screenshots path=report takeOnFails=true --video report browser-tests/"
   },
   "eslintConfig": {
     "extends": "react-app"
