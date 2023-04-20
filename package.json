@@ -67,6 +67,7 @@
     "typescript": "~3.9.7"
   },
   "devDependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@testing-library/testcafe": "^4.2.3",
     "apollo": "^2.30.1",
     "eslint-config-prettier": "^6.11.0",
