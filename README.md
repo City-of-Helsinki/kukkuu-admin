@@ -13,18 +13,22 @@ https://github.com/City-of-Helsinki/kukkuu-ui/
 ## Deployments
 
 Production environment:
-https://kummilapset.hel.fi
+- https://kummilapset-admin.hel.fi/
 
 Testing environment:
-https://kukkuu-admin.test.kuva.hel.ninja/
+- https://kukkuu-admin.test.kuva.hel.ninja/ (Deprecated KuVa environment)
+- https://kukkuu-admin.test.hel.ninja/ (Platta environment)
+
+Staging environment:
+- https://kukkuu-admin.stage.hel.ninja/ (Platta environment)
 
 ## See also
 
 The backend:
-https://github.com/City-of-Helsinki/kukkuu
+- https://github.com/City-of-Helsinki/kukkuu
 
 The end user interface:
-https://github.com/City-of-Helsinki/kukkuu-ui
+- https://github.com/City-of-Helsinki/kukkuu-ui
 
 ## Development 
 
@@ -36,6 +40,46 @@ https://github.com/City-of-Helsinki/kukkuu-ui
     * `yarn start` to run the app normally **or**
     * `docker-compose up` to run the app in a Docker container. In the future when there are changes that need rebuilding the container, run `docker-compose up --build` instead.
 4. Open [http://localhost:3001](http://localhost:3001) to view the app in the browser.
+
+### Authorizing login to kukkuu-admin
+
+You need to authorize the user you are trying to log in with to kukkuu-admin.
+
+#### Using local kukkuu backend
+
+If you have set up a local kukkuu backend i.e. in your `.env.local`
+> REACT_APP_API_URI=http://localhost:8081/graphql
+
+You need to:
+ 1. Run the local backend
+ 2. Try to log in to kukkuu-admin at http://localhost:3001/login with some user
+ 3. Open the backend's django-admin interface at http://localhost:8000/admin/ using
+    username `admin` and password `admin`
+ 4. Make the user you tried to log in to kukkuu-admin a superuser
+    - The attempt to log in into kukkuu-admin should have created a user in the backend
+
+After that you should be able to log in to kukkuu-admin with the user.
+
+#### Using remote kukkuu backend
+
+If you have set up a remote kukkuu backend i.e. in your `.env.local` e.g.
+> REACT_APP_API_URI=https://kukkuu.test.kuva.hel.ninja/graphql
+
+You need to:
+ 1. Obtain credentials to log in to the django-admin interface of the backend from
+    someone or something that has them or if you have credentials to the pod which runs
+    the backend you can create a superuser to log in to the backend by running
+    `python manage.py createsuperuser` in the pod's terminal. Then you can use those
+    credentials to log in to the django-admin interface of the backend.
+ 2. Try to log in to kukkuu-admin at http://localhost:3001/login with some user
+ 3. Open the backend's django-admin interface at (e.g.
+    https://kukkuu.test.kuva.hel.ninja/admin if your
+    `REACT_APP_API_URI=https://kukkuu.test.kuva.hel.ninja/graphql`) using the
+    credentials you obtained from the previous steps
+ 4. Make the user you tried to log in with to kukkuu-admin—the attempt to log in into
+    kukkuu-admin should have created a user in the backend—a superuser
+
+After that you should be able to log in to kukkuu-admin with that user.
 
 ### Setting up Tunnistamo and Kukkuu API locally with Docker
 
