@@ -48,7 +48,7 @@ extends:
   parameters:
     # Application build arguments and config map values as key value pairs.
     # Does not contain all buildArguments, the rest located in harrastukset-pipelines/harrastukset-variables-development.yml and harrastukset-variables-common.yml
-    # The values here will override the values defined in the harrastukset-pipelines repository
+    # The values here will override the values defined in the harrastukset-pipelines repository.
     buildArgs:
       REACT_APP_IS_TEST_ENVIRONMENT: 'true'
       REACT_APP_FEATURE_FLAG_EXTERNAL_TICKET_SYSTEM_SUPPORT: true
