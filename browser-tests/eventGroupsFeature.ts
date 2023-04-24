@@ -5,6 +5,8 @@ import {
   eventsListPage,
   eventsCreatePage,
   fillCreationForm as fillEventCreationForm,
+  eventsEditPage,
+  eventsDetailPage,
   deleteEvent,
 } from './pages/events';
 import {
@@ -183,12 +185,35 @@ test('As an admin I want to be able to add events to an event group', async (t) 
 });
 
 test('As an admin I want to be able to publish an event group', async (t) => {
+  const event = t.ctx.addEventToEventGroup;
   const { publishEventGroup } = t.ctx;
 
   await createEventGroup(t, publishEventGroup);
 
+  console.log(publishEventGroup.name);
   // Select created event
   await t.click(eventsListPage.eventOrEventGroupByName(publishEventGroup.name));
+
+  // Go to view for adding an event into the event group
+  await t.click(eventGroupsDetailPage.addEventToEventGroupButton);
+
+  // Assert that we are in the event creation view
+  await t.expect(eventsCreatePage.title.exists).ok();
+
+  // Fill the form and submit
+  await fillEventCreationForm(t, event);
+  await t.click(eventsCreatePage.submitButton);
+
+  // Assert that we are back on the event group details page
+  await t.expect(eventGroupsDetailPage.title.textContent).eql(publishEventGroup.name);
+
+  // Goto event
+  await t.click(eventGroupsDetailPage.getEvent(event.name));
+  // Set event ready for publish
+  await t.click(eventsDetailPage.readyToggle);
+
+  // event group details page
+  await t.click(eventsDetailPage.eventGroupLink(publishEventGroup.name));
 
   // Publish
   await t
@@ -201,5 +226,14 @@ test('As an admin I want to be able to publish an event group', async (t) => {
   // Expect publish button to be hidden
   await t.expect(eventGroupsDetailPage.publishButton.exists).notOk();
 }).after(async (t) => {
+  const event = t.ctx.addEventToEventGroup;
+  const { publishEventGroup } = t.ctx;
+
+  // delete event from event group
+  await t.click(eventGroupsDetailPage.getEvent(event.name));
+  await deleteEvent(t);
+
+  // delete event group 
+  await t.click(eventsListPage.eventOrEventGroupByName(publishEventGroup.name));
   await deleteEventGroup(t);
 });
