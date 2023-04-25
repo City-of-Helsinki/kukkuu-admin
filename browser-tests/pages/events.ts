@@ -64,8 +64,6 @@ export async function fillCreationForm(t: TestController, event: CreateEvent) {
     eventsCreatePage.capacityPerOccurrence,
     event.capacityPerOccurrence.toString()
   );
-  // Wait for view data to sync
-  await t.wait(100);
 }
 
 export async function deleteEvent(t: TestController) {
