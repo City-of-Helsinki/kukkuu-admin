@@ -54,6 +54,7 @@ type CreateEvent = {
 };
 
 export async function fillCreationForm(t: TestController, event: CreateEvent) {
+  await t.typeText(eventsCreatePage.nameInput, event.name);
   await selectOption(
     t,
     eventsCreatePage.participantsPerInviteSelect,
@@ -63,7 +64,8 @@ export async function fillCreationForm(t: TestController, event: CreateEvent) {
     eventsCreatePage.capacityPerOccurrence,
     event.capacityPerOccurrence.toString()
   );
-  await t.typeText(eventsCreatePage.nameInput, event.name);
+  // Wait for view data to sync
+  await t.wait(100);
 }
 
 export async function deleteEvent(t: TestController) {
