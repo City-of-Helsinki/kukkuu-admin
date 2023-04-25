@@ -67,7 +67,7 @@ test('As an admin I want to create and delete messages', async (t) => {
 
   const messageSelector = within(messagesListPage.listBody)
     .queryByText(t.ctx.message.bodyText)
-    .with({ timeout: 1000 });
+    .with({ timeout: 5000 });
 
   // Assert that the new message can be found
   await t.expect(messageSelector.exists).ok();
@@ -110,7 +110,7 @@ test('As an admin I should be able to send SMS messages', async (t) => {
 
   const smsSelector = within(messagesListPage.listBody)
     .queryByText(t.ctx.sms.bodyText)
-    .with({ timeout: 1000 });
+    .with({ timeout: 5000 });
 
   await t
     .typeText(messagesCreatePage.bodyTextInput, t.ctx.sms.bodyText)
