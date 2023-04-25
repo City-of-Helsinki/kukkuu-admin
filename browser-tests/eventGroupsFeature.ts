@@ -190,7 +190,6 @@ test('As an admin I want to be able to publish an event group', async (t) => {
 
   await createEventGroup(t, publishEventGroup);
 
-  console.log(publishEventGroup.name);
   // Select created event
   await t.click(eventsListPage.eventOrEventGroupByName(publishEventGroup.name));
 
