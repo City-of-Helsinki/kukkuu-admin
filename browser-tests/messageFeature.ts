@@ -62,12 +62,15 @@ test('As an admin I want to create and delete messages', async (t) => {
     .typeText(messagesCreatePage.bodyTextInput, t.ctx.message.bodyText)
     .click(messagesCreatePage.submitCreateMessageForm);
 
+  // Wait for view data to sync
+  await t.wait(5000);
+
   // Assert that we have been redirected into the list view
   await t.expect(messagesListPage.title.exists).ok();
 
   const messageSelector = within(messagesListPage.listBody)
     .queryByText(t.ctx.message.bodyText)
-    .with({ timeout: 5000 });
+    .with({ timeout: 1000 });
 
   // Assert that the new message can be found
   await t.expect(messageSelector.exists).ok();
@@ -98,6 +101,9 @@ test('As an admin I want to create and delete messages', async (t) => {
     .click(messagesEditPage.deleteMessageButton)
     .click(messagesEditPage.deleteConfirmModalConfirmButton);
 
+      // Wait for view data to sync
+  await t.wait(5000);
+
   // Assert that we have been redirected into the list view
   await t.expect(messagesListPage.title.exists).ok();
 
@@ -108,9 +114,12 @@ test('As an admin I want to create and delete messages', async (t) => {
 test('As an admin I should be able to send SMS messages', async (t) => {
   await t.click(messagesListPage.createMessageSmsLink);
 
+  // Wait for view data to sync
+  await t.wait(5000);
+
   const smsSelector = within(messagesListPage.listBody)
     .queryByText(t.ctx.sms.bodyText)
-    .with({ timeout: 5000 });
+    .with({ timeout: 1000 });
 
   await t
     .typeText(messagesCreatePage.bodyTextInput, t.ctx.sms.bodyText)
@@ -124,6 +133,9 @@ test('As an admin I should be able to send SMS messages', async (t) => {
 
   // Open details page
   await t.click(smsSelector);
+
+  // Wait for view data to sync
+  await t.wait(5000);
 
   // Assert that the SMS has been sent
   await t.expect(messagesShowPage.isSent.exists).ok();
