@@ -51,6 +51,6 @@ extends:
     # The values here will override the values defined in the harrastukset-pipelines repository.
     buildArgs:
       REACT_APP_IS_TEST_ENVIRONMENT: 'true'
-      REACT_APP_FEATURE_FLAG_EXTERNAL_TICKET_SYSTEM_SUPPORT: true
+      REACT_APP_FEATURE_FLAG_EXTERNAL_TICKET_SYSTEM_SUPPORT: 'true'
       REACT_APP_API_URI: 'https://kukkuu.api.test.hel.ninja/graphql'
     # configMap: # pod environment variables
