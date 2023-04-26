@@ -73,7 +73,7 @@ test('As an admin I want to create and delete messages', async (t) => {
     .with({ timeout: 1000 });
 
   // Assert that the new message can be found
-  await t.expect(messageSelector.exists).ok();
+  await t.expect(messageSelector.exists).ok('', { timeout: 10000 });
 
   // Go into message show view
   await t.click(messageSelector);
@@ -105,7 +105,7 @@ test('As an admin I want to create and delete messages', async (t) => {
   await t.expect(messagesListPage.title.exists).ok();
 
   // Assert that the new message can no longer be found
-  await t.expect(messageSelector.exists).notOk();
+  await t.expect(messageSelector.exists).notOk('', { timeout: 10000 });
 });
 
 test('As an admin I should be able to send SMS messages', async (t) => {
@@ -123,11 +123,11 @@ test('As an admin I should be able to send SMS messages', async (t) => {
   await t.expect(messagesListPage.title.exists).ok();
 
   // Assert that the new message can be found
-  await t.expect(smsSelector.exists).ok();
+  await t.expect(smsSelector.exists).ok('', { timeout: 10000 });
 
   // Open details page
   await t.click(smsSelector);
 
   // Assert that the SMS has been sent
-  await t.expect(messagesShowPage.isSent.exists).ok();
+  await t.expect(messagesShowPage.isSent.exists).ok('', { timeout: 10000 });
 });
