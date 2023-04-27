@@ -62,11 +62,8 @@ test('As an admin I want to create and delete messages', async (t) => {
     .typeText(messagesCreatePage.bodyTextInput, t.ctx.message.bodyText)
     .click(messagesCreatePage.submitCreateMessageForm);
 
-  // Wait for view data to sync
-  await t.wait(5000);
-
   // Assert that we have been redirected into the list view
-  await t.expect(messagesListPage.title.exists).ok();
+  await t.expect(messagesListPage.title.exists).ok('', { timeout: 10000 });
 
   const messageSelector = within(messagesListPage.listBody)
     .queryByText(t.ctx.message.bodyText)
