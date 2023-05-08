@@ -26,4 +26,8 @@ export const ticketSystemChoices = [
     id: TicketSystem.TICKETMASTER,
     name: 'events.fields.ticketSystem.choices.TICKETMASTER.label',
   },
+  {
+    id: TicketSystem.LIPPUPISTE,
+    name: 'events.fields.ticketSystem.choices.LIPPUPISTE.label',
+  },
 ];

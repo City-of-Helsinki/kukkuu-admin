@@ -165,6 +165,9 @@
           },
           "TICKETMASTER": {
             "label": "Ticketmaster"
+          },
+          "LIPPUPISTE": {
+            "label": "Lippupiste"
           }
         }
       },
@@ -510,12 +513,12 @@
     "error": "Ticket validation failed"
   },
   "ticketSystemPassword": {
-    "passwordsTab":{
+    "passwordsTab": {
       "label": "Passwords"
     },
     "fields": {
       "usedPasswordCount": {
-        "label": "Used Ticketmaster passwords"
+        "label": "Used external ticket system passwords"
       },
       "freePasswordCount": {
         "label": "Free passwords"

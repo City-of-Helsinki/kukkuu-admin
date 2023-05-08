@@ -15,6 +15,10 @@ export const addEventMutation = gql`
             url
             endTime
           }
+          ... on LippupisteEventTicketSystem {
+            url
+            endTime
+          }
         }
         translations {
           languageCode
@@ -55,6 +59,10 @@ export const updateEventMutation = gql`
         ticketSystem {
           type
           ... on TicketmasterEventTicketSystem {
+            url
+            endTime
+          }
+          ... on LippupisteEventTicketSystem {
             url
             endTime
           }
