@@ -32,6 +32,10 @@ export const eventsQuery = gql`
               url
               endTime
             }
+            ... on LippupisteEventTicketSystem {
+              url
+              endTime
+            }
           }
         }
       }
@@ -77,6 +81,12 @@ export const eventQuery = gql`
       ticketSystem {
         type
         ... on TicketmasterEventTicketSystem {
+          usedPasswordCount
+          freePasswordCount
+          url
+          endTime
+        }
+        ... on LippupisteEventTicketSystem {
           usedPasswordCount
           freePasswordCount
           url

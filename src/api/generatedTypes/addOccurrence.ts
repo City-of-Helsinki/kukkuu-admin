@@ -43,7 +43,12 @@ export interface addOccurrence_addOccurrence_occurrence_ticketSystem_Ticketmaste
   url: string;
 }
 
-export type addOccurrence_addOccurrence_occurrence_ticketSystem = addOccurrence_addOccurrence_occurrence_ticketSystem_InternalOccurrenceTicketSystem | addOccurrence_addOccurrence_occurrence_ticketSystem_TicketmasterOccurrenceTicketSystem;
+export interface addOccurrence_addOccurrence_occurrence_ticketSystem_LippupisteOccurrenceTicketSystem {
+  type: TicketSystem;
+  url: string;
+}
+
+export type addOccurrence_addOccurrence_occurrence_ticketSystem = addOccurrence_addOccurrence_occurrence_ticketSystem_InternalOccurrenceTicketSystem | addOccurrence_addOccurrence_occurrence_ticketSystem_TicketmasterOccurrenceTicketSystem | addOccurrence_addOccurrence_occurrence_ticketSystem_LippupisteOccurrenceTicketSystem;
 
 export interface addOccurrence_addOccurrence_occurrence {
   /**

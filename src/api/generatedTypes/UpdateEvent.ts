@@ -48,7 +48,13 @@ export interface UpdateEvent_updateEvent_event_ticketSystem_TicketmasterEventTic
   endTime: any | null;
 }
 
-export type UpdateEvent_updateEvent_event_ticketSystem = UpdateEvent_updateEvent_event_ticketSystem_InternalEventTicketSystem | UpdateEvent_updateEvent_event_ticketSystem_TicketmasterEventTicketSystem;
+export interface UpdateEvent_updateEvent_event_ticketSystem_LippupisteEventTicketSystem {
+  type: TicketSystem;
+  url: string;
+  endTime: any | null;
+}
+
+export type UpdateEvent_updateEvent_event_ticketSystem = UpdateEvent_updateEvent_event_ticketSystem_InternalEventTicketSystem | UpdateEvent_updateEvent_event_ticketSystem_TicketmasterEventTicketSystem | UpdateEvent_updateEvent_event_ticketSystem_LippupisteEventTicketSystem;
 
 export interface UpdateEvent_updateEvent_event {
   /**

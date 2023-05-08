@@ -70,7 +70,15 @@ export interface Event_event_ticketSystem_TicketmasterEventTicketSystem {
   endTime: any | null;
 }
 
-export type Event_event_ticketSystem = Event_event_ticketSystem_InternalEventTicketSystem | Event_event_ticketSystem_TicketmasterEventTicketSystem;
+export interface Event_event_ticketSystem_LippupisteEventTicketSystem {
+  type: TicketSystem;
+  usedPasswordCount: number;
+  freePasswordCount: number;
+  url: string;
+  endTime: any | null;
+}
+
+export type Event_event_ticketSystem = Event_event_ticketSystem_InternalEventTicketSystem | Event_event_ticketSystem_TicketmasterEventTicketSystem | Event_event_ticketSystem_LippupisteEventTicketSystem;
 
 export interface Event_event {
   /**

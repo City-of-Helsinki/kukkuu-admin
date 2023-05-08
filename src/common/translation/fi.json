@@ -165,6 +165,9 @@
           },
           "TICKETMASTER": {
             "label": "Ticketmaster"
+          },
+          "LIPPUPISTE": {
+            "label": "Lippupiste"
           }
         }
       },
@@ -510,12 +513,12 @@
     "error": "Lipun tarkistaminen epäonnistui"
   },
   "ticketSystemPassword": {
-    "passwordsTab":{
+    "passwordsTab": {
       "label": "Salasanat"
     },
     "fields": {
       "usedPasswordCount": {
-        "label": "Tapahtuman varatut Ticketmaster-salasanat"
+        "label": "Tapahtumaan varatut ulkoisen lippupalvelun salasanat"
       },
       "freePasswordCount": {
         "label": "Vapaat salasanat"

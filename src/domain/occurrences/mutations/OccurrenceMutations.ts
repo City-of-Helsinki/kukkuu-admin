@@ -26,6 +26,9 @@ export const addOccurrenceMutation = gql`
           ... on TicketmasterOccurrenceTicketSystem {
             url
           }
+          ... on LippupisteOccurrenceTicketSystem {
+            url
+          }
         }
       }
     }
@@ -80,6 +83,9 @@ export const updateOccurrenceMutation = gql`
         ticketSystem {
           type
           ... on TicketmasterOccurrenceTicketSystem {
+            url
+          }
+          ... on LippupisteOccurrenceTicketSystem {
             url
           }
         }
