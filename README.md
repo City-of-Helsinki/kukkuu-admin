@@ -7,38 +7,43 @@
 
 ## About
 
-More information about the Culture Kids project is available in the UI project: 
+More information about the Culture Kids project is available in the UI project:
 https://github.com/City-of-Helsinki/kukkuu-ui/
 
 ## Deployments
 
 Production environment:
+
 - https://kummilapset-admin.hel.fi/
 
 Testing environment:
+
 - https://kukkuu-admin.test.kuva.hel.ninja/ (Deprecated KuVa environment)
 - https://kukkuu-admin.test.hel.ninja/ (Platta environment)
 
 Staging environment:
+
 - https://kukkuu-admin.stage.hel.ninja/ (Platta environment)
 
 ## See also
 
 The backend:
+
 - https://github.com/City-of-Helsinki/kukkuu
 
 The end user interface:
+
 - https://github.com/City-of-Helsinki/kukkuu-ui
 
-## Development 
+## Development
 
 ### Getting started
 
 1. Clone the repo.
 2. Use file `.env.local` to modify environment variables if needed. For more info, check [this](https://create-react-app.dev/docs/adding-custom-environment-variables#docsNav).
 3. Run either
-    * `yarn start` to run the app normally **or**
-    * `docker-compose up` to run the app in a Docker container. In the future when there are changes that need rebuilding the container, run `docker-compose up --build` instead.
+   - `yarn start` to run the app normally **or**
+   - `docker-compose up` to run the app in a Docker container. In the future when there are changes that need rebuilding the container, run `docker-compose up --build` instead.
 4. Open [http://localhost:3001](http://localhost:3001) to view the app in the browser.
 
 ### Authorizing login to kukkuu-admin
@@ -48,14 +53,16 @@ You need to authorize the user you are trying to log in with to kukkuu-admin.
 #### Using local kukkuu backend
 
 If you have set up a local kukkuu backend i.e. in your `.env.local`
+
 > REACT_APP_API_URI=http://localhost:8081/graphql
 
 You need to:
- 1. Run the local backend
- 2. Try to log in to kukkuu-admin at http://localhost:3001/login with some user
- 3. Open the backend's django-admin interface at http://localhost:8000/admin/ using
+
+1.  Run the local backend
+2.  Try to log in to kukkuu-admin at http://localhost:3001/login with some user
+3.  Open the backend's django-admin interface at http://localhost:8000/admin/ using
     username `admin` and password `admin`
- 4. Make the user you tried to log in to kukkuu-admin a superuser
+4.  Make the user you tried to log in to kukkuu-admin a superuser
     - The attempt to log in into kukkuu-admin should have created a user in the backend
 
 After that you should be able to log in to kukkuu-admin with the user.
@@ -63,20 +70,22 @@ After that you should be able to log in to kukkuu-admin with the user.
 #### Using remote kukkuu backend
 
 If you have set up a remote kukkuu backend i.e. in your `.env.local` e.g.
-> REACT_APP_API_URI=https://kukkuu.test.kuva.hel.ninja/graphql
+
+> REACT_APP_API_URI=https://kukkuu.api.test.hel.ninja/graphql
 
 You need to:
- 1. Obtain credentials to log in to the django-admin interface of the backend from
+
+1.  Obtain credentials to log in to the django-admin interface of the backend from
     someone or something that has them or if you have credentials to the pod which runs
     the backend you can create a superuser to log in to the backend by running
     `python manage.py createsuperuser` in the pod's terminal. Then you can use those
     credentials to log in to the django-admin interface of the backend.
- 2. Try to log in to kukkuu-admin at http://localhost:3001/login with some user
- 3. Open the backend's django-admin interface at (e.g.
-    https://kukkuu.test.kuva.hel.ninja/admin if your
-    `REACT_APP_API_URI=https://kukkuu.test.kuva.hel.ninja/graphql`) using the
+2.  Try to log in to kukkuu-admin at http://localhost:3001/login with some user
+3.  Open the backend's django-admin interface at (e.g.
+    https://kukkuu.api.test.hel.ninja/admin if your
+    `REACT_APP_API_URI=https://kukkuu.api.test.hel.ninja/graphql`) using the
     credentials you obtained from the previous steps
- 4. Make the user you tried to log in with to kukkuu-admin—the attempt to log in into
+4.  Make the user you tried to log in with to kukkuu-admin—the attempt to log in into
     kukkuu-admin should have created a user in the backend—a superuser
 
 After that you should be able to log in to kukkuu-admin with that user.
@@ -84,11 +93,13 @@ After that you should be able to log in to kukkuu-admin with that user.
 ### Setting up Tunnistamo and Kukkuu API locally with Docker
 
 #### Set Tunnistamo hostname
+
 Add the following line to your hosts file (`/etc/hosts` on mac and linux):
 
     127.0.0.1 tunnistamo-backend
 
 #### Create a new OAuth app on GitHub
+
 Go to https://github.com/settings/developers/ and add a new app with the following settings:
 
 - Application name: can be anything, e.g. local tunnistamo
@@ -98,6 +109,7 @@ Go to https://github.com/settings/developers/ and add a new app with the followi
 Save. You'll need the created **Client ID** and **Client Secret** for configuring tunnistamo in the next step.
 
 #### Install local Tunnistamo
+
 Clone https://github.com/City-of-Helsinki/tunnistamo/.
 
 Follow the instructions for setting up tunnistamo locally. Before running `docker-compose up` set the following settings in tunnistamo roots `docker-compose.env.yaml`:
@@ -122,6 +134,7 @@ and execute the following four commands inside your docker container:
 To make Kukkuu Admin use the local Tunnistamo set `REACT_APP_OIDC_AUTHORITY="http://tunnistamo-backend:8000"` for example in file `.env.local`.
 
 #### Install Kukkuu API locally
+
 Clone the repository (https://github.com/City-of-Helsinki/kukkuu). Follow the instructions for running kukkuu with docker. Before running `docker-compose up` set the following settings in kukkuu roots `docker-compose.env.yaml`:
 
 - DEBUG=1
