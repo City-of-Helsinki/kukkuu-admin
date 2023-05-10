@@ -1,8 +1,15 @@
 # Change Log
 
+## [1.11.0] - 2023-05-10
+
+### Added
+
+- [#234](https://github.com/City-of-Helsinki/kukkuu-admin/pull/234) Add Lippupiste ticket system
+
 ## [1.10.1] - 2022-12-09
 
 ### Fixed
+
 - [#223](https://github.com/City-of-Helsinki/kukkuu-admin/pull/223) Remove unneeded fields from occurrences query
 
 ## [1.10.0] - 2022-12-08
