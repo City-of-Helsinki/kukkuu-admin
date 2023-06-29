@@ -1,0 +1,11 @@
+{
+  "bootstrap-sha": "a26ec424ae81ac2c8d01d599244e8bb9f34282ce",
+  "sequential-calls": true,
+  "packages": {
+    ".": {
+      "release-type": "node",
+      "package-name": "kukkuu-admin"
+    }
+  },
+  "plugins": ["sentence-case"]
+}
