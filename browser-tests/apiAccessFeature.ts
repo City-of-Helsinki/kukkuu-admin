@@ -8,7 +8,6 @@ fixture`Api access feature`
     await login(t);
   });
 
-
 test('Ensure tunnistamo user has accesses', async (t) => {
   await tunnistamoUserAccesses(t);
 });
