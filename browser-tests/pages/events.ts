@@ -23,7 +23,7 @@ export const eventsDetailPage = {
     name: 'Muokkaa',
   }),
   title: (name: string) => Selector('h1').withExactText(name),
-  readyToggle: Selector('input[type=checkbox]'),
+  readyToggle: Selector('input[type=]'),
   eventGroupLink:  (name: string) => Selector('a').withExactText(name),
 };
 
