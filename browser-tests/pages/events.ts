@@ -23,7 +23,7 @@ export const eventsDetailPage = {
     name: 'Muokkaa',
   }),
   title: (name: string) => Selector('h1').withExactText(name),
-  readyToggle: Selector('input[type=]'),
+  readyToggle: screen.getByText('Valmis julkaistavaksi'),
   eventGroupLink:  (name: string) => Selector('a').withExactText(name),
 };
 
