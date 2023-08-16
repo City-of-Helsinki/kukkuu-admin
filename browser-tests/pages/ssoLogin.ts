@@ -7,7 +7,7 @@ export const ssoLogin = {
   password: screen.getByLabelText('Password'),
   loginButton: screen.getByDisplayValue('Log In'),
   permissionPage: screen.queryByText(/Älä anna lupaa|Deny/i),
-  givePermissionButton: screen.getByDisplayValue(/Anna lupa|Allow/i),
+  givePermissionButton: screen.getByDisplayValue(/^Anna lupa|Allow/),
   localeDropdown: Selector('#kc-locale-dropdown'),
   localeLanguage: 'English',
 };
