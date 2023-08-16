@@ -33,7 +33,6 @@ export const tunnistamoUserAccesses = async (t: TestController) => {
 
   await t.navigateTo(routeUser());
 
-
   await t.click(user.selectByEmail);
 
   // these needs to be checked
