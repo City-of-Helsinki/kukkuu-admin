@@ -51,5 +51,5 @@ extends:
     # Does not contain all buildArguments, the rest located in harrastukset-pipelines/harrastukset-variables-development.yml and harrastukset-variables-common.yml
     # The values here will override the values defined in the harrastukset-pipelines repository.
     buildArgs:
-      REACT_APP_API_URI: 'https://kukkuu.api.test.hel.ninja/graphql'
+      REACT_APP_API_URI: 'https://kukkuu-local.api.dev.hel.ninja/graphql'
     # configMap: # pod environment variables

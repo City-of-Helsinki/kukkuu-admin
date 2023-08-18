@@ -13,7 +13,7 @@ fixture`Unauthorized feature`
       username: testUnauthorizedUsername(),
       password: testUnauthorizedUserPassword(),
     });
-    await t.wait(1000);
+    await t.wait(3000);
   });
 
 test('As a user without admin permissions I want to see an unauthorized page', async (t) => {
