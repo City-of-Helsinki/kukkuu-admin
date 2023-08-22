@@ -3,7 +3,7 @@ FROM registry.access.redhat.com/ubi8/nodejs-14  as appbase
 # ===============================================
 
 # install yarn
-USER 0
+USER root
 RUN curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo
 RUN yum -y install yarn
 
@@ -42,10 +42,10 @@ ARG NODE_ENV=development
 ENV NODE_ENV $NODE_ENV
 
 # copy in our source code last, as it changes the most
-COPY --chown=1001:1001 . .
+COPY --chown=default:root . .
 
 # Use non-root user
-USER 1001
+USER default
 
 # Bake package.json start command into the image
 CMD ["react-scripts", "start"]
@@ -77,6 +77,6 @@ COPY --from=staticbuilder --chown=nginx:nginx /app/build /usr/share/nginx/html
 COPY .prod/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Use non-root user
-USER 1001
+USER default
 
 EXPOSE 8080
