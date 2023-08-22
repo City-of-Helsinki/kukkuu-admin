@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.11.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v1.11.0...kukkuu-admin-v1.11.1) (2023-08-22)
+
+
+### Bug Fixes
+
+* Dockerfile base on ubi image DEVOPS-560 ([#239](https://github.com/City-of-Helsinki/kukkuu-admin/issues/239)) ([c6c5c10](https://github.com/City-of-Helsinki/kukkuu-admin/commit/c6c5c1044a5885b4f7eef7839427461eae6e05b4))
+
 ## [1.11.0] - 2023-05-10
 
 ### Added
