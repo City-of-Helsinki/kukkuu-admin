@@ -1,20 +1,24 @@
 import React from 'react';
 import { Login, useTranslate, useLogin } from 'react-admin';
-import { Button, Card, CardContent } from '@mui/material';
-import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/styles';
-import { makeStyles } from '@mui/material/styles';
+import {
+  ThemeProvider,
+  Theme,
+  StyledEngineProvider,
+  Button,
+  Card,
+  CardContent,
+} from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import { RouteComponentProps, StaticContext } from 'react-router';
 
 import theme from '../../common/materialUI/themeConfig';
 import IsTestEnvironmentLabel from '../../common/components/isTestEnvironmentLabel/IsTestEnvironmentLabel';
 import Config from '../config';
 
-
 declare module '@mui/styles/defaultTheme' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface DefaultTheme extends Theme {}
 }
-
 
 type StyleProps = {
   isTest: boolean;

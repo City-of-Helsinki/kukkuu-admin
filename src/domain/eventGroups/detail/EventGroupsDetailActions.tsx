@@ -5,7 +5,7 @@ import {
   CreateButton,
   EditButton,
 } from 'react-admin';
-import { makeStyles } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
 import PublishEventGroupButton from './PublishEventGroupButton';
 import {

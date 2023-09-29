@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextField } from 'react-admin';
-import { makeStyles } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
   longTextField: { whiteSpace: 'pre-wrap' },

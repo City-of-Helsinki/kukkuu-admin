@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { AppBar } from 'react-admin';
-
 import classNames from 'classnames';
+import { Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
 import Config from '../../../domain/config';
 import ProfileProjectDropdown from '../../../domain/profile/ProfileProjectDropdown';
 import AppTitle from '../appTitle/AppTitle';
-import { Typography, makeStyles } from '@mui/material';
 
 const useStyles = makeStyles({
   title: {

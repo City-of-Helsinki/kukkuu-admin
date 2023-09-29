@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Datagrid, DatagridProps, ListProps } from 'react-admin';
-import { makeStyles } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
 import KukkuuList from './KukkuuList';
 import KukkuuPageTitle from '../kukkuuPageTitle/KukkuuPageTitle';

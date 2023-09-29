@@ -3,16 +3,15 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Container from '@mui/material/Container';
-import { ThemeProvider, Theme, StyledEngineProvider, makeStyles } from '@mui/styles';
+import { makeStyles } from '@mui/styles';
+import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/material';
 
 import theme from '../../common/materialUI/themeConfig';
-
 
 declare module '@mui/styles/defaultTheme' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface DefaultTheme extends Theme {}
 }
-
 
 const useStyles = makeStyles(() => ({
   background: {
