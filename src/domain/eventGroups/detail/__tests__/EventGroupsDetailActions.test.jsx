@@ -9,11 +9,13 @@ import EventGroupsDetailActions from '../EventGroupsDetailActions';
 const defaultProps = {};
 const getWrapper = (props) =>
   render(
-    <ThemeProvider theme={createMuiTheme()}>
-      <TestContext>
-        <EventGroupsDetailActions {...defaultProps} {...props} />
-      </TestContext>
-    </ThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={createMuiTheme()}>
+        <TestContext>
+          <EventGroupsDetailActions {...defaultProps} {...props} />
+        </TestContext>
+      </ThemeProvider>
+    </StyledEngineProvider>
   );
 
 describe('<EventGroupsDetailActions />', () => {

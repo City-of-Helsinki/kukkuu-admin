@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
       display: 'grid',
       gridTemplateColumns: '1fr 1fr',
       gridTemplateRows: 'auto',
-      columnGap: theme.spacing(2) + 'px',
+      columnGap: theme.spacing(2),
       '& > *': {
         gridColumn: '1 / -1',
       },
