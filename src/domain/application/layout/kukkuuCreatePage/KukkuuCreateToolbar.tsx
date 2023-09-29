@@ -1,7 +1,7 @@
 import React from 'react';
 import { Toolbar, SaveButton, useTranslate } from 'react-admin';
 import Button from '@mui/material/Button';
-import { makeStyles } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import { Link } from 'react-router-dom';
 
 function CancelButton(props: any) {

@@ -1,5 +1,6 @@
 import React from 'react';
-import { makeStyles, Theme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useParams } from 'react-router';
@@ -43,8 +44,12 @@ const TicketValidationPage = () => {
   const { data, error, loading } = useVerifyTicketQuery({
     referenceId: cryptographicallySignedCode,
   });
-  const { validity: isValid, eventName, venueName, occurrenceTime } =
-    data?.verifyTicket ?? {};
+  const {
+    validity: isValid,
+    eventName,
+    venueName,
+    occurrenceTime,
+  } = data?.verifyTicket ?? {};
 
   if (loading) {
     return <Loading />;
