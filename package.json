@@ -5,7 +5,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "TZ=Europe/Helsinki NODE_ICU_DATA=node_modules/full-icu react-scripts test --env=jsdom-fourteen",
+    "test": "TZ=Europe/Helsinki NODE_ICU_DATA=node_modules/full-icu react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint --ext js,ts,tsx src",
     "graphql-types": "apollo client:codegen --target=typescript --no-addTypename --outputFlat src/api/generatedTypes",
