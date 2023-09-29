@@ -15,9 +15,9 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
-    margin: `0 -${theme.spacing(1)}px`,
+    margin: `0 -${theme.spacing(1)}`,
     '& > *': {
-      margin: `0 ${theme.spacing(1)}px`,
+      margin: `0 ${theme.spacing(1)}`,
     },
   },
 }));

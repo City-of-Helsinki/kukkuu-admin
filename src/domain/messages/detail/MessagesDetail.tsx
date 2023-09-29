@@ -91,8 +91,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
     gridTemplateRows: 'auto',
-    columnGap: theme.spacing(2) + 'px',
-    rowGap: theme.spacing(2) + 'px',
+    columnGap: theme.spacing(2),
+    rowGap: theme.spacing(2),
     '& > *': {
       gridColumn: '1 / -1',
     },
@@ -108,9 +108,9 @@ const useStyles = makeStyles((theme) => ({
     whiteSpace: 'break-spaces',
   },
   chip: {
-    marginBottom: theme.spacing(0.5) + 'px',
+    marginBottom: theme.spacing(0.5),
     '&:not(:last-child)': {
-      marginRight: theme.spacing(0.5) + 'px',
+      marginRight: theme.spacing(0.5),
     },
   },
 }));

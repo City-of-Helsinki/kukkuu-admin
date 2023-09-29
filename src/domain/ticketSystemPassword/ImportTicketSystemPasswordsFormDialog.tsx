@@ -110,7 +110,7 @@ const ImportTicketSystemPasswordsFormDialog = withStyles(styles)(
             placeholder={translate(
               'ticketSystemPassword.import.passwords.placeholder'
             )}
-            rowsMin={10}
+            minRows={10}
             value={passwordsText}
             onChange={onChangePasswordsText}
           />

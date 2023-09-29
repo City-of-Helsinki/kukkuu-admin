@@ -24,11 +24,13 @@ const defaultProps = {
 };
 const getWrapper = (props) =>
   render(
-    <ThemeProvider theme={createMuiTheme()}>
-      <TestContext>
-        <ConfirmMutationButton {...defaultProps} {...props} />
-      </TestContext>
-    </ThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={createMuiTheme()}>
+        <TestContext>
+          <ConfirmMutationButton {...defaultProps} {...props} />
+        </TestContext>
+      </ThemeProvider>
+    </StyledEngineProvider>
   );
 
 describe('<ConfirmMutationButton />', () => {
