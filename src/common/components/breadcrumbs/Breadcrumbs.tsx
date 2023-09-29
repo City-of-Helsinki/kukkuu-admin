@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-admin';
-import { makeStyles, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import { useLocation } from 'react-router';
 

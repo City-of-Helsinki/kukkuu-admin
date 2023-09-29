@@ -1,6 +1,6 @@
 import React, { MouseEvent } from 'react';
 import { useQueryWithStore, useRefresh } from 'react-admin';
-import { makeStyles } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
