@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     ...containerStyles,
-    rowGap: `${theme.spacing(3)}px`,
+    rowGap: theme.spacing(3),
 
     backgroundColor: theme.palette.grey[200],
   },
@@ -79,7 +79,7 @@ const useValidStyles = makeStyles<Theme, ValidityIndicatorProps>((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    rowGap: `${theme.spacing(1)}px`,
+    rowGap: theme.spacing(1),
   },
   icon: {
     fontSize: '6rem',

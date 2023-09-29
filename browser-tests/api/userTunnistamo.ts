@@ -36,10 +36,10 @@ export const tunnistamoUserAccesses = async (t: TestController) => {
   await t.click(user.selectByEmail);
 
   // these needs to be checked
-  if (! await user.staffStatusCheckbox.checked) {
+  if (! (await user.staffStatusCheckbox.checked)) {
     await t.click(user.staffStatus)
   }
-  if (! await user.superUserStatusCheckbox.checked) {
+  if (! (await user.superUserStatusCheckbox.checked)) {
     await t.click(user.superUserStatus)
   }
 

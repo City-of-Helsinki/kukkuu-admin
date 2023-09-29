@@ -6,9 +6,9 @@ import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';
 
 const useMessagesListToolbarStyles = makeStyles((theme) => ({
   toolbar: {
-    margin: `0 -${theme.spacing(1)}px`,
+    margin: `0 -${theme.spacing(1)}`,
     '& > *': {
-      margin: `0 ${theme.spacing(1)}px`,
+      margin: `0 ${theme.spacing(1)}`,
     },
   },
 }));

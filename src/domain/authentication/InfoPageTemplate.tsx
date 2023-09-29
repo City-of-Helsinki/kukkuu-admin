@@ -7,6 +7,13 @@ import { ThemeProvider, Theme, StyledEngineProvider, makeStyles } from '@mui/sty
 
 import theme from '../../common/materialUI/themeConfig';
 
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
+
 const useStyles = makeStyles(() => ({
   background: {
     height: '100vh',
@@ -30,16 +37,18 @@ const InfoPageTemplate = ({ title, content }: Props) => {
   const classes = useStyles();
 
   return (
-    <ThemeProvider theme={theme}>
-      <div className={classes.background}>
-        <Container maxWidth="sm" className={classes.container}>
-          <Card style={{ textAlign: 'center' }}>
-            <CardHeader title={title} />
-            <CardContent>{content}</CardContent>
-          </Card>
-        </Container>
-      </div>
-    </ThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <div className={classes.background}>
+          <Container maxWidth="sm" className={classes.container}>
+            <Card style={{ textAlign: 'center' }}>
+              <CardHeader title={title} />
+              <CardContent>{content}</CardContent>
+            </Card>
+          </Container>
+        </div>
+      </ThemeProvider>
+    </StyledEngineProvider>
   );
 };
 

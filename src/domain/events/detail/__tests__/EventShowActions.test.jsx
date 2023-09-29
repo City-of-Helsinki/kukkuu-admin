@@ -16,11 +16,13 @@ const defaultProps = {
 };
 const getWrapper = (props) =>
   render(
-    <ThemeProvider theme={createMuiTheme()}>
-      <TestContext>
-        <EventShowActions {...defaultProps} {...props} />
-      </TestContext>
-    </ThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={createMuiTheme()}>
+        <TestContext>
+          <EventShowActions {...defaultProps} {...props} />
+        </TestContext>
+      </ThemeProvider>
+    </StyledEngineProvider>
   );
 
 describe('<EventShowActions />', () => {

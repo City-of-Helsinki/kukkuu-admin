@@ -9,6 +9,13 @@ import theme from '../../common/materialUI/themeConfig';
 import IsTestEnvironmentLabel from '../../common/components/isTestEnvironmentLabel/IsTestEnvironmentLabel';
 import Config from '../config';
 
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
+
 type StyleProps = {
   isTest: boolean;
 };
@@ -51,26 +58,28 @@ const LoginPage = ({ location }: Props) => {
 
   return (
     <Login>
-      <ThemeProvider theme={theme}>
-        <Card>
-          <CardContent>
-            <div className={classes.container}>
-              <p>
-                {translate('dashboard.title')}
-                <IsTestEnvironmentLabel />
-              </p>
-              <Button
-                className={classes.button}
-                variant="contained"
-                color="secondary"
-                onClick={handleLogin}
-              >
-                {translate('ra.auth.sign_in')}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <Card>
+            <CardContent>
+              <div className={classes.container}>
+                <p>
+                  {translate('dashboard.title')}
+                  <IsTestEnvironmentLabel />
+                </p>
+                <Button
+                  className={classes.button}
+                  variant="contained"
+                  color="secondary"
+                  onClick={handleLogin}
+                >
+                  {translate('ra.auth.sign_in')}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </ThemeProvider>
+      </StyledEngineProvider>
     </Login>
   );
 };
