@@ -76,8 +76,8 @@ export function countEnrollments(
   );
 }
 
-type RecordWithTicketSystem = {
-  ticketSystem: {
+export type RecordWithTicketSystem = {
+  ticketSystem?: {
     type: TicketSystem;
   } | null;
 };

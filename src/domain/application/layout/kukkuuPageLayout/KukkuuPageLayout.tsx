@@ -1,15 +1,16 @@
 import React, { ReactElement, ReactText } from 'react';
-import { EditProps, useGetOne, Record } from 'react-admin';
-import { makeStyles } from '@mui/material';
+import { EditProps, useGetOne } from 'react-admin';
+import { makeStyles } from '@mui/styles';
 import get from 'lodash/get';
 
 import KukkuuPageTitle from '../kukkuuPageTitle/KukkuuPageTitle';
 import BreadCrumbs, {
   Crumb,
 } from '../../../../common/components/breadcrumbs/Breadcrumbs';
+import { RecordType } from '../../../../api/types';
 
 type TitleWithRecordProps = {
-  pageTitle: string | ((record?: Record) => ReactText);
+  pageTitle: string | ((record?: RecordType) => ReactText);
   reactAdminProps: EditProps;
 };
 
@@ -48,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 export type KukkuuLayoutProps = {
   reactAdminProps: EditProps;
   children: ReactElement;
-  pageTitle?: string | ((record?: Record) => ReactText | undefined);
+  pageTitle?: string | ((record?: RecordType) => ReactText | undefined);
   pageTitleSource?: string;
   breadcrumbs?: Crumb[];
 };
@@ -74,7 +75,7 @@ const KukkuuPageLayout = ({
       )}
       {(isSourcePageTitle || isFunctionPageTitle) && (
         <TitleWithRecord
-          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           pageTitle={pageTitleSource || pageTitle}
           reactAdminProps={reactAdminProps}

@@ -57,19 +57,20 @@ const OccurrenceEdit = (props: any) => {
     ? `/events/${record.event.id}/show/1`
     : 'show';
 
-  // Undoable is false because the DateTimeTextInput returns values
+  // Undoable / mutationMode is false because the DateTimeTextInput returns values
   // that are invalid as time source. They are merged in OccurrenceApi,
   // would be better to move that logic to the fields yes.
   return (
     <Grid container direction="column" xs={6} item={true}>
-      <KukkuuEdit undoable={false} {...props}>
-        <SimpleForm
-          variant="outlined"
-          redirect={redirect}
-          toolbar={<OccurrenceEditToolbar redirect={redirect} />}
-        >
-          <OccurrenceEditDateTimeTextInput required={true} source="time" />
+      <KukkuuEdit mutationMode="pessimistic" {...props}>
+        <SimpleForm toolbar={<OccurrenceEditToolbar redirect={redirect} />}>
+          <OccurrenceEditDateTimeTextInput
+            variant="outlined"
+            required={true}
+            source="time"
+          />
           <OccurrenceEditReferenceInput
+            variant="outlined"
             label="occurrences.fields.venue.label"
             source="venue.id"
             reference="venues"
@@ -77,6 +78,7 @@ const OccurrenceEdit = (props: any) => {
             fullWidth
           >
             <SelectInput
+              variant="outlined"
               optionText="translations.FI.name"
               helperText="occurrences.fields.venue.helperText"
             />
