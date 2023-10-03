@@ -1,6 +1,5 @@
 import { AuthProvider } from 'ra-core';
 
-import { history } from '../application/App';
 import authService from './authService';
 import authorizationService from './authorizationService';
 
@@ -37,7 +36,8 @@ const authProvider: AuthProvider = {
     }
 
     if (isNotAdmin) {
-      history.replace('/unauthorized');
+      // Navigate to unauthorized-route.
+      window.history.replaceState(null, '', '/unauthorized');
 
       // Resolve promise so the user is not logged out
       return Promise.resolve();
