@@ -5,12 +5,16 @@ import {
   waitForElementToBeRemoved,
 } from '@testing-library/react';
 import { TestContext } from 'react-admin';
-import useMutation from 'ra-core/lib/dataProvider/useMutation';
-import { ThemeProvider, StyledEngineProvider, createMuiTheme } from '@mui/material';
+import {
+  ThemeProvider,
+  StyledEngineProvider,
+  createMuiTheme,
+} from '@mui/material';
 
 import ConfirmMutationButton from '../ConfirmMutationButton';
+import useMessageSendMutation from '../../../../domain/messages/hooks/useMessageSendMutation';
 
-jest.mock('ra-core/lib/dataProvider/useMutation');
+jest.mock('../../../../domain/messages/hooks/useMessageSendMutation');
 
 const buttonLabel = 'Irrevocable action';
 const confirmTitle = 'Are you sure?';
@@ -38,7 +42,10 @@ describe('<ConfirmMutationButton />', () => {
 
   beforeEach(() => {
     applyMutationMock = jest.fn();
-    useMutation.mockReturnValue([applyMutationMock, { loading: false }]);
+    useMessageSendMutation.mockReturnValue({
+      mutate: applyMutationMock,
+      isLoading: false,
+    });
   });
 
   afterEach(() => {
@@ -77,8 +84,14 @@ describe('<ConfirmMutationButton />', () => {
   it('as a user I do not want to be able to call the action when the mutation is already being executed because that may cause me to see errors', () => {
     const { getByRole } = getWrapper();
 
-    useMutation.mockReturnValueOnce([applyMutationMock, { loading: false }]);
-    useMutation.mockReturnValueOnce([applyMutationMock, { loading: true }]);
+    useMessageSendMutation.mockReturnValue({
+      mutate: applyMutationMock,
+      isLoading: false,
+    });
+    useMessageSendMutation.mockReturnValue({
+      mutate: applyMutationMock,
+      isLoading: true,
+    });
 
     fireEvent.click(getByRole('button', { name: buttonLabel }), {});
     fireEvent.click(getByRole('button', { name: 'ra.action.confirm' }), {});
@@ -103,7 +116,9 @@ describe('<ConfirmMutationButton />', () => {
       fireEvent.click(getByRole('button', { name: buttonLabel }), {});
       fireEvent.click(getByRole('button', { name: 'ra.action.confirm' }), {});
 
-      expect(useMutation).toHaveBeenCalledWith(mutation, expect.anything());
+      useMessageSendMutation.mockReturnValue({
+        mutate: applyMutationMock,
+      });
       expect(applyMutationMock).toHaveBeenCalledTimes(1);
     });
   });

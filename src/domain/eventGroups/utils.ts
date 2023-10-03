@@ -1,5 +1,5 @@
 import { EventGroup_eventGroup_events_edges_node as EventNode } from '../../api/generatedTypes/EventGroup';
-import { Record } from '../../api/types';
+import { RecordType } from '../../api/types';
 
 export enum EventGroupEventsPublishStatusEnum {
   NotReady = 'notReady',
@@ -16,7 +16,9 @@ export const isEveryEventReadyForPublish = (events: EventNode[]) => {
   return events?.every((event) => event.readyForEventGroupPublishing) || false;
 };
 
-export const getEventGroupPublishStatus = (eventGroup: Record | undefined) => {
+export const getEventGroupPublishStatus = (
+  eventGroup: RecordType | undefined
+) => {
   if (eventGroup) {
     if (isEveryEventPublished(eventGroup.events)) {
       return EventGroupEventsPublishStatusEnum.AllPublished;

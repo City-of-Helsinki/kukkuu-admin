@@ -4,6 +4,7 @@ import SendIcon from '@mui/icons-material/Check';
 
 import { Message_message as Message } from '../../../api/generatedTypes/Message';
 import ConfirmMutationButton from '../../../common/components/confirmMutationButton/ConfirmMutationButton';
+import useMessageSendMutation from '../hooks/useMessageSendMutation';
 
 type Props = {
   basePath: string;
@@ -13,20 +14,16 @@ type Props = {
 
 const MessagesSendButton = ({ basePath, record, className }: Props) => {
   const t = useTranslate();
-
+  const mutation = useMessageSendMutation({
+    basePath,
+    params: { id: record.id },
+  });
   return (
     <ConfirmMutationButton
-      basePath={basePath}
       className={className}
       buttonLabel="messages.send.do"
       icon={<SendIcon />}
-      successMessage="messages.send.success"
-      errorMessage="messages.send.error"
-      mutation={{
-        type: 'send',
-        resource: 'messages',
-        payload: { id: record.id },
-      }}
+      mutation={mutation}
       confirmModalProps={{
         title: t('messages.send.confirm.title', {
           messageSubject: record.subject,

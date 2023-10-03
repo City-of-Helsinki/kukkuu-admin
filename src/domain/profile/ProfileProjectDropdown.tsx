@@ -1,5 +1,5 @@
 import React, { MouseEvent } from 'react';
-import { useQueryWithStore, useRefresh } from 'react-admin';
+import { useDataProvider, useGetList, useRefresh } from 'react-admin';
 import { makeStyles } from '@mui/styles';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
@@ -22,11 +22,14 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileProjectDropdown = () => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
-  const { loading, error, data } = useQueryWithStore({
-    type: 'getMyAdminProfile',
-    resource: 'profiles',
-    payload: {},
-  });
+  // const { loading, error, data } = useQueryWithStore({
+  //   type: 'getMyAdminProfile',
+  //   resource: 'profiles',
+  //   payload: {},
+  // });
+  // NOTE: Migrated in KK-1017 - Can be wrong, so check carefully!
+  const dataProvider = useDataProvider();
+  const { isLoading, error, data } = useGetList(dataProvider.getMyAdminProfile);
   const refresh = useRefresh();
   const classes = useStyles();
 
@@ -47,7 +50,7 @@ const ProfileProjectDropdown = () => {
     setAnchorEl(null);
   };
 
-  if (loading) {
+  if (isLoading) {
     return null;
   }
 

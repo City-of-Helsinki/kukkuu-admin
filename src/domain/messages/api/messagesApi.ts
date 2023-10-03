@@ -12,8 +12,8 @@ import { messagesQuery, messageQuery } from '../queries/MessageQueries';
 import {
   addMessageMutation,
   sendMessageMutation,
-  updateMessageMutation,
   deleteMessageMutation,
+  updateMessageMutation,
 } from '../mutations/MessageMutations';
 import projectService from '../../projects/projectService';
 
