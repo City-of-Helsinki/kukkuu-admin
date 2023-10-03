@@ -25,10 +25,8 @@ const KukkuuDetailPage = ({
   breadcrumbs,
 }: Props) => {
   const { data } = useGetOne(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
-    reactAdminProps.resource,
-    reactAdminProps.id
+    reactAdminProps.resource!,
+    {id: reactAdminProps.id}
   );
 
   const crumbs =

@@ -2,7 +2,7 @@ import get from 'lodash/get';
 import React from 'react';
 import {
   useTranslate,
-  useQuery,
+  useGetOne,
   Loading,
   useLocale,
   useNotify,
@@ -14,29 +14,26 @@ import * as Sentry from '@sentry/browser';
 
 import projectService from '../projects/projectService';
 import { getTranslatedField } from '../../common/translation/TranslationUtils';
+import { Project_project } from '../../api/generatedTypes/Project';
 
-export default () => {
+const Dashboard = () => {
   const translate = useTranslate();
   const locale = useLocale();
   const notify = useNotify();
 
-  // It should be possible to do this more easily with useGetOne hook,
-  // but for some reason it didn't seem to work here.
-  const { data, loaded } = useQuery(
+  const { data, isLoading } = useGetOne<Project_project>(
+    'projects',
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    { id: projectService.projectId! },
     {
-      type: 'getOne',
-      resource: 'projects',
-      payload: { id: projectService.projectId },
-    },
-    {
-      onFailure: (error: Error) => {
+      onError: (error) => {
         Sentry.captureException(error);
-        notify(translate('ra.message.error'), 'warning');
+        notify(translate('ra.message.error'), { type: 'warning' });
       },
     }
   );
 
-  if (!loaded) return <Loading />;
+  if (isLoading) return <Loading />;
 
   return (
     <Card>
@@ -49,3 +46,5 @@ export default () => {
     </Card>
   );
 };
+
+export default Dashboard;

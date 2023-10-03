@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useMutation, useTranslate } from 'react-admin';
+import { useTranslate } from 'react-admin';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 import { AdminEvent } from '../types/EventTypes';
+import useSetReadyMutation from '../hooks/useSetReadyMutation';
 
 function getReadyStatus(
   readyInitial: boolean,
@@ -32,24 +33,20 @@ const EventReadyToggle = ({ record, className }: Props) => {
   const [isReadyLocal, setReadyLocal] = useState(
     record.readyForEventGroupPublishing
   );
-  const [setReady, { data, loading }] = useMutation();
+  const { mutate: setReady, data, isLoading } = useSetReadyMutation();
 
   const readyForEventGroupPublishing = getReadyStatus(
     record.readyForEventGroupPublishing,
     isReadyLocal,
-    loading,
-    data?.readyForEventGroupPublishing
+    isLoading,
+    data?.data?.readyForEventGroupPublishing
   );
 
   const handleClick = () => {
     setReadyLocal(!readyForEventGroupPublishing);
     setReady({
-      type: 'setReady',
-      resource: 'events',
-      payload: {
-        id: record.id,
-        readyForEventGroupPublishing: !readyForEventGroupPublishing,
-      },
+      id: record.id,
+      readyForEventGroupPublishing: !readyForEventGroupPublishing,
     });
   };
 

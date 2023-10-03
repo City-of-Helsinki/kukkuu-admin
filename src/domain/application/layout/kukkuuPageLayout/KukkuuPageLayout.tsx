@@ -17,12 +17,10 @@ const TitleWithRecord = ({
   pageTitle: pageTitleSource,
   reactAdminProps,
 }: TitleWithRecordProps) => {
-  const { data } = useGetOne(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
-    reactAdminProps.resource,
-    reactAdminProps.id
-  );
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const { data } = useGetOne(reactAdminProps.resource!, {
+    id: reactAdminProps.id,
+  });
 
   const pageTitle = (() => {
     if (typeof pageTitleSource === 'function') {

@@ -3,6 +3,7 @@ import { useTranslate } from 'react-admin';
 import SendIcon from '@mui/icons-material/Check';
 
 import ConfirmMutationButton from '../../../common/components/confirmMutationButton/ConfirmMutationButton';
+import usePublishEventGroupMutation from '../hooks/usePublishEventGroupMutation';
 
 type EvenGroup = {
   id: string;
@@ -24,29 +25,17 @@ const PublishEventGroupButton = ({
 }: Props) => {
   const t = useTranslate();
 
-  const handleErrorMessage = (error: Error) => {
-    if (
-      error.message === 'All events are not ready for event group publishing.'
-    ) {
-      return 'eventGroups.actions.publish.eventsNotReadyError';
-    }
-
-    return 'eventGroups.actions.publish.error';
-  };
+  const publishEventGroupMutation = usePublishEventGroupMutation({
+    basePath,
+    params: { id: record.id },
+  });
 
   return (
     <ConfirmMutationButton
-      basePath={basePath}
       className={className}
       buttonLabel={buttonLabel}
       icon={<SendIcon />}
-      successMessage="eventGroups.actions.publish.success"
-      errorMessage={handleErrorMessage}
-      mutation={{
-        type: 'publish',
-        resource: 'event-groups',
-        payload: { id: record.id },
-      }}
+      mutation={publishEventGroupMutation}
       confirmModalProps={{
         title: t('eventGroups.actions.publish.confirm.title', {
           eventGroupName: record.name,

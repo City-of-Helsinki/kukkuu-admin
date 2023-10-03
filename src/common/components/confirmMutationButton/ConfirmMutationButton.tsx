@@ -1,18 +1,25 @@
 import React, { ReactElement, ReactText, useState } from 'react';
-import { Button, useMutation, Confirm, useNotify } from 'react-admin';
-// Import Mutation type more specifically in order to target type
-// instead of the Mutation component
-import { Mutation } from 'ra-core/lib/dataProvider/useMutation';
-import { useHistory } from 'react-router';
-import * as Sentry from '@sentry/browser';
+import { Button, Confirm } from 'react-admin';
+import { useMutation } from 'react-query';
+
+import {
+  MethodHandlerResponse,
+  MethodHandlerResponseDataType,
+} from '../../../api/types';
+
+type Mutation = ReturnType<
+  typeof useMutation<
+    MethodHandlerResponse<MethodHandlerResponseDataType>,
+    unknown,
+    void,
+    unknown
+  >
+>;
 
 type Props = {
-  basePath: string;
   className?: string;
   buttonLabel: string;
   mutation: Mutation;
-  successMessage: string;
-  errorMessage: string | ((error: Error) => string);
   confirmModalProps: {
     title: string;
     content: string;
@@ -22,33 +29,12 @@ type Props = {
 };
 
 const ConfirmMutationButton = ({
-  basePath,
   className,
   buttonLabel,
-  mutation,
-  successMessage,
-  errorMessage: errorMessageSource,
+  mutation: { mutate: applyMutation, isLoading },
   confirmModalProps: { title, content, translateOptions },
   icon: Icon,
 }: Props) => {
-  const history = useHistory();
-  const notify = useNotify();
-  const [applyMutation, { loading }] = useMutation(mutation, {
-    onSuccess: () => {
-      notify(successMessage);
-      history.push(basePath);
-    },
-    onFailure: (error: Error) => {
-      Sentry.captureException(error);
-
-      const errorMessage =
-        typeof errorMessageSource === 'string'
-          ? errorMessageSource
-          : errorMessageSource(error);
-
-      notify(errorMessage, 'warning');
-    },
-  });
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleDialogOpen = () => {
@@ -76,7 +62,7 @@ const ConfirmMutationButton = ({
       </Button>
       <Confirm
         isOpen={isDialogOpen}
-        loading={loading}
+        loading={isLoading}
         title={title}
         content={content}
         onConfirm={handleSend}
