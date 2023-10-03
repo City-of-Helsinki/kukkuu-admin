@@ -39,7 +39,7 @@ const useDataGridTitleStyles = makeStyles({
 const OccurrenceDataGridTitle = ({ occurrenceId }: any) => {
   const styles = useDataGridTitleStyles();
   const translate = useTranslate();
-  const { data: record } = useGetOne('occurrences', occurrenceId);
+  const { data: record } = useGetOne('occurrences', { id: occurrenceId });
 
   return (
     <>
@@ -53,31 +53,29 @@ const OccurrenceDataGridTitle = ({ occurrenceId }: any) => {
   );
 };
 
-export const withEnrolment = (
-  hasRecord: (record: EnrolmentEdge) => any,
-  otherwise: () => any
-) => (record: Record | undefined | null) => {
-  if (record) {
-    const enrolmentEdge = (record as unknown) as EnrolmentEdge;
+export const withEnrolment =
+  (hasRecord: (record: EnrolmentEdge) => any, otherwise: () => any) =>
+  (record: Record | undefined | null) => {
+    if (record) {
+      const enrolmentEdge = record as unknown as EnrolmentEdge;
 
-    return hasRecord(enrolmentEdge);
-  }
+      return hasRecord(enrolmentEdge);
+    }
 
-  return otherwise();
-};
+    return otherwise();
+  };
 
-export const withGuardian = (
-  hasRecord: (guardian: GuardianType) => string,
-  otherwise: () => any
-) => (enrollmentRecord: EnrolmentEdge) => {
-  const guardian = enrollmentRecord.node?.child?.guardians.edges[0]?.node;
+export const withGuardian =
+  (hasRecord: (guardian: GuardianType) => string, otherwise: () => any) =>
+  (enrollmentRecord: EnrolmentEdge) => {
+    const guardian = enrollmentRecord.node?.child?.guardians.edges[0]?.node;
 
-  if (guardian) {
-    return hasRecord(guardian as GuardianType);
-  }
+    if (guardian) {
+      return hasRecord(guardian as GuardianType);
+    }
 
-  return otherwise();
-};
+    return otherwise();
+  };
 
 export const getGuardianFullName = (guardian: GuardianType) =>
   new Guardian(guardian).fullName;

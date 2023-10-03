@@ -42,8 +42,8 @@ describe('<ProfileProjectDropdown />', () => {
 
   it('should render null when loading', () => {
     jest
-      .spyOn(DataProvider, 'useQueryWithStore')
-      .mockReturnValueOnce({ loading: true });
+      .spyOn(DataProvider, 'useGetList')
+      .mockReturnValueOnce({ isLoading: true });
 
     const { container } = getWrapper();
 
@@ -52,8 +52,8 @@ describe('<ProfileProjectDropdown />', () => {
 
   it('should render null when error', () => {
     jest
-      .spyOn(DataProvider, 'useQueryWithStore')
-      .mockReturnValueOnce({ loading: false, error: new Error('Test') });
+      .spyOn(DataProvider, 'useGetList')
+      .mockReturnValueOnce({ isLoading: false, error: new Error('Test') });
 
     const { container } = getWrapper();
 
@@ -62,8 +62,8 @@ describe('<ProfileProjectDropdown />', () => {
 
   it('should render null when missing data', () => {
     jest
-      .spyOn(DataProvider, 'useQueryWithStore')
-      .mockReturnValue({ loading: false, data: {} });
+      .spyOn(DataProvider, 'useGetList')
+      .mockReturnValue({ isLoading: false, data: {} });
 
     const { container } = getWrapper();
 
@@ -73,8 +73,8 @@ describe('<ProfileProjectDropdown />', () => {
   it('should render null when there is not selected project', () => {
     jest.spyOn(projectService, 'projectId', 'get').mockReturnValue(null);
     jest
-      .spyOn(DataProvider, 'useQueryWithStore')
-      .mockReturnValue({ loading: false, data: getProjects(projects) });
+      .spyOn(DataProvider, 'useGetList')
+      .mockReturnValue({ isLoading: false, data: getProjects(projects) });
 
     const { container } = getWrapper();
 
@@ -82,8 +82,8 @@ describe('<ProfileProjectDropdown />', () => {
   });
 
   it('should render text when there is one project', () => {
-    jest.spyOn(DataProvider, 'useQueryWithStore').mockReturnValue({
-      loading: false,
+    jest.spyOn(DataProvider, 'useGetList').mockReturnValue({
+      isLoading: false,
       data: getProjects([projects[0]]),
     });
 
@@ -93,8 +93,8 @@ describe('<ProfileProjectDropdown />', () => {
   });
 
   it('should allow the selected project to be changed when there is more than one project', () => {
-    jest.spyOn(DataProvider, 'useQueryWithStore').mockReturnValue({
-      loading: false,
+    jest.spyOn(DataProvider, 'useGetList').mockReturnValue({
+      isLoading: false,
       data: getProjects(projects),
     });
     const projectServiceSpy = jest.spyOn(projectService, 'projectId', 'set');

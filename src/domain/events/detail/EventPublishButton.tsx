@@ -4,27 +4,24 @@ import PublishIcon from '@mui/icons-material/Check';
 
 import ConfirmMutationButton from '../../../common/components/confirmMutationButton/ConfirmMutationButton';
 import { AdminEvent } from '../types/EventTypes';
+import usePublishEventMutation from '../hooks/usePublishEventMutation';
 
 type Props = {
-  record?: AdminEvent;
+  record: AdminEvent;
   basePath?: string;
 };
 
 const EventPublishButton = ({ record, basePath = '/event' }: Props) => {
   const translate = useTranslate();
-
+  const publishEventMutation = usePublishEventMutation({
+    basePath,
+    params: { id: record.id },
+  });
   return (
     <ConfirmMutationButton
-      basePath={basePath}
       buttonLabel="events.show.publish.button.label"
       icon={<PublishIcon />}
-      successMessage="events.show.publish.onSuccess.message"
-      errorMessage="events.show.publish.onSuccess.message"
-      mutation={{
-        type: 'publish',
-        resource: 'events',
-        payload: { id: record?.id },
-      }}
+      mutation={publishEventMutation}
       confirmModalProps={{
         title: translate('events.show.publish.confirm.title', {
           eventName: record?.translations?.FI?.name,

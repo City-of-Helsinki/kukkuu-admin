@@ -8,7 +8,7 @@ import {
   TopToolbar,
   CreateButton,
   ReactAdminComponentProps,
-  useQuery,
+  useGetOne,
 } from 'react-admin';
 import { makeStyles } from '@mui/styles';
 
@@ -23,8 +23,9 @@ import PublishedField from '../../../common/components/publishedField/PublishedF
 import KukkuuListPage from '../../application/layout/kukkuuListPage/KukkuuListPage';
 import { countCapacity, countOccurrences } from '../../events/utils';
 import projectService from '../../projects/projectService';
+import { Project_project } from '../../../api/generatedTypes/Project';
 
-const useEventsAndEventGroupsListToolbarStyles = makeStyles((theme) => ({
+const useEventsAndEventGroupsListToolbarStyles = makeStyles((theme?: any) => ({
   toolbar: {
     margin: `0 -${theme.spacing(1)}`,
     '& > *': {
@@ -36,12 +37,9 @@ const useEventsAndEventGroupsListToolbarStyles = makeStyles((theme) => ({
 const EventsAndEventGroupsListToolbar = ({ data, permissions }: any) => {
   const t = useTranslate();
   const classes = useEventsAndEventGroupsListToolbarStyles();
-  const { data: projectData } = useQuery({
-    type: 'getOne',
-    resource: 'projects',
-    payload: {
-      id: projectService.projectId,
-    },
+  const { data: projectData } = useGetOne<Project_project>('projects', {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    id: projectService.projectId!,
   });
 
   const canManageEventGroups = permissions?.canManageEventGroupsWithinProject(

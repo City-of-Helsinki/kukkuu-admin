@@ -31,16 +31,21 @@ export type Method =
   | 'SEND'
   | 'SET_READY';
 
-export type Record = { [index: string]: any; id: string };
+export type RecordType = { [index: string]: any; id: string };
+export type MethodHandlerResponseDataType =
+  | RecordType
+  | Array<RecordType>
+  | null;
 
-export type MethodHandlerResponse = {
-  data: Array<Record> | Record | null;
+export type MethodHandlerResponse<DataType = MethodHandlerResponseDataType> = {
+  //= Array<RecordType> | RecordType | null,
+  data: DataType;
   total?: number;
 };
 
 export type MethodHandler = (
   params: DataProviderParams
-) => Promise<MethodHandlerResponse | null>;
+) => Promise<MethodHandlerResponse>;
 
 export type MethodHandlers = {
   [key in Resource]?: {
