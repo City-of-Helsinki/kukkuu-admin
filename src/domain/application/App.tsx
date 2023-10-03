@@ -12,6 +12,7 @@ import MessageIcon from '@mui/icons-material/EmailOutlined';
 import ChildCareIcon from '@mui/icons-material/ChildCare';
 import { Navigate, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
+import { QueryClient } from 'react-query';
 
 import i18nProvider from '../../common/translation/i18nProvider';
 import theme from '../../common/materialUI/themeConfig';
@@ -34,6 +35,14 @@ import TicketValidationPage from '../ticketValidation/TicketValidationPage';
 const App = () => {
   const translate = useTranslate();
 
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 5 * 60 * 1000, // 5 minutes
+      },
+    },
+  });
+
   return (
     <BrowserRouter>
       <Admin
@@ -42,6 +51,7 @@ const App = () => {
         // react-admin and our implementation of dataProvider is not type
         // compatible.
         dataProvider={dataProvider as DataProvider}
+        queryClient={queryClient}
         i18nProvider={i18nProvider}
         theme={theme}
         dashboard={Dashboard}
