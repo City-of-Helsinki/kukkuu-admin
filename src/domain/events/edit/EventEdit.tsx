@@ -11,6 +11,11 @@ import {
   useTranslate,
   FormDataConsumer,
   DateTimeInput,
+  EditProps,
+  ToolbarProps,
+  SelectInputProps,
+  MutationMode,
+  useRecordContext,
 } from 'react-admin';
 import { CardHeader, Grid } from '@mui/material';
 
@@ -28,40 +33,46 @@ import { participantsPerInviteChoices, ticketSystemChoices } from '../choices';
 import ImageUploadField from '../../../common/components/imageField/ImageUploadField';
 import ViewTitle from '../../../common/components/viewTitle/ViewTitle';
 import KukkuuEdit from '../../application/layout/kukkuuEditPage/KukkuuEdit';
-import { hasInternalTicketSystem } from '../utils';
+import { hasInternalTicketSystem, type RecordWithTicketSystem } from '../utils';
 import Config from '../../config';
 
-const EventEditToolbar = (props: any) => {
+const EventEditToolbar = ({
+  mutationMode,
+  ...toolbarProps
+}: ToolbarProps & { disabled?: boolean; mutationMode?: MutationMode }) => {
+  const record = useRecordContext();
   return (
-    <Toolbar style={{ justifyContent: 'space-between' }} {...props}>
+    <Toolbar style={{ justifyContent: 'space-between' }} {...toolbarProps}>
       <SaveButton />
-      <DeleteButton
-        disabled={Boolean(props.record.occurrences.edges.length)}
-        undoable={props.undoable}
-      />
+      <DeleteButton disabled={Boolean(record.occurrences.edges.length)} />
     </Toolbar>
   );
 };
 
-const TicketSystemInput = (props: any) => (
-  <SelectInput disabled={!!props.record?.publishedAt} {...props} />
-);
+const TicketSystemInput = (props: SelectInputProps) => {
+  const record = useRecordContext();
+  return <SelectInput disabled={!!record?.publishedAt} {...props} />;
+};
 
-const EventEdit = (props: any) => {
+const EventEdit = (props: EditProps) => {
   const translate = useTranslate();
   const [selectedLanguage, selectLanguage] = useState(Language.FI);
   const translation = `translations.${selectedLanguage}`;
 
-  // Undoable is false to prevent image from appearing while waiting for backend result.
+  // Undoable / mutationMode is false to prevent image from appearing while waiting for backend result.
   return (
     <>
       <CardHeader title={translate('events.edit.title')} />
       <Grid container direction="column" xs={6} item={true}>
-        <KukkuuEdit undoable={false} title={'events.edit.title'} {...props}>
+        <KukkuuEdit
+          mutationMode={'pessimistic'}
+          title={'events.edit.title'}
+          {...props}
+        >
           <SimpleForm
             variant="outlined"
             redirect="show"
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             validate={validateVenue}
             toolbar={<EventEditToolbar />}
@@ -82,17 +93,14 @@ const EventEdit = (props: any) => {
               source={`${translation}.imageAltText`}
               label="events.fields.imageAltText.label"
               helperText="events.fields.imageAltText.helperText"
-              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-              // @ts-ignore
-              validate={null}
               fullWidth
             />
             <TextInput
               source={`${translation}.name`}
               label="events.fields.name.label"
-              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-              // @ts-ignore
-              validate={selectedLanguage === Language.FI ? required() : null}
+              validate={
+                selectedLanguage === Language.FI ? required() : undefined
+              }
               fullWidth
               helperText="Tähän laitetaan tapahtuman nimi"
             />
@@ -131,7 +139,7 @@ const EventEdit = (props: any) => {
             <FormDataConsumer>
               {({ formData, ...rest }) =>
                 // TODO this part is exactly the same as in EventCreate so there could be a common component for both
-                hasInternalTicketSystem(formData)
+                hasInternalTicketSystem(formData as RecordWithTicketSystem)
                   ? [
                       <NumberInput
                         source="duration"

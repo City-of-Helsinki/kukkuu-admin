@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react';
-import { ResourceComponentPropsWithId } from 'react-admin';
+import { EditProps } from 'react-admin';
 
 import KukkuuPageLayout from '../kukkuuCardPageLayout/KukkuuCardPageLayout';
 import KukkuuEdit from './KukkuuEdit';
 
 type Props = {
-  reactAdminProps: ResourceComponentPropsWithId;
+  reactAdminProps: EditProps;
   children: ReactElement;
   pageTitleSource: string;
 };
@@ -20,7 +20,7 @@ const KukkuuEditPage = ({
       pageTitleSource={pageTitleSource}
       reactAdminProps={reactAdminProps}
     >
-      <KukkuuEdit undoable={false} actions={<></>} {...reactAdminProps}>
+      <KukkuuEdit mutationMode="pessimistic" {...reactAdminProps}>
         {children}
       </KukkuuEdit>
     </KukkuuPageLayout>
