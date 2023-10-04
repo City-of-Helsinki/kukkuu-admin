@@ -1,30 +1,30 @@
 import React, { useState } from 'react';
-import { TextField, useTranslate, SimpleShowLayout } from 'react-admin';
+import {
+  TextField,
+  useTranslate,
+  SimpleShowLayout,
+  useRecordContext,
+} from 'react-admin';
 import { CardHeader } from '@mui/material';
-import omit from 'lodash/omit';
 
 import LanguageTabs from '../../common/components/languageTab/LanguageTabs';
 import { Language } from '../../api/generatedTypes/globalTypes';
 import LongTextField from '../../common/components/longTextField/LongTextField';
 import KukkuuShow from '../application/layout/kukkuuDetailPage/KukkuuShow';
 
-const VenueTitle = ({
-  basePath,
-  record,
-}: {
-  basePath?: string;
-  record?: any;
-}) => {
+const VenueTitle = () => {
+  const record = useRecordContext();
+  // FIXME: is the title wrong, because the translations should always be an array?
   return <CardHeader title={record ? `${record.translations.FI.name}` : ''} />;
 };
 
-const VenueShow = (props: any) => {
+const VenueShow = () => {
   const translate = useTranslate();
   const [selectedLanguage, selectLanguage] = useState(Language.FI);
   const translation = `translations.${selectedLanguage}`;
 
   return (
-    <KukkuuShow {...omit(props, 'hasShow')}>
+    <KukkuuShow>
       <SimpleShowLayout>
         <VenueTitle />
         <LanguageTabs

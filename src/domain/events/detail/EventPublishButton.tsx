@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTranslate } from 'react-admin';
+import { useRecordContext, useTranslate } from 'react-admin';
 import PublishIcon from '@mui/icons-material/Check';
 
 import ConfirmMutationButton from '../../../common/components/confirmMutationButton/ConfirmMutationButton';
@@ -7,11 +7,12 @@ import { AdminEvent } from '../types/EventTypes';
 import usePublishEventMutation from '../hooks/usePublishEventMutation';
 
 type Props = {
-  record: AdminEvent;
+  /** @deprecated - create with useResourceContext instead. */
   basePath?: string;
 };
 
-const EventPublishButton = ({ record, basePath = '/event' }: Props) => {
+const EventPublishButton = ({ basePath = '/event' }: Props) => {
+  const record = useRecordContext<AdminEvent>();
   const translate = useTranslate();
   const publishEventMutation = usePublishEventMutation({
     basePath,

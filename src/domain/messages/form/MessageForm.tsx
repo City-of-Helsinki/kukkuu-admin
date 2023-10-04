@@ -6,6 +6,7 @@ import {
   SimpleFormProps,
   FormDataConsumer,
   useTranslate,
+  useRecordContext,
 } from 'react-admin';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
@@ -80,7 +81,7 @@ type Props = Omit<SimpleFormProps, 'children'> & {
 };
 
 const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
-  const { record } = delegatedProps ?? {};
+  const record = useRecordContext();
   const t = useTranslate();
   const [languageTabsComponent, translatableField] = useLanguageTabs({
     enabled: protocol !== ProtocolType.SMS,
@@ -157,7 +158,8 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                initialValue={record?.event?.id || 'all'}
+                initialValue={record?.event?.id || 'all'} // FIXME: This should no longer be needed KK-1017
+                defaultValue={record?.event?.id || 'all'}
               />
             </CustomOnChange>
           )
@@ -176,7 +178,8 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
               eventId={eventId}
               fullWidth
               className={classes.fullWidth}
-              initialValue={getInitialOccurrenceIds(record)}
+              initialValue={getInitialOccurrenceIds(record)} // FIXME: This should no longer be needed KK-1017
+              defaultValue={getInitialOccurrenceIds(record)}
               allText="messages.fields.occurrences.all"
             />
           )

@@ -9,6 +9,8 @@ type Props = Omit<ReferenceInputProps, 'children' | 'reference'> & {
   source: string;
 };
 
+// FIXME: types may not work after KK-1017 migration.
+// See more https://marmelab.com/react-admin/Upgrade.html#useinput-signature-and-return-value-have-changed
 function ignoreNoReferenceErrorWhenEmptyValue(props: any) {
   const {
     meta,
@@ -23,6 +25,8 @@ function ignoreNoReferenceErrorWhenEmptyValue(props: any) {
   return props;
 }
 
+// FIXME: types may not work after KK-1017 migration.
+// See more https://marmelab.com/react-admin/Upgrade.html#useinput-signature-and-return-value-have-changed
 const HideNoReferenceError = ({ children, ...props }: any) => {
   return React.cloneElement(
     children,
@@ -33,7 +37,7 @@ const HideNoReferenceError = ({ children, ...props }: any) => {
 const EventSelect = (props: Props) => {
   return (
     <ReferenceInput {...props} resource="events" reference="events">
-      <HideNoReferenceError>
+      <HideNoReferenceError {...props}>
         <SelectInput optionText="name" />
       </HideNoReferenceError>
     </ReferenceInput>

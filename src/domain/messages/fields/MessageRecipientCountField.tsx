@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTranslate } from 'react-admin';
+import { useRecordContext, useTranslate } from 'react-admin';
 import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MessageRecipientCountField = ({ record }: any) => {
+const MessageRecipientCountField = () => {
+  const record = useRecordContext();
   const t = useTranslate();
   const classes = useStyles();
 

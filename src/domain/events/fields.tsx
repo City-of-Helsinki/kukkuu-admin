@@ -24,6 +24,5 @@ export const PublishedField = ({
 };
 
 PublishedField.defaultProps = {
-  addLabel: true,
   label: 'events.fields.publishedAt.label',
 };

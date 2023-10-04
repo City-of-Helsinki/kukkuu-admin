@@ -11,10 +11,4 @@ const LongTextField = (props: any) => {
   return <TextField className={classes.longTextField} {...props} />;
 };
 
-LongTextField.defaultProps = {
-  // SimpleShowLayout wraps its children in a <Label /> if the child has
-  // its addLabel prop set to true.
-  addLabel: true,
-};
-
 export default LongTextField;
