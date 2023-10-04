@@ -6,6 +6,7 @@ import authorizationService from './authorizationService';
 export type Permissions = {
   role: null | 'admin' | 'none';
   canPublishWithinProject: (projectId?: string) => boolean | null;
+  canManageEventGroupsWithinProject: (projectId?: string) => boolean | null;
 };
 
 const authProvider: AuthProvider = {

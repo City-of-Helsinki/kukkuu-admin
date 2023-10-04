@@ -1,6 +1,12 @@
 import React, { ComponentType, ReactElement, ReactText } from 'react';
-import { useGetOne, Record, ShowProps } from 'react-admin';
+import {
+  useGetOne,
+  RaRecord,
+  ShowProps,
+  useResourceContext,
+} from 'react-admin';
 import omit from 'lodash/omit';
+import { useParams } from 'react-router-dom';
 
 import { Crumb } from '../../../../common/components/breadcrumbs/Breadcrumbs';
 import { KukkuuLayoutProps } from '../kukkuuPageLayout/KukkuuPageLayout';
@@ -9,11 +15,11 @@ import KukkuuShow from './KukkuuShow';
 
 type Props = {
   children: ReactElement;
-  reactAdminProps: ShowProps;
+  reactAdminProps?: Omit<ShowProps, 'children' | 'hasShow'>;
   pageTitleSource?: string;
-  pageTitle?: string | ((record?: Record) => ReactText | undefined);
+  pageTitle?: string | ((record?: RaRecord) => ReactText | undefined);
   layout?: ComponentType<KukkuuLayoutProps>;
-  breadcrumbs?: ((data?: Record) => Crumb[]) | Crumb[];
+  breadcrumbs?: ((data?: RaRecord) => Crumb[]) | Crumb[];
 };
 
 const KukkuuDetailPage = ({
@@ -24,10 +30,12 @@ const KukkuuDetailPage = ({
   layout: Layout = KukkuuCardPageLayout,
   breadcrumbs,
 }: Props) => {
-  const { data } = useGetOne(
-    reactAdminProps.resource!,
-    {id: reactAdminProps.id}
-  );
+  const resource = useResourceContext();
+  const { id } = useParams();
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const { data } = useGetOne(resource!, {
+    id,
+  });
 
   const crumbs =
     typeof breadcrumbs === 'function' ? breadcrumbs(data) : breadcrumbs;
@@ -36,7 +44,6 @@ const KukkuuDetailPage = ({
     <Layout
       pageTitleSource={pageTitleSource}
       pageTitle={pageTitle}
-      reactAdminProps={reactAdminProps}
       breadcrumbs={crumbs}
     >
       <KukkuuShow {...omit(reactAdminProps, 'hasShow')}>{children}</KukkuuShow>

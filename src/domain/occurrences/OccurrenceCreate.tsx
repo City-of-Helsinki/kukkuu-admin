@@ -6,25 +6,23 @@ import {
   ReferenceInput,
   required,
 } from 'react-admin';
-import { parse } from 'query-string';
 import Grid from '@mui/material/Grid';
+import { useParams } from 'react-router-dom';
 
 import DateTimeTextInput from '../../common/components/dateTimeTextField/DateTimeTextField';
 import { OccurrenceCapacityOverrideInput } from './inputs';
 
-const OccurrenceCreate = (props: any) => {
-  const eventId = parse(props.location.search).event_id as string;
-  const redirect = eventId ? `/events/${eventId}/show/1` : 'show';
+const OccurrenceCreate = () => {
+  const { event_id: eventId } = useParams();
 
   return (
-    <Grid container direction="column" xs={6} item={true}>
-      <Create title="occurrences.create.title" {...props}>
-        <SimpleForm
-          variant="outlined"
-          initialValues={{ eventId }}
-          redirect={redirect}
-        >
-          <DateTimeTextInput required={true} />
+    <Grid container direction="column" xs={6} item>
+      <Create
+        title="occurrences.create.title"
+        redirect={eventId ? `/events/${eventId}/show/1` : 'show'}
+      >
+        <SimpleForm defaultValues={{ eventId }}>
+          <DateTimeTextInput variant="outlined" required />
           <ReferenceInput
             label="occurrences.fields.venue.label"
             source="venueId"
@@ -33,6 +31,7 @@ const OccurrenceCreate = (props: any) => {
             fullWidth
           >
             <SelectInput
+              variant="outlined"
               optionText="translations.FI.name"
               helperText="occurrences.fields.venue.helperText"
             />

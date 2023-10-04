@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslate, TopToolbar, CreateButton } from 'react-admin';
-import { makeStyles } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';
 
@@ -20,13 +20,11 @@ const MessagesListToolbar = () => {
   return (
     <TopToolbar className={classes.toolbar}>
       <CreateButton
-        basePath="messages"
         to="/messages/create"
         label={t('messages.create.do.email')}
         icon={<MailOutlineIcon />}
       />
       <CreateButton
-        basePath="messages"
         to="/messages/create?protocol=SMS"
         label={t('messages.create.do.sms')}
         icon={<TextsmsOutlinedIcon />}

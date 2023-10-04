@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTranslate, ResourceComponentProps } from 'react-admin';
+import { useTranslate } from 'react-admin';
 import { useLocation } from 'react-router';
 
 import { ProtocolType } from '../../../api/generatedTypes/globalTypes';
@@ -7,7 +7,7 @@ import KukkuuCreatePage from '../../application/layout/kukkuuCreatePage/KukkuuCr
 import KukkuuCreateToolbar from '../../application/layout/kukkuuCreatePage/KukkuuCreateToolbar';
 import MessageForm from '../form/MessageForm';
 
-const MessageCreate = (props: ResourceComponentProps) => {
+const MessageCreate = () => {
   const t = useTranslate();
   const location = useLocation();
   const protocol = getProtocolFromSearch(location.search) || ProtocolType.EMAIL;
@@ -20,12 +20,12 @@ const MessageCreate = (props: ResourceComponentProps) => {
           : t('messages.create.title.email')
       }
       reactAdminProps={{
-        ...props,
         transform: (data) => ({
           ...data,
           protocol,
           sendDirectly: protocol === ProtocolType.SMS,
         }),
+        redirect: 'list',
       }}
     >
       <MessageForm
@@ -36,7 +36,6 @@ const MessageCreate = (props: ResourceComponentProps) => {
             }
           />
         }
-        redirect="list"
         protocol={protocol}
       />
     </KukkuuCreatePage>

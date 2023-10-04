@@ -52,9 +52,8 @@ export class AuthorizationService {
     this.getRole = this.getRole.bind(this);
     this.clear = this.clear.bind(this);
     this.canPublishWithinProject = this.canPublishWithinProject.bind(this);
-    this.canManageEventGroupsWithinProject = this.canManageEventGroupsWithinProject.bind(
-      this
-    );
+    this.canManageEventGroupsWithinProject =
+      this.canManageEventGroupsWithinProject.bind(this);
   }
 
   private get permissionStorage(): null | PermissionStorage {
@@ -127,4 +126,6 @@ export class AuthorizationService {
   }
 }
 
-export default new AuthorizationService();
+const authorizationService = new AuthorizationService();
+
+export default authorizationService;

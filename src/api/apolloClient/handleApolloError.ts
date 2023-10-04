@@ -43,13 +43,8 @@ const handleApolloError: ErrorHandler = ({
         console.error('Permissions denied');
         authService.resetAuthState();
       } else {
-        const {
-          originalError,
-          extensions,
-          locations,
-          message,
-          path,
-        } = graphQLError;
+        const { originalError, extensions, locations, message, path } =
+          graphQLError;
 
         const operationName = operation.operationName;
         const operationKind = operation.query.definitions.find(
@@ -58,7 +53,7 @@ const handleApolloError: ErrorHandler = ({
         )?.operation;
 
         Sentry.withScope((scope) => {
-          scope.setLevel(Sentry.Severity.Error);
+          scope.setLevel('error');
 
           scope.setTag('type', 'GraphQL Error');
           scope.setTag('operation.name', operationName);

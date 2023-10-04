@@ -1,4 +1,4 @@
-import React, { ReactText } from 'react';
+import React from 'react';
 import {
   TextField,
   SimpleShowLayout,
@@ -11,6 +11,7 @@ import {
   Datagrid,
   ReferenceField,
   ArrayField,
+  ShowProps,
 } from 'react-admin';
 import { CardHeader } from '@mui/material';
 import omit from 'lodash/omit';
@@ -23,13 +24,7 @@ import {
 import OccurrenceTimeRangeField from '../occurrences/fields/OccurrenceTimeRangeField';
 import KukkuuShow from '../application/layout/kukkuuDetailPage/KukkuuShow';
 
-interface RowClickParams<T> {
-  id: string;
-  basePath: string;
-  record: T;
-}
-
-const ChildShow = (props: any) => {
+const ChildShow = (props: ShowProps) => {
   const translate = useTranslate();
   const locale = useLocale();
 
@@ -40,8 +35,6 @@ const ChildShow = (props: any) => {
         <SimpleShowLayout>
           <FunctionField
             label="children.fields.name.label"
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-            // @ts-ignore
             render={(record: Child) =>
               `${record.firstName} ${record.lastName}`.trim()
             }
@@ -62,8 +55,6 @@ const ChildShow = (props: any) => {
           />
           <FunctionField
             label="children.fields.guardians.label"
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-            // @ts-ignore
             render={(record: Child) =>
               record &&
               `${record.guardians.edges[0]?.node?.firstName} ${record.guardians.edges[0]?.node?.lastName}`.trim()
@@ -82,11 +73,11 @@ const ChildShow = (props: any) => {
             label="children.fields.occurrences.label"
           >
             <Datagrid
-              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
               rowClick={(
-                id: ReactText,
-                basePath: string,
+                id: string,
+                resource: string,
                 record: OccurrenceEdges
               ) =>
                 `/occurrences/${encodeURIComponent(record.node?.id || '')}/show`

@@ -1,10 +1,10 @@
 import React from 'react';
 import {
-  ResourceComponentPropsWithId,
   useTranslate,
   TextField,
   SelectField,
   FunctionField,
+  RaRecord,
 } from 'react-admin';
 import { get } from 'lodash';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
@@ -18,20 +18,19 @@ import { recipientSelectionChoices } from '../choices';
 import MessagesListToolbar from './MessageListToolbar';
 import styles from './messageList.module.css';
 
-const MessagesList = (props: ResourceComponentPropsWithId) => {
+const MessagesList = () => {
   const t = useTranslate();
 
   return (
     <KukkuuListPage
       pageTitle={t('messages.list.title')}
       reactAdminProps={{
-        ...props,
         actions: <MessagesListToolbar />,
       }}
     >
       <FunctionField
         label="messages.fields.protocol.label"
-        render={(record) => {
+        render={(record: RaRecord) => {
           if (!record) {
             return null;
           }
@@ -48,7 +47,7 @@ const MessagesList = (props: ResourceComponentPropsWithId) => {
       <FunctionField
         label="messages.fields.bodyText.label2"
         className={styles.bold}
-        render={(record) => {
+        render={(record: RaRecord) => {
           const maxLength = 66;
           const bodyText = record?.bodyText ?? '';
           const hasEllipsis = bodyText?.length >= maxLength;

@@ -9,7 +9,7 @@ import {
   CardContent,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { RouteComponentProps, StaticContext } from 'react-router';
+import { useLocation } from 'react-router';
 
 import theme from '../../common/materialUI/themeConfig';
 import IsTestEnvironmentLabel from '../../common/components/isTestEnvironmentLabel/IsTestEnvironmentLabel';
@@ -41,18 +41,11 @@ const useStyles = makeStyles<null, StyleProps>({
   },
 });
 
-type Props = RouteComponentProps<
-  {},
-  StaticContext,
-  {
-    nextPathname?: string;
-  }
->;
-
-const LoginPage = ({ location }: Props) => {
+const LoginPage = () => {
   const classes = useStyles({ isTest: Config.IS_TEST_ENVIRONMENT });
   const translate = useTranslate();
   const login = useLogin();
+  const location = useLocation();
 
   const handleLogin = () => {
     const nextPathname = location.state?.nextPathname ?? undefined;

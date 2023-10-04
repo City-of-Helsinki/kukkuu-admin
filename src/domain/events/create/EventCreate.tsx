@@ -6,10 +6,10 @@ import {
   NumberInput,
   required,
   useTranslate,
-  ReactAdminComponentProps,
   FormDataConsumer,
   DateTimeInput,
 } from 'react-admin';
+import { useLocation } from 'react-router-dom';
 
 import {
   Language,
@@ -31,17 +31,12 @@ import { participantsPerInviteChoices, ticketSystemChoices } from '../choices';
 import { hasInternalTicketSystem } from '../utils';
 import Config from '../../config';
 
-const EventCreate = (props: ReactAdminComponentProps) => {
-  const { location } = props;
-  const eventGroupId = new URLSearchParams(location?.search).get(
-    'eventGroupId'
-  );
+const EventCreate = () => {
+  const { search } = useLocation();
+  const eventGroupId = new URLSearchParams(search).get('eventGroupId');
   const translate = useTranslate();
-  const [
-    languageTabsComponent,
-    translatableField,
-    selectedLanguage,
-  ] = useLanguageTabs();
+  const [languageTabsComponent, translatableField, selectedLanguage] =
+    useLanguageTabs();
 
   const transform = (data: any) => {
     return {
@@ -49,53 +44,48 @@ const EventCreate = (props: ReactAdminComponentProps) => {
       eventGroupId,
     };
   };
-
   const isAddingEventToEventGroup = Boolean(eventGroupId);
   const redirect = isAddingEventToEventGroup
     ? `/event-groups/${eventGroupId}/show`
     : 'show';
-
   return (
     <KukkuuCreatePage
       pageTitle={translate('events.create.title')}
       reactAdminProps={{
-        ...props,
         aside: <Aside content="events.create.aside.content" />,
         transform,
+        redirect,
       }}
     >
       <SimpleForm
-        variant="outlined"
-        redirect={redirect}
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-        // @ts-ignore
+        // TODO: refactor form validate with YUP
+        // https://marmelab.com/react-admin/Upgrade.html#input-level-validation-now-triggers-on-submit
         validate={validateEvent}
       >
         {languageTabsComponent}
         <ImageUploadField
-          edit={true}
+          variant="outlined"
+          edit
           source="image"
           image="image"
           helperText="events.fields.image.helperText"
         />
         <TextInput
+          variant="outlined"
           source={translatableField('imageAltText')}
           label="events.fields.imageAltText.label"
           helperText="events.fields.imageAltText.helperText"
-          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-          // @ts-ignore
-          validate={null}
           fullWidth
         />
         <TextInput
+          variant="outlined"
           source={translatableField('name')}
           label="events.fields.name.label"
-          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-          // @ts-ignore
-          validate={selectedLanguage === Language.FI ? required() : null}
+          validate={selectedLanguage === Language.FI ? required() : undefined}
           fullWidth
         />
         <TextInput
+          variant="outlined"
           source={translatableField('shortDescription')}
           label="events.fields.shortDescription.label"
           helperText="events.fields.shortDescription.helperText"
@@ -104,6 +94,7 @@ const EventCreate = (props: ReactAdminComponentProps) => {
           fullWidth
         />
         <TextInput
+          variant="outlined"
           source={translatableField('description')}
           label="events.fields.description.label"
           helperText="events.fields.description.helperText"
@@ -111,6 +102,7 @@ const EventCreate = (props: ReactAdminComponentProps) => {
           fullWidth
         />
         <SelectInput
+          variant="outlined"
           source="participantsPerInvite"
           label="events.fields.participantsPerInvite.label"
           helperText="events.fields.participantsPerInvite.helperText"
@@ -120,10 +112,11 @@ const EventCreate = (props: ReactAdminComponentProps) => {
         />
         {Config.featureFlagExternalTicketSystemSupport && (
           <SelectInput
+            variant="outlined"
             source="ticketSystem.type"
             label="events.fields.ticketSystem.label"
             choices={ticketSystemChoices}
-            initialValue={TicketSystem.INTERNAL}
+            defaultValue={TicketSystem.INTERNAL}
             fullWidth
           />
         )}
@@ -132,6 +125,7 @@ const EventCreate = (props: ReactAdminComponentProps) => {
             hasInternalTicketSystem(formData)
               ? [
                   <NumberInput
+                    variant="outlined"
                     source="duration"
                     key="duration"
                     label="events.fields.duration.label"
@@ -141,6 +135,7 @@ const EventCreate = (props: ReactAdminComponentProps) => {
                     {...rest}
                   />,
                   <NumberInput
+                    variant="outlined"
                     source="capacityPerOccurrence"
                     key="capacityPerOccurrence"
                     label="events.fields.capacityPerOccurrence.label"
@@ -156,6 +151,7 @@ const EventCreate = (props: ReactAdminComponentProps) => {
                 ]
               : [
                   <TextInput
+                    variant="outlined"
                     source="ticketSystem.url"
                     key="ticketSystemUrl"
                     label="events.fields.ticketSystemUrl.label"
@@ -164,6 +160,7 @@ const EventCreate = (props: ReactAdminComponentProps) => {
                     {...rest}
                   />,
                   <DateTimeInput
+                    variant="outlined"
                     source="ticketSystem.endTime"
                     key="ticketSystemEndTime"
                     label="events.fields.ticketSystemEndTime.label"

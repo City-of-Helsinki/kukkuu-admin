@@ -1,17 +1,19 @@
-import React, { ReactText } from 'react';
+import React from 'react';
 import {
   TextField,
   useTranslate,
   NumberField,
   FunctionField,
-  Record,
+  RaRecord,
   TopToolbar,
   CreateButton,
-  ReactAdminComponentProps,
   useGetOne,
+  usePermissions,
+  Identifier,
 } from 'react-admin';
 import { makeStyles } from '@mui/styles';
 
+import type { Permissions } from '../../authentication/authProvider';
 import {
   EventsAndEventGroups_eventsAndEventGroups_edges_node_EventGroupNode as EventGroupNode,
   EventsAndEventGroups_eventsAndEventGroups_edges_node as EventOrEventGroupNode,
@@ -34,7 +36,13 @@ const useEventsAndEventGroupsListToolbarStyles = makeStyles((theme?: any) => ({
   },
 }));
 
-const EventsAndEventGroupsListToolbar = ({ data, permissions }: any) => {
+const EventsAndEventGroupsListToolbar = ({
+  data,
+  permissions,
+}: {
+  data?: EventGroupNode | EventNode;
+  permissions: any;
+}) => {
   const t = useTranslate();
   const classes = useEventsAndEventGroupsListToolbarStyles();
   const { data: projectData } = useGetOne<Project_project>('projects', {
@@ -50,12 +58,12 @@ const EventsAndEventGroupsListToolbar = ({ data, permissions }: any) => {
     <TopToolbar className={classes.toolbar}>
       {data && canManageEventGroups && (
         <CreateButton
-          basePath="event-groups"
+          resource="event-groups"
           label={t('eventGroups.actions.create.do')}
         />
       )}
       {data && projectData?.singleEventsAllowed && (
-        <CreateButton basePath="events" label={t('events.actions.create')} />
+        <CreateButton resource="events" label={t('events.actions.create')} />
       )}
     </TopToolbar>
   );
@@ -90,11 +98,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EventsAndEventGroupsList = (props: ReactAdminComponentProps) => {
+const EventsAndEventGroupsList = () => {
   const translate = useTranslate();
   const classes = useStyles();
-
-  const handleRowClick = (id: ReactText, basePath: string, record: Record) => {
+  const { permissions } = usePermissions<Permissions>();
+  const handleRowClick = (
+    id: Identifier,
+    resource: string,
+    record: RaRecord
+  ) => {
     const isEvent = !record.hasOwnProperty('events');
     const isEventGroup = record.hasOwnProperty('events');
 
@@ -113,10 +125,7 @@ const EventsAndEventGroupsList = (props: ReactAdminComponentProps) => {
     <KukkuuListPage
       pageTitle={translate('events.list.title')}
       reactAdminProps={{
-        ...props,
-        actions: (
-          <EventsAndEventGroupsListToolbar permissions={props.permissions} />
-        ),
+        actions: <EventsAndEventGroupsListToolbar permissions={permissions} />,
       }}
       datagridProps={{
         rowClick: handleRowClick,
@@ -129,7 +138,7 @@ const EventsAndEventGroupsList = (props: ReactAdminComponentProps) => {
       />
       <FunctionField
         label="eventsAndEventGroups.list.type.label"
-        render={(record) => {
+        render={(record: RaRecord) => {
           if (!record) {
             return null;
           }
@@ -151,7 +160,7 @@ const EventsAndEventGroupsList = (props: ReactAdminComponentProps) => {
       <FunctionField
         label="events.fields.totalCapacity.label"
         textAlign="right"
-        render={(record?: Record) => {
+        render={(record?: RaRecord) => {
           if (!record) {
             return null;
           }
@@ -176,7 +185,7 @@ const EventsAndEventGroupsList = (props: ReactAdminComponentProps) => {
       <FunctionField
         label="events.fields.numOfOccurrences.label"
         textAlign="right"
-        render={(record?: Record) => {
+        render={(record?: RaRecord) => {
           if (!record) {
             return null;
           }
