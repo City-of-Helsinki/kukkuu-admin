@@ -45,7 +45,6 @@ const VenueEdit = () => {
             // https://marmelab.com/react-admin/Upgrade.html#input-level-validation-now-triggers-on-submit
             validate={validateVenue}
             toolbar={<VenueEditToolbar />}
-            sanitizeEmptyValues={false}
           >
             <ViewTitle source={`${translation}.name`} />
             <LanguageTabs
