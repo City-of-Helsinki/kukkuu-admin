@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 type Props = {
   pageTitle: string;
   children: ReactNode;
-  reactAdminProps: ListProps;
+  reactAdminProps?: Omit<ListProps, 'children'>;
   datagridProps?: DatagridProps;
 };
 

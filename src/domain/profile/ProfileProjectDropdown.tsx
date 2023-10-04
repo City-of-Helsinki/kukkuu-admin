@@ -1,5 +1,6 @@
 import React, { MouseEvent } from 'react';
-import { useDataProvider, useGetList, useRefresh } from 'react-admin';
+import { useDataProvider, useRefresh } from 'react-admin';
+import { useQuery } from 'react-query';
 import { makeStyles } from '@mui/styles';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
@@ -7,7 +8,10 @@ import Menu from '@mui/material/Menu';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 // eslint-disable-next-line max-len
-import { MyAdminProfile_myAdminProfile_projects_edges_node as ProjectNode } from '../../api/generatedTypes/MyAdminProfile';
+import {
+  MyAdminProfile_myAdminProfile,
+  MyAdminProfile_myAdminProfile_projects_edges_node as ProjectNode,
+} from '../../api/generatedTypes/MyAdminProfile';
 import RelayList from '../../api/relayList';
 import projectService from '../projects/projectService';
 
@@ -29,7 +33,9 @@ const ProfileProjectDropdown = () => {
   // });
   // NOTE: Migrated in KK-1017 - Can be wrong, so check carefully!
   const dataProvider = useDataProvider();
-  const { isLoading, error, data } = useGetList(dataProvider.getMyAdminProfile);
+  const { isLoading, error, data } = useQuery<MyAdminProfile_myAdminProfile>(
+    dataProvider.getMyAdminProfile
+  );
   const refresh = useRefresh();
   const classes = useStyles();
 

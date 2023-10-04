@@ -1,22 +1,19 @@
 import React from 'react';
-import { ReactAdminComponentProps, useTranslate } from 'react-admin';
+import { useTranslate } from 'react-admin';
 
 import KukkuuCreatePage from '../../application/layout/kukkuuCreatePage/KukkuuCreatePage';
 import KukkuuCreateToolbar from '../../application/layout/kukkuuCreatePage/KukkuuCreateToolbar';
 import EventGroupForm from '../form/EventGroupForm';
 
-const EventGroupsCreate = (props: ReactAdminComponentProps) => {
+const EventGroupsCreate = () => {
   const t = useTranslate();
 
   return (
     <KukkuuCreatePage
       pageTitle={t('eventGroups.create.title.label')}
-      reactAdminProps={props}
+      reactAdminProps={{ redirect: 'show' }}
     >
-      <EventGroupForm
-        toolbar={<KukkuuCreateToolbar />}
-        redirect="/events-and-event-groups"
-      />
+      <EventGroupForm toolbar={<KukkuuCreateToolbar />} />
     </KukkuuCreatePage>
   );
 };

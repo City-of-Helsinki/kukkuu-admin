@@ -1,5 +1,5 @@
 import React from 'react';
-import { Record, useTranslate } from 'react-admin';
+import { RaRecord, useTranslate } from 'react-admin';
 import { makeStyles } from '@mui/styles';
 import EditIcon from '@mui/icons-material/Edit';
 import CheckIcon from '@mui/icons-material/Check';
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type Props = {
-  record?: Record;
+  record?: RaRecord;
   className: string;
 };
 

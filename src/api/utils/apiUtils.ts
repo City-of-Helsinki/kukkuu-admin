@@ -26,7 +26,7 @@ export const queryHandler = async (
   try {
     const res = await client.query(queryOptions);
     return res;
-  } catch (error) {
+  } catch (error: any) {
     throw new HttpError(error.message || API_ERROR_MESSAGE, error.status);
   }
 };
@@ -36,7 +36,7 @@ export const mutationHandler = async (
 ) => {
   try {
     return await client.mutate(mutationOptions);
-  } catch (error) {
+  } catch (error: any) {
     throw new HttpError(error.message || API_ERROR_MESSAGE, error.status);
   }
 };

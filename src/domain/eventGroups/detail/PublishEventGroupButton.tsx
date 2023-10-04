@@ -4,15 +4,11 @@ import SendIcon from '@mui/icons-material/Check';
 
 import ConfirmMutationButton from '../../../common/components/confirmMutationButton/ConfirmMutationButton';
 import usePublishEventGroupMutation from '../hooks/usePublishEventGroupMutation';
-
-type EvenGroup = {
-  id: string;
-  name: string;
-};
+import { EventGroup_eventGroup } from '../../../api/generatedTypes/EventGroup';
 
 type Props = {
   basePath: string;
-  record: EvenGroup;
+  record: EventGroup_eventGroup;
   className?: string;
   buttonLabel?: string;
 };

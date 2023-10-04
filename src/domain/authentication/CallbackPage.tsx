@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslate, useDataProvider, Loading } from 'react-admin';
-import { RouteComponentProps } from 'react-router';
 import * as Sentry from '@sentry/browser';
 import { User } from 'oidc-client';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import authService from './authService';
 import authorizationService from './authorizationService';
@@ -21,11 +21,10 @@ function getRedirectPath(
   return redirectTarget;
 }
 
-function CallBackPage({
-  history,
-  location: { pathname },
-}: RouteComponentProps) {
+function CallBackPage() {
   const t = useTranslate();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const dataProvider = useDataProvider();
   const [error, setError] = useState<Error | null>(null);
 
@@ -36,9 +35,11 @@ function CallBackPage({
         const role = authorizationService.getRole();
 
         if (role === 'none') {
-          history.replace('/unauthorized');
+          navigate('/unauthorized', { replace: true });
         } else {
-          history.replace(getRedirectPath(user.state?.path, pathname));
+          navigate(getRedirectPath(user.state?.path, pathname), {
+            replace: true,
+          });
         }
       })
       .catch((error) => {
@@ -47,7 +48,7 @@ function CallBackPage({
         authService.resetAuthState();
         Sentry.captureException(error);
       });
-  }, [dataProvider, history, pathname, t]);
+  }, [dataProvider, navigate, pathname, t]);
 
   if (error) {
     return <AuthError />;

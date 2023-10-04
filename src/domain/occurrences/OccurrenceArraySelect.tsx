@@ -3,8 +3,9 @@ import {
   SelectArrayInput,
   ReferenceArrayInput,
   useTranslate,
+  useInput,
 } from 'react-admin';
-import { useField, useForm } from 'react-final-form';
+import { useFormContext } from 'react-hook-form';
 
 import { Occurrence_occurrence as Occurrence } from '../../api/generatedTypes/Occurrence';
 import { toShortDateTimeString } from '../../common/utils';
@@ -66,8 +67,10 @@ type Props = Omit<ReferenceArrayInputProps, 'children' | 'reference'> & {
 
 const OccurrenceArraySelect = ({ eventId, allText, ...rest }: Props) => {
   const filter = getFilters(eventId);
-  const field = useField(rest.source);
-  const form = useForm();
+  const {
+    field: { value, name },
+  } = useInput({ source: rest.source });
+  const form = useFormContext();
   const t = useTranslate();
 
   // By default the multi select component does not explicitly have an
@@ -78,13 +81,13 @@ const OccurrenceArraySelect = ({ eventId, allText, ...rest }: Props) => {
   //   selection is removed
   // - when the user selects "all", all other choices are removed
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const previousValues = field.input.value;
+    const previousValues = value;
     // The value is actually an array because we are using a
     // multi select
-    const nextValues = (e.target.value as unknown) as string[];
+    const nextValues = e.target.value as unknown as string[];
     const values = getValues(previousValues, nextValues);
 
-    form.change(field.input.name, values);
+    form.setValue(name, values);
   };
 
   return (

@@ -1,16 +1,15 @@
 import React from 'react';
-import { ResourceComponentProps } from 'react-admin';
 
 import KukkuuEditPage from '../../application/layout/kukkuuEditPage/KukkuuEditPage';
 import EventGroupForm from '../form/EventGroupForm';
 
-const EventGroupsEdit = (props: ResourceComponentProps) => {
+const EventGroupsEdit = () => {
   return (
-    <KukkuuEditPage pageTitleSource="name" reactAdminProps={props}>
-      <EventGroupForm
-        redirect="/events-and-event-groups"
-        sanitizeEmptyValues={false}
-      />
+    <KukkuuEditPage
+      pageTitleSource="name"
+      reactAdminProps={{ redirect: '/events-and-event-groups' }}
+    >
+      <EventGroupForm />
     </KukkuuEditPage>
   );
 };

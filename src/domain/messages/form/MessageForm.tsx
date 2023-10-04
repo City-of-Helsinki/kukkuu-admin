@@ -7,9 +7,9 @@ import {
   FormDataConsumer,
   useTranslate,
 } from 'react-admin';
-import { makeStyles } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
-import { useForm } from 'react-final-form';
+import { useFormContext } from 'react-hook-form';
 
 import { ProtocolType } from '../../../api/generatedTypes/globalTypes';
 import useLanguageTabs from '../../../common/hooks/useLanguageTabs';
@@ -28,7 +28,7 @@ import {
 } from '../choices';
 
 const CustomOnChange = ({ children, onChange, ...rest }: any) => {
-  const form = useForm();
+  const form = useFormContext();
 
   return React.cloneElement(children, {
     ...rest,
@@ -89,42 +89,38 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
 
   const handleRecipientSelectionChange = (
     event: ChangeEvent<HTMLInputElement>,
-    form: any
+    form: ReturnType<typeof useFormContext>
   ) => {
     const value = event?.target.value;
     const name = event?.target.name;
 
-    form.batch(() => {
-      // When the user sets recipient as all, event and occurrence
-      // choices are reset
-      if (value === 'ALL') {
-        form.change('eventId', 'all');
-        form.change('occurrenceIds', ['all']);
-      }
+    // When the user sets recipient as all, event and occurrence
+    // choices are reset
+    if (value === 'ALL') {
+      form.setValue('eventId', 'all');
+      form.setValue('occurrenceIds', ['all']);
+    }
 
-      form.change(name, value);
-    });
+    form.setValue(name, value);
   };
 
   const handleEvenIdChange = (
     event: ChangeEvent<HTMLInputElement>,
-    form: any
+    form: ReturnType<typeof useFormContext>
   ) => {
     const value = event?.target.value;
     const name = event?.target.name;
 
-    form.batch(() => {
-      // Any time the user changes the event selection, reset
-      // occurrenceIds
-      form.change('occurrenceIds', ['all']);
-      form.change(name, value);
-    });
+    // Any time the user changes the event selection, reset
+    // occurrenceIds
+    form.setValue('occurrenceIds', ['all']);
+    form.setValue(name, value);
   };
 
   return (
     <SimpleForm
-      variant="outlined"
-      redirect="show"
+      // TODO: refactor form validate with YUP
+      // https://marmelab.com/react-admin/Upgrade.html#input-level-validation-now-triggers-on-submit
       validate={
         protocol === ProtocolType.SMS ? validateSmsForm : validateMessageForm
       }
@@ -134,6 +130,7 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
       {languageTabsComponent}
       <CustomOnChange onChange={handleRecipientSelectionChange}>
         <SelectInput
+          variant="outlined"
           source="recipientSelection"
           label="messages.fields.recipientSelection.label"
           choices={recipientSelectionChoices}
@@ -149,6 +146,7 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
             <CustomOnChange onChange={handleEvenIdChange}>
               <EventSelect
                 {...rest}
+                variant="outlined"
                 source="eventId"
                 label="messages.fields.event.label"
                 fullWidth
@@ -172,6 +170,7 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
           recipientSelection !== 'INVITED' && (
             <OccurrenceArraySelect
               {...rest}
+              variant="outlined"
               source="occurrenceIds"
               label="messages.fields.occurrences.label"
               eventId={eventId}
@@ -186,6 +185,7 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
       {protocol === ProtocolType.EMAIL && (
         <TextInput
           source={translatableField('subject')}
+          variant="outlined"
           label="messages.fields.subject.label2"
           validate={validateSubject}
           fullWidth
@@ -197,6 +197,7 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
       <TextInput
         source={translatableField('bodyText')}
         label="messages.fields.bodyText.label"
+        variant="outlined"
         validate={validateBodyText}
         multiline
         fullWidth

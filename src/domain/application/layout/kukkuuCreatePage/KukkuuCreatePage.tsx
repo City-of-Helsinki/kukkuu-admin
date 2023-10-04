@@ -5,13 +5,13 @@ import KukkuuPageLayout from '../kukkuuCardPageLayout/KukkuuCardPageLayout';
 
 type Props = {
   pageTitle: string;
-  reactAdminProps: CreateProps;
+  reactAdminProps?: Omit<CreateProps, 'children'>;
   children: ReactElement;
 };
 
 const KukkuuCreatePage = ({ children, pageTitle, reactAdminProps }: Props) => {
   return (
-    <KukkuuPageLayout pageTitle={pageTitle} reactAdminProps={reactAdminProps}>
+    <KukkuuPageLayout pageTitle={pageTitle}>
       <Create
         {...reactAdminProps}
         // Use empty actions so that no extra margin is applied

@@ -4,6 +4,9 @@ import {
   useTranslate,
   CreateButton,
   EditButton,
+  usePermissions,
+  useResourceContext,
+  useRecordContext,
 } from 'react-admin';
 import { makeStyles } from '@mui/styles';
 
@@ -12,6 +15,8 @@ import {
   EventGroupEventsPublishStatusEnum,
   getEventGroupPublishStatus,
 } from '../utils';
+import type { Permissions } from '../../authentication/authProvider';
+import { EventGroup_eventGroup } from '../../../api/generatedTypes/EventGroup';
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -22,16 +27,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EventGroupsDetailActions = ({ data, basePath, permissions }: any) => {
+const EventGroupsDetailActions = () => {
+  const { permissions } = usePermissions<Permissions>();
+  const record = useRecordContext<EventGroup_eventGroup>();
+  const resource = useResourceContext();
+  const basePath = `/${resource}`;
   const t = useTranslate();
   const classes = useStyles();
-  const publishStatus = getEventGroupPublishStatus(data);
-  const canPublish = permissions?.canPublishWithinProject(data?.project?.id);
+  const publishStatus = getEventGroupPublishStatus(record);
+  const canPublish = permissions?.canPublishWithinProject(record?.project?.id);
   const canManageEventGroups = permissions?.canManageEventGroupsWithinProject(
-    data?.project?.id
+    record?.project?.id
   );
   const showPublishButton =
-    data &&
+    record &&
     [
       EventGroupEventsPublishStatusEnum.ReadyForFirstPublish,
       EventGroupEventsPublishStatusEnum.ReadyForRepublish,
@@ -41,16 +50,14 @@ const EventGroupsDetailActions = ({ data, basePath, permissions }: any) => {
   return (
     <TopToolbar className={classes.toolbar}>
       <CreateButton
-        to={`/events/create?eventGroupId=${data?.id}`}
+        to={`/events/create?eventGroupId=${record?.id}`}
         label={t('eventGroups.actions.addEvent.do')}
       />
-      {canManageEventGroups && (
-        <EditButton basePath="/event-groups" record={data} />
-      )}
+      {canManageEventGroups && <EditButton record={record} />}
       {showPublishButton && (
         <PublishEventGroupButton
           basePath={basePath}
-          record={data}
+          record={record}
           buttonLabel={
             publishStatus ===
             EventGroupEventsPublishStatusEnum.ReadyForRepublish

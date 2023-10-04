@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslate, useDataProvider } from 'react-admin';
 import PropTypes from 'prop-types';
-import Select from '@mui/material/Select';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 
@@ -21,7 +21,7 @@ const OccurrenceAttendedField = ({ record }: Props) => {
   );
   const dataProvider = useDataProvider();
   const translate = useTranslate();
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+  const handleChange = (event: SelectChangeEvent) => {
     const value = event.target.value as string;
     dataProvider.setEnrolmentAttendance(enrolment.id, JSON.parse(value));
     setAttended(value);

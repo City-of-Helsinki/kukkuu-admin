@@ -1,11 +1,20 @@
 import React, { Children, ReactElement } from 'react';
 import { Table, TableHead, TableRow, TableBody } from '@mui/material';
-import {
-  useDatagridStyles,
-  DatagridHeaderCell,
-  DatagridCell,
-} from 'react-admin';
+import { DatagridHeaderCell, DatagridCell } from 'react-admin';
 import get from 'lodash/get';
+import { makeStyles } from '@mui/styles';
+
+// TODO: Can this be totally removed?
+// During the migration in KK-1017, an alternative for useDtaGridStyles was not found.
+const useDatagridStyles = makeStyles((theme) => ({
+  table: {},
+  thead: {},
+  row: {},
+  headerRow: {},
+  headerCell: {},
+  rowCell: {},
+  clickableRow: {},
+}));
 
 function disableSorting(field: ReactElement) {
   return {
@@ -48,7 +57,7 @@ const LocalDataGrid = ({
                   isSorting={false}
                   key={(field.props as any).source || index}
                   resource={resource}
-                  currentSort={{
+                  sort={{
                     field: 'any',
                     order: 'ASC',
                   }}
