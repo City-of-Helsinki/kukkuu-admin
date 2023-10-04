@@ -3,13 +3,15 @@ import {
   TextField,
   SelectField,
   SimpleShowLayout,
-  ResourceComponentPropsWithId,
   useTranslate,
   EditButton,
   TopToolbar,
   FunctionField,
+  useResourceDefinition,
+  useResourceContext,
+  useRecordContext,
 } from 'react-admin';
-import { makeStyles } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
 import get from 'lodash/get';
@@ -39,19 +41,14 @@ const useMessageDetailsToolbarStyles = makeStyles((theme) => ({
   },
 }));
 
-type MessageDetailToolbarProps = {
-  basePath?: string;
-  data?: Message;
-};
-
-const MessageDetailToolbar = ({
-  basePath,
-  data,
-}: MessageDetailToolbarProps) => {
+const MessageDetailToolbar = () => {
+  const record = useRecordContext<Message>();
+  const resource = useResourceContext();
+  const basePath = `/${resource}`;
   const classes = useMessageDetailsToolbarStyles();
   const t = useTranslate();
 
-  const isSent = Boolean(data?.sentAt);
+  const isSent = Boolean(record?.sentAt);
 
   if (isSent) {
     return (
@@ -60,13 +57,13 @@ const MessageDetailToolbar = ({
           <Typography component="span" className={classes.metaTitle}>
             {t('messages.fields.sentAt.sent')}
           </Typography>
-          {` ${toDateTimeString(new Date(data?.sentAt))}`}
+          {` ${toDateTimeString(new Date(record?.sentAt))}`}
         </Typography>
         <Typography className={classes.meta}>
           <Typography component="span" className={classes.metaTitle}>
             {t('messages.fields.recipientCount.label')}
           </Typography>
-          {` ${data?.recipientCount}`}
+          {` ${record?.recipientCount}`}
         </Typography>
       </div>
     );
@@ -74,11 +71,11 @@ const MessageDetailToolbar = ({
 
   return (
     <TopToolbar>
-      {data && <EditButton basePath={basePath} record={data} />}
-      {data && basePath && (
+      {record && <EditButton record={record} />}
+      {record && basePath && (
         <MessageSendButton
           basePath={basePath}
-          record={data}
+          record={record}
           className={classes.sendButton}
         />
       )}
@@ -115,22 +112,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MessagesDetail = (props: ResourceComponentPropsWithId) => {
+const MessagesDetail = () => {
   const classes = useStyles();
   const [languageTabsComponent, translatableField] = useLanguageTabs();
   const t = useTranslate();
-
+  const resource = useResourceContext();
+  const {
+    options: { label },
+  } = useResourceDefinition();
   return (
     <KukkuuDetailPage
       pageTitleSource="subject"
       reactAdminProps={{
-        ...props,
         actions: <MessageDetailToolbar />,
       }}
       breadcrumbs={[
         {
-          label: t(props.options.label),
-          link: props.basePath || null,
+          label: t(label),
+          link: `/${resource}` || null,
         },
       ]}
     >

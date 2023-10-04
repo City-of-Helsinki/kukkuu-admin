@@ -11,7 +11,6 @@ import {
   useTranslate,
   FormDataConsumer,
   DateTimeInput,
-  EditProps,
   ToolbarProps,
   SelectInputProps,
   MutationMode,
@@ -54,7 +53,7 @@ const TicketSystemInput = (props: SelectInputProps) => {
   return <SelectInput disabled={!!record?.publishedAt} {...props} />;
 };
 
-const EventEdit = (props: EditProps) => {
+const EventEdit = () => {
   const translate = useTranslate();
   const [selectedLanguage, selectLanguage] = useState(Language.FI);
   const translation = `translations.${selectedLanguage}`;
@@ -63,17 +62,15 @@ const EventEdit = (props: EditProps) => {
   return (
     <>
       <CardHeader title={translate('events.edit.title')} />
-      <Grid container direction="column" xs={6} item={true}>
+      <Grid container direction="column" xs={6} item>
         <KukkuuEdit
           mutationMode={'pessimistic'}
           title={'events.edit.title'}
-          {...props}
+          redirect="show"
         >
           <SimpleForm
-            variant="outlined"
-            redirect="show"
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
+            // TODO: refactor form validate with YUP
+            // https://marmelab.com/react-admin/Upgrade.html#input-level-validation-now-triggers-on-submit
             validate={validateVenue}
             toolbar={<EventEditToolbar />}
             sanitizeEmptyValues={false}
@@ -84,18 +81,20 @@ const EventEdit = (props: EditProps) => {
               onSelect={selectLanguage}
             />
             <ImageUploadField
-              edit={true}
+              edit
               name="image"
               source="image"
               helperText="events.fields.image.helperText"
             />
             <TextInput
+              variant="outlined"
               source={`${translation}.imageAltText`}
               label="events.fields.imageAltText.label"
               helperText="events.fields.imageAltText.helperText"
               fullWidth
             />
             <TextInput
+              variant="outlined"
               source={`${translation}.name`}
               label="events.fields.name.label"
               validate={
@@ -105,6 +104,7 @@ const EventEdit = (props: EditProps) => {
               helperText="Tähän laitetaan tapahtuman nimi"
             />
             <TextInput
+              variant="outlined"
               source={`${translation}.shortDescription`}
               label="events.fields.shortDescription.label"
               helperText="events.fields.shortDescription.helperText"
@@ -113,6 +113,7 @@ const EventEdit = (props: EditProps) => {
               fullWidth
             />
             <TextInput
+              variant="outlined"
               source={`${translation}.description`}
               label="events.fields.description.label"
               helperText="events.fields.description.helperText"
@@ -120,6 +121,7 @@ const EventEdit = (props: EditProps) => {
               fullWidth
             />
             <SelectInput
+              variant="outlined"
               source="participantsPerInvite"
               label="events.fields.participantsPerInvite.label"
               helperText="events.fields.participantsPerInvite.helperText"
@@ -129,6 +131,7 @@ const EventEdit = (props: EditProps) => {
             />
             {Config.featureFlagExternalTicketSystemSupport && (
               <TicketSystemInput
+                variant="outlined"
                 source="ticketSystem.type"
                 label="events.fields.ticketSystem.label"
                 choices={ticketSystemChoices}
@@ -142,6 +145,7 @@ const EventEdit = (props: EditProps) => {
                 hasInternalTicketSystem(formData as RecordWithTicketSystem)
                   ? [
                       <NumberInput
+                        variant="outlined"
                         source="duration"
                         key="duration"
                         label="events.fields.duration.label"
@@ -151,6 +155,7 @@ const EventEdit = (props: EditProps) => {
                         {...rest}
                       />,
                       <NumberInput
+                        variant="outlined"
                         source="capacityPerOccurrence"
                         key="capacityPerOccurrence"
                         label="events.fields.capacityPerOccurrence.label"
@@ -166,6 +171,7 @@ const EventEdit = (props: EditProps) => {
                     ]
                   : [
                       <TextInput
+                        variant="outlined"
                         source="ticketSystem.url"
                         key="ticketSystemUrl"
                         label="events.fields.ticketSystemUrl.label"
@@ -174,6 +180,7 @@ const EventEdit = (props: EditProps) => {
                         {...rest}
                       />,
                       <DateTimeInput
+                        variant="outlined"
                         source="ticketSystem.endTime"
                         key="ticketSystemEndTime"
                         label="events.fields.ticketSystemEndTime.label"

@@ -13,12 +13,11 @@ import {
   ReferenceField,
   useLocale,
   Button,
-  ResourceComponentPropsWithId,
-  Record,
-  useShowController,
+  RaRecord,
   UrlField,
+  useRecordContext,
 } from 'react-admin';
-import { withStyles, WithStyles, createStyles } from '@mui/material/styles';
+import { createStyles, withStyles, WithStyles } from '@mui/styles';
 import { Link } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 
@@ -68,20 +67,21 @@ interface ImportTicketSystemPasswordsButtonProps
   onClick: () => void;
 }
 
-const ImportTicketSystemPasswordsButton = withStyles(styles)(
-  ({ classes, onClick }: ImportTicketSystemPasswordsButtonProps) => {
-    const translate = useTranslate();
-    return (
-      <Button
-        className={classes.button}
-        label={translate('ticketSystemPassword.import.dialog.openButton')}
-        onClick={onClick}
-      >
-        <AddIcon />
-      </Button>
-    );
-  }
-);
+const ImportTicketSystemPasswordsButton = withStyles(styles)(({
+  classes,
+  onClick,
+}: ImportTicketSystemPasswordsButtonProps) => {
+  const translate = useTranslate();
+  return (
+    <Button
+      className={classes.button}
+      label={translate('ticketSystemPassword.import.dialog.openButton')}
+      onClick={onClick}
+    >
+      <AddIcon />
+    </Button>
+  );
+});
 
 interface ImportTicketmasterPasswordsControlsProps {
   record: AdminEvent;
@@ -110,14 +110,13 @@ const ImportTicketmasterPasswordsControls = ({
   );
 };
 
-const EventShow = (props: ResourceComponentPropsWithId) => {
+const EventShow = () => {
   const locale = useLocale();
   const [language, selectLanguage] = useState(Language.FI);
   const t = useTranslate();
-  const { record } = useShowController<AdminEvent>(props);
+  const record = useRecordContext<AdminEvent>();
   const internalTicketSystem = hasInternalTicketSystem(record);
-
-  const getCrumbs = (record?: Record) => {
+  const getCrumbs = (record?: RaRecord) => {
     const crumbs = [
       {
         label: t('events.list.title'),
@@ -138,11 +137,10 @@ const EventShow = (props: ResourceComponentPropsWithId) => {
   return (
     <KukkuuDetailPage
       reactAdminProps={{
-        ...props,
-        actions: <EventShowActions permissions={props.permissions} />,
+        actions: <EventShowActions />,
       }}
       layout={KukkuuPageLayout}
-      breadcrumbs={(record?: Record) => getCrumbs(record)}
+      breadcrumbs={(record?: RaRecord) => getCrumbs(record)}
       pageTitleSource="name"
     >
       <TabbedShowLayout>
@@ -200,7 +198,7 @@ const EventShow = (props: ResourceComponentPropsWithId) => {
                   source="ticketSystem.endTime"
                   label="events.fields.ticketSystemEndTime.label"
                   key="ticketSystemEndTime"
-                  showTime={true}
+                  showTime
                   locales={locale}
                 />,
               ]}

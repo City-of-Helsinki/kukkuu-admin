@@ -1,26 +1,26 @@
 import React, { ReactElement, ReactText } from 'react';
-import { EditProps, useGetOne } from 'react-admin';
+import { RaRecord, useGetOne, useResourceContext } from 'react-admin';
 import { makeStyles } from '@mui/styles';
 import get from 'lodash/get';
+import { useParams } from 'react-router-dom';
 
 import KukkuuPageTitle from '../kukkuuPageTitle/KukkuuPageTitle';
 import BreadCrumbs, {
   Crumb,
 } from '../../../../common/components/breadcrumbs/Breadcrumbs';
-import { RecordType } from '../../../../api/types';
 
 type TitleWithRecordProps = {
-  pageTitle: string | ((record?: RecordType) => ReactText);
-  reactAdminProps: EditProps;
+  pageTitle: string | ((record?: RaRecord) => ReactText);
 };
 
 const TitleWithRecord = ({
   pageTitle: pageTitleSource,
-  reactAdminProps,
 }: TitleWithRecordProps) => {
+  const resource = useResourceContext();
+  const { id } = useParams();
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const { data } = useGetOne(reactAdminProps.resource!, {
-    id: reactAdminProps.id,
+  const { data } = useGetOne(resource, {
+    id,
   });
 
   const pageTitle = (() => {
@@ -47,16 +47,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export type KukkuuLayoutProps = {
-  reactAdminProps: EditProps;
   children: ReactElement;
-  pageTitle?: string | ((record?: RecordType) => ReactText | undefined);
+  pageTitle?: string | ((record?: RaRecord) => ReactText | undefined);
   pageTitleSource?: string;
   breadcrumbs?: Crumb[];
 };
 
 const KukkuuPageLayout = ({
   children,
-  reactAdminProps,
   pageTitleSource,
   pageTitle,
   breadcrumbs,
@@ -78,7 +76,6 @@ const KukkuuPageLayout = ({
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           pageTitle={pageTitleSource || pageTitle}
-          reactAdminProps={reactAdminProps}
         />
       )}
       {isPlainPageTitle && <KukkuuPageTitle>{pageTitle}</KukkuuPageTitle>}

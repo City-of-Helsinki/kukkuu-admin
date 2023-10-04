@@ -1,18 +1,20 @@
 import React from 'react';
-import { Toolbar, SaveButton, useTranslate } from 'react-admin';
+import {
+  Toolbar,
+  SaveButton,
+  useTranslate,
+  useResourceContext,
+} from 'react-admin';
 import Button from '@mui/material/Button';
 import { makeStyles } from '@mui/styles';
 import { Link } from 'react-router-dom';
 
-function CancelButton(props: any) {
+function CancelButton() {
   const t = useTranslate();
-
+  const resource = useResourceContext();
+  const basePath = `/${resource}`;
   return (
-    <Button
-      component={Link}
-      to={{ pathname: props.basePath }}
-      variant="contained"
-    >
+    <Button component={Link} to={{ pathname: basePath }} variant="contained">
       {t('ra.action.cancel')}
     </Button>
   );
@@ -25,11 +27,14 @@ const useStyles = makeStyles({
   },
 });
 
-type Props = React.ComponentProps<typeof Toolbar> & {
+type KukkuuCreateToolbarProps = React.ComponentProps<typeof Toolbar> & {
   saveLabel?: string;
 };
 
-function KukkuuCreateToolbar({ saveLabel, ...delegatedProps }: Props) {
+function KukkuuCreateToolbar({
+  saveLabel,
+  ...delegatedProps
+}: KukkuuCreateToolbarProps) {
   const classes = useStyles();
 
   return (

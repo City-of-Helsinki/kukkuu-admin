@@ -3,9 +3,11 @@ import MessagesDetail from './detail/MessagesDetail';
 import MessagesEdit from './edit/MessagesEdit';
 import MessagesCreate from './create/MessagesCreate';
 
-export default {
+const MessagesResource = {
   List: MessagesList,
   Detail: MessagesDetail,
   Edit: MessagesEdit,
   Create: MessagesCreate,
 };
+
+export default MessagesResource;

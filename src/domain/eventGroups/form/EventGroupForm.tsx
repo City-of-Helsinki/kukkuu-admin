@@ -8,26 +8,25 @@ import {
   validateShortDescription,
 } from '../validations';
 
-type Props = Omit<SimpleFormProps, 'children'>;
+type EventGroupFormProps = Omit<SimpleFormProps, 'children'>;
 
-const EventGroupForm = (props: Props) => {
+const EventGroupForm = (props: EventGroupFormProps) => {
   const [languageTabsComponent, translatableField] = useLanguageTabs();
 
+  // TODO: refactor form validate with YUP
+  // https://marmelab.com/react-admin/Upgrade.html#input-level-validation-now-triggers-on-submit
   return (
-    <SimpleForm
-      variant="outlined"
-      redirect="show"
-      validate={validateEventGroupForm}
-      {...props}
-    >
+    <SimpleForm validate={validateEventGroupForm} {...props}>
       {languageTabsComponent}
       <TextInput
+        variant="outlined"
         source={translatableField('name')}
         label="eventGroups.fields.name.label"
         validate={validateName}
         fullWidth
       />
       <TextInput
+        variant="outlined"
         source={translatableField('shortDescription')}
         label="eventGroups.fields.shortDescription.label"
         validate={validateShortDescription}
@@ -36,6 +35,7 @@ const EventGroupForm = (props: Props) => {
         fullWidth
       />
       <TextInput
+        variant="outlined"
         source={translatableField('description')}
         label="eventGroups.fields.description.label"
         helperText="eventGroups.fields.description.helperText"

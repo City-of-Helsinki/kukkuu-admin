@@ -1,4 +1,4 @@
-import React, { ReactText } from 'react';
+import React from 'react';
 import {
   TextField,
   NumberField,
@@ -12,14 +12,16 @@ import {
   ArrayField,
   FunctionField,
   useGetOne,
-  Record,
+  RaRecord,
 } from 'react-admin';
 import makeStyles from '@mui/styles/makeStyles';
+import { useParams } from 'react-router-dom';
 
 import {
   Occurrence_occurrence_enrolments_edges as EnrolmentEdge,
   Occurrence_occurrence_enrolments_edges_node_child_guardians_edges_node as GuardianType,
   Occurrence_occurrence as OccurrenceType,
+  Occurrence_occurrence,
 } from '../../api/generatedTypes/Occurrence';
 import KukkuuPageLayout from '../application/layout/kukkuuPageLayout/KukkuuPageLayout';
 import KukkuuDetailPage from '../application/layout/kukkuuDetailPage/KukkuuDetailPage';
@@ -45,7 +47,7 @@ const OccurrenceDataGridTitle = ({ occurrenceId }: any) => {
     <>
       {translate('occurrences.fields.children.label')}
       <span className={styles.fakeValue}>
-        {/* eslint-disable-next-line @typescript-eslint/ban-ts-ignore */}
+        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
         {/* @ts-ignore */}
         {record.enrolments?.edges.length || ''}
       </span>
@@ -55,7 +57,7 @@ const OccurrenceDataGridTitle = ({ occurrenceId }: any) => {
 
 export const withEnrolment =
   (hasRecord: (record: EnrolmentEdge) => any, otherwise: () => any) =>
-  (record: Record | undefined | null) => {
+  (record: RaRecord | undefined | null) => {
     if (record) {
       const enrolmentEdge = record as unknown as EnrolmentEdge;
 
@@ -86,22 +88,21 @@ export const getGuardianLanguage = (guardian: GuardianType) =>
 export const getGuardianPhoneNumber = (guardian: GuardianType) =>
   new Guardian(guardian).phoneNumber;
 
-export const getBreadCrumbs = (record?: Record) =>
+export const getBreadCrumbs = (record?: RaRecord) =>
   new Occurrence(record as OccurrenceType).breadcrumbs;
 
-export const getTitle = (record?: Record) =>
+export const getTitle = (record?: RaRecord) =>
   new Occurrence(record as OccurrenceType).title || '';
 
 export const getChildFullName = (enrolmentEdge: EnrolmentEdge) =>
   `${enrolmentEdge.node?.child?.firstName} ${enrolmentEdge.node?.child?.lastName}`.trim();
 
-const OccurrenceShow = (props: any) => {
+const OccurrenceShow = () => {
   const locale = useLocale();
   const translate = useTranslate();
-
+  const { id } = useParams();
   return (
     <KukkuuDetailPage
-      reactAdminProps={props}
       layout={KukkuuPageLayout}
       pageTitle={getTitle}
       breadcrumbs={getBreadCrumbs}
@@ -134,23 +135,21 @@ const OccurrenceShow = (props: any) => {
           label="occurrences.fields.capacity.label"
         />
         <FunctionField
-          render={(occurrence) =>
+          render={(occurrence: Occurrence_occurrence) =>
             occurrence?.freeSpotNotificationSubscriptions?.edges?.length ?? '?'
           }
           label="occurrences.fields.freeSpotNotificationSubscriptions.label"
         />
         <ArrayField
-          label={<OccurrenceDataGridTitle occurrenceId={props.id} />}
+          label={<OccurrenceDataGridTitle occurrenceId={id} />}
           source="enrolments.edges"
         >
           <Datagrid
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            rowClick={(
-              id: ReactText,
-              basePath: string,
-              record: EnrolmentEdge
-            ) => escape(`/children/${record?.node?.child?.id}/show`)}
+            rowClick={(id: string, resource: string, record: EnrolmentEdge) =>
+              escape(`/children/${record?.node?.child?.id}/show`)
+            }
           >
             <FunctionField
               label="children.fields.name.label"

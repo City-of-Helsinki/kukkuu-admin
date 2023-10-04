@@ -5,7 +5,7 @@ import KukkuuPageLayout from '../kukkuuCardPageLayout/KukkuuCardPageLayout';
 import KukkuuEdit from './KukkuuEdit';
 
 type Props = {
-  reactAdminProps: EditProps;
+  reactAdminProps?: Omit<EditProps, 'children'>;
   children: ReactElement;
   pageTitleSource: string;
 };
@@ -16,10 +16,7 @@ const KukkuuEditPage = ({
   pageTitleSource,
 }: Props) => {
   return (
-    <KukkuuPageLayout
-      pageTitleSource={pageTitleSource}
-      reactAdminProps={reactAdminProps}
-    >
+    <KukkuuPageLayout pageTitleSource={pageTitleSource}>
       <KukkuuEdit mutationMode="pessimistic" {...reactAdminProps}>
         {children}
       </KukkuuEdit>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useInput, useTranslate } from 'react-admin';
+import { InputProps, useInput, useTranslate } from 'react-admin';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 import { makeStyles } from '@mui/styles';
 import moment from 'moment-timezone';
@@ -10,21 +10,15 @@ const useStyles = makeStyles({
   textFieldInput: { width: '100%' },
 });
 
-type Props = {
-  validate?: any;
-};
-
-const BoundedTextField = (props: Props & TextFieldProps) => {
+const BoundedTextField = (props: InputProps & TextFieldProps) => {
   const translate = useTranslate();
   const classes = useStyles();
 
   const { label, variant, defaultValue, disabled } = props;
   const {
-    input: { name, onChange },
-    meta: { touched, error },
+    field: { name, onChange },
+    fieldState: { isTouched, error },
     isRequired,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
   } = useInput(props);
 
   return (
@@ -35,8 +29,10 @@ const BoundedTextField = (props: Props & TextFieldProps) => {
       name={name}
       label={label}
       onChange={onChange}
-      error={!!(touched && error)}
-      helperText={touched && translate(error)}
+      error={!!(isTouched && error)}
+      helperText={
+        isTouched && !!error ? translate(error?.message ?? '') : undefined
+      }
       required={isRequired}
       defaultValue={defaultValue}
       disabled={disabled}
@@ -80,6 +76,7 @@ const DateTimeTextInput = (props: any) => {
       <Grid container spacing={1}>
         <Grid item md={6}>
           <BoundedTextField
+            source="date"
             validate={validateDate}
             name="date"
             label={dateLabel}
@@ -91,6 +88,7 @@ const DateTimeTextInput = (props: any) => {
         </Grid>
         <Grid item md={6}>
           <BoundedTextField
+            source="timeField"
             validate={validateTime}
             name="timeField"
             label={timeLabel}
