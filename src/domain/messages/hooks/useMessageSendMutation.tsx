@@ -9,6 +9,7 @@ const useMessageSendMutation = ({
   basePath,
   params,
 }: {
+  /** @deprecated - create with useResourceContext instead. */
   basePath: string;
   params: Parameters<(typeof extendedDataProvider)['send']>[1];
 }) => {

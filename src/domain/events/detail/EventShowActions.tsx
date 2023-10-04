@@ -37,10 +37,10 @@ const EventShowActions = () => {
     <TopToolbar>
       <EditButton record={record} />
       {record && !hasEventGroup && !isPublished && canPublish && (
-        <EventPublishButton basePath={basePath} record={record} />
+        <EventPublishButton basePath={basePath} />
       )}
       {record && hasEventGroup && !isPublished && (
-        <EventReadyToggle className={classes.isReadyToggle} record={record} />
+        <EventReadyToggle className={classes.isReadyToggle} />
       )}
     </TopToolbar>
   );

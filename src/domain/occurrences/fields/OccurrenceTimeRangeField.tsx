@@ -1,17 +1,17 @@
 import get from 'lodash/get';
 import React from 'react';
 import Typography from '@mui/material/Typography';
+import { useRecordContext } from 'react-admin';
 
 import { Occurrences_occurrences_edges_node as OccurrenceType } from '../../../api/generatedTypes/Occurrences';
 import Occurrence from '../Occurrence';
 
 const OccurrenceTimeRangeField = ({
-  record,
   occurrenceSource,
 }: {
-  record?: OccurrenceType;
   occurrenceSource?: string;
 }) => {
+  const record = useRecordContext<OccurrenceType>();
   if (!record) {
     return null;
   }
@@ -29,7 +29,6 @@ const OccurrenceTimeRangeField = ({
 };
 
 OccurrenceTimeRangeField.defaultProps = {
-  addLabel: true,
   label: 'occurrences.fields.time.fields.time.label',
 };
 
