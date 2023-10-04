@@ -1,6 +1,5 @@
 import React from 'react';
-import { useTranslate, useDataProvider } from 'react-admin';
-import PropTypes from 'prop-types';
+import { useTranslate, useDataProvider, useRecordContext } from 'react-admin';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -10,11 +9,8 @@ import {
   Occurrence_occurrence_enrolments_edges_node as Enrolment,
 } from '../../../api/generatedTypes/Occurrence';
 
-type Props = {
-  record?: EnrolmentEdge;
-};
-
-const OccurrenceAttendedField = ({ record }: Props) => {
+const OccurrenceAttendedField = () => {
+  const record = useRecordContext<EnrolmentEdge>();
   const enrolment = record?.node as Enrolment; // enrolment should be never undefined or null here
   const [attended, setAttended] = React.useState(
     JSON.stringify(enrolment.attended)
@@ -55,10 +51,6 @@ const OccurrenceAttendedField = ({ record }: Props) => {
       </Select>
     </FormControl>
   );
-};
-
-OccurrenceAttendedField.propTypes = {
-  record: PropTypes.object,
 };
 
 OccurrenceAttendedField.defaultProps = {

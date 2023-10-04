@@ -57,7 +57,6 @@ const EventGroupsDetailActions = () => {
       {showPublishButton && (
         <PublishEventGroupButton
           basePath={basePath}
-          record={record}
           buttonLabel={
             publishStatus ===
             EventGroupEventsPublishStatusEnum.ReadyForRepublish

@@ -7,7 +7,9 @@ import ConfirmMutationButton from '../../../common/components/confirmMutationBut
 import useMessageSendMutation from '../hooks/useMessageSendMutation';
 
 type Props = {
+  /** @deprecated - create with useResourceContext instead. */
   basePath: string;
+  /** @deprecated - create with useRecordContext instead. */
   record: Message;
   className?: string;
 };

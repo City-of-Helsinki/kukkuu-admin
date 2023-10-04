@@ -1,6 +1,11 @@
 import React, { Children, ReactElement } from 'react';
 import { Table, TableHead, TableRow, TableBody } from '@mui/material';
-import { DatagridHeaderCell, DatagridCell } from 'react-admin';
+import {
+  DatagridHeaderCell,
+  DatagridCell,
+  useRecordContext,
+  useResourceContext,
+} from 'react-admin';
 import get from 'lodash/get';
 import { makeStyles } from '@mui/styles';
 
@@ -26,16 +31,11 @@ function disableSorting(field: ReactElement) {
   };
 }
 
-const LocalDataGrid = ({
-  children,
-  resource,
-  record,
-  source,
-  basePath,
-  rowClick,
-}: any) => {
+const LocalDataGrid = ({ children, source, rowClick }: any) => {
   const classes = useDatagridStyles();
-
+  const record = useRecordContext();
+  const resource = useResourceContext();
+  const basePath = `/${resource}`;
   const handleRowClick = (localRecord?: any) => {
     rowClick(localRecord);
   };

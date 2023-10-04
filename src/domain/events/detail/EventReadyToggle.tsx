@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useTranslate } from 'react-admin';
+import { useRecordContext, useTranslate } from 'react-admin';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
@@ -24,11 +24,11 @@ function getReadyStatus(
 }
 
 type Props = {
-  record: AdminEvent;
   className?: string;
 };
 
-const EventReadyToggle = ({ record, className }: Props) => {
+const EventReadyToggle = ({ className }: Props) => {
+  const record = useRecordContext<AdminEvent>();
   const t = useTranslate();
   const [isReadyLocal, setReadyLocal] = useState(
     record.readyForEventGroupPublishing

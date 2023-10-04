@@ -18,6 +18,7 @@ const BoundedTextField = (props: InputProps & TextFieldProps) => {
   const {
     field: { name, onChange },
     fieldState: { isTouched, error },
+    formState: { isSubmitted },
     isRequired,
   } = useInput(props);
 
@@ -31,7 +32,9 @@ const BoundedTextField = (props: InputProps & TextFieldProps) => {
       onChange={onChange}
       error={!!(isTouched && error)}
       helperText={
-        isTouched && !!error ? translate(error?.message ?? '') : undefined
+        (isTouched || isSubmitted) && !!error
+          ? translate(error?.message ?? '')
+          : undefined
       }
       required={isRequired}
       defaultValue={defaultValue}
