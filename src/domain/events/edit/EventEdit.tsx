@@ -73,7 +73,6 @@ const EventEdit = () => {
             // https://marmelab.com/react-admin/Upgrade.html#input-level-validation-now-triggers-on-submit
             validate={validateVenue}
             toolbar={<EventEditToolbar />}
-            sanitizeEmptyValues={false}
           >
             <ViewTitle source={'events.edit.title'} />
             <LanguageTabs
