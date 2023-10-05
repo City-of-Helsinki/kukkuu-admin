@@ -27,6 +27,7 @@ const LanguageTabs: React.FunctionComponent<{
   return (
     <>
       <Tabs
+        indicatorColor="secondary"
         value={selectedLanguage}
         onChange={(e, value) => onSelect(value)}
         className={styles.languageTabs}
