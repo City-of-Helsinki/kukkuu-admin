@@ -37,13 +37,8 @@ const useEventsAndEventGroupsListToolbarStyles = makeStyles((theme?: any) => ({
   },
 }));
 
-const EventsAndEventGroupsListToolbar = ({
-  data,
-  permissions,
-}: {
-  data?: EventGroupNode | EventNode;
-  permissions: any;
-}) => {
+const EventsAndEventGroupsListToolbar = () => {
+  const { permissions } = usePermissions<Permissions>();
   const t = useTranslate();
   const classes = useEventsAndEventGroupsListToolbarStyles();
   const { data: projectData } = useGetOne<Project_project>('projects', {
@@ -52,18 +47,19 @@ const EventsAndEventGroupsListToolbar = ({
   });
 
   const canManageEventGroups = permissions?.canManageEventGroupsWithinProject(
-    projectService.projectId
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    projectService.projectId!
   );
 
   return (
     <TopToolbar className={classes.toolbar}>
-      {data && canManageEventGroups && (
+      {canManageEventGroups && (
         <CreateButton
           resource="event-groups"
           label={t('eventGroups.actions.create.do')}
         />
       )}
-      {data && projectData?.singleEventsAllowed && (
+      {projectData?.singleEventsAllowed && (
         <CreateButton resource="events" label={t('events.actions.create')} />
       )}
     </TopToolbar>
@@ -102,7 +98,6 @@ const useStyles = makeStyles((theme) => ({
 const EventsAndEventGroupsList = () => {
   const translate = useTranslate();
   const classes = useStyles();
-  const { permissions } = usePermissions<Permissions>();
   const handleRowClick = (
     id: Identifier,
     resource: string,
@@ -126,7 +121,7 @@ const EventsAndEventGroupsList = () => {
     <KukkuuListPage
       pageTitle={translate('events.list.title')}
       reactAdminProps={{
-        actions: <EventsAndEventGroupsListToolbar permissions={permissions} />,
+        actions: <EventsAndEventGroupsListToolbar />,
       }}
       datagridProps={{
         rowClick: handleRowClick,
