@@ -3,7 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { EventParticipantsPerInvite, Language, TicketSystem } from "./globalTypes";
+import {
+  EventParticipantsPerInvite,
+  Language,
+  TicketSystem,
+} from './globalTypes';
 
 // ====================================================
 // GraphQL query operation: Events
@@ -54,7 +58,10 @@ export interface Events_events_edges_node_ticketSystem_LippupisteEventTicketSyst
   endTime: any | null;
 }
 
-export type Events_events_edges_node_ticketSystem = Events_events_edges_node_ticketSystem_InternalEventTicketSystem | Events_events_edges_node_ticketSystem_TicketmasterEventTicketSystem | Events_events_edges_node_ticketSystem_LippupisteEventTicketSystem;
+export type Events_events_edges_node_ticketSystem =
+  | Events_events_edges_node_ticketSystem_InternalEventTicketSystem
+  | Events_events_edges_node_ticketSystem_TicketmasterEventTicketSystem
+  | Events_events_edges_node_ticketSystem_LippupisteEventTicketSystem;
 
 export interface Events_events_edges_node {
   /**

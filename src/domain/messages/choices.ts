@@ -24,8 +24,7 @@ export const recipientSelectionChoices: { id: RecipientId; name: string }[] = [
   },
   {
     id: 'SUBSCRIBED_TO_FREE_SPOT_NOTIFICATION',
-    name:
-      'messages.fields.recipientSelection.choices.SUBSCRIBED_TO_FREE_SPOT_NOTIFICATION.label',
+    name: 'messages.fields.recipientSelection.choices.SUBSCRIBED_TO_FREE_SPOT_NOTIFICATION.label',
   },
 ];
 

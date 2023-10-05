@@ -24,7 +24,7 @@ export const eventsDetailPage = {
   }),
   title: (name: string) => Selector('h1').withExactText(name),
   readyToggle: screen.getByText('Valmis julkaistavaksi'),
-  eventGroupLink:  (name: string) => Selector('a').withExactText(name),
+  eventGroupLink: (name: string) => Selector('a').withExactText(name),
 };
 
 const eventForm = {

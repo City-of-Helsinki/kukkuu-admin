@@ -8,57 +8,57 @@
 //==============================================================
 
 export enum EventParticipantsPerInvite {
-  CHILD_AND_1_OR_2_GUARDIANS = "CHILD_AND_1_OR_2_GUARDIANS",
-  CHILD_AND_GUARDIAN = "CHILD_AND_GUARDIAN",
-  FAMILY = "FAMILY",
+  CHILD_AND_1_OR_2_GUARDIANS = 'CHILD_AND_1_OR_2_GUARDIANS',
+  CHILD_AND_GUARDIAN = 'CHILD_AND_GUARDIAN',
+  FAMILY = 'FAMILY',
 }
 
 /**
  * An enumeration.
  */
 export enum Language {
-  EN = "EN",
-  FI = "FI",
-  SV = "SV",
+  EN = 'EN',
+  FI = 'FI',
+  SV = 'SV',
 }
 
 /**
  * An enumeration.
  */
 export enum MessageProtocol {
-  EMAIL = "EMAIL",
-  SMS = "SMS",
+  EMAIL = 'EMAIL',
+  SMS = 'SMS',
 }
 
 /**
  * An enumeration.
  */
 export enum MessageTranslationLanguageCode {
-  EN = "EN",
-  FI = "FI",
-  SV = "SV",
+  EN = 'EN',
+  FI = 'FI',
+  SV = 'SV',
 }
 
 /**
  * An enumeration.
  */
 export enum ProtocolType {
-  EMAIL = "EMAIL",
-  SMS = "SMS",
+  EMAIL = 'EMAIL',
+  SMS = 'SMS',
 }
 
 export enum RecipientSelectionEnum {
-  ALL = "ALL",
-  ATTENDED = "ATTENDED",
-  ENROLLED = "ENROLLED",
-  INVITED = "INVITED",
-  SUBSCRIBED_TO_FREE_SPOT_NOTIFICATION = "SUBSCRIBED_TO_FREE_SPOT_NOTIFICATION",
+  ALL = 'ALL',
+  ATTENDED = 'ATTENDED',
+  ENROLLED = 'ENROLLED',
+  INVITED = 'INVITED',
+  SUBSCRIBED_TO_FREE_SPOT_NOTIFICATION = 'SUBSCRIBED_TO_FREE_SPOT_NOTIFICATION',
 }
 
 export enum TicketSystem {
-  INTERNAL = "INTERNAL",
-  LIPPUPISTE = "LIPPUPISTE",
-  TICKETMASTER = "TICKETMASTER",
+  INTERNAL = 'INTERNAL',
+  LIPPUPISTE = 'LIPPUPISTE',
+  TICKETMASTER = 'TICKETMASTER',
 }
 
 export interface AddEventGroupMutationInput {

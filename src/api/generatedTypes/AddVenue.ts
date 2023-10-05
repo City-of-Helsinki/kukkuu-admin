@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AddVenueMutationInput, Language } from "./globalTypes";
+import { AddVenueMutationInput, Language } from './globalTypes';
 
 // ====================================================
 // GraphQL mutation operation: addVenue

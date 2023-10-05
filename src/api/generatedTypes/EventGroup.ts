@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { Language, EventParticipantsPerInvite } from "./globalTypes";
+import { Language, EventParticipantsPerInvite } from './globalTypes';
 
 // ====================================================
 // GraphQL query operation: EventGroup

@@ -24,10 +24,8 @@ function includes(text: string, values: string[]): boolean {
 }
 
 function buildEventGroup(overrides: any = {}) {
-  const {
-    name = 'Browser test: add event to event group',
-    ...rest
-  } = overrides;
+  const { name = 'Browser test: add event to event group', ...rest } =
+    overrides;
 
   return {
     name: `${name} ${new Date().toLocaleDateString()}`,
@@ -40,10 +38,8 @@ function buildEventGroup(overrides: any = {}) {
 }
 
 function buildEvent(overrides: any = {}) {
-  const {
-    name = 'Browser test: add event to event group',
-    ...rest
-  } = overrides;
+  const { name = 'Browser test: add event to event group', ...rest } =
+    overrides;
 
   return {
     name: `${name} ${new Date().toLocaleDateString()}`,
@@ -204,7 +200,9 @@ test('As an admin I want to be able to publish an event group', async (t) => {
   await t.click(eventsCreatePage.submitButton);
 
   // Assert that we are back on the event group details page
-  await t.expect(eventGroupsDetailPage.title.textContent).eql(publishEventGroup.name);
+  await t
+    .expect(eventGroupsDetailPage.title.textContent)
+    .eql(publishEventGroup.name);
 
   // Goto event
   await t.click(eventGroupsDetailPage.getEvent(event.name));
@@ -232,7 +230,7 @@ test('As an admin I want to be able to publish an event group', async (t) => {
   await t.click(eventGroupsDetailPage.getEvent(event.name));
   await deleteEvent(t);
 
-  // delete event group 
+  // delete event group
   await t.click(eventsListPage.eventOrEventGroupByName(publishEventGroup.name));
   await deleteEventGroup(t);
 });
