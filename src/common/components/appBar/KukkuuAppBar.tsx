@@ -23,15 +23,14 @@ const useStyles = makeStyles({
   },
 });
 
-const KukkuuAppBar = (props: any) => {
+const KukkuuAppBar = ({ className }: { className?: string }) => {
   const classes = useStyles();
 
   const isTestEnvironment = Config.IS_TEST_ENVIRONMENT;
 
   return (
     <AppBar
-      {...props}
-      className={classNames(props.className, {
+      className={classNames(className, {
         [classes.highlight]: isTestEnvironment,
       })}
     >
