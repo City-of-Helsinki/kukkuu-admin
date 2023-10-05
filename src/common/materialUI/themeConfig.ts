@@ -1,9 +1,10 @@
-import { createMuiTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles/';
+import { defaultTheme } from 'react-admin';
 
-import { adaptV4Theme } from '@mui/material/styles';
-
-const theme = createMuiTheme(adaptV4Theme({
+const theme = createTheme({
+  ...defaultTheme,
   palette: {
+    ...defaultTheme.palette,
     primary: {
       main: '#0072c6', // hds-brand-color-coat-of-arms-blue
     },
@@ -11,6 +12,6 @@ const theme = createMuiTheme(adaptV4Theme({
       main: '#ffc61e', // hds-brand-color-summer
     },
   },
-}));
+});
 
 export default theme;
