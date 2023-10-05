@@ -138,6 +138,6 @@ export const handleApiConnection = (connection: ApiConnection | Nullish) => {
   return { data, total };
 };
 
-export const handleApiNode = (node: ApiNode | Nullish) => {
+export const handleApiNode = <T extends ApiNode>(node: T | Nullish) => {
   return { data: mapApiDataToLocalData(node) };
 };
