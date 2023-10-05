@@ -11,12 +11,18 @@ import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import * as Sentry from '@sentry/browser';
+import { makeStyles } from '@mui/styles';
 
 import projectService from '../projects/projectService';
 import { getTranslatedField } from '../../common/translation/TranslationUtils';
 import { Project_project } from '../../api/generatedTypes/Project';
 
+const useStyles = makeStyles({
+  card: { marginTop: 18 },
+});
+
 const Dashboard = () => {
+  const classes = useStyles();
   const translate = useTranslate();
   const [locale] = useLocaleState();
   const notify = useNotify();
@@ -36,7 +42,7 @@ const Dashboard = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <Card>
+    <Card className={classes.card}>
       <CardHeader title={translate('dashboard.title')} />
       {data ? (
         <CardContent>
