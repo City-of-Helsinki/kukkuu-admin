@@ -17,6 +17,7 @@ type Config = {
 
 export default function useVerifyTicketQuery({ referenceId }: Config) {
   return useQuery(verifyTicketQuery, {
+    skip: !referenceId,
     variables: { referenceId },
   });
 }
