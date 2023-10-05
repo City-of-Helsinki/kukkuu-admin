@@ -5,6 +5,7 @@ import {
   SelectField,
   FunctionField,
   RaRecord,
+  Labeled,
 } from 'react-admin';
 import { get } from 'lodash';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
@@ -83,15 +84,16 @@ const MessagesList = () => {
         source="recipientCount"
         className={styles.bold}
       />
-      <PublishedField
-        label={t('messages.fields.sentAt.label')}
-        source="sentAt"
-        render={(date: Date) =>
-          `${t('messages.fields.sentAt.sent')} ${toDateTimeString(date)}`
-        }
-        emptyText={t('messages.fields.sentAt.notSent')}
-        className={styles.bold}
-      />
+      <Labeled label={t('messages.fields.sentAt.label')}>
+        <PublishedField
+          source="sentAt"
+          render={(date: Date) =>
+            `${t('messages.fields.sentAt.sent')} ${toDateTimeString(date)}`
+          }
+          emptyText={t('messages.fields.sentAt.notSent')}
+          className={styles.bold}
+        />
+      </Labeled>
     </KukkuuListPage>
   );
 };

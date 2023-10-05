@@ -42,7 +42,8 @@ const TicketValidationPage = () => {
   const styles = useStyles();
   const { cryptographicallySignedCode } = useParams<Params>();
   const { data, error, loading } = useVerifyTicketQuery({
-    referenceId: cryptographicallySignedCode,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    referenceId: cryptographicallySignedCode!,
   });
   const {
     validity: isValid,
