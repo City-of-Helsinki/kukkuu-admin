@@ -88,6 +88,7 @@ const ProfileProjectDropdown = () => {
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
         className={classes.button}
+        color="inherit"
       >
         {selectedProject.year} {selectedProject.name}
       </Button>
