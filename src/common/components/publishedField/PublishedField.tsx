@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode } from 'react';
 import Typography from '@mui/material/Typography';
-import { useLocale, useRecordContext } from 'react-admin';
+import { useLocaleState, useRecordContext } from 'react-admin';
 import get from 'lodash/get';
 
 type Props = {
@@ -17,7 +17,7 @@ const PublishedField = ({
   className,
 }: Props): ReactElement | null => {
   const record = useRecordContext();
-  const locale = useLocale();
+  const [locale] = useLocaleState();
 
   if (!record) return null;
 

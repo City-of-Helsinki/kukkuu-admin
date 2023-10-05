@@ -5,7 +5,7 @@ import {
   DateField,
   EmailField,
   useTranslate,
-  useLocale,
+  useLocaleState,
   SelectField,
   FunctionField,
   Datagrid,
@@ -26,7 +26,7 @@ import KukkuuShow from '../application/layout/kukkuuDetailPage/KukkuuShow';
 
 const ChildShow = (props: ShowProps) => {
   const translate = useTranslate();
-  const locale = useLocale();
+  const [locale] = useLocaleState();
 
   return (
     <>

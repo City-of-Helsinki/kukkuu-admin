@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Datagrid,
   DateField,
-  useLocale,
+  useLocaleState,
   EmailField,
   SelectField,
   TextField,
@@ -18,23 +18,20 @@ import KukkuuList from '../application/layout/kukkuuListPage/KukkuuList';
 
 const ChildList = (props: any) => {
   const translate = useTranslate();
-  const locale = useLocale();
+  const [locale] = useLocaleState();
 
   return (
     <>
       <CardHeader title={translate('children.list.title')} />
       <KukkuuList
-        bulkActionButtons={false}
         exporter={false}
         {...props}
         pagination={<Pagination rowsPerPageOptions={[20, 100]} />}
         perPage={20}
       >
-        <Datagrid rowClick="show">
+        <Datagrid rowClick="show" bulkActionButtons={false}>
           <FunctionField
             label="children.fields.name.label"
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-            // @ts-ignore
             render={(record?: Child) =>
               record && `${record.firstName} ${record.lastName}`.trim()
             }

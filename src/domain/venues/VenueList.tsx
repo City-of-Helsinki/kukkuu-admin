@@ -1,5 +1,5 @@
 import React from 'react';
-import { Datagrid, TextField, useTranslate, useLocale } from 'react-admin';
+import { Datagrid, TextField, useTranslate, useLocaleState } from 'react-admin';
 import { CardHeader } from '@mui/material';
 
 import { getTranslatedField } from '../../common/translation/TranslationUtils';
@@ -8,13 +8,12 @@ import KukkuuList from '../application/layout/kukkuuListPage/KukkuuList';
 
 const VenueList = (props: any) => {
   const translate = useTranslate();
-  const locale = useLocale();
+  const [locale] = useLocaleState();
 
   return (
     <>
       <CardHeader title={translate('venues.list.title')} />
       <KukkuuList
-        bulkActionButtons={false}
         pagination={false}
         exporter={false}
         aside={<Aside content="venues.list.aside.content" />}

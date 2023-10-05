@@ -4,8 +4,8 @@ import {
   useTranslate,
   useGetOne,
   Loading,
-  useLocale,
   useNotify,
+  useLocaleState,
 } from 'react-admin';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -18,7 +18,7 @@ import { Project_project } from '../../api/generatedTypes/Project';
 
 const Dashboard = () => {
   const translate = useTranslate();
-  const locale = useLocale();
+  const [locale] = useLocaleState();
   const notify = useNotify();
 
   const { data, isLoading } = useGetOne<Project_project>(
