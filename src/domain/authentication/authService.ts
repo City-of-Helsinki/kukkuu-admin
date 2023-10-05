@@ -18,7 +18,6 @@ export class AuthService {
   private userManager: UserManager;
 
   constructor() {
-    /* eslint-disable @typescript-eslint/camelcase */
     const settings: UserManagerSettings = {
       loadUserInfo: true,
       userStore: new WebStorageStateStore({ store: window.localStorage }),
@@ -33,7 +32,6 @@ export class AuthService {
       scope: process.env.REACT_APP_OIDC_SCOPE,
       post_logout_redirect_uri: `${origin}/`,
     };
-    /* eslint-enable @typescript-eslint/camelcase */
 
     // Show oidc debugging info in the console only while developing
     if (process.env.NODE_ENV === 'development') {
@@ -143,4 +141,6 @@ export class AuthService {
   }
 }
 
-export default new AuthService();
+const authServiceInstance = new AuthService();
+
+export default authServiceInstance;

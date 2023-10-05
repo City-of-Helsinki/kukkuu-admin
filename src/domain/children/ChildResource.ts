@@ -1,7 +1,9 @@
 import ChildList from './ChildList';
 import ChildShow from './ChildShow';
 
-export default {
+const childResource = {
   List: ChildList,
   Detail: ChildShow,
 };
+
+export default childResource;
