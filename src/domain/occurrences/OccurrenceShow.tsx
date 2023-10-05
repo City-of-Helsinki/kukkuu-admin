@@ -5,7 +5,7 @@ import {
   DateField,
   Datagrid,
   ReferenceField,
-  useLocale,
+  useLocaleState,
   useTranslate,
   SimpleShowLayout,
   EmailField,
@@ -98,7 +98,7 @@ export const getChildFullName = (enrolmentEdge: EnrolmentEdge) =>
   `${enrolmentEdge.node?.child?.firstName} ${enrolmentEdge.node?.child?.lastName}`.trim();
 
 const OccurrenceShow = () => {
-  const locale = useLocale();
+  const [locale] = useLocaleState();
   const translate = useTranslate();
   const { id } = useParams();
   return (

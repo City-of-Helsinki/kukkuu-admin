@@ -11,7 +11,7 @@ import {
   ReferenceManyField,
   Datagrid,
   ReferenceField,
-  useLocale,
+  useLocaleState,
   Button,
   RaRecord,
   UrlField,
@@ -111,7 +111,7 @@ const ImportTicketmasterPasswordsControls = ({
 };
 
 const EventShow = () => {
-  const locale = useLocale();
+  const [locale] = useLocaleState();
   const [language, selectLanguage] = useState(Language.FI);
   const t = useTranslate();
   const record = useRecordContext<AdminEvent>();

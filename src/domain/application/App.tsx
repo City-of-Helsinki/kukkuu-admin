@@ -47,17 +47,12 @@ const App = () => {
     <BrowserRouter>
       <Admin
         layout={KukkuuLayout}
-        // FIXME: In version 3.9.0 typescript support was added into
-        // react-admin and our implementation of dataProvider is not type
-        // compatible.
         dataProvider={dataProvider as DataProvider}
         queryClient={queryClient}
         i18nProvider={i18nProvider}
         theme={theme}
         dashboard={Dashboard}
         authProvider={authProvider}
-        // react-admin does not export types for LoginPage yet, so the
-        // prop type is incorrect
         loginPage={LoginPage}
       >
         <CustomRoutes noLayout>
