@@ -8,12 +8,10 @@ import Menu from '@mui/material/Menu';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 // eslint-disable-next-line max-len
-import {
-  MyAdminProfile_myAdminProfile,
-  MyAdminProfile_myAdminProfile_projects_edges_node as ProjectNode,
-} from '../../api/generatedTypes/MyAdminProfile';
+import { MyAdminProfile_myAdminProfile_projects_edges_node as ProjectNode } from '../../api/generatedTypes/MyAdminProfile';
 import RelayList from '../../api/relayList';
 import projectService from '../projects/projectService';
+import extendedDataProvider from '../../api/dataProvider';
 
 const ProjectList = RelayList<ProjectNode>();
 
@@ -26,16 +24,12 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileProjectDropdown = () => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
-  // const { loading, error, data } = useQueryWithStore({
-  //   type: 'getMyAdminProfile',
-  //   resource: 'profiles',
-  //   payload: {},
-  // });
-  // NOTE: Migrated in KK-1017 - Can be wrong, so check carefully!
-  const dataProvider = useDataProvider();
-  const { isLoading, error, data } = useQuery<MyAdminProfile_myAdminProfile>(
-    dataProvider.getMyAdminProfile
-  );
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const dataProvider = useDataProvider<typeof extendedDataProvider>();
+  const { isLoading, error, data } = useQuery({
+    queryFn: dataProvider.getMyAdminProfile,
+  });
   const refresh = useRefresh();
   const classes = useStyles();
 
@@ -64,7 +58,7 @@ const ProfileProjectDropdown = () => {
     return null;
   }
 
-  const projects = ProjectList(data?.projects).items;
+  const projects = ProjectList(data?.data?.projects).items;
 
   if (!projects || projects.length === 0) {
     return null;
