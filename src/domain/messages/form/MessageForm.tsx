@@ -152,7 +152,6 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
                 label="messages.fields.event.label"
                 fullWidth
                 className={classes.fullWidth}
-                allowEmpty
                 emptyValue="all"
                 emptyText="messages.fields.event.all"
                 InputLabelProps={{
