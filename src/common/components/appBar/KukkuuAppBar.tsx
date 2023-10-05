@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     flex: 1,
   },
   highlight: {
-    backgroundColor: '#00D7A7',
+    backgroundColor: '#00D7A7 !important',
   },
 });
 
