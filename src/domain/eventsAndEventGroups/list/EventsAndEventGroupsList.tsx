@@ -10,6 +10,7 @@ import {
   useGetOne,
   usePermissions,
   Identifier,
+  Labeled,
 } from 'react-admin';
 import { makeStyles } from '@mui/styles';
 
@@ -201,17 +202,20 @@ const EventsAndEventGroupsList = () => {
           );
         }}
       />
-      <PublishedField
-        label={translate('events.fields.publishedAt.label')}
-        source="publishedAt"
-        render={(date: Date) =>
-          `${translate(
-            'events.fields.publishedAt.published.label'
-          )} ${toDateTimeString(date)}`
-        }
-        emptyText={translate('events.fields.publishedAt.values.NOT_PUBLISHED')}
-        className={classes.bold}
-      />
+      <Labeled label={translate('events.fields.publishedAt.label')}>
+        <PublishedField
+          source="publishedAt"
+          render={(date: Date) =>
+            `${translate(
+              'events.fields.publishedAt.published.label'
+            )} ${toDateTimeString(date)}`
+          }
+          emptyText={translate(
+            'events.fields.publishedAt.values.NOT_PUBLISHED'
+          )}
+          className={classes.bold}
+        />
+      </Labeled>
     </KukkuuListPage>
   );
 };
