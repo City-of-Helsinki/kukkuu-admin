@@ -3,9 +3,11 @@ import VenueShow from './VenueShow';
 import VenueEdit from './VenueEdit';
 import VenueCreate from './VenueCreate';
 
-export default {
+const venuesResource = {
   List: VenueList,
   Detail: VenueShow,
   Edit: VenueEdit,
   Create: VenueCreate,
 };
+
+export default venuesResource;

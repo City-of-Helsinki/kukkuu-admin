@@ -2,8 +2,10 @@ import OccurrenceCreate from './OccurrenceCreate';
 import OccurrenceShow from './OccurrenceShow';
 import OccurrenceEdit from './OccurrenceEdit';
 
-export default {
+const occurrencesResource = {
   Create: OccurrenceCreate,
   Detail: OccurrenceShow,
   Edit: OccurrenceEdit,
 };
+
+export default occurrencesResource;

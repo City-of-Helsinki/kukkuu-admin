@@ -1,5 +1,7 @@
 import EventsAndEventGroupsList from '../eventsAndEventGroups/list/EventsAndEventGroupsList';
 
-export default {
+const eventsAndEventGroupsResource = {
   List: EventsAndEventGroupsList,
 };
+
+export default eventsAndEventGroupsResource;
