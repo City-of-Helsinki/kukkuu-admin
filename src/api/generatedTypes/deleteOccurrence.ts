@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { DeleteOccurrenceMutationInput } from "./globalTypes";
+import { DeleteOccurrenceMutationInput } from './globalTypes';
 
 // ====================================================
 // GraphQL mutation operation: deleteOccurrence

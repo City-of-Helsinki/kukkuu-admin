@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { EventParticipantsPerInvite } from "./globalTypes";
+import { EventParticipantsPerInvite } from './globalTypes';
 
 // ====================================================
 // GraphQL query operation: EventsAndEventGroups
@@ -117,7 +117,9 @@ export interface EventsAndEventGroups_eventsAndEventGroups_edges_node_EventGroup
   events: EventsAndEventGroups_eventsAndEventGroups_edges_node_EventGroupNode_events;
 }
 
-export type EventsAndEventGroups_eventsAndEventGroups_edges_node = EventsAndEventGroups_eventsAndEventGroups_edges_node_EventNode | EventsAndEventGroups_eventsAndEventGroups_edges_node_EventGroupNode;
+export type EventsAndEventGroups_eventsAndEventGroups_edges_node =
+  | EventsAndEventGroups_eventsAndEventGroups_edges_node_EventNode
+  | EventsAndEventGroups_eventsAndEventGroups_edges_node_EventGroupNode;
 
 export interface EventsAndEventGroups_eventsAndEventGroups_edges {
   /**

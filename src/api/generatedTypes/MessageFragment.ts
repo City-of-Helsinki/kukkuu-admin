@@ -3,7 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { RecipientSelectionEnum, MessageProtocol, MessageTranslationLanguageCode } from "./globalTypes";
+import {
+  RecipientSelectionEnum,
+  MessageProtocol,
+  MessageTranslationLanguageCode,
+} from './globalTypes';
 
 // ====================================================
 // GraphQL fragment: MessageFragment

@@ -7,7 +7,10 @@ export const user = {
   username: `${testUsername()}`,
   password: `${testUserPassword()}`,
   selectByUsername: Selector('tr').withText(`${testUsername()}`),
-  selectByEmail: Selector('.field-email').withText(`${testUsername()}`).sibling('.field-username').child('a'),
+  selectByEmail: Selector('.field-email')
+    .withText(`${testUsername()}`)
+    .sibling('.field-username')
+    .child('a'),
   // user change
   staffStatus: screen.getByLabelText(/Ylläpitäjä|Staff status/i),
   staffStatusCheckbox: Selector('#id_is_staff'),
@@ -36,14 +39,12 @@ export const tunnistamoUserAccesses = async (t: TestController) => {
   await t.click(user.selectByEmail);
 
   // these needs to be checked
-  if (! (await user.staffStatusCheckbox.checked)) {
-    await t.click(user.staffStatus)
+  if (!(await user.staffStatusCheckbox.checked)) {
+    await t.click(user.staffStatus);
   }
-  if (! (await user.superUserStatusCheckbox.checked)) {
-    await t.click(user.superUserStatus)
+  if (!(await user.superUserStatusCheckbox.checked)) {
+    await t.click(user.superUserStatus);
   }
 
-  await t
-    .click(user.chooseAllPermissions)
-    .click(user.saveButton);
+  await t.click(user.chooseAllPermissions).click(user.saveButton);
 };

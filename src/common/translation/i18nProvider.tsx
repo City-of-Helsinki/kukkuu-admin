@@ -19,7 +19,6 @@ function hideIdFromDeleteConfirmation(domainMessages: any, raMessages: any) {
       ...raMessages.ra,
       message: {
         ...raMessages.ra.message,
-        // eslint-disable-next-line @typescript-eslint/camelcase
         delete_title: domainMessages.ra.message.delete_title,
       },
     },
