@@ -3,7 +3,12 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AddEventMutationInput, EventParticipantsPerInvite, TicketSystem, Language } from "./globalTypes";
+import {
+  AddEventMutationInput,
+  EventParticipantsPerInvite,
+  TicketSystem,
+  Language,
+} from './globalTypes';
 
 // ====================================================
 // GraphQL mutation operation: AddEvent
@@ -25,7 +30,10 @@ export interface AddEvent_addEvent_event_ticketSystem_LippupisteEventTicketSyste
   endTime: any | null;
 }
 
-export type AddEvent_addEvent_event_ticketSystem = AddEvent_addEvent_event_ticketSystem_InternalEventTicketSystem | AddEvent_addEvent_event_ticketSystem_TicketmasterEventTicketSystem | AddEvent_addEvent_event_ticketSystem_LippupisteEventTicketSystem;
+export type AddEvent_addEvent_event_ticketSystem =
+  | AddEvent_addEvent_event_ticketSystem_InternalEventTicketSystem
+  | AddEvent_addEvent_event_ticketSystem_TicketmasterEventTicketSystem
+  | AddEvent_addEvent_event_ticketSystem_LippupisteEventTicketSystem;
 
 export interface AddEvent_addEvent_event_translations {
   languageCode: Language;

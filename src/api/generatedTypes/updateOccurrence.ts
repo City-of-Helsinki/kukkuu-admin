@@ -3,7 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { UpdateOccurrenceMutationInput, Language, TicketSystem } from "./globalTypes";
+import {
+  UpdateOccurrenceMutationInput,
+  Language,
+  TicketSystem,
+} from './globalTypes';
 
 // ====================================================
 // GraphQL mutation operation: updateOccurrence
@@ -106,7 +110,10 @@ export interface updateOccurrence_updateOccurrence_occurrence_ticketSystem_Lippu
   url: string;
 }
 
-export type updateOccurrence_updateOccurrence_occurrence_ticketSystem = updateOccurrence_updateOccurrence_occurrence_ticketSystem_InternalOccurrenceTicketSystem | updateOccurrence_updateOccurrence_occurrence_ticketSystem_TicketmasterOccurrenceTicketSystem | updateOccurrence_updateOccurrence_occurrence_ticketSystem_LippupisteOccurrenceTicketSystem;
+export type updateOccurrence_updateOccurrence_occurrence_ticketSystem =
+  | updateOccurrence_updateOccurrence_occurrence_ticketSystem_InternalOccurrenceTicketSystem
+  | updateOccurrence_updateOccurrence_occurrence_ticketSystem_TicketmasterOccurrenceTicketSystem
+  | updateOccurrence_updateOccurrence_occurrence_ticketSystem_LippupisteOccurrenceTicketSystem;
 
 export interface updateOccurrence_updateOccurrence_occurrence {
   /**

@@ -3,7 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { EventParticipantsPerInvite, Language, TicketSystem } from "./globalTypes";
+import {
+  EventParticipantsPerInvite,
+  Language,
+  TicketSystem,
+} from './globalTypes';
 
 // ====================================================
 // GraphQL query operation: Event
@@ -78,7 +82,10 @@ export interface Event_event_ticketSystem_LippupisteEventTicketSystem {
   endTime: any | null;
 }
 
-export type Event_event_ticketSystem = Event_event_ticketSystem_InternalEventTicketSystem | Event_event_ticketSystem_TicketmasterEventTicketSystem | Event_event_ticketSystem_LippupisteEventTicketSystem;
+export type Event_event_ticketSystem =
+  | Event_event_ticketSystem_InternalEventTicketSystem
+  | Event_event_ticketSystem_TicketmasterEventTicketSystem
+  | Event_event_ticketSystem_LippupisteEventTicketSystem;
 
 export interface Event_event {
   /**

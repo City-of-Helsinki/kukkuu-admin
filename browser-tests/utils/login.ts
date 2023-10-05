@@ -23,9 +23,7 @@ type Options = {
 
 export const login = async (t: TestController, options: Options = {}) => {
   const { username = testUsername(), password = testUserPassword() } = options;
-  await t
-    .click(loginPage.loginButton)
-    .click(ssoLogin.loginLink);
+  await t.click(loginPage.loginButton).click(ssoLogin.loginLink);
 
   // select locale English
   await selectLoginLanguage(t, ssoLogin.localeLanguage);

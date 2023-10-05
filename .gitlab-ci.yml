@@ -65,4 +65,4 @@ staging:
 
 production:
   variables:
-    DOCKER_IMAGE_NAME: "$CI_PROJECT_NAME-production"
+    DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-production'

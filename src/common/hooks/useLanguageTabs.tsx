@@ -13,7 +13,7 @@ function useLanguageTabs(
   ReactElement | null,
   (fieldName: string) => string,
   Language,
-  (language: Language) => void
+  (language: Language) => void,
 ] {
   const enabled = options?.enabled ?? true;
   const [selectedLanguage, selectLanguage] = useState(Language.FI);

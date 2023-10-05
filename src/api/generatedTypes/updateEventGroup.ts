@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { UpdateEventGroupMutationInput } from "./globalTypes";
+import { UpdateEventGroupMutationInput } from './globalTypes';
 
 // ====================================================
 // GraphQL mutation operation: updateEventGroup

@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AddMessageMutationInput } from "./globalTypes";
+import { AddMessageMutationInput } from './globalTypes';
 
 // ====================================================
 // GraphQL mutation operation: AddMessage
