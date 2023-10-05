@@ -33,7 +33,6 @@ const KukkuuListPage = ({
     <>
       <KukkuuPageTitle>{pageTitle}</KukkuuPageTitle>
       <KukkuuList
-        bulkActionButtons={false}
         pagination={false}
         exporter={false}
         {...reactAdminProps}
