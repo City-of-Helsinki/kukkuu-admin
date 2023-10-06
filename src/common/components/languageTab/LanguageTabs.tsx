@@ -25,18 +25,16 @@ const LanguageTabs: React.FunctionComponent<{
   const translate = useTranslate();
 
   return (
-    <>
-      <Tabs
-        indicatorColor="secondary"
-        value={selectedLanguage}
-        onChange={(e, value) => onSelect(value)}
-        className={styles.languageTabs}
-      >
-        <Tab value={Language.FI} label={translate('languages.FI')} />
-        <Tab value={Language.SV} label={translate('languages.SV')} />
-        <Tab value={Language.EN} label={translate('languages.EN')} />
-      </Tabs>
-    </>
+    <Tabs
+      indicatorColor="secondary"
+      value={selectedLanguage}
+      onChange={(e, value) => onSelect(value)}
+      className={styles.languageTabs}
+    >
+      <Tab value={Language.FI} label={translate('languages.FI')} />
+      <Tab value={Language.SV} label={translate('languages.SV')} />
+      <Tab value={Language.EN} label={translate('languages.EN')} />
+    </Tabs>
   );
 };
 

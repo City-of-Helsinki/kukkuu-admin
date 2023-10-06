@@ -1,42 +1,15 @@
 import React from 'react';
-import {
-  TextInput,
-  SimpleForm,
-  SelectInput,
-  NumberInput,
-  required,
-  useTranslate,
-  FormDataConsumer,
-  DateTimeInput,
-} from 'react-admin';
+import { useTranslate } from 'react-admin';
 import { useLocation } from 'react-router-dom';
 
-import {
-  Language,
-  TicketSystem,
-} from '../../../api/generatedTypes/globalTypes';
-import ImageUploadField from '../../../common/components/imageField/ImageUploadField';
 import Aside from '../../../common/components/aside/Aside';
-import useLanguageTabs from '../../../common/hooks/useLanguageTabs';
 import KukkuuCreatePage from '../../application/layout/kukkuuCreatePage/KukkuuCreatePage';
-import {
-  validateCapacityPerOccurrence,
-  validateDuration,
-  validateEvent,
-  validateParticipantsPerInvite,
-  validateShortDescription,
-  validateUrl,
-} from '../validations';
-import { participantsPerInviteChoices, ticketSystemChoices } from '../choices';
-import { hasInternalTicketSystem } from '../utils';
-import Config from '../../config';
+import EventForm from '../eventForm/EventForm';
 
 const EventCreate = () => {
   const { search } = useLocation();
   const eventGroupId = new URLSearchParams(search).get('eventGroupId');
   const translate = useTranslate();
-  const [languageTabsComponent, translatableField, selectedLanguage] =
-    useLanguageTabs();
 
   const transform = (data: any) => {
     return {
@@ -57,123 +30,7 @@ const EventCreate = () => {
         redirect,
       }}
     >
-      <SimpleForm
-        // TODO: refactor form validate with YUP
-        // https://marmelab.com/react-admin/Upgrade.html#input-level-validation-now-triggers-on-submit
-        validate={validateEvent}
-      >
-        {languageTabsComponent}
-        <ImageUploadField
-          variant="outlined"
-          edit
-          source="image"
-          image="image"
-          helperText="events.fields.image.helperText"
-        />
-        <TextInput
-          variant="outlined"
-          source={translatableField('imageAltText')}
-          label="events.fields.imageAltText.label"
-          helperText="events.fields.imageAltText.helperText"
-          fullWidth
-        />
-        <TextInput
-          variant="outlined"
-          source={translatableField('name')}
-          label="events.fields.name.label"
-          validate={selectedLanguage === Language.FI ? required() : undefined}
-          fullWidth
-        />
-        <TextInput
-          variant="outlined"
-          source={translatableField('shortDescription')}
-          label="events.fields.shortDescription.label"
-          helperText="events.fields.shortDescription.helperText"
-          validate={validateShortDescription}
-          multiline
-          fullWidth
-        />
-        <TextInput
-          variant="outlined"
-          source={translatableField('description')}
-          label="events.fields.description.label"
-          helperText="events.fields.description.helperText"
-          multiline
-          fullWidth
-        />
-        <SelectInput
-          variant="outlined"
-          source="participantsPerInvite"
-          label="events.fields.participantsPerInvite.label"
-          helperText="events.fields.participantsPerInvite.helperText"
-          choices={participantsPerInviteChoices}
-          validate={validateParticipantsPerInvite}
-          fullWidth
-        />
-        {Config.featureFlagExternalTicketSystemSupport && (
-          <SelectInput
-            variant="outlined"
-            source="ticketSystem.type"
-            label="events.fields.ticketSystem.label"
-            choices={ticketSystemChoices}
-            defaultValue={TicketSystem.INTERNAL}
-            fullWidth
-          />
-        )}
-        <FormDataConsumer>
-          {({ formData, ...rest }) =>
-            hasInternalTicketSystem(formData)
-              ? [
-                  <NumberInput
-                    variant="outlined"
-                    source="duration"
-                    key="duration"
-                    label="events.fields.duration.label"
-                    helperText="events.fields.duration.helperText"
-                    validate={validateDuration}
-                    style={{ width: '100%' }}
-                    {...rest}
-                  />,
-                  <NumberInput
-                    variant="outlined"
-                    source="capacityPerOccurrence"
-                    key="capacityPerOccurrence"
-                    label="events.fields.capacityPerOccurrence.label"
-                    helperText="events.fields.capacityPerOccurrence.helperText"
-                    validate={validateCapacityPerOccurrence}
-                    style={{ width: '100%' }}
-                    {...rest}
-                    // aria-describedby should be set automatically but it is not.
-                    // Seems like a bug related to FormDataConsumer.
-                    aria-describedby="capacityPerOccurrence-helper-text"
-                    id="capacityPerOccurrence"
-                  />,
-                ]
-              : [
-                  <TextInput
-                    variant="outlined"
-                    source="ticketSystem.url"
-                    key="ticketSystemUrl"
-                    label="events.fields.ticketSystemUrl.label"
-                    validate={validateUrl}
-                    style={{ width: '100%' }}
-                    {...rest}
-                  />,
-                  <DateTimeInput
-                    variant="outlined"
-                    source="ticketSystem.endTime"
-                    key="ticketSystemEndTime"
-                    label="events.fields.ticketSystemEndTime.label"
-                    helperText="events.fields.ticketSystemEndTime.helperText"
-                    style={{ width: '100%' }}
-                    {...rest}
-                    aria-describedby="ticketSystemEndTime-helper-text"
-                    id="ticketSystemEndTime"
-                  />,
-                ]
-          }
-        </FormDataConsumer>
-      </SimpleForm>
+      <EventForm view="create" />
     </KukkuuCreatePage>
   );
 };
