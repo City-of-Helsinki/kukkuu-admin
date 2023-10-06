@@ -5,6 +5,7 @@ import {
   DatagridCell,
   useRecordContext,
   useResourceContext,
+  RecordContextProvider,
 } from 'react-admin';
 import get from 'lodash/get';
 import { makeStyles } from '@mui/styles';
@@ -81,17 +82,19 @@ const LocalDataGrid = ({ children, source, rowClick }: any) => {
               children,
               (field, index) =>
                 field && (
-                  <DatagridCell
-                    key={`${localRecord.id}-${
-                      (field.props as any).source || index
-                    }`}
-                    className={[
-                      `column-${(field.props as any).source}`,
-                      classes.rowCell,
-                    ].join(' ')}
-                    record={localRecord}
-                    {...{ field, basePath, resource }}
-                  />
+                  <RecordContextProvider value={localRecord}>
+                    <DatagridCell
+                      key={`${localRecord.id}-${
+                        (field.props as any).source || index
+                      }`}
+                      className={[
+                        `column-${(field.props as any).source}`,
+                        classes.rowCell,
+                      ].join(' ')}
+                      record={localRecord}
+                      {...{ field, basePath, resource }}
+                    />
+                  </RecordContextProvider>
                 )
             )}
           </TableRow>

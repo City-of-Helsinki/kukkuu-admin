@@ -1,12 +1,15 @@
 import { sum } from '../../common/utils';
 import { TicketSystem } from '../../api/generatedTypes/globalTypes';
+import { EventGroup_eventGroup } from '../../api/generatedTypes/EventGroup';
+import { EventFragment as EventNode } from '../../api/generatedTypes/EventFragment';
+import RelayList from '../../api/relayList';
 
 // Using minimum types so that events of different compositions can be
 // used with the utility.
 type Occurrence = {
   capacityOverride?: number | null;
 };
-type CapacityEventNode = {
+export type CapacityEventNode = {
   capacityPerOccurrence: number | null;
   occurrences: {
     edges: ({
@@ -17,6 +20,17 @@ type CapacityEventNode = {
 type CapacityEventNodeWithCapacityPerOccurrence = CapacityEventNode & {
   capacityPerOccurrence: number;
 };
+
+export function getEventGroupEventNodes<ResultType = any>(
+  eventGroup: EventGroup_eventGroup
+) {
+  return eventGroup.events.edges?.reduce((result: ResultType[], edge) => {
+    if (edge?.node) {
+      result.push(edge.node as ResultType);
+    }
+    return result;
+  }, []);
+}
 
 export function countCapacity(...events: CapacityEventNode[]): number | null {
   const eventsWithCapacities = events.filter(
@@ -30,7 +44,7 @@ export function countCapacity(...events: CapacityEventNode[]): number | null {
 
   const occurrenceCapacities = eventsWithCapacities.flatMap(
     ({ capacityPerOccurrence, occurrences }) => {
-      return occurrences.edges.map((occurrenceEdge) => {
+      return occurrences.edges?.map((occurrenceEdge) => {
         const capacityOverride = occurrenceEdge?.node?.capacityOverride;
 
         return capacityOverride ?? capacityPerOccurrence;
@@ -53,7 +67,7 @@ export function countOccurrences(...events: CountEventNode[]): number {
   );
 }
 
-type EnrollmentsCountEventNode = {
+export type EnrollmentsCountEventNode = {
   occurrences: {
     edges: (null | {
       node: {
@@ -67,12 +81,12 @@ export function countEnrollments(
   ...events: EnrollmentsCountEventNode[]
 ): number {
   return sum(
-    events.map((event) =>
+    events?.map((event) =>
       event.occurrences.edges.reduce(
         (sum: number, edge) => sum + (edge?.node?.enrolmentCount ?? 0),
         0
       )
-    )
+    ) ?? 0
   );
 }
 
@@ -86,3 +100,5 @@ export function hasInternalTicketSystem(record?: RecordWithTicketSystem) {
   const type = record?.ticketSystem?.type;
   return type ? type === TicketSystem.INTERNAL : true;
 }
+
+export const EventList = RelayList<EventNode>();
