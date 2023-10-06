@@ -47,8 +47,11 @@ interface AddOccurrenceButtonProps extends WithStyles<typeof styles> {
   record?: Occurrence;
 }
 
-const AddOccurrenceButton = withStyles(styles)(
-  ({ classes, record }: AddOccurrenceButtonProps) => (
+const AddOccurrenceButton = withStyles(styles)(({
+  classes,
+}: AddOccurrenceButtonProps) => {
+  const record = useRecordContext();
+  return (
     <Button
       component={Link}
       className={classes.button}
@@ -60,8 +63,8 @@ const AddOccurrenceButton = withStyles(styles)(
     >
       <AddIcon />
     </Button>
-  )
-);
+  );
+});
 
 interface ImportTicketSystemPasswordsButtonProps
   extends WithStyles<typeof styles> {
