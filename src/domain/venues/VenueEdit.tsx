@@ -46,7 +46,7 @@ const VenueEdit = () => {
             validate={validateVenue}
             toolbar={<VenueEditToolbar />}
           >
-            <ViewTitle source={`${translation}.name`} />
+            <ViewTitle />
             <LanguageTabs
               selectedLanguage={selectedLanguage}
               onSelect={selectLanguage}
