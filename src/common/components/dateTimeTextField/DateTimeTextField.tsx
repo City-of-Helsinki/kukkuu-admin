@@ -1,5 +1,10 @@
 import React from 'react';
-import { InputProps, useInput, useTranslate } from 'react-admin';
+import {
+  InputProps,
+  useInput,
+  useRecordContext,
+  useTranslate,
+} from 'react-admin';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 import { makeStyles } from '@mui/styles';
 import moment from 'moment-timezone';
@@ -10,7 +15,9 @@ const useStyles = makeStyles({
   textFieldInput: { width: '100%' },
 });
 
-const BoundedTextField = (props: InputProps & TextFieldProps) => {
+export type BoundedTextFieldProps = InputProps & TextFieldProps;
+
+const BoundedTextField = (props: BoundedTextFieldProps) => {
   const translate = useTranslate();
   const classes = useStyles();
 
@@ -55,14 +62,15 @@ const validateTime = (value: string) => {
     : 'occurrences.fields.time.fields.time.errorMessage';
 };
 
-const DateTimeTextInput = (props: any) => {
-  const defaultDate = props.record.time
-    ? moment(props.record.time).format('D.M.YYYY')
-    : '';
+const DateTimeTextInput = ({
+  variant,
+  required,
+  disabled,
+}: Pick<BoundedTextFieldProps, 'variant' | 'required' | 'disabled'>) => {
+  const record = useRecordContext();
+  const defaultDate = record.time ? moment(record.time).format('D.M.YYYY') : '';
 
-  const defaultTime = props.record.time
-    ? moment(props.record.time).format('HH:mm')
-    : '';
+  const defaultTime = record.time ? moment(record.time).format('HH:mm') : '';
 
   const classes = useStyles();
   const translate = useTranslate();
@@ -84,9 +92,9 @@ const DateTimeTextInput = (props: any) => {
             name="date"
             label={dateLabel}
             defaultValue={defaultDate}
-            required={props.required}
-            variant={props.variant}
-            disabled={props.disabled}
+            required={required}
+            variant={variant}
+            disabled={disabled}
           />
         </Grid>
         <Grid item md={6}>
@@ -96,9 +104,9 @@ const DateTimeTextInput = (props: any) => {
             name="timeField"
             label={timeLabel}
             defaultValue={defaultTime}
-            required={props.required}
-            variant={props.variant}
-            disabled={props.disabled}
+            required={required}
+            variant={variant}
+            disabled={disabled}
           />
         </Grid>
       </Grid>
