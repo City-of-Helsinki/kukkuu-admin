@@ -5,15 +5,20 @@ import {
   SelectInput,
   ReferenceInput,
   required,
+  Loading,
 } from 'react-admin';
 import Grid from '@mui/material/Grid';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import DateTimeTextInput from '../../common/components/dateTimeTextField/DateTimeTextField';
 import { OccurrenceCapacityOverrideInput } from './inputs';
 
 const OccurrenceCreateForm = () => {
-  const { event_id: eventId } = useParams();
+  const location = useLocation();
+  const eventId = new URLSearchParams(location.search).get('event_id');
+
+  if (!eventId) return <Loading />;
+
   return (
     <SimpleForm defaultValues={{ eventId }}>
       <DateTimeTextInput variant="outlined" required />
@@ -36,7 +41,8 @@ const OccurrenceCreateForm = () => {
 };
 
 const OccurrenceCreate = () => {
-  const { event_id: eventId } = useParams();
+  const location = useLocation();
+  const eventId = new URLSearchParams(location.search).get('event_id');
   return (
     <Grid container direction="column" xs={6} item>
       <Create

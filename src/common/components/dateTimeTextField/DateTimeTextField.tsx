@@ -68,9 +68,11 @@ const DateTimeTextInput = ({
   disabled,
 }: Pick<BoundedTextFieldProps, 'variant' | 'required' | 'disabled'>) => {
   const record = useRecordContext();
-  const defaultDate = record.time ? moment(record.time).format('D.M.YYYY') : '';
+  const defaultDate = record?.time
+    ? moment(record.time).format('D.M.YYYY')
+    : '';
 
-  const defaultTime = record.time ? moment(record.time).format('HH:mm') : '';
+  const defaultTime = record?.time ? moment(record.time).format('HH:mm') : '';
 
   const classes = useStyles();
   const translate = useTranslate();
