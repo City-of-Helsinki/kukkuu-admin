@@ -144,8 +144,8 @@ const EventShow = () => {
       pageTitleSource="name"
     >
       <TabbedShowLayout>
-        <Tab label={'events.show.tab.label'}>
-          <ViewTitle source="events.show.tab.label" />
+        <Tab label="events.show.tab.label">
+          <ViewTitle />
           <LanguageTabs selectedLanguage={language} onSelect={selectLanguage} />
           <ImageField source="image" />
           <TextField
