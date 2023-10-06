@@ -19,7 +19,7 @@ const EventEdit = () => {
           title={'events.edit.title'}
           redirect="show"
         >
-          <ViewTitle source={'events.edit.title'} />
+          <ViewTitle />
           <EventForm view="edit" />
         </KukkuuEdit>
       </Grid>
