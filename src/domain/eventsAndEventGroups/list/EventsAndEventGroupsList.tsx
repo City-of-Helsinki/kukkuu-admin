@@ -20,11 +20,10 @@ import {
   EventsAndEventGroups_eventsAndEventGroups_edges_node as EventOrEventGroupNode,
 } from '../../../api/generatedTypes/EventsAndEventGroups';
 import { EventFragment as EventNode } from '../../../api/generatedTypes/EventFragment';
-import RelayList from '../../../api/relayList';
 import { toDateTimeString } from '../../../common/utils';
 import PublishedField from '../../../common/components/publishedField/PublishedField';
 import KukkuuListPage from '../../application/layout/kukkuuListPage/KukkuuListPage';
-import { countCapacity, countOccurrences } from '../../events/utils';
+import { EventList, countCapacity, countOccurrences } from '../../events/utils';
 import projectService from '../../projects/projectService';
 import { Project_project } from '../../../api/generatedTypes/Project';
 
@@ -65,8 +64,6 @@ const EventsAndEventGroupsListToolbar = () => {
     </TopToolbar>
   );
 };
-
-const EventList = RelayList<EventNode>();
 
 function when(
   record: EventOrEventGroupNode,
