@@ -10,7 +10,7 @@ import {
 import { makeStyles } from '@mui/styles';
 import { useNavigate } from 'react-router';
 
-import { EventGroup_eventGroup_events_edges_node as EventNode } from '../../../api/generatedTypes/EventGroup';
+import { EventGroup_eventGroup } from '../../../api/generatedTypes/EventGroup';
 import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPageLayout';
 import KukkuuDetailPage from '../../application/layout/kukkuuDetailPage/KukkuuDetailPage';
 import LocalDataGrid from '../../../common/components/localDataGrid/LocalDataGrid';
@@ -62,8 +62,8 @@ const EventGroupsDetail = () => {
         <FunctionField
           label="events.fields.totalCapacity.label"
           textAlign="right"
-          render={(record?: RaRecord) =>
-            countCapacity(record as EventNode) ??
+          render={(record?: EventGroup_eventGroup) =>
+            countCapacity(record as any) ??
             t('events.fields.totalCapacity.unknown')
           }
         />
@@ -74,12 +74,14 @@ const EventGroupsDetail = () => {
         <FunctionField
           label="events.fields.numOfEnrolments.label"
           textAlign="right"
-          render={(record?: RaRecord) => countEnrollments(record as EventNode)}
+          render={(record?: EventGroup_eventGroup) =>
+            record ? countEnrollments(record as any) : null
+          }
         />
         <FunctionField
           headerClassName={classes.center}
           label="events.fields.ready.label2"
-          render={(record?: RaRecord) => (
+          render={(record: EventGroup_eventGroup) => (
             <EventReadyField record={record} className={classes.center} />
           )}
         />
