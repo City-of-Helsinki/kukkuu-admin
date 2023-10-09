@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   TextInput,
   SimpleForm,
@@ -12,11 +12,11 @@ import {
 import { CardHeader, Grid } from '@mui/material';
 
 import { Language } from '../../api/generatedTypes/globalTypes';
-import LanguageTabs from '../../common/components/languageTab/LanguageTabs';
 import ViewTitle from '../../common/components/viewTitle/ViewTitle';
 import KukkuuEdit from '../application/layout/kukkuuEditPage/KukkuuEdit';
 import { validateVenue } from './validations';
 import { Venue_venue } from '../../api/generatedTypes/Venue';
+import useLanguageTabs from '../../common/hooks/useLanguageTabs';
 
 const VenueEditToolbar = () => {
   const record = useRecordContext<Venue_venue>();
@@ -32,8 +32,8 @@ const VenueEditToolbar = () => {
 
 const VenueEdit = () => {
   const translate = useTranslate();
-  const [selectedLanguage, selectLanguage] = useState(Language.FI);
-  const translation = `translations.${selectedLanguage}`;
+  const [languageTabsComponent, translatableField, selectedLanguage] =
+    useLanguageTabs();
 
   return (
     <>
@@ -47,13 +47,10 @@ const VenueEdit = () => {
             toolbar={<VenueEditToolbar />}
           >
             <ViewTitle />
-            <LanguageTabs
-              selectedLanguage={selectedLanguage}
-              onSelect={selectLanguage}
-            />
+            {languageTabsComponent}
             <TextInput
               variant="outlined"
-              source={`${translation}.name`}
+              source={translatableField('name')}
               label="venues.fields.name.label"
               helperText="venues.fields.name.helperText"
               validate={
@@ -63,7 +60,7 @@ const VenueEdit = () => {
             />
             <TextInput
               variant="outlined"
-              source={`${translation}.address`}
+              source={translatableField('address')}
               label="venues.fields.address.label"
               helperText="venues.fields.address.helperText"
               multiline
@@ -71,14 +68,14 @@ const VenueEdit = () => {
             />
             <TextInput
               variant="outlined"
-              source={`${translation}.description`}
+              source={translatableField('description')}
               label="venues.fields.description.label"
               multiline
               fullWidth
             />
             <TextInput
               variant="outlined"
-              source={`${translation}.accessibilityInfo`}
+              source={translatableField('accessibilityInfo')}
               label="venues.fields.accessibilityInfo.label"
               helperText="venues.fields.accessibilityInfo.helperText"
               multiline
@@ -86,7 +83,7 @@ const VenueEdit = () => {
             />
             <TextInput
               variant="outlined"
-              source={`${translation}.arrivalInstructions`}
+              source={translatableField('arrivalInstructions')}
               label="venues.fields.arrivalInstructions.label"
               helperText="venues.fields.arrivalInstructions.helperText"
               multiline
@@ -94,7 +91,7 @@ const VenueEdit = () => {
             />
             <TextInput
               variant="outlined"
-              source={`${translation}.additionalInfo`}
+              source={translatableField('additionalInfo')}
               label="venues.fields.additionalInfo.label"
               helperText="venues.fields.additionalInfo.helperText"
               multiline
@@ -102,7 +99,7 @@ const VenueEdit = () => {
             />
             <TextInput
               variant="outlined"
-              source={`${translation}.wcAndFacilities`}
+              source={translatableField('wcAndFacilities')}
               label="venues.fields.wcAndFacilities.label"
               multiline
               fullWidth

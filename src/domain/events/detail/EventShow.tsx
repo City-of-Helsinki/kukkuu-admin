@@ -22,9 +22,7 @@ import { createStyles, withStyles, WithStyles } from '@mui/styles';
 import { Link } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 
-import { Language } from '../../../api/generatedTypes/globalTypes';
 import { Occurrences_occurrences_edges_node as Occurrence } from '../../../api/generatedTypes/Occurrences';
-import LanguageTabs from '../../../common/components/languageTab/LanguageTabs';
 import ViewTitle from '../../../common/components/viewTitle/ViewTitle';
 import LongTextField from '../../../common/components/longTextField/LongTextField';
 import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPageLayout';
@@ -36,6 +34,7 @@ import EventShowActions from './EventShowActions';
 import { hasInternalTicketSystem } from '../utils';
 import { AdminEvent } from '../types/EventTypes';
 import ImportTicketSystemPasswordsFormDialog from '../../ticketSystemPassword/ImportTicketSystemPasswordsFormDialog';
+import useLanguageTabs from '../../../common/hooks/useLanguageTabs';
 
 const styles = createStyles({
   button: {
@@ -150,7 +149,7 @@ const EventShow = () => {
 
 const EventDetails = () => {
   const [locale] = useLocaleState();
-  const [language, selectLanguage] = useState(Language.FI);
+  const [languageTabsComponent, translatableField] = useLanguageTabs();
   const record = useRecordContext<AdminEvent>();
   const internalTicketSystem = hasInternalTicketSystem(record);
 
@@ -162,22 +161,22 @@ const EventDetails = () => {
     <TabbedShowLayout>
       <Tab label="events.show.tab.label">
         <ViewTitle />
-        <LanguageTabs selectedLanguage={language} onSelect={selectLanguage} />
+        {languageTabsComponent}
         <ImageField source="image" />
         <TextField
-          source={`translations.${language}.imageAltText`}
+          source={translatableField('imageAltText')}
           label={'events.fields.imageAltText.label'}
         />
         <TextField
-          source={`translations.${language}.name`}
+          source={translatableField('name')}
           label={'events.fields.name.label'}
         />
         <LongTextField
-          source={`translations.${language}.shortDescription`}
+          source={translatableField('shortDescription')}
           label={'events.fields.shortDescription.label'}
         />
         <LongTextField
-          source={`translations.${language}.description`}
+          source={translatableField('description')}
           label={'events.fields.description.label'}
         />
         <SelectField
