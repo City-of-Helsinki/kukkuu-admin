@@ -38,7 +38,7 @@ const KukkuuListPage = ({
         {...reactAdminProps}
         className={classes.list}
       >
-        <Datagrid rowClick="show" {...datagridProps}>
+        <Datagrid rowClick="show" {...datagridProps} bulkActionButtons={false}>
           {children}
         </Datagrid>
       </KukkuuList>
