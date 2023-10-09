@@ -226,7 +226,7 @@ const EventDetails = () => {
             reference="occurrences"
             target="event_id"
           >
-            <Datagrid rowClick="show">
+            <Datagrid rowClick="show" bulkActionButtons={false}>
               <DateField
                 label="occurrences.fields.time.fields.date.label"
                 source="time"

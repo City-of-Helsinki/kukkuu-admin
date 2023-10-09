@@ -150,6 +150,7 @@ const OccurrenceShow = () => {
             rowClick={(id: string, resource: string, record: EnrolmentEdge) =>
               escape(`/children/${record?.node?.child?.id}/show`)
             }
+            bulkActionButtons={false}
           >
             <FunctionField
               label="children.fields.name.label"
