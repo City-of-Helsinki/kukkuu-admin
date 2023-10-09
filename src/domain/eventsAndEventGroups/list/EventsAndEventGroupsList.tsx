@@ -10,7 +10,7 @@ import {
   ReactAdminComponentProps,
   useQuery,
 } from 'react-admin';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from '@mui/material';
 
 import {
   EventsAndEventGroups_eventsAndEventGroups_edges_node_EventGroupNode as EventGroupNode,

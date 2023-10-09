@@ -1,6 +1,6 @@
 import get from 'lodash/get';
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 
 import { Occurrences_occurrences_edges_node as OccurrenceType } from '../../../api/generatedTypes/Occurrences';
 import Occurrence from '../Occurrence';

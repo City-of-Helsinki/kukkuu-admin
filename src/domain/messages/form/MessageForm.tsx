@@ -7,8 +7,8 @@ import {
   FormDataConsumer,
   useTranslate,
 } from 'react-admin';
-import { makeStyles } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@mui/material';
+import Typography from '@mui/material/Typography';
 import { useForm } from 'react-final-form';
 
 import { ProtocolType } from '../../../api/generatedTypes/globalTypes';

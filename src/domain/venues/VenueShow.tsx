@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, useTranslate, SimpleShowLayout } from 'react-admin';
-import { CardHeader } from '@material-ui/core';
+import { CardHeader } from '@mui/material';
 import omit from 'lodash/omit';
 
 import LanguageTabs from '../../common/components/languageTab/LanguageTabs';

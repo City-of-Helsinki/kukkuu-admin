@@ -1,9 +1,9 @@
 import React from 'react';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import Container from '@material-ui/core/Container';
-import { ThemeProvider, makeStyles } from '@material-ui/styles';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Container from '@mui/material/Container';
+import { ThemeProvider, Theme, StyledEngineProvider, makeStyles } from '@mui/styles';
 
 import theme from '../../common/materialUI/themeConfig';
 

@@ -10,7 +10,7 @@ import {
   useTranslate,
   Pagination,
 } from 'react-admin';
-import { CardHeader } from '@material-ui/core';
+import { CardHeader } from '@mui/material';
 
 import { Children_children_edges_node as Child } from '../../api/generatedTypes/Children';
 import { languageChoices } from '../../common/choices';

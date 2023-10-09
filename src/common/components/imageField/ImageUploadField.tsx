@@ -1,7 +1,7 @@
 import React from 'react';
 import { ImageInput, ImageField, useTranslate } from 'react-admin';
-import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
-import Box from '@material-ui/core/Box';
+import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
+import Box from '@mui/material/Box';
 
 /**
  * Ensure that the preview works after user chooses image from their computer

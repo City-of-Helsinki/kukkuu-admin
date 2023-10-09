@@ -7,9 +7,9 @@ import {
   useLocale,
   useNotify,
 } from 'react-admin';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
 import * as Sentry from '@sentry/browser';
 
 import projectService from '../projects/projectService';

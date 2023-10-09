@@ -18,9 +18,9 @@ import {
   useShowController,
   UrlField,
 } from 'react-admin';
-import { withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
+import { withStyles, WithStyles, createStyles } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
-import AddIcon from '@material-ui/icons/Add';
+import AddIcon from '@mui/icons-material/Add';
 
 import { Language } from '../../../api/generatedTypes/globalTypes';
 import { Occurrences_occurrences_edges_node as Occurrence } from '../../../api/generatedTypes/Occurrences';

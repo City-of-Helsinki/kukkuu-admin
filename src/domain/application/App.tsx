@@ -1,10 +1,10 @@
 import React from 'react';
 import { Admin, Resource, useTranslate } from 'react-admin';
 import { createBrowserHistory as createHistory } from 'history';
-import PlaceIcon from '@material-ui/icons/Place';
-import EventIcon from '@material-ui/icons/Event';
-import MessageIcon from '@material-ui/icons/EmailOutlined';
-import ChildCareIcon from '@material-ui/icons/ChildCare';
+import PlaceIcon from '@mui/icons-material/Place';
+import EventIcon from '@mui/icons-material/Event';
+import MessageIcon from '@mui/icons-material/EmailOutlined';
+import ChildCareIcon from '@mui/icons-material/ChildCare';
 
 import i18nProvider from '../../common/translation/i18nProvider';
 import theme from '../../common/materialUI/themeConfig';

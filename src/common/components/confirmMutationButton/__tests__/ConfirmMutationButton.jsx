@@ -6,7 +6,7 @@ import {
 } from '@testing-library/react';
 import { TestContext } from 'react-admin';
 import useMutation from 'ra-core/lib/dataProvider/useMutation';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core';
+import { ThemeProvider, StyledEngineProvider, createMuiTheme } from '@mui/material';
 
 import ConfirmMutationButton from '../ConfirmMutationButton';
 

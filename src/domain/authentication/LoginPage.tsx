@@ -1,8 +1,8 @@
 import React from 'react';
 import { Login, useTranslate, useLogin } from 'react-admin';
-import { Button, Card, CardContent } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/styles';
-import { makeStyles } from '@material-ui/core/styles';
+import { Button, Card, CardContent } from '@mui/material';
+import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/styles';
+import { makeStyles } from '@mui/material/styles';
 import { RouteComponentProps, StaticContext } from 'react-router';
 
 import theme from '../../common/materialUI/themeConfig';

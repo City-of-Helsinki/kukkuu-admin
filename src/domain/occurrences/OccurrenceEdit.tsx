@@ -10,7 +10,7 @@ import {
   DeleteWithConfirmButton,
   useEditController,
 } from 'react-admin';
-import { Grid } from '@material-ui/core';
+import { Grid } from '@mui/material';
 
 import DateTimeTextInput from '../../common/components/dateTimeTextField/DateTimeTextField';
 import KukkuuEdit from '../application/layout/kukkuuEditPage/KukkuuEdit';

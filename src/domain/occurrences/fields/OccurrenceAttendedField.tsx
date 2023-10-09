@@ -1,9 +1,9 @@
 import React from 'react';
 import { useTranslate, useDataProvider } from 'react-admin';
 import PropTypes from 'prop-types';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
 
 import {
   Occurrence_occurrence_enrolments_edges as EnrolmentEdge,

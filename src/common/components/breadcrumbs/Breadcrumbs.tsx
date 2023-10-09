@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-admin';
-import { makeStyles, Typography } from '@material-ui/core';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import { makeStyles, Typography } from '@mui/material';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
 import { useLocation } from 'react-router';
 
 export type Crumb = {

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useInput, useTranslate } from 'react-admin';
-import TextField, { TextFieldProps } from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/styles';
+import TextField, { TextFieldProps } from '@mui/material/TextField';
+import { makeStyles } from '@mui/styles';
 import moment from 'moment-timezone';
-import { Grid } from '@material-ui/core';
+import { Grid } from '@mui/material';
 
 const useStyles = makeStyles({
   dateTimeTextInput: { flexGrow: 1 },

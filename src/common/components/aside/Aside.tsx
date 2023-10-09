@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslate } from 'react-admin';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 
 type asideProps = {
   title?: string;

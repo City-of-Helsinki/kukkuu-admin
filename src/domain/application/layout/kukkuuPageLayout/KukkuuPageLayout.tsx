@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactText } from 'react';
 import { EditProps, useGetOne, Record } from 'react-admin';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from '@mui/material';
 import get from 'lodash/get';
 
 import KukkuuPageTitle from '../kukkuuPageTitle/KukkuuPageTitle';
