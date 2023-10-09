@@ -12,7 +12,7 @@ import {
   FormDataConsumer,
   DateTimeInput,
 } from 'react-admin';
-import { CardHeader, Grid } from '@material-ui/core';
+import { CardHeader, Grid } from '@mui/material';
 
 import LanguageTabs from '../../../common/components/languageTab/LanguageTabs';
 import { Language } from '../../../api/generatedTypes/globalTypes';

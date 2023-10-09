@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslate } from 'react-admin';
-import PublishIcon from '@material-ui/icons/Check';
+import PublishIcon from '@mui/icons-material/Check';
 
 import ConfirmMutationButton from '../../../common/components/confirmMutationButton/ConfirmMutationButton';
 import { AdminEvent } from '../types/EventTypes';

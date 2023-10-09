@@ -8,7 +8,7 @@ import {
   FunctionField,
   Record,
 } from 'react-admin';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from '@mui/material';
 
 import { EventGroup_eventGroup_events_edges_node as EventNode } from '../../../api/generatedTypes/EventGroup';
 import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPageLayout';

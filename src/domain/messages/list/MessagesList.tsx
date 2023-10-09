@@ -7,8 +7,8 @@ import {
   FunctionField,
 } from 'react-admin';
 import { get } from 'lodash';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import TextsmsOutlinedIcon from '@material-ui/icons/TextsmsOutlined';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';
 
 import { ProtocolType } from '../../../api/generatedTypes/globalTypes';
 import { toDateTimeString } from '../../../common/utils';

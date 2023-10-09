@@ -1,5 +1,5 @@
 import React, { Children, ReactElement } from 'react';
-import { Table, TableHead, TableRow, TableBody } from '@material-ui/core';
+import { Table, TableHead, TableRow, TableBody } from '@mui/material';
 import {
   useDatagridStyles,
   DatagridHeaderCell,

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Record, useTranslate } from 'react-admin';
-import { makeStyles } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
-import CheckIcon from '@material-ui/icons/Check';
-import PublicIcon from '@material-ui/icons/Public';
+import { makeStyles } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import CheckIcon from '@mui/icons-material/Check';
+import PublicIcon from '@mui/icons-material/Public';
 
 const useStyles = makeStyles((theme) => ({
   iconWithBackground: {

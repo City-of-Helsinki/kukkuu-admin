@@ -12,7 +12,7 @@ import {
   ReferenceField,
   ArrayField,
 } from 'react-admin';
-import { CardHeader } from '@material-ui/core';
+import { CardHeader } from '@mui/material';
 import omit from 'lodash/omit';
 
 import { languageChoices } from '../../common/choices';

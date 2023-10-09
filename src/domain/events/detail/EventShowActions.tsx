@@ -1,6 +1,6 @@
 import React from 'react';
 import { EditButton, TopToolbar } from 'react-admin';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from '@mui/material';
 
 import { Permissions } from '../../authentication/authProvider';
 import { AdminEvent } from '../types/EventTypes';

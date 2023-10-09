@@ -1,8 +1,8 @@
 import React from 'react';
 import { TestContext } from 'react-admin';
 import { render, waitFor } from '@testing-library/react';
-import { ThemeProvider } from '@material-ui/styles';
-import { createMuiTheme } from '@material-ui/core';
+import { ThemeProvider, StyledEngineProvider } from '@mui/styles';
+import { createMuiTheme } from '@mui/material';
 
 import authorizationService from '../../../authentication/authorizationService';
 import EventShowActions from '../EventShowActions';

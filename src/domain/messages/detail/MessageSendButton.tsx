@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslate } from 'react-admin';
-import SendIcon from '@material-ui/icons/Check';
+import SendIcon from '@mui/icons-material/Check';
 
 import { Message_message as Message } from '../../../api/generatedTypes/Message';
 import ConfirmMutationButton from '../../../common/components/confirmMutationButton/ConfirmMutationButton';
