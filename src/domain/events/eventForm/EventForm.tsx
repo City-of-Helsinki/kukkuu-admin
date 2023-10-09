@@ -42,8 +42,7 @@ const EventForm = ({ view }: { view: 'create' | 'edit' }) => {
     >
       {languageTabsComponent}
       <ImageUploadField
-        variant="outlined"
-        edit
+        edit={isEditing}
         source="image"
         image="image"
         helperText="events.fields.image.helperText"
