@@ -1,8 +1,8 @@
 import React from 'react';
 import { TestContext } from 'react-admin';
 import { render } from '@testing-library/react';
-import { ThemeProvider } from '@material-ui/styles';
-import { createMuiTheme } from '@material-ui/core';
+import { ThemeProvider, StyledEngineProvider } from '@mui/styles';
+import { createMuiTheme } from '@mui/material';
 
 import EventGroupsDetailActions from '../EventGroupsDetailActions';
 

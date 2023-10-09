@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation, useTranslate } from 'react-admin';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 import { AdminEvent } from '../types/EventTypes';
 

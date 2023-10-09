@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 import { useLocale } from 'react-admin';
 import get from 'lodash/get';
 

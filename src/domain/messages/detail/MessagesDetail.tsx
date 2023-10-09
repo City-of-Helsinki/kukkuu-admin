@@ -9,9 +9,9 @@ import {
   TopToolbar,
   FunctionField,
 } from 'react-admin';
-import { makeStyles } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
-import Chip from '@material-ui/core/Chip';
+import { makeStyles } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Chip from '@mui/material/Chip';
 import get from 'lodash/get';
 
 import { ProtocolType } from '../../../api/generatedTypes/globalTypes';

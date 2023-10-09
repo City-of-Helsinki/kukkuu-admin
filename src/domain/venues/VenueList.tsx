@@ -1,6 +1,6 @@
 import React from 'react';
 import { Datagrid, TextField, useTranslate, useLocale } from 'react-admin';
-import { CardHeader } from '@material-ui/core';
+import { CardHeader } from '@mui/material';
 
 import { getTranslatedField } from '../../common/translation/TranslationUtils';
 import Aside from '../../common/components/aside/Aside';

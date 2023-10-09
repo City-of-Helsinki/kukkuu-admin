@@ -1,10 +1,10 @@
 import React, { MouseEvent } from 'react';
 import { useQueryWithStore, useRefresh } from 'react-admin';
-import { makeStyles } from '@material-ui/core';
-import MenuItem from '@material-ui/core/MenuItem';
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import { makeStyles } from '@mui/material';
+import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 // eslint-disable-next-line max-len
 import { MyAdminProfile_myAdminProfile_projects_edges_node as ProjectNode } from '../../api/generatedTypes/MyAdminProfile';

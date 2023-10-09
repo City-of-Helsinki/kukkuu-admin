@@ -1,8 +1,8 @@
 import * as React from 'react';
-import Button from '@material-ui/core/Button';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Button from '@mui/material/Button';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useTranslate, useLogout } from 'react-admin';
-import Box from '@material-ui/core/Box';
+import Box from '@mui/material/Box';
 
 import InfoPageTemplate from './InfoPageTemplate';
 

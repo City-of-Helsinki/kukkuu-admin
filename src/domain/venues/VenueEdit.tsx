@@ -8,7 +8,7 @@ import {
   DeleteButton,
   useTranslate,
 } from 'react-admin';
-import { CardHeader, Grid } from '@material-ui/core';
+import { CardHeader, Grid } from '@mui/material';
 
 import { Language } from '../../api/generatedTypes/globalTypes';
 import LanguageTabs from '../../common/components/languageTab/LanguageTabs';

@@ -1,5 +1,5 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 import { useTranslate } from 'react-admin';
 
 import { Events_events_edges_node as Event } from '../../api/generatedTypes/Events';

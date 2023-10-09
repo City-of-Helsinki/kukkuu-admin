@@ -1,11 +1,11 @@
 import React from 'react';
-import { makeStyles, Theme } from '@material-ui/core/styles';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import CancelIcon from '@material-ui/icons/Cancel';
+import { makeStyles, Theme } from '@mui/material/styles';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 import { useParams } from 'react-router';
 import { useTranslate, Loading } from 'react-admin';
-import Typography from '@material-ui/core/Typography';
-import Alert from '@material-ui/lab/Alert';
+import Typography from '@mui/material/Typography';
+import Alert from '@mui/lab/Alert';
 import { ApolloProvider } from '@apollo/client';
 
 import unauthenticatedClient from '../../api/apolloClient/unauthenticatedClient';

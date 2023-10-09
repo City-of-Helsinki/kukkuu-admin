@@ -7,7 +7,7 @@ import {
   required,
 } from 'react-admin';
 import { parse } from 'query-string';
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 
 import DateTimeTextInput from '../../common/components/dateTimeTextField/DateTimeTextField';
 import { OccurrenceCapacityOverrideInput } from './inputs';

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTranslate, TopToolbar, CreateButton } from 'react-admin';
-import { makeStyles } from '@material-ui/core';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import TextsmsOutlinedIcon from '@material-ui/icons/TextsmsOutlined';
+import { makeStyles } from '@mui/material';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';
 
 const useMessagesListToolbarStyles = makeStyles((theme) => ({
   toolbar: {
