@@ -53,7 +53,7 @@ const App = () => {
             element={<TicketValidationPage />}
           />
           <Route
-            path="/events-groups"
+            path="/event-groups"
             element={<Navigate to="/events-and-event-groups" />}
           />
           <Route
