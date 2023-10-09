@@ -1,39 +1,25 @@
 import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { useTranslate } from 'react-admin';
+import { useTranslatableContext, useTranslate } from 'react-admin';
 
-import { Language } from '../../../api/generatedTypes/globalTypes';
 import styles from './languageTabs.module.css';
 
-/**
- * Use as a wrapper for translatable content view
- * as render props, (please forgive me, HOC is worse).
- *
- * Example usage:
- * 1. Create local state using useState hook or component state
- * 2. import <LanguageTabs>, pass the required props, remember to use language enum.
- * 3. Basically render language tab and trigger onChange props that passed in
- * Gonna save a bit of boilterplate code.
- * Unfortunately HOC can not be done cause React-admin only pass props down to 1 level deep of children.
- *
- */
-const LanguageTabs: React.FunctionComponent<{
-  selectedLanguage: Language;
-  onSelect: (value: Language) => void;
-}> = ({ selectedLanguage, onSelect }) => {
+const LanguageTabs: React.FunctionComponent = () => {
   const translate = useTranslate();
+
+  const { locales, selectLocale, selectedLocale } = useTranslatableContext();
 
   return (
     <Tabs
       indicatorColor="secondary"
-      value={selectedLanguage}
-      onChange={(e, value) => onSelect(value)}
+      value={selectedLocale}
+      onChange={(e, value) => selectLocale(value)}
       className={styles.languageTabs}
     >
-      <Tab value={Language.FI} label={translate('languages.FI')} />
-      <Tab value={Language.SV} label={translate('languages.SV')} />
-      <Tab value={Language.EN} label={translate('languages.EN')} />
+      {locales.map((lang) => (
+        <Tab value={lang} label={translate(`languages.${lang}`)} />
+      ))}
     </Tabs>
   );
 };

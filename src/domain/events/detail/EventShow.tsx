@@ -34,7 +34,6 @@ import EventShowActions from './EventShowActions';
 import { hasInternalTicketSystem } from '../utils';
 import { AdminEvent } from '../types/EventTypes';
 import ImportTicketSystemPasswordsFormDialog from '../../ticketSystemPassword/ImportTicketSystemPasswordsFormDialog';
-import useLanguageTabs from '../../../common/hooks/useLanguageTabs';
 
 const styles = createStyles({
   button: {
