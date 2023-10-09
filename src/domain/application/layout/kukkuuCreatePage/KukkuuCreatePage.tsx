@@ -12,13 +12,7 @@ type Props = {
 const KukkuuCreatePage = ({ children, pageTitle, reactAdminProps }: Props) => {
   return (
     <KukkuuPageLayout pageTitle={pageTitle}>
-      <Create
-        {...reactAdminProps}
-        // Use empty actions so that no extra margin is applied
-        actions={<></>}
-      >
-        {children}
-      </Create>
+      <Create {...reactAdminProps}>{children}</Create>
     </KukkuuPageLayout>
   );
 };

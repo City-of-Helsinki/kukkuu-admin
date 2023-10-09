@@ -38,7 +38,7 @@ const EventForm = ({ view }: { view: 'create' | 'edit' }) => {
       // TODO: refactor form validate with YUP
       // https://marmelab.com/react-admin/Upgrade.html#input-level-validation-now-triggers-on-submit
       validate={validateEvent}
-      toolbar={isEditing ? <EventEditToolbar /> : false}
+      toolbar={isEditing ? <EventEditToolbar /> : undefined}
     >
       {languageTabsComponent}
       <ImageUploadField
