@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   TextField,
   useTranslate,
@@ -7,10 +7,9 @@ import {
 } from 'react-admin';
 import { CardHeader } from '@mui/material';
 
-import LanguageTabs from '../../common/components/languageTab/LanguageTabs';
-import { Language } from '../../api/generatedTypes/globalTypes';
 import LongTextField from '../../common/components/longTextField/LongTextField';
 import KukkuuShow from '../application/layout/kukkuuDetailPage/KukkuuShow';
+import useLanguageTabs from '../../common/hooks/useLanguageTabs';
 
 const VenueTitle = () => {
   const record = useRecordContext();
@@ -20,43 +19,39 @@ const VenueTitle = () => {
 
 const VenueShow = () => {
   const translate = useTranslate();
-  const [selectedLanguage, selectLanguage] = useState(Language.FI);
-  const translation = `translations.${selectedLanguage}`;
+  const [languageTabsComponent, translatableField] = useLanguageTabs();
 
   return (
     <KukkuuShow>
       <SimpleShowLayout>
         <VenueTitle />
-        <LanguageTabs
-          selectedLanguage={selectedLanguage}
-          onSelect={selectLanguage}
-        />
+        {languageTabsComponent}
         <TextField
-          source={`${translation}.name`}
+          source={translatableField('name')}
           label={translate('venues.fields.name.label')}
         />
         <LongTextField
-          source={`${translation}.address`}
+          source={translatableField('address')}
           label={translate('venues.fields.address.label')}
         />
         <LongTextField
-          source={`${translation}.description`}
+          source={translatableField('description')}
           label={translate('venues.fields.description.label')}
         />
         <LongTextField
-          source={`${translation}.accessibilityInfo`}
+          source={translatableField('accessibilityInfo')}
           label={translate('venues.fields.accessibilityInfo.label')}
         />
         <LongTextField
-          source={`${translation}.arrivalInstructions`}
+          source={translatableField('arrivalInstructions')}
           label={translate('venues.fields.arrivalInstructions.label')}
         />
         <LongTextField
-          source={`${translation}.additionalInfo`}
+          source={translatableField('additionalInfo')}
           label={translate('venues.fields.additionalInfo.label')}
         />
         <LongTextField
-          source={`${translation}.wcAndFacilities`}
+          source={translatableField('wcAndFacilities')}
           label={translate('venues.fields.wcAndFacilities.label')}
         />
       </SimpleShowLayout>
