@@ -38,7 +38,7 @@ const VenueEdit = () => {
   return (
     <>
       <CardHeader title={translate('venues.edit.title')} />
-      <Grid container direction="column" xs={6} item>
+      <Grid container direction="column" item>
         <KukkuuEdit redirect="show">
           <SimpleForm
             // TODO: refactor form validate with YUP
