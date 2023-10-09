@@ -13,7 +13,7 @@ const EventEdit = () => {
   return (
     <>
       <CardHeader title={translate('events.edit.title')} />
-      <Grid container direction="column" xs={6} item>
+      <Grid container direction="column" item>
         <KukkuuEdit
           mutationMode={'pessimistic'}
           title={'events.edit.title'}

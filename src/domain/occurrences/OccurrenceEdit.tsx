@@ -94,7 +94,7 @@ const OccurrenceEdit = () => {
   // that are invalid as time source. They are merged in OccurrenceApi,
   // would be better to move that logic to the fields yes.
   return (
-    <Grid container direction="column" xs={6} item>
+    <Grid container direction="column" item>
       <KukkuuEdit mutationMode="pessimistic">
         <OccurrenceEditForm />
       </KukkuuEdit>

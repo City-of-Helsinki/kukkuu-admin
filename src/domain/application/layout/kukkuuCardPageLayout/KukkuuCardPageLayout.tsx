@@ -8,7 +8,7 @@ import KukkuuPageLayout, {
 const KukkuuCardPageLayout = ({ children, ...rest }: KukkuuLayoutProps) => {
   return (
     <KukkuuPageLayout {...rest}>
-      <Grid container direction="column" xs={6} item>
+      <Grid container direction="column" item>
         {children}
       </Grid>
     </KukkuuPageLayout>
