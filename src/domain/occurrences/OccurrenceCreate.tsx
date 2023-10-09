@@ -44,7 +44,7 @@ const OccurrenceCreate = () => {
   const location = useLocation();
   const eventId = new URLSearchParams(location.search).get('event_id');
   return (
-    <Grid container direction="column" xs={6} item>
+    <Grid container direction="column" item>
       <Create
         title="occurrences.create.title"
         // FIXME: What is the show/1- URL? Questioned in KK-1017.

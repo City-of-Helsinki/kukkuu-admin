@@ -18,7 +18,7 @@ const VenueCreate = () => {
     useLanguageTabs();
 
   return (
-    <Grid container direction="column" xs={6} item>
+    <Grid container direction="column" item>
       <CardHeader title={translate('venues.create.title')} />
       <Create
         aside={<Aside content="venues.create.aside.content" />}
