@@ -1,28 +1,31 @@
 import React from 'react';
 import { TextInput, SimpleForm, SimpleFormProps } from 'react-admin';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import useLanguageTabs from '../../../common/hooks/useLanguageTabs';
 import {
   validateName,
-  validateEventGroupForm,
+  eventGroupsSchema,
   validateShortDescription,
 } from '../validations';
+import { Language } from '../../../api/generatedTypes/globalTypes';
 
 type EventGroupFormProps = Omit<SimpleFormProps, 'children'>;
 
 const EventGroupForm = (props: EventGroupFormProps) => {
-  const [languageTabsComponent, translatableField] = useLanguageTabs();
+  const [languageTabsComponent, translatableField, selectedLanguage] =
+    useLanguageTabs();
 
-  // TODO: refactor form validate with YUP
-  // https://marmelab.com/react-admin/Upgrade.html#input-level-validation-now-triggers-on-submit
   return (
-    <SimpleForm validate={validateEventGroupForm} {...props}>
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    <SimpleForm resolver={yupResolver(eventGroupsSchema)} {...props}>
       {languageTabsComponent}
       <TextInput
         variant="outlined"
         source={translatableField('name')}
         label="eventGroups.fields.name.label"
-        validate={validateName}
+        validate={selectedLanguage === Language.FI ? validateName : undefined}
         fullWidth
       />
       <TextInput
