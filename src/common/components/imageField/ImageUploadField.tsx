@@ -21,14 +21,27 @@ function formatImage(value: string | File) {
   }
 }
 
-const ImageUploadField = (props: any) => {
+type ImageUploadFieldProps = {
+  name?: string;
+  edit: boolean;
+  image: string;
+  source: string;
+  helperText: string;
+};
+
+const ImageUploadField = ({
+  name,
+  edit,
+  image,
+  source,
+  helperText,
+}: ImageUploadFieldProps) => {
   const translate = useTranslate();
 
-  const { name, edit, image, helperText } = props;
   return (
     <ImageInput
-      name={name}
-      format={edit && formatImage}
+      name={name || source}
+      format={edit ? formatImage : undefined}
       source={image}
       label={'events.fields.image.label'}
       accept="image/*"
@@ -40,7 +53,7 @@ const ImageUploadField = (props: any) => {
       }
       helperText={helperText}
     >
-      <ImageField source="image" title="title" />
+      <ImageField source={edit ? source : 'src'} title="title" />
     </ImageInput>
   );
 };
