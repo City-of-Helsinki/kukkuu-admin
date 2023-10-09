@@ -19,7 +19,7 @@ const VenueList = (props: any) => {
         aside={<Aside content="venues.list.aside.content" />}
         {...props}
       >
-        <Datagrid rowClick="show">
+        <Datagrid rowClick="show" bulkActionButtons={false}>
           <TextField
             source={getTranslatedField('name', locale)}
             label={translate('venues.fields.name.label')}

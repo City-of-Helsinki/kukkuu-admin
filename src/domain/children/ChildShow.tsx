@@ -73,6 +73,7 @@ const ChildShow = (props: ShowProps) => {
             label="children.fields.occurrences.label"
           >
             <Datagrid
+              bulkActionButtons={false}
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
               rowClick={(
