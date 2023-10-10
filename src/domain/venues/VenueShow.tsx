@@ -9,7 +9,8 @@ import { CardHeader } from '@mui/material';
 
 import LongTextField from '../../common/components/longTextField/LongTextField';
 import KukkuuShow from '../application/layout/kukkuuDetailPage/KukkuuShow';
-import useLanguageTabs from '../../common/hooks/useLanguageTabs';
+import TranslatableProvider from '../../common/providers/TranslatableProvider';
+import TranslatableContext from '../../common/contexts/TranslatableContext';
 
 const VenueTitle = () => {
   const record = useRecordContext();
@@ -19,41 +20,51 @@ const VenueTitle = () => {
 
 const VenueShow = () => {
   const translate = useTranslate();
-  const [languageTabsComponent, translatableField] = useLanguageTabs();
 
   return (
     <KukkuuShow>
       <SimpleShowLayout>
         <VenueTitle />
-        {languageTabsComponent}
-        <TextField
-          source={translatableField('name')}
-          label={translate('venues.fields.name.label')}
-        />
-        <LongTextField
-          source={translatableField('address')}
-          label={translate('venues.fields.address.label')}
-        />
-        <LongTextField
-          source={translatableField('description')}
-          label={translate('venues.fields.description.label')}
-        />
-        <LongTextField
-          source={translatableField('accessibilityInfo')}
-          label={translate('venues.fields.accessibilityInfo.label')}
-        />
-        <LongTextField
-          source={translatableField('arrivalInstructions')}
-          label={translate('venues.fields.arrivalInstructions.label')}
-        />
-        <LongTextField
-          source={translatableField('additionalInfo')}
-          label={translate('venues.fields.additionalInfo.label')}
-        />
-        <LongTextField
-          source={translatableField('wcAndFacilities')}
-          label={translate('venues.fields.wcAndFacilities.label')}
-        />
+        <TranslatableProvider>
+          <TranslatableContext.Consumer>
+            {({
+              selector: languageTabsComponent,
+              getSource: translatableField,
+            }) => (
+              <>
+                {languageTabsComponent}
+                <TextField
+                  source={translatableField('name')}
+                  label={translate('venues.fields.name.label')}
+                />
+                <LongTextField
+                  source={translatableField('address')}
+                  label={translate('venues.fields.address.label')}
+                />
+                <LongTextField
+                  source={translatableField('description')}
+                  label={translate('venues.fields.description.label')}
+                />
+                <LongTextField
+                  source={translatableField('accessibilityInfo')}
+                  label={translate('venues.fields.accessibilityInfo.label')}
+                />
+                <LongTextField
+                  source={translatableField('arrivalInstructions')}
+                  label={translate('venues.fields.arrivalInstructions.label')}
+                />
+                <LongTextField
+                  source={translatableField('additionalInfo')}
+                  label={translate('venues.fields.additionalInfo.label')}
+                />
+                <LongTextField
+                  source={translatableField('wcAndFacilities')}
+                  label={translate('venues.fields.wcAndFacilities.label')}
+                />
+              </>
+            )}
+          </TranslatableContext.Consumer>
+        </TranslatableProvider>
       </SimpleShowLayout>
     </KukkuuShow>
   );

@@ -14,7 +14,6 @@ import {
   TicketSystem,
 } from '../../../api/generatedTypes/globalTypes';
 import ImageUploadField from '../../../common/components/imageField/ImageUploadField';
-import useLanguageTabs from '../../../common/hooks/useLanguageTabs';
 import {
   validateCapacityPerOccurrence,
   validateDuration,
@@ -28,11 +27,15 @@ import { RecordWithTicketSystem, hasInternalTicketSystem } from '../utils';
 import Config from '../../config';
 import TicketSystemInput from '../ticketSystemInput/TicketSystemInput';
 import EventEditToolbar from '../edit/EventEditToolbar';
+import useTranslatableContext from '../../../common/hooks/useTranslatableContext';
 
 const EventForm = ({ view }: { view: 'create' | 'edit' }) => {
   const isEditing = view === 'edit';
-  const [languageTabsComponent, translatableField, selectedLanguage] =
-    useLanguageTabs();
+  const {
+    selectedLanguage,
+    selector: languageTabsComponent,
+    getSource: translatableField,
+  } = useTranslatableContext();
   return (
     <SimpleForm
       // TODO: refactor form validate with YUP
@@ -101,7 +104,8 @@ const EventForm = ({ view }: { view: 'create' | 'edit' }) => {
         />
       )}
       <FormDataConsumer>
-        {({ formData, getSource, ...rest }) =>
+        {/* Pick the getSource, so the ...input is pure */}
+        {({ formData, getSource, ...input }) =>
           hasInternalTicketSystem(formData as RecordWithTicketSystem)
             ? [
                 <NumberInput
@@ -112,7 +116,7 @@ const EventForm = ({ view }: { view: 'create' | 'edit' }) => {
                   helperText="events.fields.duration.helperText"
                   validate={validateDuration}
                   style={{ width: '100%' }}
-                  {...rest}
+                  {...input}
                 />,
                 <NumberInput
                   variant="outlined"
@@ -122,7 +126,7 @@ const EventForm = ({ view }: { view: 'create' | 'edit' }) => {
                   helperText="events.fields.capacityPerOccurrence.helperText"
                   validate={validateCapacityPerOccurrence}
                   style={{ width: '100%' }}
-                  {...rest}
+                  {...input}
                   // aria-describedby should be set automatically but it is not.
                   // Seems like a bug related to FormDataConsumer.
                   aria-describedby="capacityPerOccurrence-helper-text"
@@ -137,7 +141,7 @@ const EventForm = ({ view }: { view: 'create' | 'edit' }) => {
                   label="events.fields.ticketSystemUrl.label"
                   validate={validateUrl}
                   style={{ width: '100%' }}
-                  {...rest}
+                  {...input}
                 />,
                 <DateTimeInput
                   variant="outlined"
@@ -146,7 +150,7 @@ const EventForm = ({ view }: { view: 'create' | 'edit' }) => {
                   label="events.fields.ticketSystemEndTime.label"
                   helperText="events.fields.ticketSystemEndTime.helperText"
                   style={{ width: '100%' }}
-                  {...rest}
+                  {...input}
                   aria-describedby="ticketSystemEndTime-helper-text"
                   id="ticketSystemEndTime"
                 />,

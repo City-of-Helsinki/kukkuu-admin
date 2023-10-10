@@ -8,51 +8,41 @@ import {
   validateShortDescription,
 } from '../validations';
 import { Language } from '../../../api/generatedTypes/globalTypes';
-import TranslatableProvider from '../../../common/providers/TranslatableProvider';
-import TranslatableContext from '../../../common/contexts/TranslatableContext';
+import useTranslatableContext from '../../../common/hooks/useTranslatableContext';
 
 type EventGroupFormProps = Omit<SimpleFormProps, 'children'>;
 
 const EventGroupForm = (props: EventGroupFormProps) => {
+  const { selectedLanguage, selector, getSource } = useTranslatableContext();
   return (
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     <SimpleForm resolver={yupResolver(eventGroupsSchema)} {...props}>
-      <TranslatableProvider>
-        <TranslatableContext.Consumer>
-          {({ selectedLanguage, selector, getSource }) => (
-            <>
-              {selector}
-              <TextInput
-                variant="outlined"
-                source={getSource('name')}
-                label="eventGroups.fields.name.label"
-                validate={
-                  selectedLanguage === Language.FI ? validateName : undefined
-                }
-                fullWidth
-              />
-              <TextInput
-                variant="outlined"
-                source={getSource('shortDescription')}
-                label="eventGroups.fields.shortDescription.label"
-                validate={validateShortDescription}
-                helperText="eventGroups.fields.shortDescription.helperText"
-                multiline
-                fullWidth
-              />
-              <TextInput
-                variant="outlined"
-                source={getSource('description')}
-                label="eventGroups.fields.description.label"
-                helperText="eventGroups.fields.description.helperText"
-                multiline
-                fullWidth
-              />
-            </>
-          )}
-        </TranslatableContext.Consumer>
-      </TranslatableProvider>
+      {selector}
+      <TextInput
+        variant="outlined"
+        source={getSource('name')}
+        label="eventGroups.fields.name.label"
+        validate={selectedLanguage === Language.FI ? validateName : undefined}
+        fullWidth
+      />
+      <TextInput
+        variant="outlined"
+        source={getSource('shortDescription')}
+        label="eventGroups.fields.shortDescription.label"
+        validate={validateShortDescription}
+        helperText="eventGroups.fields.shortDescription.helperText"
+        multiline
+        fullWidth
+      />
+      <TextInput
+        variant="outlined"
+        source={getSource('description')}
+        label="eventGroups.fields.description.label"
+        helperText="eventGroups.fields.description.helperText"
+        multiline
+        fullWidth
+      />
     </SimpleForm>
   );
 };
