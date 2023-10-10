@@ -221,7 +221,7 @@ const EventDetails = () => {
                 locales={locale}
               />,
             ]}
-        <PublishedField locale={locale} />
+        <PublishedField />
       </Tab>
       {internalTicketSystem ? (
         <Tab label="events.fields.occurrences.label">
