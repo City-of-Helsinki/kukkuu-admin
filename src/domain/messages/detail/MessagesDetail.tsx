@@ -4,95 +4,33 @@ import {
   SelectField,
   SimpleShowLayout,
   useTranslate,
-  EditButton,
-  TopToolbar,
   FunctionField,
-  useResourceDefinition,
-  useResourceContext,
   useRecordContext,
+  Loading,
 } from 'react-admin';
 import { makeStyles } from '@mui/styles';
-import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
-import get from 'lodash/get';
 
 import { ProtocolType } from '../../../api/generatedTypes/globalTypes';
-import { Message_message as Message } from '../../../api/generatedTypes/Message';
-import { toDateTimeString, toShortDateTimeString } from '../../../common/utils';
+import { toShortDateTimeString } from '../../../common/utils';
 import KukkuuDetailPage from '../../application/layout/kukkuuDetailPage/KukkuuDetailPage';
 import MessageRecipientCountField from '../fields/MessageRecipientCountField';
 import { recipientSelectionChoices } from '../choices';
-import MessageSendButton from './MessageSendButton';
 import TranslatableProvider from '../../../common/providers/TranslatableProvider';
-import TranslatableContext from '../../../common/contexts/TranslatableContext';
-
-const useMessageDetailsToolbarStyles = makeStyles((theme) => ({
-  wrapper: {
-    marginBottom: theme.spacing(3),
-  },
-  meta: {
-    fontSize: theme.typography.body2.fontSize,
-  },
-  metaTitle: {
-    fontWeight: theme.typography.fontWeightBold,
-    fontSize: theme.typography.body2.fontSize,
-  },
-  sendButton: {
-    marginLeft: theme.spacing(1),
-  },
-}));
-
-const MessageDetailToolbar = () => {
-  const record = useRecordContext<Message>();
-  const resource = useResourceContext();
-  const basePath = `/${resource}`;
-  const classes = useMessageDetailsToolbarStyles();
-  const t = useTranslate();
-
-  const isSent = Boolean(record?.sentAt);
-
-  if (isSent) {
-    return (
-      <div className={classes.wrapper}>
-        <Typography className={classes.meta}>
-          <Typography component="span" className={classes.metaTitle}>
-            {t('messages.fields.sentAt.sent')}
-          </Typography>
-          {` ${toDateTimeString(new Date(record?.sentAt))}`}
-        </Typography>
-        <Typography className={classes.meta}>
-          <Typography component="span" className={classes.metaTitle}>
-            {t('messages.fields.recipientCount.label')}
-          </Typography>
-          {` ${record?.recipientCount}`}
-        </Typography>
-      </div>
-    );
-  }
-
-  return (
-    <TopToolbar>
-      {record && <EditButton record={record} />}
-      {record && basePath && (
-        <MessageSendButton
-          basePath={basePath}
-          record={record}
-          className={classes.sendButton}
-        />
-      )}
-    </TopToolbar>
-  );
-};
+import MessageDetailToolbar from './MessageDetailsToolbar';
+import useTranslatableContext from '../../../common/hooks/useTranslatableContext';
 
 const useStyles = makeStyles((theme) => ({
   showLayout: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gridTemplateRows: 'auto',
-    columnGap: theme.spacing(2),
-    rowGap: theme.spacing(2),
-    '& > *': {
-      gridColumn: '1 / -1',
+    '&>div': {
+      display: 'grid',
+      gridTemplateColumns: '1fr 1fr',
+      gridTemplateRows: 'auto',
+      columnGap: theme.spacing(2),
+      rowGap: theme.spacing(2),
+      '& > *': {
+        gridColumn: '1 / -1',
+      },
     },
   },
   recipientSelection: {
@@ -114,12 +52,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MessagesDetail = () => {
-  const classes = useStyles();
   const t = useTranslate();
-  const resource = useResourceContext();
-  const {
-    options: { label },
-  } = useResourceDefinition();
+
   return (
     <KukkuuDetailPage
       pageTitleSource="subject"
@@ -128,92 +62,74 @@ const MessagesDetail = () => {
       }}
       breadcrumbs={[
         {
-          label: t(label),
-          link: `/${resource}` || null,
+          label: t('messages.list.title'),
+          link: `/messages` || null,
         },
       ]}
     >
-      <SimpleShowLayout className={classes.showLayout}>
-        <TranslatableProvider>
-          <TranslatableContext.Consumer>
-            {({
-              selector: languageTabsComponent,
-              getSource: translatableField,
-            }) => (
-              <>
-                <ShowWhen source="protocol" notIn={[ProtocolType.SMS]}>
-                  {languageTabsComponent}
-                </ShowWhen>
-                <MessageRecipientCountField />
-                <SelectField
-                  source="recipientSelection"
-                  label="messages.fields.recipientSelection.label"
-                  choices={recipientSelectionChoices}
-                  className={classes.recipientSelection}
-                />
-                <TextField
-                  source="event.name"
-                  label="messages.fields.event.label"
-                  className={classes.event}
-                  emptyText={t('messages.fields.event.all')}
-                />
-                <FunctionField
-                  source="occurrences"
-                  label="messages.fields.occurrences.label"
-                  render={(record?: any) => {
-                    const stringifiedRecords =
-                      record &&
-                      record.occurrences.edges.map((connection: any) =>
-                        toShortDateTimeString(new Date(connection.node.time))
-                      );
-
-                    if (stringifiedRecords.length === 0) {
-                      return t('messages.fields.occurrences.all');
-                    }
-
-                    return stringifiedRecords.map((record: string) => (
-                      <Chip
-                        key={record}
-                        label={record}
-                        className={classes.chip}
-                      />
-                    ));
-                  }}
-                />
-                <TextField
-                  source={translatableField('subject')}
-                  label="messages.fields.subject.label2"
-                />
-                <TextField
-                  component="pre"
-                  source={translatableField('bodyText')}
-                  label="messages.fields.bodyText.label"
-                  className={classes.textField}
-                />
-              </>
-            )}
-          </TranslatableContext.Consumer>
-        </TranslatableProvider>
-      </SimpleShowLayout>
+      <TranslatableProvider>
+        <MessageDetails />
+      </TranslatableProvider>
     </KukkuuDetailPage>
   );
 };
 
-type ShowWhenProps = {
-  source: string;
-  notIn: string[];
-  children: React.ReactNode;
-};
-
-function ShowWhen({ source, notIn, children }: ShowWhenProps) {
+function MessageDetails() {
   const record = useRecordContext();
-  const actualValue = get(record, source, null);
+  const classes = useStyles();
+  const t = useTranslate();
+  const { selector: languageTabsComponent, getSource: translatableField } =
+    useTranslatableContext();
 
-  if (notIn.includes(actualValue)) {
-    return null;
-  }
+  if (!record) return <Loading />;
 
-  return <>{children}</>;
+  return (
+    <SimpleShowLayout className={classes.showLayout}>
+      {record.protocol !== ProtocolType.SMS && languageTabsComponent}
+      <MessageRecipientCountField />
+      <SelectField
+        source="recipientSelection"
+        label="messages.fields.recipientSelection.label"
+        choices={recipientSelectionChoices}
+        className={classes.recipientSelection}
+      />
+      <TextField
+        source="event.name"
+        label="messages.fields.event.label"
+        className={classes.event}
+        emptyText={t('messages.fields.event.all')}
+      />
+      <FunctionField
+        source="occurrences"
+        label="messages.fields.occurrences.label"
+        render={(record?: any) => {
+          const stringifiedRecords =
+            record &&
+            record.occurrences.edges.map((connection: any) =>
+              toShortDateTimeString(new Date(connection.node.time))
+            );
+
+          if (stringifiedRecords.length === 0) {
+            return t('messages.fields.occurrences.all');
+          }
+
+          return stringifiedRecords.map((record: string) => (
+            <Chip key={record} label={record} className={classes.chip} />
+          ));
+        }}
+      />
+      <TextField
+        source={translatableField('subject')}
+        label="messages.fields.subject.label2"
+      />
+      <TextField
+        component="pre"
+        source={translatableField('bodyText')}
+        label="messages.fields.bodyText.label"
+        className={classes.textField}
+      />
+    </SimpleShowLayout>
+  );
 }
 
 export default MessagesDetail;
