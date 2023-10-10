@@ -34,7 +34,8 @@ import EventShowActions from './EventShowActions';
 import { hasInternalTicketSystem } from '../utils';
 import { AdminEvent } from '../types/EventTypes';
 import ImportTicketSystemPasswordsFormDialog from '../../ticketSystemPassword/ImportTicketSystemPasswordsFormDialog';
-import useLanguageTabs from '../../../common/hooks/useLanguageTabs';
+import TranslatableProvider from '../../../common/providers/TranslatableProvider';
+import useTranslatableContext from '../../../common/hooks/useTranslatableContext';
 
 const styles = createStyles({
   button: {
@@ -142,16 +143,19 @@ const EventShow = () => {
       breadcrumbs={(record?: RaRecord) => getCrumbs(record)}
       pageTitleSource="name"
     >
-      <EventDetails />
+      <TranslatableProvider>
+        <EventDetails />
+      </TranslatableProvider>
     </KukkuuDetailPage>
   );
 };
 
 const EventDetails = () => {
   const [locale] = useLocaleState();
-  const [languageTabsComponent, translatableField] = useLanguageTabs();
   const record = useRecordContext<AdminEvent>();
   const internalTicketSystem = hasInternalTicketSystem(record);
+  const { selector: languageTabsComponent, getSource: translatableField } =
+    useTranslatableContext();
 
   if (!record) {
     return <Loading />;

@@ -4,6 +4,7 @@ import { useTranslate } from 'react-admin';
 import KukkuuCreatePage from '../../application/layout/kukkuuCreatePage/KukkuuCreatePage';
 import KukkuuCreateToolbar from '../../application/layout/kukkuuCreatePage/KukkuuCreateToolbar';
 import EventGroupForm from '../form/EventGroupForm';
+import TranslatableProvider from '../../../common/providers/TranslatableProvider';
 
 const EventGroupsCreate = () => {
   const t = useTranslate();
@@ -13,7 +14,9 @@ const EventGroupsCreate = () => {
       pageTitle={t('eventGroups.create.title.label')}
       reactAdminProps={{ redirect: 'show' }}
     >
-      <EventGroupForm toolbar={<KukkuuCreateToolbar />} />
+      <TranslatableProvider>
+        <EventGroupForm toolbar={<KukkuuCreateToolbar />} />
+      </TranslatableProvider>
     </KukkuuCreatePage>
   );
 };

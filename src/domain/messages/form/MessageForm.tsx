@@ -13,7 +13,6 @@ import Typography from '@mui/material/Typography';
 import { useFormContext } from 'react-hook-form';
 
 import { ProtocolType } from '../../../api/generatedTypes/globalTypes';
-import useLanguageTabs from '../../../common/hooks/useLanguageTabs';
 import EventSelect from '../../events/eventSelect/EventSelect';
 import OccurrenceArraySelect from '../../occurrences/OccurrenceArraySelect';
 import {
@@ -27,6 +26,7 @@ import {
   recipientSelectionChoices,
   recipientsWithEventSelection,
 } from '../choices';
+import useTranslatableContext from '../../../common/hooks/useTranslatableContext';
 
 const CustomOnChange = ({ children, onChange, ...rest }: any) => {
   const form = useFormContext();
@@ -83,9 +83,8 @@ type Props = Omit<SimpleFormProps, 'children'> & {
 const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
   const record = useRecordContext();
   const t = useTranslate();
-  const [languageTabsComponent, translatableField] = useLanguageTabs({
-    enabled: protocol !== ProtocolType.SMS,
-  });
+  const { selector: languageTabsComponent, getSource: translatableField } =
+    useTranslatableContext();
   const classes = useStyles();
 
   const handleRecipientSelectionChange = (
@@ -128,7 +127,7 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
       {...delegatedProps}
       className={classes.form}
     >
-      {languageTabsComponent}
+      {protocol !== ProtocolType.SMS && languageTabsComponent}
       <CustomOnChange onChange={handleRecipientSelectionChange}>
         <SelectInput
           variant="outlined"

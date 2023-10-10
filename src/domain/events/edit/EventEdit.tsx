@@ -5,6 +5,7 @@ import { CardHeader, Grid } from '@mui/material';
 import KukkuuEdit from '../../application/layout/kukkuuEditPage/KukkuuEdit';
 import ViewTitle from '../../../common/components/viewTitle/ViewTitle';
 import EventForm from '../eventForm/EventForm';
+import TranslatableProvider from '../../../common/providers/TranslatableProvider';
 
 const EventEdit = () => {
   const translate = useTranslate();
@@ -20,7 +21,9 @@ const EventEdit = () => {
           redirect="show"
         >
           <ViewTitle />
-          <EventForm view="edit" />
+          <TranslatableProvider>
+            <EventForm view="edit" />
+          </TranslatableProvider>
         </KukkuuEdit>
       </Grid>
     </>
