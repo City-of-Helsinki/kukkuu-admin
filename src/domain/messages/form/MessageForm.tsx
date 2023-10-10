@@ -11,6 +11,7 @@ import {
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import { useFormContext } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import { ProtocolType } from '../../../api/generatedTypes/globalTypes';
 import EventSelect from '../../events/eventSelect/EventSelect';
@@ -19,8 +20,8 @@ import {
   validateRecipientSelection,
   validateSubject,
   validateBodyText,
-  validateMessageForm,
-  validateSmsForm,
+  smsMessageSchema,
+  emailMessageSchema,
 } from '../validations';
 import {
   recipientSelectionChoices,
@@ -119,13 +120,13 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
 
   return (
     <SimpleForm
-      // TODO: refactor form validate with YUP
-      // https://marmelab.com/react-admin/Upgrade.html#input-level-validation-now-triggers-on-submit
-      validate={
-        protocol === ProtocolType.SMS ? validateSmsForm : validateMessageForm
-      }
-      {...delegatedProps}
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      resolver={yupResolver(
+        protocol === ProtocolType.SMS ? smsMessageSchema : emailMessageSchema
+      )}
       className={classes.form}
+      {...delegatedProps}
     >
       {protocol !== ProtocolType.SMS && languageTabsComponent}
       <CustomOnChange onChange={handleRecipientSelectionChange}>
