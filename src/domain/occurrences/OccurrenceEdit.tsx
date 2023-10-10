@@ -19,7 +19,7 @@ import { OccurrenceCapacityOverrideInput } from './inputs';
 import { Occurrence_occurrence as OccurrenceType } from '../../api/generatedTypes/Occurrence';
 
 const OccurrenceEditToolbar = ({
-  redirect,
+  redirect: redirectPath,
   ...toolbarProps
 }: ToolbarProps & { redirect: string }) => {
   const record = useRecordContext<OccurrenceType>();
@@ -31,10 +31,10 @@ const OccurrenceEditToolbar = ({
         <DeleteWithConfirmButton
           confirmTitle="occurrences.edit.delete.confirm.title"
           confirmContent="occurrences.edit.delete.confirm.content"
-          redirect={redirect}
+          redirect={redirectPath}
         />
       ) : (
-        <DeleteButton redirect={redirect} />
+        <DeleteButton redirect={redirectPath} />
       )}
     </Toolbar>
   );
@@ -60,7 +60,7 @@ const OccurrenceEditReferenceInput = (props: any) => {
 const OccurrenceEditForm = () => {
   const record = useRecordContext<OccurrenceType>();
   const redirect = record?.event.id
-    ? `/events/${record.event.id}/show/1` // FIXME: Is this really right? Why is the '1' fixed? KK-1017
+    ? `/events/${record.event.id}/show/1`
     : 'show';
 
   return (
@@ -95,7 +95,7 @@ const OccurrenceEdit = () => {
   // would be better to move that logic to the fields yes.
   return (
     <Grid container direction="column" item>
-      <KukkuuEdit mutationMode="pessimistic">
+      <KukkuuEdit mutationMode="pessimistic" redirect="show">
         <OccurrenceEditForm />
       </KukkuuEdit>
     </Grid>
