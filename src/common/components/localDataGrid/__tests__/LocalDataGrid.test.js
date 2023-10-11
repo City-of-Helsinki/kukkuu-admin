@@ -1,10 +1,12 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
+import { screen, fireEvent, render } from '@testing-library/react';
+import * as ReactAdmin from 'react-admin';
 
 import LocalDataGrid from '../LocalDataGrid';
 
-const TestField = ({ record, source }) => {
-  return record[source];
+const TestField = ({ source }) => {
+  const localRecord = ReactAdmin.useRecordContext();
+  return localRecord[source];
 };
 
 const records = [
@@ -21,10 +23,11 @@ const records = [
 ];
 const defaultProps = {
   source: 'records',
-  record: {
-    records,
-  },
 };
+const record = {
+  records,
+};
+
 const getWrapper = (props) =>
   render(
     <LocalDataGrid {...defaultProps} {...props}>
@@ -33,25 +36,33 @@ const getWrapper = (props) =>
     </LocalDataGrid>
   );
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('<LocalDataGrid />', () => {
   describe('implementation details', () => {
-    it('should extract expected table based on its children', () => {
-      const { queryByText } = getWrapper();
+    it('should extract expected table based on its children', async () => {
+      // Mock the "parent record" - so mock only once
+      jest.spyOn(ReactAdmin, 'useRecordContext').mockReturnValueOnce(record);
+      getWrapper();
 
-      expect(queryByText('Name')).toBeTruthy();
-      expect(queryByText('Count')).toBeTruthy();
+      expect(await screen.findByText('Name')).toBeTruthy();
+      expect(await screen.findByText('Count')).toBeTruthy();
 
-      records.forEach((record) => {
-        expect(queryByText(record.name)).toBeTruthy();
-        expect(queryByText(record.count.toString())).toBeTruthy();
+      records.forEach(async (record) => {
+        expect(await screen.findByText(record.name)).toBeTruthy();
+        expect(await screen.findByText(record.count.toString())).toBeTruthy();
       });
     });
 
-    it('should call rowClick when a row is clicked', () => {
+    it('should call rowClick when a row is clicked', async () => {
+      // Mock the "parent record" - so mock only once
+      jest.spyOn(ReactAdmin, 'useRecordContext').mockReturnValueOnce(record);
       const rowClick = jest.fn();
-      const { getByText } = getWrapper({ rowClick });
+      getWrapper({ rowClick });
 
-      fireEvent.click(getByText(records[0].name), {});
+      fireEvent.click(await screen.findByText(records[0].name), {});
 
       expect(rowClick).toHaveBeenCalledTimes(1);
     });

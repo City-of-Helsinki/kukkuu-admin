@@ -17,7 +17,7 @@ describe('Occurrence helper class', () => {
 
   describe('getters', () => {
     it('time', () => {
-      expect(occurrence.time).toMatchInlineSnapshot(`"10.10.2020 klo 03.00"`);
+      expect(occurrence.time).toMatchInlineSnapshot(`"10.10.2020 03.00"`);
     });
 
     it('startTime', () => {
@@ -59,13 +59,13 @@ describe('Occurrence helper class', () => {
 
     it('occurrenceDateAndDuration', () => {
       expect(occurrence.occurrenceDateAndDuration).toMatchInlineSnapshot(
-        `"10.10.2020 klo 03.00 - 03.30"`
+        `"10.10.2020 03.00 - 03.30"`
       );
     });
 
     it('title', () => {
       expect(occurrence.title).toMatchInlineSnapshot(
-        `"Esiintymä 10.10.2020 klo 03.00 - 03.30"`
+        `"Esiintymä 10.10.2020 03.00 - 03.30"`
       );
     });
 

@@ -92,7 +92,7 @@ const LocalDataGrid = ({ children, source, rowClick }: any) => {
                         classes.rowCell,
                       ].join(' ')}
                       record={localRecord}
-                      {...{ field, basePath, resource }}
+                      {...{ field, resource }}
                     />
                   </RecordContextProvider>
                 )

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { TestContext } from 'react-admin';
+import { AdminContext } from 'react-admin';
 
 import Breadcrumbs from '../Breadcrumbs';
 
@@ -19,9 +19,9 @@ const defaultProps = {
 };
 const getWrapper = (props) =>
   render(
-    <TestContext>
+    <AdminContext>
       <Breadcrumbs {...defaultProps} {...props} />
-    </TestContext>
+    </AdminContext>
   );
 
 describe('Breadcrumbs', () => {

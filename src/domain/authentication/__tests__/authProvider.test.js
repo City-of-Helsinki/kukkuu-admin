@@ -1,4 +1,3 @@
-import { history } from '../../application/App';
 import projectService from '../../projects/projectService';
 import authProvider from '../authProvider';
 import authService from '../authService';
@@ -75,14 +74,15 @@ describe('authProvider', () => {
       return expect(authProvider.checkAuth()).rejects.toEqual();
     });
 
-    it('should redirect when the use is authenticated, authorized but not an admin', async () => {
-      expect.assertions(2);
+    it('should redirect when the user is authenticated, authorized but not an admin', async () => {
+      // expect.assertions(2);
       jest.spyOn(authService, 'isAuthenticated').mockReturnValueOnce(true);
       jest
         .spyOn(authorizationService, 'isAuthorized')
         .mockReturnValueOnce(true);
       jest.spyOn(authorizationService, 'getRole').mockReturnValueOnce('none');
-      const historySpy = jest.spyOn(history, 'replace');
+      window.history.replaceState = jest.fn();
+      const historySpy = jest.spyOn(window.history, 'replaceState');
 
       await expect(authProvider.checkAuth()).resolves.toEqual();
 

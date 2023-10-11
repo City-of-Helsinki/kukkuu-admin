@@ -1,13 +1,12 @@
 import React from 'react';
-import { TestContext } from 'react-admin';
-import { render, waitFor } from '@testing-library/react';
-import { ThemeProvider, StyledEngineProvider } from '@mui/styles';
-import { createMuiTheme } from '@mui/material';
+import * as ReactAdmin from 'react-admin';
+import { screen, render } from '@testing-library/react';
+import { ThemeProvider, StyledEngineProvider } from '@mui/material';
+import { createTheme } from '@mui/material/styles';
 
-import authorizationService from '../../../authentication/authorizationService';
 import EventShowActions from '../EventShowActions';
 
-const defaultProps = {
+const defaultContext = {
   data: {
     project: {
       id: '123',
@@ -17,86 +16,141 @@ const defaultProps = {
 const getWrapper = (props) =>
   render(
     <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={createMuiTheme()}>
-        <TestContext>
-          <EventShowActions {...defaultProps} {...props} />
-        </TestContext>
+      <ThemeProvider theme={createTheme()}>
+        <ReactAdmin.AdminContext
+          dataProvider={{
+            getOne: () => Promise.resolve(props?.data),
+          }}
+        >
+          <EventShowActions permissions={props?.permissions} />
+        </ReactAdmin.AdminContext>
       </ThemeProvider>
     </StyledEngineProvider>
   );
 
 describe('<EventShowActions />', () => {
   it('should render an edit button', () => {
-    const { getByRole } = getWrapper();
+    const context = {
+      ...defaultContext,
+    };
+    // FIXME: these spies should not be needed with react-admin, because of AdminContext
+    jest.spyOn(ReactAdmin, 'useRecordContext').mockReturnValue(context.data);
 
-    expect(getByRole('button', { name: 'ra.action.edit' })).toBeTruthy();
+    getWrapper(context);
+
+    expect(
+      screen.getByRole('link', { name: 'ra.action.edit' })
+    ).toBeInTheDocument();
   });
 
   describe('when the user has publish permissions', () => {
     it('should render event publish button', async () => {
-      const { getByRole } = getWrapper({
+      const context = {
+        ...defaultContext,
         permissions: {
           canPublishWithinProject: () => true,
         },
-      });
+      };
+      // FIXME: these spies should not be needed with react-admin, because of AdminContext
+      jest
+        .spyOn(ReactAdmin, 'usePermissions')
+        .mockReturnValue({ permissions: context.permissions });
+      jest.spyOn(ReactAdmin, 'useRecordContext').mockReturnValue(context.data);
 
-      await waitFor(() =>
-        expect(
-          getByRole('button', { name: 'events.show.publish.button.label' })
-        ).toBeTruthy()
-      );
+      getWrapper(context);
+
+      expect(
+        await screen.findByRole('button', {
+          name: 'events.show.publish.button.label',
+        })
+      ).toBeInTheDocument();
     });
   });
 
   describe('when the event has an event group', () => {
-    const getWrapperWithEvent = (props) =>
-      getWrapper({
+    const getWrapperWithEvent = (props) => {
+      const context = {
         data: {
+          ...defaultContext.data,
           eventGroup: {
             readyForEventGroupPublishing: true,
             publishedAt: new Date(),
           },
         },
         ...props,
-      });
+      };
+      // FIXME: these spies should not be needed with react-admin, because of AdminContext
+      jest
+        .spyOn(ReactAdmin, 'usePermissions')
+        .mockReturnValue({ permissions: context.permissions });
+      jest.spyOn(ReactAdmin, 'useRecordContext').mockReturnValue(context.data);
+      return getWrapper(context);
+    };
 
     it('should hide the event publish button', () => {
-      const { queryByRole } = getWrapperWithEvent();
+      getWrapperWithEvent();
 
       expect(
-        queryByRole('button', { name: 'events.show.publish.button.label' })
-      ).toBeFalsy();
+        screen.queryByRole('button', {
+          name: 'events.show.publish.button.label',
+        })
+      ).not.toBeInTheDocument();
     });
 
     it('should show a button for setting the event as ready', () => {
-      const { getByLabelText } = getWrapperWithEvent();
+      getWrapperWithEvent();
 
-      expect(getByLabelText('events.fields.ready.label')).toBeTruthy();
+      expect(
+        screen.getByLabelText('events.fields.ready.label')
+      ).toBeInTheDocument();
     });
   });
 
   describe('when the event is published', () => {
     it('the publish button should be hidden', () => {
-      const { queryByRole } = getWrapper({
-        data: { publishedAt: new Date().toJSON() },
-      });
+      const context = {
+        ...defaultContext,
+        data: {
+          ...defaultContext.data,
+          publishedAt: new Date().toJSON(),
+        },
+      };
+
+      // FIXME: these spies should not be needed with react-admin, because of AdminContext
+      jest
+        .spyOn(ReactAdmin, 'usePermissions')
+        .mockReturnValue({ permissions: context.permissions });
+      jest.spyOn(ReactAdmin, 'useRecordContext').mockReturnValue(context.data);
+
+      getWrapper(context);
 
       expect(
-        queryByRole('button', {
+        screen.queryByRole('button', {
           name: 'events.show.publish.button.label',
         })
-      ).toBeFalsy();
+      ).not.toBeInTheDocument();
     });
 
     it('the set ready button should be hidden', () => {
-      const { queryByLabelText } = getWrapper({
+      const context = {
+        ...defaultContext,
         data: {
+          ...defaultContext.data,
           readyForEventGroupPublishing: true,
           publishedAt: new Date().toJSON(),
         },
-      });
+      };
+      // FIXME: these spies should not be needed with react-admin, because of AdminContext
+      jest
+        .spyOn(ReactAdmin, 'usePermissions')
+        .mockReturnValue({ permissions: context.permissions });
+      jest.spyOn(ReactAdmin, 'useRecordContext').mockReturnValue(context.data);
 
-      expect(queryByLabelText('events.fields.ready.label')).toBeFalsy();
+      getWrapper(context);
+
+      expect(
+        screen.queryByLabelText('events.fields.ready.label')
+      ).not.toBeInTheDocument();
     });
   });
 });

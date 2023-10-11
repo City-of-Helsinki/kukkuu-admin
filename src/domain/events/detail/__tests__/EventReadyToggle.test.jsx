@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react';
-import { TestContext, DataProviderContext } from 'react-admin';
+import * as ReactAdmin from 'react-admin';
 
 import EventReadyToggle from '../EventReadyToggle';
 
@@ -9,9 +9,13 @@ const defaultProps = {
     readyForEventGroupPublishing: false,
   },
 };
-const getWrapper = (props, result = true) =>
-  render(
-    <DataProviderContext.Provider
+const getWrapper = (props, result = true) => {
+  // FIXME: these spies should not be needed with react-admin, because of AdminContext
+  jest
+    .spyOn(ReactAdmin, 'useRecordContext')
+    .mockReturnValue({ ...defaultProps.record, ...props?.record });
+  return render(
+    <ReactAdmin.DataProviderContext.Provider
       value={{
         setReady: async () => {
           await new Promise((resolve) => setTimeout(resolve, 1));
@@ -24,11 +28,12 @@ const getWrapper = (props, result = true) =>
         },
       }}
     >
-      <TestContext>
-        <EventReadyToggle {...defaultProps} {...props} />
-      </TestContext>
-    </DataProviderContext.Provider>
+      <ReactAdmin.AdminContext>
+        <EventReadyToggle {...props} />
+      </ReactAdmin.AdminContext>
+    </ReactAdmin.DataProviderContext.Provider>
   );
+};
 
 const getInput = ({ getByLabelText }) =>
   getByLabelText('events.fields.ready.label');
