@@ -4,7 +4,6 @@ import { CardHeader, Grid } from '@mui/material';
 
 import Aside from '../../common/components/aside/Aside';
 import VenueForm from './VenueForm';
-import TranslatableProvider from '../../common/providers/TranslatableProvider';
 
 const VenueCreate = () => {
   const translate = useTranslate();
@@ -16,9 +15,7 @@ const VenueCreate = () => {
         aside={<Aside content="venues.create.aside.content" />}
         redirect="show"
       >
-        <TranslatableProvider>
-          <VenueForm view="create" />
-        </TranslatableProvider>
+        <VenueForm view="create" />
       </Create>
     </Grid>
   );

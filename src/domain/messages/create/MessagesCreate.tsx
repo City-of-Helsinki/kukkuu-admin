@@ -6,7 +6,6 @@ import { ProtocolType } from '../../../api/generatedTypes/globalTypes';
 import KukkuuCreatePage from '../../application/layout/kukkuuCreatePage/KukkuuCreatePage';
 import KukkuuCreateToolbar from '../../application/layout/kukkuuCreatePage/KukkuuCreateToolbar';
 import MessageForm from '../form/MessageForm';
-import TranslatableProvider from '../../../common/providers/TranslatableProvider';
 
 const MessageCreate = () => {
   const t = useTranslate();
@@ -29,18 +28,16 @@ const MessageCreate = () => {
         redirect: 'list',
       }}
     >
-      <TranslatableProvider>
-        <MessageForm
-          toolbar={
-            <KukkuuCreateToolbar
-              saveLabel={
-                protocol === ProtocolType.SMS ? t('action.send') : undefined
-              }
-            />
-          }
-          protocol={protocol}
-        />
-      </TranslatableProvider>
+      <MessageForm
+        toolbar={
+          <KukkuuCreateToolbar
+            saveLabel={
+              protocol === ProtocolType.SMS ? t('action.send') : undefined
+            }
+          />
+        }
+        protocol={protocol}
+      />
     </KukkuuCreatePage>
   );
 };

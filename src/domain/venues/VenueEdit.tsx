@@ -5,7 +5,6 @@ import { CardHeader, Grid } from '@mui/material';
 import KukkuuEdit from '../application/layout/kukkuuEditPage/KukkuuEdit';
 import ViewTitle from '../../common/components/viewTitle/ViewTitle';
 import VenueForm from './VenueForm';
-import TranslatableProvider from '../../common/providers/TranslatableProvider';
 
 const VenueEdit = () => {
   const translate = useTranslate();
@@ -16,9 +15,7 @@ const VenueEdit = () => {
       <Grid container direction="column" item>
         <KukkuuEdit redirect="show">
           <ViewTitle />
-          <TranslatableProvider>
-            <VenueForm view="edit" />
-          </TranslatableProvider>
+          <VenueForm view="edit" />
         </KukkuuEdit>
       </Grid>
     </>
