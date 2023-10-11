@@ -27,15 +27,11 @@ import { RecordWithTicketSystem, hasInternalTicketSystem } from '../utils';
 import Config from '../../config';
 import TicketSystemInput from '../ticketSystemInput/TicketSystemInput';
 import EventEditToolbar from '../edit/EventEditToolbar';
-import useTranslatableContext from '../../../common/hooks/useTranslatableContext';
+import TranslatableContext from '../../../common/contexts/TranslatableContext';
+import TranslatableProvider from '../../../common/providers/TranslatableProvider';
 
 const EventForm = ({ view }: { view: 'create' | 'edit' }) => {
   const isEditing = view === 'edit';
-  const {
-    selectedLanguage,
-    selector: languageTabsComponent,
-    getSource: translatableField,
-  } = useTranslatableContext();
   return (
     <SimpleForm
       // TODO: refactor form validate with YUP
@@ -43,120 +39,131 @@ const EventForm = ({ view }: { view: 'create' | 'edit' }) => {
       validate={validateEvent}
       toolbar={isEditing ? <EventEditToolbar /> : undefined}
     >
-      {languageTabsComponent}
-      <ImageUploadField
-        edit={isEditing}
-        source="image"
-        image="image"
-        helperText="events.fields.image.helperText"
-      />
-      <TextInput
-        variant="outlined"
-        source={translatableField('imageAltText')}
-        label="events.fields.imageAltText.label"
-        helperText="events.fields.imageAltText.helperText"
-        fullWidth
-      />
-      <TextInput
-        variant="outlined"
-        source={translatableField('name')}
-        label="events.fields.name.label"
-        validate={selectedLanguage === Language.FI ? required() : undefined}
-        // FIXME: missing translations
-        helperText={isEditing ? 'Tähän laitetaan tapahtuman nimi' : undefined}
-        fullWidth
-      />
-      <TextInput
-        variant="outlined"
-        source={translatableField('shortDescription')}
-        label="events.fields.shortDescription.label"
-        helperText="events.fields.shortDescription.helperText"
-        validate={validateShortDescription}
-        multiline
-        fullWidth
-      />
-      <TextInput
-        variant="outlined"
-        source={translatableField('description')}
-        label="events.fields.description.label"
-        helperText="events.fields.description.helperText"
-        multiline
-        fullWidth
-      />
-      <SelectInput
-        variant="outlined"
-        source="participantsPerInvite"
-        label="events.fields.participantsPerInvite.label"
-        helperText="events.fields.participantsPerInvite.helperText"
-        choices={participantsPerInviteChoices}
-        validate={validateParticipantsPerInvite}
-        fullWidth
-      />
-      {Config.featureFlagExternalTicketSystemSupport && (
-        <TicketSystemInput
-          variant="outlined"
-          source="ticketSystem.type"
-          label="events.fields.ticketSystem.label"
-          choices={ticketSystemChoices}
-          defaultValue={!isEditing ? TicketSystem.INTERNAL : undefined}
-          disabled={isEditing}
-          fullWidth
-        />
-      )}
-      <FormDataConsumer>
-        {/* Pick the getSource, so the ...input is pure */}
-        {({ formData, getSource, ...input }) =>
-          hasInternalTicketSystem(formData as RecordWithTicketSystem)
-            ? [
-                <NumberInput
+      <TranslatableProvider>
+        <TranslatableContext.Consumer>
+          {({
+            selectedLanguage,
+            selector: languageTabsComponent,
+            getSource: translatableField,
+          }) => (
+            <>
+              {languageTabsComponent}
+              <ImageUploadField
+                edit={isEditing}
+                source="image"
+                image="image"
+                helperText="events.fields.image.helperText"
+              />
+              <TextInput
+                variant="outlined"
+                source={translatableField('imageAltText')}
+                label="events.fields.imageAltText.label"
+                helperText="events.fields.imageAltText.helperText"
+                fullWidth
+              />
+              <TextInput
+                variant="outlined"
+                source={translatableField('name')}
+                label="events.fields.name.label"
+                validate={
+                  selectedLanguage === Language.FI ? required() : undefined
+                }
+                // FIXME: missing translations
+                helperText={
+                  isEditing ? 'Tähän laitetaan tapahtuman nimi' : undefined
+                }
+                fullWidth
+              />
+              <TextInput
+                variant="outlined"
+                source={translatableField('shortDescription')}
+                label="events.fields.shortDescription.label"
+                helperText="events.fields.shortDescription.helperText"
+                validate={validateShortDescription}
+                multiline
+                fullWidth
+              />
+              <TextInput
+                variant="outlined"
+                source={translatableField('description')}
+                label="events.fields.description.label"
+                helperText="events.fields.description.helperText"
+                multiline
+                fullWidth
+              />
+              <SelectInput
+                variant="outlined"
+                source="participantsPerInvite"
+                label="events.fields.participantsPerInvite.label"
+                helperText="events.fields.participantsPerInvite.helperText"
+                choices={participantsPerInviteChoices}
+                validate={validateParticipantsPerInvite}
+                fullWidth
+              />
+              {Config.featureFlagExternalTicketSystemSupport && (
+                <TicketSystemInput
                   variant="outlined"
-                  source="duration"
-                  key="duration"
-                  label="events.fields.duration.label"
-                  helperText="events.fields.duration.helperText"
-                  validate={validateDuration}
-                  style={{ width: '100%' }}
-                  {...input}
-                />,
-                <NumberInput
-                  variant="outlined"
-                  source="capacityPerOccurrence"
-                  key="capacityPerOccurrence"
-                  label="events.fields.capacityPerOccurrence.label"
-                  helperText="events.fields.capacityPerOccurrence.helperText"
-                  validate={validateCapacityPerOccurrence}
-                  style={{ width: '100%' }}
-                  {...input}
-                  // aria-describedby should be set automatically but it is not.
-                  // Seems like a bug related to FormDataConsumer.
-                  aria-describedby="capacityPerOccurrence-helper-text"
-                  id="capacityPerOccurrence"
-                />,
-              ]
-            : [
-                <TextInput
-                  variant="outlined"
-                  source="ticketSystem.url"
-                  key="ticketSystemUrl"
-                  label="events.fields.ticketSystemUrl.label"
-                  validate={validateUrl}
-                  style={{ width: '100%' }}
-                  {...input}
-                />,
-                <DateTimeInput
-                  variant="outlined"
-                  source="ticketSystem.endTime"
-                  key="ticketSystemEndTime"
-                  label="events.fields.ticketSystemEndTime.label"
-                  helperText="events.fields.ticketSystemEndTime.helperText"
-                  style={{ width: '100%' }}
-                  {...input}
-                  aria-describedby="ticketSystemEndTime-helper-text"
-                  id="ticketSystemEndTime"
-                />,
-              ]
-        }
-      </FormDataConsumer>
+                  source="ticketSystem.type"
+                  label="events.fields.ticketSystem.label"
+                  choices={ticketSystemChoices}
+                  defaultValue={!isEditing ? TicketSystem.INTERNAL : undefined}
+                  disabled={isEditing}
+                  fullWidth
+                />
+              )}
+              <FormDataConsumer>
+                {({ formData }) =>
+                  hasInternalTicketSystem(formData as RecordWithTicketSystem)
+                    ? [
+                        <NumberInput
+                          variant="outlined"
+                          source="duration"
+                          key="duration"
+                          label="events.fields.duration.label"
+                          helperText="events.fields.duration.helperText"
+                          validate={validateDuration}
+                          style={{ width: '100%' }}
+                        />,
+                        <NumberInput
+                          variant="outlined"
+                          source="capacityPerOccurrence"
+                          key="capacityPerOccurrence"
+                          label="events.fields.capacityPerOccurrence.label"
+                          helperText="events.fields.capacityPerOccurrence.helperText"
+                          validate={validateCapacityPerOccurrence}
+                          style={{ width: '100%' }}
+                          // aria-describedby should be set automatically but it is not.
+                          // Seems like a bug related to FormDataConsumer.
+                          aria-describedby="capacityPerOccurrence-helper-text"
+                          id="capacityPerOccurrence"
+                        />,
+                      ]
+                    : [
+                        <TextInput
+                          variant="outlined"
+                          source="ticketSystem.url"
+                          key="ticketSystemUrl"
+                          label="events.fields.ticketSystemUrl.label"
+                          validate={validateUrl}
+                          style={{ width: '100%' }}
+                        />,
+                        <DateTimeInput
+                          variant="outlined"
+                          source="ticketSystem.endTime"
+                          key="ticketSystemEndTime"
+                          label="events.fields.ticketSystemEndTime.label"
+                          helperText="events.fields.ticketSystemEndTime.helperText"
+                          style={{ width: '100%' }}
+                          aria-describedby="ticketSystemEndTime-helper-text"
+                          id="ticketSystemEndTime"
+                        />,
+                      ]
+                }
+              </FormDataConsumer>
+            </>
+          )}
+        </TranslatableContext.Consumer>
+      </TranslatableProvider>
     </SimpleForm>
   );
 };

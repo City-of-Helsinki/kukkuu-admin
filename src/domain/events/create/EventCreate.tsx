@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom';
 import Aside from '../../../common/components/aside/Aside';
 import KukkuuCreatePage from '../../application/layout/kukkuuCreatePage/KukkuuCreatePage';
 import EventForm from '../eventForm/EventForm';
-import TranslatableProvider from '../../../common/providers/TranslatableProvider';
 
 const EventCreate = () => {
   const { search } = useLocation();
@@ -31,9 +30,7 @@ const EventCreate = () => {
         redirect,
       }}
     >
-      <TranslatableProvider>
-        <EventForm view="create" />
-      </TranslatableProvider>
+      <EventForm view="create" />
     </KukkuuCreatePage>
   );
 };

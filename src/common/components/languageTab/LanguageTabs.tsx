@@ -19,7 +19,11 @@ const LanguageTabs: React.FunctionComponent = () => {
       className={styles.languageTabs}
     >
       {languages.map((lang) => (
-        <Tab value={lang} label={translate(`languages.${lang}`)} />
+        <Tab
+          key={`language-tab-${lang}`}
+          value={lang}
+          label={translate(`languages.${lang}`)}
+        />
       ))}
     </Tabs>
   );
