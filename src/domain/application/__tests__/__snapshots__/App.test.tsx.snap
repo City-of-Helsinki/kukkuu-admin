@@ -1,0 +1,293 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders without crashing 1`] = `
+<div>
+  <div
+    class="MuiScopedCssBaseline-root css-1uodbwk-MuiScopedCssBaseline-root"
+  >
+    <div>
+      <div
+        class="layout css-1n2f7rh-RaLayout-root"
+      >
+        <button
+          aria-label="Siirry sisältöön"
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall skip-nav-button css-1wrh1t5-MuiButtonBase-root-MuiButton-root-RaButton-root-RaSkipNavigationButton-root"
+          tabindex="0"
+          type="button"
+        >
+          Siirry sisältöön
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+        <div
+          class="RaLayout-appFrame"
+        >
+          <header
+            class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorSecondary MuiAppBar-positionFixed makeStyles-highlight-3 mui-fixed css-1w2nht4-MuiPaper-root-MuiAppBar-root-RaAppBar-root"
+          >
+            <div
+              class="MuiToolbar-root MuiToolbar-dense RaAppBar-toolbar css-lz9mh9-MuiToolbar-root"
+            >
+              <button
+                aria-label="Sulje valikko"
+                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium RaAppBar-menuButton css-1vx84ty-MuiButtonBase-root-MuiIconButton-root-RaSidebarToggleButton-root"
+                data-mui-internal-clone-element="true"
+                tabindex="0"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root RaSidebarToggleButton-menuButtonIconOpen MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                  data-testid="MenuIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+                  />
+                </svg>
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+              <h6
+                class="MuiTypography-root MuiTypography-h6 makeStyles-title-1 css-e0wzc0-MuiTypography-root"
+              >
+                Kulttuurin kummilapset admin-käyttöliittymä
+                <span
+                  class="uppercase"
+                >
+                   Testi
+                </span>
+              </h6>
+              <div
+                class="makeStyles-spacer-2"
+              />
+              <div
+                class="css-1l0huk-RaLoadingIndicator-root"
+              >
+                <button
+                  aria-label="Päivitä"
+                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium RaLoadingIndicator-loadedIcon css-zylse7-MuiButtonBase-root-MuiIconButton-root"
+                  data-mui-internal-clone-element="true"
+                  tabindex="0"
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                    data-testid="RefreshIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"
+                    />
+                  </svg>
+                  <span
+                    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                  />
+                </button>
+              </div>
+              <div
+                class="css-1ynhu7j-RaUserMenu-root"
+              >
+                <button
+                  aria-haspopup="true"
+                  aria-label="Profiili"
+                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium css-zylse7-MuiButtonBase-root-MuiIconButton-root"
+                  data-mui-internal-clone-element="true"
+                  tabindex="0"
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                    data-testid="AccountCircleIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm0 14c-2.03 0-4.43-.82-6.14-2.88C7.55 15.8 9.68 15 12 15s4.45.8 6.14 2.12C16.43 19.18 14.03 20 12 20z"
+                    />
+                  </svg>
+                  <span
+                    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                  />
+                </button>
+              </div>
+            </div>
+          </header>
+          <main
+            class="RaLayout-contentWithSidebar"
+          >
+            <div
+              class="MuiDrawer-root MuiDrawer-docked RaSidebar-docked  css-9lo51-MuiDrawer-docked-RaSidebar-root"
+            >
+              <div
+                class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation0 MuiDrawer-paper RaSidebar-paper MuiDrawer-paperAnchorLeft RaSidebar-paperAnchorLeft MuiDrawer-paperAnchorDockedLeft RaSidebar-paperAnchorDockedLeft css-12i7wg6-MuiPaper-root-MuiDrawer-paper"
+              >
+                <div
+                  class="RaSidebar-fixed"
+                >
+                  <ul
+                    class="MuiList-root MuiList-padding RaMenu-open css-i91xiw-MuiList-root-RaMenu-root"
+                    role="menu"
+                    tabindex="-1"
+                  >
+                    <a
+                      class="MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters RaMenuItemLink-active css-d0o59q-MuiButtonBase-root-MuiMenuItem-root-RaMenuItemLink-root"
+                      href="/"
+                      role="menuitem"
+                      tabindex="0"
+                    >
+                      <div
+                        class="MuiListItemIcon-root RaMenuItemLink-icon css-cveggr-MuiListItemIcon-root"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                          data-testid="DashboardIcon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"
+                          />
+                        </svg>
+                      </div>
+                      Työpöytä
+                      <span
+                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </a>
+                    <a
+                      class="MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters  css-d0o59q-MuiButtonBase-root-MuiMenuItem-root-RaMenuItemLink-root"
+                      href="/events-and-event-groups"
+                      role="menuitem"
+                      tabindex="0"
+                    >
+                      <div
+                        class="MuiListItemIcon-root RaMenuItemLink-icon css-cveggr-MuiListItemIcon-root"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                          data-testid="ViewListIcon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M3 14h4v-4H3v4zm0 5h4v-4H3v4zM3 9h4V5H3v4zm5 5h13v-4H8v4zm0 5h13v-4H8v4zM8 5v4h13V5H8z"
+                          />
+                        </svg>
+                      </div>
+                      Tapahtumat
+                      <span
+                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </a>
+                    <a
+                      class="MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters  css-d0o59q-MuiButtonBase-root-MuiMenuItem-root-RaMenuItemLink-root"
+                      href="/venues"
+                      role="menuitem"
+                      tabindex="0"
+                    >
+                      <div
+                        class="MuiListItemIcon-root RaMenuItemLink-icon css-cveggr-MuiListItemIcon-root"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                          data-testid="PlaceIcon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                          />
+                        </svg>
+                      </div>
+                      Tapahtumapaikat
+                      <span
+                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </a>
+                    <a
+                      class="MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters  css-d0o59q-MuiButtonBase-root-MuiMenuItem-root-RaMenuItemLink-root"
+                      href="/children"
+                      role="menuitem"
+                      tabindex="0"
+                    >
+                      <div
+                        class="MuiListItemIcon-root RaMenuItemLink-icon css-cveggr-MuiListItemIcon-root"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                          data-testid="ChildCareIcon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            cx="14.5"
+                            cy="10.5"
+                            r="1.25"
+                          />
+                          <circle
+                            cx="9.5"
+                            cy="10.5"
+                            r="1.25"
+                          />
+                          <path
+                            d="M22.94 12.66c.04-.21.06-.43.06-.66s-.02-.45-.06-.66c-.25-1.51-1.36-2.74-2.81-3.17-.53-1.12-1.28-2.1-2.19-2.91C16.36 3.85 14.28 3 12 3s-4.36.85-5.94 2.26c-.92.81-1.67 1.8-2.19 2.91-1.45.43-2.56 1.65-2.81 3.17-.04.21-.06.43-.06.66s.02.45.06.66c.25 1.51 1.36 2.74 2.81 3.17.52 1.11 1.27 2.09 2.17 2.89C7.62 20.14 9.71 21 12 21s4.38-.86 5.97-2.28c.9-.8 1.65-1.79 2.17-2.89 1.44-.43 2.55-1.65 2.8-3.17zM19 14c-.1 0-.19-.02-.29-.03-.2.67-.49 1.29-.86 1.86C16.6 17.74 14.45 19 12 19s-4.6-1.26-5.85-3.17c-.37-.57-.66-1.19-.86-1.86-.1.01-.19.03-.29.03-1.1 0-2-.9-2-2s.9-2 2-2c.1 0 .19.02.29.03.2-.67.49-1.29.86-1.86C7.4 6.26 9.55 5 12 5s4.6 1.26 5.85 3.17c.37.57.66 1.19.86 1.86.1-.01.19-.03.29-.03 1.1 0 2 .9 2 2s-.9 2-2 2zM7.5 14c.76 1.77 2.49 3 4.5 3s3.74-1.23 4.5-3h-9z"
+                          />
+                        </svg>
+                      </div>
+                      Kummilapset
+                      <span
+                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </a>
+                    <a
+                      class="MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters  css-d0o59q-MuiButtonBase-root-MuiMenuItem-root-RaMenuItemLink-root"
+                      href="/messages"
+                      role="menuitem"
+                      tabindex="0"
+                    >
+                      <div
+                        class="MuiListItemIcon-root RaMenuItemLink-icon css-cveggr-MuiListItemIcon-root"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                          data-testid="EmailOutlinedIcon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"
+                          />
+                        </svg>
+                      </div>
+                      Viestit
+                      <span
+                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </a>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div
+              class="RaLayout-content"
+              id="main-content"
+            />
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

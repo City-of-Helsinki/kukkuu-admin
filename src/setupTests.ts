@@ -6,4 +6,9 @@ import '@testing-library/jest-dom';
 import 'jest-localstorage-mock';
 import dotenv from 'dotenv';
 
+jest.mock('react-admin', () => ({
+  __esModule: true,
+  ...jest.requireActual('react-admin'),
+}));
+
 dotenv.config({ path: '.env.example' });

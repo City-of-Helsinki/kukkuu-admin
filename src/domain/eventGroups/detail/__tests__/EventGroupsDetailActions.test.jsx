@@ -1,70 +1,100 @@
 import React from 'react';
-import { TestContext } from 'react-admin';
-import { render } from '@testing-library/react';
-import { ThemeProvider, StyledEngineProvider } from '@mui/styles';
-import { createMuiTheme } from '@mui/material';
+import * as ReactAdmin from 'react-admin';
+import { render, screen } from '@testing-library/react';
+import { ThemeProvider, StyledEngineProvider } from '@mui/material';
+import { createTheme } from '@mui/material/styles/';
 
 import EventGroupsDetailActions from '../EventGroupsDetailActions';
 
-const defaultProps = {};
+const defaultContext = {
+  data: {
+    project: {
+      id: '123',
+    },
+    publishedAt: null,
+    events: [
+      {
+        publishedAt: null,
+        readyForEventGroupPublishing: true,
+      },
+    ],
+  },
+  permissions: {
+    role: 'admin',
+    canPublishWithinProject: () => false,
+    canManageEventGroupsWithinProject: () => false,
+  },
+};
+
 const getWrapper = (props) =>
   render(
     <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={createMuiTheme()}>
-        <TestContext>
-          <EventGroupsDetailActions {...defaultProps} {...props} />
-        </TestContext>
+      <ThemeProvider theme={createTheme()}>
+        <ReactAdmin.AdminContext
+          dataProvider={{
+            getOne: () => Promise.resolve(props?.data),
+          }}
+        >
+          <EventGroupsDetailActions permissions={props?.permissions} />
+        </ReactAdmin.AdminContext>
       </ThemeProvider>
     </StyledEngineProvider>
   );
 
 describe('<EventGroupsDetailActions />', () => {
   it('should show a create button', () => {
-    const { getByRole } = getWrapper();
+    getWrapper();
 
     expect(
-      getByRole('button', { name: 'eventGroups.actions.addEvent.do' })
-    ).toBeTruthy();
+      screen.getByRole('link', { name: 'eventGroups.actions.addEvent.do' })
+    ).toBeInTheDocument();
   });
 
   it('should show an edit button', () => {
-    const { getByRole } = getWrapper({
+    const context = {
+      ...defaultContext,
       permissions: {
-        canPublishWithinProject: () => true,
+        ...defaultContext.permissions,
         canManageEventGroupsWithinProject: () => true,
       },
-    });
+    };
+    // FIXME: these spies should not be needed with react-admin, because of AdminContext
+    jest
+      .spyOn(ReactAdmin, 'usePermissions')
+      .mockReturnValue({ permissions: context.permissions });
+    jest.spyOn(ReactAdmin, 'useRecordContext').mockReturnValue(context.data);
 
-    expect(getByRole('button', { name: 'ra.action.edit' })).toBeTruthy();
+    getWrapper(context);
+
+    expect(
+      screen.getByRole('link', { name: 'ra.action.edit' })
+    ).toBeInTheDocument();
   });
 
   it('should render a publish button when there is data and the user has publish permissions', () => {
-    const { getByRole } = getWrapper({
-      data: {
-        project: {
-          id: '123',
-        },
-        publishedAt: null,
-        events: [
-          {
-            publishedAt: null,
-            readyForEventGroupPublishing: true,
-          },
-        ],
-      },
+    const context = {
+      ...defaultContext,
       permissions: {
+        ...defaultContext.permissions,
         canPublishWithinProject: () => true,
         canManageEventGroupsWithinProject: () => true,
       },
-    });
+    };
+    // FIXME: these spies should not be needed with react-admin, because of AdminContext
+    jest
+      .spyOn(ReactAdmin, 'usePermissions')
+      .mockReturnValue({ permissions: context.permissions });
+    jest.spyOn(ReactAdmin, 'useRecordContext').mockReturnValue(context.data);
+
+    getWrapper(context);
 
     expect(
-      getByRole('button', { name: 'eventGroups.actions.publish.do' })
-    ).toBeTruthy();
+      screen.getByRole('button', { name: 'eventGroups.actions.publish.do' })
+    ).toBeInTheDocument();
   });
 
   it('should hide publish button when the event group and its events are already published', () => {
-    const { queryByRole } = getWrapper({
+    const context = {
       data: {
         project: {
           id: '123',
@@ -78,18 +108,26 @@ describe('<EventGroupsDetailActions />', () => {
         ],
       },
       permissions: {
+        role: 'admin',
         canPublishWithinProject: () => true,
         canManageEventGroupsWithinProject: () => true,
       },
-    });
+    };
+    // FIXME: these spies should not be needed with react-admin, because of AdminContext
+    jest
+      .spyOn(ReactAdmin, 'usePermissions')
+      .mockReturnValue({ permissions: context.permissions });
+    jest.spyOn(ReactAdmin, 'useRecordContext').mockReturnValue(context.data);
+
+    getWrapper(context);
 
     expect(
-      queryByRole('button', { name: 'eventGroups.actions.publish.do' })
-    ).toBeFalsy();
+      screen.queryByRole('button', { name: 'eventGroups.actions.publish.do' })
+    ).not.toBeInTheDocument();
   });
 
-  it('should render a republish button when there is a mix of unpublished and published event data', () => {
-    const { getByRole } = getWrapper({
+  it('should render a republish button when there is a mix of unpublished and published event data', async () => {
+    const context = {
       data: {
         project: {
           id: '123',
@@ -107,13 +145,22 @@ describe('<EventGroupsDetailActions />', () => {
         ],
       },
       permissions: {
+        role: 'admin',
         canPublishWithinProject: () => true,
         canManageEventGroupsWithinProject: () => true,
       },
-    });
+    };
+    // FIXME: these spies should not be needed with react-admin, because of AdminContext
+    jest
+      .spyOn(ReactAdmin, 'usePermissions')
+      .mockReturnValue({ permissions: context.permissions });
+    jest.spyOn(ReactAdmin, 'useRecordContext').mockReturnValue(context.data);
+    getWrapper(context);
 
     expect(
-      getByRole('button', { name: 'eventGroups.actions.publish.redo' })
-    ).toBeTruthy();
+      await screen.findByRole('button', {
+        name: 'eventGroups.actions.publish.redo',
+      })
+    ).toBeInTheDocument();
   });
 });

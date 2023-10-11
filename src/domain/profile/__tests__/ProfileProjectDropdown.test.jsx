@@ -1,17 +1,16 @@
 import React from 'react';
-import { TestContext } from 'react-admin';
-import { render, fireEvent } from '@testing-library/react';
-import * as DataProvider from 'ra-core/lib/dataProvider';
-import * as SideEffect from 'ra-core/lib/sideEffect';
+import * as ReactAdmin from 'react-admin';
+import * as ReactQuery from 'react-query';
+import { screen, render, fireEvent } from '@testing-library/react';
 
 import projectService from '../../projects/projectService';
 import ProfileProjectDropdown from '../ProfileProjectDropdown';
 
 const getWrapper = () =>
   render(
-    <TestContext>
+    <ReactAdmin.AdminContext>
       <ProfileProjectDropdown />
-    </TestContext>
+    </ReactAdmin.AdminContext>
   );
 
 const projects = [
@@ -28,10 +27,12 @@ const projects = [
 ];
 
 const getProjects = (projects) => ({
-  projects: {
-    edges: projects.map((project) => ({
-      node: project,
-    })),
+  data: {
+    projects: {
+      edges: projects.map((project) => ({
+        node: project,
+      })),
+    },
   },
 });
 
@@ -41,9 +42,7 @@ describe('<ProfileProjectDropdown />', () => {
   });
 
   it('should render null when loading', () => {
-    jest
-      .spyOn(DataProvider, 'useGetList')
-      .mockReturnValueOnce({ isLoading: true });
+    jest.spyOn(ReactQuery, 'useQuery').mockReturnValueOnce({ isLoading: true });
 
     const { container } = getWrapper();
 
@@ -52,7 +51,7 @@ describe('<ProfileProjectDropdown />', () => {
 
   it('should render null when error', () => {
     jest
-      .spyOn(DataProvider, 'useGetList')
+      .spyOn(ReactQuery, 'useQuery')
       .mockReturnValueOnce({ isLoading: false, error: new Error('Test') });
 
     const { container } = getWrapper();
@@ -62,7 +61,7 @@ describe('<ProfileProjectDropdown />', () => {
 
   it('should render null when missing data', () => {
     jest
-      .spyOn(DataProvider, 'useGetList')
+      .spyOn(ReactQuery, 'useQuery')
       .mockReturnValue({ isLoading: false, data: {} });
 
     const { container } = getWrapper();
@@ -73,7 +72,7 @@ describe('<ProfileProjectDropdown />', () => {
   it('should render null when there is not selected project', () => {
     jest.spyOn(projectService, 'projectId', 'get').mockReturnValue(null);
     jest
-      .spyOn(DataProvider, 'useGetList')
+      .spyOn(ReactQuery, 'useQuery')
       .mockReturnValue({ isLoading: false, data: getProjects(projects) });
 
     const { container } = getWrapper();
@@ -81,37 +80,35 @@ describe('<ProfileProjectDropdown />', () => {
     expect(container.childNodes.length).toEqual(0);
   });
 
-  it('should render text when there is one project', () => {
-    jest.spyOn(DataProvider, 'useGetList').mockReturnValue({
+  it('should render text when there is one project', async () => {
+    jest.spyOn(ReactQuery, 'useQuery').mockReturnValue({
       isLoading: false,
       data: getProjects([projects[0]]),
     });
 
-    const { getByText } = getWrapper();
+    getWrapper();
 
-    expect(getByText('2020 Test')).toBeInTheDocument();
+    expect(await screen.findByText('2020 Test')).toBeInTheDocument();
   });
 
-  it('should allow the selected project to be changed when there is more than one project', () => {
-    jest.spyOn(DataProvider, 'useGetList').mockReturnValue({
+  it('should allow the selected project to be changed when there is more than one project', async () => {
+    jest.spyOn(ReactQuery, 'useQuery').mockReturnValue({
       isLoading: false,
       data: getProjects(projects),
     });
     const projectServiceSpy = jest.spyOn(projectService, 'projectId', 'set');
     const mockRefresh = jest.fn();
-    const refreshSpy = jest
-      .spyOn(SideEffect, 'useRefresh')
-      .mockReturnValue(mockRefresh);
+    jest.spyOn(ReactAdmin, 'useRefresh').mockReturnValue(mockRefresh);
 
-    const { getByRole, getAllByRole, queryAllByRole } = getWrapper();
-    const button = getByRole('button', { name: '2020 Test' });
+    getWrapper();
+    const button = await screen.findByRole('button', { name: '2020 Test' });
 
     // Expect to see menu toggle button
     expect(button).toBeInTheDocument();
 
     fireEvent.click(button);
 
-    const menuItems = getAllByRole('menuitem');
+    const menuItems = screen.getAllByRole('menuitem');
 
     // After clicking menu toggle expect to see menu items
     expect(menuItems.length).toEqual(2);
@@ -124,6 +121,6 @@ describe('<ProfileProjectDropdown />', () => {
     // Expect refresh to have been called
     expect(mockRefresh).toHaveBeenCalledTimes(1);
     // Expect for menu items to be hidden
-    expect(queryAllByRole('menuitem').length).toEqual(0);
+    expect(screen.queryAllByRole('menuitem').length).toEqual(0);
   });
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { TestContext, SimpleForm } from 'react-admin';
+import { AdminContext, SimpleForm } from 'react-admin';
 
 import OccurrenceArraySelect, {
   getChoices,
@@ -14,7 +14,7 @@ describe('<OccurrenceArraySelect />', () => {
 
     expect(
       render(
-        <TestContext
+        <AdminContext
           initialState={{ admin: { resources: { occurrences: { data: {} } } } }}
         >
           <SimpleForm>
@@ -24,7 +24,7 @@ describe('<OccurrenceArraySelect />', () => {
               source="event"
             />
           </SimpleForm>
-        </TestContext>
+        </AdminContext>
       )
     ).toMatchSnapshot();
   });
@@ -61,7 +61,7 @@ describe('OccurrenceArraySelect helpers', () => {
       expect(choices[0]).toMatchInlineSnapshot(`
         Object {
           "id": "123",
-          "name": "7.10.2020, 00.00",
+          "name": "7.10.2020 00.00",
         }
       `);
     });

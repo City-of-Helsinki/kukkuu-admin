@@ -1,11 +1,16 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+import { ThemeProvider } from 'react-admin';
 
 import EventReadyField from '../EventReadyField';
 
 const defaultProps = {};
 const getWrapper = (props) =>
-  render(<EventReadyField {...defaultProps} {...props} />);
+  render(
+    <ThemeProvider>
+      <EventReadyField {...defaultProps} {...props} />
+    </ThemeProvider>
+  );
 
 describe('<EventReadyField />', () => {
   it('should render ready when event is marked as ready but is not published yet', () => {
