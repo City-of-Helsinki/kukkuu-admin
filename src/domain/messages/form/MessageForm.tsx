@@ -84,6 +84,12 @@ type Props = Omit<SimpleFormProps, 'children'> & {
 
 const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
   const record = useRecordContext();
+
+  // When editing, the record exists and the protocol is already set.
+  if (record?.protocol) {
+    protocol = record.protocol;
+  }
+
   const t = useTranslate();
   const classes = useStyles();
 
@@ -148,7 +154,11 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
                 />
               </CustomOnChange>
               <FormDataConsumer formClassName={classes.event}>
-                {({ formData: { recipientSelection }, ...rest }) =>
+                {({
+                  formData: { recipientSelection },
+                  getSource, // Pick away from ..rest
+                  ...rest
+                }) =>
                   recipientsWithEventSelection.includes(recipientSelection) && (
                     <CustomOnChange onChange={handleEvenIdChange}>
                       <EventSelect
@@ -171,7 +181,11 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
                 }
               </FormDataConsumer>
               <FormDataConsumer formClassName={classes.occurrences}>
-                {({ formData: { eventId, recipientSelection }, ...rest }) =>
+                {({
+                  formData: { eventId, recipientSelection },
+                  getSource, // Pick away from ...rest
+                  ...rest
+                }) =>
                   eventId &&
                   eventId !== 'all' &&
                   recipientSelection !== 'INVITED' && (

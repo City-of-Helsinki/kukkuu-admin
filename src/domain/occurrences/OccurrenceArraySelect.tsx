@@ -1,25 +1,26 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import {
   SelectArrayInput,
   ReferenceArrayInput,
   useTranslate,
   useInput,
+  useChoicesContext,
+  RaRecord,
+  Identifier,
 } from 'react-admin';
 import { useFormContext } from 'react-hook-form';
 
 import { Occurrence_occurrence as Occurrence } from '../../api/generatedTypes/Occurrence';
 import { toShortDateTimeString } from '../../common/utils';
 
-const AllChoice = ({
-  children,
-  choices,
-  allChoiceLabel,
-  getChoices,
-  ...rest
-}: any) => {
+const AllChoice = ({ children, allChoiceLabel, getChoices, ...rest }: any) => {
+  const { availableChoices } = useChoicesContext();
   return React.cloneElement(children, {
     ...rest,
-    choices: [{ id: 'all', name: allChoiceLabel }, ...getChoices(choices)],
+    choices: [
+      { id: 'all', name: allChoiceLabel },
+      ...getChoices(availableChoices),
+    ],
   });
 };
 
@@ -36,10 +37,12 @@ export function getFilters(
 }
 
 export const getChoices = (records: Occurrence[]) => {
-  return records.map(({ id, time }) => ({
-    id,
-    name: toShortDateTimeString(new Date(time)),
-  }));
+  return (
+    records?.map(({ id, time }) => ({
+      id,
+      name: toShortDateTimeString(new Date(time)),
+    })) ?? []
+  );
 };
 
 export const getValues = (previousValues: string[], nextValues: string[]) => {
@@ -69,7 +72,7 @@ const OccurrenceArraySelect = ({ eventId, allText, ...rest }: Props) => {
   const filter = getFilters(eventId);
   const {
     field: { value, name },
-  } = useInput({ source: rest.source });
+  } = useInput({ source: rest.source, name: rest.source });
   const form = useFormContext();
   const t = useTranslate();
 
@@ -80,13 +83,13 @@ const OccurrenceArraySelect = ({ eventId, allText, ...rest }: Props) => {
   // - when the user selects some (other) option (than all), "all"
   //   selection is removed
   // - when the user selects "all", all other choices are removed
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const previousValues = value;
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement> | RaRecord<Identifier>
+  ) => {
     // The value is actually an array because we are using a
     // multi select
     const nextValues = e.target.value as unknown as string[];
-    const values = getValues(previousValues, nextValues);
-
+    const values = getValues(value, nextValues);
     form.setValue(name, values);
   };
 
@@ -96,10 +99,9 @@ const OccurrenceArraySelect = ({ eventId, allText, ...rest }: Props) => {
       resource="occurrences"
       reference="occurrences"
       filter={filter}
-      onChange={handleChange}
     >
-      <AllChoice allChoiceLabel={t(allText)} getChoices={getChoices}>
-        <SelectArrayInput />
+      <AllChoice allChoiceLabel={t(allText)} getChoices={getChoices} {...rest}>
+        <SelectArrayInput onChange={handleChange} />
       </AllChoice>
     </ReferenceArrayInput>
   );
