@@ -18,7 +18,11 @@ describe('<OccurrenceArraySelect />', () => {
           initialState={{ admin: { resources: { occurrences: { data: {} } } } }}
         >
           <SimpleForm>
-            <OccurrenceArraySelect eventId="1" source="event" />
+            <OccurrenceArraySelect
+              allText="allText"
+              eventId="1"
+              source="event"
+            />
           </SimpleForm>
         </TestContext>
       )
