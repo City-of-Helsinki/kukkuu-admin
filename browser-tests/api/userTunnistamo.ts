@@ -18,7 +18,9 @@ export const user = {
   superUserStatusCheckbox: Selector('#id_is_superuser'),
   chooseAllPermissions: Selector('#id_user_permissions_add_all_link'),
 
-  saveButton: screen.getByText(/Tallenna ja poistu|Save/i),
+  saveButton: screen.getByRole('button', {
+    name: /Tallenna ja poistu|^Save$/i,
+  }),
 };
 
 export const routeLogin = () => `${apiUrl()}/admin/`;
