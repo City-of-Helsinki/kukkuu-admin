@@ -63,7 +63,7 @@ const MessagesDetail = () => {
       breadcrumbs={[
         {
           label: t('messages.list.title'),
-          link: `/messages` || null,
+          link: '/messages',
         },
       ]}
     >
