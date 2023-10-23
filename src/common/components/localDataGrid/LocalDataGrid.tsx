@@ -36,7 +36,6 @@ const LocalDataGrid = ({ children, source, rowClick }: any) => {
   const classes = useDatagridStyles();
   const record = useRecordContext();
   const resource = useResourceContext();
-  const basePath = `/${resource}`;
   const handleRowClick = (localRecord?: any) => {
     rowClick(localRecord);
   };

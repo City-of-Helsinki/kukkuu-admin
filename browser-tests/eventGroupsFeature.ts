@@ -5,7 +5,6 @@ import {
   eventsListPage,
   eventsCreatePage,
   fillCreationForm as fillEventCreationForm,
-  eventsEditPage,
   eventsDetailPage,
   deleteEvent,
 } from './pages/events';

@@ -8,14 +8,14 @@ export const eventGroupsDetailPage = {
   eventListHeader: Selector('.MuiTableHead-root > .MuiTableRow-root'),
   eventList: Selector('.MuiTableBody-root'),
   breadcrumbs: Selector('.MuiBreadcrumbs-ol .MuiBreadcrumbs-li a'),
-  editButton: screen.getByRole('button', { name: 'Muokkaa' }),
-  addEventToEventGroupButton: screen.getByRole('button', {
-    name: 'Lisää tapahtuma',
+  editButton: screen.getByRole('link', { name: /muokkaa/i }),
+  addEventToEventGroupButton: screen.getByRole('link', {
+    name: /lisää tapahtuma/i,
   }),
   getEvent: (name: string) =>
     Selector('.MuiTableBody-root tr td:first-child').withExactText(name),
   publishButton: screen.queryByRole('button', {
-    name: 'Julkaise tapahtumaryhmä',
+    name: /Julkaise tapahtumaryhmä/i,
   }),
   publishConfirmButton: screen.getByRole('button', { name: 'Vahvista' }),
 };

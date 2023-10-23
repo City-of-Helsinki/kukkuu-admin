@@ -9,30 +9,30 @@ export const eventsListPage = {
   anyEventGroup: Selector('.MuiTableBody-root tr').withText('TAPAHTUMARYHMÄ'),
   eventOrEventGroupByName: (name: string) =>
     Selector('.MuiTableBody-root tr td:first-child').withExactText(name),
-  createEventGroupButton: screen.getByRole('button', {
-    name: 'Uusi tapahtumaryhmä',
+  createEventGroupButton: screen.getByRole('link', {
+    name: /uusi tapahtumaryhmä/i,
   }),
-  createEventButton: screen.getByRole('button', {
-    name: 'Uusi tapahtuma',
+  createEventButton: screen.getByRole('link', {
+    name: /^uusi tapahtuma$/i,
   }),
 };
 
 export const eventsDetailPage = {
   breadcrumbs: Selector('.MuiBreadcrumbs-ol .MuiBreadcrumbs-li a'),
-  editButton: screen.getByRole('button', {
-    name: 'Muokkaa',
+  editButton: screen.getByRole('link', {
+    name: /muokkaa/i,
   }),
   title: (name: string) => Selector('h1').withExactText(name),
-  readyToggle: screen.getByText('Valmis julkaistavaksi'),
+  readyToggle: screen.getByText(/Valmis julkaistavaksi/i),
   eventGroupLink: (name: string) => Selector('a').withExactText(name),
 };
 
 const eventForm = {
-  nameInput: screen.getByLabelText('Nimi *'),
+  nameInput: screen.getByLabelText(/Nimi/i),
   participantsPerInviteSelect: screen.getByLabelText(
-    'Osallistujat kutsua kohden *'
+    /Osallistujat kutsua kohden/i
   ),
-  capacityPerOccurrence: screen.getByLabelText('Esiintymän kapasiteetti *'),
+  capacityPerOccurrence: screen.getByLabelText(/Esiintymän kapasiteetti/i),
   submitButton: screen.getByRole('button', { name: 'Tallenna' }),
 };
 
