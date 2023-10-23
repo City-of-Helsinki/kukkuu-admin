@@ -104,10 +104,9 @@ function MessageDetails() {
         label="messages.fields.occurrences.label"
         render={(record?: any) => {
           const stringifiedRecords =
-            record &&
-            record.occurrences.edges.map((connection: any) =>
+            record?.occurrences?.edges.map((connection: any) =>
               toShortDateTimeString(new Date(connection.node.time))
-            );
+            ) ?? [];
 
           if (stringifiedRecords.length === 0) {
             return t('messages.fields.occurrences.all');
