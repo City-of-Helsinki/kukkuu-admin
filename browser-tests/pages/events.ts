@@ -4,7 +4,9 @@ import { screen } from '@testing-library/testcafe';
 import { selectOption } from './select';
 
 export const eventsListPage = {
-  title: Selector('h1').withExactText('Tapahtumat'),
+  title: screen.getByRole('heading', {
+    name: /tapahtumat/i,
+  }),
   listBody: Selector('.MuiTableBody-root'),
   anyEventGroup: Selector('.MuiTableBody-root tr').withText('TAPAHTUMARYHMÄ'),
   eventOrEventGroupByName: (name: string) =>
