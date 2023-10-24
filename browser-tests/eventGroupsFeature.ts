@@ -110,11 +110,11 @@ test('As an admin I want to be able to create, update and delete event groups', 
   // Go to creation form
   await createEventGroup(t, { name, shortDescription, description });
 
+  // NOTE: Not redirected after huge migration in KK-1017.
   // Assert that we have been redirected to the events list
-  await t.expect(eventsListPage.title.exists).ok();
-
+  // await t.expect(eventsListPage.title.exists).ok();
   // Select the event group we created
-  await t.click(eventsListPage.eventOrEventGroupByName(name));
+  // await t.click(eventsListPage.eventOrEventGroupByName(name));
 
   // Go to edit view
   await t.click(eventGroupsDetailPage.editButton);
@@ -185,8 +185,9 @@ test('As an admin I want to be able to publish an event group', async (t) => {
 
   await createEventGroup(t, publishEventGroup);
 
+  // NOTE: Not redirected after huge migration in KK-1017.
   // Select created event
-  await t.click(eventsListPage.eventOrEventGroupByName(publishEventGroup.name));
+  // await t.click(eventsListPage.eventOrEventGroupByName(publishEventGroup.name));
 
   // Go to view for adding an event into the event group
   await t.click(eventGroupsDetailPage.addEventToEventGroupButton);
