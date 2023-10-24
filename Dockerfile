@@ -44,9 +44,6 @@ ENV NODE_ENV $NODE_ENV
 # copy in our source code last, as it changes the most
 COPY --chown=default:root . .
 
-# Use non-root user
-USER default
-
 # Bake package.json start command into the image
 CMD ["react-scripts", "start"]
 
@@ -75,8 +72,5 @@ FROM nginx:1.17 as production
 COPY --from=staticbuilder --chown=nginx:nginx /app/build /usr/share/nginx/html
 
 COPY .prod/nginx.conf /etc/nginx/conf.d/default.conf
-
-# Use non-root user
-USER default
 
 EXPOSE 8080
