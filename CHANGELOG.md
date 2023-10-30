@@ -1,5 +1,68 @@
 # Change Log
 
+## [2.0.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v1.11.1...kukkuu-admin-v2.0.0) (2023-10-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* prettier v3 does not work with jest-snapshot
+* messages view
+* list pages reload when data changes in the list items
+* add the missing save button toolbar into the event creation form
+* occurrence creation
+* event and groups listings
+* the record context is available only inside the ra-view
+* **crud:** migrate the views and their types
+* **authprovider:** replace a history-hook with window replaceState
+* **dataprovider:** migrate undoable to a mutation mode
+* **dataprovider:** add query client with cache
+* **dataprovider:** migrate queries, types and hooks
+* **mui:** migrate the Material-ui v4 to v5
+* upgrade all the dependencies
+
+### Features
+
+* Improved language tabs to fix the issues with translatable fields ([7c2df8b](https://github.com/City-of-Helsinki/kukkuu-admin/commit/7c2df8b809b8c9b76c6ec16db2234e3f852a8d84))
+
+
+### Bug Fixes
+
+* Add the missing save button toolbar into the event creation form ([79ddf0e](https://github.com/City-of-Helsinki/kukkuu-admin/commit/79ddf0e13ae809fbf2dfad6bde8aafe68a29dc78))
+* **appbar:** Appbar color styles ([3719e14](https://github.com/City-of-Helsinki/kukkuu-admin/commit/3719e14cac226e5eb4f2c493762aa4b5226963a4))
+* Browser test selector and unexpected constant truthiness ([460bea2](https://github.com/City-of-Helsinki/kukkuu-admin/commit/460bea2aa83a0110471865e51c371ecc202c7867))
+* Data handling of EventsAndEventGroupsListToolbar-component ([13c98b3](https://github.com/City-of-Helsinki/kukkuu-admin/commit/13c98b35c2effc6d34258c8774ff81a3fa2fe294))
+* Default import linter issues ([e19b239](https://github.com/City-of-Helsinki/kukkuu-admin/commit/e19b239d76081aefcdbe8eaf2f4c1e8efe3676a0))
+* Event and groups listings ([33a4b95](https://github.com/City-of-Helsinki/kukkuu-admin/commit/33a4b95029759a9096b6760aa6c7de8d839e3cd2))
+* Event group route navigation redirect ([3313450](https://github.com/City-of-Helsinki/kukkuu-admin/commit/331345034992eb5da62690c5f36f19e37786a12f))
+* Image field on event creation ([696a7fc](https://github.com/City-of-Helsinki/kukkuu-admin/commit/696a7fc7cadc096c1838652ab9bc7d8cd0ce72db))
+* Jest-dom extensions and jest env ([1accc72](https://github.com/City-of-Helsinki/kukkuu-admin/commit/1accc7262084a51a2875b1a9463e48fc4411c22d))
+* Linter issues ([371c309](https://github.com/City-of-Helsinki/kukkuu-admin/commit/371c30919fccefcdb6334ae199f5791d91f5e7f3))
+* List pages reload when data changes in the list items ([0a6626a](https://github.com/City-of-Helsinki/kukkuu-admin/commit/0a6626a7cbd9adf9933f151ff5a72b549eff0008))
+* Messages details when no occurrences ([92dbd98](https://github.com/City-of-Helsinki/kukkuu-admin/commit/92dbd98000b1dfe9dea6db3898aa87ad15cb7dce))
+* Messages view ([ccaa3b5](https://github.com/City-of-Helsinki/kukkuu-admin/commit/ccaa3b53efa7bb823d1c4a692e0e9c8f0c01cad2))
+* **messages:** Occurrence selection ([e3b5345](https://github.com/City-of-Helsinki/kukkuu-admin/commit/e3b53457460dbafec16612a83db7748be5f794c8))
+* Occurrence creation ([1f306ea](https://github.com/City-of-Helsinki/kukkuu-admin/commit/1f306ea456d6cf4757ce04a9a42e28e5ef97717e))
+* Occurrence edit redirect ([f5389f3](https://github.com/City-of-Helsinki/kukkuu-admin/commit/f5389f309ff1b82a027ff2167b93fb927404276f))
+* Prettier issues ([fa21165](https://github.com/City-of-Helsinki/kukkuu-admin/commit/fa211652d0e45cb01e811b883e8bc7b74bc93e26))
+* Prettier v3 does not work with jest-snapshot ([22dd196](https://github.com/City-of-Helsinki/kukkuu-admin/commit/22dd1968d9dcc88d1766b62873eb883a00fc63a1))
+* Published field -component ([dca9f45](https://github.com/City-of-Helsinki/kukkuu-admin/commit/dca9f450b438064ebebcd6562e811d82c1c04b93))
+* Remove the bulk actions from the datagrids ([1bb827f](https://github.com/City-of-Helsinki/kukkuu-admin/commit/1bb827f7f3182a159b8aa506c583b17472f983c9))
+* The record context is available only inside the ra-view ([29861e3](https://github.com/City-of-Helsinki/kukkuu-admin/commit/29861e3cc969e7b3e3cd0c25e015c703fa8fe8b8))
+* Toolbar projects dropdown ([4120c7e](https://github.com/City-of-Helsinki/kukkuu-admin/commit/4120c7ede65024cbdcdee8f0fa8fca0358621600))
+* Venue show view layout ([78dfc47](https://github.com/City-of-Helsinki/kukkuu-admin/commit/78dfc470d00f59e3dd7331e0b54cd0f4d12e1f87))
+* View title component mishandled a needles source-attribute ([64292e3](https://github.com/City-of-Helsinki/kukkuu-admin/commit/64292e36b5108397a037756ad9160a591cc0f1a4))
+
+
+### Code Refactoring
+
+* **authprovider:** Replace a history-hook with window replaceState ([44e6e23](https://github.com/City-of-Helsinki/kukkuu-admin/commit/44e6e232a6a8731a8905a305660b301d93d9eed8))
+* **crud:** Migrate the views and their types ([e4ad65f](https://github.com/City-of-Helsinki/kukkuu-admin/commit/e4ad65fef85431b74fe198d93113ead61c75f104))
+* **dataprovider:** Add query client with cache ([fb23936](https://github.com/City-of-Helsinki/kukkuu-admin/commit/fb23936bde223698882131c5a44b8e30d16c3c36))
+* **dataprovider:** Migrate queries, types and hooks ([6f7462a](https://github.com/City-of-Helsinki/kukkuu-admin/commit/6f7462a63584a9a1d40574012e2066dd5bab4a01))
+* **dataprovider:** Migrate undoable to a mutation mode ([8eb993f](https://github.com/City-of-Helsinki/kukkuu-admin/commit/8eb993fc4e6f0d96bbd62e1a391bc7a33ad2992e))
+* **mui:** Migrate the Material-ui v4 to v5 ([3dacd0c](https://github.com/City-of-Helsinki/kukkuu-admin/commit/3dacd0c527e20bac0fe2c17b3c92879d3cf1a14d))
+* Upgrade all the dependencies ([0f47e2d](https://github.com/City-of-Helsinki/kukkuu-admin/commit/0f47e2d16c141abb45bb0339e639263fad6ed0b2))
+
 ## [1.11.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v1.11.0...kukkuu-admin-v1.11.1) (2023-08-22)
 
 ### Bug Fixes
