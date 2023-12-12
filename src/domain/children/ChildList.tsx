@@ -16,7 +16,7 @@ import { Children_children_edges_node as Child } from '../../api/generatedTypes/
 import { languageChoices } from '../../common/choices';
 import KukkuuList from '../application/layout/kukkuuListPage/KukkuuList';
 
-const ChildList = (props: any) => {
+const ChildList = () => {
   const translate = useTranslate();
   const [locale] = useLocaleState();
 
@@ -25,9 +25,8 @@ const ChildList = (props: any) => {
       <CardHeader title={translate('children.list.title')} />
       <KukkuuList
         exporter={false}
-        {...props}
-        pagination={<Pagination rowsPerPageOptions={[20, 100]} />}
-        perPage={20}
+        pagination={<Pagination rowsPerPageOptions={[25, 100]} />}
+        perPage={25}
       >
         <Datagrid rowClick="show" bulkActionButtons={false}>
           <FunctionField
