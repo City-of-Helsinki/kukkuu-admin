@@ -97,17 +97,15 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
     event: ChangeEvent<HTMLInputElement>,
     form: ReturnType<typeof useFormContext>
   ) => {
-    const value = event?.target.value;
+    const recipients = event?.target.value;
     const name = event?.target.name;
 
-    // When the user sets recipient as all, event and occurrence
-    // choices are reset
-    if (value === 'ALL') {
+    if (['ALL', 'INVITED'].includes(recipients)) {
       form.setValue('eventId', 'all');
       form.setValue('occurrenceIds', ['all']);
     }
 
-    form.setValue(name, value);
+    form.setValue(name, recipients);
   };
 
   const handleEvenIdChange = (
