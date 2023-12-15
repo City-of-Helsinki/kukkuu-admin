@@ -105,7 +105,8 @@
         "label": "Language"
       },
       "name": {
-        "label": "Name"
+        "label": "Name",
+        "helperText": "Here you write the name of the event"
       },
       "numOfOccurrences": {
         "label": "Occcurences"

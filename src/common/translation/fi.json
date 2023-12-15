@@ -105,7 +105,8 @@
         "label": "Kieli"
       },
       "name": {
-        "label": "Nimi"
+        "label": "Nimi",
+        "helperText": "Tähän laitetaan tapahtuman nimi"
       },
       "numOfOccurrences": {
         "label": "Esiintymiä"

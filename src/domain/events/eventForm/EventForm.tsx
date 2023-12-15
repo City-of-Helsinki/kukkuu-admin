@@ -68,9 +68,8 @@ const EventForm = ({ view }: { view: 'create' | 'edit' }) => {
                 validate={
                   selectedLanguage === Language.FI ? required() : undefined
                 }
-                // FIXME: missing translations
                 helperText={
-                  isEditing ? 'Tähän laitetaan tapahtuman nimi' : undefined
+                  isEditing ? 'events.fields.name.helperText' : undefined
                 }
                 fullWidth
               />
