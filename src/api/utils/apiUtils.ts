@@ -4,6 +4,7 @@ import {
   MutationOptions,
 } from '@apollo/client';
 import { HttpError } from 'react-admin';
+import mapValues from 'lodash/mapValues';
 
 import client from '../apolloClient/client';
 import { API_ERROR_MESSAGE } from '../constants/ApiConstants';
@@ -81,8 +82,13 @@ export const denormalizeLocalTranslations = <T>(
   adminTranslations: AdminUITranslation<T>
 ) => {
   const apiTranslations: T[] = [];
-  for (const [k, v] of Object.entries(adminTranslations)) {
-    apiTranslations.push(Object.assign({ languageCode: k }, v));
+  for (const [languageCode, translationEntry] of Object.entries(
+    adminTranslations
+  )) {
+    const normalizedData = mapValues(translationEntry as object, (v) =>
+      v === null ? '' : v
+    );
+    apiTranslations.push({ languageCode, ...normalizedData } as T);
   }
   return apiTranslations;
 };
