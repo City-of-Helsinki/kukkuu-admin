@@ -39,7 +39,7 @@ export default function TranslatableProvider({
     selector,
   };
 
-  const uniqueKeyForLanguageConteiner = `translatable-context${
+  const uniqueKeyForLanguageContainer = `translatable-context${
     groupKey ? '-' + groupKey : ''
   }-${selectedLanguage}`;
 
@@ -48,7 +48,7 @@ export default function TranslatableProvider({
       {/* NOTE: The fields won't unmount without a container with a key-parameter 
       (or key in each field), so without the changing container, 
       the fields values won't be refreshed when the language is changed. */}
-      <div key={uniqueKeyForLanguageConteiner}>{children}</div>
+      <div key={uniqueKeyForLanguageContainer}>{children}</div>
     </TranslatableContext.Provider>
   );
 }

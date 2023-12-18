@@ -32,6 +32,7 @@ import TranslatableProvider from '../../../common/providers/TranslatableProvider
 
 const EventForm = ({ view }: { view: 'create' | 'edit' }) => {
   const isEditing = view === 'edit';
+
   return (
     <SimpleForm
       // TODO: refactor form validate with YUP

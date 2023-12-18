@@ -1,10 +1,16 @@
 import React from 'react';
 import { useTranslate } from 'react-admin';
 import { useLocation } from 'react-router-dom';
+import type { FieldValues } from 'react-hook-form';
 
 import Aside from '../../../common/components/aside/Aside';
 import KukkuuCreatePage from '../../application/layout/kukkuuCreatePage/KukkuuCreatePage';
 import EventForm from '../eventForm/EventForm';
+import {
+  createTranslationObject,
+  getNormalizedValues,
+} from '../../../common/utils';
+import { FormFieldValueNormalizer } from '../../../common/types';
 
 const EventCreate = () => {
   const { search } = useLocation();
@@ -12,8 +18,23 @@ const EventCreate = () => {
   const translate = useTranslate();
 
   const transform = (data: any) => {
+    const fieldNormalizerMap = createTranslationObject({
+      translatableFields: [
+        'imageAltText',
+        'name',
+        'shortDescription',
+        'description',
+      ],
+      translationsKeyName: 'translations',
+      value: [[null], ''],
+      flattenedWithDotNotation: true,
+    }) as FormFieldValueNormalizer<FieldValues>;
     return {
-      ...data,
+      ...getNormalizedValues({
+        fieldNormalizerMap,
+        formValues: data,
+        initialValues: data,
+      }),
       eventGroupId,
     };
   };

@@ -1,7 +1,11 @@
 import get from 'lodash/get';
+import set from 'lodash/set';
+import type { FieldValues } from 'react-hook-form';
 
 import i18nProvider from './translation/i18nProvider';
 import { Language } from '../api/generatedTypes/globalTypes';
+import { FormFieldValueNormalizer } from './types';
+import { CONTENT_LANGUAGES } from './constants';
 
 export function toDateTimeString(
   date: Date,
@@ -84,3 +88,70 @@ export function requireFinnishFields(
 
   return errors;
 }
+
+/**
+ * When an form input is cleared (with keyboard), the form context stores the value as `null`.
+ * The `null` may not be handled properly by the Kukkuu API and an validation exception is raised.
+ * This function converts the nulls to some specific value given in an input prop.
+ * See more: https://helsinkisolutionoffice.atlassian.net/browse/KK-1048.
+ */
+export const getNormalizedValues = <T extends FieldValues = FieldValues>({
+  fieldNormalizerMap,
+  formValues,
+  initialValues = {},
+}: {
+  fieldNormalizerMap: FormFieldValueNormalizer<T>;
+  formValues: FieldValues;
+  initialValues?: Partial<FieldValues>;
+}): Partial<FieldValues> =>
+  Object.keys(fieldNormalizerMap).reduce((result, fieldName) => {
+    const value = get(formValues, fieldName);
+    const [valuesToNormalize, normalizedValue] = get(
+      fieldNormalizerMap,
+      fieldName
+    );
+    if (valuesToNormalize?.includes(value)) {
+      set(result, fieldName, normalizedValue);
+    }
+    return result;
+  }, initialValues);
+
+export const createTranslationObject = ({
+  translatableFields,
+  translationsKeyName = 'translations',
+  value = '',
+  flattenedWithDotNotation = false,
+}: {
+  translatableFields: string[];
+  translationsKeyName?: string;
+  value?: any;
+  flattenedWithDotNotation?: boolean;
+}) => {
+  if (flattenedWithDotNotation) {
+    return translatableFields.reduce(
+      (dictionary, field) => ({
+        ...dictionary,
+        ...CONTENT_LANGUAGES.reduce(
+          (translations, lang) => ({
+            ...translations,
+            [`${translationsKeyName}.${lang}.${field}`]: value,
+          }),
+          {}
+        ),
+      }),
+      {}
+    );
+  }
+
+  const dictionary = translatableFields.reduce(
+    (dictionary, field) => ({ ...dictionary, [field]: value }),
+    {}
+  );
+
+  const translations = CONTENT_LANGUAGES.reduce(
+    (translations, lang) => ({ ...translations, [lang]: dictionary }),
+    {}
+  );
+
+  return { [translationsKeyName]: translations };
+};
