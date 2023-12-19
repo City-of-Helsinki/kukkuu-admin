@@ -61,11 +61,7 @@ const MessageDetailToolbar = () => {
     <TopToolbar>
       {record && <EditButton record={record} />}
       {record && basePath && (
-        <MessageSendButton
-          basePath={basePath}
-          record={record}
-          className={classes.sendButton}
-        />
+        <MessageSendButton className={classes.sendButton} />
       )}
     </TopToolbar>
   );

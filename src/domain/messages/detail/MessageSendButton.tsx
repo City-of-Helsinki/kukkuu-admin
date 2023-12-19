@@ -1,5 +1,9 @@
 import React from 'react';
-import { useTranslate } from 'react-admin';
+import {
+  useRecordContext,
+  useResourceContext,
+  useTranslate,
+} from 'react-admin';
 import SendIcon from '@mui/icons-material/Check';
 
 import { Message_message as Message } from '../../../api/generatedTypes/Message';
@@ -7,14 +11,13 @@ import ConfirmMutationButton from '../../../common/components/confirmMutationBut
 import useMessageSendMutation from '../hooks/useMessageSendMutation';
 
 type Props = {
-  /** @deprecated - create with useResourceContext instead. */
-  basePath: string;
-  /** @deprecated - create with useRecordContext instead. */
-  record: Message;
   className?: string;
 };
 
-const MessagesSendButton = ({ basePath, record, className }: Props) => {
+const MessagesSendButton = ({ className }: Props) => {
+  const record = useRecordContext<Message>();
+  const resource = useResourceContext();
+  const basePath = `/${resource}`;
   const t = useTranslate();
   const mutation = useMessageSendMutation({
     basePath,
@@ -32,7 +35,7 @@ const MessagesSendButton = ({ basePath, record, className }: Props) => {
         }),
         content: 'messages.send.confirm.content',
         translateOptions: {
-          recipientCount: record?.recipientCount || '?',
+          recipientCount: record?.recipientCount ?? '?',
         },
       }}
     />
