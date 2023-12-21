@@ -1,5 +1,14 @@
 # Change Log
 
+## [2.0.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v2.0.0...kukkuu-admin-v2.0.1) (2023-12-21)
+
+
+### Bug Fixes
+
+* **messages:** Recipient count in the send email modal window ([9e73664](https://github.com/City-of-Helsinki/kukkuu-admin/commit/9e73664fa87e828f49ca70c6708f593bbadce8c1))
+* **messages:** Recipient selection validation after change ([29de740](https://github.com/City-of-Helsinki/kukkuu-admin/commit/29de74013db21040403c0229ab7f82e9dc8ab8e2))
+* Transform nulls to empty strings when sending data to the API ([b1d5413](https://github.com/City-of-Helsinki/kukkuu-admin/commit/b1d54131302c62b4900d0a379291b6f0b1d5b668))
+
 ## [2.0.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v1.11.1...kukkuu-admin-v2.0.0) (2023-10-30)
 
 
