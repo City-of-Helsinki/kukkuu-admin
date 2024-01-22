@@ -95,7 +95,7 @@ export const getTitle = (record?: RaRecord) =>
   new Occurrence(record as OccurrenceType).title || '';
 
 export const getChildFullName = (enrolmentEdge: EnrolmentEdge) =>
-  `${enrolmentEdge.node?.child?.firstName} ${enrolmentEdge.node?.child?.lastName}`.trim();
+  enrolmentEdge.node?.child?.name.trim();
 
 const OccurrenceShow = () => {
   const [locale] = useLocaleState();
@@ -157,8 +157,8 @@ const OccurrenceShow = () => {
               render={withEnrolment(getChildFullName, () => null)}
             />
             <DateField
-              source="node.child.birthdate"
-              label="children.fields.birthdate.label"
+              source="node.child.birthyear"
+              label="children.fields.birthyear.label"
               locales={locale}
             />
             <FunctionField

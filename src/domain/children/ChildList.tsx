@@ -31,13 +31,11 @@ const ChildList = () => {
         <Datagrid rowClick="show" bulkActionButtons={false}>
           <FunctionField
             label="children.fields.name.label"
-            render={(record?: Child) =>
-              record && `${record.firstName} ${record.lastName}`.trim()
-            }
+            render={(record?: Child) => record && record.name.trim()}
           />
           <DateField
-            source="birthdate"
-            label="children.fields.birthdate.label"
+            source="birthyear"
+            label="children.fields.birthyear.label"
             locales={locale}
           />
           <TextField

@@ -20,8 +20,8 @@
   },
   "children": {
     "fields": {
-      "birthdate": {
-        "label": "Date of birth"
+      "birthyear": {
+        "label": "Year of birth"
       },
       "guardians": {
         "fields": {

@@ -35,13 +35,11 @@ const ChildShow = (props: ShowProps) => {
         <SimpleShowLayout>
           <FunctionField
             label="children.fields.name.label"
-            render={(record: Child) =>
-              `${record.firstName} ${record.lastName}`.trim()
-            }
+            render={(record: Child) => record.name.trim()}
           />
           <DateField
-            source="birthdate"
-            label="children.fields.birthdate.label"
+            source="birthyear"
+            label="children.fields.birthyear.label"
             locales={locale}
           />
           <SelectField
@@ -56,8 +54,7 @@ const ChildShow = (props: ShowProps) => {
           <FunctionField
             label="children.fields.guardians.label"
             render={(record: Child) =>
-              record &&
-              `${record.guardians.edges[0]?.node?.firstName} ${record.guardians.edges[0]?.node?.lastName}`.trim()
+              record && record.guardians.edges[0]?.node?.name.trim()
             }
           />
           <EmailField
