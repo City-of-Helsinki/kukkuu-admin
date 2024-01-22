@@ -62,9 +62,8 @@ export const occurrenceQuery = gql`
             attended
             child {
               id
-              firstName
-              lastName
-              birthdate
+              name
+              birthyear
               guardians {
                 edges {
                   node {

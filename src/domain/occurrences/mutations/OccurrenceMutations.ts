@@ -62,9 +62,8 @@ export const updateOccurrenceMutation = gql`
               id
               attended
               child {
-                firstName
-                lastName
-                birthdate
+                name
+                birthyear
                 guardians {
                   edges {
                     node {

@@ -20,8 +20,8 @@
   },
   "children": {
     "fields": {
-      "birthdate": {
-        "label": "Syntymäaika"
+      "birthyear": {
+        "label": "Syntymävuosi"
       },
       "guardians": {
         "fields": {

@@ -7,18 +7,13 @@ export const childrenQuery = gql`
       edges {
         node {
           id
-          firstName
-          lastName
-          birthdate
+          name
+          birthyear
           postalCode
           guardians {
             edges {
               node {
-                id
-                email
-                firstName
-                lastName
-                language
+                ...ChildGuardianFragment
               }
             }
           }
@@ -32,37 +27,44 @@ export const childQuery = gql`
   query Child($id: ID!) {
     child(id: $id) {
       id
-      firstName
-      lastName
-      birthdate
+      name
+      birthyear
       postalCode
       guardians {
         edges {
           node {
-            id
-            email
-            language
-            firstName
-            lastName
-            phoneNumber
+            ...ChildGuardianFragment
           }
         }
       }
       occurrences {
         edges {
           node {
-            id
-            time
-            event {
-              id
-              duration
-            }
-            venue {
-              id
-            }
+            ...ChildOccurrenceFragment
           }
         }
       }
+    }
+  }
+
+  fragment ChildGuardianFragment on GuardianNode {
+    id
+    email
+    language
+    firstName
+    lastName
+    phoneNumber
+  }
+
+  fragment ChildOccurrenceFragment on OccurrenceNode {
+    id
+    time
+    event {
+      id
+      duration
+    }
+    venue {
+      id
     }
   }
 `;

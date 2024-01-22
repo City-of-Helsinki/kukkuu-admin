@@ -164,8 +164,8 @@
       "name": {
         "label": "Name"
       },
-      "birthdate": {
-        "label": "Date of birth"
+      "birthyear": {
+        "label": "Year of birth"
       },
       "guardians": {
         "label": "Guardian",
