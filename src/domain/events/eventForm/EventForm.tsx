@@ -9,10 +9,6 @@ import {
   DateTimeInput,
 } from 'react-admin';
 
-import {
-  Language,
-  TicketSystem,
-} from '../../../api/generatedTypes/globalTypes';
 import ImageUploadField from '../../../common/components/imageField/ImageUploadField';
 import {
   validateCapacityPerOccurrence,
@@ -23,12 +19,14 @@ import {
   validateUrl,
 } from '../validations';
 import { participantsPerInviteChoices, ticketSystemChoices } from '../choices';
-import { RecordWithTicketSystem, hasInternalTicketSystem } from '../utils';
+import type { RecordWithTicketSystem } from '../utils';
+import { hasInternalTicketSystem } from '../utils';
 import Config from '../../config';
 import TicketSystemInput from '../ticketSystemInput/TicketSystemInput';
 import EventEditToolbar from '../edit/EventEditToolbar';
 import TranslatableContext from '../../../common/contexts/TranslatableContext';
 import TranslatableProvider from '../../../common/providers/TranslatableProvider';
+import { Language, TicketSystem } from '../../api/generatedTypes/graphql';
 
 const EventForm = ({ view }: { view: 'create' | 'edit' }) => {
   const isEditing = view === 'edit';
@@ -66,7 +64,7 @@ const EventForm = ({ view }: { view: 'create' | 'edit' }) => {
                 source={translatableField('name')}
                 label="events.fields.name.label"
                 validate={
-                  selectedLanguage === Language.FI ? required() : undefined
+                  selectedLanguage === Language.Fi ? required() : undefined
                 }
                 // FIXME: missing translations
                 helperText={
@@ -106,7 +104,7 @@ const EventForm = ({ view }: { view: 'create' | 'edit' }) => {
                   source="ticketSystem.type"
                   label="events.fields.ticketSystem.label"
                   choices={ticketSystemChoices}
-                  defaultValue={!isEditing ? TicketSystem.INTERNAL : undefined}
+                  defaultValue={!isEditing ? TicketSystem.Internal : undefined}
                   disabled={isEditing}
                   fullWidth
                 />

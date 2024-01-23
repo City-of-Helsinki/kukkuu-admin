@@ -1,8 +1,8 @@
 import React from 'react';
 import { Login, useTranslate, useLogin } from 'react-admin';
+import type { Theme } from '@mui/material';
 import {
   ThemeProvider,
-  Theme,
   StyledEngineProvider,
   Button,
   Card,

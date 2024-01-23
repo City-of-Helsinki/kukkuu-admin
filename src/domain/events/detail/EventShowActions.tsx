@@ -8,8 +8,8 @@ import {
 } from 'react-admin';
 import { makeStyles } from '@mui/styles';
 
-import { Permissions } from '../../authentication/authProvider';
-import { AdminEvent } from '../types/EventTypes';
+import type { Permissions } from '../../authentication/authProvider';
+import type { AdminEvent } from '../types/EventTypes';
 import EventReadyToggle from './EventReadyToggle';
 import EventPublishButton from './EventPublishButton';
 

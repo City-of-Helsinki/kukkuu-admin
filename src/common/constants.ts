@@ -1,3 +1,3 @@
-import { Language } from '../api/generatedTypes/globalTypes';
+import { Language } from '../domain/api/generatedTypes/graphql';
 
-export const CONTENT_LANGUAGES = [Language.FI, Language.SV, Language.EN];
+export const CONTENT_LANGUAGES = [Language.Fi, Language.Sv, Language.En];

@@ -9,9 +9,9 @@ import {
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 
-import { Message_message as Message } from '../../../api/generatedTypes/Message';
 import { toDateTimeString } from '../../../common/utils';
 import MessageSendButton from './MessageSendButton';
+import type { MessageNode } from '../../api/generatedTypes/graphql';
 
 const useMessageDetailsToolbarStyles = makeStyles((theme) => ({
   wrapper: {
@@ -30,7 +30,7 @@ const useMessageDetailsToolbarStyles = makeStyles((theme) => ({
 }));
 
 const MessageDetailToolbar = () => {
-  const record = useRecordContext<Message>();
+  const record = useRecordContext<MessageNode>();
   const resource = useResourceContext();
   const basePath = `/${resource}`;
   const classes = useMessageDetailsToolbarStyles();

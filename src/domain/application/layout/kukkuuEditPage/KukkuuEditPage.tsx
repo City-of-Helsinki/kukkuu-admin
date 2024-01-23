@@ -1,5 +1,6 @@
-import React, { ReactElement } from 'react';
-import { EditProps } from 'react-admin';
+import type { ReactElement } from 'react';
+import React from 'react';
+import type { EditProps } from 'react-admin';
 
 import KukkuuPageLayout from '../kukkuuCardPageLayout/KukkuuCardPageLayout';
 import KukkuuEdit from './KukkuuEdit';

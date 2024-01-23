@@ -1,11 +1,11 @@
-import { MethodHandlerParams } from '../../../api/types';
+import type { MethodHandlerParams } from '../../../api/types';
 import { queryHandler, handleApiConnection } from '../../../api/utils/apiUtils';
+import { EventsAndEventGroupsDocument } from '../../api/generatedTypes/graphql';
 import projectService from '../../projects/projectService';
-import { eventsAndEventGroupsQuery } from '../queries/EventsAndEventGroupsQueries';
 
 async function getEventsAndEventGroups(params: MethodHandlerParams) {
   const response = await queryHandler({
-    query: eventsAndEventGroupsQuery,
+    query: EventsAndEventGroupsDocument,
     variables: { projectId: projectService.projectId },
   });
 

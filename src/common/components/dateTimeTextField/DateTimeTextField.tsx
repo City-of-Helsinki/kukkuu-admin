@@ -1,11 +1,8 @@
 import React from 'react';
-import {
-  InputProps,
-  useInput,
-  useRecordContext,
-  useTranslate,
-} from 'react-admin';
-import TextField, { TextFieldProps } from '@mui/material/TextField';
+import type { InputProps } from 'react-admin';
+import { useInput, useRecordContext, useTranslate } from 'react-admin';
+import type { TextFieldProps } from '@mui/material/TextField';
+import TextField from '@mui/material/TextField';
 import { makeStyles } from '@mui/styles';
 import moment from 'moment-timezone';
 import { Grid } from '@mui/material';

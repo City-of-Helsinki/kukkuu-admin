@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import type { RaRecord } from 'react-admin';
 import {
   TabbedShowLayout,
   TextField,
@@ -13,16 +14,15 @@ import {
   ReferenceField,
   useLocaleState,
   Button,
-  RaRecord,
   UrlField,
   useRecordContext,
   Loading,
 } from 'react-admin';
-import { createStyles, withStyles, WithStyles } from '@mui/styles';
+import type { WithStyles } from '@mui/styles';
+import { createStyles, withStyles } from '@mui/styles';
 import { Link } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 
-import { Occurrences_occurrences_edges_node as Occurrence } from '../../../api/generatedTypes/Occurrences';
 import ViewTitle from '../../../common/components/viewTitle/ViewTitle';
 import LongTextField from '../../../common/components/longTextField/LongTextField';
 import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPageLayout';
@@ -32,10 +32,11 @@ import { PublishedField } from '../fields';
 import { participantsPerInviteChoices, ticketSystemChoices } from '../choices';
 import EventShowActions from './EventShowActions';
 import { hasInternalTicketSystem } from '../utils';
-import { AdminEvent } from '../types/EventTypes';
+import type { AdminEvent } from '../types/EventTypes';
 import ImportTicketSystemPasswordsFormDialog from '../../ticketSystemPassword/ImportTicketSystemPasswordsFormDialog';
 import TranslatableProvider from '../../../common/providers/TranslatableProvider';
 import useTranslatableContext from '../../../common/hooks/useTranslatableContext';
+import type { OccurrenceNode } from '../../api/generatedTypes/graphql';
 
 const styles = createStyles({
   button: {
@@ -44,7 +45,7 @@ const styles = createStyles({
 });
 
 interface AddOccurrenceButtonProps extends WithStyles<typeof styles> {
-  record?: Occurrence;
+  record?: OccurrenceNode;
 }
 
 const AddOccurrenceButton = withStyles(styles)(

@@ -1,5 +1,5 @@
-import { EventGroup_eventGroup_events_edges_node as EventNode } from '../../api/generatedTypes/EventGroup';
-import { RecordType } from '../../api/types';
+import type { RecordType } from '../../api/types';
+import type { EventNode } from '../api/generatedTypes/graphql';
 
 export enum EventGroupEventsPublishStatusEnum {
   NotReady = 'notReady',

@@ -4,7 +4,8 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Container from '@mui/material/Container';
 import { makeStyles } from '@mui/styles';
-import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/material';
+import type { Theme } from '@mui/material';
+import { ThemeProvider, StyledEngineProvider } from '@mui/material';
 
 import theme from '../../common/materialUI/themeConfig';
 

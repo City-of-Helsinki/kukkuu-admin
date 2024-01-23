@@ -3,7 +3,7 @@ import { useRecordContext, useTranslate } from 'react-admin';
 import PublishIcon from '@mui/icons-material/Check';
 
 import ConfirmMutationButton from '../../../common/components/confirmMutationButton/ConfirmMutationButton';
-import { AdminEvent } from '../types/EventTypes';
+import type { AdminEvent } from '../types/EventTypes';
 import usePublishEventMutation from '../hooks/usePublishEventMutation';
 
 type Props = {

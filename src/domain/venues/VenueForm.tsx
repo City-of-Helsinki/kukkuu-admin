@@ -1,11 +1,11 @@
 import React from 'react';
 import { TextInput, SimpleForm, required } from 'react-admin';
 
-import { Language } from '../../api/generatedTypes/globalTypes';
 import { validateVenue } from './validations';
 import VenueEditToolbar from './VenueEditToolbar';
 import TranslatableProvider from '../../common/providers/TranslatableProvider';
 import TranslatableContext from '../../common/contexts/TranslatableContext';
+import { Language } from '../api/generatedTypes/graphql';
 
 const VenueForm = ({ view }: { view: 'create' | 'edit' }) => {
   const isEditing = view === 'edit';
@@ -31,7 +31,7 @@ const VenueForm = ({ view }: { view: 'create' | 'edit' }) => {
                 label="venues.fields.name.label"
                 helperText="venues.fields.name.helperText"
                 validate={
-                  selectedLanguage === Language.FI ? required() : undefined
+                  selectedLanguage === Language.Fi ? required() : undefined
                 }
                 fullWidth
               />

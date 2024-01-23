@@ -1,7 +1,7 @@
 import { useMutation } from 'react-query';
 import { useDataProvider } from 'react-admin';
 
-import extendedDataProvider from '../../../api/dataProvider';
+import type extendedDataProvider from '../../../api/dataProvider';
 
 const useSetReadyMutation = () => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment

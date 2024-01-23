@@ -2,20 +2,20 @@ import React from 'react';
 import { useTranslate } from 'react-admin';
 import { useLocation } from 'react-router';
 
-import { ProtocolType } from '../../../api/generatedTypes/globalTypes';
 import KukkuuCreatePage from '../../application/layout/kukkuuCreatePage/KukkuuCreatePage';
 import KukkuuCreateToolbar from '../../application/layout/kukkuuCreatePage/KukkuuCreateToolbar';
 import MessageForm from '../form/MessageForm';
+import { ProtocolType } from '../../api/generatedTypes/graphql';
 
 const MessageCreate = () => {
   const t = useTranslate();
   const location = useLocation();
-  const protocol = getProtocolFromSearch(location.search) || ProtocolType.EMAIL;
+  const protocol = getProtocolFromSearch(location.search) || ProtocolType.Email;
 
   return (
     <KukkuuCreatePage
       pageTitle={
-        protocol === ProtocolType.SMS
+        protocol === ProtocolType.Sms
           ? t('messages.create.title.sms')
           : t('messages.create.title.email')
       }
@@ -23,7 +23,7 @@ const MessageCreate = () => {
         transform: (data) => ({
           ...data,
           protocol,
-          sendDirectly: protocol === ProtocolType.SMS,
+          sendDirectly: protocol === ProtocolType.Sms,
         }),
         redirect: 'list',
       }}
@@ -32,7 +32,7 @@ const MessageCreate = () => {
         toolbar={
           <KukkuuCreateToolbar
             saveLabel={
-              protocol === ProtocolType.SMS ? t('action.send') : undefined
+              protocol === ProtocolType.Sms ? t('action.send') : undefined
             }
           />
         }

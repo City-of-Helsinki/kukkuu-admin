@@ -1,17 +1,16 @@
 import React from 'react';
+import type { RaRecord, Identifier } from 'react-admin';
 import {
   SelectArrayInput,
   ReferenceArrayInput,
   useTranslate,
   useInput,
   useChoicesContext,
-  RaRecord,
-  Identifier,
 } from 'react-admin';
 import { useFormContext } from 'react-hook-form';
 
-import { Occurrence_occurrence as Occurrence } from '../../api/generatedTypes/Occurrence';
 import { toShortDateTimeString } from '../../common/utils';
+import type { OccurrenceNode } from '../api/generatedTypes/graphql';
 
 const AllChoice = ({ children, allChoiceLabel, getChoices, ...rest }: any) => {
   const { availableChoices } = useChoicesContext();
@@ -36,7 +35,7 @@ export function getFilters(
   };
 }
 
-export const getChoices = (records: Occurrence[]) => {
+export const getChoices = (records: OccurrenceNode[]) => {
   return (
     records?.map(({ id, time }) => ({
       id,

@@ -3,15 +3,15 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 import { useRecordContext } from 'react-admin';
 
-import { Occurrences_occurrences_edges_node as OccurrenceType } from '../../../api/generatedTypes/Occurrences';
 import Occurrence from '../Occurrence';
+import type { OccurrenceNode } from '../../api/generatedTypes/graphql';
 
 const OccurrenceTimeRangeField = ({
   occurrenceSource,
 }: {
   occurrenceSource?: string;
 }) => {
-  const record = useRecordContext<OccurrenceType>();
+  const record = useRecordContext<OccurrenceNode>();
   if (!record) {
     return null;
   }

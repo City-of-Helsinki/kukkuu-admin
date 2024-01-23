@@ -1,17 +1,18 @@
 import React from 'react';
 import { useTranslate, useDataProvider, useRecordContext } from 'react-admin';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import type { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 
-import {
-  Occurrence_occurrence_enrolments_edges as EnrolmentEdge,
-  Occurrence_occurrence_enrolments_edges_node as Enrolment,
-} from '../../../api/generatedTypes/Occurrence';
+import type {
+  EnrolmentNode,
+  EnrolmentNodeEdge,
+} from '../../api/generatedTypes/graphql';
 
 const OccurrenceAttendedField = () => {
-  const record = useRecordContext<EnrolmentEdge>();
-  const enrolment = record?.node as Enrolment; // enrolment should be never undefined or null here
+  const record = useRecordContext<EnrolmentNodeEdge>();
+  const enrolment = record.node as EnrolmentNode; // enrolment should be never undefined or null here
   const [attended, setAttended] = React.useState(
     JSON.stringify(enrolment.attended)
   );

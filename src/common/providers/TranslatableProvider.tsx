@@ -1,12 +1,12 @@
 import React from 'react';
 
+import type { TranslatableContextType } from '../contexts/TranslatableContext';
 import TranslatableContext, {
-  TranslatableContextType,
   initialContext,
 } from '../contexts/TranslatableContext';
-import { Language } from '../../api/generatedTypes/globalTypes';
 import { CONTENT_LANGUAGES } from '../constants';
 import LanguageTabs from '../components/languageTab/LanguageTabs';
+import { Language } from '../../domain/api/generatedTypes/graphql';
 
 type LanguageTabsProviderProps = {
   children: React.ReactNode;
@@ -19,7 +19,7 @@ type LanguageTabsProviderProps = {
 export default function TranslatableProvider({
   children,
   groupKey,
-  defaultLanguage = Language.FI,
+  defaultLanguage = Language.Fi,
   languages = CONTENT_LANGUAGES,
   selector = <LanguageTabs />,
 }: LanguageTabsProviderProps) {

@@ -12,9 +12,9 @@ import {
 } from 'react-admin';
 import { CardHeader } from '@mui/material';
 
-import { Children_children_edges_node as Child } from '../../api/generatedTypes/Children';
 import { languageChoices } from '../../common/choices';
 import KukkuuList from '../application/layout/kukkuuListPage/KukkuuList';
+import type { ChildNode } from '../api/generatedTypes/graphql';
 
 const ChildList = () => {
   const translate = useTranslate();
@@ -31,7 +31,7 @@ const ChildList = () => {
         <Datagrid rowClick="show" bulkActionButtons={false}>
           <FunctionField
             label="children.fields.name.label"
-            render={(record?: Child) => record && record.name.trim()}
+            render={(record?: ChildNode) => record && record.name.trim()}
           />
           <DateField
             source="birthyear"

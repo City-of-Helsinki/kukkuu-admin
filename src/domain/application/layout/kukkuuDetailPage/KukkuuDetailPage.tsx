@@ -1,15 +1,12 @@
-import React, { ComponentType, ReactElement, ReactText } from 'react';
-import {
-  useGetOne,
-  RaRecord,
-  ShowProps,
-  useResourceContext,
-} from 'react-admin';
+import type { ComponentType, ReactElement, ReactText } from 'react';
+import React from 'react';
+import type { RaRecord, ShowProps } from 'react-admin';
+import { useGetOne, useResourceContext } from 'react-admin';
 import omit from 'lodash/omit';
 import { useParams } from 'react-router-dom';
 
-import { Crumb } from '../../../../common/components/breadcrumbs/Breadcrumbs';
-import { KukkuuLayoutProps } from '../kukkuuPageLayout/KukkuuPageLayout';
+import type { Crumb } from '../../../../common/components/breadcrumbs/Breadcrumbs';
+import type { KukkuuLayoutProps } from '../kukkuuPageLayout/KukkuuPageLayout';
 import KukkuuCardPageLayout from '../kukkuuCardPageLayout/KukkuuCardPageLayout';
 import KukkuuShow from './KukkuuShow';
 

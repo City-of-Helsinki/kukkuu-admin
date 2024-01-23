@@ -1,4 +1,5 @@
 import React from 'react';
+import type { ShowProps } from 'react-admin';
 import {
   TextField,
   SimpleShowLayout,
@@ -11,18 +12,14 @@ import {
   Datagrid,
   ReferenceField,
   ArrayField,
-  ShowProps,
 } from 'react-admin';
 import { CardHeader } from '@mui/material';
 import omit from 'lodash/omit';
 
 import { languageChoices } from '../../common/choices';
-import {
-  Child_child as Child,
-  Child_child_occurrences_edges as OccurrenceEdges,
-} from '../../api/generatedTypes/Child';
 import OccurrenceTimeRangeField from '../occurrences/fields/OccurrenceTimeRangeField';
 import KukkuuShow from '../application/layout/kukkuuDetailPage/KukkuuShow';
+import type { ChildNode } from '../api/generatedTypes/graphql';
 
 const ChildShow = (props: ShowProps) => {
   const translate = useTranslate();
@@ -35,7 +32,7 @@ const ChildShow = (props: ShowProps) => {
         <SimpleShowLayout>
           <FunctionField
             label="children.fields.name.label"
-            render={(record: Child) => record.name.trim()}
+            render={(record: ChildNode) => record.name.trim()}
           />
           <DateField
             source="birthyear"
@@ -53,8 +50,9 @@ const ChildShow = (props: ShowProps) => {
           />
           <FunctionField
             label="children.fields.guardians.label"
-            render={(record: Child) =>
-              record && record.guardians.edges[0]?.node?.name.trim()
+            render={(record: ChildNode) =>
+              record &&
+              `${record.guardians.edges[0]?.node?.firstName} ${record.guardians.edges[0]?.node?.lastName}`.trim()
             }
           />
           <EmailField
@@ -76,9 +74,13 @@ const ChildShow = (props: ShowProps) => {
               rowClick={(
                 id: string,
                 resource: string,
-                record: OccurrenceEdges
+                record: ChildNode['occurrences']['edges'][number]
               ) =>
-                `/occurrences/${encodeURIComponent(record.node?.id || '')}/show`
+                record
+                  ? `/occurrences/${encodeURIComponent(
+                      record.node?.id || ''
+                    )}/show`
+                  : '#'
               }
             >
               <DateField

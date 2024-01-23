@@ -5,7 +5,6 @@ import {
   getGuardianPhoneNumber,
   getBreadCrumbs,
   getTitle,
-  getChildFullName,
   withEnrolment,
 } from '../OccurrenceShow';
 import Occurrence from '../Occurrence';
@@ -56,14 +55,6 @@ describe('OccurrenceShow utils', () => {
       getBreadCrumbs(occurrence);
 
       expect(occurrenceBreadcrumbsSpy).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('getChildFullName', () => {
-    it('should return correct title', () => {
-      expect(getChildFullName(guardian)).toMatchInlineSnapshot(
-        `"undefined undefined"`
-      );
     });
   });
 

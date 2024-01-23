@@ -16,7 +16,7 @@ import {
   getEventGroupPublishStatus,
 } from '../utils';
 import type { Permissions } from '../../authentication/authProvider';
-import { EventGroup_eventGroup } from '../../../api/generatedTypes/EventGroup';
+import type { EventGroupNode } from '../../api/generatedTypes/graphql';
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 const EventGroupsDetailActions = () => {
   const { permissions } = usePermissions<Permissions>();
-  const record = useRecordContext<EventGroup_eventGroup>();
+  const record = useRecordContext<EventGroupNode>();
   const resource = useResourceContext();
   const basePath = `/${resource}`;
   const t = useTranslate();

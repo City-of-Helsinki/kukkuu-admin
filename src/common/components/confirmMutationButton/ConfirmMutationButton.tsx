@@ -1,8 +1,9 @@
-import React, { ReactElement, ReactText, useState } from 'react';
+import type { ReactElement, ReactText } from 'react';
+import React, { useState } from 'react';
 import { Button, Confirm } from 'react-admin';
-import { useMutation } from 'react-query';
+import type { useMutation } from 'react-query';
 
-import {
+import type {
   MethodHandlerResponse,
   MethodHandlerResponseDataType,
 } from '../../../api/types';

@@ -1,9 +1,10 @@
-import React, { ChangeEvent } from 'react';
+import type { ChangeEvent } from 'react';
+import React from 'react';
+import type { SimpleFormProps } from 'react-admin';
 import {
   TextInput,
   SimpleForm,
   SelectInput,
-  SimpleFormProps,
   FormDataConsumer,
   useTranslate,
   useRecordContext,
@@ -13,7 +14,6 @@ import Typography from '@mui/material/Typography';
 import { useFormContext } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { ProtocolType } from '../../../api/generatedTypes/globalTypes';
 import EventSelect from '../../events/eventSelect/EventSelect';
 import OccurrenceArraySelect from '../../occurrences/OccurrenceArraySelect';
 import {
@@ -29,6 +29,7 @@ import {
 } from '../choices';
 import TranslatableProvider from '../../../common/providers/TranslatableProvider';
 import TranslatableContext from '../../../common/contexts/TranslatableContext';
+import { ProtocolType } from '../../api/generatedTypes/graphql';
 
 const CustomOnChange = ({ children, onChange, ...rest }: any) => {
   const form = useFormContext();
@@ -126,7 +127,7 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       resolver={yupResolver(
-        protocol === ProtocolType.SMS ? smsMessageSchema : emailMessageSchema
+        protocol === ProtocolType.Sms ? smsMessageSchema : emailMessageSchema
       )}
       className={classes.form}
       {...delegatedProps}
@@ -138,7 +139,7 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
             getSource: translatableField,
           }) => (
             <>
-              {protocol !== ProtocolType.SMS && languageTabsComponent}
+              {protocol !== ProtocolType.Sms && languageTabsComponent}
               <CustomOnChange onChange={handleRecipientSelectionChange}>
                 <SelectInput
                   variant="outlined"
@@ -202,7 +203,7 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
                   )
                 }
               </FormDataConsumer>
-              {protocol === ProtocolType.EMAIL && (
+              {protocol === ProtocolType.Email && (
                 <TextInput
                   source={translatableField('subject')}
                   variant="outlined"
@@ -226,7 +227,7 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
                   shrink: true,
                 }}
               />
-              {protocol === ProtocolType.SMS && (
+              {protocol === ProtocolType.Sms && (
                 <>
                   <Typography
                     variant="subtitle2"

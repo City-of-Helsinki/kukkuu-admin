@@ -11,7 +11,6 @@ import {
 import { makeStyles } from '@mui/styles';
 import Chip from '@mui/material/Chip';
 
-import { ProtocolType } from '../../../api/generatedTypes/globalTypes';
 import { toShortDateTimeString } from '../../../common/utils';
 import KukkuuDetailPage from '../../application/layout/kukkuuDetailPage/KukkuuDetailPage';
 import MessageRecipientCountField from '../fields/MessageRecipientCountField';
@@ -19,6 +18,7 @@ import { recipientSelectionChoices } from '../choices';
 import TranslatableProvider from '../../../common/providers/TranslatableProvider';
 import MessageDetailToolbar from './MessageDetailsToolbar';
 import useTranslatableContext from '../../../common/hooks/useTranslatableContext';
+import { ProtocolType } from '../../api/generatedTypes/graphql';
 
 const useStyles = makeStyles((theme) => ({
   showLayout: {
@@ -85,7 +85,7 @@ function MessageDetails() {
 
   return (
     <SimpleShowLayout className={classes.showLayout}>
-      {record.protocol !== ProtocolType.SMS && languageTabsComponent}
+      {record.protocol !== ProtocolType.Sms && languageTabsComponent}
       <MessageRecipientCountField />
       <SelectField
         source="recipientSelection"

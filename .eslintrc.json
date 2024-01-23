@@ -8,6 +8,7 @@
     "plugin:import/typescript",
     "plugin:testcafe/recommended"
   ],
+  "ignorePatterns": ["**/generatedTypes/*", "**/generated/*"],
   "rules": {
     "@typescript-eslint/brace-style": [
       "error",
@@ -19,6 +20,7 @@
     "@typescript-eslint/func-call-spacing": ["error"],
     "@typescript-eslint/member-ordering": ["warn"],
     "@typescript-eslint/no-require-imports": ["error"],
+    "@typescript-eslint/consistent-type-imports": "error",
     "react/no-unused-prop-types": ["warn", { "skipShapeProps": true }],
     "array-bracket-spacing": ["warn", "never"],
     "import/order": [

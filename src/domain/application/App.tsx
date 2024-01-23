@@ -1,11 +1,6 @@
 import React from 'react';
-import {
-  Admin,
-  CustomRoutes,
-  DataProvider,
-  Resource,
-  useTranslate,
-} from 'react-admin';
+import type { DataProvider } from 'react-admin';
+import { Admin, CustomRoutes, Resource, useTranslate } from 'react-admin';
 import PlaceIcon from '@mui/icons-material/Place';
 import EventIcon from '@mui/icons-material/Event';
 import MessageIcon from '@mui/icons-material/EmailOutlined';

@@ -1,4 +1,4 @@
-import {
+import type {
   CreateResult,
   DataProvider,
   DeleteManyResult,
@@ -18,7 +18,7 @@ import {
   updateVenue,
   deleteVenue,
 } from '../domain/venues/api/VenueApi';
-import {
+import type {
   MethodHandlers,
   Method,
   Resource,
@@ -50,9 +50,11 @@ import { getProject } from '../domain/dashboard/api';
 import MessagesApi from '../domain/messages/api/messagesApi';
 import EventGroupsApi from '../domain/eventGroups/api/eventGroupsApi';
 import EventsAndEventGroupsApi from '../domain/eventsAndEventGroups/api/eventsAndEventGroupsApi';
-import { AdminEvent } from '../domain/events/types/EventTypes';
-import { EventGroup_eventGroup } from './generatedTypes/EventGroup';
-import { Message_message } from './generatedTypes/Message';
+import type { AdminEvent } from '../domain/events/types/EventTypes';
+import type {
+  EventGroupNode,
+  MessageNode,
+} from '../domain/api/generatedTypes/graphql';
 
 const METHOD_HANDLERS: MethodHandlers = {
   venues: {
@@ -170,11 +172,13 @@ const baseDataProvider = {
 const extendedDataProvider = {
   ...baseDataProvider,
   publish: (resource: 'events' | 'event-groups', params: { id: string }) =>
-    runHandler<
-      MethodHandlerResponse<AdminEvent | EventGroup_eventGroup | null>
-    >('PUBLISH', resource, params),
+    runHandler<MethodHandlerResponse<AdminEvent | EventGroupNode | null>>(
+      'PUBLISH',
+      resource,
+      params
+    ),
   send: (resource: 'messages', params: { id: string }) =>
-    runHandler<MethodHandlerResponse<Message_message | null>>(
+    runHandler<MethodHandlerResponse<MessageNode | null>>(
       'SEND',
       resource,
       params
