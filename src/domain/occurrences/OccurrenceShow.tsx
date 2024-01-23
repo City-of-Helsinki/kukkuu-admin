@@ -46,9 +46,7 @@ const OccurrenceDataGridTitle = ({ occurrenceId }: any) => {
     <>
       {translate('occurrences.fields.children.label')}
       <span className={styles.fakeValue}>
-        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-        {/* @ts-ignore */}
-        {record.enrolments?.edges.length || ''}
+        {record.enrolments?.edges.length ?? ''}
       </span>
     </>
   );
@@ -89,7 +87,7 @@ export const getBreadCrumbs = (record?: RaRecord) =>
   new Occurrence(record as OccurrenceNode).breadcrumbs;
 
 export const getTitle = (record?: RaRecord) =>
-  new Occurrence(record as OccurrenceNode).title || '';
+  new Occurrence(record as OccurrenceNode).title ?? '';
 
 export const getChildFullName = (enrolmentEdge: EnrolmentNodeEdge) =>
   enrolmentEdge.node?.child?.name.trim();
