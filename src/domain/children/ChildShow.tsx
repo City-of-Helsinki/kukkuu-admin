@@ -34,10 +34,9 @@ const ChildShow = (props: ShowProps) => {
             label="children.fields.name.label"
             render={(record: ChildNode) => record.name.trim()}
           />
-          <DateField
+          <TextField
             source="birthyear"
             label="children.fields.birthyear.label"
-            locales={locale}
           />
           <SelectField
             source="guardians.edges.0.node.language"
