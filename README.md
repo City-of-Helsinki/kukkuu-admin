@@ -40,11 +40,12 @@ The end user interface:
 ### Getting started
 
 1. Clone the repo.
-2. Use file `.env.local` to modify environment variables if needed. For more info, check [this](https://create-react-app.dev/docs/adding-custom-environment-variables#docsNav).
-3. Run either
+2. `cp .env.example .env`
+3. Use file `.env.local` to modify environment variables if needed. For more info, check [this](https://create-react-app.dev/docs/adding-custom-environment-variables#docsNav).
+4. Run either
    - `yarn start` to run the app normally **or**
    - `docker-compose up` to run the app in a Docker container. In the future when there are changes that need rebuilding the container, run `docker-compose up --build` instead.
-4. Open [http://localhost:3001](http://localhost:3001) to view the app in the browser.
+5. Open [http://localhost:3001](http://localhost:3001) to view the app in the browser.
 
 ### Authorizing login to kukkuu-admin
 
