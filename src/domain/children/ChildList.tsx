@@ -1,8 +1,6 @@
 import React from 'react';
 import {
   Datagrid,
-  DateField,
-  useLocaleState,
   EmailField,
   SelectField,
   TextField,
@@ -18,7 +16,6 @@ import type { ChildNode } from '../api/generatedTypes/graphql';
 
 const ChildList = () => {
   const translate = useTranslate();
-  const [locale] = useLocaleState();
 
   return (
     <>
@@ -33,10 +30,9 @@ const ChildList = () => {
             label="children.fields.name.label"
             render={(record?: ChildNode) => record && record.name.trim()}
           />
-          <DateField
+          <TextField
             source="birthyear"
             label="children.fields.birthyear.label"
-            locales={locale}
           />
           <TextField
             source="postalCode"
