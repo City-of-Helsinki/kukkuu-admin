@@ -77,7 +77,7 @@ const ChildShow = (props: ShowProps) => {
               ) =>
                 record
                   ? `/occurrences/${encodeURIComponent(
-                      record.node?.id || ''
+                      record.node?.id ?? ''
                     )}/show`
                   : '#'
               }
