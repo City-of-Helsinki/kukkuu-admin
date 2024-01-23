@@ -2,15 +2,15 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 import { useRecordContext, useTranslate } from 'react-admin';
 
-import { Events_events_edges_node as Event } from '../../api/generatedTypes/Events';
-import { Language } from '../../api/generatedTypes/globalTypes';
+import type { EventNode } from '../api/generatedTypes/graphql';
+import { Language } from '../api/generatedTypes/graphql';
 
 export const PublishedField = ({
-  locale = Language.FI,
+  locale = Language.Fi,
 }: {
   locale?: string;
 }) => {
-  const record = useRecordContext<Event>();
+  const record = useRecordContext<EventNode>();
   const translate = useTranslate();
   if (!record) return null;
   const date = new Date(record.publishedAt);

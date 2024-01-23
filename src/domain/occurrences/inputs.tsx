@@ -8,7 +8,7 @@ import {
   NumberInput,
 } from 'react-admin';
 
-import { AdminEvent } from '../events/types/EventTypes';
+import type { AdminEvent } from '../events/types/EventTypes';
 import SanitizedGrid from '../../common/components/sanitizedGrid/SanitizedGrid';
 
 const validateCapacityOverride = [minValue(0)];

@@ -6,10 +6,10 @@ import {
   useRecordContext,
 } from 'react-admin';
 
-import { Venue_venue } from '../../api/generatedTypes/Venue';
+import type { VenueNode } from '../api/generatedTypes/graphql';
 
 const VenueEditToolbar = () => {
-  const record = useRecordContext<Venue_venue>();
+  const record = useRecordContext<VenueNode>();
   return (
     <Toolbar style={{ justifyContent: 'space-between' }}>
       <SaveButton />

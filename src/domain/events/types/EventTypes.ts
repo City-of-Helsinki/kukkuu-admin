@@ -1,10 +1,10 @@
-import { AdminUITranslation } from '../../../api/types';
-import { Events_events_edges_node_translations as ApiEventTranslation } from '../../../api/generatedTypes/Events';
-import { Event_event_eventGroup as EventGroup } from '../../../api/generatedTypes/Event';
-import {
+import type { AdminUITranslation } from '../../../api/types';
+import type {
+  EventGroupNode,
   EventParticipantsPerInvite,
+  EventTranslationType,
   TicketSystem,
-} from '../../../api/generatedTypes/globalTypes';
+} from '../../api/generatedTypes/graphql';
 
 export interface AdminEvent {
   id: string;
@@ -12,8 +12,8 @@ export interface AdminEvent {
   capacityPerOccurrence: number;
   duration: number;
   publishedAt?: string;
-  translations: AdminUITranslation<Omit<ApiEventTranslation, 'languageCode'>>;
-  eventGroup?: EventGroup;
+  translations: AdminUITranslation<Omit<EventTranslationType, 'languageCode'>>;
+  eventGroup?: EventGroupNode;
   readyForEventGroupPublishing: boolean;
   project: {
     id: string;

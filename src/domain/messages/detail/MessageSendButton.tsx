@@ -6,16 +6,16 @@ import {
 } from 'react-admin';
 import SendIcon from '@mui/icons-material/Check';
 
-import { Message_message as Message } from '../../../api/generatedTypes/Message';
 import ConfirmMutationButton from '../../../common/components/confirmMutationButton/ConfirmMutationButton';
 import useMessageSendMutation from '../hooks/useMessageSendMutation';
+import type { MessageNode } from '../../api/generatedTypes/graphql';
 
 type Props = {
   className?: string;
 };
 
 const MessagesSendButton = ({ className }: Props) => {
-  const record = useRecordContext<Message>();
+  const record = useRecordContext<MessageNode>();
   const resource = useResourceContext();
   const basePath = `/${resource}`;
   const t = useTranslate();

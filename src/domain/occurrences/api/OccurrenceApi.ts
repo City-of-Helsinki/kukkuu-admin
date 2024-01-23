@@ -1,7 +1,7 @@
-import { ApolloQueryResult } from '@apollo/client';
+import type { ApolloQueryResult } from '@apollo/client';
 import moment from 'moment-timezone';
 
-import { MethodHandler, MethodHandlerParams } from '../../../api/types';
+import type { MethodHandler, MethodHandlerParams } from '../../../api/types';
 import {
   queryHandler,
   mapLocalDataToApiData,
@@ -10,24 +10,24 @@ import {
   handleApiNode,
 } from '../../../api/utils/apiUtils';
 import {
-  occurrencesQuery,
-  occurrenceQuery,
-} from '../queries/OccurrenceQueries';
-import { Occurrences as ApiOccurrences } from '../../../api/generatedTypes/Occurrences';
-import { Occurrence as ApiOccurrence } from '../../../api/generatedTypes/Occurrence';
-import {
   addOccurrenceMutation,
   updateOccurrenceMutation,
   deleteOccurrenceMutation,
   setEnrolmentAttendanceMutation,
 } from '../mutations/OccurrenceMutations';
 import projectService from '../../projects/projectService';
+import {
+  OccurrencesDocument,
+  type OccurrenceQuery,
+  type OccurrencesQuery,
+  OccurrenceDocument,
+} from '../../api/generatedTypes/graphql';
 
 moment.tz.setDefault('Europe/Helsinki');
 
 const getOccurrences: MethodHandler = async (params: MethodHandlerParams) => {
-  const response: ApolloQueryResult<ApiOccurrences> = await queryHandler({
-    query: occurrencesQuery,
+  const response: ApolloQueryResult<OccurrencesQuery> = await queryHandler({
+    query: OccurrencesDocument,
     variables: {
       projectId: projectService.projectId,
       ...params.filter,
@@ -37,8 +37,8 @@ const getOccurrences: MethodHandler = async (params: MethodHandlerParams) => {
 };
 
 const getOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
-  const response: ApolloQueryResult<ApiOccurrence> = await queryHandler({
-    query: occurrenceQuery,
+  const response: ApolloQueryResult<OccurrenceQuery> = await queryHandler({
+    query: OccurrenceDocument,
     variables: { id: params.id },
   });
   return handleApiNode(response.data.occurrence);
@@ -106,8 +106,8 @@ const setEnrolmentAttendance = async (
 };
 
 const getOccurrencesManyReference = async (params: MethodHandlerParams) => {
-  const response: ApolloQueryResult<ApiOccurrences> = await queryHandler({
-    query: occurrencesQuery,
+  const response: ApolloQueryResult<OccurrencesQuery> = await queryHandler({
+    query: OccurrencesDocument,
     variables: { projectId: projectService.projectId, eventId: params.id },
   });
   return handleApiConnection(response.data.occurrences);

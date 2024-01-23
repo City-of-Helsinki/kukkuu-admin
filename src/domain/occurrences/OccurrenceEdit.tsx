@@ -1,4 +1,5 @@
 import React from 'react';
+import type { ToolbarProps } from 'react-admin';
 import {
   SimpleForm,
   SelectInput,
@@ -9,20 +10,19 @@ import {
   DeleteButton,
   DeleteWithConfirmButton,
   useRecordContext,
-  ToolbarProps,
 } from 'react-admin';
 import { Grid } from '@mui/material';
 
 import DateTimeTextInput from '../../common/components/dateTimeTextField/DateTimeTextField';
 import KukkuuEdit from '../application/layout/kukkuuEditPage/KukkuuEdit';
 import { OccurrenceCapacityOverrideInput } from './inputs';
-import { Occurrence_occurrence as OccurrenceType } from '../../api/generatedTypes/Occurrence';
+import type { OccurrenceNode } from '../api/generatedTypes/graphql';
 
 const OccurrenceEditToolbar = ({
   redirect: redirectPath,
   ...toolbarProps
 }: ToolbarProps & { redirect: string }) => {
-  const record = useRecordContext<OccurrenceType>();
+  const record = useRecordContext<OccurrenceNode>();
   const isPublished = Boolean(record.event.publishedAt);
   return (
     <Toolbar style={{ justifyContent: 'space-between' }} {...toolbarProps}>
@@ -58,7 +58,7 @@ const OccurrenceEditReferenceInput = (props: any) => {
 };
 
 const OccurrenceEditForm = () => {
-  const record = useRecordContext<OccurrenceType>();
+  const record = useRecordContext<OccurrenceNode>();
   const redirect = record?.event.id
     ? `/events/${record.event.id}/show/1`
     : 'show';

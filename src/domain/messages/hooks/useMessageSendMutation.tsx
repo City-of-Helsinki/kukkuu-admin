@@ -3,7 +3,7 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import * as Sentry from '@sentry/browser';
 
-import extendedDataProvider from '../../../api/dataProvider';
+import type extendedDataProvider from '../../../api/dataProvider';
 
 const useMessageSendMutation = ({
   basePath,

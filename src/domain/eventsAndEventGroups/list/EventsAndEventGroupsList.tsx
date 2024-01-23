@@ -1,31 +1,30 @@
 import React from 'react';
+import type { RaRecord, Identifier } from 'react-admin';
 import {
   TextField,
   useTranslate,
   NumberField,
   FunctionField,
-  RaRecord,
   TopToolbar,
   CreateButton,
   useGetOne,
   usePermissions,
-  Identifier,
   Labeled,
 } from 'react-admin';
 import { makeStyles } from '@mui/styles';
 
 import type { Permissions } from '../../authentication/authProvider';
-import {
-  EventsAndEventGroups_eventsAndEventGroups_edges_node_EventGroupNode as EventGroupNode,
-  EventsAndEventGroups_eventsAndEventGroups_edges_node as EventOrEventGroupNode,
-} from '../../../api/generatedTypes/EventsAndEventGroups';
-import { EventFragment as EventNode } from '../../../api/generatedTypes/EventFragment';
 import { toDateTimeString } from '../../../common/utils';
 import PublishedField from '../../../common/components/publishedField/PublishedField';
 import KukkuuListPage from '../../application/layout/kukkuuListPage/KukkuuListPage';
 import { EventList, countCapacity, countOccurrences } from '../../events/utils';
 import projectService from '../../projects/projectService';
-import { Project_project } from '../../../api/generatedTypes/Project';
+import type {
+  EventGroupNode,
+  EventNode,
+  EventOrEventGroupUnion,
+  ProjectNode,
+} from '../../api/generatedTypes/graphql';
 
 const useEventsAndEventGroupsListToolbarStyles = makeStyles((theme?: any) => ({
   toolbar: {
@@ -40,7 +39,7 @@ const EventsAndEventGroupsListToolbar = () => {
   const { permissions } = usePermissions<Permissions>();
   const t = useTranslate();
   const classes = useEventsAndEventGroupsListToolbarStyles();
-  const { data: projectData } = useGetOne<Project_project>('projects', {
+  const { data: projectData } = useGetOne<ProjectNode>('projects', {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     id: projectService.projectId!,
   });
@@ -66,7 +65,7 @@ const EventsAndEventGroupsListToolbar = () => {
 };
 
 function when(
-  record: EventOrEventGroupNode,
+  record: EventOrEventGroupUnion,
   whenEvent: (record: EventNode) => any,
   whenEventGroup: (record: EventGroupNode) => any
 ): any {
@@ -137,7 +136,7 @@ const EventsAndEventGroupsList = () => {
           }
 
           return when(
-            record as EventOrEventGroupNode,
+            record as EventOrEventGroupUnion,
             () => translate('eventsAndEventGroups.list.type.event.label'),
             () => translate('eventsAndEventGroups.list.type.eventGroup.label')
           );
@@ -159,7 +158,7 @@ const EventsAndEventGroupsList = () => {
           }
 
           return when(
-            record as EventOrEventGroupNode,
+            record as EventOrEventGroupUnion,
             (event: EventNode) => {
               return (
                 countCapacity(event) ??
@@ -184,7 +183,7 @@ const EventsAndEventGroupsList = () => {
           }
 
           return when(
-            record as EventOrEventGroupNode,
+            record as EventOrEventGroupUnion,
             (event: EventNode) => {
               return countOccurrences(event);
             },

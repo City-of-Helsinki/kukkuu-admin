@@ -1,8 +1,9 @@
-import React, { ReactElement } from 'react';
+import type { ReactElement } from 'react';
+import React from 'react';
 
-import { Language } from '../../api/generatedTypes/globalTypes';
 import { CONTENT_LANGUAGES } from '../constants';
 import LanguageTabs from '../components/languageTab/LanguageTabs';
+import { Language } from '../../domain/api/generatedTypes/graphql';
 
 export type TranslatableContextType = {
   defaultLanguage: Language;
@@ -14,10 +15,10 @@ export type TranslatableContextType = {
 };
 
 export const initialContext = {
-  defaultLanguage: Language.FI,
+  defaultLanguage: Language.Fi,
   languages: CONTENT_LANGUAGES,
   getSource: (fieldName: string) => fieldName,
-  selectedLanguage: Language.FI,
+  selectedLanguage: Language.Fi,
   selectLanguage: function (value: React.SetStateAction<Language>): void {
     throw new Error('Function not implemented.');
   },

@@ -1,6 +1,9 @@
 import { get, omit } from 'lodash';
 
-import { MethodHandlerResponse, MethodHandlerParams } from '../../../api/types';
+import type {
+  MethodHandlerResponse,
+  MethodHandlerParams,
+} from '../../../api/types';
 import {
   queryHandler,
   handleApiConnection,
@@ -8,7 +11,6 @@ import {
   mutationHandler,
   handleApiNode,
 } from '../../../api/utils/apiUtils';
-import { messagesQuery, messageQuery } from '../queries/MessageQueries';
 import {
   addMessageMutation,
   sendMessageMutation,
@@ -16,12 +18,16 @@ import {
   updateMessageMutation,
 } from '../mutations/MessageMutations';
 import projectService from '../../projects/projectService';
+import {
+  MessageDocument,
+  MessagesDocument,
+} from '../../api/generatedTypes/graphql';
 
 async function getMessages(
   params: MethodHandlerParams
 ): Promise<MethodHandlerResponse | null> {
   const response = await queryHandler({
-    query: messagesQuery,
+    query: MessagesDocument,
     variables: { projectId: projectService.projectId },
   });
 
@@ -32,7 +38,7 @@ async function getMessage(
   params: MethodHandlerParams
 ): Promise<MethodHandlerResponse | null> {
   const response = await queryHandler({
-    query: messageQuery,
+    query: MessageDocument,
     variables: { id: params.id },
   });
 

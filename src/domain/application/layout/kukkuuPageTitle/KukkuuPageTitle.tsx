@@ -1,5 +1,6 @@
 import React from 'react';
-import { TypographyProps, Typography } from '@mui/material';
+import type { TypographyProps } from '@mui/material';
+import { Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 const useTitleStyles = makeStyles((theme) => ({

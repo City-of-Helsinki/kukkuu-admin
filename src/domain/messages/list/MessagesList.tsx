@@ -1,23 +1,23 @@
 import React from 'react';
+import type { RaRecord } from 'react-admin';
 import {
   useTranslate,
   TextField,
   SelectField,
   FunctionField,
-  RaRecord,
   Labeled,
 } from 'react-admin';
 import { get } from 'lodash';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';
 
-import { ProtocolType } from '../../../api/generatedTypes/globalTypes';
 import { toDateTimeString } from '../../../common/utils';
 import KukkuuListPage from '../../application/layout/kukkuuListPage/KukkuuListPage';
 import PublishedField from '../../../common/components/publishedField/PublishedField';
 import { recipientSelectionChoices } from '../choices';
 import MessagesListToolbar from './MessageListToolbar';
 import styles from './messageList.module.css';
+import { ProtocolType } from '../../api/generatedTypes/graphql';
 
 const MessagesList = () => {
   const t = useTranslate();
@@ -37,8 +37,8 @@ const MessagesList = () => {
           }
 
           const labelMap: Record<ProtocolType, React.ReactElement> = {
-            [ProtocolType.EMAIL]: <MailOutlineIcon />,
-            [ProtocolType.SMS]: <TextsmsOutlinedIcon />,
+            [ProtocolType.Email]: <MailOutlineIcon />,
+            [ProtocolType.Sms]: <TextsmsOutlinedIcon />,
           };
           const protocol = record.protocol as ProtocolType;
 

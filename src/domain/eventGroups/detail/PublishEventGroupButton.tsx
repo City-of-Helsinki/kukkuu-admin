@@ -4,7 +4,7 @@ import SendIcon from '@mui/icons-material/Check';
 
 import ConfirmMutationButton from '../../../common/components/confirmMutationButton/ConfirmMutationButton';
 import usePublishEventGroupMutation from '../hooks/usePublishEventGroupMutation';
-import { EventGroup_eventGroup } from '../../../api/generatedTypes/EventGroup';
+import type { EventGroupNode } from '../../api/generatedTypes/graphql';
 
 type Props = {
   /** @deprecated - create with useResourceContext instead. */
@@ -19,7 +19,7 @@ const PublishEventGroupButton = ({
   buttonLabel = 'eventGroups.actions.publish.do',
 }: Props) => {
   const t = useTranslate();
-  const record = useRecordContext<EventGroup_eventGroup>();
+  const record = useRecordContext<EventGroupNode>();
   const publishEventGroupMutation = usePublishEventGroupMutation({
     basePath,
     params: { id: record.id },

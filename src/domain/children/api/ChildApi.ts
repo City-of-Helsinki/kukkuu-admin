@@ -1,19 +1,22 @@
-import { ApolloQueryResult } from '@apollo/client';
+import type { ApolloQueryResult } from '@apollo/client';
 
-import { Children } from '../../../api/generatedTypes/Children';
-import { MethodHandler, MethodHandlerParams } from '../../../api/types';
+import type { MethodHandler, MethodHandlerParams } from '../../../api/types';
 import {
   queryHandler,
   handleApiConnection,
   handleApiNode,
 } from '../../../api/utils/apiUtils';
-import { childrenQuery, childQuery } from '../queries/ChildQueries';
-import { Child as ApiChild } from '../../../api/generatedTypes/Child';
 import projectService from '../../projects/projectService';
+import {
+  ChildrenDocument,
+  type ChildQuery,
+  type ChildrenQuery,
+  ChildDocument,
+} from '../../api/generatedTypes/graphql';
 
 const getChildren: MethodHandler = async (params: MethodHandlerParams) => {
-  const response: ApolloQueryResult<Children> = await queryHandler({
-    query: childrenQuery,
+  const response: ApolloQueryResult<ChildrenQuery> = await queryHandler({
+    query: ChildrenDocument,
     variables: {
       projectId: projectService.projectId,
       occurrenceId: params.id,
@@ -25,8 +28,8 @@ const getChildren: MethodHandler = async (params: MethodHandlerParams) => {
 };
 
 const getChild: MethodHandler = async (params: MethodHandlerParams) => {
-  const response: ApolloQueryResult<ApiChild> = await queryHandler({
-    query: childQuery,
+  const response: ApolloQueryResult<ChildQuery> = await queryHandler({
+    query: ChildDocument,
     variables: { id: params.id },
   });
   return handleApiNode(response.data.child);

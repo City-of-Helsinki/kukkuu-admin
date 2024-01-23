@@ -1,7 +1,7 @@
 import { required, maxLength } from 'react-admin';
 import { object, string } from 'yup';
 
-import { Language } from '../../api/generatedTypes/globalTypes';
+import { Language } from '../api/generatedTypes/graphql';
 
 export const validateName = required();
 
@@ -10,7 +10,7 @@ export const validateShortDescription = maxLength(140);
 export const getEventGroupsTranslatedFieldsSchema = (lang: Language) =>
   object({
     name:
-      lang === Language.FI
+      lang === Language.Fi
         ? string().required('eventGroups.translations.FI.name.required')
         : string(),
     description: string(),
@@ -19,8 +19,8 @@ export const getEventGroupsTranslatedFieldsSchema = (lang: Language) =>
 
 export const eventGroupsSchema = object({
   translations: object({
-    [Language.FI]: getEventGroupsTranslatedFieldsSchema(Language.FI),
-    [Language.SV]: getEventGroupsTranslatedFieldsSchema(Language.SV),
-    [Language.EN]: getEventGroupsTranslatedFieldsSchema(Language.EN),
+    [Language.Fi]: getEventGroupsTranslatedFieldsSchema(Language.Fi),
+    [Language.Sv]: getEventGroupsTranslatedFieldsSchema(Language.Sv),
+    [Language.En]: getEventGroupsTranslatedFieldsSchema(Language.En),
   }),
 });

@@ -1,6 +1,7 @@
-import { AdminUITranslation } from '../../../api/types';
-import { Venue_venue_translations as ApiVenueTranslation } from '../../../api/generatedTypes/Venue';
+import type { AdminUITranslation } from '../../../api/types';
+import type { VenueTranslationType } from '../../api/generatedTypes/graphql';
+
 export interface AdminVenue {
   id: string;
-  translations: AdminUITranslation<Omit<ApiVenueTranslation, 'languageCode'>>;
+  translations: AdminUITranslation<Omit<VenueTranslationType, 'languageCode'>>;
 }

@@ -1,10 +1,5 @@
-import {
-  UserManager,
-  User,
-  UserManagerSettings,
-  Log,
-  WebStorageStateStore,
-} from 'oidc-client';
+import type { User, UserManagerSettings } from 'oidc-client';
+import { UserManager, Log, WebStorageStateStore } from 'oidc-client';
 import axios from 'axios';
 import * as Sentry from '@sentry/browser';
 

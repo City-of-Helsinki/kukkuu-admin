@@ -3,7 +3,7 @@ import { useRecordContext, useTranslate } from 'react-admin';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-import { AdminEvent } from '../types/EventTypes';
+import type { AdminEvent } from '../types/EventTypes';
 import useSetReadyMutation from '../hooks/useSetReadyMutation';
 
 function getReadyStatus(

@@ -1,14 +1,12 @@
-import { ApolloQueryResult } from '@apollo/client';
+import type { ApolloQueryResult } from '@apollo/client';
 
-import { Venues as ApiVenues } from '../../../api/generatedTypes/Venues';
-import { Venue as ApiDetailVenue } from '../../../api/generatedTypes/Venue';
 import { venuesQuery, venueQuery } from '../query/VenueQueries';
 import {
   addVenueMutation,
   updateVenueMutation,
   deleteVenueMutation,
 } from './mutations/venueMutations';
-import { MethodHandler, MethodHandlerParams } from '../../../api/types';
+import type { MethodHandler, MethodHandlerParams } from '../../../api/types';
 import {
   queryHandler,
   mutationHandler,
@@ -16,14 +14,15 @@ import {
   handleApiNode,
   handleApiConnection,
 } from '../../../api/utils/apiUtils';
-import { AdminVenue } from '../types/VenueTypes';
+import type { AdminVenue } from '../types/VenueTypes';
 import projectService from '../../projects/projectService';
+import type { VenueQuery, VenuesQuery } from '../../api/generatedTypes/graphql';
 
 /**
  * Get list of venues
  */
 const getVenues: MethodHandler = async (params: MethodHandlerParams) => {
-  const response: ApolloQueryResult<ApiVenues> = await queryHandler({
+  const response: ApolloQueryResult<VenuesQuery> = await queryHandler({
     query: venuesQuery,
     variables: { projectId: projectService.projectId },
   });
@@ -31,7 +30,7 @@ const getVenues: MethodHandler = async (params: MethodHandlerParams) => {
 };
 
 const getVenue: MethodHandler = async (params: MethodHandlerParams) => {
-  const response: ApolloQueryResult<ApiDetailVenue> = await queryHandler({
+  const response: ApolloQueryResult<VenueQuery> = await queryHandler({
     query: venueQuery,
     variables: { id: params.id },
   });

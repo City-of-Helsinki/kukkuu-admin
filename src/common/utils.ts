@@ -1,7 +1,7 @@
 import get from 'lodash/get';
 
 import i18nProvider from './translation/i18nProvider';
-import { Language } from '../api/generatedTypes/globalTypes';
+import { Language } from '../domain/api/generatedTypes/graphql';
 
 export function toDateTimeString(
   date: Date,
@@ -66,16 +66,16 @@ export function requireFinnishFields(
   values: any,
   ...fields: Array<[string, string]>
 ) {
-  const errors = {
+  const errors: { translations: Record<Language, object> } = {
     translations: {
-      [Language.FI]: {},
-      [Language.SV]: {},
-      [Language.EN]: {},
+      [Language.Fi]: {},
+      [Language.Sv]: {},
+      [Language.En]: {},
     },
   };
 
   fields.forEach(([field, fieldError]) => {
-    const value = get(values, `translations.${Language.FI}.${field}`);
+    const value = get(values, `translations.${Language.Fi}.${field}`);
 
     if (!value) {
       labelAllLanguages(errors, field, i18nProvider.translate(fieldError));

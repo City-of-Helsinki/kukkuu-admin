@@ -1,4 +1,4 @@
-import { Language } from '../api/generatedTypes/globalTypes';
+import { Language } from '../domain/api/generatedTypes/graphql';
 
 export const languageChoices = Object.keys(Language).map((language) => ({
   id: language,

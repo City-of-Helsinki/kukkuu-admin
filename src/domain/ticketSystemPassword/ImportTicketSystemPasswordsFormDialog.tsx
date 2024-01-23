@@ -1,5 +1,6 @@
 import React from 'react';
-import { withStyles, WithStyles, createStyles } from '@mui/styles';
+import type { WithStyles } from '@mui/styles';
+import { withStyles, createStyles } from '@mui/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -10,9 +11,8 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { useNotify, useTranslate, useRefresh } from 'react-admin';
 
 import ticketSystemPasswordsApi from './api/ticketSystemPasswordsApi';
-import { AdminEvent } from '../events/types/EventTypes';
-// eslint-disable-next-line max-len
-import { ImportTicketSystemPasswordsMutation_importTicketSystemPasswords as ImportTicketSystemPasswords } from '../../api/generatedTypes/ImportTicketSystemPasswordsMutation';
+import type { AdminEvent } from '../events/types/EventTypes';
+import type { ImportTicketSystemPasswordsMutationPayload } from '../api/generatedTypes/graphql';
 
 const styles = createStyles({
   passwordsField: {
@@ -59,7 +59,7 @@ const ImportTicketSystemPasswordsFormDialog = withStyles(styles)(
             },
           });
         const data = response?.data
-          ? (response.data as unknown as ImportTicketSystemPasswords)
+          ? (response.data as ImportTicketSystemPasswordsMutationPayload)
           : null;
 
         if (data?.errors?.length) {

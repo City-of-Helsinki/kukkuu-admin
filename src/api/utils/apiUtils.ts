@@ -1,4 +1,4 @@
-import {
+import type {
   QueryOptions,
   OperationVariables,
   MutationOptions,
@@ -8,7 +8,7 @@ import mapValues from 'lodash/mapValues';
 
 import client from '../apolloClient/client';
 import { API_ERROR_MESSAGE } from '../constants/ApiConstants';
-import {
+import type {
   Nullish,
   AdminUITranslation,
   ApiTranslation,

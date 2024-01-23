@@ -1,15 +1,15 @@
-import {
-  MyAdminProfile_myAdminProfile_projects_edges_node as ProjectNode,
-  MyAdminProfile_myAdminProfile_projects_edges_node_myPermissions as ProjectPermissions,
-} from '../../api/generatedTypes/MyAdminProfile';
 import RelayList from '../../api/relayList';
 import dataProvider from '../../api/dataProvider';
 import projectService from '../projects/projectService';
+import type {
+  ProjectNode,
+  ProjectPermissionsType,
+} from '../api/generatedTypes/graphql';
 
 export const PERMISSIONS = 'permissions';
 
 type Role = 'admin' | 'none';
-type PermissionKey = keyof ProjectPermissions;
+type PermissionKey = keyof ProjectPermissionsType;
 type PermissionObject = {
   [id: string]: PermissionKey[];
 };

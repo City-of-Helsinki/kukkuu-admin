@@ -1,4 +1,4 @@
-import { TicketSystem } from '../../api/generatedTypes/globalTypes';
+import { TicketSystem } from '../api/generatedTypes/graphql';
 
 export const participantsPerInviteChoices = [
   {
@@ -17,15 +17,15 @@ export const participantsPerInviteChoices = [
 
 export const ticketSystemChoices = [
   {
-    id: TicketSystem.INTERNAL,
+    id: TicketSystem.Internal,
     name: 'events.fields.ticketSystem.choices.INTERNAL.label',
   },
   {
-    id: TicketSystem.TICKETMASTER,
+    id: TicketSystem.Ticketmaster,
     name: 'events.fields.ticketSystem.choices.TICKETMASTER.label',
   },
   {
-    id: TicketSystem.LIPPUPISTE,
+    id: TicketSystem.Lippupiste,
     name: 'events.fields.ticketSystem.choices.LIPPUPISTE.label',
   },
 ];

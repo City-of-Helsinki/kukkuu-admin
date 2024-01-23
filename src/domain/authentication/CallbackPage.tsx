@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslate, useDataProvider, Loading } from 'react-admin';
 import * as Sentry from '@sentry/browser';
-import { User } from 'oidc-client';
+import type { User } from 'oidc-client';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import authService from './authService';

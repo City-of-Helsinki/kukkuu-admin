@@ -1,4 +1,4 @@
-import { Language as EventTranslationLanguageCode } from './generatedTypes/globalTypes';
+import type { Language } from '../domain/api/generatedTypes/graphql';
 
 export interface DataProviderParams {
   [index: string]: any;
@@ -56,13 +56,13 @@ export type MethodHandlers = {
 export type Nullish = null | undefined;
 
 export type ApiTranslation = {
-  languageCode: EventTranslationLanguageCode;
+  languageCode: Language;
 };
 
 export type AdminUITranslation<F> = {
-  [EventTranslationLanguageCode.EN]?: F;
-  [EventTranslationLanguageCode.FI]?: F;
-  [EventTranslationLanguageCode.SV]?: F;
+  [Language.En]?: F;
+  [Language.Fi]?: F;
+  [Language.Sv]?: F;
 };
 
 export type ApiNode = {

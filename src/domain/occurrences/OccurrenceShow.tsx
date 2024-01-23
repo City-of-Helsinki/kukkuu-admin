@@ -1,4 +1,5 @@
 import React from 'react';
+import type { RaRecord } from 'react-admin';
 import {
   TextField,
   NumberField,
@@ -12,23 +13,21 @@ import {
   ArrayField,
   FunctionField,
   useGetOne,
-  RaRecord,
 } from 'react-admin';
 import makeStyles from '@mui/styles/makeStyles';
 import { useParams } from 'react-router-dom';
 
-import {
-  Occurrence_occurrence_enrolments_edges as EnrolmentEdge,
-  Occurrence_occurrence_enrolments_edges_node_child_guardians_edges_node as GuardianType,
-  Occurrence_occurrence as OccurrenceType,
-  Occurrence_occurrence,
-} from '../../api/generatedTypes/Occurrence';
 import KukkuuPageLayout from '../application/layout/kukkuuPageLayout/KukkuuPageLayout';
 import KukkuuDetailPage from '../application/layout/kukkuuDetailPage/KukkuuDetailPage';
 import OccurrenceTimeRangeField from './fields/OccurrenceTimeRangeField';
 import OccurrenceAttendedField from './fields/OccurrenceAttendedField';
 import Occurrence from './Occurrence';
 import Guardian from './Guardian';
+import type {
+  EnrolmentNodeEdge,
+  GuardianNode,
+  OccurrenceNode,
+} from '../api/generatedTypes/graphql';
 
 const useDataGridTitleStyles = makeStyles({
   fakeValue: {
@@ -56,45 +55,43 @@ const OccurrenceDataGridTitle = ({ occurrenceId }: any) => {
 };
 
 export const withEnrolment =
-  (hasRecord: (record: EnrolmentEdge) => any, otherwise: () => any) =>
-  (record: RaRecord | undefined | null) => {
+  (hasRecord: (record: EnrolmentNodeEdge) => any, otherwise: () => any) =>
+  (record: EnrolmentNodeEdge | undefined | null) => {
     if (record) {
-      const enrolmentEdge = record as unknown as EnrolmentEdge;
-
-      return hasRecord(enrolmentEdge);
+      return hasRecord(record);
     }
 
     return otherwise();
   };
 
 export const withGuardian =
-  (hasRecord: (guardian: GuardianType) => string, otherwise: () => any) =>
-  (enrollmentRecord: EnrolmentEdge) => {
+  (hasRecord: (guardian: GuardianNode) => string, otherwise: () => any) =>
+  (enrollmentRecord: EnrolmentNodeEdge) => {
     const guardian = enrollmentRecord.node?.child?.guardians.edges[0]?.node;
 
     if (guardian) {
-      return hasRecord(guardian as GuardianType);
+      return hasRecord(guardian as GuardianNode);
     }
 
     return otherwise();
   };
 
-export const getGuardianFullName = (guardian: GuardianType) =>
+export const getGuardianFullName = (guardian: GuardianNode) =>
   new Guardian(guardian).fullName;
 
-export const getGuardianLanguage = (guardian: GuardianType) =>
+export const getGuardianLanguage = (guardian: GuardianNode) =>
   new Guardian(guardian).language;
 
-export const getGuardianPhoneNumber = (guardian: GuardianType) =>
+export const getGuardianPhoneNumber = (guardian: GuardianNode) =>
   new Guardian(guardian).phoneNumber;
 
 export const getBreadCrumbs = (record?: RaRecord) =>
-  new Occurrence(record as OccurrenceType).breadcrumbs;
+  new Occurrence(record as OccurrenceNode).breadcrumbs;
 
 export const getTitle = (record?: RaRecord) =>
-  new Occurrence(record as OccurrenceType).title || '';
+  new Occurrence(record as OccurrenceNode).title || '';
 
-export const getChildFullName = (enrolmentEdge: EnrolmentEdge) =>
+export const getChildFullName = (enrolmentEdge: EnrolmentNodeEdge) =>
   enrolmentEdge.node?.child?.name.trim();
 
 const OccurrenceShow = () => {
@@ -135,7 +132,7 @@ const OccurrenceShow = () => {
           label="occurrences.fields.capacity.label"
         />
         <FunctionField
-          render={(occurrence: Occurrence_occurrence) =>
+          render={(occurrence: OccurrenceNode) =>
             occurrence?.freeSpotNotificationSubscriptions?.edges?.length ?? '?'
           }
           label="occurrences.fields.freeSpotNotificationSubscriptions.label"
@@ -147,9 +144,11 @@ const OccurrenceShow = () => {
           <Datagrid
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            rowClick={(id: string, resource: string, record: EnrolmentEdge) =>
-              escape(`/children/${record?.node?.child?.id}/show`)
-            }
+            rowClick={(
+              id: string,
+              resource: string,
+              record: EnrolmentNodeEdge
+            ) => escape(`/children/${record?.node?.child?.id}/show`)}
             bulkActionButtons={false}
           >
             <FunctionField

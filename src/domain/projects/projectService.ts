@@ -1,5 +1,4 @@
-// eslint-disable-next-line max-len
-import { MyAdminProfile_myAdminProfile_projects_edges_node as ProjectNode } from '../../api/generatedTypes/MyAdminProfile';
+import type { ProjectNode } from '../api/generatedTypes/graphql';
 
 const PROJECT_ID_KEY = 'projectId';
 

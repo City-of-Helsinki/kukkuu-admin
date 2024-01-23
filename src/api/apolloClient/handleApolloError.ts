@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-import { ErrorHandler } from '@apollo/client/link/error';
+import type { ErrorHandler } from '@apollo/client/link/error';
 import * as Sentry from '@sentry/browser';
-import { OperationDefinitionNode } from 'graphql';
+import type { OperationDefinitionNode } from 'graphql';
 
 import authService from '../../domain/authentication/authService';
 import Config from '../../domain/config';

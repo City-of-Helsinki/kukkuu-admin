@@ -1,5 +1,4 @@
-import { MethodHandlerParams } from '../../../api/types';
-import { EventGroup_eventGroup_events_edges_node as EventNode } from '../../../api/generatedTypes/EventGroup';
+import type { MethodHandlerParams } from '../../../api/types';
 import {
   queryHandler,
   handleApiNode,
@@ -8,19 +7,22 @@ import {
 } from '../../../api/utils/apiUtils';
 import RelayList from '../../../api/relayList';
 import projectService from '../../projects/projectService';
-import { eventGroupQuery } from '../queries/EvenGroupQueries';
 import {
   addEventGroupMutation,
   updateEventGroupMutation,
   deleteEventGroupMutation,
   publishEventGroupMutation,
 } from '../mutations/EventGroupMutations';
+import {
+  EventGroupDocument,
+  type EventNode,
+} from '../../api/generatedTypes/graphql';
 
 const EvenList = RelayList<EventNode>();
 
 async function getEventGroup(params: MethodHandlerParams) {
   const response = await queryHandler({
-    query: eventGroupQuery,
+    query: EventGroupDocument,
     variables: { id: params.id },
   });
 

@@ -1,4 +1,5 @@
-import React, { MouseEvent } from 'react';
+import type { MouseEvent } from 'react';
+import React from 'react';
 import { useDataProvider, useRefresh } from 'react-admin';
 import { useQuery } from 'react-query';
 import { makeStyles } from '@mui/styles';
@@ -8,10 +9,13 @@ import Menu from '@mui/material/Menu';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 // eslint-disable-next-line max-len
-import { MyAdminProfile_myAdminProfile_projects_edges_node as ProjectNode } from '../../api/generatedTypes/MyAdminProfile';
 import RelayList from '../../api/relayList';
 import projectService from '../projects/projectService';
-import extendedDataProvider from '../../api/dataProvider';
+import type extendedDataProvider from '../../api/dataProvider';
+import type {
+  ProjectNode,
+  ProjectNodeConnection,
+} from '../api/generatedTypes/graphql';
 
 const ProjectList = RelayList<ProjectNode>();
 
@@ -58,7 +62,9 @@ const ProfileProjectDropdown = () => {
     return null;
   }
 
-  const projects = ProjectList(data?.data?.projects).items;
+  const projects = ProjectList(
+    data?.data?.projects as ProjectNodeConnection
+  ).items;
 
   if (!projects || projects.length === 0) {
     return null;

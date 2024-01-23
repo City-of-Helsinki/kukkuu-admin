@@ -1,16 +1,15 @@
 import React from 'react';
+import type { RaRecord } from 'react-admin';
 import {
   useTranslate,
   TextField,
   NumberField,
   SelectField,
   FunctionField,
-  RaRecord,
 } from 'react-admin';
 import { makeStyles } from '@mui/styles';
 import { useNavigate } from 'react-router';
 
-import { EventGroup_eventGroup } from '../../../api/generatedTypes/EventGroup';
 import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPageLayout';
 import KukkuuDetailPage from '../../application/layout/kukkuuDetailPage/KukkuuDetailPage';
 import LocalDataGrid from '../../../common/components/localDataGrid/LocalDataGrid';
@@ -18,6 +17,7 @@ import { participantsPerInviteChoices } from '../../events/choices';
 import { countCapacity, countEnrollments } from '../../events/utils';
 import EventReadyField from './EventReadyField';
 import EventGroupsDetailActions from './EventGroupsDetailActions';
+import type { EventGroupNode } from '../../api/generatedTypes/graphql';
 
 const useStyles = makeStyles(() => ({
   center: {
@@ -62,7 +62,7 @@ const EventGroupsDetail = () => {
         <FunctionField
           label="events.fields.totalCapacity.label"
           textAlign="right"
-          render={(record?: EventGroup_eventGroup) =>
+          render={(record?: EventGroupNode) =>
             countCapacity(record as any) ??
             t('events.fields.totalCapacity.unknown')
           }
@@ -74,14 +74,14 @@ const EventGroupsDetail = () => {
         <FunctionField
           label="events.fields.numOfEnrolments.label"
           textAlign="right"
-          render={(record?: EventGroup_eventGroup) =>
+          render={(record?: EventGroupNode) =>
             record ? countEnrollments(record as any) : null
           }
         />
         <FunctionField
           headerClassName={classes.center}
           label="events.fields.ready.label2"
-          render={(record: EventGroup_eventGroup) => (
+          render={(record: EventGroupNode) => (
             <EventReadyField record={record} className={classes.center} />
           )}
         />

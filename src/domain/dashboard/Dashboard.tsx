@@ -15,7 +15,7 @@ import { makeStyles } from '@mui/styles';
 
 import projectService from '../projects/projectService';
 import { getTranslatedField } from '../../common/translation/TranslationUtils';
-import { Project_project } from '../../api/generatedTypes/Project';
+import type { ProjectNode } from '../api/generatedTypes/graphql';
 
 const useStyles = makeStyles({
   card: { marginTop: 18 },
@@ -27,7 +27,7 @@ const Dashboard = () => {
   const [locale] = useLocaleState();
   const notify = useNotify();
 
-  const { data, isLoading } = useGetOne<Project_project>(
+  const { data, isLoading } = useGetOne<ProjectNode>(
     'projects',
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     { id: projectService.projectId! },

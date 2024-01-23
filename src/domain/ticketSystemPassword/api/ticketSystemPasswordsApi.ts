@@ -1,4 +1,4 @@
-import { MethodHandlerParams } from '../../../api/types';
+import type { MethodHandlerParams } from '../../../api/types';
 import {
   handleApiNode,
   mapLocalDataToApiData,

@@ -1,7 +1,7 @@
-import { ApolloQueryResult } from '@apollo/client';
+import type { ApolloQueryResult } from '@apollo/client';
 import pick from 'lodash/pick';
 
-import { MethodHandler, MethodHandlerParams } from '../../../api/types';
+import type { MethodHandler, MethodHandlerParams } from '../../../api/types';
 import {
   queryHandler,
   mapLocalDataToApiData,
@@ -9,8 +9,6 @@ import {
   handleApiNode,
   handleApiConnection,
 } from '../../../api/utils/apiUtils';
-import { eventsQuery, eventQuery } from '../queries/EventQueries';
-import { Event as ApiEvent } from '../../../api/generatedTypes/Event';
 import {
   addEventMutation,
   publishEventMutation,
@@ -19,18 +17,23 @@ import {
 } from '../mutations/EventMutations';
 import projectService from '../../projects/projectService';
 import { hasInternalTicketSystem } from '../utils';
+import {
+  EventsDocument,
+  type EventQuery,
+  EventDocument,
+} from '../../api/generatedTypes/graphql';
 
 const getEvents: MethodHandler = async (params: MethodHandlerParams) => {
   const response = await queryHandler({
-    query: eventsQuery,
+    query: EventsDocument,
     variables: { projectId: projectService.projectId },
   });
   return handleApiConnection(response.data.events);
 };
 
 const getEvent: MethodHandler = async (params: MethodHandlerParams) => {
-  const response: ApolloQueryResult<ApiEvent> = await queryHandler({
-    query: eventQuery,
+  const response: ApolloQueryResult<EventQuery> = await queryHandler({
+    query: EventDocument,
     variables: { id: params.id },
   });
   return handleApiNode(response.data.event);

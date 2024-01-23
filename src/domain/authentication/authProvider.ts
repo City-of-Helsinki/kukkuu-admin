@@ -1,4 +1,4 @@
-import { AuthProvider } from 'ra-core';
+import type { AuthProvider } from 'ra-core';
 
 import authService from './authService';
 import authorizationService from './authorizationService';

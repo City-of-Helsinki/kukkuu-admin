@@ -1,5 +1,6 @@
 import React from 'react';
-import { TextInput, SimpleForm, SimpleFormProps } from 'react-admin';
+import type { SimpleFormProps } from 'react-admin';
+import { TextInput, SimpleForm } from 'react-admin';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import {
@@ -7,9 +8,9 @@ import {
   eventGroupsSchema,
   validateShortDescription,
 } from '../validations';
-import { Language } from '../../../api/generatedTypes/globalTypes';
 import useTranslatableContext from '../../../common/hooks/useTranslatableContext';
 import TranslatableProvider from '../../../common/providers/TranslatableProvider';
+import { Language } from '../../api/generatedTypes/graphql';
 
 type EventGroupFormProps = Omit<SimpleFormProps, 'children'>;
 
@@ -38,7 +39,7 @@ const EventGroupFormFields = () => {
         variant="outlined"
         source={translatableField('name')}
         label="eventGroups.fields.name.label"
-        validate={selectedLanguage === Language.FI ? validateName : undefined}
+        validate={selectedLanguage === Language.Fi ? validateName : undefined}
         fullWidth
       />
       <TextInput
