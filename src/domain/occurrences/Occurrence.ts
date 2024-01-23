@@ -103,7 +103,7 @@ class Occurrence {
     }
 
     crumbs.push({
-      label: event?.name || '',
+      label: event?.name ?? '',
       link: `/events/${event?.id}/show`,
     });
 
