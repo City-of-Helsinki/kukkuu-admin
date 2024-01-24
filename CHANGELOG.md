@@ -1,5 +1,32 @@
 # Change Log
 
+## [3.0.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v2.0.1...kukkuu-admin-v3.0.0) (2024-01-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* updated the schemas and types
+* update child schema fields
+
+### Features
+
+* Update child schema fields ([2b60b4a](https://github.com/City-of-Helsinki/kukkuu-admin/commit/2b60b4a406dffee2ea0751f1b57c86b1669d8bff))
+
+
+### Bug Fixes
+
+* Child language choices field value rendering ([92e8f26](https://github.com/City-of-Helsinki/kukkuu-admin/commit/92e8f26323c2c9e1b84f9d534d7d8d02b1eca3cd))
+* Child show view should show the birthyear ([0b925bd](https://github.com/City-of-Helsinki/kukkuu-admin/commit/0b925bd910ca5b864e6a6463a8ded8a4836d79fe))
+* README omitting necessity of .env file, .env.local is not enough ([457b51c](https://github.com/City-of-Helsinki/kukkuu-admin/commit/457b51c573efad2bc395fd197f71563b37d9d75f))
+* Running "yarn test" on Windows by using cross-env ([6f554d6](https://github.com/City-of-Helsinki/kukkuu-admin/commit/6f554d677463c27639956f36086b372bafe3820e))
+* Sonarcloud issue typescript:S6582, prefer optional chain expression ([fb7f57b](https://github.com/City-of-Helsinki/kukkuu-admin/commit/fb7f57bd1182825bc852775b9beecdaf8d775b5d))
+* Sonarcloud issue typescript:S6606, prefer ?? instead of || ([ae31395](https://github.com/City-of-Helsinki/kukkuu-admin/commit/ae313955fdfe1e8b1a9fef73fdd47d495148a1c9))
+
+
+### Code Refactoring
+
+* Updated the schemas and types ([3cc0ae3](https://github.com/City-of-Helsinki/kukkuu-admin/commit/3cc0ae3b2805cdcbda9dda9e8e1f407e1159da31))
+
 ## [2.0.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v2.0.0...kukkuu-admin-v2.0.1) (2023-12-21)
 
 
