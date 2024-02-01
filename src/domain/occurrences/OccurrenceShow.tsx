@@ -153,11 +153,6 @@ const OccurrenceShow = () => {
               label="children.fields.name.label"
               render={withEnrolment(getChildFullName, () => null)}
             />
-            <DateField
-              source="node.child.birthyear"
-              label="children.fields.birthyear.label"
-              locales={locale}
-            />
             <FunctionField
               render={withEnrolment(
                 withGuardian(getGuardianFullName, () =>
