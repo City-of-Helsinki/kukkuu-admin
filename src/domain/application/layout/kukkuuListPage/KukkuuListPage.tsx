@@ -35,6 +35,7 @@ const KukkuuListPage = ({
     <>
       <KukkuuPageTitle>{pageTitle}</KukkuuPageTitle>
       <KukkuuList
+        emptyWhileLoading
         pagination={false}
         exporter={false}
         {...reactAdminProps}
