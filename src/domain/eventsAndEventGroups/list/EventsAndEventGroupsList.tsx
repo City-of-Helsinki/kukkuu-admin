@@ -6,25 +6,21 @@ import {
   NumberField,
   FunctionField,
   TopToolbar,
-  CreateButton,
-  useGetOne,
-  usePermissions,
   Labeled,
 } from 'react-admin';
 import { makeStyles } from '@mui/styles';
 
-import type { Permissions } from '../../authentication/authProvider';
 import { toDateTimeString } from '../../../common/utils';
 import PublishedField from '../../../common/components/publishedField/PublishedField';
 import KukkuuListPage from '../../application/layout/kukkuuListPage/KukkuuListPage';
 import { EventList, countCapacity, countOccurrences } from '../../events/utils';
-import projectService from '../../projects/projectService';
 import type {
   EventGroupNode,
   EventNode,
   EventOrEventGroupUnion,
-  ProjectNode,
 } from '../../api/generatedTypes/graphql';
+import { EventsAndEventGroupsListManagementButtonGroup } from './ManagementButtonGroup';
+import Empty from './Empty';
 
 const useEventsAndEventGroupsListToolbarStyles = makeStyles((theme?: any) => ({
   toolbar: {
@@ -36,30 +32,11 @@ const useEventsAndEventGroupsListToolbarStyles = makeStyles((theme?: any) => ({
 }));
 
 const EventsAndEventGroupsListToolbar = () => {
-  const { permissions } = usePermissions<Permissions>();
-  const t = useTranslate();
   const classes = useEventsAndEventGroupsListToolbarStyles();
-  const { data: projectData } = useGetOne<ProjectNode>('projects', {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    id: projectService.projectId!,
-  });
-
-  const canManageEventGroups = permissions?.canManageEventGroupsWithinProject(
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    projectService.projectId!
-  );
 
   return (
     <TopToolbar className={classes.toolbar}>
-      {canManageEventGroups && (
-        <CreateButton
-          resource="event-groups"
-          label={t('eventGroups.actions.create.do')}
-        />
-      )}
-      {projectData?.singleEventsAllowed && (
-        <CreateButton resource="events" label={t('events.actions.create')} />
-      )}
+      <EventsAndEventGroupsListManagementButtonGroup />
     </TopToolbar>
   );
 };
@@ -118,6 +95,7 @@ const EventsAndEventGroupsList = () => {
       pageTitle={translate('events.list.title')}
       reactAdminProps={{
         actions: <EventsAndEventGroupsListToolbar />,
+        empty: <Empty />,
       }}
       datagridProps={{
         rowClick: handleRowClick,
