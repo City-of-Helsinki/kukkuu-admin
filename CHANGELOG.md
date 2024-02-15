@@ -1,5 +1,13 @@
 # Change Log
 
+## [3.0.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.0.0...kukkuu-admin-v3.0.1) (2024-02-15)
+
+
+### Bug Fixes
+
+* Events empty listing did not render any management buttons ([e390a49](https://github.com/City-of-Helsinki/kukkuu-admin/commit/e390a490102c847618f4b539cfa377feca84bd38))
+* Remove the broken birthyear column from occurrence page ([e5b0b0e](https://github.com/City-of-Helsinki/kukkuu-admin/commit/e5b0b0e4192d00395f263996a12bd64953aec066))
+
 ## [3.0.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v2.0.1...kukkuu-admin-v3.0.0) (2024-01-24)
 
 
