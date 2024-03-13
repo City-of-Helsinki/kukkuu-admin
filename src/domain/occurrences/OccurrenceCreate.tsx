@@ -4,7 +4,6 @@ import {
   SimpleForm,
   SelectInput,
   ReferenceInput,
-  required,
   Loading,
 } from 'react-admin';
 import Grid from '@mui/material/Grid';
@@ -26,10 +25,11 @@ const OccurrenceCreateForm = () => {
         label="occurrences.fields.venue.label"
         source="venueId"
         reference="venues"
-        validate={[required()]}
+        isRequired
         fullWidth
       >
         <SelectInput
+          required
           variant="outlined"
           optionText="translations.FI.name"
           helperText="occurrences.fields.venue.helperText"
