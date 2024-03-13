@@ -4,7 +4,6 @@ import {
   SimpleForm,
   SelectInput,
   ReferenceInput,
-  required,
   Toolbar,
   SaveButton,
   DeleteButton,
@@ -75,10 +74,11 @@ const OccurrenceEditForm = () => {
         label="occurrences.fields.venue.label"
         source="venue.id"
         reference="venues"
-        validate={[required()]}
+        isRequired
         fullWidth
       >
         <SelectInput
+          required
           variant="outlined"
           optionText="translations.FI.name"
           helperText="occurrences.fields.venue.helperText"

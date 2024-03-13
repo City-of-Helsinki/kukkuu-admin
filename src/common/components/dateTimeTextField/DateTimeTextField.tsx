@@ -1,5 +1,5 @@
 import React from 'react';
-import type { InputProps } from 'react-admin';
+import type { InputProps, Validator } from 'react-admin';
 import { useInput, useRecordContext, useTranslate } from 'react-admin';
 import type { TextFieldProps } from '@mui/material/TextField';
 import TextField from '@mui/material/TextField';
@@ -12,52 +12,68 @@ const useStyles = makeStyles({
   textFieldInput: { width: '100%' },
 });
 
+/**
+ * Removes the special prefix `@@react-admin@@` and the needless quotation marks
+ * that might be added by the useInput-hook.
+ * @param message the translation key (with ra-core's special prefix to avoid double translation)
+ * @returns the fixed translation key
+ * @example
+ *    Warning: Missing translation for key: "@@react-admin@@"occurrences.fields.time.fields.time.errorMessage""
+ * @example
+ *    // a code related to the validation in the useInput.ts...
+ *    validate: async (value, values) => {
+ *        if (!sanitizedValidate) return true;
+ *        const error = await sanitizedValidate(value, values, props);
+ *        if (!error) return true;
+ *        // react-hook-form expects errors to be plain strings but our validators can return objects
+ *        // that have message and args.
+ *        // To avoid double translation for users that validate with a schema instead of our validators
+ *        // we use a special format for our validators errors.
+ *        // The ValidationError component will check for this format and extract the message and args
+ *        // to translate.
+ *        return `@@react-admin@@${JSON.stringify(error)}`
+ */
+const handleUseInputDoubleValidationMessage = (message: string) =>
+  message.replace('@@react-admin@@', '').replaceAll('"', '');
+
 export type BoundedTextFieldProps = InputProps & TextFieldProps;
 
 const BoundedTextField = (props: BoundedTextFieldProps) => {
   const translate = useTranslate();
   const classes = useStyles();
-
-  const { label, variant, defaultValue, disabled } = props;
   const {
-    field: { name, onChange },
+    field,
     fieldState: { isTouched, error },
     formState: { isSubmitted },
-    isRequired,
   } = useInput(props);
 
   return (
     <TextField
-      variant={variant}
+      {...props}
+      {...field}
       className={classes.textFieldInput}
       size="small"
-      name={name}
-      label={label}
-      onChange={onChange}
       error={!!(isTouched && error)}
       helperText={
         (isTouched || isSubmitted) && !!error
-          ? translate(error?.message ?? '')
+          ? translate(
+              handleUseInputDoubleValidationMessage(error?.message ?? '')
+            )
           : undefined
       }
-      required={isRequired}
-      defaultValue={defaultValue}
-      disabled={disabled}
     />
   );
 };
 
-const validateDate = (value: string) => {
-  return moment(value, 'D.M.YYYY', true).isValid()
+const validateDate: Validator = (value: string) =>
+  moment(value, 'D.M.YYYY', true)?.isValid()
     ? undefined
     : 'occurrences.fields.time.fields.date.errorMessage';
-};
 
-const validateTime = (value: string) => {
-  return moment(value, 'H:mm', true).isValid()
+const validateTime: Validator = (value: string) =>
+  moment(value, 'H:mm', true)?.isValid()
     ? undefined
     : 'occurrences.fields.time.fields.time.errorMessage';
-};
 
 const DateTimeTextInput = ({
   variant,
