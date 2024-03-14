@@ -65,11 +65,11 @@ exports[`renders without crashing 1`] = `
                 class="makeStyles-spacer-2"
               />
               <div
-                class="css-1l0huk-RaLoadingIndicator-root"
+                class="css-lpub39-RaLoadingIndicator-root"
               >
                 <button
                   aria-label="Päivitä"
-                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium RaLoadingIndicator-loadedIcon css-zylse7-MuiButtonBase-root-MuiIconButton-root"
+                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium RaLoadingIndicator-loadedIcon false css-zylse7-MuiButtonBase-root-MuiIconButton-root"
                   data-mui-internal-clone-element="true"
                   tabindex="0"
                   type="button"
@@ -91,7 +91,7 @@ exports[`renders without crashing 1`] = `
                 </button>
               </div>
               <div
-                class="css-1ynhu7j-RaUserMenu-root"
+                class="css-6u3hli-RaUserMenu-root"
               >
                 <button
                   aria-haspopup="true"
@@ -132,7 +132,7 @@ exports[`renders without crashing 1`] = `
                   class="RaSidebar-fixed"
                 >
                   <ul
-                    class="MuiList-root MuiList-padding RaMenu-open css-i91xiw-MuiList-root-RaMenu-root"
+                    class="MuiList-root MuiList-padding RaMenu-open css-1h6y07d-MuiList-root-RaMenu-root"
                     role="menu"
                     tabindex="-1"
                   >
