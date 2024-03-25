@@ -179,10 +179,6 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 Fetches the schema from backend and updates typing information.
 
-### `yarn update-translations`
-
-Updates translation files from the Google spreadsheet
-
 ### `yarn test:browser`
 
 Runs browser tests against your local version of the application (assumes port `3001`).
