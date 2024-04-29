@@ -47,16 +47,15 @@ class AppConfig {
   }
 
   static get oidcKukkuuApiClientId() {
-    return getEnvOrError(
-      process.env.REACT_APP_OIDC_KUKKUU_API_CLIENT_ID,
-      'REACT_APP_OIDC_KUKKUU_API_CLIENT_ID'
+    return (
+      process.env.REACT_APP_OIDC_KUKKUU_API_CLIENT_ID ?? this.oidcKukkuuAPIScope
     );
   }
 
   static get oidcKukkuuApiTokensUrl() {
     return this.oidcServerType === 'KEYCLOAK'
       ? `${this.oidcAuthority}protocol/openid-connect/token`
-      : `${this.oidcAuthority}apiTokens`;
+      : `${this.oidcAuthority}api-tokens/`;
   }
 
   static get oidcKukkuuAPIScope() {
