@@ -5,37 +5,69 @@ import * as Sentry from '@sentry/browser';
 
 import projectService from '../projects/projectService';
 import authorizationService from './authorizationService';
+import AppConfig from '../application/AppConfig';
 
 const origin = window.location.origin;
 export const API_TOKEN = 'apiToken';
 
+export type ApiTokenClientProps = {
+  url: string;
+  queryProps?: { permission: string; grant_type: string };
+  audiences?: string[];
+};
+
 export class AuthService {
   private userManager: UserManager;
+  private apiTokensClientConfig: ApiTokenClientProps;
+  private authServerType: 'KEYCLOAK' | 'TUNNISTAMO';
+  private audience: string;
 
   constructor() {
+    this.authServerType = AppConfig.oidcServerType ?? 'TUNNISTAMO';
+    this.audience = AppConfig.oidcAudience ?? AppConfig.oidcKukkuuApiClientId;
+
     const settings: UserManagerSettings = {
       loadUserInfo: true,
       userStore: new WebStorageStateStore({ store: window.localStorage }),
-      authority: process.env.REACT_APP_OIDC_AUTHORITY ?? '',
-      client_id: process.env.REACT_APP_OIDC_CLIENT_ID ?? '',
+      response_type: AppConfig.oidcReturnType,
+      authority: AppConfig.oidcAuthority,
+      client_id: AppConfig.oidcClientId,
+      scope: AppConfig.oidcScope,
       redirect_uri: `${origin}/callback`,
-      // For debugging, set it to 1 minute by removing comment:
-      // accessTokenExpiringNotificationTime: 59.65 * 60,
-      automaticSilentRenew: false,
-      silent_redirect_uri: `${origin}/silent_renew.html`,
-      response_type: process.env.REACT_APP_OIDC_RETURN_TYPE ?? 'code',
-      scope: process.env.REACT_APP_OIDC_SCOPE,
       post_logout_redirect_uri: `${origin}/`,
+      automaticSilentRenew: false,
+      // silent_redirect_uri: `${origin}/silent_renew.html`,
     };
 
-    // Show oidc debugging info in the console only while developing
+    if (!settings.automaticSilentRenew) {
+      // eslint-disable-next-line no-console
+      console.info('Auth token silent renew is disabled.');
+    }
+
     if (process.env.NODE_ENV === 'development') {
+      // Show oidc debugging info in the console only while developing
       Log.setLogger(console);
       Log.setLevel(Log.INFO);
     }
 
     // User Manager instance
     this.userManager = new UserManager(settings);
+
+    // Api tokens client configuration
+    this.apiTokensClientConfig = {
+      url: AppConfig.oidcKukkuuApiTokensUrl,
+      queryProps:
+        this.authServerType === 'KEYCLOAK'
+          ? {
+              permission: '#access',
+              grant_type: 'urn:ietf:params:oauth:grant-type:uma-ticket',
+            }
+          : undefined,
+      audiences:
+        this.authServerType === 'KEYCLOAK' && AppConfig.oidcAudience
+          ? [AppConfig.oidcAudience]
+          : undefined,
+    };
 
     // Public methods
     this.getUser = this.getUser.bind(this);
@@ -46,6 +78,7 @@ export class AuthService {
     this.renewToken = this.renewToken.bind(this);
     this.logout = this.logout.bind(this);
     this.resetAuthState = this.resetAuthState.bind(this);
+    this.fetchApiToken = this.fetchApiToken.bind(this);
 
     // Events
     this.userManager.events.addAccessTokenExpired(() => {
@@ -74,9 +107,12 @@ export class AuthService {
     return localStorage.getItem(API_TOKEN);
   }
 
+  public getUserStorageKey(): string {
+    return `oidc.user:${AppConfig.oidcAuthority}:${AppConfig.oidcClientId}`;
+  }
+
   public isAuthenticated() {
-    // TODO: getter for userKey
-    const userKey = `oidc.user:${process.env.REACT_APP_OIDC_AUTHORITY}:${process.env.REACT_APP_OIDC_CLIENT_ID}`;
+    const userKey = this.getUserStorageKey();
     const oidcStorage = localStorage.getItem(userKey);
     const apiTokens = this.getToken();
 
@@ -123,34 +159,30 @@ export class AuthService {
   }
 
   private async fetchApiToken(user: User): Promise<void> {
-    // TODO: different config for Tunnistamo and Keycloak
-    const url = `${process.env.REACT_APP_OIDC_AUTHORITY}protocol/openid-connect/token`;
-
-    // TODO: handle audiences better
-    const audience = 'kukkuu-api-dev';
-
-    const { data } = await axios(url, {
+    const accessToken = user.access_token;
+    const { data } = await axios(this.apiTokensClientConfig.url, {
       method: 'post',
-      baseURL: process.env.REACT_APP_OIDC_AUTHORITY,
+      baseURL: AppConfig.oidcAuthority,
       headers: {
-        Authorization: `bearer ${user.access_token}`,
+        Authorization: `bearer ${accessToken}`,
         Accept: 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
       },
-      data: {
-        audience,
-        ...(process.env.REACT_APP_OIDC_SERVER_TYPE
+      data:
+        this.authServerType === 'KEYCLOAK'
           ? {
-              grant_type: 'urn:ietf:params:oauth:grant-type:uma-ticket',
-              permission: '#access',
+              audience: this.audience,
+              ...this.apiTokensClientConfig.queryProps,
             }
-          : {}),
-      },
+          : {},
     });
-    // const apiToken =
-    //   apiTokens[process.env.REACT_APP_KUKKUU_API_OIDC_SCOPE as string];
 
-    localStorage.setItem(API_TOKEN, data.access_token);
+    const apiToken =
+      this.authServerType === 'KEYCLOAK'
+        ? data.access_token
+        : data[AppConfig.oidcKukkuuApiClientId];
+
+    localStorage.setItem(API_TOKEN, apiToken);
   }
 }
 
