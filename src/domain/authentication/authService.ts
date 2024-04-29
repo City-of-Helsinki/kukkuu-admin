@@ -1,5 +1,5 @@
-import type { User, UserManagerSettings } from 'oidc-client';
-import { UserManager, Log, WebStorageStateStore } from 'oidc-client';
+import type { User, UserManagerSettings } from 'oidc-client-ts';
+import { UserManager, Log, WebStorageStateStore } from 'oidc-client-ts';
 import axios from 'axios';
 import * as Sentry from '@sentry/browser';
 
@@ -16,22 +16,22 @@ export class AuthService {
     const settings: UserManagerSettings = {
       loadUserInfo: true,
       userStore: new WebStorageStateStore({ store: window.localStorage }),
-      authority: process.env.REACT_APP_OIDC_AUTHORITY,
-      client_id: process.env.REACT_APP_OIDC_CLIENT_ID,
+      authority: process.env.REACT_APP_OIDC_AUTHORITY ?? '',
+      client_id: process.env.REACT_APP_OIDC_CLIENT_ID ?? '',
       redirect_uri: `${origin}/callback`,
       // For debugging, set it to 1 minute by removing comment:
       // accessTokenExpiringNotificationTime: 59.65 * 60,
       automaticSilentRenew: false,
       silent_redirect_uri: `${origin}/silent_renew.html`,
-      response_type: 'id_token token',
+      response_type: process.env.REACT_APP_OIDC_RETURN_TYPE ?? 'code',
       scope: process.env.REACT_APP_OIDC_SCOPE,
       post_logout_redirect_uri: `${origin}/`,
     };
 
     // Show oidc debugging info in the console only while developing
     if (process.env.NODE_ENV === 'development') {
-      Log.logger = console;
-      Log.level = Log.INFO;
+      Log.setLogger(console);
+      Log.setLevel(Log.INFO);
     }
 
     // User Manager instance
@@ -75,6 +75,7 @@ export class AuthService {
   }
 
   public isAuthenticated() {
+    // TODO: getter for userKey
     const userKey = `oidc.user:${process.env.REACT_APP_OIDC_AUTHORITY}:${process.env.REACT_APP_OIDC_CLIENT_ID}`;
     const oidcStorage = localStorage.getItem(userKey);
     const apiTokens = this.getToken();
@@ -86,7 +87,7 @@ export class AuthService {
 
   public async login(path = '/'): Promise<void> {
     try {
-      return this.userManager.signinRedirect({ data: { path } });
+      return this.userManager.signinRedirect({ url_state: path });
     } catch (error) {
       if (error instanceof Error) {
         if (error.message !== 'Network Error') {
@@ -105,7 +106,7 @@ export class AuthService {
     return user;
   }
 
-  public renewToken(): Promise<User> {
+  public renewToken(): Promise<User | null> {
     return this.userManager.signinSilent();
   }
 
@@ -122,17 +123,34 @@ export class AuthService {
   }
 
   private async fetchApiToken(user: User): Promise<void> {
-    const url = `${process.env.REACT_APP_OIDC_AUTHORITY}/api-tokens/`;
-    const { data: apiTokens } = await axios.get(url, {
+    // TODO: different config for Tunnistamo and Keycloak
+    const url = `${process.env.REACT_APP_OIDC_AUTHORITY}protocol/openid-connect/token`;
+
+    // TODO: handle audiences better
+    const audience = 'kukkuu-api-dev';
+
+    const { data } = await axios(url, {
+      method: 'post',
       baseURL: process.env.REACT_APP_OIDC_AUTHORITY,
       headers: {
         Authorization: `bearer ${user.access_token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      data: {
+        audience,
+        ...(process.env.REACT_APP_OIDC_SERVER_TYPE
+          ? {
+              grant_type: 'urn:ietf:params:oauth:grant-type:uma-ticket',
+              permission: '#access',
+            }
+          : {}),
       },
     });
-    const apiToken =
-      apiTokens[process.env.REACT_APP_KUKKUU_API_OIDC_SCOPE as string];
+    // const apiToken =
+    //   apiTokens[process.env.REACT_APP_KUKKUU_API_OIDC_SCOPE as string];
 
-    localStorage.setItem(API_TOKEN, apiToken);
+    localStorage.setItem(API_TOKEN, data.access_token);
   }
 }
 
