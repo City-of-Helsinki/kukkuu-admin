@@ -35,6 +35,11 @@ export class AuthService {
       scope: AppConfig.oidcScope,
       redirect_uri: `${origin}/callback`,
       post_logout_redirect_uri: `${origin}/`,
+      // TODO: The silent renew support needs to be added to the React-admin authProvider as well.
+      // More about this:
+      // - https://marmelab.com/blog/2020/07/02/manage-your-jwt-react-admin-authentication-in-memory.html
+      // - https://marmelab.com/react-admin/addRefreshAuthToAuthProvider.html
+      // - https://marmelab.com/react-admin/addRefreshAuthToDataProvider.html
       automaticSilentRenew: false,
       // silent_redirect_uri: `${origin}/silent_renew.html`,
     };
