@@ -160,29 +160,35 @@ export class AuthService {
 
   private async fetchApiToken(user: User): Promise<void> {
     const accessToken = user.access_token;
-    const { data } = await axios(this.apiTokensClientConfig.url, {
-      method: 'post',
-      baseURL: AppConfig.oidcAuthority,
-      headers: {
-        Authorization: `bearer ${accessToken}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-      },
-      data:
+    try {
+      const { data } = await axios(this.apiTokensClientConfig.url, {
+        method: 'post',
+        baseURL: AppConfig.oidcAuthority,
+        headers: {
+          Authorization: `bearer ${accessToken}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        },
+        data:
+          this.authServerType === 'KEYCLOAK'
+            ? {
+                audience: this.audience,
+                ...this.apiTokensClientConfig.queryProps,
+              }
+            : {},
+      });
+
+      const apiToken =
         this.authServerType === 'KEYCLOAK'
-          ? {
-              audience: this.audience,
-              ...this.apiTokensClientConfig.queryProps,
-            }
-          : {},
-    });
+          ? data.access_token
+          : data[AppConfig.oidcKukkuuApiClientId];
 
-    const apiToken =
-      this.authServerType === 'KEYCLOAK'
-        ? data.access_token
-        : data[AppConfig.oidcKukkuuApiClientId];
-
-    localStorage.setItem(API_TOKEN, apiToken);
+      localStorage.setItem(API_TOKEN, apiToken);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Failed to fetch API token', error);
+      Sentry.captureException(error);
+    }
   }
 }
 
