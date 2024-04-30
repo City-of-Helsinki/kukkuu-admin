@@ -1,13 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`authService fetchApiToken should call axios.get with the right arguments 1`] = `
+exports[`authService fetchApiToken should call axios with the right arguments 1`] = `
 Array [
   "https://tunnistamo.test.kuva.hel.ninja/api-tokens/",
   Object {
-    "baseURL": "https://tunnistamo.test.kuva.hel.ninja",
+    "baseURL": "https://tunnistamo.test.kuva.hel.ninja/",
+    "data": Object {},
     "headers": Object {
+      "Accept": "application/json",
       "Authorization": "bearer db237bc3-e197-43de-8c86-3feea4c5f886",
+      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
     },
+    "method": "post",
   },
 ]
 `;

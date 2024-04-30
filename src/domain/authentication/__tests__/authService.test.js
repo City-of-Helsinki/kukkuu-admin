@@ -3,12 +3,13 @@ import axios from 'axios';
 import dataProvider from '../../../api/dataProvider';
 import authService, { API_TOKEN } from '../authService';
 import authorizationService from '../authorizationService';
+import AppConfig from '../../application/AppConfig';
 
 jest.mock('axios');
 
 describe('authService', () => {
   const userManager = authService.userManager;
-  const oidcUserKey = `oidc.user:${process.env.REACT_APP_OIDC_AUTHORITY}:${process.env.REACT_APP_OIDC_CLIENT_ID}`;
+  const oidcUserKey = `oidc.user:${AppConfig.oidcAuthority}:${AppConfig.oidcClientId}`;
 
   beforeEach(() => {
     jest.spyOn(dataProvider, 'getMyAdminProfile').mockResolvedValue({});
@@ -37,7 +38,7 @@ describe('authService', () => {
     it('should get API_TOKENS from localStorage', () => {
       authService.getToken();
 
-      expect(localStorage.getItem).toHaveBeenNthCalledWith(2, API_TOKEN);
+      expect(localStorage.getItem).toHaveBeenNthCalledWith(1, API_TOKEN);
     });
   });
 
@@ -87,12 +88,14 @@ describe('authService', () => {
 
       authService.login(path);
 
-      expect(signinRedirect).toHaveBeenNthCalledWith(1, { data: { path } });
+      expect(signinRedirect).toHaveBeenNthCalledWith(1, {
+        url_state: path,
+      });
     });
   });
 
   describe('endLogin', () => {
-    axios.get.mockResolvedValue({ data: {} });
+    axios.mockResolvedValue({ data: {} });
     const access_token = 'db237bc3-e197-43de-8c86-3feea4c5f886';
     const mockUser = {
       name: 'Penelope Krajcik',
@@ -235,9 +238,9 @@ describe('authService', () => {
     };
 
     beforeEach(() => {
-      axios.get.mockReset();
+      axios.mockReset();
 
-      axios.get.mockResolvedValue({
+      axios.mockResolvedValue({
         data: {
           firstToken: '71ffd52c-5985-46d3-b445-490554f4012a',
           secondToken: 'de7c2a83-07f2-46bf-8417-8f648adbc7be',
@@ -245,12 +248,12 @@ describe('authService', () => {
       });
     });
 
-    it('should call axios.get with the right arguments', async () => {
+    it('should call axios with the right arguments', async () => {
       expect.assertions(2);
       await authService.fetchApiToken(mockUser);
 
-      expect(axios.get).toHaveBeenCalledTimes(1);
-      expect(axios.get.mock.calls[0]).toMatchSnapshot();
+      expect(axios).toHaveBeenCalledTimes(1);
+      expect(axios.mock.calls[0]).toMatchSnapshot();
     });
 
     it('should call localStorage.setItem with the right arguments', async () => {
