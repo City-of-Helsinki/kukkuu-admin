@@ -73,10 +73,10 @@ class AppConfig {
   static get oidcServerType(): 'KEYCLOAK' | 'TUNNISTAMO' {
     const oidcServerType =
       process.env.REACT_APP_OIDC_SERVER_TYPE ?? 'TUNNISTAMO';
-    if (!['KEYCLOAK', 'TUNNISTAMO'].includes(oidcServerType)) {
-      throw new Error(`Invalid OIDC server type: ${oidcServerType}`);
+    if (oidcServerType === 'KEYCLOAK' || oidcServerType === 'TUNNISTAMO') {
+      return oidcServerType;
     }
-    return oidcServerType as 'KEYCLOAK' | 'TUNNISTAMO';
+    throw new Error(`Invalid OIDC server type: ${oidcServerType}`);
   }
 }
 
