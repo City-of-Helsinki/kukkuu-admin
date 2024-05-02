@@ -32,6 +32,7 @@ const handleApolloError: ErrorHandler = ({
       ) {
         // If JWT is expired it means that we want people to log in again. We don't need to log this to sentry.
         console.error('JWT expired');
+        authService.resetAuthState();
       } else if (errorCode === 'PERMISSION_DENIED_ERROR') {
         // Most permission errors happen when user authentication
         // expires or when the user accesses the application before

@@ -1,41 +1,78 @@
-import type { User, UserManagerSettings } from 'oidc-client';
-import { UserManager, Log, WebStorageStateStore } from 'oidc-client';
+import type { User, UserManagerSettings } from 'oidc-client-ts';
+import { UserManager, Log, WebStorageStateStore } from 'oidc-client-ts';
 import axios from 'axios';
 import * as Sentry from '@sentry/browser';
 
 import projectService from '../projects/projectService';
 import authorizationService from './authorizationService';
+import AppConfig from '../application/AppConfig';
 
 const origin = window.location.origin;
 export const API_TOKEN = 'apiToken';
 
+export type ApiTokenClientProps = {
+  url: string;
+  queryProps?: { permission: string; grant_type: string };
+  audiences?: string[];
+};
+
 export class AuthService {
   private userManager: UserManager;
+  private apiTokensClientConfig: ApiTokenClientProps;
+  private authServerType: 'KEYCLOAK' | 'TUNNISTAMO';
+  private audience: string;
 
   constructor() {
+    this.authServerType = AppConfig.oidcServerType;
+    this.audience = AppConfig.oidcAudience ?? AppConfig.oidcKukkuuApiClientId;
+
     const settings: UserManagerSettings = {
       loadUserInfo: true,
       userStore: new WebStorageStateStore({ store: window.localStorage }),
-      authority: process.env.REACT_APP_OIDC_AUTHORITY,
-      client_id: process.env.REACT_APP_OIDC_CLIENT_ID,
+      response_type: AppConfig.oidcReturnType,
+      authority: AppConfig.oidcAuthority,
+      client_id: AppConfig.oidcClientId,
+      scope: AppConfig.oidcScope,
       redirect_uri: `${origin}/callback`,
-      // For debugging, set it to 1 minute by removing comment:
-      // accessTokenExpiringNotificationTime: 59.65 * 60,
-      automaticSilentRenew: false,
-      silent_redirect_uri: `${origin}/silent_renew.html`,
-      response_type: 'id_token token',
-      scope: process.env.REACT_APP_OIDC_SCOPE,
       post_logout_redirect_uri: `${origin}/`,
+      // TODO: The silent renew support needs to be added to the React-admin authProvider as well.
+      // More about this:
+      // - https://marmelab.com/blog/2020/07/02/manage-your-jwt-react-admin-authentication-in-memory.html
+      // - https://marmelab.com/react-admin/addRefreshAuthToAuthProvider.html
+      // - https://marmelab.com/react-admin/addRefreshAuthToDataProvider.html
+      automaticSilentRenew: false,
+      // silent_redirect_uri: `${origin}/silent_renew.html`,
     };
 
-    // Show oidc debugging info in the console only while developing
+    if (!settings.automaticSilentRenew) {
+      // eslint-disable-next-line no-console
+      console.info('Auth token silent renew is disabled.');
+    }
+
     if (process.env.NODE_ENV === 'development') {
-      Log.logger = console;
-      Log.level = Log.INFO;
+      // Show oidc debugging info in the console only while developing
+      Log.setLogger(console);
+      Log.setLevel(Log.INFO);
     }
 
     // User Manager instance
     this.userManager = new UserManager(settings);
+
+    // Api tokens client configuration
+    this.apiTokensClientConfig = {
+      url: AppConfig.oidcKukkuuApiTokensUrl,
+      queryProps:
+        this.authServerType === 'KEYCLOAK'
+          ? {
+              permission: '#access',
+              grant_type: 'urn:ietf:params:oauth:grant-type:uma-ticket',
+            }
+          : undefined,
+      audiences:
+        this.authServerType === 'KEYCLOAK' && AppConfig.oidcAudience
+          ? [AppConfig.oidcAudience]
+          : undefined,
+    };
 
     // Public methods
     this.getUser = this.getUser.bind(this);
@@ -46,6 +83,7 @@ export class AuthService {
     this.renewToken = this.renewToken.bind(this);
     this.logout = this.logout.bind(this);
     this.resetAuthState = this.resetAuthState.bind(this);
+    this.fetchApiToken = this.fetchApiToken.bind(this);
 
     // Events
     this.userManager.events.addAccessTokenExpired(() => {
@@ -74,8 +112,12 @@ export class AuthService {
     return localStorage.getItem(API_TOKEN);
   }
 
+  public getUserStorageKey(): string {
+    return `oidc.user:${AppConfig.oidcAuthority}:${AppConfig.oidcClientId}`;
+  }
+
   public isAuthenticated() {
-    const userKey = `oidc.user:${process.env.REACT_APP_OIDC_AUTHORITY}:${process.env.REACT_APP_OIDC_CLIENT_ID}`;
+    const userKey = this.getUserStorageKey();
     const oidcStorage = localStorage.getItem(userKey);
     const apiTokens = this.getToken();
 
@@ -86,7 +128,7 @@ export class AuthService {
 
   public async login(path = '/'): Promise<void> {
     try {
-      return this.userManager.signinRedirect({ data: { path } });
+      return this.userManager.signinRedirect({ url_state: path });
     } catch (error) {
       if (error instanceof Error) {
         if (error.message !== 'Network Error') {
@@ -105,7 +147,7 @@ export class AuthService {
     return user;
   }
 
-  public renewToken(): Promise<User> {
+  public renewToken(): Promise<User | null> {
     return this.userManager.signinSilent();
   }
 
@@ -122,17 +164,36 @@ export class AuthService {
   }
 
   private async fetchApiToken(user: User): Promise<void> {
-    const url = `${process.env.REACT_APP_OIDC_AUTHORITY}/api-tokens/`;
-    const { data: apiTokens } = await axios.get(url, {
-      baseURL: process.env.REACT_APP_OIDC_AUTHORITY,
-      headers: {
-        Authorization: `bearer ${user.access_token}`,
-      },
-    });
-    const apiToken =
-      apiTokens[process.env.REACT_APP_KUKKUU_API_OIDC_SCOPE as string];
+    const accessToken = user.access_token;
+    try {
+      const { data } = await axios(this.apiTokensClientConfig.url, {
+        method: 'post',
+        baseURL: AppConfig.oidcAuthority,
+        headers: {
+          Authorization: `bearer ${accessToken}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        },
+        data:
+          this.authServerType === 'KEYCLOAK'
+            ? {
+                audience: this.audience,
+                ...this.apiTokensClientConfig.queryProps,
+              }
+            : {},
+      });
 
-    localStorage.setItem(API_TOKEN, apiToken);
+      const apiToken =
+        this.authServerType === 'KEYCLOAK'
+          ? data.access_token
+          : data[AppConfig.oidcKukkuuApiClientId];
+
+      localStorage.setItem(API_TOKEN, apiToken);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Failed to fetch API token', error);
+      Sentry.captureException(error);
+    }
   }
 }
 

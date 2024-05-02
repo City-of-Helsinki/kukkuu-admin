@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslate, useDataProvider, Loading } from 'react-admin';
 import * as Sentry from '@sentry/browser';
-import type { User } from 'oidc-client';
+import type { User } from 'oidc-client-ts';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import authService from './authService';
@@ -37,7 +37,7 @@ function CallBackPage() {
         if (role === 'none') {
           navigate('/unauthorized', { replace: true });
         } else {
-          navigate(getRedirectPath(user.state?.path, pathname), {
+          navigate(getRedirectPath(user.url_state, pathname), {
             replace: true,
           });
         }
