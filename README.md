@@ -148,7 +148,7 @@ The example file should include some what the following variables, that are tell
 - `REACT_APP_OIDC_CLIENT_ID` is the unique client id that is used when the client is configured to auth service.
 - `REACT_APP_OIDC_SCOPE="openid profile"` tells that the Kukkuu Admin UI needs the openid and profile information to be included in the JWT.
 - `REACT_APP_OIDC_AUDIENCES=kukkuu-api-dev` means that when the authorization is given, the access is needed to these clients too, so the api-tokens needs to be generated.
-- `REACT_APP_OIDC_KUKKUU_API_CLIENT_ID`is used collect the proper auth token for communication between the Admin UI and the API.
+- `REACT_APP_OIDC_KUKKUU_API_CLIENT_ID` is used collect the proper auth token for communication between the Admin UI and the API.
 
 Example configuration when a local Kukkuu API is used with a local Kukkuu Admin UI and Helsinki-Profile Keycloak from the test environment:
 
