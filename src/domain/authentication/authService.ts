@@ -23,7 +23,7 @@ export class AuthService {
   private audience: string;
 
   constructor() {
-    this.authServerType = AppConfig.oidcServerType ?? 'TUNNISTAMO';
+    this.authServerType = AppConfig.oidcServerType;
     this.audience = AppConfig.oidcAudience ?? AppConfig.oidcKukkuuApiClientId;
 
     const settings: UserManagerSettings = {
