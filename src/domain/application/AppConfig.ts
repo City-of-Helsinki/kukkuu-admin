@@ -15,7 +15,8 @@ class AppConfig {
    * The audiences used in the OIDC.
    * 
    * @example
-   * // In Tunnistamo it can be left undefined.
+   * // In Tunnistamo it can be left as undefined, 
+   * // because it is not included in the request done bythe OIDC client.
    * ["https://api.hel.fi/auth/kukkuu"]
    * // In Keycloak:
    * [
