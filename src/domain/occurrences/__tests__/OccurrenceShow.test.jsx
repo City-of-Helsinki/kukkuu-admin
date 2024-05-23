@@ -39,7 +39,7 @@ describe('OccurrenceShow utils', () => {
   describe('getTitle', () => {
     it('should return correct title', () => {
       expect(getTitle(occurrence)).toMatchInlineSnapshot(
-        `"Esiintymä 7.10.2020 00.00 - 00.30"`
+        `"Esiintymä 7.10.2020 klo 00.00 - 00.30"`
       );
     });
   });

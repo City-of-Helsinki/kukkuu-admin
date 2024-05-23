@@ -2,8 +2,8 @@
 
 exports[`common utils date formatters toDateString should return a correctly formatted string 1`] = `"1.1.1970"`;
 
-exports[`common utils date formatters toDateTimeString should return a correctly formatted string 1`] = `"1.1.1970 02.00"`;
+exports[`common utils date formatters toDateTimeString should return a correctly formatted string 1`] = `"1.1.1970 klo 02.00"`;
 
-exports[`common utils date formatters toShortDateTimeString should return a correctly formatted string 1`] = `"1.1.1970 02.00"`;
+exports[`common utils date formatters toShortDateTimeString should return a correctly formatted string 1`] = `"1.1.1970, 02.00"`;
 
 exports[`common utils date formatters toTimeString should return a correctly formatted string 1`] = `"02.00"`;

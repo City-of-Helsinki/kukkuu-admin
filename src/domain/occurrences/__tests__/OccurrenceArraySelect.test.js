@@ -61,7 +61,7 @@ describe('OccurrenceArraySelect helpers', () => {
       expect(choices[0]).toMatchInlineSnapshot(`
         Object {
           "id": "123",
-          "name": "7.10.2020 00.00",
+          "name": "7.10.2020, 00.00",
         }
       `);
     });

@@ -2,10 +2,14 @@
 
 exports[`authService fetchApiToken should call axios with the right arguments 1`] = `
 Array [
-  "https://tunnistamo.test.kuva.hel.ninja/api-tokens/",
+  "https://tunnistus.test.hel.ninja/auth/realms/helsinki-tunnistus/protocol/openid-connect/token",
   Object {
-    "baseURL": "https://tunnistamo.test.kuva.hel.ninja/",
-    "data": Object {},
+    "baseURL": "https://tunnistus.test.hel.ninja/auth/realms/helsinki-tunnistus/",
+    "data": Object {
+      "audience": "kukkuu-api-dev",
+      "grant_type": "urn:ietf:params:oauth:grant-type:uma-ticket",
+      "permission": "#access",
+    },
     "headers": Object {
       "Accept": "application/json",
       "Authorization": "bearer db237bc3-e197-43de-8c86-3feea4c5f886",
