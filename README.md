@@ -44,7 +44,7 @@ The end user interface:
 3. Use file `.env.local` to modify environment variables if needed. For more info, check [this](https://create-react-app.dev/docs/adding-custom-environment-variables#docsNav).
 4. Run either
    - `yarn start` to run the app normally **or**
-   - `docker-compose up` to run the app in a Docker container. In the future when there are changes that need rebuilding the container, run `docker-compose up --build` instead.
+   - `docker compose up` to run the app in a Docker container. In the future when there are changes that need rebuilding the container, run `docker compose up --build` instead.
 5. Open [http://localhost:3001](http://localhost:3001) to view the app in the browser.
 
 ### Authorizing login to kukkuu-admin
@@ -113,14 +113,14 @@ Save. You'll need the created **Client ID** and **Client Secret** for configurin
 
 Clone https://github.com/City-of-Helsinki/tunnistamo/.
 
-Follow the instructions for setting up tunnistamo locally. Before running `docker-compose up` set the following settings in tunnistamo roots `docker-compose.env.yaml`:
+Follow the instructions for setting up tunnistamo locally. Before running `docker compose up` set the following settings in tunnistamo roots `docker-compose.env.yaml`:
 
 - SOCIAL_AUTH_GITHUB_KEY: **Client ID** from the GitHub OAuth app
 - SOCIAL_AUTH_GITHUB_SECRET: **Client Secret** from the GitHub OAuth app
 
 After you've got tunnistamo running locally, ssh to the tunnistamo docker container:
 
-`docker-compose exec django bash`
+`docker compose exec django bash`
 
 and execute the following four commands inside your docker container:
 
@@ -166,15 +166,16 @@ REACT_APP_API_URI=http://localhost:8081/graphql
 
 #### Install Kukkuu API locally
 
-Clone the repository (https://github.com/City-of-Helsinki/kukkuu). Follow the instructions for running kukkuu with docker. Before running `docker-compose up` set the following settings in kukkuu roots `docker-compose.env.yaml`:
+Clone the repository (https://github.com/City-of-Helsinki/kukkuu). Follow the instructions for running kukkuu with docker. Before running `docker compose up` set the following settings in kukkuu roots `docker-compose.env.yaml`:
 
 - DEBUG=1
 - CORS_ORIGIN_ALLOW_ALL=1
 - TOKEN_AUTH_AUTHSERVER_URL=http://tunnistamo-backend:8000/openid
 - APPLY_MIGRATIONS=1
-- CREATE_SUPERUSER=1
 - TOKEN_AUTH_AUTHSERVER_URL=http://tunnistamo-backend:8000/openid
 - MEDIA_ROOT=/app/var/
+
+If you do not have a super user / admin to administrate the API yet, you can create one with `docker compose run django python manage.py add_admin_user -u admin -p admin -e admin@example.com`.
 
 To make Kukkuu Admin use the local Kukkuu API set `REACT_APP_API_URI="localhost:8081/graphql"` for example in file `.env.local`.
 
