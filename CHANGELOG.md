@@ -1,5 +1,18 @@
 # Change Log
 
+## [3.1.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.0.2...kukkuu-admin-v3.1.0) (2024-05-29)
+
+
+### Features
+
+* Keycloak support for auth service and provider ([edb6872](https://github.com/City-of-Helsinki/kukkuu-admin/commit/edb6872f8c73a8fdf941dc30b0c8407b16b45b6d))
+
+
+### Bug Fixes
+
+* ToLocaleString gives different time prefixes in different envs ([3586163](https://github.com/City-of-Helsinki/kukkuu-admin/commit/3586163c1d96580d99b50e2938069592c8bd8ec8))
+* Update graphql schema ([4751302](https://github.com/City-of-Helsinki/kukkuu-admin/commit/4751302b432b45a7c3ccc040662af2e53ac84adf))
+
 ## [3.0.2](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.0.1...kukkuu-admin-v3.0.2) (2024-03-14)
 
 
