@@ -27,8 +27,7 @@ yarn-error.log*
 screenshots
 report
 
-# don't store any .env files in version control
+# don't store these .env files in version control
 .env
 .env.development
-.env.test
 .env.production

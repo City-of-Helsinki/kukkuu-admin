@@ -9,6 +9,7 @@ import AppConfig from '../application/AppConfig';
 
 const origin = window.location.origin;
 export const API_TOKEN = 'apiToken';
+export const REFRESH_TOKEN = 'refreshToken';
 
 export type ApiTokenClientProps = {
   url: string;
@@ -35,13 +36,9 @@ export class AuthService {
       scope: AppConfig.oidcScope,
       redirect_uri: `${origin}/callback`,
       post_logout_redirect_uri: `${origin}/`,
-      // TODO: The silent renew support needs to be added to the React-admin authProvider as well.
-      // More about this:
-      // - https://marmelab.com/blog/2020/07/02/manage-your-jwt-react-admin-authentication-in-memory.html
-      // - https://marmelab.com/react-admin/addRefreshAuthToAuthProvider.html
-      // - https://marmelab.com/react-admin/addRefreshAuthToDataProvider.html
-      automaticSilentRenew: false,
-      // silent_redirect_uri: `${origin}/silent_renew.html`,
+      automaticSilentRenew: true,
+      silent_redirect_uri: `${origin}/silent_renew.html`,
+      revokeTokensOnSignout: true,
     };
 
     if (!settings.automaticSilentRenew) {
@@ -77,6 +74,7 @@ export class AuthService {
     // Public methods
     this.getUser = this.getUser.bind(this);
     this.getToken = this.getToken.bind(this);
+    this.getRefreshToken = this.getRefreshToken.bind(this);
     this.isAuthenticated = this.isAuthenticated.bind(this);
     this.login = this.login.bind(this);
     this.endLogin = this.endLogin.bind(this);
@@ -110,6 +108,10 @@ export class AuthService {
 
   public getToken(): string | null {
     return localStorage.getItem(API_TOKEN);
+  }
+
+  public getRefreshToken(): string | null {
+    return localStorage.getItem(REFRESH_TOKEN);
   }
 
   public getUserStorageKey(): string {
@@ -147,12 +149,22 @@ export class AuthService {
     return user;
   }
 
-  public renewToken(): Promise<User | null> {
-    return this.userManager.signinSilent();
+  public async renewToken(): Promise<User | null> {
+    const user = await this.userManager.signinSilent();
+    if (user) {
+      localStorage.setItem(API_TOKEN, user.access_token);
+      if (user.refresh_token) {
+        localStorage.setItem(REFRESH_TOKEN, user.refresh_token);
+      } else {
+        localStorage.removeItem(REFRESH_TOKEN);
+      }
+    }
+    return user;
   }
 
   public resetAuthState() {
     localStorage.removeItem(API_TOKEN);
+    localStorage.removeItem(REFRESH_TOKEN);
     projectService.clear();
     this.userManager.clearStaleState();
     authorizationService.clear();
@@ -163,32 +175,64 @@ export class AuthService {
     await this.userManager.signoutRedirect();
   }
 
+  /**
+   * Query the API tokens endpoint with the given access token.
+   * @param accessToken The access token to use for the API tokens endpoint query.
+   * @returns For Tunnistamo should return a dictionary with the API identifiers
+   * as the keys and the API tokens as the values here as data (See [1]).
+   * For Keycloak should return access_token, token_type, and optionally
+   * expires_in, refresh_token and scope here as data (See [2, 3]).
+   *
+   * [1] Tunnistamo "Obtaining the API tokens":
+   * https://github.com/City-of-Helsinki/tunnistamo/blob/r211109/tokens.rst#obtaining-the-api-tokens
+   *
+   * [2] OIDC 1.0 "Authentication > Token Endpoint > Successful Token Response":
+   * https://openid.net/specs/openid-connect-core-1_0.html#TokenResponse
+   *
+   * [3] OAuth 2.0 "Issuing an Access Token > Successful Response":
+   * https://www.rfc-editor.org/rfc/rfc6749.html#section-5.1
+   */
+  private async queryApiTokensEndpoint(accessToken: string) {
+    return axios(this.apiTokensClientConfig.url, {
+      method: 'post',
+      baseURL: AppConfig.oidcAuthority,
+      headers: {
+        Authorization: `bearer ${accessToken}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      data:
+        this.authServerType === 'KEYCLOAK'
+          ? {
+              audience: this.audience,
+              ...this.apiTokensClientConfig.queryProps,
+            }
+          : {},
+    });
+  }
+
   private async fetchApiToken(user: User): Promise<void> {
     const accessToken = user.access_token;
     try {
-      const { data } = await axios(this.apiTokensClientConfig.url, {
-        method: 'post',
-        baseURL: AppConfig.oidcAuthority,
-        headers: {
-          Authorization: `bearer ${accessToken}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-        },
-        data:
-          this.authServerType === 'KEYCLOAK'
-            ? {
-                audience: this.audience,
-                ...this.apiTokensClientConfig.queryProps,
-              }
-            : {},
-      });
-
+      const { data } = await this.queryApiTokensEndpoint(accessToken);
       const apiToken =
         this.authServerType === 'KEYCLOAK'
           ? data.access_token
           : data[AppConfig.oidcKukkuuApiClientId];
 
+      // NOTE: Currently only supporting refresh tokens with Keycloak.
+      // Tunnistamo does not return a refresh token from the API tokens
+      // endpoint, but Keycloak does from the token endpoint.
+      const refreshToken =
+        (this.authServerType === 'KEYCLOAK' ? data.refresh_token : null) ??
+        user.refresh_token;
+
       localStorage.setItem(API_TOKEN, apiToken);
+      if (!refreshToken) {
+        localStorage.removeItem(REFRESH_TOKEN);
+      } else {
+        localStorage.setItem(REFRESH_TOKEN, refreshToken);
+      }
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('Failed to fetch API token', error);

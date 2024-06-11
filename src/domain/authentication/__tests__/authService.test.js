@@ -1,18 +1,41 @@
 import axios from 'axios';
 
-import dataProvider from '../../../api/dataProvider';
-import authService, { API_TOKEN } from '../authService';
+import authService, { API_TOKEN, REFRESH_TOKEN } from '../authService';
 import authorizationService from '../authorizationService';
 import AppConfig from '../../application/AppConfig';
+import dataProvider from '../../../api/dataProvider';
 
 jest.mock('axios');
 
+const testProjectId = btoa('ProjectNode:234');
+
+const getOidcUserKey = () =>
+  `oidc.user:${AppConfig.oidcAuthority}:${AppConfig.oidcClientId}`;
+
 describe('authService', () => {
   const userManager = authService.userManager;
-  const oidcUserKey = `oidc.user:${AppConfig.oidcAuthority}:${AppConfig.oidcClientId}`;
 
   beforeEach(() => {
-    jest.spyOn(dataProvider, 'getMyAdminProfile').mockResolvedValue({});
+    jest.spyOn(dataProvider, 'getMyAdminProfile').mockResolvedValue({
+      data: {
+        id: btoa('AdminNode:123'),
+        projects: {
+          edges: [
+            {
+              node: {
+                id: testProjectId,
+                year: 2023,
+                name: 'test project 2023',
+                myPermissions: {
+                  publish: true,
+                  manageEventGroups: true,
+                },
+              },
+            },
+          ],
+        },
+      },
+    });
   });
 
   afterEach(() => {
@@ -35,10 +58,22 @@ describe('authService', () => {
   });
 
   describe('getToken', () => {
-    it('should get API_TOKENS from localStorage', () => {
+    it('should get API_TOKEN from localStorage', () => {
+      const origCallCount = localStorage.getItem.mock.calls.length;
       authService.getToken();
 
-      expect(localStorage.getItem).toHaveBeenNthCalledWith(1, API_TOKEN);
+      expect(localStorage.getItem).toHaveBeenLastCalledWith(API_TOKEN);
+      expect(localStorage.getItem).toHaveBeenCalledTimes(origCallCount + 1);
+    });
+  });
+
+  describe('getRefreshToken', () => {
+    it('should get REFRESH_TOKEN from localStorage', () => {
+      const origCallCount = localStorage.getItem.mock.calls.length;
+      authService.getRefreshToken();
+
+      expect(localStorage.getItem).toHaveBeenLastCalledWith(REFRESH_TOKEN);
+      expect(localStorage.getItem).toHaveBeenCalledTimes(origCallCount + 1);
     });
   });
 
@@ -62,7 +97,7 @@ describe('authService', () => {
       const invalidUser = JSON.stringify({});
 
       jest.spyOn(authService, 'getToken').mockReturnValue(apiTokens);
-      sessionStorage.setItem(oidcUserKey, invalidUser);
+      sessionStorage.setItem(getOidcUserKey(), invalidUser);
 
       expect(authService.isAuthenticated()).toBe(false);
     });
@@ -75,7 +110,7 @@ describe('authService', () => {
       });
 
       jest.spyOn(authService, 'getToken').mockReturnValue(apiToken);
-      localStorage.setItem(oidcUserKey, validUser);
+      localStorage.setItem(getOidcUserKey(), validUser);
 
       expect(authService.isAuthenticated()).toBe(true);
     });
@@ -97,9 +132,11 @@ describe('authService', () => {
   describe('endLogin', () => {
     axios.mockResolvedValue({ data: {} });
     const access_token = 'db237bc3-e197-43de-8c86-3feea4c5f886';
+    const refresh_token = 'ec3510ee-11be-46d1-8b6a-ab97cb29b169';
     const mockUser = {
       name: 'Penelope Krajcik',
       access_token,
+      refresh_token,
     };
 
     it('should call signinRedirectCallback from oidc', () => {
@@ -150,26 +187,46 @@ describe('authService', () => {
       expect(authService.fetchApiToken).toHaveBeenNthCalledWith(1, mockUser);
     });
 
-    it('should set the user in localStorage before the function returns', async () => {
-      expect.assertions(1);
+    it('should set the tokens and project ID in localStorage before the function returns', async () => {
+      expect.assertions(4);
       jest
         .spyOn(userManager, 'signinRedirectCallback')
         .mockResolvedValue(mockUser);
-      jest.spyOn(authService, 'fetchApiToken');
+      jest.spyOn(authService, 'queryApiTokensEndpoint').mockResolvedValue({
+        data: {
+          access_token,
+          refresh_token,
+        },
+      });
 
       await authService.endLogin();
 
-      expect(localStorage.setItem).toHaveBeenCalledTimes(1);
+      expect(localStorage.setItem).toHaveBeenCalledTimes(3);
+      expect(localStorage.setItem).toHaveBeenNthCalledWith(
+        1,
+        API_TOKEN,
+        access_token
+      );
+      expect(localStorage.setItem).toHaveBeenNthCalledWith(
+        2,
+        REFRESH_TOKEN,
+        refresh_token
+      );
+      expect(localStorage.setItem).toHaveBeenNthCalledWith(
+        3,
+        'projectId',
+        testProjectId
+      );
     });
   });
 
   describe('renewToken', () => {
-    it('should call signinSilent from oidc', () => {
+    it('should call signinSilent from oidc', async () => {
       const signinSilent = jest
         .spyOn(userManager, 'signinSilent')
         .mockResolvedValue();
 
-      authService.renewToken();
+      await authService.renewToken();
 
       expect(signinSilent).toHaveBeenCalledTimes(1);
     });
@@ -196,14 +253,18 @@ describe('authService', () => {
     });
 
     it('should remove the tokens from localStorage', async () => {
-      expect.assertions(1);
+      expect.assertions(2);
       jest.spyOn(userManager, 'signoutRedirect').mockResolvedValue(undefined);
-      const apiTokens = 'a8d56df4-7ae8-4fbf-bf73-f366cd6fc479';
+      const apiToken = 'a8d56df4-7ae8-4fbf-bf73-f366cd6fc479';
+      const refreshToken = '347ed60c-88e4-4c08-ab25-9807be7666f4';
 
-      localStorage.setItem(API_TOKEN, apiTokens);
+      localStorage.setItem(API_TOKEN, apiToken);
+      localStorage.setItem(REFRESH_TOKEN, refreshToken);
+
       await authService.logout();
 
       expect(localStorage.getItem(API_TOKEN)).toBeNull();
+      expect(localStorage.getItem(REFRESH_TOKEN)).toBeNull();
     });
 
     it('should call clearStaleState', async () => {
