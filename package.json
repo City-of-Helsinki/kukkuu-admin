@@ -1,6 +1,6 @@
 {
   "name": "kukkuu-admin",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "private": true,
   "scripts": {
     "app:version": "echo \"$npm_package_version\"",
