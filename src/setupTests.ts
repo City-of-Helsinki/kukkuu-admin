@@ -11,4 +11,4 @@ jest.mock('react-admin', () => ({
   ...jest.requireActual('react-admin'),
 }));
 
-dotenv.config({ path: '.env.example' });
+dotenv.config({ path: '.env.test' });

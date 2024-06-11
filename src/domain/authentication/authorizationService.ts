@@ -72,10 +72,11 @@ export class AuthorizationService {
       const projects = ProjectList((data as any)?.projects).items;
       const role = projects.length > 0 ? 'admin' : 'none';
       const projectPermissions = getProjectPermissions(projects);
-
       projectService.setDefaultProjectId(projects);
       this.setPermissionStorage({ role, projects: projectPermissions });
-    } catch (e) {
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Failed to fetch user role/permissions', error);
       this.setPermissionStorage({ role: 'none' });
     }
   }
