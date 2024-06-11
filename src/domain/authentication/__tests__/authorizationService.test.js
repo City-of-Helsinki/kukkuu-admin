@@ -1,4 +1,4 @@
-import dataProvider from '../../../api/dataProvider';
+import { dataProviderBeforeWrappingWithProxy } from '../../../api/dataProvider';
 import projectService from '../../projects/projectService';
 import authorizationService, { PERMISSIONS } from '../authorizationService';
 
@@ -16,7 +16,7 @@ describe('authorizationService', () => {
 
   beforeEach(() => {
     dataProviderSpy = jest
-      .spyOn(dataProvider, 'getMyAdminProfile')
+      .spyOn(dataProviderBeforeWrappingWithProxy, 'getMyAdminProfile')
       .mockResolvedValue({
         data: {
           projects: {
