@@ -1,7 +1,9 @@
 import type { AuthProvider } from 'ra-core';
+import { addRefreshAuthToAuthProvider } from 'react-admin';
 
 import authService from './authService';
 import authorizationService from './authorizationService';
+import { refreshAuth } from './refreshAuth';
 
 export type Permissions = {
   role: null | 'admin' | 'none';
@@ -67,4 +69,9 @@ const authProvider: AuthProvider = {
   },
 };
 
-export default authProvider;
+const authProviderWithRefreshAuth = addRefreshAuthToAuthProvider(
+  authProvider,
+  refreshAuth
+);
+
+export default authProviderWithRefreshAuth;

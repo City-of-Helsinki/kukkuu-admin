@@ -10,6 +10,7 @@ import type {
   UpdateManyResult,
   UpdateResult,
 } from 'react-admin';
+import { addRefreshAuthToDataProvider } from 'react-admin';
 
 import {
   getVenues,
@@ -55,6 +56,7 @@ import type {
   EventGroupNode,
   MessageNode,
 } from '../domain/api/generatedTypes/graphql';
+import { refreshAuth } from '../domain/authentication/refreshAuth';
 
 const METHOD_HANDLERS: MethodHandlers = {
   venues: {
@@ -145,9 +147,6 @@ const runHandler = <T>(method: Method, resource: Resource, params: Params) => {
   return handler(params) as Promise<T>;
 };
 
-// FIXME: In version 3.9.0 typescript support was added into
-// react-admin and our implementation of dataProvider is not type
-// compatible.
 const baseDataProvider = {
   getList: (resource: Resource, params: Params) =>
     runHandler<GetListResult>('LIST', resource, params),
@@ -167,7 +166,7 @@ const baseDataProvider = {
     runHandler<DeleteResult>('DELETE', resource, params),
   deleteMany: (resource: Resource, params: Params) =>
     runHandler<DeleteManyResult>('DELETE_MANY', resource, params),
-} as const satisfies DataProvider<Resource> | DataProvider;
+} as const satisfies DataProvider<Resource>;
 
 const extendedDataProvider = {
   ...baseDataProvider,
@@ -194,6 +193,22 @@ const extendedDataProvider = {
       resource,
       params
     ),
-} as const satisfies DataProvider<Resource> | DataProvider;
+} as const satisfies DataProvider<Resource>;
 
-export default extendedDataProvider;
+// Rationale for using type casts:
+///
+// Type casts because addRefreshAuthToDataProvider does not support the
+// generic DataProvider<T> type, and also because we're using e.g.
+// Parameters<(typeof extendedDataProvider)['send']>[1] elsewhere and those
+// need specific types for DataProvider's generic functions. The functions'
+// types are not known simply based on DataProvider's generic type T parameter.
+const extendedDataProviderWithRefreshAuth = addRefreshAuthToDataProvider(
+  extendedDataProvider as DataProvider,
+  refreshAuth
+) as typeof extendedDataProvider;
+
+// Expose the dataProvider before wrapping it with the proxy for testing,
+// as the proxy makes it difficult to mock the dataProvider's methods directly.
+export { extendedDataProvider as dataProviderBeforeWrappingWithProxy };
+
+export default extendedDataProviderWithRefreshAuth;

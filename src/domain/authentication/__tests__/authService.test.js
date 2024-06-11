@@ -3,7 +3,7 @@ import axios from 'axios';
 import authService, { API_TOKEN, REFRESH_TOKEN } from '../authService';
 import authorizationService from '../authorizationService';
 import AppConfig from '../../application/AppConfig';
-import dataProvider from '../../../api/dataProvider';
+import { dataProviderBeforeWrappingWithProxy } from '../../../api/dataProvider';
 
 jest.mock('axios');
 
@@ -16,26 +16,28 @@ describe('authService', () => {
   const userManager = authService.userManager;
 
   beforeEach(() => {
-    jest.spyOn(dataProvider, 'getMyAdminProfile').mockResolvedValue({
-      data: {
-        id: btoa('AdminNode:123'),
-        projects: {
-          edges: [
-            {
-              node: {
-                id: testProjectId,
-                year: 2023,
-                name: 'test project 2023',
-                myPermissions: {
-                  publish: true,
-                  manageEventGroups: true,
+    jest
+      .spyOn(dataProviderBeforeWrappingWithProxy, 'getMyAdminProfile')
+      .mockResolvedValue({
+        data: {
+          id: btoa('AdminNode:123'),
+          projects: {
+            edges: [
+              {
+                node: {
+                  id: testProjectId,
+                  year: 2023,
+                  name: 'test project 2023',
+                  myPermissions: {
+                    publish: true,
+                    manageEventGroups: true,
+                  },
                 },
               },
-            },
-          ],
+            ],
+          },
         },
-      },
-    });
+      });
   });
 
   afterEach(() => {
