@@ -1,5 +1,12 @@
 # Change Log
 
+## [3.2.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.1.0...kukkuu-admin-v3.2.0) (2024-06-11)
+
+
+### Features
+
+* Add silent token refreshing with Keycloak only ([f05ef57](https://github.com/City-of-Helsinki/kukkuu-admin/commit/f05ef5769ca9157d453e1cdd25beda2a5c03cc70))
+
 ## [3.1.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.0.2...kukkuu-admin-v3.1.0) (2024-05-29)
 
 
