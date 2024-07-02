@@ -43,6 +43,8 @@ function CallBackPage() {
         }
       })
       .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error(error);
         setError(error);
         // Clear auth state from the failed login attempt
         authService.resetAuthState();
