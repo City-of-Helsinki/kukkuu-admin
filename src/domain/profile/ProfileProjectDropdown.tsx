@@ -46,6 +46,9 @@ const ProfileProjectDropdown = () => {
 
     projectService.projectId = value as string;
 
+    // eslint-disable-next-line no-console
+    console.info('Set the selected project to', value);
+
     refresh();
     handleClose();
   };

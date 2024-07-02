@@ -25,6 +25,7 @@ import type {
   DataProviderParams as Params,
   MethodHandler,
   MethodHandlerResponse,
+  ExtractAllowed,
 } from './types';
 import {
   getEvents,
@@ -171,7 +172,10 @@ const baseDataProvider = {
 
 const extendedDataProvider = {
   ...baseDataProvider,
-  publish: (resource: 'events' | 'event-groups', params: { id: string }) =>
+  publish: (
+    resource: ExtractAllowed<Resource, 'events' | 'event-groups'>,
+    params: { id: string }
+  ) =>
     runHandler<MethodHandlerResponse<AdminEvent | EventGroupNode | null>>(
       'PUBLISH',
       resource,
@@ -186,7 +190,7 @@ const extendedDataProvider = {
   getMyAdminProfile,
   setEnrolmentAttendance,
   setReady: (
-    resource: 'events',
+    resource: ExtractAllowed<Resource, 'events'>,
     params: { id: string; readyForEventGroupPublishing: boolean }
   ) =>
     runHandler<MethodHandlerResponse<AdminEvent | null>>(

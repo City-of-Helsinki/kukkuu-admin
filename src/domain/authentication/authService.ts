@@ -132,6 +132,8 @@ export class AuthService {
     try {
       return this.userManager.signinRedirect({ url_state: path });
     } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error);
       if (error instanceof Error) {
         if (error.message !== 'Network Error') {
           Sentry.captureException(error);
@@ -141,6 +143,8 @@ export class AuthService {
   }
 
   public async endLogin(): Promise<User> {
+    // eslint-disable-next-line no-console
+    console.info('Ending the login...');
     const user = await this.userManager.signinRedirectCallback();
 
     await this.fetchApiToken(user);
@@ -150,6 +154,8 @@ export class AuthService {
   }
 
   public async renewToken(): Promise<User | null> {
+    // eslint-disable-next-line no-console
+    console.info('Renewing the JWT token...');
     const user = await this.userManager.signinSilent();
     if (user) {
       localStorage.setItem(API_TOKEN, user.access_token);
@@ -163,6 +169,8 @@ export class AuthService {
   }
 
   public resetAuthState() {
+    // eslint-disable-next-line no-console
+    console.warn('Resetting the auth state...');
     localStorage.removeItem(API_TOKEN);
     localStorage.removeItem(REFRESH_TOKEN);
     projectService.clear();
@@ -171,6 +179,8 @@ export class AuthService {
   }
 
   public async logout(): Promise<void> {
+    // eslint-disable-next-line no-console
+    console.info('Logout...');
     this.resetAuthState();
     await this.userManager.signoutRedirect();
   }

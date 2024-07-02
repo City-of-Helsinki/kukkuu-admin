@@ -76,3 +76,5 @@ export type ApiConnection = {
   } | null>;
   count?: number;
 };
+
+export type ExtractAllowed<T, U> = T extends U ? T : never;
