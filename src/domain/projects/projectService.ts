@@ -20,10 +20,21 @@ class ProjectService {
       projects[0]
     );
 
+    // eslint-disable-next-line no-console
+    console.info(
+      'Choosing the closest project to current year as a default project and setting it as an active one.',
+      {
+        projects,
+        defaultProject,
+      }
+    );
+
     this.projectId = defaultProject.id;
   }
 
   clear() {
+    // eslint-disable-next-line no-console
+    console.debug('Clearing the selected project from the local storage.');
     localStorage.removeItem(PROJECT_ID_KEY);
   }
 }
