@@ -137,6 +137,26 @@ class AppConfig {
     }
     throw new Error(`Invalid OIDC server type: ${oidcServerType}`);
   }
+
+  /**
+   * Read env variable `REACT_APP_OIDC_AUTOMATIC_SILENT_RENEW_ENABLED`.
+   * Defaults to true.
+   * */
+  static get oidcAutomaticSilentRenew(): boolean {
+    return Boolean(
+      process.env.REACT_APP_OIDC_AUTOMATIC_SILENT_RENEW_ENABLED ?? false
+    );
+  }
+
+  /**
+   * Read env variable `REACT_APP_OIDC_SESSION_POLLING_INTERVAL_MS`.
+   * Defaults to 60000.
+   * */
+  static get oidcSessionPollerIntervalInMs(): number {
+    return (
+      Number(process.env.REACT_APP_OIDC_SESSION_POLLING_INTERVAL_MS) ?? 60000
+    );
+  }
 }
 
 // Accept both variable and name so that variable can be correctly replaced
