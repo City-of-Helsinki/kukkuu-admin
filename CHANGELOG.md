@@ -1,5 +1,12 @@
 # Change Log
 
+## [3.2.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.2.0...kukkuu-admin-v3.2.1) (2024-07-05)
+
+
+### Bug Fixes
+
+* Auth renewal should not reset a selected project ([c7888bf](https://github.com/City-of-Helsinki/kukkuu-admin/commit/c7888bf0c6a2a3f72ffc27a2bc98221a02a4bb6f))
+
 ## [3.2.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.1.0...kukkuu-admin-v3.2.0) (2024-06-11)
 
 
