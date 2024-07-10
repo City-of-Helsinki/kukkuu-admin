@@ -4,9 +4,9 @@ import { screen } from '@testing-library/testcafe';
 export const messagesListPage = {
   listHeader: Selector('.MuiTableHead-root > .MuiTableRow-root'),
   listBody: Selector('.MuiTableBody-root'),
-  createMessageLink: screen.getByText('Uusi sähköpostiviesti'),
+  createMessageLink: screen.getByText(/uusi sähköpostiviesti/i),
   title: Selector('h1').withExactText('Viestit'),
-  createMessageSmsLink: screen.getByText('Uusi tekstiviesti'),
+  createMessageSmsLink: screen.getByText(/uusi tekstiviesti/i),
 };
 
 export const messagesCreatePage = {

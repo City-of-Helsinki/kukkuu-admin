@@ -85,8 +85,9 @@ export const denormalizeLocalTranslations = <T>(
   for (const [languageCode, translationEntry] of Object.entries(
     adminTranslations
   )) {
-    const normalizedData = mapValues(translationEntry as object, (v) =>
-      v === null ? '' : v
+    const normalizedData = mapValues(
+      translationEntry as unknown as object,
+      (v) => (v === null ? '' : v)
     );
     apiTranslations.push({ languageCode, ...normalizedData } as T);
   }

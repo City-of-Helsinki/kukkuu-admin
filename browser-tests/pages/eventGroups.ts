@@ -1,7 +1,11 @@
 import { Selector } from 'testcafe';
 import { screen } from '@testing-library/testcafe';
 
-import { eventsListPage } from './events';
+import {
+  eventsCreatePage,
+  eventsListPage,
+  fillCreationForm as fillEventCreationForm,
+} from './events';
 
 export const eventGroupsDetailPage = {
   title: Selector('h1'),
@@ -73,4 +77,16 @@ export async function deleteEventGroup(t: TestController) {
   await t
     .click(eventGroupsEditPage.deleteButton)
     .click(eventGroupsEditPage.confirmDeleteButton);
+}
+
+export async function createEventInEventGroup(t: TestController, event) {
+  // Go to view for adding an event into the event group
+  await t.click(eventGroupsDetailPage.addEventToEventGroupButton);
+
+  // Assert that we are in the event creation view
+  await t.expect(eventsCreatePage.title.exists).ok();
+
+  // Fill the form and submit
+  await fillEventCreationForm(t, event);
+  await t.click(eventsCreatePage.submitButton);
 }
