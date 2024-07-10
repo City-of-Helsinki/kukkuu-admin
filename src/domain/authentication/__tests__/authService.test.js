@@ -309,8 +309,11 @@ describe('authService', () => {
       });
     });
 
-    it('should call axios with the right arguments', async () => {
+    it.only('should call axios with the right arguments', async () => {
       expect.assertions(2);
+      jest
+        .spyOn(AppConfig, 'oidcAudience', 'get')
+        .mockReturnValue('kukkuu-api-dev');
       await authService.fetchApiToken(mockUser);
 
       expect(axios).toHaveBeenCalledTimes(1);

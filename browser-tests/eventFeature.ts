@@ -1,5 +1,4 @@
 import { routes } from './pages/routes';
-import { login } from './utils/login';
 import { navigation } from './pages/navigation';
 import {
   eventsListPage,
@@ -9,10 +8,16 @@ import {
   fillCreationForm,
   deleteEvent,
 } from './pages/events';
+import {
+  AuthServiceRequestInterceptor,
+  KukkuuApiTestJwtBearerAuthorization,
+} from './utils/jwt/mocks/testJWTAuthRequests';
+import { browserTestAdminUser } from './utils/jwt/users';
+import { authorizedAdmin } from './userRoles';
 
 function buildEvent(overrides: any = {}) {
   return {
-    name: `Browser test: event feature ${new Date().toLocaleDateString()}`,
+    name: `Browser test: event feature ${new Date().toISOString()}`,
     participantsPerInvite: 'Perhe',
     capacityPerOccurrence: 5,
     ...overrides,
@@ -20,14 +25,21 @@ function buildEvent(overrides: any = {}) {
 }
 
 fixture`Events feature`
-  .page(routes.eventsList())
+  .requestHooks([
+    // Use AuthServiceRequestInterceptor to mock Keycloak out.
+    new AuthServiceRequestInterceptor(browserTestAdminUser),
+    // Use KukkuuApiTestJwtBearerAuthorization to add auth header to every API request.
+    new KukkuuApiTestJwtBearerAuthorization(browserTestAdminUser),
+  ])
   .beforeEach(async (t) => {
-    await login(t);
+    // Use authorizedGuardian guardian role to populate session storage
+    await t.useRole(authorizedAdmin).navigateTo(routes.eventsList());
+
     await t.click(navigation.events);
 
     t.ctx.createEvent = buildEvent();
     t.ctx.updateEvent = buildEvent({
-      name: `Browser test: event feature (updated) ${new Date().toLocaleDateString()}`,
+      name: `Browser test: event feature (updated) ${new Date().toISOString()}`,
     });
   })
   .afterEach(async (t) => {

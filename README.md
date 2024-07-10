@@ -214,11 +214,41 @@ Fetches the schema from backend and updates typing information.
 
 Runs browser tests against your local version of the application (assumes port `3001`).
 
-For this command to work, you need to add the environment variables in the `kukkuu-admin_e2e-test-keys.txt` file in the secrets repo into your environment. The test script supports the `.env` file for setting up the environment.
-
 The `yarn test:browser:ci` variant of this command is meant to run in the CI, and it targets the staging server. It uses headless mode and may therefore behave differently compared to the local test runner.
 
 Browser tests are ran against PR and staging environments when after they have been built and deployed.
+
+To run browser tests locally, you need to configure the browser testing environment:
+
+1. Run a local Kukkuu API instance with the browser testing JWT features set on. Like that the UI client can issue new JWT for authorization by itself.
+2. Run a local Kukkuu Admin UI.
+3. Carefully double check that the UI instance is configured to use the local API. The browser test JWT token configurations also needs to match in order to successfully verify the newly issued tokens. You navigate through the UI manually to see that everything is working as expected.
+4. Run the browser test with `yarn test:browser` or `yarn test:browser:ci`.
+
+For configuration, check the following environment variables:
+
+1. `BROWSER_TESTS_JWT_SIGN_SECRET` needs to be a valid 256 bits token and it needs to be configured the same in both, the API and in the Admin UI in order to verify the self issued JWT for browser testing.
+2. `BROWSER_TESTS_JWT_AD_GROUP` defines the AD group that should be used while running the browser tests. This value is used while issuing a JWT for an admin user. The AD group should be madde in the API so that it gives admin permissions for the newly created user with this AD group for the (year) project that is created for browser testing. These AD groups and user groups can be managed from the API.
+3. `BROWSER_TESTS_ENV_URL` tells for Testcafe where the testable UI is
+4. `REACT_APP_API_URI` defines the Kukkuu API GraphQL endpoint. It's important in browser testing configuration for JWT mocking reasons.
+5. `REACT_APP_OIDC_KUKKUU_API_CLIENT_ID` OIDC config that is needed in JWT mocking.
+6. `REACT_APP_OIDC_CLIENT_ID` OIDC config that is needed in JWT mocking.
+7. `REACT_APP_OIDC_AUTHORITY` OIDC config that is needed in JWT mocking.
+
+There is an [.env.test.local.example](.env.test.local.example) that can be copied to a file named `.env.test.local`. If the `.env.test.local` is present, it will be used during the local Testcafe runs.
+
+#### Test JWT issuance for browser tests
+
+There is a ['library'](./browser-tests/utils/jwt/) that helps issuing symmetrically signed JWT tokens, that can be used only for browser testing.
+
+How it should work:
+
+- [clientUtils](./browser-tests/utils/jwt/clientUtils/) contains the scripts that will be ran in the Testcafe (headless) browser. The scripts there are sugared with the [Testcafes ClientFunction](https://testcafe.io/documentation/402832/guides/basic-guides/client-functions).
+- [mocks](./browser-tests/utils/jwt/mocks/) contains the mocking functions that can be used to intercept the real OIDC client networking. The idea is that we never allow the Testcafe to succesfully connect to the configured authorization service. Instead of that, we mock the result with our browser testing JWT tools and populate that mocked data to the local storage or the session storage of the Testcafe browser.
+- [config](./browser-tests/utils/jwt/config/) contains a class that serves the browser testing JWT library's configurations.
+- [jwt](./browser-tests/utils/jwt/jwt.ts) has the utilities to create and sign a symmetrical JWT for browser testing purposes. Note that the API needs to have the same signature verification key configured.
+- [oidc](./browser-tests/utils/jwt/oidc.ts) uses the JWT generators and offers the information in a format that can be used by the OIDC client.
+- [services](./browser-tests/utils/jwt/services.ts) has some tools that are needed in order to select admin project, etc. _These functions makes real calls to the API (not mocked)_.
 
 ## Debugging
 

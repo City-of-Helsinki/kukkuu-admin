@@ -12,7 +12,7 @@ export function toDateTimeString(date: Date, locale = 'fi-FI') {
       hour: '2-digit',
       minute: '2-digit',
     })
-    .replaceAll(' klo', '');
+    .replace(' klo', '');
 }
 
 export function toShortDateTimeString(

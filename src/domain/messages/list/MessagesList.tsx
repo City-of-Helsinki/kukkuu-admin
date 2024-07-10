@@ -18,6 +18,7 @@ import { recipientSelectionChoices } from '../choices';
 import MessagesListToolbar from './MessageListToolbar';
 import styles from './messageList.module.css';
 import { ProtocolType } from '../../api/generatedTypes/graphql';
+import Empty from './Empty';
 
 const MessagesList = () => {
   const t = useTranslate();
@@ -27,6 +28,7 @@ const MessagesList = () => {
       pageTitle={t('messages.list.title')}
       reactAdminProps={{
         actions: <MessagesListToolbar />,
+        empty: <Empty />,
       }}
     >
       <FunctionField

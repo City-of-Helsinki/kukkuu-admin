@@ -6,7 +6,7 @@ Array [
   Object {
     "baseURL": "https://tunnistus.test.hel.ninja/auth/realms/helsinki-tunnistus/",
     "data": Object {
-      "audience": "kukkuu-api-test",
+      "audience": "kukkuu-api-dev",
       "grant_type": "urn:ietf:params:oauth:grant-type:uma-ticket",
       "permission": "#access",
     },

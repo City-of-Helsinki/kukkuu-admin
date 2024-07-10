@@ -38,8 +38,7 @@ const authProvider: AuthProvider = {
 
     if (isNotAdmin) {
       // Navigate to unauthorized-route.
-      window.history.replaceState(null, '', '/unauthorized');
-
+      window.location.href = '/unauthorized';
       // Resolve promise so the user is not logged out
       return Promise.resolve();
     }

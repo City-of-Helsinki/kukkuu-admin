@@ -1,3 +1,5 @@
+import { waitFor } from '@testing-library/react';
+
 import projectService from '../../projects/projectService';
 import authProvider from '../authProvider';
 import authService from '../authService';
@@ -81,12 +83,14 @@ describe('authProvider', () => {
         .spyOn(authorizationService, 'isAuthorized')
         .mockReturnValueOnce(true);
       jest.spyOn(authorizationService, 'getRole').mockReturnValueOnce('none');
-      window.history.replaceState = jest.fn();
-      const historySpy = jest.spyOn(window.history, 'replaceState');
-
+      Object.defineProperty(window, 'location', {
+        writable: true,
+        value: { assign: jest.fn() },
+      });
       await expect(authProvider.checkAuth()).resolves.toEqual();
-
-      expect(historySpy).toHaveBeenCalledTimes(1);
+      await waitFor(() => {
+        expect(window.location.href).toEqual('/unauthorized');
+      });
     });
   });
 

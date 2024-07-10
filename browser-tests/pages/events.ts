@@ -8,6 +8,7 @@ export const eventsListPage = {
     name: /tapahtumat/i,
   }),
   listBody: Selector('.MuiTableBody-root'),
+  anyEvent: Selector('.MuiTableBody-root tr').withText('TAPAHTUMA'),
   anyEventGroup: Selector('.MuiTableBody-root tr').withText('TAPAHTUMARYHMÄ'),
   eventOrEventGroupByName: (name: string) =>
     Selector('.MuiTableBody-root tr td:first-child').withExactText(name),
@@ -17,6 +18,8 @@ export const eventsListPage = {
   createEventButton: screen.getByRole('link', {
     name: /^uusi tapahtuma$/i,
   }),
+  getEvent: (name: string) =>
+    Selector('.MuiTableBody-root tr td:first-child').withExactText(name),
 };
 
 export const eventsDetailPage = {
@@ -66,6 +69,15 @@ export async function fillCreationForm(t: TestController, event: CreateEvent) {
     eventsCreatePage.capacityPerOccurrence,
     event.capacityPerOccurrence.toString()
   );
+}
+
+export async function createEvent(t: TestController, event: CreateEvent) {
+  await t.click(eventsListPage.createEventButton);
+
+  // Fill the form and submit
+  await fillCreationForm(t, event);
+
+  await t.click(eventsCreatePage.submitButton);
 }
 
 export async function deleteEvent(t: TestController) {
