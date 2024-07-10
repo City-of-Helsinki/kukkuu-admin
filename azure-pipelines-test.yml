@@ -45,5 +45,10 @@ extends:
   # Django example: azure-pipelines-PROJECTNAME-api-release.yml
   # Drupal example: azure-pipelines-drupal-release.yml
   template: azure-pipelines-kukkuu-admin-test.yml@kukkuu-pipelines
-  #parameters:
+  parameters:
+    buildArgs:
+      REACT_APP_API_URI: https://kukkuu.api.test.hel.ninja/graphql
+      BROWSER_TESTS_JWT_AD_GROUP: kukkuu_browser_test
+    configMap: # pod environment variables
+      BROWSER_TESTS_JWT_AD_GROUP: kukkuu_browser_test
   #imagetag: ${{ parameters.imagetag }}

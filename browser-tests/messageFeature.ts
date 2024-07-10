@@ -1,7 +1,7 @@
 import { within } from '@testing-library/testcafe';
+import { RequestMock } from 'testcafe';
 
 import { routes } from './pages/routes';
-import { login } from './utils/login';
 import { navigation } from './pages/navigation';
 import {
   messagesListPage,
@@ -10,6 +10,16 @@ import {
   messagesEditPage,
 } from './pages/messages';
 import { includesHeaders } from './utils/valueUtils';
+import {
+  AuthServiceRequestInterceptor,
+  KukkuuApiTestJwtBearerAuthorization,
+} from './utils/jwt/mocks/testJWTAuthRequests';
+import { browserTestAdminUser } from './utils/jwt/users';
+import { authorizedAdmin } from './userRoles';
+import BrowserTestJWTConfig from './utils/jwt/config';
+
+// If we want to prevent the SMS message sending...
+const preventSMSSending = true;
 
 function buildTestMessage(protocol = '') {
   const protocolLabel = protocol ? ` (${protocol})` : '';
@@ -20,13 +30,173 @@ function buildTestMessage(protocol = '') {
   };
 }
 
+async function addMessage(t: TestController) {
+  // Assert that we are in create message view
+  await t.expect(messagesCreatePage.title.exists).ok();
+
+  // Fill in subject and body fields, then submit the form
+  await t
+    .typeText(messagesCreatePage.subjectInput, t.ctx.message.subject)
+    .typeText(messagesCreatePage.bodyTextInput, t.ctx.message.bodyText)
+    .click(messagesCreatePage.submitCreateMessageForm);
+}
+
+const smsMessageMock = {
+  id: 'TWVzc2FnZU5vZGU6MTE1',
+  subject: 'Mocked subject',
+  bodyText: 'Mocked bodyText',
+  recipientSelection: 'ALL',
+  recipientCount: 0,
+  sentAt: '2024-07-10T08:23:12.943Z',
+  protocol: 'SMS',
+  event: null,
+  translations: [
+    {
+      languageCode: 'EN',
+      subject: '',
+      bodyText: '',
+      __typename: 'MessageTranslationType',
+    },
+    {
+      languageCode: 'SV',
+      subject: '',
+      bodyText: '',
+      __typename: 'MessageTranslationType',
+    },
+    {
+      languageCode: 'FI',
+      subject: 'Mocked subject',
+      bodyText: 'Mocked bodyText',
+      __typename: 'MessageTranslationType',
+    },
+  ],
+  occurrences: {
+    edges: [],
+    __typename: 'OccurrenceNodeConnection',
+  },
+  __typename: 'MessageNode',
+};
+
+const sendSmsMock = RequestMock()
+  .onRequestTo(async (request) => {
+    return (
+      request.url === BrowserTestJWTConfig.kukkuuApiGraphqlEndpoint &&
+      request.method === 'post' &&
+      request.isAjax &&
+      JSON.parse(request.body.toString()).operationName === 'AddMessage'
+    );
+  })
+  .respond(
+    (req, res) => {
+      const mockedResponseBody = {
+        data: {
+          addMessage: {
+            message: {
+              id: smsMessageMock.id,
+              __typename: 'MessageNode',
+            },
+            __typename: 'AddMessageMutationPayload',
+          },
+        },
+      };
+      // eslint-disable-next-line no-console
+      console.info(
+        'Responding to a AddMessageMutation with a mocked response',
+        {
+          'response body': JSON.stringify(mockedResponseBody),
+        }
+      );
+      res.setBody(mockedResponseBody);
+    },
+    200,
+    { 'access-control-allow-origin': '*' }
+  )
+  .onRequestTo(async (request) => {
+    try {
+      const graphqlBody = JSON.parse(request.body.toString());
+      // When messages are requested
+      return (
+        request.url === BrowserTestJWTConfig.kukkuuApiGraphqlEndpoint &&
+        request.method === 'post' &&
+        request.isAjax &&
+        graphqlBody.operationName === 'Messages'
+      );
+    } catch (e) {
+      return false;
+    }
+  })
+  .respond(
+    (req, res) => {
+      const mockedResponseBody = {
+        data: {
+          messages: {
+            edges: [
+              {
+                node: smsMessageMock,
+                __typename: 'MessageNodeEdge',
+              },
+            ],
+            __typename: 'MessageNodeConnection',
+          },
+        },
+      };
+
+      // eslint-disable-next-line no-console
+      console.info(
+        'Responding to MessagesQuery with a mocked list of messages',
+        {
+          'response body': JSON.stringify(mockedResponseBody),
+        }
+      );
+      res.setBody(mockedResponseBody);
+    },
+    200,
+    { 'access-control-allow-origin': '*' }
+  )
+  .onRequestTo(async (request) => {
+    try {
+      const graphqlBody = JSON.parse(request.body.toString());
+      // When a single message is requested
+      return (
+        request.url === BrowserTestJWTConfig.kukkuuApiGraphqlEndpoint &&
+        request.method === 'post' &&
+        request.isAjax &&
+        graphqlBody.operationName === 'Message'
+      );
+    } catch (e) {
+      return false;
+    }
+  })
+  .respond(
+    (req, res) => {
+      const mockedResponseBody = {
+        data: {
+          message: {
+            ...smsMessageMock,
+          },
+        },
+      };
+
+      // eslint-disable-next-line no-console
+      console.info('Responding to MessageQuery with a mocked message', {
+        'response body': JSON.stringify(mockedResponseBody),
+      });
+      res.setBody(mockedResponseBody);
+    },
+    200,
+    { 'access-control-allow-origin': '*' }
+  );
+
 fixture`Messages feature`
-  // This doesn't actually do anything as the test is always begun
-  // from /login due to missing authentication. However, we have to
-  // specify a page, otherwise we will face an error.
-  .page(routes.messagesList())
+  .requestHooks([
+    // Use AuthServiceRequestInterceptor to mock Keycloak out.
+    new AuthServiceRequestInterceptor(browserTestAdminUser),
+    // Use KukkuuApiTestJwtBearerAuthorization to add auth header to every API request.
+    new KukkuuApiTestJwtBearerAuthorization(browserTestAdminUser),
+  ])
   .beforeEach(async (t) => {
-    await login(t);
+    // Use authorizedGuardian guardian role to populate session storage
+    await t.useRole(authorizedAdmin).navigateTo(routes.messagesList());
 
     await t.click(navigation.messages);
 
@@ -40,6 +210,12 @@ fixture`Messages feature`
   });
 
 test('As an admin I want to see a list of messages', async (t) => {
+  if ((await messagesListPage.listBody.exists) === false) {
+    // From message list view go into create message view
+    await t.click(messagesListPage.createMessageLink);
+
+    await addMessage(t);
+  }
   // The list displays the expected fields
   await t
     .expect(messagesListPage.listHeader.filter(includesHeaders).exists)
@@ -53,14 +229,7 @@ test('As an admin I want to create and delete messages', async (t) => {
   // From message list view go into create message view
   await t.click(messagesListPage.createMessageLink);
 
-  // Assert that we are in create message view
-  await t.expect(messagesCreatePage.title.exists).ok();
-
-  // Fill in subject and body fields, then submit the form
-  await t
-    .typeText(messagesCreatePage.subjectInput, t.ctx.message.subject)
-    .typeText(messagesCreatePage.bodyTextInput, t.ctx.message.bodyText)
-    .click(messagesCreatePage.submitCreateMessageForm);
+  await addMessage(t);
 
   // Assert that we have been redirected into the list view
   await t.expect(messagesListPage.title.exists).ok('', { timeout: 10000 });
@@ -106,12 +275,15 @@ test('As an admin I want to create and delete messages', async (t) => {
 });
 
 test('As an admin I should be able to send SMS messages', async (t) => {
+  if (preventSMSSending) {
+    // eslint-disable-next-line no-console
+    console.info('Preventing SMS sending with a mock.');
+    await t.addRequestHooks(sendSmsMock);
+  }
   await t.click(messagesListPage.createMessageSmsLink);
 
-  const smsSelector = within(messagesListPage.listBody)
-    .queryByText(t.ctx.sms.bodyText)
-    .with({ timeout: 1000 });
-
+  // eslint-disable-next-line no-console
+  console.debug('Submitting form and sending the message.');
   await t
     .typeText(messagesCreatePage.bodyTextInput, t.ctx.sms.bodyText)
     .click(messagesCreatePage.submitAndSendMessage);
@@ -119,12 +291,22 @@ test('As an admin I should be able to send SMS messages', async (t) => {
   // Assert that we have been redirected into the list view
   await t.expect(messagesListPage.title.exists).ok();
 
+  // eslint-disable-next-line no-console
+  console.debug('Query the message from the list of messages.');
+  const smsSelector = within(messagesListPage.listBody)
+    .queryByText(preventSMSSending ? 'Mocked bodyText' : t.ctx.sms.bodyText)
+    .with({ timeout: 1000 });
+
   // Assert that the new message can be found
   await t.expect(smsSelector.exists).ok('', { timeout: 10000 });
 
+  // eslint-disable-next-line no-console
+  console.debug('Clicking the event to open the details...');
   // Open details page
   await t.click(smsSelector);
 
+  // eslint-disable-next-line no-console
+  console.debug('Opening the message details page.');
   // Assert that the SMS has been sent
   await t.expect(messagesShowPage.isSent.exists).ok('', { timeout: 10000 });
 });

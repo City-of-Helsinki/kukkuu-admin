@@ -1,0 +1,10 @@
+.container {
+  flex: 1;
+}
+.actions {
+  text-align: center;
+  margin-top: 2em;
+}
+.actions > a {
+  margin: 5px;
+}

@@ -1,5 +1,4 @@
 import { routes } from './pages/routes';
-import { login } from './utils/login';
 import { navigation } from './pages/navigation';
 import {
   eventsListPage,
@@ -13,7 +12,14 @@ import {
   eventGroupsEditPage,
   createEventGroup,
   deleteEventGroup,
+  createEventInEventGroup,
 } from './pages/eventGroups';
+import {
+  AuthServiceRequestInterceptor,
+  KukkuuApiTestJwtBearerAuthorization,
+} from './utils/jwt/mocks/testJWTAuthRequests';
+import { browserTestAdminUser } from './utils/jwt/users';
+import { authorizedAdmin } from './userRoles';
 
 function includes(text: string, values: string[]): boolean {
   return values.reduce(
@@ -27,7 +33,7 @@ function buildEventGroup(overrides: any = {}) {
     overrides;
 
   return {
-    name: `${name} ${new Date().toLocaleDateString()}`,
+    name: `${name} ${new Date().toISOString()}`,
     shortDescription: 'Browser test event group',
     description:
       // eslint-disable-next-line max-len
@@ -41,7 +47,7 @@ function buildEvent(overrides: any = {}) {
     overrides;
 
   return {
-    name: `${name} ${new Date().toLocaleDateString()}`,
+    name: `${name} ${new Date().toISOString()}`,
     participantsPerInvite: 'Perhe',
     capacityPerOccurrence: 5,
     ...rest,
@@ -49,9 +55,15 @@ function buildEvent(overrides: any = {}) {
 }
 
 fixture`Event groups feature`
-  .page(routes.eventsList())
+  .requestHooks([
+    // Use AuthServiceRequestInterceptor to mock Keycloak out.
+    new AuthServiceRequestInterceptor(browserTestAdminUser),
+    // Use KukkuuApiTestJwtBearerAuthorization to add auth header to every API request.
+    new KukkuuApiTestJwtBearerAuthorization(browserTestAdminUser),
+  ])
   .beforeEach(async (t) => {
-    await login(t);
+    // Use authorizedGuardian guardian role to populate session storage
+    await t.useRole(authorizedAdmin).navigateTo(routes.eventsList());
     await t.click(navigation.events);
 
     t.ctx.createEventGroup = buildEventGroup();
@@ -70,13 +82,31 @@ fixture`Event groups feature`
   });
 
 test('As an admin I want to see event groups within the event list', async (t) => {
+  const getEventGroupCount = async () =>
+    eventsListPage.listBody.withText('TAPAHTUMARYHMÄ').count;
+
+  // if there is no event group, create one
+  if ((await getEventGroupCount()) === 0) {
+    const { name, shortDescription, description } = t.ctx.createEventGroup;
+    // Go to creation form
+    await createEventGroup(t, { name, shortDescription, description });
+    // Navigate to the list
+    await t.navigateTo(routes.eventsList());
+  }
+
   // Expect the list to have event groups
-  await t
-    .expect(eventsListPage.listBody.withText('TAPAHTUMARYHMÄ').count)
-    .gt(0);
+  await t.expect(await getEventGroupCount()).gt(0);
 });
 
 test('As an admin I want to be able to open an event group and see the events in the event group', async (t) => {
+  if (!eventsListPage.anyEventGroup) {
+    const { name, shortDescription, description } = t.ctx.createEventGroup;
+    // Go to creation form
+    await createEventGroup(t, { name, shortDescription, description });
+    // Navigate to the list
+    await t.navigateTo(routes.eventsList());
+  }
+
   const eventGroupRow = eventsListPage.anyEventGroup.child();
   const eventGroupName = await eventGroupRow.child().nth(0).textContent;
 
@@ -100,6 +130,12 @@ test('As an admin I want to be able to open an event group and see the events in
       ])
     )
     .ok();
+
+  if ((await eventGroupsDetailPage.eventList.childNodeCount) === 0) {
+    const event = t.ctx.addEventToEventGroup;
+    await createEventInEventGroup(t, event);
+  }
+
   await t.expect(eventGroupsDetailPage.eventList.childNodeCount).gt(0);
 });
 
@@ -155,15 +191,7 @@ test('As an admin I want to be able to add events to an event group', async (t) 
   // Save its name so we can assert on it later
   const eventGroupName = await eventGroupsDetailPage.title.textContent;
 
-  // Go to view for adding an event into the event group
-  await t.click(eventGroupsDetailPage.addEventToEventGroupButton);
-
-  // Assert that we are in the event creation view
-  await t.expect(eventsCreatePage.title.exists).ok();
-
-  // Fill the form and submit
-  await fillEventCreationForm(t, event);
-  await t.click(eventsCreatePage.submitButton);
+  await createEventInEventGroup(t, event);
 
   // Assert that we are back on the event group details page
   await t.expect(eventGroupsDetailPage.title.textContent).eql(eventGroupName);
