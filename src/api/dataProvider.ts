@@ -25,7 +25,6 @@ import type {
   DataProviderParams as Params,
   MethodHandler,
   MethodHandlerResponse,
-  ExtractAllowed,
 } from './types';
 import {
   getEvents,
@@ -150,30 +149,34 @@ const runHandler = <T>(method: Method, resource: Resource, params: Params) => {
 // react-admin and our implementation of dataProvider is not type
 // compatible.
 const baseDataProvider = {
-  getList: (resource: Resource, params: Params) =>
-    runHandler<GetListResult>('LIST', resource, params),
-  getOne: (resource: Resource, params: Params) =>
-    runHandler<GetOneResult>('ONE', resource, params),
-  getMany: (resource: Resource, params: Params) =>
-    runHandler<GetManyResult>('MANY', resource, params),
-  getManyReference: (resource: Resource, params: Params) =>
-    runHandler<GetManyReferenceResult>('MANY_REFERENCE', resource, params),
-  create: (resource: Resource, params: Params) =>
-    runHandler<CreateResult>('CREATE', resource, params),
-  update: (resource: Resource, params: Params) =>
-    runHandler<UpdateResult>('UPDATE', resource, params),
-  updateMany: (resource: Resource, params: Params) =>
-    runHandler<UpdateManyResult>('UPDATE_MANY', resource, params),
-  delete: (resource: Resource, params: Params) =>
-    runHandler<DeleteResult>('DELETE', resource, params),
-  deleteMany: (resource: Resource, params: Params) =>
-    runHandler<DeleteManyResult>('DELETE_MANY', resource, params),
+  getList: (resource: Resource[number], params: Params) =>
+    runHandler<GetListResult>('LIST', resource as Resource, params),
+  getOne: (resource: Resource[number], params: Params) =>
+    runHandler<GetOneResult>('ONE', resource as Resource, params),
+  getMany: (resource: Resource[number], params: Params) =>
+    runHandler<GetManyResult>('MANY', resource as Resource, params),
+  getManyReference: (resource: Resource[number], params: Params) =>
+    runHandler<GetManyReferenceResult>(
+      'MANY_REFERENCE',
+      resource as Resource,
+      params
+    ),
+  create: (resource: Resource[number], params: Params) =>
+    runHandler<CreateResult>('CREATE', resource as Resource, params),
+  update: (resource: Resource[number], params: Params) =>
+    runHandler<UpdateResult>('UPDATE', resource as Resource, params),
+  updateMany: (resource: Resource[number], params: Params) =>
+    runHandler<UpdateManyResult>('UPDATE_MANY', resource as Resource, params),
+  delete: (resource: Resource[number], params: Params) =>
+    runHandler<DeleteResult>('DELETE', resource as Resource, params),
+  deleteMany: (resource: Resource[number], params: Params) =>
+    runHandler<DeleteManyResult>('DELETE_MANY', resource as Resource, params),
 } as const satisfies DataProvider<Resource> | DataProvider;
 
 const extendedDataProvider = {
   ...baseDataProvider,
   publish: (
-    resource: ExtractAllowed<Resource, 'events' | 'event-groups'>,
+    resource: Extract<Resource, 'events' | 'event-groups'>,
     params: { id: string }
   ) =>
     runHandler<MethodHandlerResponse<AdminEvent | EventGroupNode | null>>(
@@ -181,7 +184,7 @@ const extendedDataProvider = {
       resource,
       params
     ),
-  send: (resource: 'messages', params: { id: string }) =>
+  send: (resource: Extract<Resource, 'messages'>, params: { id: string }) =>
     runHandler<MethodHandlerResponse<MessageNode | null>>(
       'SEND',
       resource,
@@ -190,7 +193,7 @@ const extendedDataProvider = {
   getMyAdminProfile,
   setEnrolmentAttendance,
   setReady: (
-    resource: ExtractAllowed<Resource, 'events'>,
+    resource: Extract<Resource, 'events'>,
     params: { id: string; readyForEventGroupPublishing: boolean }
   ) =>
     runHandler<MethodHandlerResponse<AdminEvent | null>>(

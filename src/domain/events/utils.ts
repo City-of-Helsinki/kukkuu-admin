@@ -25,7 +25,7 @@ export function getEventGroupEventNodes<ResultType = any>(
 ) {
   return eventGroup.events.edges?.reduce((result: ResultType[], edge) => {
     if (edge?.node) {
-      result.push(edge.node as ResultType);
+      result.push(edge.node as unknown as ResultType);
     }
     return result;
   }, []);
@@ -85,7 +85,7 @@ export function countEnrollments(
         (sum: number, edge) => sum + (edge?.node?.enrolmentCount ?? 0),
         0
       )
-    ) ?? 0
+    ) ?? [0]
   );
 }
 

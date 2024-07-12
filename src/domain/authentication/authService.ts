@@ -36,7 +36,8 @@ export class AuthService {
       scope: AppConfig.oidcScope,
       redirect_uri: `${origin}/callback`,
       post_logout_redirect_uri: `${origin}/`,
-      automaticSilentRenew: true,
+      automaticSilentRenew: AppConfig.oidcAutomaticSilentRenew,
+      checkSessionIntervalInSeconds: AppConfig.oidcSessionPollerIntervalInMs,
       silent_redirect_uri: `${origin}/silent_renew.html`,
       revokeTokensOnSignout: true,
     };

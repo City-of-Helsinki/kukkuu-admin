@@ -28,8 +28,6 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileProjectDropdown = () => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const dataProvider = useDataProvider<typeof extendedDataProvider>();
   const { isLoading, error, data } = useQuery({
     queryFn: dataProvider.getMyAdminProfile,
@@ -62,6 +60,8 @@ const ProfileProjectDropdown = () => {
   }
 
   if (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
     return null;
   }
 
