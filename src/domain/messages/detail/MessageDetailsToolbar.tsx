@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   useTranslate,
+  DeleteButton,
   EditButton,
   TopToolbar,
   useResourceContext,
@@ -60,6 +61,7 @@ const MessageDetailToolbar = () => {
   return (
     <TopToolbar>
       {record && <EditButton record={record} />}
+      {record && <DeleteButton mutationMode="pessimistic" record={record} />}
       {record && basePath && (
         <MessageSendButton className={classes.sendButton} />
       )}
