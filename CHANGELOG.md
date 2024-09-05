@@ -1,5 +1,17 @@
 # Change Log
 
+## [3.3.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.2.1...kukkuu-admin-v3.3.0) (2024-09-05)
+
+
+### Features
+
+* Add working delete button to unsent message's detail page ([a9285cf](https://github.com/City-of-Helsinki/kukkuu-admin/commit/a9285cfef2d25d6544e20e879bf040dbee90c5a9))
+
+
+### Bug Fixes
+
+* Update the graphql schema ([4918880](https://github.com/City-of-Helsinki/kukkuu-admin/commit/491888069e3998f412e327501ac7358fb12f8211))
+
 ## [3.2.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.2.0...kukkuu-admin-v3.2.1) (2024-07-05)
 
 
