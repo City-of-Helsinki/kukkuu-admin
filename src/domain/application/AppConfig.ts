@@ -144,7 +144,7 @@ class AppConfig {
    * */
   static get oidcAutomaticSilentRenew(): boolean {
     return Boolean(
-      process.env.REACT_APP_OIDC_AUTOMATIC_SILENT_RENEW_ENABLED ?? false
+      process.env.REACT_APP_OIDC_AUTOMATIC_SILENT_RENEW_ENABLED ?? true
     );
   }
 
