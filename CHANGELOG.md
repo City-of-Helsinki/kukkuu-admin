@@ -1,5 +1,12 @@
 # Change Log
 
+## [3.3.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.3.0...kukkuu-admin-v3.3.1) (2024-09-10)
+
+
+### Bug Fixes
+
+* The oidc silent token renew should e enabled by default ([1cbd0eb](https://github.com/City-of-Helsinki/kukkuu-admin/commit/1cbd0eb2cf7a59f22c983f2dbc242b4e30e71cf3))
+
 ## [3.3.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.2.1...kukkuu-admin-v3.3.0) (2024-09-05)
 
 
