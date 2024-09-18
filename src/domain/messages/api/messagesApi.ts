@@ -1,5 +1,5 @@
 import type { ApolloQueryResult } from '@apollo/client';
-import { get, omit, orderBy } from 'lodash';
+import { get, omit } from 'lodash';
 
 import type {
   MethodHandlerResponse,
