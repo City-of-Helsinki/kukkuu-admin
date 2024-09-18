@@ -6,6 +6,7 @@ import {
   SelectField,
   FunctionField,
   Labeled,
+  Pagination,
 } from 'react-admin';
 import { get } from 'lodash';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
@@ -29,6 +30,9 @@ const MessagesList = () => {
       reactAdminProps={{
         actions: <MessagesListToolbar />,
         empty: <Empty />,
+        exporter: false,
+        pagination: <Pagination rowsPerPageOptions={[25, 100]} />,
+        perPage: 25,
       }}
     >
       <FunctionField

@@ -1,4 +1,5 @@
-import { get, omit } from 'lodash';
+import type { ApolloQueryResult } from '@apollo/client';
+import { get, omit, orderBy } from 'lodash';
 
 import type {
   MethodHandlerResponse,
@@ -18,6 +19,7 @@ import {
   updateMessageMutation,
 } from '../mutations/MessageMutations';
 import projectService from '../../projects/projectService';
+import type { MessagesQuery } from '../../api/generatedTypes/graphql';
 import {
   MessageDocument,
   MessagesDocument,
@@ -25,12 +27,18 @@ import {
 
 async function getMessages(
   params: MethodHandlerParams
-): Promise<MethodHandlerResponse | null> {
-  const response = await queryHandler({
+): Promise<MethodHandlerResponse> {
+  const response: ApolloQueryResult<MessagesQuery> = await queryHandler({
     query: MessagesDocument,
-    variables: { projectId: projectService.projectId },
+    variables: {
+      projectId: projectService.projectId,
+      limit: params.pagination.limit,
+      offset: params.pagination.offset,
+      orderBy: '-created_at',
+    },
   });
-
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   return handleApiConnection(response.data.messages);
 }
 
