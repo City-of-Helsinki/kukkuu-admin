@@ -1,5 +1,12 @@
 # Change Log
 
+## [3.4.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.3.1...kukkuu-admin-v3.4.0) (2024-09-18)
+
+
+### Features
+
+* Add pagination to messages list ([dcfbef1](https://github.com/City-of-Helsinki/kukkuu-admin/commit/dcfbef117969d531223e5eecfb04e1d7e60c0067))
+
 ## [3.3.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.3.0...kukkuu-admin-v3.3.1) (2024-09-10)
 
 
