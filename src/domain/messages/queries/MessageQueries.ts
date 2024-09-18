@@ -30,8 +30,14 @@ const MessageFragment = gql`
 `;
 
 export const messagesQuery = gql`
-  query Messages($projectId: ID) {
-    messages(projectId: $projectId) {
+  query Messages($projectId: ID, $limit: Int, $offset: Int, $orderBy: String) {
+    messages(
+      projectId: $projectId
+      limit: $limit
+      offset: $offset
+      orderBy: $orderBy
+    ) {
+      count
       edges {
         node {
           ...MessageFragment

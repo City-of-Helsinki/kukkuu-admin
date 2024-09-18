@@ -559,6 +559,7 @@ export type EventNodeMessagesArgs = {
   last: InputMaybe<Scalars['Int']['input']>;
   occurrences: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   offset: InputMaybe<Scalars['Int']['input']>;
+  orderBy: InputMaybe<Scalars['String']['input']>;
   projectId: InputMaybe<Scalars['ID']['input']>;
   protocol: InputMaybe<MessagingMessageProtocolChoices>;
 };
@@ -916,6 +917,7 @@ export type MessageNodeOccurrencesArgs = {
 
 export type MessageNodeConnection = {
   __typename?: 'MessageNodeConnection';
+  count: Scalars['Int']['output'];
   /** Contains the nodes in this connection. */
   edges: Array<Maybe<MessageNodeEdge>>;
   /** Pagination data for this connection. */
@@ -1476,8 +1478,10 @@ export type QueryMessagesArgs = {
   before: InputMaybe<Scalars['String']['input']>;
   first: InputMaybe<Scalars['Int']['input']>;
   last: InputMaybe<Scalars['Int']['input']>;
+  limit: InputMaybe<Scalars['Int']['input']>;
   occurrences: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   offset: InputMaybe<Scalars['Int']['input']>;
+  orderBy: InputMaybe<Scalars['String']['input']>;
   projectId: InputMaybe<Scalars['ID']['input']>;
   protocol: InputMaybe<MessagingMessageProtocolChoices>;
 };
@@ -2129,10 +2133,13 @@ export type MessageFragment = { __typename?: 'MessageNode', id: string, subject:
 
 export type MessagesQueryVariables = Exact<{
   projectId: InputMaybe<Scalars['ID']['input']>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  orderBy: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type MessagesQuery = { __typename?: 'Query', messages: { __typename?: 'MessageNodeConnection', edges: Array<{ __typename?: 'MessageNodeEdge', node: { __typename?: 'MessageNode', id: string, subject: string | null, bodyText: string | null, recipientSelection: RecipientSelectionEnum | null, recipientCount: number | null, sentAt: any | null, protocol: MessagingMessageProtocolChoices, event: { __typename?: 'EventNode', id: string, name: string | null } | null, translations: Array<{ __typename?: 'MessageTranslationType', languageCode: MessagingMessageTranslationLanguageCodeChoices, subject: string, bodyText: string }>, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, time: any } | null } | null> } } | null } | null> } | null };
+export type MessagesQuery = { __typename?: 'Query', messages: { __typename?: 'MessageNodeConnection', count: number, edges: Array<{ __typename?: 'MessageNodeEdge', node: { __typename?: 'MessageNode', id: string, subject: string | null, bodyText: string | null, recipientSelection: RecipientSelectionEnum | null, recipientCount: number | null, sentAt: any | null, protocol: MessagingMessageProtocolChoices, event: { __typename?: 'EventNode', id: string, name: string | null } | null, translations: Array<{ __typename?: 'MessageTranslationType', languageCode: MessagingMessageTranslationLanguageCodeChoices, subject: string, bodyText: string }>, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, time: any } | null } | null> } } | null } | null> } | null };
 
 export type MessageQueryVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -2745,8 +2752,14 @@ export type SendMessageMutationFn = Apollo.MutationFunction<SendMessageMutation,
 export type SendMessageMutationResult = Apollo.MutationResult<SendMessageMutation>;
 export type SendMessageMutationOptions = Apollo.BaseMutationOptions<SendMessageMutation, SendMessageMutationVariables>;
 export const MessagesDocument = gql`
-    query Messages($projectId: ID) {
-  messages(projectId: $projectId) {
+    query Messages($projectId: ID, $limit: Int, $offset: Int, $orderBy: String) {
+  messages(
+    projectId: $projectId
+    limit: $limit
+    offset: $offset
+    orderBy: $orderBy
+  ) {
+    count
     edges {
       node {
         ...MessageFragment
