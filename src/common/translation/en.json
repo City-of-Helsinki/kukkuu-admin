@@ -510,7 +510,22 @@
   "ticketValidation": {
     "valid": "Ticket is valid",
     "invalid": "Ticket is not valid",
-    "error": "Ticket validation failed"
+    "error": "Ticket validation failed",
+    "updateTicketAttended": {
+      "onSuccess": {
+        "attendedMessage": "Ticket owner is now marked as attended",
+        "unattendedMessage": "Ticket owner is now marked as unattended"
+      },
+      "onError": {
+        "message": "Ticket processing ended with an error, and the arrival status could not be updated"
+      },
+      "switchButton": {
+        "label": "Ticket owner has arrived"
+      }
+    },
+    "arrivalStatus": {
+      "label": "Arrival status: %{attendedEnrolmentCount} / %{enrolmentCount}"
+    }
   },
   "ticketSystemPassword": {
     "passwordsTab": {

@@ -1,108 +1,161 @@
 {
-  "dashboard": {
-    "title": "Culture Kids admin"
+  "application": {
+    "test": "Test"
   },
-  "languages": {
-    "FI": "Finnish",
-    "SV": "Swedish",
-    "EN": "English"
+  "authentication": {
+    "callbackPage": {
+      "finishingAuthentication": "Finishing authentication"
+    },
+    "authError": {
+      "title": "Login Failed",
+      "description": "Log out and try again",
+      "logOut": "Log out"
+    },
+    "unauthorizedPage": {
+      "backToLoginPage": "Back to login page",
+      "contactEmail": "kulttuurin.kummilapset@hel.fi",
+      "content": "Your account is not authorized to use Culture Kids Admin UI. If you need access, please contact",
+      "title": "Not authorized."
+    }
   },
-  "venues": {
-    "list": {
-      "title": "Venues"
-    },
-    "create": {
-      "title": "Create venue"
-    },
+  "children": {
     "fields": {
+      "birthyear": {
+        "label": "Year of birth"
+      },
+      "guardians": {
+        "fields": {
+          "email": {
+            "label": "Email"
+          },
+          "phoneNumber": {
+            "label": "Phone number"
+          },
+          "postalCode": {
+            "label": "Postal code"
+          }
+        },
+        "label": "Guardian"
+      },
       "name": {
         "label": "Name"
       },
-      "address": {
-        "label": "Address"
-      },
-      "description": {
-        "label": "Description"
-      },
-      "accessibilityInfo": {
-        "label": "Accessibility info"
-      },
-      "arrivalInstructions": {
-        "label": "Arrival instructions"
-      },
-      "additionalInfo": {
-        "label": "Additional info"
+      "occurrences": {
+        "label": "Events"
+      }
+    },
+    "list": {
+      "title": "Culture Kids"
+    },
+    "show": {
+      "title": "Culture Kid"
+    }
+  },
+  "dashboard": {
+    "title": "Culture Kids Admin Interface"
+  },
+  "enrolments": {
+    "fields": {
+      "attended": {
+        "label": ""
       }
     }
   },
   "events": {
-    "list": {
-      "title": "Events"
-    },
-    "show": {
-      "tab": {
-        "label": "Event detail"
-      },
-      "publish": {
-        "button": {
-          "label": "Publish"
-        },
-        "onSuccess": {
-          "message": "Event published!"
-        },
-        "onFailure": {
-          "message": "Event publish error."
-        },
-        "confirm": {
-          "title": "Publish event \"%{eventName}\"",
-          "content": "Are you sure that you want to publish this event?"
-        }
-      }
+    "actions": {
+      "create": "New Event"
     },
     "create": {
+      "aside": {
+        "content": ""
+      },
       "title": "Create event"
     },
     "edit": {
       "title": "Edit event"
     },
     "fields": {
+      "capacityPerOccurrence": {
+        "helperText": "",
+        "label": "Capacity per occurrence"
+      },
+      "description": {
+        "helperText": "",
+        "label": "Description"
+      },
+      "duration": {
+        "helperText": "",
+        "label": "Duration"
+      },
       "id": {
         "label": "ID"
+      },
+      "image": {
+        "helperText": "",
+        "label": "Image"
+      },
+      "imageAltText": {
+        "helperText": "",
+        "label": "Image alt text"
+      },
+      "imageInput": {
+        "label": "Select image to upload"
+      },
+      "language": {
+        "label": "Language"
       },
       "name": {
         "label": "Name"
       },
-      "participantsPerInvite": {
-        "label": "Participants per invite",
-        "choices": {
-          "CHILD_AND_GUARDIAN": {
-            "label": "Child and guardian"
-          },
-          "FAMILY": {
-            "label": "Family"
-          }
-        }
+      "numOfOccurrences": {
+        "label": "Occcurences"
       },
-      "duration": {
-        "label": "Duration"
+      "numOfEnrolments": {
+        "label": "Enrolments"
       },
       "occurrences": {
         "label": "Occurrences"
       },
-      "capacityPerOccurrence": {
-        "label": "Capacity per occurrence"
+      "participantsPerInvite": {
+        "choices": {
+          "CHILD_AND_GUARDIAN": {
+            "label": "1 child + 1 adult"
+          },
+          "CHILD_AND_1_OR_2_GUARDIANS": {
+            "label": "1 child + 1–2 adults"
+          },
+          "FAMILY": {
+            "label": "Family"
+          }
+        },
+        "helperText": "",
+        "label": "Participants per invite"
       },
       "publishedAt": {
-        "label": "Published at"
-      },
-      "description": {
-        "label": "Description"
+        "label": "Published at",
+        "published": {
+          "label": "Published"
+        },
+        "values": {
+          "NOT_PUBLISHED": "Not published"
+        }
       },
       "shortDescription": {
+        "helperText": "",
         "label": "Short Description"
       },
-      "language": {
-        "label": "Language"
+      "totalCapacity": {
+        "label": "Total capacity",
+        "unknown": "unknown"
+      },
+      "ready": {
+        "label": "Ready to be published",
+        "label2": "Status",
+        "options": {
+          "ready": "Ready",
+          "notReady": "Unfinished",
+          "published": "Published"
+        }
       },
       "ticketSystem": {
         "label": "Ticket system",
@@ -112,94 +165,401 @@
           },
           "TICKETMASTER": {
             "label": "Ticketmaster"
+          },
+          "LIPPUPISTE": {
+            "label": "Lippupiste"
           }
         }
+      },
+      "ticketSystemEndTime": {
+        "label": "End time",
+        "helperText": "After this time, the event will be removed from event invites and upcoming events."
+      },
+      "ticketSystemUrl": {
+        "label": "The event's URL address in the external ticket system"
+      },
+      "validationErrors": {
+        "url": "Invalid URL address"
       }
-    }
-  },
-  "occurrences": {
-    "create": {
-      "title": "Add occurrence"
+    },
+    "list": {
+      "title": "Events"
     },
     "show": {
-      "title": "Occurrence"
-    },
-    "fields": {
-      "time": {
-        "label": "Time",
-        "fields": {
-          "date": {
-            "label": "Date"
-          },
-          "time": {
-            "label": "Time"
-          }
+      "publish": {
+        "button": {
+          "label": "Publish"
+        },
+        "confirm": {
+          "content": "Are you sure that you want to publish this event?",
+          "title": "Publish event \"%{eventName}\""
+        },
+        "onFailure": {
+          "message": "Event publish error."
+        },
+        "onSuccess": {
+          "message": "Event published!"
         }
       },
-      "venue": {
-        "label": "Venue"
-      },
-      "event": {
-        "label": "Event"
-      },
-      "capacity": {
-        "label": "Capacity"
-      },
-      "enrolmentsCount": {
-        "label": "Number of enrolments"
-      },
-      "children": {
-        "label": "Enrolled children"
+      "tab": {
+        "label": "Event detail"
       }
-    },
-    "addOccurrenceButton": {
-      "label": "Add occurrence"
     }
   },
-  "children": {
-    "list": {
-      "title": "Culture kids"
+  "guardian": {
+    "name": "Guardian's name",
+    "doesNotExist": "<No guardian>"
+  },
+  "eventGroups": {
+    "actions": {
+      "create": {
+        "do": "New Event Group"
+      },
+      "publish": {
+        "redo": "Republish Event Group",
+        "do": "Publish Event Group",
+        "success": "Event group published!",
+        "error": "Event group publish error",
+        "eventsNotReadyError": "All events are not ready for event group publishing.",
+        "confirm": {
+          "title": "Publish event group \"%{eventGroupName}\"",
+          "content": "Are you sure that you want to publish this event group?"
+        }
+      },
+      "addEvent": {
+        "do": "Add Event"
+      }
     },
     "fields": {
       "name": {
         "label": "Name"
       },
-      "birthyear": {
-        "label": "Year of birth"
+      "shortDescription": {
+        "label": "Short Description",
+        "helperText": "This will appear on the invite that is visible on the godchild's own page. Maximum 140 characters."
       },
-      "guardians": {
-        "label": "Guardian",
-        "fields": {
-          "postalCode": {
-            "label": "Postal code"
-          },
-          "email": {
-            "label": "Email"
-          },
-          "phoneNumber": {
-            "label": "Phone number"
-          }
+      "description": {
+        "label": "Description",
+        "helperText": "This description will appear on the event page and in the event invitation email sent to the godchild."
+      }
+    },
+    "translations": {
+      "FI": {
+        "name": {
+          "required": "A Finnish name is required. Check the message's Finnish language version."
+        }
+      }
+    },
+    "create": {
+      "title": {
+        "label": "New Event Group"
+      }
+    }
+  },
+  "eventsAndEventGroups": {
+    "list": {
+      "label": "Event list",
+      "type": {
+        "label": "Type",
+        "event": {
+          "label": "Event"
+        },
+        "eventGroup": {
+          "label": "Event Group"
         }
       },
-      "occurrences": {
+      "eventCount": {
         "label": "Events"
       }
     }
   },
-  "authentication": {
-    "redirect": {
-      "text": "Authenticating..."
+  "languages": {
+    "EN": "English",
+    "FI": "Finnish",
+    "SV": "Swedish"
+  },
+  "messages": {
+    "send": {
+      "do": "Send",
+      "success": "Message sent",
+      "error": "Message send failed",
+      "confirm": {
+        "title": "Send message \"%{messageSubject}\"",
+        "content": "%{recipientCount} recipients. Are you sure that you want to send this message?"
+      }
     },
-    "unauthorizedPage": {
-      "title": "Not authorized.",
-      "content": "Your account is not authorized to use Culture Kids Admin UI. If you need access, please contact",
-      "contactEmail": "kulttuurin.kummilapset@hel.fi",
-      "backToLoginPage": "Back to login page"
+    "fields": {
+      "recipientSelection": {
+        "choices": {
+          "ALL": {
+            "label": "All"
+          },
+          "INVITED": {
+            "label": "Invited"
+          },
+          "ENROLLED": {
+            "label": "Enrolled"
+          },
+          "ATTENDED": {
+            "label": "Attended"
+          },
+          "SUBSCRIBED_TO_FREE_SPOT_NOTIFICATION": {
+            "label": "Subscribed to free spot message"
+          }
+        },
+        "label": "Recipients"
+      },
+      "bodyText": {
+        "label": "Message text",
+        "label2": "Message",
+        "error": {
+          "required": "Required"
+        }
+      },
+      "subject": {
+        "label": "Name",
+        "label2": "Message subject"
+      },
+      "event": {
+        "label": "Event",
+        "all": "All Events"
+      },
+      "recipientCount": {
+        "label": "Recipient count",
+        "label2": "Recipients"
+      },
+      "sentAt": {
+        "label": "Published",
+        "sent": "Sent",
+        "notSent": "Not sent"
+      },
+      "occurrences": {
+        "label": "Occurrences",
+        "all": "All Occurrences"
+      },
+      "protocol": {
+        "label": "Type"
+      }
+    },
+    "create": {
+      "title": {
+        "email": "New email",
+        "sms": "New sms"
+      },
+      "do": {
+        "email": "New email",
+        "sms": "New sms"
+      }
+    },
+    "list": {
+      "title": "Messages"
     }
+  },
+  "message": {
+    "translations": {
+      "FI": {
+        "subject": {
+          "required": "A Finnish subject is required. Check the message's Finnish language version."
+        },
+        "bodyText": {
+          "required": "A Finnish message text is required. Check the message's Finnish language version."
+        }
+      }
+    }
+  },
+  "occurrences": {
+    "addOccurrenceButton": {
+      "label": "Add occurrence"
+    },
+    "create": {
+      "title": "Add occurrence"
+    },
+    "edit": {
+      "delete": {
+        "confirm": {
+          "content": "This occurrence has been published already. Are you sure you still want to delete it?",
+          "title": "Delete occurrence"
+        }
+      }
+    },
+    "fields": {
+      "capacity": {
+        "label": "Capacity"
+      },
+      "capacityOverride": {
+        "label": "Occurrence capacity",
+        "helperText": ""
+      },
+      "children": {
+        "label": "Enrolled children"
+      },
+      "enrolments": {
+        "fields": {
+          "attended": {
+            "choices": {
+              "null": "",
+              "true": "",
+              "false": ""
+            }
+          }
+        }
+      },
+      "enrolmentsCount": {
+        "label": "Number of enrolments"
+      },
+      "attendedEnrolmentsCount": {
+        "label": "Attendee count"
+      },
+      "event": {
+        "label": "Event"
+      },
+      "freeSpotNotificationSubscriptions": {
+        "label": "In Queue"
+      },
+      "ticketSystemUrl": {
+        "label": "Ticket system URL"
+      },
+      "time": {
+        "fields": {
+          "date": {
+            "errorMessage": "Date invalid, use format dd.mm.yyyy",
+            "format": "dd.mm.yyyy",
+            "helperText": "",
+            "label": "Date"
+          },
+          "time": {
+            "errorMessage": "Time invalid, use format hh:mm",
+            "format": "hh:mm",
+            "label": "Time"
+          }
+        },
+        "helperText": "",
+        "label": "Time"
+      },
+      "venue": {
+        "helperText": "",
+        "label": "Venue"
+      }
+    },
+    "show": {
+      "title": "Occurrence"
+    }
+  },
+  "sms": {
+    "create": {
+      "do": "New sms",
+      "messageSentImmediatelyNotice": "The SMS is not saved, but sent immediately after send-button is clicked"
+    }
+  },
+  "venues": {
+    "create": {
+      "aside": {
+        "content": ""
+      },
+      "title": "Create venue"
+    },
+    "edit": {
+      "title": "Edit venue"
+    },
+    "fields": {
+      "accessibilityInfo": {
+        "helperText": "",
+        "label": "Accessibility info"
+      },
+      "additionalInfo": {
+        "helperText": "",
+        "label": "Additional info"
+      },
+      "address": {
+        "helperText": "",
+        "label": "Address"
+      },
+      "arrivalInstructions": {
+        "helperText": "",
+        "label": "Arrival instructions"
+      },
+      "description": {
+        "label": "Description"
+      },
+      "name": {
+        "helperText": "",
+        "label": "Name"
+      },
+      "wcAndFacilities": {
+        "label": "Toilets and child care facilities"
+      }
+    },
+    "list": {
+      "aside": {
+        "content": ""
+      },
+      "title": "Venues"
+    }
+  },
+  "action": {
+    "send": "Send"
   },
   "ra": {
     "message": {
       "delete_title": "Delete"
+    }
+  },
+  "generic": {
+    "all": "All"
+  },
+  "ticketValidation": {
+    "valid": "Ticket is valid",
+    "invalid": "Ticket is not valid",
+    "error": "Ticket validation failed",
+    "updateTicketAttended": {
+      "onSuccess": {
+        "attendedMessage": "Ticket owner is now marked as attended",
+        "unattendedMessage": "Ticket owner is now marked as unattended"
+      },
+      "onError": {
+        "message": "Ticket processing ended with an error, and the arrival status could not be updated"
+      },
+      "switchButton": {
+        "label": "Ticket owner has arrived"
+      }
+    },
+    "arrivalStatus": {
+      "label": "Arrival status: %{attendedEnrolmentCount} / %{enrolmentCount}"
+    }
+  },
+  "ticketSystemPassword": {
+    "passwordsTab": {
+      "label": "Passwords"
+    },
+    "fields": {
+      "usedPasswordCount": {
+        "label": "Used external ticket system passwords"
+      },
+      "freePasswordCount": {
+        "label": "Free passwords"
+      }
+    },
+    "import": {
+      "dialog": {
+        "openButton": "Add passwords",
+        "title": "Add passwords",
+        "text": "Copy the passwords you received and paste them in the text field below in text form as a list below"
+      },
+      "passwords": {
+        "ariaLabel": "Import passwords",
+        "placeholder": "0A1BC3D4E5\nABC123DEF\nXYZ098ASD"
+      },
+      "action": {
+        "import": "Import",
+        "cancel": "Cancel"
+      },
+      "submit": {
+        "passwords": {
+          "error": "Some passwords could not be imported: %{passwords}"
+        },
+        "error": "Critical error in passwords importing",
+        "success": "Ticket system passwords imported!"
+      }
     }
   }
 }
