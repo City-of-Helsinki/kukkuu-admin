@@ -510,7 +510,22 @@
   "ticketValidation": {
     "valid": "Lippu on voimassa",
     "invalid": "Lippu ei ole voimassa",
-    "error": "Lipun tarkistaminen epäonnistui"
+    "error": "Lipun tarkistaminen epäonnistui",
+    "updateTicketAttended": {
+      "onSuccess": {
+        "attendedMessage": "Lipun omistaja on nyt merkitty saapuneeksi",
+        "unattendedMessage": "Lipun omistaja on nyt merkitty saapumattomaksi"
+      },
+      "onError": {
+        "message": "Lipun käsittely päätyi virheeseen, eikä saapumisen tilaa voitu päivittää"
+      },
+      "switchButton": {
+        "label": "Lipun omistaja saapunut paikalle"
+      }
+    },
+    "arrivalStatus": {
+      "label": "Paikalle saapunut: %{attendedEnrolmentCount} / %{enrolmentCount}"
+    }
   },
   "ticketSystemPassword": {
     "passwordsTab": {

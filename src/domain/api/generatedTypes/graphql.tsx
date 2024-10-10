@@ -126,7 +126,7 @@ export type AdminNode = Node & {
   /** The ID of the object */
   id: Scalars['ID']['output'];
   projects: Maybe<ProjectNodeConnection>;
-  /** Vaaditaan. Enintään 150 merkkiä. Vain kirjaimet, numerot ja @/./+/-/_ ovat sallittuja. */
+  /** Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only. */
   username: Scalars['String']['output'];
 };
 
@@ -842,11 +842,11 @@ export type LanguageTranslationType = {
 
 /** An enumeration. */
 export enum LanguagesLanguageTranslationLanguageCodeChoices {
-  /** englanti */
+  /** English */
   En = 'EN',
-  /** suomi */
+  /** Finnish */
   Fi = 'FI',
-  /** ruotsi */
+  /** Swedish */
   Sv = 'SV'
 }
 
@@ -948,7 +948,7 @@ export type MessageTranslationsInput = {
 
 /** An enumeration. */
 export enum MessagingMessageProtocolChoices {
-  /** Sähköposti */
+  /** Email */
   Email = 'EMAIL',
   /** SMS */
   Sms = 'SMS'
@@ -956,11 +956,11 @@ export enum MessagingMessageProtocolChoices {
 
 /** An enumeration. */
 export enum MessagingMessageTranslationLanguageCodeChoices {
-  /** englanti */
+  /** English */
   En = 'EN',
-  /** suomi */
+  /** Finnish */
   Fi = 'FI',
-  /** ruotsi */
+  /** Swedish */
   Sv = 'SV'
 }
 
@@ -1012,6 +1012,7 @@ export type Mutation = {
   updateMyEmail: Maybe<UpdateMyEmailMutationPayload>;
   updateMyProfile: Maybe<UpdateMyProfileMutationPayload>;
   updateOccurrence: Maybe<UpdateOccurrenceMutationPayload>;
+  updateTicketAttended: Maybe<UpdateTicketAttendedMutationPayload>;
   updateVenue: Maybe<UpdateVenueMutationPayload>;
 };
 
@@ -1186,6 +1187,11 @@ export type MutationUpdateOccurrenceArgs = {
 };
 
 
+export type MutationUpdateTicketAttendedArgs = {
+  input: UpdateTicketAttendedMutationInput;
+};
+
+
 export type MutationUpdateVenueArgs = {
   input: UpdateVenueMutationInput;
 };
@@ -1194,6 +1200,20 @@ export type MutationUpdateVenueArgs = {
 export type Node = {
   /** The ID of the object */
   id: Scalars['ID']['output'];
+};
+
+export type OccurrenceArrivalStatusNode = {
+  __typename?: 'OccurrenceArrivalStatusNode';
+  /**
+   * **DEPRECATED:**  Number of enrolments marked as attended for this occurrence.
+   * @deprecated This field exposes potentially sensitive data and will be removed in a future release. Consider using a more secure method to access this information.
+   */
+  attendedEnrolmentCount: Scalars['Int']['output'];
+  /**
+   * **DEPRECATED:** Total number of enrolments for this occurrence.
+   * @deprecated This field exposes potentially sensitive data and will be removed in a future release. Consider using a more secure method to access this information.
+   */
+  enrolmentCount: Scalars['Int']['output'];
 };
 
 export type OccurrenceNode = Node & {
@@ -1664,8 +1684,15 @@ export enum TicketSystem {
 
 export type TicketVerificationNode = {
   __typename?: 'TicketVerificationNode';
+  /** Indicates whether the ticket holder has arrived. If null, the status is unset. */
+  attended: Maybe<Scalars['Boolean']['output']>;
   /** The name of the event */
   eventName: Scalars['String']['output'];
+  /**
+   * **DEPRECATED:** Use `OccurrenceNode` instead (requires authorization). Provides a summary of arrivals for this occurrence. This field will be removed in a future release to protect sensitive attendance data.
+   * @deprecated This field exposes potentially sensitive data and will be removed in a future release. The attendance information should not be publicly available.
+   */
+  occurrenceArrivalStatus: Maybe<OccurrenceArrivalStatusNode>;
   /** The time of the event occurrence */
   occurrenceTime: Scalars['DateTime']['output'];
   validity: Scalars['Boolean']['output'];
@@ -1892,6 +1919,18 @@ export type UpdateOccurrenceMutationPayload = {
   __typename?: 'UpdateOccurrenceMutationPayload';
   clientMutationId: Maybe<Scalars['String']['output']>;
   occurrence: Maybe<OccurrenceNode>;
+};
+
+export type UpdateTicketAttendedMutationInput = {
+  attended: Scalars['Boolean']['input'];
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  referenceId: Scalars['String']['input'];
+};
+
+export type UpdateTicketAttendedMutationPayload = {
+  __typename?: 'UpdateTicketAttendedMutationPayload';
+  clientMutationId: Maybe<Scalars['String']['output']>;
+  ticket: Maybe<TicketVerificationNode>;
 };
 
 export type UpdateVenueMutationInput = {
@@ -2203,12 +2242,19 @@ export type ImportTicketSystemPasswordsMutationVariables = Exact<{
 
 export type ImportTicketSystemPasswordsMutation = { __typename?: 'Mutation', importTicketSystemPasswords: { __typename?: 'ImportTicketSystemPasswordsMutationPayload', errors: Array<{ __typename?: 'ErrorType', field: string, message: string, value: string } | null> | null } | null };
 
+export type UpdateTicketAttendedMutationVariables = Exact<{
+  input: UpdateTicketAttendedMutationInput;
+}>;
+
+
+export type UpdateTicketAttendedMutation = { __typename?: 'Mutation', updateTicketAttended: { __typename?: 'UpdateTicketAttendedMutationPayload', ticket: { __typename?: 'TicketVerificationNode', occurrenceTime: any, eventName: string, venueName: string | null, validity: boolean, attended: boolean | null, occurrenceArrivalStatus: { __typename?: 'OccurrenceArrivalStatusNode', enrolmentCount: number, attendedEnrolmentCount: number } | null } | null } | null };
+
 export type VerifyTicketQueryVariables = Exact<{
   referenceId: Scalars['String']['input'];
 }>;
 
 
-export type VerifyTicketQuery = { __typename?: 'Query', verifyTicket: { __typename?: 'TicketVerificationNode', occurrenceTime: any, eventName: string, venueName: string | null, validity: boolean } | null };
+export type VerifyTicketQuery = { __typename?: 'Query', verifyTicket: { __typename?: 'TicketVerificationNode', occurrenceTime: any, eventName: string, venueName: string | null, validity: boolean, attended: boolean | null, occurrenceArrivalStatus: { __typename?: 'OccurrenceArrivalStatusNode', enrolmentCount: number, attendedEnrolmentCount: number } | null } | null };
 
 export type AddVenueMutationVariables = Exact<{
   input: AddVenueMutationInput;
@@ -3023,6 +3069,26 @@ export const ImportTicketSystemPasswordsMutationDocument = gql`
 export type ImportTicketSystemPasswordsMutationMutationFn = Apollo.MutationFunction<ImportTicketSystemPasswordsMutation, ImportTicketSystemPasswordsMutationVariables>;
 export type ImportTicketSystemPasswordsMutationMutationResult = Apollo.MutationResult<ImportTicketSystemPasswordsMutation>;
 export type ImportTicketSystemPasswordsMutationMutationOptions = Apollo.BaseMutationOptions<ImportTicketSystemPasswordsMutation, ImportTicketSystemPasswordsMutationVariables>;
+export const UpdateTicketAttendedDocument = gql`
+    mutation UpdateTicketAttended($input: UpdateTicketAttendedMutationInput!) {
+  updateTicketAttended(input: $input) {
+    ticket {
+      occurrenceTime
+      eventName
+      venueName
+      validity
+      attended
+      occurrenceArrivalStatus {
+        enrolmentCount
+        attendedEnrolmentCount
+      }
+    }
+  }
+}
+    `;
+export type UpdateTicketAttendedMutationFn = Apollo.MutationFunction<UpdateTicketAttendedMutation, UpdateTicketAttendedMutationVariables>;
+export type UpdateTicketAttendedMutationResult = Apollo.MutationResult<UpdateTicketAttendedMutation>;
+export type UpdateTicketAttendedMutationOptions = Apollo.BaseMutationOptions<UpdateTicketAttendedMutation, UpdateTicketAttendedMutationVariables>;
 export const VerifyTicketDocument = gql`
     query VerifyTicket($referenceId: String!) {
   verifyTicket(referenceId: $referenceId) {
@@ -3030,6 +3096,11 @@ export const VerifyTicketDocument = gql`
     eventName
     venueName
     validity
+    attended
+    occurrenceArrivalStatus {
+      enrolmentCount
+      attendedEnrolmentCount
+    }
   }
 }
     `;

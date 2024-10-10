@@ -1,6 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
-import type { Theme } from '@mui/material';
+import {
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  Checkbox,
+  type Theme,
+} from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useParams } from 'react-router';
@@ -12,6 +18,7 @@ import { ApolloProvider } from '@apollo/client';
 import unauthenticatedClient from '../../api/apolloClient/unauthenticatedClient';
 import useVerifyTicketQuery from './useVerifyTicketQuery';
 import OccurrenceCard from './OccurrenceCard';
+import useUpdateTicketAttendedMutation from './useUpdateTicketAttendedMutation';
 
 const containerStyles = {
   display: 'flex',
@@ -31,6 +38,17 @@ const useStyles = makeStyles((theme) => ({
 
     backgroundColor: theme.palette.grey[200],
   },
+  formControl: {
+    margin: theme.spacing(1),
+    marginTop: theme.spacing(3),
+  },
+  arrivalStatus: {
+    color: theme.palette.grey[600],
+    display: 'block',
+    textAlign: 'center',
+    fontStyle: 'italic',
+    fontWeight: 'lighter',
+  },
 }));
 
 type Params = {
@@ -41,16 +59,29 @@ const TicketValidationPage = () => {
   const t = useTranslate();
   const styles = useStyles();
   const { cryptographicallySignedCode } = useParams<Params>();
-  const { data, error, loading } = useVerifyTicketQuery({
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    referenceId: cryptographicallySignedCode!,
+  const { data, error, loading, refetch } = useVerifyTicketQuery({
+    referenceId: cryptographicallySignedCode ?? '',
   });
+  const [updateAttended] = useUpdateTicketAttendedMutation({
+    sideEffect: () => {
+      refetch({ referenceId: cryptographicallySignedCode ?? '' });
+    },
+  });
+
   const {
-    validity: isValid,
-    eventName,
-    venueName,
+    validity: isValid = false,
+    eventName = '',
+    venueName = '',
     occurrenceTime,
+    attended = null,
+    occurrenceArrivalStatus,
   } = data?.verifyTicket ?? {};
+
+  const { enrolmentCount, attendedEnrolmentCount } =
+    occurrenceArrivalStatus ?? {
+      enrolmentCount: '?',
+      attendedEnrolmentCount: '?',
+    };
 
   if (loading) {
     return <Loading />;
@@ -64,14 +95,52 @@ const TicketValidationPage = () => {
     );
   }
 
+  const handleAttended = (event: React.ChangeEvent<HTMLInputElement>) => {
+    updateAttended({
+      variables: {
+        input: {
+          referenceId: cryptographicallySignedCode ?? '',
+          attended: event.target.checked,
+        },
+      },
+    });
+  };
+
   return (
     <div className={styles.container}>
       <ValidityIndicator isValid={isValid} />
       <OccurrenceCard
         eventName={eventName}
-        venueName={venueName}
+        venueName={venueName || ''}
         occurrenceTime={occurrenceTime}
       />
+      {isValid && (
+        <div>
+          <div className={styles.formControl}>
+            <FormControl component="fieldset" variant="standard">
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={handleAttended}
+                      checked={attended ?? false}
+                    />
+                  }
+                  label={t(
+                    'ticketValidation.updateTicketAttended.switchButton.label'
+                  )}
+                />
+              </FormGroup>
+            </FormControl>
+          </div>
+          <div className={styles.arrivalStatus}>
+            {t('ticketValidation.arrivalStatus.label', {
+              attendedEnrolmentCount,
+              enrolmentCount,
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
