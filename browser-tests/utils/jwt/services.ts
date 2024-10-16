@@ -15,7 +15,7 @@ async function fetchMyAdminProfile(apiToken: string) {
           'content-type': 'application/json',
         }),
         // eslint-disable-next-line max-len
-        body: '{"operationName":"MyAdminProfile","variables":{},"query":"query MyAdminProfile {\\n  myAdminProfile {\\n    id\\n    projects {\\n      edges {\\n        node {\\n          id\\n          year\\n          name\\n          myPermissions {\\n            publish\\n            manageEventGroups\\n            __typename\\n          }\\n          __typename\\n        }\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n}"}',
+        body: '{"operationName":"MyAdminProfile","variables":{},"query":"query MyAdminProfile {\\n  myAdminProfile {\\n    id\\n    projects {\\n      edges {\\n        node {\\n          id\\n          year\\n          name\\n          myPermissions {\\n            publish\\n            manageEventGroups\\n            canSendToAllInProject\\n            __typename\\n          }\\n          __typename\\n        }\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n}"}',
         method: 'POST',
       }
     );

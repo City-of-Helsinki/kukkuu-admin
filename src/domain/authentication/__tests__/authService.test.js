@@ -29,6 +29,7 @@ describe('authService', () => {
                 myPermissions: {
                   publish: true,
                   manageEventGroups: true,
+                  canSendToAllInProject: true,
                 },
               },
             },

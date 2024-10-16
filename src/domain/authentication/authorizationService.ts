@@ -54,6 +54,8 @@ export class AuthorizationService {
     this.canPublishWithinProject = this.canPublishWithinProject.bind(this);
     this.canManageEventGroupsWithinProject =
       this.canManageEventGroupsWithinProject.bind(this);
+    this.canSendMessagesToAllRecipientsWithinProject =
+      this.canSendMessagesToAllRecipientsWithinProject.bind(this);
   }
 
   private get permissionStorage(): null | PermissionStorage {
@@ -99,9 +101,7 @@ export class AuthorizationService {
     if (!projectId) {
       return null;
     }
-
     const projectPermissions = this.getProjectPermissions(projectId);
-
     return projectPermissions.includes('publish');
   }
 
@@ -109,10 +109,16 @@ export class AuthorizationService {
     if (!projectId) {
       return null;
     }
-
     const projectPermissions = this.getProjectPermissions(projectId);
-
     return projectPermissions.includes('manageEventGroups');
+  }
+
+  canSendMessagesToAllRecipientsWithinProject(projectId?: string) {
+    if (!projectId) {
+      return null;
+    }
+    const projectPermissions = this.getProjectPermissions(projectId);
+    return projectPermissions.includes('canSendToAllInProject');
   }
 
   private getProjectPermissions(projectId: string) {

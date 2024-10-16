@@ -1,4 +1,4 @@
-import { within } from '@testing-library/testcafe';
+import { within, screen } from '@testing-library/testcafe';
 import { RequestMock } from 'testcafe';
 
 import { routes } from './pages/routes';
@@ -25,6 +25,7 @@ function buildTestMessage(protocol = '') {
   const protocolLabel = protocol ? ` (${protocol})` : '';
 
   return {
+    recipientSelection: 'Kaikki',
     subject: `Browser test message ${new Date().toJSON()}${protocolLabel}`,
     bodyText: `Test body text ${new Date().toJSON()}${protocolLabel}`,
   };
@@ -36,6 +37,8 @@ async function addMessage(t: TestController) {
 
   // Fill in subject and body fields, then submit the form
   await t
+    .click(messagesCreatePage.recipientSelectionInput)
+    .click(screen.findByText(t.ctx.message.recipientSelection))
     .typeText(messagesCreatePage.subjectInput, t.ctx.message.subject)
     .typeText(messagesCreatePage.bodyTextInput, t.ctx.message.bodyText)
     .click(messagesCreatePage.submitCreateMessageForm);
@@ -285,6 +288,8 @@ test('As an admin I should be able to send SMS messages', async (t) => {
   // eslint-disable-next-line no-console
   console.debug('Submitting form and sending the message.');
   await t
+    .click(messagesCreatePage.recipientSelectionInput)
+    .click(screen.findByText(t.ctx.message.recipientSelection))
     .typeText(messagesCreatePage.bodyTextInput, t.ctx.sms.bodyText)
     .click(messagesCreatePage.submitAndSendMessage);
 
