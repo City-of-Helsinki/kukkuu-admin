@@ -13,6 +13,7 @@ export const myAdminProfileQuery = gql`
             myPermissions {
               publish
               manageEventGroups
+              canSendToAllInProject
             }
           }
         }

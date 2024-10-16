@@ -80,6 +80,7 @@ export type AddMessageMutationInput = {
   occurrenceIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   projectId: Scalars['ID']['input'];
   protocol: ProtocolType;
+  /** Set the scope for message recipients. The 'ALL' is valid only when a user has a specific permission. */
   recipientSelection: RecipientSelectionEnum;
   /** Sends the message directly after the save */
   sendDirectly?: InputMaybe<Scalars['Boolean']['input']>;
@@ -126,7 +127,7 @@ export type AdminNode = Node & {
   /** The ID of the object */
   id: Scalars['ID']['output'];
   projects: Maybe<ProjectNodeConnection>;
-  /** Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only. */
+  /** Vaaditaan. Enintään 150 merkkiä. Vain kirjaimet, numerot ja @/./+/-/_ ovat sallittuja. */
   username: Scalars['String']['output'];
 };
 
@@ -842,11 +843,11 @@ export type LanguageTranslationType = {
 
 /** An enumeration. */
 export enum LanguagesLanguageTranslationLanguageCodeChoices {
-  /** English */
+  /** englanti */
   En = 'EN',
-  /** Finnish */
+  /** suomi */
   Fi = 'FI',
-  /** Swedish */
+  /** ruotsi */
   Sv = 'SV'
 }
 
@@ -948,7 +949,7 @@ export type MessageTranslationsInput = {
 
 /** An enumeration. */
 export enum MessagingMessageProtocolChoices {
-  /** Email */
+  /** Sähköposti */
   Email = 'EMAIL',
   /** SMS */
   Sms = 'SMS'
@@ -956,11 +957,11 @@ export enum MessagingMessageProtocolChoices {
 
 /** An enumeration. */
 export enum MessagingMessageTranslationLanguageCodeChoices {
-  /** English */
+  /** englanti */
   En = 'EN',
-  /** Finnish */
+  /** suomi */
   Fi = 'FI',
-  /** Swedish */
+  /** ruotsi */
   Sv = 'SV'
 }
 
@@ -1347,6 +1348,7 @@ export type ProjectNodeEdge = {
 
 export type ProjectPermissionsType = {
   __typename?: 'ProjectPermissionsType';
+  canSendToAllInProject: Maybe<Scalars['Boolean']['output']>;
   manageEventGroups: Maybe<Scalars['Boolean']['output']>;
   publish: Maybe<Scalars['Boolean']['output']>;
 };
@@ -1853,6 +1855,7 @@ export type UpdateMessageMutationInput = {
   occurrenceIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   projectId?: InputMaybe<Scalars['ID']['input']>;
   protocol?: InputMaybe<ProtocolType>;
+  /** Set the scope for message recipients. The 'ALL' is valid only when a user has a specific permission. */
   recipientSelection?: InputMaybe<RecipientSelectionEnum>;
   translations?: InputMaybe<Array<InputMaybe<MessageTranslationsInput>>>;
 };
@@ -2168,7 +2171,7 @@ export type SendMessageMutationVariables = Exact<{
 
 export type SendMessageMutation = { __typename?: 'Mutation', sendMessage: { __typename?: 'SendMessageMutationPayload', message: { __typename?: 'MessageNode', id: string } | null } | null };
 
-export type MessageFragment = { __typename?: 'MessageNode', id: string, subject: string | null, bodyText: string | null, recipientSelection: RecipientSelectionEnum | null, recipientCount: number | null, sentAt: any | null, protocol: MessagingMessageProtocolChoices, event: { __typename?: 'EventNode', id: string, name: string | null } | null, translations: Array<{ __typename?: 'MessageTranslationType', languageCode: MessagingMessageTranslationLanguageCodeChoices, subject: string, bodyText: string }>, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, time: any } | null } | null> } };
+export type MessageFragment = { __typename?: 'MessageNode', id: string, subject: string | null, bodyText: string | null, recipientSelection: RecipientSelectionEnum | null, recipientCount: number | null, sentAt: any | null, protocol: MessagingMessageProtocolChoices, project: { __typename?: 'ProjectNode', id: string, year: number }, event: { __typename?: 'EventNode', id: string, name: string | null } | null, translations: Array<{ __typename?: 'MessageTranslationType', languageCode: MessagingMessageTranslationLanguageCodeChoices, subject: string, bodyText: string }>, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, time: any } | null } | null> } };
 
 export type MessagesQueryVariables = Exact<{
   projectId: InputMaybe<Scalars['ID']['input']>;
@@ -2178,14 +2181,14 @@ export type MessagesQueryVariables = Exact<{
 }>;
 
 
-export type MessagesQuery = { __typename?: 'Query', messages: { __typename?: 'MessageNodeConnection', count: number, edges: Array<{ __typename?: 'MessageNodeEdge', node: { __typename?: 'MessageNode', id: string, subject: string | null, bodyText: string | null, recipientSelection: RecipientSelectionEnum | null, recipientCount: number | null, sentAt: any | null, protocol: MessagingMessageProtocolChoices, event: { __typename?: 'EventNode', id: string, name: string | null } | null, translations: Array<{ __typename?: 'MessageTranslationType', languageCode: MessagingMessageTranslationLanguageCodeChoices, subject: string, bodyText: string }>, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, time: any } | null } | null> } } | null } | null> } | null };
+export type MessagesQuery = { __typename?: 'Query', messages: { __typename?: 'MessageNodeConnection', count: number, edges: Array<{ __typename?: 'MessageNodeEdge', node: { __typename?: 'MessageNode', id: string, subject: string | null, bodyText: string | null, recipientSelection: RecipientSelectionEnum | null, recipientCount: number | null, sentAt: any | null, protocol: MessagingMessageProtocolChoices, project: { __typename?: 'ProjectNode', id: string, year: number }, event: { __typename?: 'EventNode', id: string, name: string | null } | null, translations: Array<{ __typename?: 'MessageTranslationType', languageCode: MessagingMessageTranslationLanguageCodeChoices, subject: string, bodyText: string }>, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, time: any } | null } | null> } } | null } | null> } | null };
 
 export type MessageQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type MessageQuery = { __typename?: 'Query', message: { __typename?: 'MessageNode', id: string, subject: string | null, bodyText: string | null, recipientSelection: RecipientSelectionEnum | null, recipientCount: number | null, sentAt: any | null, protocol: MessagingMessageProtocolChoices, event: { __typename?: 'EventNode', id: string, name: string | null } | null, translations: Array<{ __typename?: 'MessageTranslationType', languageCode: MessagingMessageTranslationLanguageCodeChoices, subject: string, bodyText: string }>, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, time: any } | null } | null> } } | null };
+export type MessageQuery = { __typename?: 'Query', message: { __typename?: 'MessageNode', id: string, subject: string | null, bodyText: string | null, recipientSelection: RecipientSelectionEnum | null, recipientCount: number | null, sentAt: any | null, protocol: MessagingMessageProtocolChoices, project: { __typename?: 'ProjectNode', id: string, year: number }, event: { __typename?: 'EventNode', id: string, name: string | null } | null, translations: Array<{ __typename?: 'MessageTranslationType', languageCode: MessagingMessageTranslationLanguageCodeChoices, subject: string, bodyText: string }>, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, time: any } | null } | null> } } | null };
 
 export type AddOccurrenceMutationVariables = Exact<{
   input: AddOccurrenceMutationInput;
@@ -2233,7 +2236,7 @@ export type OccurrenceQuery = { __typename?: 'Query', occurrence: { __typename?:
 export type MyAdminProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MyAdminProfileQuery = { __typename?: 'Query', myAdminProfile: { __typename?: 'AdminNode', id: string, projects: { __typename?: 'ProjectNodeConnection', edges: Array<{ __typename?: 'ProjectNodeEdge', node: { __typename?: 'ProjectNode', id: string, year: number, name: string | null, myPermissions: { __typename?: 'ProjectPermissionsType', publish: boolean | null, manageEventGroups: boolean | null } | null } | null } | null> } | null } | null };
+export type MyAdminProfileQuery = { __typename?: 'Query', myAdminProfile: { __typename?: 'AdminNode', id: string, projects: { __typename?: 'ProjectNodeConnection', edges: Array<{ __typename?: 'ProjectNodeEdge', node: { __typename?: 'ProjectNode', id: string, year: number, name: string | null, myPermissions: { __typename?: 'ProjectPermissionsType', publish: boolean | null, manageEventGroups: boolean | null, canSendToAllInProject: boolean | null } | null } | null } | null> } | null } | null };
 
 export type ImportTicketSystemPasswordsMutationVariables = Exact<{
   input: ImportTicketSystemPasswordsMutationInput;
@@ -2365,6 +2368,10 @@ export const MessageFragmentDoc = gql`
   recipientCount
   sentAt
   protocol
+  project {
+    id
+    year
+  }
   event {
     id
     name
@@ -3047,6 +3054,7 @@ export const MyAdminProfileDocument = gql`
           myPermissions {
             publish
             manageEventGroups
+            canSendToAllInProject
           }
         }
       }

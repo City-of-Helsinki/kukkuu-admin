@@ -289,6 +289,11 @@
       }
     },
     "fields": {
+      "project": {
+        "year": {
+          "label": "Vuosiryhmä"
+        }
+      },
       "recipientSelection": {
         "choices": {
           "ALL": {
@@ -307,7 +312,8 @@
             "label": "Ilmoituksen tilanneet"
           }
         },
-        "label": "Vastaanottajat"
+        "label": "Vastaanottajat",
+        "required": "Vastaanottajan valitseminen on pakollista."
       },
       "bodyText": {
         "label": "Viestin teksti",

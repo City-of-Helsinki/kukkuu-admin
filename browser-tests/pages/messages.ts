@@ -10,6 +10,7 @@ export const messagesListPage = {
 };
 
 export const messagesCreatePage = {
+  recipientSelectionInput: screen.getByLabelText('Vastaanottajat *'),
   title: screen.getByText('Uusi sähköpostiviesti'),
   subjectInput: screen.getByLabelText('Viestin otsikko *'),
   bodyTextInput: screen.getByLabelText('Viestin teksti *'),

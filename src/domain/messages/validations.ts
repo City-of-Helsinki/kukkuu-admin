@@ -11,18 +11,22 @@ export const validateBodyText = required();
 export const validateCapacityPerOccurrence = [minValue(0), required()];
 
 export const validateRecipientSelection = [
-  choices(recipientSelectionChoices.map((choice) => choice.id)),
+  required('messages.fields.recipientSelection.required'),
+  choices(
+    recipientSelectionChoices.map((choice) => choice.id),
+    'messages.fields.recipientSelection.required'
+  ),
 ];
 
 export const getEmailMessagesTranslatedFieldsSchema = (lang: Language) =>
   object({
     bodyText:
       lang === Language.Fi
-        ? string().required('message.translations.FI.subject.required')
+        ? string().required('message.translations.FI.bodyText.required')
         : string(),
     subject:
       lang === Language.Fi
-        ? string().required('message.translations.FI.bodyText.required')
+        ? string().required('message.translations.FI.subject.required')
         : string(),
   });
 
@@ -35,6 +39,9 @@ export const getSmsMessagesTranslatedFieldsSchema = (lang: Language) =>
   });
 
 export const emailMessageSchema = object({
+  recipientSelection: string().required(
+    'messages.fields.recipientSelection.required'
+  ),
   translations: object({
     [Language.Fi]: getEmailMessagesTranslatedFieldsSchema(Language.Fi),
     [Language.Sv]: getEmailMessagesTranslatedFieldsSchema(Language.Sv),
@@ -43,6 +50,9 @@ export const emailMessageSchema = object({
 });
 
 export const smsMessageSchema = object({
+  recipientSelection: string().required(
+    'messages.fields.recipientSelection.required'
+  ),
   translations: object({
     [Language.Fi]: getSmsMessagesTranslatedFieldsSchema(Language.Fi),
     [Language.Sv]: getSmsMessagesTranslatedFieldsSchema(Language.Sv),

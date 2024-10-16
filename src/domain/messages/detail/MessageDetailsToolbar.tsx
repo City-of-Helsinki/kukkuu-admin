@@ -6,13 +6,19 @@ import {
   TopToolbar,
   useResourceContext,
   useRecordContext,
+  usePermissions,
 } from 'react-admin';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 
 import { toDateTimeString } from '../../../common/utils';
 import MessageSendButton from './MessageSendButton';
-import type { MessageNode } from '../../api/generatedTypes/graphql';
+import {
+  RecipientSelectionEnum,
+  type MessageNode,
+} from '../../api/generatedTypes/graphql';
+import type { Permissions } from '../../authentication/authProvider';
+import projectService from '../../projects/projectService';
 
 const useMessageDetailsToolbarStyles = makeStyles((theme) => ({
   wrapper: {
@@ -30,13 +36,44 @@ const useMessageDetailsToolbarStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * If the message is set to be sent to "all" recipients and user doesn't
+ * have permissions to send to "all", the Message editing should be prevented.
+ * Also, the message must be for the current project that is active in
+ * the React-Admin UI.
+ */
+const useResolveEditPermission = () => {
+  const record = useRecordContext<MessageNode>();
+  const projectId = projectService.projectId ?? '';
+  const isMessageOfCurrentProject = Boolean(projectId === record?.project?.id);
+  const { permissions, isLoading } = usePermissions<Permissions>();
+  const canSendMessagesToAllRecipientsWithinProject = Boolean(
+    permissions?.canSendMessagesToAllRecipientsWithinProject(projectId)
+  );
+  const rejectIfForAll = Boolean(
+    record?.recipientSelection?.toUpperCase() === RecipientSelectionEnum.All &&
+      !canSendMessagesToAllRecipientsWithinProject
+  );
+  // Record (message) available,
+  // the message is for current active project and
+  // if it is for "all" recipients, user must have permissions to send for "all".
+  const hasEditPermission =
+    Boolean(record) && isMessageOfCurrentProject && !rejectIfForAll;
+
+  return {
+    hasEditPermission,
+    isLoading,
+  };
+};
+
 const MessageDetailToolbar = () => {
   const record = useRecordContext<MessageNode>();
   const resource = useResourceContext();
   const basePath = `/${resource}`;
   const classes = useMessageDetailsToolbarStyles();
   const t = useTranslate();
-
+  const { hasEditPermission, isLoading: isLoadingPermissions } =
+    useResolveEditPermission();
   const isSent = Boolean(record?.sentAt);
 
   if (isSent) {
@@ -58,13 +95,18 @@ const MessageDetailToolbar = () => {
     );
   }
 
+  // Don't render a toolbar with edit actions,
+  // if permissions loading is still ongoing or user does not have
+  // edit permissions for current record.
+  if (!record || isLoadingPermissions || !hasEditPermission) {
+    return null;
+  }
+
   return (
     <TopToolbar>
-      {record && <EditButton record={record} />}
-      {record && <DeleteButton mutationMode="pessimistic" record={record} />}
-      {record && basePath && (
-        <MessageSendButton className={classes.sendButton} />
-      )}
+      <EditButton record={record} />
+      <DeleteButton mutationMode="pessimistic" record={record} />
+      {basePath && <MessageSendButton className={classes.sendButton} />}
     </TopToolbar>
   );
 };

@@ -289,6 +289,11 @@
       }
     },
     "fields": {
+      "project": {
+        "year": {
+          "label": "Year group"
+        }
+      },
       "recipientSelection": {
         "choices": {
           "ALL": {
@@ -307,7 +312,8 @@
             "label": "Subscribed to free spot message"
           }
         },
-        "label": "Recipients"
+        "label": "Recipients",
+        "required": "The recipient selection is required"
       },
       "bodyText": {
         "label": "Message text",

@@ -8,6 +8,7 @@ import {
   FormDataConsumer,
   useTranslate,
   useRecordContext,
+  usePermissions,
 } from 'react-admin';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
@@ -24,16 +25,17 @@ import {
   emailMessageSchema,
 } from '../validations';
 import {
-  recipientSelectionChoices,
+  getRecipientSelectionChoicesByPermissions,
   recipientsWithEventSelection,
 } from '../choices';
 import TranslatableProvider from '../../../common/providers/TranslatableProvider';
 import TranslatableContext from '../../../common/contexts/TranslatableContext';
 import { ProtocolType } from '../../api/generatedTypes/graphql';
+import type { Permissions } from '../../authentication/authProvider';
+import projectService from '../../projects/projectService';
 
 const CustomOnChange = ({ children, onChange, ...rest }: any) => {
   const form = useFormContext();
-
   return React.cloneElement(children, {
     ...rest,
     onChange: (e: ChangeEvent<HTMLInputElement>) => onChange(e, form),
@@ -85,7 +87,12 @@ type Props = Omit<SimpleFormProps, 'children'> & {
 
 const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
   const record = useRecordContext();
-
+  const { permissions, isLoading: isLoadingPermissions } =
+    usePermissions<Permissions>();
+  const projectId = projectService.projectId ?? '';
+  const canSendMessagesToAllRecipientsWithinProject = Boolean(
+    permissions?.canSendMessagesToAllRecipientsWithinProject(projectId)
+  );
   // When editing, the record exists and the protocol is already set.
   if (record?.protocol) {
     protocol = record.protocol;
@@ -93,6 +100,13 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
 
   const t = useTranslate();
   const classes = useStyles();
+
+  // Filter the list of recipient choices by permissions
+  // NOTE: use `getFilteredRecipientSelectionChoicesByPermissions` if
+  // the values are wanted to be hidden instead of disabled.
+  const recipientSelectionChoices = getRecipientSelectionChoicesByPermissions({
+    hasPermissionToSendToAll: canSendMessagesToAllRecipientsWithinProject,
+  });
 
   const handleRecipientSelectionChange = (
     event: ChangeEvent<HTMLInputElement>,
@@ -122,6 +136,10 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
     form.setValue(name, value);
   };
 
+  if (isLoadingPermissions) {
+    return null;
+  }
+
   return (
     <SimpleForm
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -147,7 +165,7 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
                   label="messages.fields.recipientSelection.label"
                   choices={recipientSelectionChoices}
                   validate={validateRecipientSelection}
-                  defaultValue="ALL"
+                  defaultValue=""
                   fullWidth
                   formClassName={classes.recipientSelection}
                 />

@@ -9,6 +9,10 @@ const MessageFragment = gql`
     recipientCount
     sentAt
     protocol
+    project {
+      id
+      year
+    }
     event {
       id
       name

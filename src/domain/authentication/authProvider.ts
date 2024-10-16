@@ -7,6 +7,9 @@ export type Permissions = {
   role: null | 'admin' | 'none';
   canPublishWithinProject: (projectId?: string) => boolean | null;
   canManageEventGroupsWithinProject: (projectId?: string) => boolean | null;
+  canSendMessagesToAllRecipientsWithinProject: (
+    projectId?: string
+  ) => boolean | null;
 };
 
 const authProvider: AuthProvider = {
@@ -62,6 +65,8 @@ const authProvider: AuthProvider = {
       canPublishWithinProject: authorizationService.canPublishWithinProject,
       canManageEventGroupsWithinProject:
         authorizationService.canManageEventGroupsWithinProject,
+      canSendMessagesToAllRecipientsWithinProject:
+        authorizationService.canSendMessagesToAllRecipientsWithinProject,
     });
   },
 };
