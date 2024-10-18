@@ -47,11 +47,27 @@ const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
   }
 
   if (hasInternalTicketSystem(data)) {
-    delete data.ticketSystem.url;
-    delete data.ticketSystem.endTime;
+    try {
+      delete data.ticketSystem.url;
+      delete data.ticketSystem.endTime;
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(
+        'Could not delete ticketSystem data from internal event',
+        e
+      );
+    }
   } else {
-    delete data.capacityPerOccurrence;
-    delete data.duration;
+    try {
+      delete data.capacityPerOccurrence;
+      delete data.duration;
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(
+        'Could not delete capacity and duration data from external event',
+        e
+      );
+    }
   }
 
   const response = await mutationHandler({
