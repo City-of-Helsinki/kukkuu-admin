@@ -35,7 +35,7 @@ export function generateTestJwt({
   user,
   prefix,
   issuer = 'https://kukkuu-admin-ui.test.hel.ninja',
-  audience = 'kukkuu-api-test',
+  audience = BrowserTestJWTConfig.oidcApiClientId,
   type = 'Bearer',
   authTime = new Date(),
 }: {
