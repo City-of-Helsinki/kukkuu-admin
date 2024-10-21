@@ -29,6 +29,9 @@ export const addOccurrenceMutation = gql`
           ... on LippupisteOccurrenceTicketSystem {
             url
           }
+          ... on TixlyOccurrenceTicketSystem {
+            url
+          }
         }
       }
     }
@@ -85,6 +88,9 @@ export const updateOccurrenceMutation = gql`
             url
           }
           ... on LippupisteOccurrenceTicketSystem {
+            url
+          }
+          ... on TixlyOccurrenceTicketSystem {
             url
           }
         }

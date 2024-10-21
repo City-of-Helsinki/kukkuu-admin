@@ -28,4 +28,8 @@ export const ticketSystemChoices = [
     id: TicketSystem.Lippupiste,
     name: 'events.fields.ticketSystem.choices.LIPPUPISTE.label',
   },
+  {
+    id: TicketSystem.Tixly,
+    name: 'events.fields.ticketSystem.choices.TIXLY.label',
+  },
 ];
