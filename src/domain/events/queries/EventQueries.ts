@@ -36,6 +36,10 @@ export const eventsQuery = gql`
               url
               endTime
             }
+            ... on TixlyEventTicketSystem {
+              url
+              endTime
+            }
           }
         }
       }
@@ -87,6 +91,12 @@ export const eventQuery = gql`
           endTime
         }
         ... on LippupisteEventTicketSystem {
+          usedPasswordCount
+          freePasswordCount
+          url
+          endTime
+        }
+        ... on TixlyEventTicketSystem {
           usedPasswordCount
           freePasswordCount
           url
