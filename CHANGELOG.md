@@ -1,5 +1,19 @@
 # Change Log
 
+## [3.5.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.4.0...kukkuu-admin-v3.5.0) (2024-10-28)
+
+
+### Features
+
+* Add tixly ticket system ([0ea21cf](https://github.com/City-of-Helsinki/kukkuu-admin/commit/0ea21cfaa92bd431cb562d42d48204182a4eea78))
+* Arrival status and mark as attended on ticket verification page ([1ab6439](https://github.com/City-of-Helsinki/kukkuu-admin/commit/1ab643900b5e27dd1516badd2e8f4c3d402ae5ab))
+* Messages can be sent to all only with special permission ([ed29312](https://github.com/City-of-Helsinki/kukkuu-admin/commit/ed29312fd6920e371bace269159f89002ff50ab5))
+
+
+### Bug Fixes
+
+* Event api internal enrolment handling ([99b260f](https://github.com/City-of-Helsinki/kukkuu-admin/commit/99b260fd3857c00ef81502c4401b525f9414a809))
+
 ## [3.4.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.3.1...kukkuu-admin-v3.4.0) (2024-09-18)
 
 
