@@ -154,8 +154,16 @@ class AppConfig {
    * */
   static get oidcSessionPollerIntervalInMs(): number {
     return (
-      Number(process.env.REACT_APP_OIDC_SESSION_POLLING_INTERVAL_MS) ?? 60000
+      Number(process.env.REACT_APP_OIDC_SESSION_POLLING_INTERVAL_MS) || 60000
     );
+  }
+
+  /**
+   * Read env variable `REACT_APP_IDLE_TIMEOUT_IN_MS`.
+   * Defaults to 60 minutes.
+   * */
+  static get userIdleTimeoutInMs(): number {
+    return Number(process.env.REACT_APP_IDLE_TIMEOUT_IN_MS) || 3_600_000;
   }
 }
 
