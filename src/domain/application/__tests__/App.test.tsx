@@ -1,5 +1,7 @@
+import { MessageChannel } from 'worker_threads';
+
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, cleanup } from '@testing-library/react';
 
 import App from '../App';
 
@@ -7,8 +9,10 @@ import App from '../App';
 let console: any;
 
 beforeAll(() => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  global.MessageChannel = MessageChannel;
   console = global.console;
-
   global.console = {
     ...console,
     error: () => {
@@ -19,6 +23,7 @@ beforeAll(() => {
 
 afterAll(() => {
   global.console = console;
+  cleanup();
 });
 
 test('renders without crashing', () => {
