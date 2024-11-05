@@ -1,5 +1,12 @@
 # Change Log
 
+## [3.6.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.5.0...kukkuu-admin-v3.6.0) (2024-11-05)
+
+
+### Features
+
+* Idle user 60mins logout ([dd95daf](https://github.com/City-of-Helsinki/kukkuu-admin/commit/dd95daf0fae6a96f3f4b0527c33590355f2b117f))
+
 ## [3.5.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.4.0...kukkuu-admin-v3.5.0) (2024-10-28)
 
 
