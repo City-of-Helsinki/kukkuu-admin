@@ -20,7 +20,7 @@ beforeAll(() => {
   global.MessageChannel = MessageChannel;
   process.env = {
     ...originalEnv,
-    REACT_APP_IDLE_TIMEOUT_IN_MS: '3600000',
+    VITE_IDLE_TIMEOUT_IN_MS: '3600000',
   };
   jest.useFakeTimers();
 });
