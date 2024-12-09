@@ -11,7 +11,7 @@ exports[`renders without crashing 1`] = `
       >
         <button
           aria-label="Siirry sisältöön"
-          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall skip-nav-button css-1wrh1t5-MuiButtonBase-root-MuiButton-root-RaButton-root-RaSkipNavigationButton-root"
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary skip-nav-button css-1wrh1t5-MuiButtonBase-root-MuiButton-root-RaButton-root-RaSkipNavigationButton-root"
           tabindex="0"
           type="button"
         >
@@ -44,7 +44,7 @@ exports[`renders without crashing 1`] = `
                   viewBox="0 0 24 24"
                 >
                   <path
-                    d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+                    d="M3 18h18v-2H3zm0-5h18v-2H3zm0-7v2h18V6z"
                   />
                 </svg>
                 <span
@@ -56,7 +56,7 @@ exports[`renders without crashing 1`] = `
               >
                 Kulttuurin kummilapset admin-käyttöliittymä
                 <span
-                  class="uppercase"
+                  class="_uppercase_2b555f"
                 >
                    Testi
                 </span>
@@ -82,7 +82,7 @@ exports[`renders without crashing 1`] = `
                     viewBox="0 0 24 24"
                   >
                     <path
-                      d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"
+                      d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z"
                     />
                   </svg>
                   <span
@@ -109,7 +109,7 @@ exports[`renders without crashing 1`] = `
                     viewBox="0 0 24 24"
                   >
                     <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm0 14c-2.03 0-4.43-.82-6.14-2.88C7.55 15.8 9.68 15 12 15s4.45.8 6.14 2.12C16.43 19.18 14.03 20 12 20z"
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6m0 14c-2.03 0-4.43-.82-6.14-2.88C7.55 15.8 9.68 15 12 15s4.45.8 6.14 2.12C16.43 19.18 14.03 20 12 20"
                     />
                   </svg>
                   <span
@@ -123,7 +123,7 @@ exports[`renders without crashing 1`] = `
             class="RaLayout-contentWithSidebar"
           >
             <div
-              class="MuiDrawer-root MuiDrawer-docked RaSidebar-docked  css-9lo51-MuiDrawer-docked-RaSidebar-root"
+              class="MuiDrawer-root MuiDrawer-docked RaSidebar-docked css-9lo51-MuiDrawer-docked-RaSidebar-root"
             >
               <div
                 class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation0 MuiDrawer-paper RaSidebar-paper MuiDrawer-paperAnchorLeft RaSidebar-paperAnchorLeft MuiDrawer-paperAnchorDockedLeft RaSidebar-paperAnchorDockedLeft css-12i7wg6-MuiPaper-root-MuiDrawer-paper"
@@ -153,7 +153,7 @@ exports[`renders without crashing 1`] = `
                           viewBox="0 0 24 24"
                         >
                           <path
-                            d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"
+                            d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z"
                           />
                         </svg>
                       </div>
@@ -163,7 +163,7 @@ exports[`renders without crashing 1`] = `
                       />
                     </a>
                     <a
-                      class="MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters  css-d0o59q-MuiButtonBase-root-MuiMenuItem-root-RaMenuItemLink-root"
+                      class="MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters css-d0o59q-MuiButtonBase-root-MuiMenuItem-root-RaMenuItemLink-root"
                       href="/events-and-event-groups"
                       role="menuitem"
                       tabindex="0"
@@ -179,7 +179,7 @@ exports[`renders without crashing 1`] = `
                           viewBox="0 0 24 24"
                         >
                           <path
-                            d="M3 14h4v-4H3v4zm0 5h4v-4H3v4zM3 9h4V5H3v4zm5 5h13v-4H8v4zm0 5h13v-4H8v4zM8 5v4h13V5H8z"
+                            d="M3 14h4v-4H3zm0 5h4v-4H3zM3 9h4V5H3zm5 5h13v-4H8zm0 5h13v-4H8zM8 5v4h13V5z"
                           />
                         </svg>
                       </div>
@@ -189,7 +189,7 @@ exports[`renders without crashing 1`] = `
                       />
                     </a>
                     <a
-                      class="MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters  css-d0o59q-MuiButtonBase-root-MuiMenuItem-root-RaMenuItemLink-root"
+                      class="MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters css-d0o59q-MuiButtonBase-root-MuiMenuItem-root-RaMenuItemLink-root"
                       href="/venues"
                       role="menuitem"
                       tabindex="0"
@@ -205,7 +205,7 @@ exports[`renders without crashing 1`] = `
                           viewBox="0 0 24 24"
                         >
                           <path
-                            d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                            d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7m0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5"
                           />
                         </svg>
                       </div>
@@ -215,7 +215,7 @@ exports[`renders without crashing 1`] = `
                       />
                     </a>
                     <a
-                      class="MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters  css-d0o59q-MuiButtonBase-root-MuiMenuItem-root-RaMenuItemLink-root"
+                      class="MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters css-d0o59q-MuiButtonBase-root-MuiMenuItem-root-RaMenuItemLink-root"
                       href="/children"
                       role="menuitem"
                       tabindex="0"
@@ -241,7 +241,7 @@ exports[`renders without crashing 1`] = `
                             r="1.25"
                           />
                           <path
-                            d="M22.94 12.66c.04-.21.06-.43.06-.66s-.02-.45-.06-.66c-.25-1.51-1.36-2.74-2.81-3.17-.53-1.12-1.28-2.1-2.19-2.91C16.36 3.85 14.28 3 12 3s-4.36.85-5.94 2.26c-.92.81-1.67 1.8-2.19 2.91-1.45.43-2.56 1.65-2.81 3.17-.04.21-.06.43-.06.66s.02.45.06.66c.25 1.51 1.36 2.74 2.81 3.17.52 1.11 1.27 2.09 2.17 2.89C7.62 20.14 9.71 21 12 21s4.38-.86 5.97-2.28c.9-.8 1.65-1.79 2.17-2.89 1.44-.43 2.55-1.65 2.8-3.17zM19 14c-.1 0-.19-.02-.29-.03-.2.67-.49 1.29-.86 1.86C16.6 17.74 14.45 19 12 19s-4.6-1.26-5.85-3.17c-.37-.57-.66-1.19-.86-1.86-.1.01-.19.03-.29.03-1.1 0-2-.9-2-2s.9-2 2-2c.1 0 .19.02.29.03.2-.67.49-1.29.86-1.86C7.4 6.26 9.55 5 12 5s4.6 1.26 5.85 3.17c.37.57.66 1.19.86 1.86.1-.01.19-.03.29-.03 1.1 0 2 .9 2 2s-.9 2-2 2zM7.5 14c.76 1.77 2.49 3 4.5 3s3.74-1.23 4.5-3h-9z"
+                            d="M22.94 12.66c.04-.21.06-.43.06-.66s-.02-.45-.06-.66c-.25-1.51-1.36-2.74-2.81-3.17-.53-1.12-1.28-2.1-2.19-2.91C16.36 3.85 14.28 3 12 3s-4.36.85-5.94 2.26c-.92.81-1.67 1.8-2.19 2.91-1.45.43-2.56 1.65-2.81 3.17-.04.21-.06.43-.06.66s.02.45.06.66c.25 1.51 1.36 2.74 2.81 3.17.52 1.11 1.27 2.09 2.17 2.89C7.62 20.14 9.71 21 12 21s4.38-.86 5.97-2.28c.9-.8 1.65-1.79 2.17-2.89 1.44-.43 2.55-1.65 2.8-3.17M19 14c-.1 0-.19-.02-.29-.03-.2.67-.49 1.29-.86 1.86C16.6 17.74 14.45 19 12 19s-4.6-1.26-5.85-3.17c-.37-.57-.66-1.19-.86-1.86-.1.01-.19.03-.29.03-1.1 0-2-.9-2-2s.9-2 2-2c.1 0 .19.02.29.03.2-.67.49-1.29.86-1.86C7.4 6.26 9.55 5 12 5s4.6 1.26 5.85 3.17c.37.57.66 1.19.86 1.86.1-.01.19-.03.29-.03 1.1 0 2 .9 2 2s-.9 2-2 2M7.5 14c.76 1.77 2.49 3 4.5 3s3.74-1.23 4.5-3z"
                           />
                         </svg>
                       </div>
@@ -251,7 +251,7 @@ exports[`renders without crashing 1`] = `
                       />
                     </a>
                     <a
-                      class="MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters  css-d0o59q-MuiButtonBase-root-MuiMenuItem-root-RaMenuItemLink-root"
+                      class="MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters css-d0o59q-MuiButtonBase-root-MuiMenuItem-root-RaMenuItemLink-root"
                       href="/messages"
                       role="menuitem"
                       tabindex="0"
@@ -267,7 +267,7 @@ exports[`renders without crashing 1`] = `
                           viewBox="0 0 24 24"
                         >
                           <path
-                            d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"
+                            d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2zm-2 0-8 5-8-5zm0 12H4V8l8 5 8-5z"
                           />
                         </svg>
                       </div>

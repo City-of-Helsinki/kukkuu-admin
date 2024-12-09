@@ -31,7 +31,9 @@ const EventShowActions = () => {
   const classes = useStyles();
   const { permissions } = usePermissions<Permissions>();
 
-  const canPublish = permissions?.canPublishWithinProject(record?.project?.id);
+  const canPublish = Boolean(
+    permissions?.canPublishWithinProject?.(record?.project?.id)
+  );
 
   return (
     <TopToolbar>

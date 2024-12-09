@@ -15,7 +15,7 @@ describe('authorizationService', () => {
   let projectServiceSpy;
 
   beforeEach(() => {
-    dataProviderSpy = jest
+    dataProviderSpy = vi
       .spyOn(dataProvider, 'getMyAdminProfile')
       .mockResolvedValue({
         data: {
@@ -33,7 +33,7 @@ describe('authorizationService', () => {
           },
         },
       });
-    projectServiceSpy = jest
+    projectServiceSpy = vi
       .spyOn(projectService, 'setDefaultProjectId')
       .mockReturnValue();
   });
@@ -41,7 +41,7 @@ describe('authorizationService', () => {
   afterEach(() => {
     sessionStorage.clear();
     sessionStorage.setItem.mockClear();
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   describe('fetchRole', () => {
@@ -94,12 +94,12 @@ describe('authorizationService', () => {
 
       expect(JSON.parse(sessionStorage.getItem(PERMISSIONS)).projects)
         .toMatchInlineSnapshot(`
-        Object {
-          "123": Array [
-            "publish",
-          ],
-        }
-      `);
+          {
+            "123": [
+              "publish",
+            ],
+          }
+        `);
     });
   });
 

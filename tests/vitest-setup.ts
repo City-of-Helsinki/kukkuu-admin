@@ -4,14 +4,22 @@ require('dotenv').config({ path: './.env.test' });
 import { beforeAll, afterEach, afterAll, vi } from 'vitest';
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
+import 'vitest-localstorage-mock';
 
 afterEach(() => {
   cleanup();
 });
 
-beforeAll(() => {});
+beforeAll(() => {
+  vi.mock('react-admin', async (importOriginal: any) => {
+    const mod = await importOriginal();
+    return {
+      ...mod,
+    };
+  });
+});
 afterEach(() => {});
-// runs a cleanup after each test case (e.g. clearing jsdom)
+
 afterAll(() => {
   cleanup();
 });
