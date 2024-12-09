@@ -1,0 +1,941 @@
+<testExecutions version="1">
+  <file path="src/common/__tests__/utils.test.js">
+    <testCase name="common utils - sum - should add numbers together" duration="3" />
+    <testCase name="common utils - requireFinnishFields - should label all languages with an error when the field in question is missing in the Finnish language version" duration="0">
+      <skipped message="should label all languages with an error when the field in question is missing in the Finnish language version" />
+    </testCase>
+    <testCase name="common utils - requireFinnishFields - should return the error structure even when the field is valid" duration="0">
+      <skipped message="should return the error structure even when the field is valid" />
+    </testCase>
+    <testCase name="common utils - requireFinnishFields - should support multiple fields" duration="0">
+      <skipped message="should support multiple fields" />
+    </testCase>
+    <testCase name="common utils - date formatters - toDateTimeString should return a correctly formatted string" duration="31" />
+    <testCase name="common utils - date formatters - toShortDateTimeString should return a correctly formatted string" duration="3" />
+    <testCase name="common utils - date formatters - toDateString should return a correctly formatted string" duration="1" />
+    <testCase name="common utils - date formatters - toTimeString should return a correctly formatted string" duration="1" />
+  </file>
+  <file path="src/common/components/breadcrumbs/__tests__/Breadcrumbs.test.js">
+
+  </file>
+  <file path="src/common/components/confirmMutationButton/__tests__/ConfirmMutationButton.test.jsx">
+
+  </file>
+  <file path="src/common/components/localDataGrid/__tests__/LocalDataGrid.test.js">
+
+  </file>
+  <file path="src/domain/__tests__/config.test.js">
+    <testCase name="Config - provides node env" duration="3" />
+  </file>
+  <file path="src/domain/application/__tests__/App.test.tsx">
+    <testCase name="renders without crashing" duration="282">
+      <error message="Snapshot `renders without crashing 1` mismatched">
+        <![CDATA[Error: Snapshot `renders without crashing 1` mismatched
+    at createMismatchError (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/snapshot/dist/index.js:2072:17)
+    at SnapshotClient.assert (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/snapshot/dist/index.js:2173:13)
+    at Proxy.&lt;anonymous&gt; (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/vitest/dist/chunks/vi.DgezovHB.js:347:29)
+    at Proxy.methodWrapper (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/chai/chai.js:1610:25)
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/application/__tests__/App.test.tsx:31:21
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1056:17)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+  </file>
+  <file path="src/domain/authentication/__tests__/authProvider.test.js">
+    <testCase name="authProvider - login - should call authService with expected params" duration="11">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authProvider.test.js:14:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:953:10)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authProvider - logout - should logout using authService when user is authenticated according to authService" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authProvider.test.js:14:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:953:10)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authProvider - logout - should not logout when user is not authenticated according to authService" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authProvider.test.js:14:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:953:10)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authProvider - checkAuth - should resolve when user is authenticated and authorized" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authProvider.test.js:14:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:953:10)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authProvider - checkAuth - should reject when user is not authenticated according to authService" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authProvider.test.js:14:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:953:10)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authProvider - checkAuth - should redirect when the user is authenticated, authorized but not an admin" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authProvider.test.js:14:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:953:10)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authProvider - checkError - should resolve when tokens are present" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authProvider.test.js:14:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:953:10)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authProvider - checkError - should reject when required tokens are missing" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authProvider.test.js:14:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:953:10)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authProvider - getPermissions - should find permissions by using the authorizationService" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authProvider.test.js:14:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:953:10)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+  </file>
+  <file path="src/domain/authentication/__tests__/authService.test.js">
+
+  </file>
+  <file path="src/domain/authentication/__tests__/authorizationService.test.js">
+    <testCase name="authorizationService - fetchRole - should call dataProvider.getMyAdminProfile" duration="11">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authorizationService.test.js:18:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:953:10)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authorizationService - fetchRole - should call dataProvider.getMyAdminProfile" duration="11">
+      <error message="sessionStorage.setItem.mockClear is not a function">
+        <![CDATA[TypeError: sessionStorage.setItem.mockClear is not a function
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authorizationService.test.js:43:28
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:970:16)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1085:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authorizationService - fetchRole - should save admin role into session storage when getMyAdminProfile call works and the profile has projects" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authorizationService.test.js:18:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:953:10)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authorizationService - fetchRole - should save admin role into session storage when getMyAdminProfile call works and the profile has projects" duration="1">
+      <error message="sessionStorage.setItem.mockClear is not a function">
+        <![CDATA[TypeError: sessionStorage.setItem.mockClear is not a function
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authorizationService.test.js:43:28
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:970:16)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1085:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authorizationService - fetchRole - should save none role into session storage when getMyAdminProfile returns a profile that does not have projects" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authorizationService.test.js:18:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:953:10)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authorizationService - fetchRole - should save none role into session storage when getMyAdminProfile returns a profile that does not have projects" duration="1">
+      <error message="sessionStorage.setItem.mockClear is not a function">
+        <![CDATA[TypeError: sessionStorage.setItem.mockClear is not a function
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authorizationService.test.js:43:28
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:970:16)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1085:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authorizationService - fetchRole - should call projectService.projectServiceSpy" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authorizationService.test.js:18:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:953:10)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authorizationService - fetchRole - should call projectService.projectServiceSpy" duration="1">
+      <error message="sessionStorage.setItem.mockClear is not a function">
+        <![CDATA[TypeError: sessionStorage.setItem.mockClear is not a function
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authorizationService.test.js:43:28
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:970:16)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1085:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authorizationService - fetchRole - should set project permissions" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authorizationService.test.js:18:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:953:10)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authorizationService - fetchRole - should set project permissions" duration="1">
+      <error message="sessionStorage.setItem.mockClear is not a function">
+        <![CDATA[TypeError: sessionStorage.setItem.mockClear is not a function
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authorizationService.test.js:43:28
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:970:16)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1085:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authorizationService - isAuthorized - should return true when a role is stored session storage" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authorizationService.test.js:18:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:953:10)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authorizationService - isAuthorized - should return true when a role is stored session storage" duration="1">
+      <error message="sessionStorage.setItem.mockClear is not a function">
+        <![CDATA[TypeError: sessionStorage.setItem.mockClear is not a function
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authorizationService.test.js:43:28
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:970:16)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1085:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authorizationService - isAuthorized - should return false when there is no role stored session storage" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authorizationService.test.js:18:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:953:10)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authorizationService - isAuthorized - should return false when there is no role stored session storage" duration="1">
+      <error message="sessionStorage.setItem.mockClear is not a function">
+        <![CDATA[TypeError: sessionStorage.setItem.mockClear is not a function
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authorizationService.test.js:43:28
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:970:16)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1085:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authorizationService - getRole - should return current role in session storage" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authorizationService.test.js:18:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:953:10)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authorizationService - getRole - should return current role in session storage" duration="1">
+      <error message="sessionStorage.setItem.mockClear is not a function">
+        <![CDATA[TypeError: sessionStorage.setItem.mockClear is not a function
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authorizationService.test.js:43:28
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:970:16)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1085:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authorizationService - clear - should clear permissions from session storage" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authorizationService.test.js:18:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:953:10)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="authorizationService - clear - should clear permissions from session storage" duration="1">
+      <error message="sessionStorage.setItem.mockClear is not a function">
+        <![CDATA[TypeError: sessionStorage.setItem.mockClear is not a function
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/authentication/__tests__/authorizationService.test.js:43:28
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:970:16)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1085:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+  </file>
+  <file path="src/domain/authentication/__tests__/idleProvider.test.js">
+
+  </file>
+  <file path="src/domain/eventGroups/detail/__tests__/EventGroupsDetailActions.test.jsx">
+    <testCase name="&lt;EventGroupsDetailActions /&gt; - should show a create button" duration="155" />
+    <testCase name="&lt;EventGroupsDetailActions /&gt; - should show an edit button" duration="5">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/eventGroups/detail/__tests__/EventGroupsDetailActions.test.jsx:62:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1056:17)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runFiles (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1262:5)
+    at startTests (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1271:3)]]>
+      </error>
+    </testCase>
+    <testCase name="&lt;EventGroupsDetailActions /&gt; - should render a publish button when there is data and the user has publish permissions" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/eventGroups/detail/__tests__/EventGroupsDetailActions.test.jsx:84:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1056:17)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runFiles (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1262:5)
+    at startTests (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1271:3)]]>
+      </error>
+    </testCase>
+    <testCase name="&lt;EventGroupsDetailActions /&gt; - should hide publish button when the event group and its events are already published" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/eventGroups/detail/__tests__/EventGroupsDetailActions.test.jsx:117:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1056:17)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runFiles (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1262:5)
+    at startTests (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1271:3)]]>
+      </error>
+    </testCase>
+    <testCase name="&lt;EventGroupsDetailActions /&gt; - should render a republish button when there is a mix of unpublished and published event data" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/eventGroups/detail/__tests__/EventGroupsDetailActions.test.jsx:154:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1056:17)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runFiles (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1262:5)
+    at startTests (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1271:3)]]>
+      </error>
+    </testCase>
+  </file>
+  <file path="src/domain/eventGroups/detail/__tests__/EventReadyField.test.jsx">
+    <testCase name="&lt;EventReadyField /&gt; - should render ready when event is marked as ready but is not published yet" duration="90" />
+    <testCase name="&lt;EventReadyField /&gt; - should render ready when event is marked as ready and published" duration="20" />
+    <testCase name="&lt;EventReadyField /&gt; - should render not ready when event is not ready" duration="20" />
+  </file>
+  <file path="src/domain/events/__tests__/utils.test.js">
+    <testCase name="event utils - countCapacity - should return the capacity for an event" duration="3" />
+    <testCase name="event utils - countCapacity - should return the capacity for many events" duration="1" />
+    <testCase name="event utils - countCapacity - should return null if any event is missing a capacity" duration="1" />
+    <testCase name="event utils - countOccurrences - should return the count of occurrences for an event" duration="1" />
+    <testCase name="event utils - countOccurrences - should return the count of occurrences for many events" duration="0" />
+    <testCase name="event utils - countEnrollments - should return the count of enrollments for an event" duration="1" />
+    <testCase name="event utils - countEnrollments - should return the count of enrollments for many events" duration="0" />
+  </file>
+  <file path="src/domain/events/__tests__/validations.test.ts">
+    <testCase name="event field validations - validateUrl - should return undefined for a valid URL" duration="4" />
+    <testCase name="event field validations - validateUrl - should return the error for an invalid URL" duration="2" />
+    <testCase name="event field validations - validateUrl - should return the error for an invalid protocol" duration="1" />
+  </file>
+  <file path="src/domain/events/detail/__tests__/EventReadyToggle.test.jsx">
+    <testCase name="&lt;EventReadyToggle /&gt; - should use the value it finds from the record as a default value" duration="8">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/events/detail/__tests__/EventReadyToggle.test.jsx:43:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runFiles (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1262:5)
+    at startTests (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1271:3)]]>
+      </error>
+    </testCase>
+    <testCase name="&lt;EventReadyToggle /&gt; - when the user clicks it should instantly change states" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/events/detail/__tests__/EventReadyToggle.test.jsx:43:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runFiles (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1262:5)
+    at startTests (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1271:3)]]>
+      </error>
+    </testCase>
+    <testCase name="&lt;EventReadyToggle /&gt; - should use the result it receives in the response as soon as it is available" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/events/detail/__tests__/EventReadyToggle.test.jsx:43:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runFiles (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1262:5)
+    at startTests (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1271:3)]]>
+      </error>
+    </testCase>
+  </file>
+  <file path="src/domain/events/detail/__tests__/EventShowActions.test.jsx">
+    <testCase name="&lt;EventShowActions /&gt; - should render an edit button" duration="9">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/events/detail/__tests__/EventShowActions.test.jsx:37:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1056:17)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runFiles (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1262:5)
+    at startTests (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1271:3)]]>
+      </error>
+    </testCase>
+    <testCase name="&lt;EventShowActions /&gt; - when the user has publish permissions - should render event publish button" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/events/detail/__tests__/EventShowActions.test.jsx:55:7
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1056:17)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runFiles (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1262:5)]]>
+      </error>
+    </testCase>
+    <testCase name="&lt;EventShowActions /&gt; - when the event has an event group - should hide the event publish button" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at getWrapperWithEvent (/Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/events/detail/__tests__/EventShowActions.test.jsx:83:7)
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/events/detail/__tests__/EventShowActions.test.jsx:91:7
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1056:17)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="&lt;EventShowActions /&gt; - when the event has an event group - should show a button for setting the event as ready" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at getWrapperWithEvent (/Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/events/detail/__tests__/EventShowActions.test.jsx:83:7)
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/events/detail/__tests__/EventShowActions.test.jsx:101:7
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1056:17)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)]]>
+      </error>
+    </testCase>
+    <testCase name="&lt;EventShowActions /&gt; - when the event is published - the publish button should be hidden" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/events/detail/__tests__/EventShowActions.test.jsx:120:7
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1056:17)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runFiles (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1262:5)]]>
+      </error>
+    </testCase>
+    <testCase name="&lt;EventShowActions /&gt; - when the event is published - the set ready button should be hidden" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/events/detail/__tests__/EventShowActions.test.jsx:144:7
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1056:17)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runFiles (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1262:5)]]>
+      </error>
+    </testCase>
+  </file>
+  <file path="src/domain/messages/form/__tests__/MessageForm.test.jsx">
+    <testCase name="&lt;MessageForm /&gt; - should not show event select unless the user has chosen some other recipient count than all or invited" duration="0">
+      <skipped message="should not show event select unless the user has chosen some other recipient count than all or invited" />
+    </testCase>
+  </file>
+  <file path="src/domain/occurrences/__tests__/Occurrence.test.js">
+    <testCase name="Occurrence helper class - getters - time" duration="50" />
+    <testCase name="Occurrence helper class - getters - startTime" duration="4" />
+    <testCase name="Occurrence helper class - getters - endTime" duration="2" />
+    <testCase name="Occurrence helper class - getters - endTime without duration" duration="1" />
+    <testCase name="Occurrence helper class - getters - duration" duration="1" />
+    <testCase name="Occurrence helper class - getters - duration without occurrence.duration" duration="1" />
+    <testCase name="Occurrence helper class - getters - occurrenceDateAndDuration" duration="1" />
+    <testCase name="Occurrence helper class - getters - title" duration="2" />
+    <testCase name="Occurrence helper class - getters - breadcrumbs when the event is within an event group" duration="11">
+      <error message="Snapshot `Occurrence helper class &gt; getters &gt; breadcrumbs when the event is within an event group 1` mismatched">
+        <![CDATA[Error: Snapshot `Occurrence helper class &gt; getters &gt; breadcrumbs when the event is within an event group 1` mismatched
+    at createMismatchError (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/snapshot/dist/index.js:2072:17)
+    at SnapshotClient.assert (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/snapshot/dist/index.js:2173:13)
+    at Proxy.__INLINE_SNAPSHOT__ (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/vitest/dist/chunks/vi.DgezovHB.js:416:27)
+    at Proxy.methodWrapper (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/chai/chai.js:1610:25)
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/occurrences/__tests__/Occurrence.test.js:73:38
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1056:17)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)]]>
+      </error>
+    </testCase>
+    <testCase name="Occurrence helper class - getters - breadcrumbs when the event is not within an event group" duration="3">
+      <error message="Snapshot `Occurrence helper class &gt; getters &gt; breadcrumbs when the event is not within an event group 1` mismatched">
+        <![CDATA[Error: Snapshot `Occurrence helper class &gt; getters &gt; breadcrumbs when the event is not within an event group 1` mismatched
+    at createMismatchError (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/snapshot/dist/index.js:2072:17)
+    at SnapshotClient.assert (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/snapshot/dist/index.js:2173:13)
+    at Proxy.__INLINE_SNAPSHOT__ (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/vitest/dist/chunks/vi.DgezovHB.js:416:27)
+    at Proxy.methodWrapper (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/chai/chai.js:1610:25)
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/occurrences/__tests__/Occurrence.test.js:100:55
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1056:17)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)]]>
+      </error>
+    </testCase>
+  </file>
+  <file path="src/domain/occurrences/__tests__/OccurrenceArraySelect.test.js">
+
+  </file>
+  <file path="src/domain/occurrences/__tests__/OccurrenceShow.test.jsx">
+    <testCase name="OccurrenceShow utils - getTitle - should return correct title" duration="51" />
+    <testCase name="OccurrenceShow utils - getBreadcrumbs - should call Occurrence.breadcrumbs" duration="2">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/occurrences/__tests__/OccurrenceShow.test.jsx:49:40
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1056:17)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runFiles (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1262:5)]]>
+      </error>
+    </testCase>
+    <testCase name="OccurrenceShow utils - withEnrolment - should call otherwise if guardian does not exist" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/occurrences/__tests__/OccurrenceShow.test.jsx:63:25
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1056:17)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runFiles (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1262:5)]]>
+      </error>
+    </testCase>
+    <testCase name="OccurrenceShow utils - withEnrolment - should call hasRecord function with a record if one exists" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/occurrences/__tests__/OccurrenceShow.test.jsx:71:30
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1056:17)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runFiles (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1262:5)]]>
+      </error>
+    </testCase>
+    <testCase name="OccurrenceShow utils - withGuardian - should call otherwise if guardian does not exist" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/occurrences/__tests__/OccurrenceShow.test.jsx:82:25
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1056:17)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runFiles (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1262:5)]]>
+      </error>
+    </testCase>
+    <testCase name="OccurrenceShow utils - withGuardian - should call hasGuardian function with a guardian if one exists" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/occurrences/__tests__/OccurrenceShow.test.jsx:90:30
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1056:17)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runFiles (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1262:5)]]>
+      </error>
+    </testCase>
+    <testCase name="OccurrenceShow utils - getGuardianFullName - should return the full name of the guardian" duration="2" />
+    <testCase name="OccurrenceShow utils - getGuardianLanguage - should return the translated language of the guardian" duration="1" />
+    <testCase name="OccurrenceShow utils - getGuardianPhoneNumber - should return the phone number of the guardian" duration="1" />
+  </file>
+  <file path="src/domain/occurrences/__tests__/inputs.test.js">
+
+  </file>
+  <file path="src/domain/profile/__tests__/ProfileProjectDropdown.test.jsx">
+    <testCase name="&lt;ProfileProjectDropdown /&gt; - should render null when loading" duration="8">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/profile/__tests__/ProfileProjectDropdown.test.jsx:41:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runFiles (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1262:5)
+    at startTests (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1271:3)]]>
+      </error>
+    </testCase>
+    <testCase name="&lt;ProfileProjectDropdown /&gt; - should render null when error" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/profile/__tests__/ProfileProjectDropdown.test.jsx:41:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runFiles (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1262:5)
+    at startTests (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1271:3)]]>
+      </error>
+    </testCase>
+    <testCase name="&lt;ProfileProjectDropdown /&gt; - should render null when missing data" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/profile/__tests__/ProfileProjectDropdown.test.jsx:41:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runFiles (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1262:5)
+    at startTests (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1271:3)]]>
+      </error>
+    </testCase>
+    <testCase name="&lt;ProfileProjectDropdown /&gt; - should render null when there is not selected project" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/profile/__tests__/ProfileProjectDropdown.test.jsx:41:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runFiles (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1262:5)
+    at startTests (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1271:3)]]>
+      </error>
+    </testCase>
+    <testCase name="&lt;ProfileProjectDropdown /&gt; - should render text when there is one project" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/profile/__tests__/ProfileProjectDropdown.test.jsx:41:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runFiles (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1262:5)
+    at startTests (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1271:3)]]>
+      </error>
+    </testCase>
+    <testCase name="&lt;ProfileProjectDropdown /&gt; - should allow the selected project to be changed when there is more than one project" duration="1">
+      <error message="jest is not defined">
+        <![CDATA[ReferenceError: jest is not defined
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/profile/__tests__/ProfileProjectDropdown.test.jsx:41:5
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at callSuiteHook (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:964:28)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1040:30)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runSuite (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1205:15)
+    at runFiles (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1262:5)
+    at startTests (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1271:3)]]>
+      </error>
+    </testCase>
+  </file>
+  <file path="src/domain/projects/__tests__/profileService.test.js">
+    <testCase name="projectService - projectId - should allow project id to be set and got" duration="13">
+      <error message="[Function setItem] is not a spy or a call to a spy!">
+        <![CDATA[TypeError: [Function setItem] is not a spy or a call to a spy!
+    at assertIsMock (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/expect/dist/index.js:1396:13)
+    at getSpy (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/expect/dist/index.js:1402:5)
+    at Proxy.&lt;anonymous&gt; (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/expect/dist/index.js:1406:17)
+    at Proxy.&lt;anonymous&gt; (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/expect/dist/index.js:972:17)
+    at Proxy.methodWrapper (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/chai/chai.js:1610:25)
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/projects/__tests__/profileService.test.js:10:36
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1056:17)]]>
+      </error>
+    </testCase>
+    <testCase name="projectService - setDefaultProjectId - should set the recent most project as the default one" duration="4" />
+    <testCase name="projectService - clear - should clear localStorage of data from this service" duration="1">
+      <error message="[Function removeItem] is not a spy or a call to a spy!">
+        <![CDATA[TypeError: [Function removeItem] is not a spy or a call to a spy!
+    at assertIsMock (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/expect/dist/index.js:1396:13)
+    at getSpy (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/expect/dist/index.js:1402:5)
+    at Proxy.&lt;anonymous&gt; (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/expect/dist/index.js:1406:17)
+    at Proxy.&lt;anonymous&gt; (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/expect/dist/index.js:972:17)
+    at Proxy.methodWrapper (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/chai/chai.js:1610:25)
+    at /Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/src/domain/projects/__tests__/profileService.test.js:39:39
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:39:7)
+    at runTest (file:///Users/nikojmakela/Code/ratkaisutoimisto/kukkuu-admin/node_modules/@vitest/runner/dist/index.js:1056:17)]]>
+      </error>
+    </testCase>
+    <testCase name="projectService - clear - should clear project id" duration="1" />
+  </file>
+</testExecutions>

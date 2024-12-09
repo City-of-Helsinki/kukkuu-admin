@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "types": ["vite/client"],
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -16,7 +15,13 @@
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "allowImportingTsExtensions": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": [
+      "node",
+      "vitest/globals",
+      "vite/client",
+      "@testing-library/jest-dom/vitest"
+    ]
   },
   "include": ["src"],
   "exclude": ["src/api/generatedTypes/**/*.ts", "node_modules"]
