@@ -100,16 +100,7 @@
     "testcafe-reporter-html": "^1.4.6",
     "vite": "^6.0.3",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^2.1.8"
-  },
-  "jest": {
-    "transformIgnorePatterns": [
-      "node_modules/(?!(axios|react-helsinki-headless-cms|react-helsinki-headless-cms/apollo))/",
-      "^.+\\.module\\.(css|sass|scss)$"
-    ],
-    "moduleNameMapper": {
-      "axios": "<rootDir>/node_modules/axios/dist/node/axios.cjs"
-    },
-    "resetMocks": false
+    "vitest": "^2.1.8",
+    "vitest-sonar-reporter": "^2.0.0"
   }
 }
