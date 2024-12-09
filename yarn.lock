@@ -8256,6 +8256,11 @@ vite@^6.0.3:
   optionalDependencies:
     fsevents "~2.3.3"
 
+vitest-localstorage-mock@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/vitest-localstorage-mock/-/vitest-localstorage-mock-0.1.2.tgz#c2e4a196b76b38d50858c4173ad5a7d532ee0a04"
+  integrity sha512-1oee6iDWhhquzVogssbpwQi6a2F3L+nCKF2+qqyCs5tH0sOYRyTqnsfj2dtmEQiL4xtJkHLn42hEjHGESlsJHw==
+
 vitest-sonar-reporter@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/vitest-sonar-reporter/-/vitest-sonar-reporter-2.0.0.tgz#6372e5faba2b2834eac0b2cd1283263d38d0e718"

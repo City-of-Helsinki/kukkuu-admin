@@ -91,7 +91,7 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
     usePermissions<Permissions>();
   const projectId = projectService.projectId ?? '';
   const canSendMessagesToAllRecipientsWithinProject = Boolean(
-    permissions?.canSendMessagesToAllRecipientsWithinProject(projectId)
+    permissions?.canSendMessagesToAllRecipientsWithinProject?.(projectId)
   );
   // When editing, the record exists and the protocol is already set.
   if (record?.protocol) {

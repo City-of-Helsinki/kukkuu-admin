@@ -1,6 +1,6 @@
 import React from 'react';
 import * as ReactAdmin from 'react-admin';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material';
 import { createTheme } from '@mui/material/styles/';
 
@@ -42,12 +42,24 @@ const getWrapper = (props) =>
   );
 
 describe('<EventGroupsDetailActions />', () => {
-  it('should show a create button', () => {
+  it('should show a create button', async () => {
+    const context = {
+      ...defaultContext,
+      permissions: {
+        ...defaultContext.permissions,
+      },
+    };
+    // FIXME: these spies should not be needed with react-admin, because of AdminContext
+    vi.spyOn(ReactAdmin, 'usePermissions').mockReturnValue({
+      permissions: context.permissions,
+    });
     getWrapper();
 
-    expect(
-      screen.getByRole('link', { name: 'eventGroups.actions.addEvent.do' })
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        screen.getByRole('link', { name: 'eventGroups.actions.addEvent.do' })
+      ).toBeInTheDocument();
+    });
   });
 
   it('should show an edit button', () => {
@@ -59,10 +71,10 @@ describe('<EventGroupsDetailActions />', () => {
       },
     };
     // FIXME: these spies should not be needed with react-admin, because of AdminContext
-    jest
-      .spyOn(ReactAdmin, 'usePermissions')
-      .mockReturnValue({ permissions: context.permissions });
-    jest.spyOn(ReactAdmin, 'useRecordContext').mockReturnValue(context.data);
+    vi.spyOn(ReactAdmin, 'usePermissions').mockReturnValue({
+      permissions: context.permissions,
+    });
+    vi.spyOn(ReactAdmin, 'useRecordContext').mockReturnValue(context.data);
 
     getWrapper(context);
 
@@ -81,10 +93,10 @@ describe('<EventGroupsDetailActions />', () => {
       },
     };
     // FIXME: these spies should not be needed with react-admin, because of AdminContext
-    jest
-      .spyOn(ReactAdmin, 'usePermissions')
-      .mockReturnValue({ permissions: context.permissions });
-    jest.spyOn(ReactAdmin, 'useRecordContext').mockReturnValue(context.data);
+    vi.spyOn(ReactAdmin, 'usePermissions').mockReturnValue({
+      permissions: context.permissions,
+    });
+    vi.spyOn(ReactAdmin, 'useRecordContext').mockReturnValue(context.data);
 
     getWrapper(context);
 
@@ -114,10 +126,10 @@ describe('<EventGroupsDetailActions />', () => {
       },
     };
     // FIXME: these spies should not be needed with react-admin, because of AdminContext
-    jest
-      .spyOn(ReactAdmin, 'usePermissions')
-      .mockReturnValue({ permissions: context.permissions });
-    jest.spyOn(ReactAdmin, 'useRecordContext').mockReturnValue(context.data);
+    vi.spyOn(ReactAdmin, 'usePermissions').mockReturnValue({
+      permissions: context.permissions,
+    });
+    vi.spyOn(ReactAdmin, 'useRecordContext').mockReturnValue(context.data);
 
     getWrapper(context);
 
@@ -151,10 +163,10 @@ describe('<EventGroupsDetailActions />', () => {
       },
     };
     // FIXME: these spies should not be needed with react-admin, because of AdminContext
-    jest
-      .spyOn(ReactAdmin, 'usePermissions')
-      .mockReturnValue({ permissions: context.permissions });
-    jest.spyOn(ReactAdmin, 'useRecordContext').mockReturnValue(context.data);
+    vi.spyOn(ReactAdmin, 'usePermissions').mockReturnValue({
+      permissions: context.permissions,
+    });
+    vi.spyOn(ReactAdmin, 'useRecordContext').mockReturnValue(context.data);
     getWrapper(context);
 
     expect(

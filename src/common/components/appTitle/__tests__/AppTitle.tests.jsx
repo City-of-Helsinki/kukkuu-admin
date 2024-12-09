@@ -8,7 +8,7 @@ const getWrapper = (props) => render(<AppTitle {...props} />);
 
 describe('<AppTitle />', () => {
   it('should show a test label when it is used in a test environment', () => {
-    jest.spyOn(Config, 'IS_TEST_ENVIRONMENT', 'get').mockReturnThis(true);
+    vi.spyOn(Config, 'IS_TEST_ENVIRONMENT', 'get').mockReturnThis(true);
 
     getWrapper();
 

@@ -71,16 +71,16 @@ describe('Occurrence helper class', () => {
 
     it('breadcrumbs when the event is within an event group', () => {
       expect(occurrence.breadcrumbs).toMatchInlineSnapshot(`
-        Array [
-          Object {
+        [
+          {
             "label": "Tapahtumat",
             "link": "/events-and-event-groups",
           },
-          Object {
+          {
             "label": "Event Group Name",
             "link": "/event-groups/123/show",
           },
-          Object {
+          {
             "label": "Event name",
             "link": "/events/123/show",
           },
@@ -98,12 +98,12 @@ describe('Occurrence helper class', () => {
       });
 
       expect(occurrenceWithoutEventGroup.breadcrumbs).toMatchInlineSnapshot(`
-        Array [
-          Object {
+        [
+          {
             "label": "Tapahtumat",
             "link": "/events-and-event-groups",
           },
-          Object {
+          {
             "label": "Event name",
             "link": "/events/123/show",
           },

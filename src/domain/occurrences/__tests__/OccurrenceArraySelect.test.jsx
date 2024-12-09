@@ -10,7 +10,7 @@ import OccurrenceArraySelect, {
 
 describe('<OccurrenceArraySelect />', () => {
   it('should render without errors', () => {
-    jest.spyOn(global.console, 'error').mockImplementationOnce(() => null);
+    vi.spyOn(global.console, 'error').mockImplementationOnce(() => null);
 
     expect(
       render(
@@ -59,7 +59,7 @@ describe('OccurrenceArraySelect helpers', () => {
 
       expect(choices.length).toEqual(occurrences.length);
       expect(choices[0]).toMatchInlineSnapshot(`
-        Object {
+        {
           "id": "123",
           "name": "7.10.2020 00.00",
         }
