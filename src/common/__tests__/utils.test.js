@@ -25,11 +25,11 @@ describe('common utils', () => {
 
     beforeAll(() => {
       // Hide console log errors about missing translation keys
-      jest.spyOn(global.console, 'error').mockReturnValue();
+      vi.spyOn(global.console, 'error').mockReturnValue();
     });
 
     afterAll(() => {
-      jest.clearAllMocks();
+      vi.clearAllMocks();
     });
 
     // eslint-disable-next-line max-len
@@ -78,10 +78,11 @@ describe('common utils', () => {
       toTimeString,
     ];
 
-    formatters.forEach((formatter) => {
-      it(`${formatter.name} should return a correctly formatted string`, () => {
+    it.each(formatters)(
+      `%o should return a correctly formatted string`,
+      (formatter) => {
         expect(formatter(date)).toMatchSnapshot();
-      });
-    });
+      }
+    );
   });
 });

@@ -5,7 +5,7 @@ import authorizationService from '../authorizationService';
 import AppConfig from '../../application/AppConfig';
 import dataProvider from '../../../api/dataProvider';
 
-jest.mock('axios');
+vi.mock('axios');
 
 const testProjectId = btoa('ProjectNode:234');
 
@@ -16,7 +16,7 @@ describe('authService', () => {
   const userManager = authService.userManager;
 
   beforeEach(() => {
-    jest.spyOn(dataProvider, 'getMyAdminProfile').mockResolvedValue({
+    vi.spyOn(dataProvider, 'getMyAdminProfile').mockResolvedValue({
       data: {
         id: btoa('AdminNode:123'),
         projects: {
@@ -42,7 +42,7 @@ describe('authService', () => {
   afterEach(() => {
     localStorage.clear();
     localStorage.setItem.mockClear();
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   describe('getUser', () => {
@@ -50,7 +50,7 @@ describe('authService', () => {
       expect.assertions(1);
       const mockUser = { name: 'Sam Littel' };
 
-      jest.spyOn(userManager, 'getUser').mockResolvedValueOnce(mockUser);
+      vi.spyOn(userManager, 'getUser').mockResolvedValueOnce(mockUser);
 
       const user = await authService.getUser();
 
@@ -80,14 +80,14 @@ describe('authService', () => {
 
   describe('isAuthenticated', () => {
     it('should return false if no token can be found', () => {
-      jest.spyOn(authService, 'getToken').mockReturnValue(null);
+      vi.spyOn(authService, 'getToken').mockReturnValue(null);
 
       expect(authService.isAuthenticated()).toBe(false);
     });
 
     it("should return false if oidc user from sessionStorage doesn't exist", () => {
       const apiTokens = '5ed3abc5-9b65-4879-8d09-3cd8499650ef';
-      jest.spyOn(authService, 'getToken').mockReturnValue(apiTokens);
+      vi.spyOn(authService, 'getToken').mockReturnValue(apiTokens);
       sessionStorage.clear();
 
       expect(authService.isAuthenticated()).toBe(false);
@@ -97,7 +97,7 @@ describe('authService', () => {
       const apiTokens = '5ed3abc5-9b65-4879-8d09-3cd8499650ef';
       const invalidUser = JSON.stringify({});
 
-      jest.spyOn(authService, 'getToken').mockReturnValue(apiTokens);
+      vi.spyOn(authService, 'getToken').mockReturnValue(apiTokens);
       sessionStorage.setItem(getOidcUserKey(), invalidUser);
 
       expect(authService.isAuthenticated()).toBe(false);
@@ -110,7 +110,7 @@ describe('authService', () => {
         access_token: '5ed3abc5-9b65-4879-8d09-3cd8499650ef',
       });
 
-      jest.spyOn(authService, 'getToken').mockReturnValue(apiToken);
+      vi.spyOn(authService, 'getToken').mockReturnValue(apiToken);
       localStorage.setItem(getOidcUserKey(), validUser);
 
       expect(authService.isAuthenticated()).toBe(true);
@@ -120,7 +120,7 @@ describe('authService', () => {
   describe('login', () => {
     it('should call signinRedirect from oidc with the provided path', () => {
       const path = '/applications';
-      const signinRedirect = jest.spyOn(userManager, 'signinRedirect');
+      const signinRedirect = vi.spyOn(userManager, 'signinRedirect');
 
       authService.login(path);
 
@@ -141,7 +141,8 @@ describe('authService', () => {
     };
 
     it('should call signinRedirectCallback from oidc', () => {
-      const signinRedirectCallback = jest
+      vi.spyOn(authService, 'fetchApiToken').mockImplementation(() => false);
+      const signinRedirectCallback = vi
         .spyOn(userManager, 'signinRedirectCallback')
         .mockImplementation(() => Promise.resolve(mockUser));
 
@@ -152,11 +153,12 @@ describe('authService', () => {
 
     it('should call fetchRoles from authorizationService', async () => {
       expect.assertions(1);
-      jest
-        .spyOn(userManager, 'signinRedirectCallback')
-        .mockReturnValue(Promise.resolve(mockUser));
+      vi.spyOn(authService, 'fetchApiToken').mockImplementation(() => false);
+      vi.spyOn(userManager, 'signinRedirectCallback').mockReturnValue(
+        Promise.resolve(mockUser)
+      );
 
-      const fetchRoleSpy = jest
+      const fetchRoleSpy = vi
         .spyOn(authorizationService, 'fetchRole')
         .mockImplementation(() => Promise.resolve());
 
@@ -167,9 +169,10 @@ describe('authService', () => {
 
     it('should return the same user object returned from signinRedirectCallback', async () => {
       expect.assertions(1);
-      jest
-        .spyOn(userManager, 'signinRedirectCallback')
-        .mockReturnValue(Promise.resolve(mockUser));
+      vi.spyOn(authService, 'fetchApiToken').mockImplementation(() => false);
+      vi.spyOn(userManager, 'signinRedirectCallback').mockReturnValue(
+        Promise.resolve(mockUser)
+      );
 
       const user = await authService.endLogin();
 
@@ -178,10 +181,10 @@ describe('authService', () => {
 
     it('should call fetchApiToken with the user object', async () => {
       expect.assertions(1);
-      jest.spyOn(authService, 'fetchApiToken');
-      jest
-        .spyOn(userManager, 'signinRedirectCallback')
-        .mockResolvedValue(mockUser);
+      vi.spyOn(authService, 'fetchApiToken').mockImplementation(() => false);
+      vi.spyOn(userManager, 'signinRedirectCallback').mockResolvedValue(
+        mockUser
+      );
 
       await authService.endLogin();
 
@@ -190,10 +193,10 @@ describe('authService', () => {
 
     it('should set the tokens and project ID in localStorage before the function returns', async () => {
       expect.assertions(4);
-      jest
-        .spyOn(userManager, 'signinRedirectCallback')
-        .mockResolvedValue(mockUser);
-      jest.spyOn(authService, 'queryApiTokensEndpoint').mockResolvedValue({
+      vi.spyOn(userManager, 'signinRedirectCallback').mockResolvedValue(
+        mockUser
+      );
+      vi.spyOn(authService, 'queryApiTokensEndpoint').mockResolvedValue({
         data: {
           access_token,
           refresh_token,
@@ -223,7 +226,7 @@ describe('authService', () => {
 
   describe('renewToken', () => {
     it('should call signinSilent from oidc', async () => {
-      const signinSilent = jest
+      const signinSilent = vi
         .spyOn(userManager, 'signinSilent')
         .mockResolvedValue();
 
@@ -236,7 +239,7 @@ describe('authService', () => {
       expect.assertions(1);
       const mockUser = { name: 'Camilla Howe' };
 
-      jest.spyOn(userManager, 'signinSilent').mockResolvedValueOnce(mockUser);
+      vi.spyOn(userManager, 'signinSilent').mockResolvedValueOnce(mockUser);
 
       const user = await authService.renewToken();
 
@@ -246,7 +249,7 @@ describe('authService', () => {
 
   describe('logout', () => {
     it('should call signoutRedirect from oidc', () => {
-      const signoutRedirect = jest.spyOn(userManager, 'signoutRedirect');
+      const signoutRedirect = vi.spyOn(userManager, 'signoutRedirect');
 
       authService.logout();
 
@@ -255,7 +258,7 @@ describe('authService', () => {
 
     it('should remove the tokens from localStorage', async () => {
       expect.assertions(2);
-      jest.spyOn(userManager, 'signoutRedirect').mockResolvedValue(undefined);
+      vi.spyOn(userManager, 'signoutRedirect').mockResolvedValue(undefined);
       const apiToken = 'a8d56df4-7ae8-4fbf-bf73-f366cd6fc479';
       const refreshToken = '347ed60c-88e4-4c08-ab25-9807be7666f4';
 
@@ -270,8 +273,8 @@ describe('authService', () => {
 
     it('should call clearStaleState', async () => {
       expect.assertions(1);
-      jest.spyOn(userManager, 'signoutRedirect').mockResolvedValue(undefined);
-      jest.spyOn(userManager, 'clearStaleState').mockResolvedValue();
+      vi.spyOn(userManager, 'signoutRedirect').mockResolvedValue(undefined);
+      vi.spyOn(userManager, 'clearStaleState').mockResolvedValue();
 
       await authService.logout();
 
@@ -280,8 +283,8 @@ describe('authService', () => {
 
     it("should call authorization service's clear method", async () => {
       expect.assertions(1);
-      jest.spyOn(userManager, 'signoutRedirect').mockResolvedValue(undefined);
-      const authorizationServiceClearSpy = jest.spyOn(
+      vi.spyOn(userManager, 'signoutRedirect').mockResolvedValue(undefined);
+      const authorizationServiceClearSpy = vi.spyOn(
         authorizationService,
         'clear'
       );
@@ -310,11 +313,11 @@ describe('authService', () => {
       });
     });
 
-    it.only('should call axios with the right arguments', async () => {
+    it('should call axios with the right arguments', async () => {
       expect.assertions(2);
-      jest
-        .spyOn(AppConfig, 'oidcAudience', 'get')
-        .mockReturnValue('kukkuu-api-dev');
+      vi.spyOn(AppConfig, 'oidcAudience', 'get').mockReturnValue(
+        'kukkuu-api-dev'
+      );
       await authService.fetchApiToken(mockUser);
 
       expect(axios).toHaveBeenCalledTimes(1);

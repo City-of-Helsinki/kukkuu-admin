@@ -37,15 +37,15 @@ const getWrapper = (props) =>
   );
 
 afterEach(() => {
-  jest.clearAllMocks();
+  vi.clearAllMocks();
 });
 
 describe('<LocalDataGrid />', () => {
   describe('implementation details', () => {
     it('should extract expected table based on its children', async () => {
       // Mock the "parent record" - so mock only once
-      jest.spyOn(ReactAdmin, 'useRecordContext').mockReturnValueOnce(record);
-      getWrapper();
+      vi.spyOn(ReactAdmin, 'useRecordContext').mockReturnValueOnce(record);
+      getWrapper({});
 
       expect(await screen.findByText('Name')).toBeTruthy();
       expect(await screen.findByText('Count')).toBeTruthy();
@@ -58,8 +58,8 @@ describe('<LocalDataGrid />', () => {
 
     it('should call rowClick when a row is clicked', async () => {
       // Mock the "parent record" - so mock only once
-      jest.spyOn(ReactAdmin, 'useRecordContext').mockReturnValueOnce(record);
-      const rowClick = jest.fn();
+      vi.spyOn(ReactAdmin, 'useRecordContext').mockReturnValueOnce(record);
+      const rowClick = vi.fn();
       getWrapper({ rowClick });
 
       fireEvent.click(await screen.findByText(records[0].name), {});

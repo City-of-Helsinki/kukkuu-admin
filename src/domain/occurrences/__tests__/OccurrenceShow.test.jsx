@@ -46,7 +46,7 @@ describe('OccurrenceShow utils', () => {
 
   describe('getBreadcrumbs', () => {
     it('should call Occurrence.breadcrumbs', () => {
-      const occurrenceBreadcrumbsSpy = jest.spyOn(
+      const occurrenceBreadcrumbsSpy = vi.spyOn(
         Occurrence.prototype,
         'breadcrumbs',
         'get'
@@ -60,17 +60,17 @@ describe('OccurrenceShow utils', () => {
 
   describe('withEnrolment', () => {
     it('should call otherwise if guardian does not exist', () => {
-      const otherwise = jest.fn();
+      const otherwise = vi.fn();
 
-      withEnrolment(jest.fn(), otherwise)(null);
+      withEnrolment(vi.fn(), otherwise)(null);
 
       expect(otherwise).toHaveBeenCalledTimes(1);
     });
 
     it('should call hasRecord function with a record if one exists', () => {
-      const renderFunction = jest.fn();
+      const renderFunction = vi.fn();
 
-      withEnrolment(renderFunction, jest.fn())(enrollment);
+      withEnrolment(renderFunction, vi.fn())(enrollment);
 
       expect(renderFunction).toHaveBeenCalledTimes(1);
       expect(renderFunction).toHaveBeenCalledWith(enrollment);
@@ -79,17 +79,17 @@ describe('OccurrenceShow utils', () => {
 
   describe('withGuardian', () => {
     it('should call otherwise if guardian does not exist', () => {
-      const otherwise = jest.fn();
+      const otherwise = vi.fn();
 
-      withGuardian(jest.fn(), otherwise)({ node: null });
+      withGuardian(vi.fn(), otherwise)({ node: null });
 
       expect(otherwise).toHaveBeenCalledTimes(1);
     });
 
     it('should call hasGuardian function with a guardian if one exists', () => {
-      const renderFunction = jest.fn();
+      const renderFunction = vi.fn();
 
-      withGuardian(renderFunction, jest.fn())(enrollment);
+      withGuardian(renderFunction, vi.fn())(enrollment);
 
       expect(renderFunction).toHaveBeenCalledTimes(1);
       expect(renderFunction).toHaveBeenCalledWith(guardian);

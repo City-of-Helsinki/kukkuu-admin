@@ -48,7 +48,7 @@ const useResolveEditPermission = () => {
   const isMessageOfCurrentProject = Boolean(projectId === record?.project?.id);
   const { permissions, isLoading } = usePermissions<Permissions>();
   const canSendMessagesToAllRecipientsWithinProject = Boolean(
-    permissions?.canSendMessagesToAllRecipientsWithinProject(projectId)
+    permissions?.canSendMessagesToAllRecipientsWithinProject?.call(projectId)
   );
   const rejectIfForAll = Boolean(
     record?.recipientSelection?.toUpperCase() === RecipientSelectionEnum.All &&

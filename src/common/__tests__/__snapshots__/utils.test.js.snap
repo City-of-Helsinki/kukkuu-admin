@@ -1,17 +1,9 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`common utils > date formatters > toDateString should return a correctly formatted string 1`] = `"1.1.1970"`;
+exports[`common utils > date formatters > [Function toDateString] should return a correctly formatted string 1`] = `"1.1.1970"`;
 
-exports[`common utils > date formatters > toDateTimeString should return a correctly formatted string 1`] = `"1.1.1970 02.00"`;
+exports[`common utils > date formatters > [Function toDateTimeString] should return a correctly formatted string 1`] = `"1.1.1970 02.00"`;
 
-exports[`common utils > date formatters > toShortDateTimeString should return a correctly formatted string 1`] = `"1.1.1970 02.00"`;
+exports[`common utils > date formatters > [Function toShortDateTimeString] should return a correctly formatted string 1`] = `"1.1.1970 02.00"`;
 
-exports[`common utils > date formatters > toTimeString should return a correctly formatted string 1`] = `"02.00"`;
-
-exports[`common utils date formatters toDateString should return a correctly formatted string 1`] = `"1.1.1970"`;
-
-exports[`common utils date formatters toDateTimeString should return a correctly formatted string 1`] = `"1.1.1970 02.00"`;
-
-exports[`common utils date formatters toShortDateTimeString should return a correctly formatted string 1`] = `"1.1.1970 02.00"`;
-
-exports[`common utils date formatters toTimeString should return a correctly formatted string 1`] = `"02.00"`;
+exports[`common utils > date formatters > [Function toTimeString] should return a correctly formatted string 1`] = `"02.00"`;

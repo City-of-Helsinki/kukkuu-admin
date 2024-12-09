@@ -27,31 +27,31 @@ const operation = {
 describe('client', () => {
   describe('handleApolloError', () => {
     const mockScope = {
-      setLevel: jest.fn(),
-      setTag: jest.fn(),
-      setContext: jest.fn(),
-      setExtra: jest.fn(),
+      setLevel: vi.fn(),
+      setTag: vi.fn(),
+      setContext: vi.fn(),
+      setExtra: vi.fn(),
     };
 
     beforeAll(() => {
-      jest.spyOn(console, 'error').mockImplementation(() => {
+      vi.spyOn(console, 'error').mockImplementation(() => {
         // pass
       });
     });
 
     afterEach(() => {
-      jest.resetAllMocks();
+      vi.resetAllMocks();
     });
 
     afterAll(() => {
-      jest.restoreAllMocks();
+      vi.restoreAllMocks();
     });
 
     describe('GraphQL errors', () => {
       it('should send graphQL errors', () => {
-        const captureExceptionSpy = jest.spyOn(Sentry, 'captureException');
-        const captureMessageSpy = jest.spyOn(Sentry, 'captureMessage');
-        const withScopeSpy = jest.spyOn(Sentry, 'withScope');
+        const captureExceptionSpy = vi.spyOn(Sentry, 'captureException');
+        const captureMessageSpy = vi.spyOn(Sentry, 'captureMessage');
+        const withScopeSpy = vi.spyOn(Sentry, 'withScope');
 
         withScopeSpy.mockImplementation((cb) => cb(mockScope));
 
@@ -77,8 +77,8 @@ describe('client', () => {
       });
 
       it('should ignore JWT expiration and PERMISSION_DENIED errors', () => {
-        const captureExceptionSpy = jest.spyOn(Sentry, 'captureException');
-        const captureMessageSpy = jest.spyOn(Sentry, 'captureMessage');
+        const captureExceptionSpy = vi.spyOn(Sentry, 'captureException');
+        const captureMessageSpy = vi.spyOn(Sentry, 'captureMessage');
         const graphQLErrors = [
           {
             message: 'Invalid Authorization header. JWT has expired.',
@@ -105,7 +105,7 @@ describe('client', () => {
       });
 
       it('should send all errors in development mode', () => {
-        jest.spyOn(Config, 'NODE_ENV', 'get').mockReturnValue('development');
+        vi.spyOn(Config, 'NODE_ENV', 'get').mockReturnValue('development');
 
         const graphQLErrors = [
           {
@@ -123,7 +123,7 @@ describe('client', () => {
           },
         ];
 
-        const consoleErrorSpy = jest
+        const consoleErrorSpy = vi
           .spyOn(console, 'error')
           .mockImplementation(() => {
             // pass
@@ -143,12 +143,10 @@ describe('client', () => {
       });
 
       it('should capture original error if it exists', () => {
-        const captureExceptionSpy = jest.spyOn(Sentry, 'captureException');
-        const captureMessageSpy = jest.spyOn(Sentry, 'captureMessage');
+        const captureExceptionSpy = vi.spyOn(Sentry, 'captureException');
+        const captureMessageSpy = vi.spyOn(Sentry, 'captureMessage');
 
-        jest
-          .spyOn(Sentry, 'withScope')
-          .mockImplementation((cb) => cb(mockScope));
+        vi.spyOn(Sentry, 'withScope').mockImplementation((cb) => cb(mockScope));
 
         const graphQLErrors = [
           {
@@ -168,8 +166,8 @@ describe('client', () => {
     describe('network errors', () => {
       it('should not send network errors', () => {
         const error = Error('Test');
-        const captureExceptionSpy = jest.spyOn(Sentry, 'captureException');
-        const captureMessageSpy = jest.spyOn(Sentry, 'captureMessage');
+        const captureExceptionSpy = vi.spyOn(Sentry, 'captureException');
+        const captureMessageSpy = vi.spyOn(Sentry, 'captureMessage');
 
         handleError({ networkError: error, operation });
 

@@ -24,7 +24,7 @@ export const EventsAndEventGroupsListManagementButtonGroup = ({
   });
 
   const canManageEventGroups = Boolean(
-    permissions?.canManageEventGroupsWithinProject(
+    permissions?.canManageEventGroupsWithinProject?.call(
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       projectService.projectId!
     )
