@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ESNext",
+    "types": ["vite/client"],
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -13,8 +14,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "noFallthroughCasesInSwitch": true,
+    "allowImportingTsExtensions": true,
+    "jsx": "react-jsx"
   },
   "include": ["src"],
-  "exclude": ["src/api/generatedTypes/**/*.ts"]
+  "exclude": ["src/api/generatedTypes/**/*.ts", "node_modules"]
 }

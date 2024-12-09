@@ -9,20 +9,20 @@ class AppConfig {
   /**
    * GraphQL API base URL.
    * @example 'https://kukkuu.api.hel.fi/graphql'
-   * @throws {Error} If the `REACT_APP_API_URI` environment variable is not defined.
+   * @throws {Error} If the `VITE_API_URI` environment variable is not defined.
    */
   static get apiUrl() {
-    return getEnvOrError(process.env.REACT_APP_API_URI, 'REACT_APP_API_URI');
+    return getEnvOrError(import.meta.env.VITE_API_URI, 'VITE_API_URI');
   }
 
   /**
    * OIDC authority URL.
-   * @throws {Error} If the `REACT_APP_OIDC_AUTHORITY` environment variable is not defined.
+   * @throws {Error} If the `VITE_OIDC_AUTHORITY` environment variable is not defined.
    */
   static get oidcAuthority() {
     const origin = getEnvOrError(
-      process.env.REACT_APP_OIDC_AUTHORITY,
-      'REACT_APP_OIDC_AUTHORITY'
+      import.meta.env.VITE_OIDC_AUTHORITY,
+      'VITE_OIDC_AUTHORITY'
     );
     return new URL(origin).href;
   }
@@ -31,34 +31,31 @@ class AppConfig {
    * OIDC audience(s) (space-separated if multiple).
    * @example
    * // Tunnistamo: (leave the env var empty)
-   * REACT_APP_OIDC_AUDIENCES=
+   * VITE_OIDC_AUDIENCES=
    * // Keycloak:
-   * REACT_APP_OIDC_AUDIENCES='audience1 audience2'
+   * VITE_OIDC_AUDIENCES='audience1 audience2'
    */
   static get oidcAudience() {
-    return process.env.REACT_APP_OIDC_AUDIENCES;
+    return import.meta.env.VITE_OIDC_AUDIENCES;
   }
 
   /**
    * OIDC client ID for the Kukkuu UI.
-   * @throws {Error} If the `REACT_APP_OIDC_CLIENT_ID` environment variable is not defined.
+   * @throws {Error} If the `VITE_OIDC_CLIENT_ID` environment variable is not defined.
    */
   static get oidcClientId() {
     return getEnvOrError(
-      process.env.REACT_APP_OIDC_CLIENT_ID,
-      'REACT_APP_OIDC_CLIENT_ID'
+      import.meta.env.VITE_OIDC_CLIENT_ID,
+      'VITE_OIDC_CLIENT_ID'
     );
   }
 
   /**
    * OIDC auth scope(s) (space-separated if multiple).
-   * @throws {Error} If the `REACT_APP_OIDC_SCOPE` environment variable is not defined.
+   * @throws {Error} If the `VITE_OIDC_SCOPE` environment variable is not defined.
    */
   static get oidcScope() {
-    return getEnvOrError(
-      process.env.REACT_APP_OIDC_SCOPE,
-      'REACT_APP_OIDC_SCOPE,'
-    );
+    return getEnvOrError(import.meta.env.VITE_OIDC_SCOPE, 'VITE_OIDC_SCOPE,');
   }
 
   /**
@@ -71,7 +68,7 @@ class AppConfig {
    */
   static get oidcReturnType() {
     // "code" for authorization code flow.
-    return process.env.REACT_APP_OIDC_RETURN_TYPE ?? 'code';
+    return import.meta.env.VITE_OIDC_RETURN_TYPE ?? 'code';
   }
 
   /**
@@ -79,13 +76,13 @@ class AppConfig {
    *
    * This is the client ID that the Kukkuu API recognizes when authenticating
    * requests from the UI. It defaults to the `oidcKukkuuAPIScope` if the environment
-   * variable `REACT_APP_OIDC_KUKKUU_API_CLIENT_ID` is not defined.
+   * variable `VITE_OIDC_KUKKUU_API_CLIENT_ID` is not defined.
    *
    * @returns {string} The client ID for the Kukkuu API.
    */
   static get oidcKukkuuApiClientId() {
     return (
-      process.env.REACT_APP_OIDC_KUKKUU_API_CLIENT_ID ?? this.oidcKukkuuAPIScope
+      import.meta.env.VITE_OIDC_KUKKUU_API_CLIENT_ID ?? this.oidcKukkuuAPIScope
     );
   }
 
@@ -110,13 +107,13 @@ class AppConfig {
    * These scopes define the permissions that the Kukkuu UI needs to request from the OIDC provider
    * in order to interact with the Kukkuu API.
    *
-   * @throws {Error} If the `REACT_APP_KUKKUU_API_OIDC_SCOPE` environment variable is not defined.
+   * @throws {Error} If the `VITE_KUKKUU_API_OIDC_SCOPE` environment variable is not defined.
    * @returns {string} The OIDC scope(s) required for the Kukkuu API.
    */
   static get oidcKukkuuAPIScope() {
     return getEnvOrError(
-      process.env.REACT_APP_KUKKUU_API_OIDC_SCOPE,
-      'REACT_APP_KUKKUU_API_OIDC_SCOPE'
+      import.meta.env.VITE_KUKKUU_API_OIDC_SCOPE,
+      'VITE_KUKKUU_API_OIDC_SCOPE'
     );
   }
 
@@ -126,12 +123,12 @@ class AppConfig {
    * This is not a standard OIDC client attribute; it's used internally to determine
    * the appropriate configuration for the login provider.
    *
-   * @throws {Error} If the `REACT_APP_OIDC_SERVER_TYPE` environment variable is not defined
+   * @throws {Error} If the `VITE_OIDC_SERVER_TYPE` environment variable is not defined
    *                or has an invalid value (not 'KEYCLOAK' or 'TUNNISTAMO').
    */
   static get oidcServerType(): 'KEYCLOAK' | 'TUNNISTAMO' {
     const oidcServerType =
-      process.env.REACT_APP_OIDC_SERVER_TYPE ?? 'TUNNISTAMO';
+      import.meta.env.VITE_OIDC_SERVER_TYPE ?? 'TUNNISTAMO';
     if (oidcServerType === 'KEYCLOAK' || oidcServerType === 'TUNNISTAMO') {
       return oidcServerType;
     }
@@ -139,31 +136,31 @@ class AppConfig {
   }
 
   /**
-   * Read env variable `REACT_APP_OIDC_AUTOMATIC_SILENT_RENEW_ENABLED`.
+   * Read env variable `VITE_OIDC_AUTOMATIC_SILENT_RENEW_ENABLED`.
    * Defaults to true.
    * */
   static get oidcAutomaticSilentRenew(): boolean {
     return Boolean(
-      process.env.REACT_APP_OIDC_AUTOMATIC_SILENT_RENEW_ENABLED ?? true
+      import.meta.env.VITE_OIDC_AUTOMATIC_SILENT_RENEW_ENABLED ?? true
     );
   }
 
   /**
-   * Read env variable `REACT_APP_OIDC_SESSION_POLLING_INTERVAL_MS`.
+   * Read env variable `VITE_OIDC_SESSION_POLLING_INTERVAL_MS`.
    * Defaults to 60000.
    * */
   static get oidcSessionPollerIntervalInMs(): number {
     return (
-      Number(process.env.REACT_APP_OIDC_SESSION_POLLING_INTERVAL_MS) || 60000
+      Number(import.meta.env.VITE_OIDC_SESSION_POLLING_INTERVAL_MS) || 60000
     );
   }
 
   /**
-   * Read env variable `REACT_APP_IDLE_TIMEOUT_IN_MS`.
+   * Read env variable `VITE_IDLE_TIMEOUT_IN_MS`.
    * Defaults to 60 minutes.
    * */
   static get userIdleTimeoutInMs(): number {
-    return Number(process.env.REACT_APP_IDLE_TIMEOUT_IN_MS) || 3_600_000;
+    return Number(import.meta.env.VITE_IDLE_TIMEOUT_IN_MS) || 3_600_000;
   }
 }
 
