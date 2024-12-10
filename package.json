@@ -2,6 +2,7 @@
   "name": "kukkuu-admin",
   "version": "3.6.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "app:version": "echo \"$npm_package_version\"",
     "start": "vite",
