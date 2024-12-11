@@ -54,8 +54,4 @@ const OccurrenceAttendedField = () => {
   );
 };
 
-OccurrenceAttendedField.defaultProps = {
-  label: 'enrolments.fields.attended.label',
-};
-
 export default OccurrenceAttendedField;
