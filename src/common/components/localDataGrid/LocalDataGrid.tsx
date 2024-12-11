@@ -83,12 +83,11 @@ const LocalDataGrid = ({ children, source, rowClick }: any) => {
               (field, index) =>
                 field && (
                   <RecordContextProvider value={localRecord}>
+                    {/*@ts-ignore TS2739*/}
                     <DatagridCell
-                      key={`${localRecord.id}-${
-                        (field.props as any).source || index
-                      }`}
+                      key={`${localRecord.id}-${field.props.source || index}`}
                       className={[
-                        `column-${(field.props as any).source}`,
+                        `column-${field.props.source}`,
                         classes.rowCell,
                       ].join(' ')}
                       record={localRecord}

@@ -14,10 +14,18 @@ import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPa
 import KukkuuDetailPage from '../../application/layout/kukkuuDetailPage/KukkuuDetailPage';
 import LocalDataGrid from '../../../common/components/localDataGrid/LocalDataGrid';
 import { participantsPerInviteChoices } from '../../events/choices';
-import { countCapacity, countEnrollments } from '../../events/utils';
+import {
+  CapacityEventNode,
+  countCapacity,
+  countEnrollments,
+  EnrollmentsCountEventNode,
+} from '../../events/utils';
 import EventReadyField from './EventReadyField';
 import EventGroupsDetailActions from './EventGroupsDetailActions';
-import type { EventGroupNode } from '../../api/generatedTypes/graphql';
+import type {
+  EventGroupNode,
+  EventNode,
+} from '../../api/generatedTypes/graphql';
 
 const useStyles = makeStyles(() => ({
   center: {
@@ -59,30 +67,42 @@ const EventGroupsDetail = () => {
           source="duration"
           label={t('events.fields.duration.label')}
         />
+        {/*@ts-ignore TS2589*/}
         <FunctionField
           label="events.fields.totalCapacity.label"
           textAlign="right"
-          render={(record?: EventGroupNode) =>
-            countCapacity(record as any) ??
-            t('events.fields.totalCapacity.unknown')
+          // FIXME: Why is it EventNode in EventGroupDetails?
+          render={(record?: Partial<EventNode>) =>
+            record
+              ? countCapacity(record as CapacityEventNode)
+              : t('events.fields.totalCapacity.unknown')
           }
         />
         <NumberField
           source="occurrences.edges.length"
           label="events.fields.numOfOccurrences.label"
         />
+        {/*@ts-ignore TS2589*/}
         <FunctionField
           label="events.fields.numOfEnrolments.label"
           textAlign="right"
-          render={(record?: EventGroupNode) =>
-            record ? countEnrollments(record as any) : null
+          // FIXME: Why is it EventNode in EventGroupDetails?
+          render={(record?: Partial<EventNode>) =>
+            record
+              ? countEnrollments(record as EnrollmentsCountEventNode)
+              : null
           }
         />
+        {/*@ts-ignore TS2589*/}
         <FunctionField
           headerClassName={classes.center}
           label="events.fields.ready.label2"
-          render={(record: EventGroupNode) => (
-            <EventReadyField record={record} className={classes.center} />
+          // FIXME: Why is it EventNode in EventGroupDetails?
+          render={(record: Partial<EventNode>) => (
+            <EventReadyField
+              record={record as EventNode}
+              className={classes.center}
+            />
           )}
         />
       </LocalDataGrid>

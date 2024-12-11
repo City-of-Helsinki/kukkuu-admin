@@ -5,6 +5,7 @@ import { makeStyles } from '@mui/styles';
 import EditIcon from '@mui/icons-material/Edit';
 import CheckIcon from '@mui/icons-material/Check';
 import PublicIcon from '@mui/icons-material/Public';
+import { EventNode } from '../../api/generatedTypes/graphql';
 
 const useStyles = makeStyles((theme) => ({
   iconWithBackground: {
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type Props = {
-  record?: RaRecord;
+  record?: EventNode;
   className: string;
 };
 
