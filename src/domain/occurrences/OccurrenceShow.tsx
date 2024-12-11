@@ -129,6 +129,7 @@ const OccurrenceShow = () => {
           source="capacity"
           label="occurrences.fields.capacity.label"
         />
+        {/*@ts-ignore TS2589*/}
         <FunctionField
           render={(occurrence: OccurrenceNode) =>
             occurrence?.freeSpotNotificationSubscriptions?.edges?.length ?? '?'

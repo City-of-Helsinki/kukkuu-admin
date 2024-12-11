@@ -44,8 +44,7 @@ const handleApolloError: ErrorHandler = ({
         console.error('Permissions denied');
         authService.resetAuthState();
       } else {
-        const { originalError, extensions, locations, message, path } =
-          graphQLError;
+        const { extensions, locations, message, path } = graphQLError;
 
         const operationName = operation.operationName;
         const operationKind = operation.query.definitions.find(
@@ -72,12 +71,7 @@ const handleApolloError: ErrorHandler = ({
             kind: operationKind,
           });
 
-          if (originalError) {
-            scope.setExtra('message', message);
-            Sentry.captureException(originalError);
-          } else {
-            Sentry.captureMessage(message);
-          }
+          Sentry.captureMessage(message);
 
           if (errorCode === 'AUTHENTICATION_ERROR') {
             authService.resetAuthState();

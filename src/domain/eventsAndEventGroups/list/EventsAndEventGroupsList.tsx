@@ -42,7 +42,7 @@ const EventsAndEventGroupsListToolbar = () => {
 };
 
 function when(
-  record: EventOrEventGroupUnion,
+  record: Partial<EventOrEventGroupUnion>,
   whenEvent: (record: EventNode) => any,
   whenEventGroup: (record: EventGroupNode) => any
 ): any {
@@ -106,15 +106,16 @@ const EventsAndEventGroupsList = () => {
         label={translate('events.fields.name.label')}
         className={classes.bold}
       />
+      {/*@ts-ignore TS2589*/}
       <FunctionField
         label="eventsAndEventGroups.list.type.label"
-        render={(record: RaRecord) => {
+        render={(record: Partial<EventOrEventGroupUnion>) => {
           if (!record) {
             return null;
           }
 
           return when(
-            record as EventOrEventGroupUnion,
+            record,
             () => translate('eventsAndEventGroups.list.type.event.label'),
             () => translate('eventsAndEventGroups.list.type.eventGroup.label')
           );
@@ -130,13 +131,13 @@ const EventsAndEventGroupsList = () => {
       <FunctionField
         label="events.fields.totalCapacity.label"
         textAlign="right"
-        render={(record?: RaRecord) => {
+        render={(record?: Partial<EventOrEventGroupUnion>) => {
           if (!record) {
             return null;
           }
 
           return when(
-            record as EventOrEventGroupUnion,
+            record,
             (event: EventNode) => {
               return (
                 countCapacity(event) ??
@@ -155,13 +156,13 @@ const EventsAndEventGroupsList = () => {
       <FunctionField
         label="events.fields.numOfOccurrences.label"
         textAlign="right"
-        render={(record?: RaRecord) => {
+        render={(record?: Partial<EventOrEventGroupUnion>) => {
           if (!record) {
             return null;
           }
 
           return when(
-            record as EventOrEventGroupUnion,
+            record,
             (event: EventNode) => {
               return countOccurrences(event);
             },

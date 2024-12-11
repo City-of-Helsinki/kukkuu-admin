@@ -91,7 +91,7 @@ function MessageDetails() {
       <FunctionField
         source="project.year"
         label="messages.fields.project.year.label"
-        render={(record?: MessageNode) => record?.project?.year}
+        render={(record?: Partial<MessageNode>) => record?.project?.year}
       />
       <SelectField
         source="recipientSelection"
@@ -108,7 +108,7 @@ function MessageDetails() {
       <FunctionField
         source="occurrences"
         label="messages.fields.occurrences.label"
-        render={(record?: MessageNode) => {
+        render={(record?: Partial<MessageNode>) => {
           const stringifiedRecords =
             record?.occurrences?.edges.map((connection) =>
               connection?.node
