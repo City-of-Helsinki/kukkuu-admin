@@ -22,7 +22,3 @@ export const PublishedField = ({
     </Typography>
   );
 };
-
-PublishedField.defaultProps = {
-  label: 'events.fields.publishedAt.label',
-};
