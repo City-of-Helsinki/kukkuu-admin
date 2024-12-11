@@ -41,6 +41,7 @@
     "object-curly-spacing": ["warn", "always"]
   },
   "globals": {
-    "TestController": true
+    "TestController": true,
+    "vi": true
   }
 }
