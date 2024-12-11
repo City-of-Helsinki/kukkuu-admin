@@ -236,7 +236,7 @@ const EventDetails = () => {
                 source="time"
                 locales={locale}
               />
-              <OccurrenceTimeRangeField label="occurrences.fields.time.fields.time.label" />
+              <OccurrenceTimeRangeField />
               <ReferenceField
                 label="occurrences.fields.venue.label"
                 source="venue.id"

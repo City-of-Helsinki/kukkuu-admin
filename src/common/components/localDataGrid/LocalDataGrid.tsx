@@ -83,7 +83,8 @@ const LocalDataGrid = ({ children, source, rowClick }: any) => {
               (field, index) =>
                 field && (
                   <RecordContextProvider value={localRecord}>
-                    {/*@ts-ignore TS2739*/}
+                    {/* @typescript-eslint/ban-ts-comment
+                    @ts-ignore TS2739*/}
                     <DatagridCell
                       key={`${localRecord.id}-${field.props.source || index}`}
                       className={[

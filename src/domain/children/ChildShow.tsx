@@ -30,7 +30,8 @@ const ChildShow = (props: ShowProps) => {
       <CardHeader title={translate('children.show.title')} />
       <KukkuuShow title="children.show.title" {...omit(props, 'hasShow')}>
         <SimpleShowLayout>
-          {/*@ts-ignore TS2589*/}
+          {/* @typescript-eslint/ban-ts-comment
+                    @ts-ignore TS2739*/}
           <FunctionField
             label="children.fields.name.label"
             render={(record: ChildNode) => record.name.trim()}
