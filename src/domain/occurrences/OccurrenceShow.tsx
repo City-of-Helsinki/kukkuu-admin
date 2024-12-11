@@ -129,7 +129,8 @@ const OccurrenceShow = () => {
           source="capacity"
           label="occurrences.fields.capacity.label"
         />
-        {/*@ts-ignore TS2589*/}
+        {/* @typescript-eslint/ban-ts-comment
+                    @ts-ignore TS2739*/}
         <FunctionField
           render={(occurrence: OccurrenceNode) =>
             occurrence?.freeSpotNotificationSubscriptions?.edges?.length ?? '?'

@@ -106,7 +106,8 @@ const EventsAndEventGroupsList = () => {
         label={translate('events.fields.name.label')}
         className={classes.bold}
       />
-      {/*@ts-ignore TS2589*/}
+      {/* @typescript-eslint/ban-ts-comment
+                    @ts-ignore TS2739*/}
       <FunctionField
         label="eventsAndEventGroups.list.type.label"
         render={(record: Partial<EventOrEventGroupUnion>) => {

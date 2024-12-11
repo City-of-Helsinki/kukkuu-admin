@@ -14,18 +14,14 @@ import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPa
 import KukkuuDetailPage from '../../application/layout/kukkuuDetailPage/KukkuuDetailPage';
 import LocalDataGrid from '../../../common/components/localDataGrid/LocalDataGrid';
 import { participantsPerInviteChoices } from '../../events/choices';
-import {
+import type {
   CapacityEventNode,
-  countCapacity,
-  countEnrollments,
   EnrollmentsCountEventNode,
 } from '../../events/utils';
+import { countCapacity, countEnrollments } from '../../events/utils';
 import EventReadyField from './EventReadyField';
 import EventGroupsDetailActions from './EventGroupsDetailActions';
-import type {
-  EventGroupNode,
-  EventNode,
-} from '../../api/generatedTypes/graphql';
+import type { EventNode } from '../../api/generatedTypes/graphql';
 
 const useStyles = makeStyles(() => ({
   center: {
@@ -67,7 +63,8 @@ const EventGroupsDetail = () => {
           source="duration"
           label={t('events.fields.duration.label')}
         />
-        {/*@ts-ignore TS2589*/}
+        {/* @typescript-eslint/ban-ts-comment
+        @ts-ignore TS2739*/}
         <FunctionField
           label="events.fields.totalCapacity.label"
           textAlign="right"
@@ -82,7 +79,8 @@ const EventGroupsDetail = () => {
           source="occurrences.edges.length"
           label="events.fields.numOfOccurrences.label"
         />
-        {/*@ts-ignore TS2589*/}
+        {/* @typescript-eslint/ban-ts-comment
+        @ts-ignore TS2739*/}
         <FunctionField
           label="events.fields.numOfEnrolments.label"
           textAlign="right"
@@ -93,7 +91,8 @@ const EventGroupsDetail = () => {
               : null
           }
         />
-        {/*@ts-ignore TS2589*/}
+        {/* @typescript-eslint/ban-ts-comment
+        @ts-ignore TS2739*/}
         <FunctionField
           headerClassName={classes.center}
           label="events.fields.ready.label2"
