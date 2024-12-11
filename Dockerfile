@@ -1,5 +1,5 @@
 # ===============================================
-FROM registry.access.redhat.com/ubi9/nodejs-18 AS appbase
+FROM registry.access.redhat.com/ubi9/nodejs-20 AS appbase
 # ===============================================
 
 # install yarn
@@ -45,7 +45,7 @@ ENV NODE_ENV $NODE_ENV
 COPY --chown=default:root . .
 
 # Bake package.json start command into the image
-CMD ["react-scripts", "start"]
+CMD ["yarn", "start", "--no-open", "--host"]
 
 # ===================================
 FROM appbase AS staticbuilder
