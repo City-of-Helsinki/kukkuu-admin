@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import type { AuthProvider } from 'ra-core';
 
 import authService from './authService';
@@ -13,7 +14,9 @@ export type Permissions = {
 };
 
 const authProvider: AuthProvider = {
-  login: (next?: string) => authService.login(next),
+  login: async (next?: string) => {
+    await authService.login(next);
+  },
   logout: async () => {
     const isAuthenticated = authService.isAuthenticated();
 
@@ -22,12 +25,13 @@ const authProvider: AuthProvider = {
     // want that, we are avoiding logging out unless the user is
     // actually authenticated.
     if (isAuthenticated) {
-      return authService.logout();
+      await authService.logout();
+      return;
     }
 
-    return Promise.resolve();
+    await Promise.resolve();
   },
-  checkAuth: () => {
+  checkAuth: async () => {
     const isAuthenticated = authService.isAuthenticated();
     const isAuthorized = authorizationService.isAuthorized();
     const isAdmin = authorizationService.getRole() === 'admin';
@@ -36,32 +40,38 @@ const authProvider: AuthProvider = {
     const isNotAdmin = isAuthenticated && isAuthorized && !isAdmin;
 
     if (isAdminOrPermissionNotChecked) {
-      return Promise.resolve();
+      await Promise.resolve();
+      return;
     }
 
     if (isNotAdmin) {
       // Navigate to unauthorized-route.
       window.location.href = '/unauthorized';
       // Resolve promise so the user is not logged out
-      return Promise.resolve();
+      await Promise.resolve();
+      return;
     }
 
-    return Promise.reject();
+    // eslint-disable-next-line prefer-promise-reject-errors
+    await Promise.reject();
   },
-  checkError: () => {
+  checkError: async () => {
     const hasTokens = Boolean(authService.getToken());
 
     if (hasTokens) {
-      return Promise.resolve();
+      await Promise.resolve();
+      return;
     }
 
-    return Promise.reject();
+    // eslint-disable-next-line prefer-promise-reject-errors
+    await Promise.reject();
   },
-  getPermissions: (): Promise<Permissions> => {
+  getPermissions: async (): Promise<Permissions> => {
     const role = authorizationService.getRole();
 
-    return Promise.resolve({
+    return await Promise.resolve({
       role,
+
       canPublishWithinProject: authorizationService.canPublishWithinProject,
       canManageEventGroupsWithinProject:
         authorizationService.canManageEventGroupsWithinProject,

@@ -30,8 +30,6 @@ const ChildShow = (props: ShowProps) => {
       <CardHeader title={translate('children.show.title')} />
       <KukkuuShow title="children.show.title" {...omit(props, 'hasShow')}>
         <SimpleShowLayout>
-          {/* @typescript-eslint/ban-ts-comment
-                    @ts-ignore TS2739*/}
           <FunctionField
             label="children.fields.name.label"
             render={(record: ChildNode) => record.name.trim()}
@@ -71,7 +69,7 @@ const ChildShow = (props: ShowProps) => {
             <Datagrid
               bulkActionButtons={false}
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
+              // @ts-expect-error
               rowClick={(
                 id: string,
                 resource: string,

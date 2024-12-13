@@ -92,6 +92,7 @@ const METHOD_HANDLERS: MethodHandlers = {
   projects: {
     ONE: getProject,
   },
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   messages: {
     LIST: MessagesApi.getMessages,
     ONE: MessagesApi.getMessage,
@@ -101,6 +102,7 @@ const METHOD_HANDLERS: MethodHandlers = {
     DELETE: MessagesApi.deleteMessage,
     SEND: MessagesApi.sendMessage,
   } as Record<string, MethodHandler>,
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   'event-groups': {
     ONE: EventGroupsApi.getEventGroup,
     CREATE: EventGroupsApi.addEventGroup,
@@ -137,66 +139,81 @@ const extendPaginationParams = (params: Params) => {
     params.pagination.perPage * (params.pagination.page - 1);
 };
 
-const runHandler = <T>(method: Method, resource: Resource, params: Params) => {
+const runHandler = async <T>(
+  method: Method,
+  resource: Resource,
+  params: Params
+) => {
   const handler = getMethodHandler(resource, method);
   if (['LIST', 'MANY_REFERENCE'].includes(method)) {
     extendPaginationParams(params);
   }
-  return handler(params) as Promise<T>;
+  return await (handler(params) as Promise<T>);
 };
 
 // FIXME: In version 3.9.0 typescript support was added into
 // react-admin and our implementation of dataProvider is not type
 // compatible.
 const baseDataProvider = {
-  getList: (resource: Resource[number], params: Params) =>
-    runHandler<GetListResult>('LIST', resource as Resource, params),
-  getOne: (resource: Resource[number], params: Params) =>
-    runHandler<GetOneResult>('ONE', resource as Resource, params),
-  getMany: (resource: Resource[number], params: Params) =>
-    runHandler<GetManyResult>('MANY', resource as Resource, params),
-  getManyReference: (resource: Resource[number], params: Params) =>
-    runHandler<GetManyReferenceResult>(
+  getList: async (resource: Resource[number], params: Params) =>
+    await runHandler<GetListResult>('LIST', resource as Resource, params),
+  getOne: async (resource: Resource[number], params: Params) =>
+    await runHandler<GetOneResult>('ONE', resource as Resource, params),
+  getMany: async (resource: Resource[number], params: Params) =>
+    await runHandler<GetManyResult>('MANY', resource as Resource, params),
+  getManyReference: async (resource: Resource[number], params: Params) =>
+    await runHandler<GetManyReferenceResult>(
       'MANY_REFERENCE',
       resource as Resource,
       params
     ),
-  create: (resource: Resource[number], params: Params) =>
-    runHandler<CreateResult>('CREATE', resource as Resource, params),
-  update: (resource: Resource[number], params: Params) =>
-    runHandler<UpdateResult>('UPDATE', resource as Resource, params),
-  updateMany: (resource: Resource[number], params: Params) =>
-    runHandler<UpdateManyResult>('UPDATE_MANY', resource as Resource, params),
-  delete: (resource: Resource[number], params: Params) =>
-    runHandler<DeleteResult>('DELETE', resource as Resource, params),
-  deleteMany: (resource: Resource[number], params: Params) =>
-    runHandler<DeleteManyResult>('DELETE_MANY', resource as Resource, params),
+  create: async (resource: Resource[number], params: Params) =>
+    await runHandler<CreateResult>('CREATE', resource as Resource, params),
+  update: async (resource: Resource[number], params: Params) =>
+    await runHandler<UpdateResult>('UPDATE', resource as Resource, params),
+  updateMany: async (resource: Resource[number], params: Params) =>
+    await runHandler<UpdateManyResult>(
+      'UPDATE_MANY',
+      resource as Resource,
+      params
+    ),
+  delete: async (resource: Resource[number], params: Params) =>
+    await runHandler<DeleteResult>('DELETE', resource as Resource, params),
+  deleteMany: async (resource: Resource[number], params: Params) =>
+    await runHandler<DeleteManyResult>(
+      'DELETE_MANY',
+      resource as Resource,
+      params
+    ),
 } as const satisfies DataProvider<Resource> | DataProvider;
 
 const extendedDataProvider = {
   ...baseDataProvider,
-  publish: (
+  publish: async (
     resource: Extract<Resource, 'events' | 'event-groups'>,
     params: { id: string }
   ) =>
-    runHandler<MethodHandlerResponse<AdminEvent | EventGroupNode | null>>(
+    await runHandler<MethodHandlerResponse<AdminEvent | EventGroupNode | null>>(
       'PUBLISH',
       resource,
       params
     ),
-  send: (resource: Extract<Resource, 'messages'>, params: { id: string }) =>
-    runHandler<MethodHandlerResponse<MessageNode | null>>(
+  send: async (
+    resource: Extract<Resource, 'messages'>,
+    params: { id: string }
+  ) =>
+    await runHandler<MethodHandlerResponse<MessageNode | null>>(
       'SEND',
       resource,
       params
     ),
   getMyAdminProfile,
   setEnrolmentAttendance,
-  setReady: (
+  setReady: async (
     resource: Extract<Resource, 'events'>,
     params: { id: string; readyForEventGroupPublishing: boolean }
   ) =>
-    runHandler<MethodHandlerResponse<AdminEvent | null>>(
+    await runHandler<MethodHandlerResponse<AdminEvent | null>>(
       'SET_READY',
       resource,
       params

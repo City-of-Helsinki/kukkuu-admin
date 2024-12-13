@@ -17,12 +17,12 @@
     "allowImportingTsExtensions": true,
     "jsx": "react-jsx",
     "types": [
-      "node",
+      "node", 
       "vitest/globals",
       "vite/client",
       "@testing-library/jest-dom/vitest"
     ]
   },
   "include": ["src", "vitest.config.ts", ".eslintrc.cjs"],
-  "exclude": ["src/api/generatedTypes/**/*.ts", "node_modules"]
+  "exclude": ["node_modules", "src/api/generatedTypes/**/*.ts"]
 }

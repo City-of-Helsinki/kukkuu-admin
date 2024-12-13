@@ -1,7 +1,8 @@
 import React from 'react';
 import { Grid } from '@mui/material';
 
-import KukkuuPageLayout, type { KukkuuLayoutProps } from '../kukkuuPageLayout/KukkuuPageLayout';
+import type { KukkuuLayoutProps } from '../kukkuuPageLayout/KukkuuPageLayout';
+import KukkuuPageLayout from '../kukkuuPageLayout/KukkuuPageLayout';
 
 const KukkuuCardPageLayout = ({ children, ...rest }: KukkuuLayoutProps) => {
   return (

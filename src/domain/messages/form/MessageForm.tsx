@@ -1,5 +1,7 @@
-import React, type { ChangeEvent } from 'react';
-import { type SimpleFormProps ,
+import type { ChangeEvent } from 'react';
+import React from 'react';
+import {
+  type SimpleFormProps,
   TextInput,
   SimpleForm,
   SelectInput,
@@ -141,7 +143,7 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
   return (
     <SimpleForm
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
+      // @ts-expect-error
       resolver={yupResolver(
         protocol === ProtocolType.Sms ? smsMessageSchema : emailMessageSchema
       )}

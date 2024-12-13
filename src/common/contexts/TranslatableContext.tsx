@@ -1,4 +1,4 @@
-import React, type { ReactElement } from 'react';
+import React from 'react';
 
 import { CONTENT_LANGUAGES } from '../constants';
 import LanguageTabs from '../components/languageTab/LanguageTabs';
@@ -10,7 +10,7 @@ export type TranslatableContextType = {
   selectedLanguage: Language;
   selectLanguage: React.Dispatch<React.SetStateAction<Language>>;
   getSource: (fieldName: string) => string;
-  selector: ReactElement;
+  selector: React.ReactElement;
 };
 
 export const initialContext = {

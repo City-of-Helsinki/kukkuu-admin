@@ -57,7 +57,7 @@ const handleApolloError: ErrorHandler = ({
 
           scope.setTag('type', 'GraphQL Error');
           scope.setTag('operation.name', operationName);
-          if (operationKind) {
+          if (operationKind != null) {
             scope.setTag('operation.kind', operationKind);
           }
 

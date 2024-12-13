@@ -14,9 +14,9 @@ type Occurrence = {
 export type CapacityEventNode = {
   capacityPerOccurrence: number | null;
   occurrences: {
-    edges: ({
+    edges: Array<{
       node?: Occurrence | null;
-    } | null)[];
+    } | null>;
   };
 };
 type CapacityEventNodeWithCapacityPerOccurrence = CapacityEventNode & {
@@ -59,7 +59,7 @@ export function countCapacity(...events: CapacityEventNode[]): number | null {
 
 type CountEventNode = {
   occurrences: {
-    edges: Array<unknown>;
+    edges: unknown[];
   };
 };
 
@@ -71,11 +71,11 @@ export function countOccurrences(...events: CountEventNode[]): number {
 
 export type EnrollmentsCountEventNode = {
   occurrences: {
-    edges: (null | {
+    edges: Array<null | {
       node: {
         enrolmentCount: number;
       } | null;
-    })[];
+    }>;
   };
 };
 
@@ -100,7 +100,7 @@ export type RecordWithTicketSystem = {
 
 export function hasInternalTicketSystem(record?: RecordWithTicketSystem) {
   const type = record?.ticketSystem?.type;
-  return type ? type === TicketSystem.Internal : true;
+  return type != null ? type === TicketSystem.Internal : true;
 }
 
 export const EventList = RelayList<EventNode>();

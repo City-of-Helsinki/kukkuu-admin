@@ -68,7 +68,7 @@ export const withGuardian =
     const guardian = enrollmentRecord.node?.child?.guardians.edges[0]?.node;
 
     if (guardian) {
-      return hasRecord(guardian as GuardianNode);
+      return hasRecord(guardian);
     }
 
     return otherwise();
@@ -129,8 +129,6 @@ const OccurrenceShow = () => {
           source="capacity"
           label="occurrences.fields.capacity.label"
         />
-        {/* @typescript-eslint/ban-ts-comment
-                    @ts-ignore TS2739*/}
         <FunctionField
           render={(occurrence: OccurrenceNode) =>
             occurrence?.freeSpotNotificationSubscriptions?.edges?.length ?? '?'
@@ -143,7 +141,7 @@ const OccurrenceShow = () => {
         >
           <Datagrid
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
+            // @ts-expect-error
             rowClick={(
               id: string,
               resource: string,

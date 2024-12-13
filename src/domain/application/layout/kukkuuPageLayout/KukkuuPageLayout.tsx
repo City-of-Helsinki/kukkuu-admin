@@ -1,14 +1,16 @@
-import React, type { ReactElement, ReactText } from 'react';
-import { type RaRecord , useGetOne, useResourceContext } from 'react-admin';
+import type { ReactElement } from 'react';
+import React from 'react';
+import { type RaRecord, useGetOne, useResourceContext } from 'react-admin';
 import { makeStyles } from '@mui/styles';
 import get from 'lodash/get';
 import { useParams } from 'react-router-dom';
 
 import KukkuuPageTitle from '../kukkuuPageTitle/KukkuuPageTitle';
-import BreadCrumbs, type { Crumb } from '../../../../common/components/breadcrumbs/Breadcrumbs';
+import type { Crumb } from '../../../../common/components/breadcrumbs/Breadcrumbs';
+import BreadCrumbs from '../../../../common/components/breadcrumbs/Breadcrumbs';
 
 type TitleWithRecordProps = {
-  pageTitle: string | ((record?: RaRecord) => ReactText);
+  pageTitle: string | ((record?: RaRecord) => string);
 };
 
 const TitleWithRecord = ({
@@ -46,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 
 export type KukkuuLayoutProps = {
   children: ReactElement;
-  pageTitle?: string | ((record?: RaRecord) => ReactText | undefined);
+  pageTitle?: string | ((record?: RaRecord) => string);
   pageTitleSource?: string;
   breadcrumbs?: Crumb[];
 };
@@ -70,11 +72,7 @@ const KukkuuPageLayout = ({
         <BreadCrumbs className={classes.breadCrumbs} crumbs={breadcrumbs} />
       )}
       {(isSourcePageTitle || isFunctionPageTitle) && (
-        <TitleWithRecord
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          pageTitle={pageTitleSource || pageTitle}
-        />
+        <TitleWithRecord pageTitle={pageTitleSource ?? pageTitle ?? ''} />
       )}
       {isPlainPageTitle && <KukkuuPageTitle>{pageTitle}</KukkuuPageTitle>}
       {children}

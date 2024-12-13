@@ -13,13 +13,11 @@ const useMessageSendMutation = ({
   basePath: string;
   params: Parameters<(typeof extendedDataProvider)['send']>[1];
 }) => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const dataProvider = useDataProvider<typeof extendedDataProvider>();
   const navigate = useNavigate();
   const notify = useNotify();
   return useMutation({
-    mutationFn: () => dataProvider.send('messages', { ...params }),
+    mutationFn: async () => await dataProvider.send('messages', { ...params }),
     onSuccess: () => {
       notify('messages.send.success');
       navigate(basePath);

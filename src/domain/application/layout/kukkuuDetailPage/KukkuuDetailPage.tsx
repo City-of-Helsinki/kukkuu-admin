@@ -1,5 +1,11 @@
-import React, type { ComponentType, ReactElement, ReactText } from 'react';
-import { type RaRecord, type ShowProps , useGetOne, useResourceContext } from 'react-admin';
+import type { ComponentType, ReactElement } from 'react';
+import React from 'react';
+import {
+  type RaRecord,
+  type ShowProps,
+  useGetOne,
+  useResourceContext,
+} from 'react-admin';
 import omit from 'lodash/omit';
 import { useParams } from 'react-router-dom';
 
@@ -12,7 +18,7 @@ type Props = {
   children: ReactElement;
   reactAdminProps?: Omit<ShowProps, 'children' | 'hasShow'>;
   pageTitleSource?: string;
-  pageTitle?: string | ((record?: RaRecord) => ReactText | undefined);
+  pageTitle?: string | ((record?: RaRecord) => string);
   layout?: ComponentType<KukkuuLayoutProps>;
   breadcrumbs?: ((data?: RaRecord) => Crumb[]) | Crumb[];
 };
@@ -28,7 +34,7 @@ const KukkuuDetailPage = ({
   const resource = useResourceContext();
   const { id } = useParams();
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const { data } = useGetOne(resource!, {
+  const { data } = useGetOne(resource, {
     id,
   });
 

@@ -25,7 +25,7 @@ function hideIdFromDeleteConfirmation(domainMessages: any, raMessages: any) {
   };
 }
 
-const allMessages: { [index: string]: TranslationMessages } = {
+const allMessages: Record<string, TranslationMessages> = {
   fi: hideIdFromDeleteConfirmation(fiDomainMessages, fiMessages),
   sv: hideIdFromDeleteConfirmation(svDomainMessages, svMessages),
   en: hideIdFromDeleteConfirmation(enDomainMessages, enMessages),

@@ -11,6 +11,11 @@ const UnauthorizedPage = () => {
   const contactEmail = translate(
     'authentication.unauthorizedPage.contactEmail'
   );
+  const syncLogout = () => {
+    (async () => {
+      await logout();
+    })();
+  };
   return (
     <InfoPageTemplate
       title={translate('authentication.unauthorizedPage.title')}
@@ -19,7 +24,7 @@ const UnauthorizedPage = () => {
           {translate('authentication.unauthorizedPage.content')}{' '}
           <a href={'mailto:' + contactEmail}>{contactEmail}</a>
           <Box style={{ marginTop: '2rem' }}>
-            <Button variant="contained" color="secondary" onClick={logout}>
+            <Button variant="contained" color="secondary" onClick={syncLogout}>
               {translate('ra.auth.logout')}
             </Button>
           </Box>

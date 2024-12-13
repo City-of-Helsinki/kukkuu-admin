@@ -53,7 +53,7 @@ const normalizeTime = (date: string, time: string) => {
 
 const addOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
   const data = mapLocalDataToApiData(params.data);
-  data.time = normalizeTime(data.date, data.timeField);
+  data.time = normalizeTime(data.date as string, data.timeField as string);
   data.date = undefined;
   data.timeField = undefined;
 
@@ -73,7 +73,7 @@ const updateOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
   const data = {
     id,
     venueId: venue.id,
-    time: normalizeTime(date, timeField),
+    time: normalizeTime(date as string, timeField as string),
     eventId: event.id,
     capacityOverride,
   };

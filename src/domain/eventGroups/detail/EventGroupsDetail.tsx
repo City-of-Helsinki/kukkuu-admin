@@ -64,8 +64,6 @@ const EventGroupsDetail = () => {
           source="duration"
           label={t('events.fields.duration.label')}
         />
-        {/* @typescript-eslint/ban-ts-comment
-        @ts-ignore TS2739*/}
         <FunctionField
           label="events.fields.totalCapacity.label"
           textAlign="right"
@@ -80,8 +78,6 @@ const EventGroupsDetail = () => {
           source="occurrences.edges.length"
           label="events.fields.numOfOccurrences.label"
         />
-        {/* @typescript-eslint/ban-ts-comment
-        @ts-ignore TS2739*/}
         <FunctionField
           label="events.fields.numOfEnrolments.label"
           textAlign="right"
@@ -92,8 +88,6 @@ const EventGroupsDetail = () => {
               : null
           }
         />
-        {/* @typescript-eslint/ban-ts-comment
-        @ts-ignore TS2739*/}
         <FunctionField
           headerClassName={classes.center}
           label="events.fields.ready.label2"
