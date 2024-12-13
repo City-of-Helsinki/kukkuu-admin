@@ -1,7 +1,5 @@
-import type { ComponentType, ReactElement, ReactText } from 'react';
-import React from 'react';
-import type { RaRecord, ShowProps } from 'react-admin';
-import { useGetOne, useResourceContext } from 'react-admin';
+import React, type { ComponentType, ReactElement, ReactText } from 'react';
+import { type RaRecord, type ShowProps , useGetOne, useResourceContext } from 'react-admin';
 import omit from 'lodash/omit';
 import { useParams } from 'react-router-dom';
 

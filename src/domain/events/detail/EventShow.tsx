@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import type { RaRecord } from 'react-admin';
 import {
+  type RaRecord,
   TabbedShowLayout,
   TextField,
   Tab,
@@ -18,8 +18,7 @@ import {
   useRecordContext,
   Loading,
 } from 'react-admin';
-import type { WithStyles } from '@mui/styles';
-import { createStyles, withStyles } from '@mui/styles';
+import { type WithStyles, createStyles, withStyles } from '@mui/styles';
 import { Link } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 

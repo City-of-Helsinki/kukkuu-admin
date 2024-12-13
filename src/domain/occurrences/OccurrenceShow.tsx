@@ -1,6 +1,6 @@
 import React from 'react';
-import type { RaRecord } from 'react-admin';
 import {
+  type RaRecord,
   TextField,
   NumberField,
   DateField,

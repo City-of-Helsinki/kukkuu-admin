@@ -2,8 +2,10 @@ import { useMutation } from '@apollo/client';
 import { useNotify } from 'react-admin';
 import * as Sentry from '@sentry/browser';
 
-import { UpdateTicketAttendedDocument } from '../api/generatedTypes/graphql';
-import type { UpdateTicketAttendedMutationResult } from '../api/generatedTypes/graphql';
+import {
+  UpdateTicketAttendedDocument,
+  type UpdateTicketAttendedMutationResult,
+} from '../api/generatedTypes/graphql';
 
 type Config = {
   sideEffect?: (data: UpdateTicketAttendedMutationResult['data']) => void;

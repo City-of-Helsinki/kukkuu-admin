@@ -1,6 +1,6 @@
 import React from 'react';
-import type { ShowProps } from 'react-admin';
 import {
+  type ShowProps,
   TextField,
   SimpleShowLayout,
   DateField,
