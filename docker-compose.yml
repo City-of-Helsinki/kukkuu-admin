@@ -1,14 +1,19 @@
-version: '3.7'
-
 services:
   app:
     container_name: kukkuu-admin
     build:
       context: .
       target: ${DOCKER_TARGET:-development}
+    environment:
+      NODE_ENV: ${DOCKER_TARGET:-development} # which node env the build uses. NOTE: Usually same as the ${DOCKER_TARGET}.
+      VITE_ENVIRONMENT: ${DOCKER_TARGET:-development}
+      PORT: ${PORT:-3001}
     volumes:
       - '.:/app'
       - '/app/node_modules'
     ports:
       - '3001:3001'
       - '8080:8080'
+networks:
+  default:
+      name: helsinki
