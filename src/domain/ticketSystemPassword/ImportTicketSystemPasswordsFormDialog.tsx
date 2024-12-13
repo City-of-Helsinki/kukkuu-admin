@@ -109,7 +109,14 @@ const ImportTicketSystemPasswordsFormDialog = withStyles(styles)(({
         <Button onClick={onClose}>
           {translate('ticketSystemPassword.import.action.cancel')}
         </Button>
-        <Button onClick={submitPasswords} color="primary">
+        <Button
+          onClick={() => {
+            void (async () => {
+              await submitPasswords();
+            })();
+          }}
+          color="primary"
+        >
           {translate('ticketSystemPassword.import.action.import')}
         </Button>
       </DialogActions>

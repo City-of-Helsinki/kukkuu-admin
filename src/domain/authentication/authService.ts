@@ -23,10 +23,10 @@ export type ApiTokenClientProps = {
 };
 
 export class AuthService {
-  private userManager: UserManager;
-  private apiTokensClientConfig: ApiTokenClientProps;
-  private authServerType: 'KEYCLOAK' | 'TUNNISTAMO';
-  private audience: string;
+  private readonly userManager: UserManager;
+  private readonly apiTokensClientConfig: ApiTokenClientProps;
+  private readonly authServerType: 'KEYCLOAK' | 'TUNNISTAMO';
+  private readonly audience: string;
 
   constructor() {
     this.authServerType = AppConfig.oidcServerType;
@@ -108,8 +108,8 @@ export class AuthService {
     });
   }
 
-  public getUser(): Promise<User | null> {
-    return this.userManager.getUser();
+  public async getUser(): Promise<User | null> {
+    return await this.userManager.getUser();
   }
 
   public getToken(): string | null {
@@ -136,7 +136,7 @@ export class AuthService {
 
   public async login(path = '/'): Promise<void> {
     try {
-      return this.userManager.signinRedirect({ url_state: path });
+      await this.userManager.signinRedirect({ url_state: path });
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);
@@ -209,7 +209,7 @@ export class AuthService {
    * https://www.rfc-editor.org/rfc/rfc6749.html#section-5.1
    */
   private async queryApiTokensEndpoint(accessToken: string) {
-    return axios(this.apiTokensClientConfig.url, {
+    return await axios(this.apiTokensClientConfig.url, {
       method: 'post',
       baseURL: AppConfig.oidcAuthority,
       headers: {

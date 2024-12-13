@@ -5,6 +5,7 @@
  * related to OIDC (OpenID Connect) authentication and the GraphQL API endpoint.
  * It ensures that required environment variables are defined and throws errors if not.
  */
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 class AppConfig {
   /**
    * GraphQL API base URL.

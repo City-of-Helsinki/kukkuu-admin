@@ -41,7 +41,7 @@ const getEvent: MethodHandler = async (params: MethodHandlerParams) => {
 
 const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
   const data = mapLocalDataToApiData(params.data);
-  data['projectId'] = projectService.projectId;
+  data.projectId = projectService.projectId;
   if (params.data.image) {
     data.image = params.data.image.rawFile;
   }

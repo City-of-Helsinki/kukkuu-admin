@@ -31,11 +31,12 @@ module.exports = {
       },
     },
   ],
+  ignorePatterns: ['**/generatedTypes/*', '**/generated/*'],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react', '@vitest', 'prettier'],
+  plugins: ['react', 'react-hooks', '@vitest', 'prettier'],
   rules: {
     '@typescript-eslint/brace-style': [
       'error',
@@ -47,10 +48,22 @@ module.exports = {
     '@typescript-eslint/func-call-spacing': ['error'],
     '@typescript-eslint/member-ordering': 'warn',
     '@typescript-eslint/no-require-imports': 'error',
-    '@typescript-eslint/consistent-type-imports': 'error',
+    '@typescript-eslint/strict-boolean-expressions': 'off',
+    '@typescript-eslint/restrict-template-expressions': 'off',
+    '@typescript-eslint/no-unsafe-argument': 'off',
+    '@typescript-eslint/consistent-type-imports': [
+      'error',
+      {
+        disallowTypeAnnotations: false,
+        fixStyle: 'separate-type-imports',
+        prefer: 'type-imports',
+      },
+    ],
+    '@typescript-eslint/no-floating-promises': 'off',
     '@typescript-eslint/consistent-type-definitions': 'off',
     'react/no-unused-prop-types': ['warn', { skipShapeProps: true }],
     'array-bracket-spacing': ['warn', 'never'],
+    'no-prototype-builtins': 'off',
     'import/order': [
       'error',
       {

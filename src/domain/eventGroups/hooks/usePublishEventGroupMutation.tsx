@@ -22,14 +22,12 @@ const usePublishEventGroupMutation = ({
   basePath: string;
   params: Parameters<(typeof extendedDataProvider)['publish']>[1];
 }) => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const dataProvider = useDataProvider<typeof extendedDataProvider>();
   const navigate = useNavigate();
   const notify = useNotify();
   return useMutation({
-    mutationFn: () =>
-      dataProvider.publish('event-groups', {
+    mutationFn: async () =>
+      await dataProvider.publish('event-groups', {
         ...params,
       }),
     onSuccess: () => {

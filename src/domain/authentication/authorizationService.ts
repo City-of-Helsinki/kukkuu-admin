@@ -10,9 +10,7 @@ export const PERMISSIONS = 'permissions';
 
 type Role = 'admin' | 'none';
 type PermissionKey = keyof ProjectPermissionsType;
-type PermissionObject = {
-  [id: string]: PermissionKey[];
-};
+type PermissionObject = Record<string, PermissionKey[]>;
 type PermissionStorage = {
   role: Role;
   projects: PermissionObject;
@@ -86,7 +84,7 @@ export class AuthorizationService {
   }
 
   getRole(): Role | null {
-    return this.permissionStorage?.role || null;
+    return this.permissionStorage?.role ?? null;
   }
 
   isAuthorized(): boolean {
@@ -122,7 +120,7 @@ export class AuthorizationService {
   }
 
   private getProjectPermissions(projectId: string) {
-    return this.permissionStorage?.projects[projectId] || [];
+    return this.permissionStorage?.projects[projectId] ?? [];
   }
 
   private setPermissionStorage(storage: Partial<PermissionStorage>) {

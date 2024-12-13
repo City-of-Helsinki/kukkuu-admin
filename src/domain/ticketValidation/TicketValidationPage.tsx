@@ -111,7 +111,7 @@ const TicketValidationPage = () => {
       <ValidityIndicator isValid={isValid} />
       <OccurrenceCard
         eventName={eventName}
-        venueName={venueName || ''}
+        venueName={venueName ?? ''}
         occurrenceTime={occurrenceTime}
       />
       {isValid && (

@@ -11,7 +11,7 @@ let console: any;
 
 beforeAll(() => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  // @ts-expect-error
   global.MessageChannel = MessageChannel;
   console = global.console;
   global.console = {

@@ -38,7 +38,7 @@ async function getMessages(
     },
   });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  // @ts-expect-error
   return handleApiConnection(response.data.messages);
 }
 

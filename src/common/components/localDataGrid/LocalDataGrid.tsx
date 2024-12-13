@@ -55,7 +55,7 @@ const LocalDataGrid = ({ children, source, rowClick }: any) => {
                   className={classes.headerCell}
                   field={disableSorting(field)}
                   isSorting={false}
-                  key={(field.props as any).source || index}
+                  key={field.props.source || index}
                   resource={resource}
                   sort={{
                     field: 'any',
@@ -74,7 +74,9 @@ const LocalDataGrid = ({ children, source, rowClick }: any) => {
           <TableRow
             key={localRecord.id}
             hover={isHover}
-            onClick={() => handleRowClick(localRecord)}
+            onClick={() => {
+              handleRowClick(localRecord);
+            }}
             className={rowClick ? classes.clickableRow : undefined}
           >
             {React.Children.map(
@@ -83,7 +85,7 @@ const LocalDataGrid = ({ children, source, rowClick }: any) => {
                 field && (
                   <RecordContextProvider value={localRecord}>
                     {/* @typescript-eslint/ban-ts-comment
-                    @ts-ignore TS2739*/}
+                    @ts-expect-error TS2739 */}
                     <DatagridCell
                       key={`${localRecord.id}-${field.props.source || index}`}
                       className={[

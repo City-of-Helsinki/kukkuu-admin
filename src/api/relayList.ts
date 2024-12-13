@@ -2,7 +2,7 @@ type Edge<Node> = {
   node?: Node | null;
 };
 type TRelayList<Node> = {
-  edges?: (Edge<Node> | null)[] | null;
+  edges?: Array<Edge<Node> | null> | null;
 } | null;
 
 class RelayList<Node> {
@@ -12,7 +12,7 @@ class RelayList<Node> {
     this.data = data;
   }
 
-  get items(): Exclude<Node, null>[] {
+  get items(): Array<Exclude<Node, null>> {
     if (!this.data?.edges) {
       return [];
     }
