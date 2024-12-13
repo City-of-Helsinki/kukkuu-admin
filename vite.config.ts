@@ -15,10 +15,10 @@ export default ({ mode }: any) => {
     plugins: [react(), eslint(), viteTsconfigPaths()],
     server: {
       open: true, // automatically open the app in the browser
-      port: parseInt(process.env.PORT ?? '3000'),
+      port: parseInt(process.env.PORT ?? '3001'),
     },
     preview: {
-      port: parseInt(process.env.PORT ?? '3000'),
+      port: parseInt(process.env.PORT ?? '3001'),
     },
     resolve: {
       alias: {

@@ -26,7 +26,7 @@ ENV YARN_VERSION 1.22.4
 RUN yarn policies set-version ${YARN_VERSION}
 
 # Copy package.json and package-lock.json/yarn.lock files
-COPY package*.json *yarn* ./
+COPY --chown=root:root package*.json *yarn* ./
 
 # Install npm dependencies
 ENV PATH /app/node_modules/.bin:$PATH
@@ -42,7 +42,7 @@ ARG NODE_ENV=development
 ENV NODE_ENV $NODE_ENV
 
 # copy in our source code last, as it changes the most
-COPY --chown=default:root . .
+COPY --chown=root:root . .
 
 # Bake package.json start command into the image
 CMD ["yarn", "start", "--no-open", "--host"]
@@ -70,6 +70,9 @@ ARG VITE_BUILDTIME
 ARG VITE_RELEASE
 ARG VITE_COMMITHASH
 ARG VITE_IDLE_TIMEOUT_IN_MS
+
+# Fix FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory
+ENV NODE_OPTIONS="--max-old-space-size=8192"
 
 # Use template and inject the environment variables into .prod/nginx.conf
 ENV VITE_BUILDTIME=${VITE_BUILDTIME:-""}
