@@ -1,7 +1,5 @@
-import type { ChangeEvent } from 'react';
-import React from 'react';
-import type { SimpleFormProps } from 'react-admin';
-import {
+import React, type { ChangeEvent } from 'react';
+import { type SimpleFormProps ,
   TextInput,
   SimpleForm,
   SelectInput,

@@ -98,7 +98,7 @@ describe('client', () => {
           },
         ];
 
-        handleError({ graphQLErrors: graphQLErrors, operation });
+        handleError({ graphQLErrors, operation });
 
         expect(captureExceptionSpy).toHaveBeenCalledTimes(0);
         expect(captureMessageSpy).toHaveBeenCalledTimes(0);
@@ -129,7 +129,7 @@ describe('client', () => {
             // pass
           });
 
-        handleError({ graphQLErrors: graphQLErrors, operation });
+        handleError({ graphQLErrors, operation });
 
         graphQLErrors
           .map(
@@ -156,7 +156,7 @@ describe('client', () => {
           },
         ];
 
-        handleError({ graphQLErrors: graphQLErrors, operation });
+        handleError({ graphQLErrors, operation });
 
         expect(captureExceptionSpy).toHaveBeenCalledTimes(1);
         expect(captureMessageSpy).toHaveBeenCalledTimes(0);

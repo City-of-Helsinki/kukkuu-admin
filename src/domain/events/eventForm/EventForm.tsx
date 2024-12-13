@@ -19,8 +19,7 @@ import {
   validateUrl,
 } from '../validations';
 import { participantsPerInviteChoices, ticketSystemChoices } from '../choices';
-import type { RecordWithTicketSystem } from '../utils';
-import { hasInternalTicketSystem } from '../utils';
+import { type RecordWithTicketSystem, hasInternalTicketSystem } from '../utils';
 import Config from '../../config';
 import TicketSystemInput from '../ticketSystemInput/TicketSystemInput';
 import EventEditToolbar from '../edit/EventEditToolbar';

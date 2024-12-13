@@ -23,6 +23,6 @@
       "@testing-library/jest-dom/vitest"
     ]
   },
-  "include": ["src"],
+  "include": ["src", "vitest.config.ts", ".eslintrc.cjs"],
   "exclude": ["src/api/generatedTypes/**/*.ts", "node_modules"]
 }

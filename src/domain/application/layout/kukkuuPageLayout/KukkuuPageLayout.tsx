@@ -1,14 +1,11 @@
-import type { ReactElement, ReactText } from 'react';
-import React from 'react';
-import type { RaRecord } from 'react-admin';
-import { useGetOne, useResourceContext } from 'react-admin';
+import React, type { ReactElement, ReactText } from 'react';
+import { type RaRecord , useGetOne, useResourceContext } from 'react-admin';
 import { makeStyles } from '@mui/styles';
 import get from 'lodash/get';
 import { useParams } from 'react-router-dom';
 
 import KukkuuPageTitle from '../kukkuuPageTitle/KukkuuPageTitle';
-import type { Crumb } from '../../../../common/components/breadcrumbs/Breadcrumbs';
-import BreadCrumbs from '../../../../common/components/breadcrumbs/Breadcrumbs';
+import BreadCrumbs, type { Crumb } from '../../../../common/components/breadcrumbs/Breadcrumbs';
 
 type TitleWithRecordProps = {
   pageTitle: string | ((record?: RaRecord) => ReactText);

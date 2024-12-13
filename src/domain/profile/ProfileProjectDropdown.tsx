@@ -1,5 +1,4 @@
-import type { MouseEvent } from 'react';
-import React from 'react';
+import React, type { MouseEvent } from 'react';
 import { useDataProvider, useRefresh } from 'react-admin';
 import { useQuery } from 'react-query';
 import { makeStyles } from '@mui/styles';

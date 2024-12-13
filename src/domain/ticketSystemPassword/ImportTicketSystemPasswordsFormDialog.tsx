@@ -1,6 +1,5 @@
 import React from 'react';
-import type { WithStyles } from '@mui/styles';
-import { withStyles, createStyles } from '@mui/styles';
+import { type WithStyles, withStyles, createStyles } from '@mui/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -27,101 +26,95 @@ interface ImportTicketSystemPasswordsModalProps
   record: AdminEvent;
 }
 
-const ImportTicketSystemPasswordsFormDialog = withStyles(styles)(
-  ({
-    isOpen,
-    onClose,
-    classes,
-    record,
-  }: ImportTicketSystemPasswordsModalProps) => {
-    const translate = useTranslate();
-    const [passwordsText, setPasswordsText] = React.useState('');
-    const refresh = useRefresh();
-    const notify = useNotify();
-    const onChangePasswordsText: React.ChangeEventHandler<
-      HTMLTextAreaElement
-    > = (e) => {
-      setPasswordsText(e.currentTarget.value);
-    };
+const ImportTicketSystemPasswordsFormDialog = withStyles(styles)(({
+  isOpen,
+  onClose,
+  classes,
+  record,
+}: ImportTicketSystemPasswordsModalProps) => {
+  const translate = useTranslate();
+  const [passwordsText, setPasswordsText] = React.useState('');
+  const refresh = useRefresh();
+  const notify = useNotify();
+  const onChangePasswordsText: React.ChangeEventHandler<HTMLTextAreaElement> = (
+    e
+  ) => {
+    setPasswordsText(e.currentTarget.value);
+  };
 
-    const submitPasswords = async () => {
-      // Collect the passwords in a list
-      // Every new line is a new password
-      const passwords = passwordsText.split(/\r?\n/);
+  const submitPasswords = async () => {
+    // Collect the passwords in a list
+    // Every new line is a new password
+    const passwords = passwordsText.split(/\r?\n/);
 
-      // Submit the import event passwords mutation to the API
-      try {
-        const response =
-          await ticketSystemPasswordsApi.importTicketSystemPasswords({
-            data: {
-              eventId: record.id,
-              passwords,
-            },
-          });
-        const data = response?.data
-          ? (response.data as ImportTicketSystemPasswordsMutationPayload)
-          : null;
+    // Submit the import event passwords mutation to the API
+    try {
+      const response =
+        await ticketSystemPasswordsApi.importTicketSystemPasswords({
+          data: {
+            eventId: record.id,
+            passwords,
+          },
+        });
+      const data = response?.data
+        ? (response.data as ImportTicketSystemPasswordsMutationPayload)
+        : null;
 
-        if (data?.errors?.length) {
-          const passwordsWithError = data.errors.map((error) => error?.value);
-          notify('ticketSystemPassword.import.submit.passwords.error', {
-            type: 'warning',
-            passwords: passwordsWithError.join(', '),
-          });
-        }
-
-        notify('ticketSystemPassword.import.submit.success', { type: 'info' });
-      } catch (e) {
-        notify('ticketSystemPassword.import.submit.error', { type: 'error' });
+      if (data?.errors?.length) {
+        const passwordsWithError = data.errors.map((error) => error?.value);
+        notify('ticketSystemPassword.import.submit.passwords.error', {
+          type: 'warning',
+          passwords: passwordsWithError.join(', '),
+        });
       }
 
-      // Clear input
-      setPasswordsText('');
+      notify('ticketSystemPassword.import.submit.success', { type: 'info' });
+    } catch (e) {
+      notify('ticketSystemPassword.import.submit.error', { type: 'error' });
+    }
 
-      // Close the dialog
-      onClose();
+    // Clear input
+    setPasswordsText('');
 
-      refresh();
-    };
+    // Close the dialog
+    onClose();
 
-    return (
-      <Dialog
-        open={isOpen}
-        onClose={onClose}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">
-          {translate('ticketSystemPassword.import.dialog.title')}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            {translate('ticketSystemPassword.import.dialog.text')}
-          </DialogContentText>
-          <TextareaAutosize
-            name="passwords"
-            className={classes.passwordsField}
-            aria-label={translate(
-              'ticketSystemPassword.import.passwords.ariaLabel'
-            )}
-            placeholder={translate(
-              'ticketSystemPassword.import.passwords.placeholder'
-            )}
-            minRows={10}
-            value={passwordsText}
-            onChange={onChangePasswordsText}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={onClose}>
-            {translate('ticketSystemPassword.import.action.cancel')}
-          </Button>
-          <Button onClick={submitPasswords} color="primary">
-            {translate('ticketSystemPassword.import.action.import')}
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
-  }
-);
+    refresh();
+  };
+
+  return (
+    <Dialog open={isOpen} onClose={onClose} aria-labelledby="form-dialog-title">
+      <DialogTitle id="form-dialog-title">
+        {translate('ticketSystemPassword.import.dialog.title')}
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          {translate('ticketSystemPassword.import.dialog.text')}
+        </DialogContentText>
+        <TextareaAutosize
+          name="passwords"
+          className={classes.passwordsField}
+          aria-label={translate(
+            'ticketSystemPassword.import.passwords.ariaLabel'
+          )}
+          placeholder={translate(
+            'ticketSystemPassword.import.passwords.placeholder'
+          )}
+          minRows={10}
+          value={passwordsText}
+          onChange={onChangePasswordsText}
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose}>
+          {translate('ticketSystemPassword.import.action.cancel')}
+        </Button>
+        <Button onClick={submitPasswords} color="primary">
+          {translate('ticketSystemPassword.import.action.import')}
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+});
 
 export default ImportTicketSystemPasswordsFormDialog;

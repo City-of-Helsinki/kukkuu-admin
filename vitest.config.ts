@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
 import { defineConfig, mergeConfig } from 'vitest/config';
 import { config } from 'dotenv';
 
@@ -24,6 +23,7 @@ export default defineConfig((configEnv) =>
           provider: 'v8',
           reporter: ['lcov', 'html'],
           exclude: [
+            '*.config.*js',
             'node_modules/',
             'src/index.tsx',
             'src/domain/api/generatedTypes',

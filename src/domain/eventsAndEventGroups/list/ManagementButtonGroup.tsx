@@ -4,8 +4,8 @@ import {
   CreateButton,
   useGetOne,
   usePermissions,
+  type CreateButtonProps,
 } from 'react-admin';
-import type { CreateButtonProps } from 'react-admin';
 
 import type { Permissions } from '../../authentication/authProvider';
 import projectService from '../../projects/projectService';

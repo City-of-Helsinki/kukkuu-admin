@@ -18,8 +18,10 @@ import { recipientSelectionChoices } from '../choices';
 import TranslatableProvider from '../../../common/providers/TranslatableProvider';
 import MessageDetailToolbar from './MessageDetailsToolbar';
 import useTranslatableContext from '../../../common/hooks/useTranslatableContext';
-import type { MessageNode } from '../../api/generatedTypes/graphql';
-import { ProtocolType } from '../../api/generatedTypes/graphql';
+import {
+  type MessageNode,
+  ProtocolType,
+} from '../../api/generatedTypes/graphql';
 
 const useStyles = makeStyles((theme) => ({
   showLayout: {

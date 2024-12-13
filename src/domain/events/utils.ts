@@ -1,7 +1,10 @@
 import { sum } from '../../common/utils';
 import RelayList from '../../api/relayList';
-import { TicketSystem } from '../api/generatedTypes/graphql';
-import type { EventGroupNode, EventNode } from '../api/generatedTypes/graphql';
+import {
+  TicketSystem,
+  type EventGroupNode,
+  type EventNode,
+} from '../api/generatedTypes/graphql';
 
 // Using minimum types so that events of different compositions can be
 // used with the utility.

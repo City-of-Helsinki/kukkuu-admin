@@ -1,5 +1,4 @@
-import type { ReactElement } from 'react';
-import React, { Children } from 'react';
+import React, { type ReactElement, Children } from 'react';
 import { Table, TableHead, TableRow, TableBody } from '@mui/material';
 import {
   DatagridHeaderCell,

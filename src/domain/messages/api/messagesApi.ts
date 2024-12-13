@@ -19,8 +19,8 @@ import {
   updateMessageMutation,
 } from '../mutations/MessageMutations';
 import projectService from '../../projects/projectService';
-import type { MessagesQuery } from '../../api/generatedTypes/graphql';
 import {
+  type MessagesQuery,
   MessageDocument,
   MessagesDocument,
 } from '../../api/generatedTypes/graphql';

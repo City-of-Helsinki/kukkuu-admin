@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import projectService from '../projectService';
 
 describe('projectService', () => {

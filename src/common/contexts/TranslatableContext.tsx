@@ -1,5 +1,4 @@
-import type { ReactElement } from 'react';
-import React from 'react';
+import React, type { ReactElement } from 'react';
 
 import { CONTENT_LANGUAGES } from '../constants';
 import LanguageTabs from '../components/languageTab/LanguageTabs';

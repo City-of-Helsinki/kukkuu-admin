@@ -1,6 +1,6 @@
 import React from 'react';
-import type { RaRecord } from 'react-admin';
 import {
+  type RaRecord,
   useTranslate,
   TextField,
   NumberField,
@@ -14,11 +14,12 @@ import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPa
 import KukkuuDetailPage from '../../application/layout/kukkuuDetailPage/KukkuuDetailPage';
 import LocalDataGrid from '../../../common/components/localDataGrid/LocalDataGrid';
 import { participantsPerInviteChoices } from '../../events/choices';
-import type {
-  CapacityEventNode,
-  EnrollmentsCountEventNode,
+import {
+  type CapacityEventNode,
+  type EnrollmentsCountEventNode,
+  countCapacity,
+  countEnrollments,
 } from '../../events/utils';
-import { countCapacity, countEnrollments } from '../../events/utils';
 import EventReadyField from './EventReadyField';
 import EventGroupsDetailActions from './EventGroupsDetailActions';
 import type { EventNode } from '../../api/generatedTypes/graphql';

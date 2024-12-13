@@ -1,6 +1,5 @@
 import React from 'react';
-import type { SimpleFormProps } from 'react-admin';
-import { TextInput, SimpleForm } from 'react-admin';
+import { type SimpleFormProps, TextInput, SimpleForm } from 'react-admin';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import {

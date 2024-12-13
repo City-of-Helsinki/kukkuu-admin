@@ -1,5 +1,4 @@
-import type { ReactElement, ReactNode } from 'react';
-import React from 'react';
+import React, type { ReactElement, ReactNode } from 'react';
 import Typography from '@mui/material/Typography';
 import { useLocaleState, useRecordContext } from 'react-admin';
 import get from 'lodash/get';

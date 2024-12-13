@@ -1,6 +1,6 @@
 import React from 'react';
-import type { ToolbarProps } from 'react-admin';
 import {
+  type ToolbarProps,
   SimpleForm,
   SelectInput,
   ReferenceInput,
