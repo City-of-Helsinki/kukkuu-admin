@@ -16,6 +16,17 @@ describe('authService', () => {
   const userManager = authService.userManager;
 
   beforeEach(() => {
+    const mockResponse = vi.fn();
+    Object.defineProperty(window, 'location', {
+      value: {
+        hash: {
+          endsWith: mockResponse,
+          includes: mockResponse,
+        },
+        assign: mockResponse,
+      },
+      writable: true,
+    });
     vi.spyOn(dataProvider, 'getMyAdminProfile').mockResolvedValue({
       data: {
         id: btoa('AdminNode:123'),
