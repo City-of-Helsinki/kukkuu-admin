@@ -112,7 +112,6 @@
     "testcafe": "^3.3.0",
     "testcafe-reporter-html": "^1.4.6",
     "vite": "^6.0.3",
-    "vite-plugin-eslint": "^1.8.1",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^2.1.8",
     "vitest-localstorage-mock": "^0.1.2",
