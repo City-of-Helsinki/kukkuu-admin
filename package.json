@@ -6,11 +6,11 @@
   "scripts": {
     "app:version": "echo \"$npm_package_version\"",
     "start": "vite",
-    "build": "tsc && vite build",
+    "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 tsc && vite build",
     "serve": "vite preview",
     "typecheck": "tsc",
     "test": "cross-env TZ=Europe/Helsinki vitest run",
-    "test:coverage": "cross-env TZ=Europe/Helsinki vitest run --coverage",
+    "test:coverage": "cross-env TZ=Europe/Helsinki NODE_OPTIONS=--max-old-space-size=8192 vitest run --coverage",
     "test:watch": "cross-env TZ=Europe/Helsinki vitest",
     "eject": "react-scripts eject",
     "lint": "eslint src",

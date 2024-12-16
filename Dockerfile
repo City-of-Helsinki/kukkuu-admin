@@ -70,9 +70,10 @@ ARG VITE_BUILDTIME
 ARG VITE_RELEASE
 ARG VITE_COMMITHASH
 ARG VITE_IDLE_TIMEOUT_IN_MS
+ARG NODE_OPTIONS
 
 # Fix FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory
-ENV NODE_OPTIONS="--max-old-space-size=8192"
+ENV NODE_OPTIONS=${NODE_OPTIONS}
 
 # Use template and inject the environment variables into .prod/nginx.conf
 ENV VITE_BUILDTIME=${VITE_BUILDTIME:-""}
