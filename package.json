@@ -81,7 +81,15 @@
     "react-dom": "^18.2.0",
     "react-idle-timer": "^5.7.2",
     "typescript": "<5.4.0",
-    "yup": "^1.3.2"
+    "yup": "^1.3.2",
+    "vite": "^6.0.3",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^2.1.8",
+    "vitest-localstorage-mock": "^0.1.2",
+    "vitest-sonar-reporter": "^2.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/coverage-v8": "^2.1.8",
+    "@vitest/eslint-plugin": "^1.1.16"
   },
   "devDependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
@@ -92,9 +100,6 @@
     "@graphql-codegen/typescript-react-apollo": "^4.1.0",
     "@testing-library/testcafe": "^5.0.0",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
-    "@vitejs/plugin-react": "^4.3.4",
-    "@vitest/coverage-v8": "^2.1.8",
-    "@vitest/eslint-plugin": "^1.1.16",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard-with-typescript": "^43.0.1",
@@ -110,11 +115,6 @@
     "jest-localstorage-mock": "^2.4.26",
     "jsdom": "^25.0.1",
     "testcafe": "^3.3.0",
-    "testcafe-reporter-html": "^1.4.6",
-    "vite": "^6.0.3",
-    "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^2.1.8",
-    "vitest-localstorage-mock": "^0.1.2",
-    "vitest-sonar-reporter": "^2.0.0"
+    "testcafe-reporter-html": "^1.4.6"
   }
 }
