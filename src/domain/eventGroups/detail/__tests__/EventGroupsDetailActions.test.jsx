@@ -1,6 +1,6 @@
 import React from 'react';
 import * as ReactAdmin from 'react-admin';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material';
 import { createTheme } from '@mui/material/styles/';
 
@@ -55,11 +55,11 @@ describe('<EventGroupsDetailActions />', () => {
     });
     getWrapper();
 
-    await waitFor(() => {
-      expect(
-        screen.getByRole('link', { name: 'eventGroups.actions.addEvent.do' })
-      ).toBeInTheDocument();
-    });
+    expect(
+      await screen.findByRole('link', {
+        name: 'eventGroups.actions.addEvent.do',
+      })
+    ).toBeInTheDocument();
   });
 
   it('should show an edit button', () => {

@@ -1,11 +1,10 @@
 import React from 'react';
 import * as ReactAdmin from 'react-admin';
-import { screen, render, waitFor } from '@testing-library/react';
+import { screen, render } from '@testing-library/react';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 
 import EventShowActions from '../EventShowActions';
-import { permission } from 'process';
 
 const defaultContext = {
   data: {
@@ -39,11 +38,9 @@ describe('<EventShowActions />', () => {
 
     getWrapper(context);
 
-    await waitFor(() => {
-      expect(
-        screen.getByRole('link', { name: 'ra.action.edit' })
-      ).toBeInTheDocument();
-    });
+    expect(
+      await screen.findByRole('link', { name: 'ra.action.edit' })
+    ).toBeInTheDocument();
   });
 
   describe('when the user has publish permissions', () => {
