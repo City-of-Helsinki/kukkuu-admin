@@ -43,9 +43,7 @@ test.each([
 
     vi.advanceTimersByTime(advancedTimeMs);
 
-    React.act(() => {
-      fireEvent.focus(document);
-    });
+    fireEvent.focus(document);
 
     if (logoutExpected) {
       expect(logoutSpy).toHaveBeenCalled();
