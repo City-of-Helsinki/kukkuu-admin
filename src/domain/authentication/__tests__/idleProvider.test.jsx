@@ -26,7 +26,7 @@ beforeAll(() => {
 afterAll(() => {
   cleanup();
   import.meta.env = originalEnv;
-  vi.useFakeTimers();
+  vi.useRealTimers();
 });
 
 test.each([
