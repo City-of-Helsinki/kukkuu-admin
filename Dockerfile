@@ -72,7 +72,8 @@ ARG VITE_COMMITHASH
 ARG VITE_IDLE_TIMEOUT_IN_MS
 ARG NODE_OPTIONS
 
-# Fix FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory
+# Fix FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - 
+# JavaScript heap out of memory: https://github.com/vitejs/vite/issues/2433.
 ENV NODE_OPTIONS=${NODE_OPTIONS}
 
 # Use template and inject the environment variables into .prod/nginx.conf
