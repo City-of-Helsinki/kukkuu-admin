@@ -20,7 +20,7 @@
       "node", 
       "vitest/globals",
       "vite/client",
-      "@testing-library/jest-dom/vitest"
+      "@testing-library/jest-dom"
     ]
   },
   "include": ["src", "vitest.config.ts", ".eslintrc.cjs"],
