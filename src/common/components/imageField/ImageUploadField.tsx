@@ -40,7 +40,7 @@ const ImageUploadField = ({
 
   return (
     <ImageInput
-      name={name || source}
+      name={name ?? source}
       format={edit ? formatImage : undefined}
       source={image}
       label={'events.fields.image.label'}

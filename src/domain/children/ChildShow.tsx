@@ -1,6 +1,6 @@
 import React from 'react';
-import type { ShowProps } from 'react-admin';
 import {
+  type ShowProps,
   TextField,
   SimpleShowLayout,
   DateField,
@@ -69,7 +69,7 @@ const ChildShow = (props: ShowProps) => {
             <Datagrid
               bulkActionButtons={false}
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
+              // @ts-expect-error
               rowClick={(
                 id: string,
                 resource: string,

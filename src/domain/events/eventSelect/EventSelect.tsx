@@ -1,6 +1,9 @@
 import React from 'react';
-import type { ReferenceInputProps } from 'react-admin';
-import { SelectInput, ReferenceInput } from 'react-admin';
+import {
+  type ReferenceInputProps,
+  SelectInput,
+  ReferenceInput,
+} from 'react-admin';
 // import omit from 'lodash/omit';
 
 type Props = Omit<ReferenceInputProps, 'children' | 'reference'> & {

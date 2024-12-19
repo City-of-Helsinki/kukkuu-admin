@@ -35,9 +35,11 @@ const EventGroupsDetailActions = () => {
   const t = useTranslate();
   const classes = useStyles();
   const publishStatus = getEventGroupPublishStatus(record);
-  const canPublish = permissions?.canPublishWithinProject(record?.project?.id);
-  const canManageEventGroups = permissions?.canManageEventGroupsWithinProject(
-    record?.project?.id
+  const canPublish = Boolean(
+    permissions?.canPublishWithinProject?.(record?.project?.id)
+  );
+  const canManageEventGroups = Boolean(
+    permissions?.canManageEventGroupsWithinProject?.(record?.project?.id)
   );
   const showPublishButton =
     record &&

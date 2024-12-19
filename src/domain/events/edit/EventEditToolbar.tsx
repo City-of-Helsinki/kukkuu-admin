@@ -1,6 +1,7 @@
 import React from 'react';
-import type { MutationMode, ToolbarProps } from 'react-admin';
 import {
+  type MutationMode,
+  type ToolbarProps,
   DeleteButton,
   SaveButton,
   Toolbar,

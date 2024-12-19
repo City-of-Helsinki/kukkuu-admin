@@ -1,8 +1,6 @@
 import type { Language } from '../domain/api/generatedTypes/graphql';
 
-export interface DataProviderParams {
-  [index: string]: any;
-}
+export type DataProviderParams = Record<string, any>;
 
 export type MethodHandlerParams = DataProviderParams;
 
@@ -32,10 +30,7 @@ export type Method =
   | 'SET_READY';
 
 export type RecordType = { [index: string]: any; id: string };
-export type MethodHandlerResponseDataType =
-  | RecordType
-  | Array<RecordType>
-  | null;
+export type MethodHandlerResponseDataType = RecordType | RecordType[] | null;
 
 export type MethodHandlerResponse<DataType = MethodHandlerResponseDataType> = {
   //= Array<RecordType> | RecordType | null,

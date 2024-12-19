@@ -1,6 +1,7 @@
 import React from 'react';
-import type { RaRecord, Identifier } from 'react-admin';
 import {
+  type RaRecord,
+  type Identifier,
   SelectArrayInput,
   ReferenceArrayInput,
   useTranslate,

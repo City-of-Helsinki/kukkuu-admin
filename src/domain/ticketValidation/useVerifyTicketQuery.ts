@@ -1,7 +1,9 @@
 import { useQuery } from '@apollo/client';
 
-import type { VerifyTicketQuery } from '../api/generatedTypes/graphql';
-import { VerifyTicketDocument } from '../api/generatedTypes/graphql';
+import {
+  type VerifyTicketQuery,
+  VerifyTicketDocument,
+} from '../api/generatedTypes/graphql';
 
 type Config = {
   referenceId: string;

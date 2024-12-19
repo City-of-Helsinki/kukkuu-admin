@@ -1,6 +1,5 @@
 import React from 'react';
-import type { EmptyProps } from 'react-admin';
-import { Empty as RaEmpty } from 'react-admin';
+import { type EmptyProps, Empty as RaEmpty } from 'react-admin';
 
 import { MessagesManagementButtonGroup } from './MessagesManagementButtonGroup';
 import styles from './empty.module.css';

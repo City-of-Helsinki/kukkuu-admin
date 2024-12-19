@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import type { RaRecord } from 'react-admin';
 import {
+  type RaRecord,
   TabbedShowLayout,
   TextField,
   Tab,
@@ -18,8 +18,7 @@ import {
   useRecordContext,
   Loading,
 } from 'react-admin';
-import type { WithStyles } from '@mui/styles';
-import { createStyles, withStyles } from '@mui/styles';
+import { type WithStyles, createStyles, withStyles } from '@mui/styles';
 import { Link } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 
@@ -48,44 +47,45 @@ interface AddOccurrenceButtonProps extends WithStyles<typeof styles> {
   record?: OccurrenceNode;
 }
 
-const AddOccurrenceButton = withStyles(styles)(
-  ({ classes }: AddOccurrenceButtonProps) => {
-    const record = useRecordContext();
-    return (
-      <Button
-        component={Link}
-        className={classes.button}
-        to={{
-          pathname: '/occurrences/create',
-          search: `?event_id=${record?.id}`,
-        }}
-        label="occurrences.create.title"
-      >
-        <AddIcon />
-      </Button>
-    );
-  }
-);
+const AddOccurrenceButton = withStyles(styles)(({
+  classes,
+}: AddOccurrenceButtonProps) => {
+  const record = useRecordContext();
+  return (
+    <Button
+      component={Link}
+      className={classes.button}
+      to={{
+        pathname: '/occurrences/create',
+        search: `?event_id=${record?.id}`,
+      }}
+      label="occurrences.create.title"
+    >
+      <AddIcon />
+    </Button>
+  );
+});
 
 interface ImportTicketSystemPasswordsButtonProps
   extends WithStyles<typeof styles> {
   onClick: () => void;
 }
 
-const ImportTicketSystemPasswordsButton = withStyles(styles)(
-  ({ classes, onClick }: ImportTicketSystemPasswordsButtonProps) => {
-    const translate = useTranslate();
-    return (
-      <Button
-        className={classes.button}
-        label={translate('ticketSystemPassword.import.dialog.openButton')}
-        onClick={onClick}
-      >
-        <AddIcon />
-      </Button>
-    );
-  }
-);
+const ImportTicketSystemPasswordsButton = withStyles(styles)(({
+  classes,
+  onClick,
+}: ImportTicketSystemPasswordsButtonProps) => {
+  const translate = useTranslate();
+  return (
+    <Button
+      className={classes.button}
+      label={translate('ticketSystemPassword.import.dialog.openButton')}
+      onClick={onClick}
+    >
+      <AddIcon />
+    </Button>
+  );
+});
 
 interface ImportTicketmasterPasswordsControlsProps {
   record: AdminEvent;
@@ -101,11 +101,15 @@ const ImportTicketmasterPasswordsControls = ({
       {!internalTicketSystem && (
         <>
           <ImportTicketSystemPasswordsButton
-            onClick={() => setShowDialog(true)}
+            onClick={() => {
+              setShowDialog(true);
+            }}
           />
           <ImportTicketSystemPasswordsFormDialog
             isOpen={isDialogShown}
-            onClose={() => setShowDialog(false)}
+            onClose={() => {
+              setShowDialog(false);
+            }}
             record={record}
           />
         </>
@@ -236,7 +240,7 @@ const EventDetails = () => {
                 source="time"
                 locales={locale}
               />
-              <OccurrenceTimeRangeField label="occurrences.fields.time.fields.time.label" />
+              <OccurrenceTimeRangeField />
               <ReferenceField
                 label="occurrences.fields.venue.label"
                 source="venue.id"

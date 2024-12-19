@@ -16,11 +16,11 @@ class BrowserTestJWTConfig {
    *
    * @example
    * // In your environment:
-   * REACT_APP_OIDC_KUKKUU_API_CLIENT_ID='kukkuu-api-dev'
+   * VITE_OIDC_KUKKUU_API_CLIENT_ID='kukkuu-api-dev'
    */
   static get oidcApiClientId() {
     return this.getEnvOrError(
-      'REACT_APP_OIDC_KUKKUU_API_CLIENT_ID',
+      'VITE_OIDC_KUKKUU_API_CLIENT_ID',
       'Kukkuu API OIDC client ID'
     );
   }
@@ -32,10 +32,10 @@ class BrowserTestJWTConfig {
    *
    * @example
    * // In your environment:
-   * REACT_APP_OIDC_AUTHORITY='https://tunnistus.test.hel.ninja/auth/realms/helsinki-tunnistus/'
+   * VITE_OIDC_AUTHORITY='https://tunnistus.test.hel.ninja/auth/realms/helsinki-tunnistus/'
    */
   static get oidcAuthority() {
-    return this.getEnvOrError('REACT_APP_OIDC_AUTHORITY', 'OIDC Authority');
+    return this.getEnvOrError('VITE_OIDC_AUTHORITY', 'OIDC Authority');
   }
 
   /**
@@ -45,10 +45,10 @@ class BrowserTestJWTConfig {
    *
    * @example
    * // In your environment:
-   * REACT_APP_OIDC_CLIENT_ID='kukkuu-admin-ui-dev'
+   * VITE_OIDC_CLIENT_ID='kukkuu-admin-ui-dev'
    */
   static get oidcClientId() {
-    return this.getEnvOrError('REACT_APP_OIDC_CLIENT_ID', 'OIDC Client ID');
+    return this.getEnvOrError('VITE_OIDC_CLIENT_ID', 'OIDC Client ID');
   }
 
   /**
@@ -69,10 +69,10 @@ class BrowserTestJWTConfig {
    *
    * @example
    * // In your environment:
-   * REACT_APP_API_URI='https://kukkuu.api.test.hel.ninja/graphql'
+   * VITE_API_URI='https://kukkuu.api.test.hel.ninja/graphql'
    */
   static get kukkuuApiGraphqlEndpoint() {
-    return this.getEnvOrError('REACT_APP_API_URI', 'Kukkuu API URI');
+    return this.getEnvOrError('VITE_API_URI', 'Kukkuu API URI');
   }
 
   /**

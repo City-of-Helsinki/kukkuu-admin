@@ -1,6 +1,11 @@
 import React from 'react';
-import type { InputProps, Validator } from 'react-admin';
-import { useInput, useRecordContext, useTranslate } from 'react-admin';
+import {
+  type InputProps,
+  type Validator,
+  useInput,
+  useRecordContext,
+  useTranslate,
+} from 'react-admin';
 import type { TextFieldProps } from '@mui/material/TextField';
 import TextField from '@mui/material/TextField';
 import { makeStyles } from '@mui/styles';

@@ -1,6 +1,6 @@
 import React from 'react';
-import type { RaRecord } from 'react-admin';
 import {
+  type RaRecord,
   TextField,
   NumberField,
   DateField,
@@ -68,7 +68,7 @@ export const withGuardian =
     const guardian = enrollmentRecord.node?.child?.guardians.edges[0]?.node;
 
     if (guardian) {
-      return hasRecord(guardian as GuardianNode);
+      return hasRecord(guardian);
     }
 
     return otherwise();
@@ -141,7 +141,7 @@ const OccurrenceShow = () => {
         >
           <Datagrid
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
+            // @ts-expect-error
             rowClick={(
               id: string,
               resource: string,

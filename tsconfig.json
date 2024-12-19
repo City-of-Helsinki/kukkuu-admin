@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -13,8 +13,16 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "noFallthroughCasesInSwitch": true,
+    "allowImportingTsExtensions": true,
+    "jsx": "react-jsx",
+    "types": [
+      "node", 
+      "vitest/globals",
+      "vite/client",
+      "@testing-library/jest-dom"
+    ]
   },
-  "include": ["src"],
-  "exclude": ["src/api/generatedTypes/**/*.ts"]
+  "include": ["src", "vitest.config.ts", ".eslintrc.cjs"],
+  "exclude": ["node_modules", "src/api/generatedTypes/**/*.ts"]
 }

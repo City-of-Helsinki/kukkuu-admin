@@ -1,5 +1,5 @@
 # ===============================================
-FROM registry.access.redhat.com/ubi9/nodejs-18 AS appbase
+FROM registry.access.redhat.com/ubi9/nodejs-20 AS appbase
 # ===============================================
 
 # install yarn
@@ -14,7 +14,7 @@ ENV NPM_CONFIG_LOGLEVEL warn
 
 # set our node environment, either development or production
 # defaults to production, compose overrides this to development on build and run
-ARG NODE_ENV=production
+ARG NODE_ENV=${NODE_ENV:-"production"}
 ENV NODE_ENV $NODE_ENV
 
 # Global npm deps in a non-root user directory
@@ -26,7 +26,7 @@ ENV YARN_VERSION 1.22.4
 RUN yarn policies set-version ${YARN_VERSION}
 
 # Copy package.json and package-lock.json/yarn.lock files
-COPY package*.json *yarn* ./
+COPY --chown=root:root package*.json *yarn* ./
 
 # Install npm dependencies
 ENV PATH /app/node_modules/.bin:$PATH
@@ -42,42 +42,47 @@ ARG NODE_ENV=development
 ENV NODE_ENV $NODE_ENV
 
 # copy in our source code last, as it changes the most
-COPY --chown=default:root . .
+COPY --chown=root:root . .
 
 # Bake package.json start command into the image
-CMD ["react-scripts", "start"]
+CMD ["yarn", "start", "--no-open", "--host"]
 
 # ===================================
 FROM appbase AS staticbuilder
 # ===================================
 
-ARG REACT_APP_API_URI
-ARG REACT_APP_OIDC_SERVER_TYPE
-ARG REACT_APP_OIDC_RETURN_TYPE
-ARG REACT_APP_OIDC_AUTHORITY
-ARG REACT_APP_OIDC_CLIENT_ID
-ARG REACT_APP_OIDC_KUKKUU_API_CLIENT_ID
-ARG REACT_APP_OIDC_SCOPE
-ARG REACT_APP_OIDC_AUDIENCES
-ARG REACT_APP_OIDC_AUTOMATIC_SILENT_RENEW_ENABLED
-ARG REACT_APP_OIDC_SESSION_POLLING_INTERVAL_MS
-ARG REACT_APP_KUKKUU_API_OIDC_SCOPE
-ARG REACT_APP_ENVIRONMENT
-ARG REACT_APP_SENTRY_DSN
-ARG REACT_APP_IS_TEST_ENVIRONMENT
-ARG REACT_APP_FEATURE_FLAG_EXTERNAL_TICKET_SYSTEM_SUPPORT
-ARG REACT_APP_BUILDTIME
-ARG REACT_APP_RELEASE
-ARG REACT_APP_COMMITHASH
-ARG REACT_APP_IDLE_TIMEOUT_IN_MS
+ARG VITE_API_URI
+ARG VITE_OIDC_SERVER_TYPE
+ARG VITE_OIDC_RETURN_TYPE
+ARG VITE_OIDC_AUTHORITY
+ARG VITE_OIDC_CLIENT_ID
+ARG VITE_OIDC_KUKKUU_API_CLIENT_ID
+ARG VITE_OIDC_SCOPE
+ARG VITE_OIDC_AUDIENCES
+ARG VITE_OIDC_AUTOMATIC_SILENT_RENEW_ENABLED
+ARG VITE_OIDC_SESSION_POLLING_INTERVAL_MS
+ARG VITE_KUKKUU_API_OIDC_SCOPE
+ARG VITE_ENVIRONMENT
+ARG VITE_SENTRY_DSN
+ARG VITE_IS_TEST_ENVIRONMENT
+ARG VITE_FEATURE_FLAG_EXTERNAL_TICKET_SYSTEM_SUPPORT
+ARG VITE_BUILDTIME
+ARG VITE_RELEASE
+ARG VITE_COMMITHASH
+ARG VITE_IDLE_TIMEOUT_IN_MS
+ARG NODE_OPTIONS
+
+# Fix FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - 
+# JavaScript heap out of memory: https://github.com/vitejs/vite/issues/2433.
+ENV NODE_OPTIONS=${NODE_OPTIONS}
 
 # Use template and inject the environment variables into .prod/nginx.conf
-ENV REACT_APP_BUILDTIME=${REACT_APP_BUILDTIME:-""}
-ENV REACT_APP_RELEASE=${REACT_APP_RELEASE:-""}
-ENV REACT_APP_COMMITHASH=${REACT_APP_COMMITHASH:-""}
+ENV VITE_BUILDTIME=${VITE_BUILDTIME:-""}
+ENV VITE_RELEASE=${VITE_RELEASE:-""}
+ENV VITE_COMMITHASH=${VITE_COMMITHASH:-""}
 COPY .prod/nginx.conf.template /tmp/.prod/nginx.conf.template
 RUN export APP_VERSION=$(yarn --silent app:version) && \
-    envsubst '${APP_VERSION},${REACT_APP_BUILDTIME},${REACT_APP_RELEASE},${REACT_APP_COMMITHASH}' < \
+    envsubst '${APP_VERSION},${VITE_BUILDTIME},${VITE_RELEASE},${VITE_COMMITHASH}' < \
     "/tmp/.prod/nginx.conf.template" > \
     "/tmp/.prod/nginx.conf"
 

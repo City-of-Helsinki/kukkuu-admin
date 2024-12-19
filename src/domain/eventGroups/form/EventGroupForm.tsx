@@ -1,6 +1,5 @@
 import React from 'react';
-import type { SimpleFormProps } from 'react-admin';
-import { TextInput, SimpleForm } from 'react-admin';
+import { type SimpleFormProps, TextInput, SimpleForm } from 'react-admin';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import {
@@ -17,7 +16,7 @@ type EventGroupFormProps = Omit<SimpleFormProps, 'children'>;
 const EventGroupForm = (props: EventGroupFormProps) => {
   return (
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    // @ts-expect-error
     <SimpleForm resolver={yupResolver(eventGroupsSchema)} {...props}>
       <TranslatableProvider>
         <EventGroupFormFields />

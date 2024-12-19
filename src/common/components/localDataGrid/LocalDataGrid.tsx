@@ -1,5 +1,4 @@
-import type { ReactElement } from 'react';
-import React, { Children } from 'react';
+import React, { type ReactElement, Children } from 'react';
 import { Table, TableHead, TableRow, TableBody } from '@mui/material';
 import {
   DatagridHeaderCell,
@@ -56,7 +55,7 @@ const LocalDataGrid = ({ children, source, rowClick }: any) => {
                   className={classes.headerCell}
                   field={disableSorting(field)}
                   isSorting={false}
-                  key={(field.props as any).source || index}
+                  key={field.props.source || index}
                   resource={resource}
                   sort={{
                     field: 'any',
@@ -75,7 +74,9 @@ const LocalDataGrid = ({ children, source, rowClick }: any) => {
           <TableRow
             key={localRecord.id}
             hover={isHover}
-            onClick={() => handleRowClick(localRecord)}
+            onClick={() => {
+              handleRowClick(localRecord);
+            }}
             className={rowClick ? classes.clickableRow : undefined}
           >
             {React.Children.map(
@@ -83,12 +84,12 @@ const LocalDataGrid = ({ children, source, rowClick }: any) => {
               (field, index) =>
                 field && (
                   <RecordContextProvider value={localRecord}>
+                    {/* @typescript-eslint/ban-ts-comment
+                    @ts-expect-error TS2739 */}
                     <DatagridCell
-                      key={`${localRecord.id}-${
-                        (field.props as any).source || index
-                      }`}
+                      key={`${localRecord.id}-${field.props.source || index}`}
                       className={[
-                        `column-${(field.props as any).source}`,
+                        `column-${field.props.source}`,
                         classes.rowCell,
                       ].join(' ')}
                       record={localRecord}

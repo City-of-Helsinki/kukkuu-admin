@@ -55,7 +55,7 @@ You need to authorize the user you are trying to log in with to kukkuu-admin.
 
 If you have set up a local kukkuu backend i.e. in your `.env.local`
 
-> REACT_APP_API_URI=http://localhost:8081/graphql
+> VITE_API_URI=http://localhost:8081/graphql
 
 You need to:
 
@@ -72,7 +72,7 @@ After that you should be able to log in to kukkuu-admin with the user.
 
 If you have set up a remote kukkuu backend i.e. in your `.env.local` e.g.
 
-> REACT_APP_API_URI=https://kukkuu.api.test.hel.ninja/graphql
+> VITE_API_URI=https://kukkuu.api.test.hel.ninja/graphql
 
 You need to:
 
@@ -84,7 +84,7 @@ You need to:
 2.  Try to log in to kukkuu-admin at http://localhost:3001/login with some user
 3.  Open the backend's django-admin interface at (e.g.
     https://kukkuu.api.test.hel.ninja/admin if your
-    `REACT_APP_API_URI=https://kukkuu.api.test.hel.ninja/graphql`) using the
+    `VITE_API_URI=https://kukkuu.api.test.hel.ninja/graphql`) using the
     credentials you obtained from the previous steps
 4.  Make the user you tried to log in with to kukkuu-admin—the attempt to log in into
     kukkuu-admin should have created a user in the backend—a superuser
@@ -132,7 +132,7 @@ and execute the following four commands inside your docker container:
 ./manage.py add_oidc_client_to_api_scope -asi https://api.hel.fi/auth/kukkuu -c https://api.hel.fi/auth/kukkuu-admin-ui
 ```
 
-To make Kukkuu Admin use the local Tunnistamo set `REACT_APP_OIDC_AUTHORITY="http://tunnistamo-backend:8000"` for example in file `.env.local`.
+To make Kukkuu Admin use the local Tunnistamo set `VITE_OIDC_AUTHORITY="http://tunnistamo-backend:8000"` for example in file `.env.local`.
 
 #### Using the Helsinki-Profile Keycloak instead of Tunnistamo
 
@@ -142,26 +142,26 @@ There is an [example of Keycloak environment variables](./.env.local.keycloak-ex
 
 The example file should include some what the following variables, that are telling the app to change the behavior of the authorization provider a bit, compared to how it is with Tunnistamo.
 
-- `REACT_APP_OIDC_SERVER_TYPE=KEYCLOAK` is to add some parameters to the token-request that the Keycloak service needs. As a comparison, by default it is working as `REACT_APP_OIDC_SERVER_TYPE=TUNNISTAMO`).
-- `REACT_APP_OIDC_RETURN_TYPE=code` is to use authorization code flow instead of deprecated (and even removed from `oidc-client-ts`) implicit flow.
-- `REACT_APP_OIDC_AUTHORITY` tells where the authorization service is located and who the issuer of the JWT is.
-- `REACT_APP_OIDC_CLIENT_ID` is the unique client id that is used when the client is configured to auth service.
-- `REACT_APP_OIDC_SCOPE="openid profile"` tells that the Kukkuu Admin UI needs the openid and profile information to be included in the JWT.
-- `REACT_APP_OIDC_AUDIENCES=kukkuu-api-dev` means that when the authorization is given, the access is needed to these clients too, so the api-tokens needs to be generated.
-- `REACT_APP_OIDC_KUKKUU_API_CLIENT_ID` is used collect the proper auth token for communication between the Admin UI and the API.
+- `VITE_OIDC_SERVER_TYPE=KEYCLOAK` is to add some parameters to the token-request that the Keycloak service needs. As a comparison, by default it is working as `VITE_OIDC_SERVER_TYPE=TUNNISTAMO`).
+- `VITE_OIDC_RETURN_TYPE=code` is to use authorization code flow instead of deprecated (and even removed from `oidc-client-ts`) implicit flow.
+- `VITE_OIDC_AUTHORITY` tells where the authorization service is located and who the issuer of the JWT is.
+- `VITE_OIDC_CLIENT_ID` is the unique client id that is used when the client is configured to auth service.
+- `VITE_OIDC_SCOPE="openid profile"` tells that the Kukkuu Admin UI needs the openid and profile information to be included in the JWT.
+- `VITE_OIDC_AUDIENCES=kukkuu-api-dev` means that when the authorization is given, the access is needed to these clients too, so the api-tokens needs to be generated.
+- `VITE_OIDC_KUKKUU_API_CLIENT_ID` is used collect the proper auth token for communication between the Admin UI and the API.
 
 Example configuration when a local Kukkuu API is used with a local Kukkuu Admin UI and Helsinki-Profile Keycloak from the test environment:
 
 ```shell
-REACT_APP_OIDC_SERVER_TYPE=KEYCLOAK
-REACT_APP_OIDC_RETURN_TYPE="code"
-REACT_APP_OIDC_AUTHORITY=https://tunnistus.test.hel.ninja/auth/realms/helsinki-tunnistus/
-REACT_APP_OIDC_CLIENT_ID="kukkuu-admin-ui-dev"
-REACT_APP_OIDC_KUKKUU_API_CLIENT_ID="kukkuu-api-dev"
-REACT_APP_OIDC_SCOPE="openid profile"
-REACT_APP_OIDC_AUDIENCES=kukkuu-api-dev
-# REACT_APP_API_URI=https://kukkuu.api.test.hel.ninja/graphql
-REACT_APP_API_URI=http://localhost:8081/graphql
+VITE_OIDC_SERVER_TYPE=KEYCLOAK
+VITE_OIDC_RETURN_TYPE="code"
+VITE_OIDC_AUTHORITY=https://tunnistus.test.hel.ninja/auth/realms/helsinki-tunnistus/
+VITE_OIDC_CLIENT_ID="kukkuu-admin-ui-dev"
+VITE_OIDC_KUKKUU_API_CLIENT_ID="kukkuu-api-dev"
+VITE_OIDC_SCOPE="openid profile"
+VITE_OIDC_AUDIENCES=kukkuu-api-dev
+# VITE_API_URI=https://kukkuu.api.test.hel.ninja/graphql
+VITE_API_URI=http://localhost:8081/graphql
 ```
 
 #### Install Kukkuu API locally
@@ -177,7 +177,7 @@ Clone the repository (https://github.com/City-of-Helsinki/kukkuu). Follow the in
 
 If you do not have a super user / admin to administrate the API yet, you can create one with `docker compose run django python manage.py add_admin_user -u admin -p admin -e admin@example.com`.
 
-To make Kukkuu Admin use the local Kukkuu API set `REACT_APP_API_URI="localhost:8081/graphql"` for example in file `.env.local`.
+To make Kukkuu Admin use the local Kukkuu API set `VITE_API_URI="localhost:8081/graphql"` for example in file `.env.local`.
 
 ## Available Scripts
 
@@ -230,10 +230,10 @@ For configuration, check the following environment variables:
 1. `BROWSER_TESTS_JWT_SIGN_SECRET` needs to be a valid 256 bits token and it needs to be configured the same in both, the API and in the Admin UI in order to verify the self issued JWT for browser testing.
 2. `BROWSER_TESTS_JWT_AD_GROUP` defines the AD group that should be used while running the browser tests. This value is used while issuing a JWT for an admin user. The AD group should be madde in the API so that it gives admin permissions for the newly created user with this AD group for the (year) project that is created for browser testing. These AD groups and user groups can be managed from the API.
 3. `BROWSER_TESTS_ENV_URL` tells for Testcafe where the testable UI is
-4. `REACT_APP_API_URI` defines the Kukkuu API GraphQL endpoint. It's important in browser testing configuration for JWT mocking reasons.
-5. `REACT_APP_OIDC_KUKKUU_API_CLIENT_ID` OIDC config that is needed in JWT mocking.
-6. `REACT_APP_OIDC_CLIENT_ID` OIDC config that is needed in JWT mocking.
-7. `REACT_APP_OIDC_AUTHORITY` OIDC config that is needed in JWT mocking.
+4. `VITE_API_URI` defines the Kukkuu API GraphQL endpoint. It's important in browser testing configuration for JWT mocking reasons.
+5. `VITE_OIDC_KUKKUU_API_CLIENT_ID` OIDC config that is needed in JWT mocking.
+6. `VITE_OIDC_CLIENT_ID` OIDC config that is needed in JWT mocking.
+7. `VITE_OIDC_AUTHORITY` OIDC config that is needed in JWT mocking.
 
 There is an [.env.test.local.example](.env.test.local.example) that can be copied to a file named `.env.test.local`. If the `.env.test.local` is present, it will be used during the local Testcafe runs.
 

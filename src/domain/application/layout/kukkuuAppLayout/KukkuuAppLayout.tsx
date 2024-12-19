@@ -1,6 +1,5 @@
 import React from 'react';
-import type { LayoutProps } from 'react-admin';
-import { Layout } from 'react-admin';
+import { type LayoutProps, Layout } from 'react-admin';
 
 import KukkuuAppBar from '../../../../common/components/appBar/KukkuuAppBar';
 

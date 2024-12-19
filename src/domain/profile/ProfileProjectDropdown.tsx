@@ -1,4 +1,3 @@
-import type { MouseEvent } from 'react';
 import React from 'react';
 import { useDataProvider, useRefresh } from 'react-admin';
 import { useQuery } from 'react-query';
@@ -35,7 +34,7 @@ const ProfileProjectDropdown = () => {
   const refresh = useRefresh();
   const classes = useStyles();
 
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -75,7 +74,7 @@ const ProfileProjectDropdown = () => {
 
   const selectedProject = projects.find(
     (project) => project.id === projectService.projectId
-  ) as ProjectNode;
+  );
 
   if (!selectedProject) {
     return null;

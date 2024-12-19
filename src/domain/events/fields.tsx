@@ -2,8 +2,7 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 import { useRecordContext, useTranslate } from 'react-admin';
 
-import type { EventNode } from '../api/generatedTypes/graphql';
-import { Language } from '../api/generatedTypes/graphql';
+import { type EventNode, Language } from '../api/generatedTypes/graphql';
 
 export const PublishedField = ({
   locale = Language.Fi,
@@ -21,8 +20,4 @@ export const PublishedField = ({
         : translate('events.fields.publishedAt.values.NOT_PUBLISHED')}
     </Typography>
   );
-};
-
-PublishedField.defaultProps = {
-  label: 'events.fields.publishedAt.label',
 };

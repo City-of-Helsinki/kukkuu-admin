@@ -28,8 +28,4 @@ const OccurrenceTimeRangeField = ({
   );
 };
 
-OccurrenceTimeRangeField.defaultProps = {
-  label: 'occurrences.fields.time.fields.time.label',
-};
-
 export default OccurrenceTimeRangeField;

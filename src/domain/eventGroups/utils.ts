@@ -23,7 +23,7 @@ export const getEventGroupPublishStatus = (
     if (isEveryEventPublished(eventGroup.events)) {
       return EventGroupEventsPublishStatusEnum.AllPublished;
     } else if (
-      !Boolean(eventGroup.publishedAt) &&
+      !eventGroup.publishedAt &&
       isEveryEventReadyForPublish(eventGroup.events)
     ) {
       return EventGroupEventsPublishStatusEnum.ReadyForFirstPublish;

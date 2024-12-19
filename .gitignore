@@ -31,3 +31,7 @@ report
 .env
 .env.development
 .env.production
+
+sonar-report.json
+
+sonar-report.xml

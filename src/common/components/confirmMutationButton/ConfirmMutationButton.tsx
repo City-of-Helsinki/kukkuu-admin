@@ -1,5 +1,4 @@
-import type { ReactElement, ReactText } from 'react';
-import React, { useState } from 'react';
+import React, { type ReactElement, type ReactText, useState } from 'react';
 import { Button, Confirm } from 'react-admin';
 import type { useMutation } from 'react-query';
 

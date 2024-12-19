@@ -15,7 +15,9 @@ const LanguageTabs: React.FunctionComponent = () => {
     <Tabs
       indicatorColor="secondary"
       value={selectedLanguage}
-      onChange={(e, value) => selectLanguage(value)}
+      onChange={(e, value) => {
+        selectLanguage(value);
+      }}
       className={styles.languageTabs}
     >
       {languages.map((lang) => (

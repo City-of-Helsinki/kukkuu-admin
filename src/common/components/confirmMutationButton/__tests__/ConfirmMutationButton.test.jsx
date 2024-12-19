@@ -11,12 +11,12 @@ import { createTheme } from '@mui/material/styles/';
 
 import ConfirmMutationButton from '../ConfirmMutationButton';
 
-jest.mock('../../../../domain/messages/hooks/useMessageSendMutation');
+vi.mock('../../../../domain/messages/hooks/useMessageSendMutation');
 
 const buttonLabel = 'Irrevocable action';
 const confirmTitle = 'Are you sure?';
 const confirmDescription = 'You can not take this action back';
-const applyMutationMock = jest.fn(() => {
+const applyMutationMock = vi.fn(() => {
   // eslint-disable-next-line no-console
   console.log('applyMutationMock called');
 });
@@ -44,7 +44,7 @@ const getWrapper = (props) =>
 
 describe('<ConfirmMutationButton />', () => {
   afterEach(() => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
   });
 
   // eslint-disable-next-line max-len

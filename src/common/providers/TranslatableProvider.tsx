@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { TranslatableContextType } from '../contexts/TranslatableContext';
 import TranslatableContext, {
+  type TranslatableContextType,
   initialContext,
 } from '../contexts/TranslatableContext';
 import { CONTENT_LANGUAGES } from '../constants';

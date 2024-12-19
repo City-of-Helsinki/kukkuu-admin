@@ -15,6 +15,7 @@ const validateCapacityOverride = [minValue(0)];
 
 type OccurrenceCapacityOverrideInputProps = {
   [index: string]: any;
+  record?: { event: any };
   eventId?: string;
 };
 

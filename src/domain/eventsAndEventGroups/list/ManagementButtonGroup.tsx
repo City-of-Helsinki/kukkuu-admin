@@ -4,8 +4,8 @@ import {
   CreateButton,
   useGetOne,
   usePermissions,
+  type CreateButtonProps,
 } from 'react-admin';
-import type { CreateButtonProps } from 'react-admin';
 
 import type { Permissions } from '../../authentication/authProvider';
 import projectService from '../../projects/projectService';
@@ -18,16 +18,15 @@ export const EventsAndEventGroupsListManagementButtonGroup = ({
 }) => {
   const t = useTranslate();
   const { permissions } = usePermissions<Permissions>();
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const projectId = projectService.projectId!;
   const { data: projectData } = useGetOne<ProjectNode>('projects', {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    id: projectService.projectId!,
+    id: projectId,
   });
 
   const canManageEventGroups = Boolean(
-    permissions?.canManageEventGroupsWithinProject(
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      projectService.projectId!
-    )
+    permissions?.canManageEventGroupsWithinProject?.(projectId)
   );
   const canAddSingleEvent = Boolean(projectData?.singleEventsAllowed);
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import * as ReactAdmin from 'react-admin';
 import * as ReactQuery from 'react-query';
-import { screen, render, fireEvent } from '@testing-library/react';
+import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 
 import projectService from '../../projects/projectService';
 import ProfileProjectDropdown from '../ProfileProjectDropdown';
@@ -38,31 +38,36 @@ const getProjects = (projects) => ({
 
 describe('<ProfileProjectDropdown />', () => {
   beforeEach(() => {
-    jest.spyOn(projectService, 'projectId', 'get').mockReturnValue('1');
+    vi.spyOn(projectService, 'projectId', 'get').mockReturnValue('1');
   });
 
   it('should render null when loading', () => {
-    jest.spyOn(ReactQuery, 'useQuery').mockReturnValueOnce({ isLoading: true });
+    vi.spyOn(ReactQuery, 'useQuery').mockReturnValueOnce({ isLoading: true });
 
     const { container } = getWrapper();
 
     expect(container.childNodes.length).toEqual(0);
   });
 
-  it('should render null when error', () => {
-    jest
-      .spyOn(ReactQuery, 'useQuery')
-      .mockReturnValueOnce({ isLoading: false, error: new Error('Test') });
+  it('should render null when error', async () => {
+    vi.spyOn(ReactQuery, 'useQuery').mockReturnValueOnce({
+      isLoading: false,
+      error: new Error('Test'),
+    });
 
     const { container } = getWrapper();
-
-    expect(container.childNodes.length).toEqual(0);
+    await React.act(async () => {
+      await waitFor(() => {
+        expect(container.childNodes.length).toEqual(0);
+      });
+    });
   });
 
   it('should render null when missing data', () => {
-    jest
-      .spyOn(ReactQuery, 'useQuery')
-      .mockReturnValue({ isLoading: false, data: {} });
+    vi.spyOn(ReactQuery, 'useQuery').mockReturnValue({
+      isLoading: false,
+      data: {},
+    });
 
     const { container } = getWrapper();
 
@@ -70,10 +75,11 @@ describe('<ProfileProjectDropdown />', () => {
   });
 
   it('should render null when there is not selected project', () => {
-    jest.spyOn(projectService, 'projectId', 'get').mockReturnValue(null);
-    jest
-      .spyOn(ReactQuery, 'useQuery')
-      .mockReturnValue({ isLoading: false, data: getProjects(projects) });
+    vi.spyOn(projectService, 'projectId', 'get').mockReturnValue(null);
+    vi.spyOn(ReactQuery, 'useQuery').mockReturnValue({
+      isLoading: false,
+      data: getProjects(projects),
+    });
 
     const { container } = getWrapper();
 
@@ -81,7 +87,7 @@ describe('<ProfileProjectDropdown />', () => {
   });
 
   it('should render text when there is one project', async () => {
-    jest.spyOn(ReactQuery, 'useQuery').mockReturnValue({
+    vi.spyOn(ReactQuery, 'useQuery').mockReturnValue({
       isLoading: false,
       data: getProjects([projects[0]]),
     });
@@ -92,13 +98,13 @@ describe('<ProfileProjectDropdown />', () => {
   });
 
   it('should allow the selected project to be changed when there is more than one project', async () => {
-    jest.spyOn(ReactQuery, 'useQuery').mockReturnValue({
+    vi.spyOn(ReactQuery, 'useQuery').mockReturnValue({
       isLoading: false,
       data: getProjects(projects),
     });
-    const projectServiceSpy = jest.spyOn(projectService, 'projectId', 'set');
-    const mockRefresh = jest.fn();
-    jest.spyOn(ReactAdmin, 'useRefresh').mockReturnValue(mockRefresh);
+    const projectServiceSpy = vi.spyOn(projectService, 'projectId', 'set');
+    const mockRefresh = vi.fn();
+    vi.spyOn(ReactAdmin, 'useRefresh').mockReturnValue(mockRefresh);
 
     getWrapper();
     const button = await screen.findByRole('button', { name: '2020 Test' });
@@ -106,14 +112,18 @@ describe('<ProfileProjectDropdown />', () => {
     // Expect to see menu toggle button
     expect(button).toBeInTheDocument();
 
-    fireEvent.click(button);
+    React.act(() => {
+      fireEvent.click(button);
+    });
 
     const menuItems = screen.getAllByRole('menuitem');
 
     // After clicking menu toggle expect to see menu items
     expect(menuItems.length).toEqual(2);
 
-    fireEvent.click(menuItems[1]);
+    React.act(() => {
+      fireEvent.click(menuItems[1]);
+    });
 
     // After selecting an item
     // Expect projectId to be set

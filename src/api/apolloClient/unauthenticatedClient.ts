@@ -7,7 +7,7 @@ import handleApolloError from './handleApolloError';
 const errorLink = onError(handleApolloError);
 
 const httpLink = new HttpLink({
-  uri: process.env.REACT_APP_API_URI,
+  uri: import.meta.env.VITE_API_URI,
 });
 
 const unauthenticatedClient = new ApolloClient({

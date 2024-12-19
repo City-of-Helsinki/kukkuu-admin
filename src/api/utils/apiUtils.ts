@@ -87,8 +87,9 @@ export const denormalizeLocalTranslations = <T>(
   )) {
     const normalizedData = mapValues(
       translationEntry as unknown as object,
-      (v) => (v === null ? '' : v)
+      (v) => v ?? ''
     );
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     apiTranslations.push({ languageCode, ...normalizedData } as T);
   }
   return apiTranslations;

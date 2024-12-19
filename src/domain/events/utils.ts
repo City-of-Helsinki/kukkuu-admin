@@ -1,7 +1,10 @@
 import { sum } from '../../common/utils';
 import RelayList from '../../api/relayList';
-import { TicketSystem } from '../api/generatedTypes/graphql';
-import type { EventGroupNode, EventNode } from '../api/generatedTypes/graphql';
+import {
+  TicketSystem,
+  type EventGroupNode,
+  type EventNode,
+} from '../api/generatedTypes/graphql';
 
 // Using minimum types so that events of different compositions can be
 // used with the utility.
@@ -11,9 +14,9 @@ type Occurrence = {
 export type CapacityEventNode = {
   capacityPerOccurrence: number | null;
   occurrences: {
-    edges: ({
+    edges: Array<{
       node?: Occurrence | null;
-    } | null)[];
+    } | null>;
   };
 };
 type CapacityEventNodeWithCapacityPerOccurrence = CapacityEventNode & {
@@ -56,7 +59,7 @@ export function countCapacity(...events: CapacityEventNode[]): number | null {
 
 type CountEventNode = {
   occurrences: {
-    edges: Array<unknown>;
+    edges: unknown[];
   };
 };
 
@@ -68,11 +71,11 @@ export function countOccurrences(...events: CountEventNode[]): number {
 
 export type EnrollmentsCountEventNode = {
   occurrences: {
-    edges: (null | {
+    edges: Array<null | {
       node: {
         enrolmentCount: number;
       } | null;
-    })[];
+    }>;
   };
 };
 
@@ -97,7 +100,7 @@ export type RecordWithTicketSystem = {
 
 export function hasInternalTicketSystem(record?: RecordWithTicketSystem) {
   const type = record?.ticketSystem?.type;
-  return type ? type === TicketSystem.Internal : true;
+  return type != null ? type === TicketSystem.Internal : true;
 }
 
 export const EventList = RelayList<EventNode>();

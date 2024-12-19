@@ -28,7 +28,7 @@ const ChildList = () => {
         <Datagrid rowClick="show" bulkActionButtons={false}>
           <FunctionField
             label="children.fields.name.label"
-            render={(record?: ChildNode) => record?.name.trim()}
+            render={(record?: Partial<ChildNode>) => record?.name?.trim() ?? ''}
           />
           <TextField
             source="birthyear"

@@ -25,14 +25,14 @@ describe('common utils', () => {
 
     beforeAll(() => {
       // Hide console log errors about missing translation keys
-      jest.spyOn(global.console, 'error').mockReturnValue();
+      vi.spyOn(global.console, 'error').mockReturnValue();
     });
 
     afterAll(() => {
-      jest.clearAllMocks();
+      vi.clearAllMocks();
     });
 
-    // eslint-disable-next-line max-len
+    // eslint-disable-next-line max-len, @vitest/expect-expect
     it('should label all languages with an error when the field in question is missing in the Finnish language version', () => {
       const errors = requireFinnishFields({}, ['name', errorMessage]);
 
@@ -56,6 +56,7 @@ describe('common utils', () => {
       expect(errors.translations.EN).toEqual({});
     });
 
+    // eslint-disable-next-line @vitest/expect-expect
     it('should support multiple fields', () => {
       const errorMessage2 = 'error 2';
       const errors = requireFinnishFields(
@@ -78,10 +79,11 @@ describe('common utils', () => {
       toTimeString,
     ];
 
-    formatters.forEach((formatter) => {
-      it(`${formatter.name} should return a correctly formatted string`, () => {
+    it.each(formatters)(
+      `%o should return a correctly formatted string`,
+      (formatter) => {
         expect(formatter(date)).toMatchSnapshot();
-      });
-    });
+      }
+    );
   });
 });

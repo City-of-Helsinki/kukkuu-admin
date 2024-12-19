@@ -1,4 +1,3 @@
-import type { ReactElement } from 'react';
 import React from 'react';
 import type { EditProps } from 'react-admin';
 
@@ -7,7 +6,7 @@ import KukkuuEdit from './KukkuuEdit';
 
 type Props = {
   reactAdminProps?: Omit<EditProps, 'children'>;
-  children: ReactElement;
+  children: React.ReactNode;
   pageTitleSource: string;
 };
 

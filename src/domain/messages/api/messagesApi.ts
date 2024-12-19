@@ -19,8 +19,8 @@ import {
   updateMessageMutation,
 } from '../mutations/MessageMutations';
 import projectService from '../../projects/projectService';
-import type { MessagesQuery } from '../../api/generatedTypes/graphql';
 import {
+  type MessagesQuery,
   MessageDocument,
   MessagesDocument,
 } from '../../api/generatedTypes/graphql';
@@ -38,7 +38,7 @@ async function getMessages(
     },
   });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  // @ts-expect-error
   return handleApiConnection(response.data.messages);
 }
 

@@ -9,7 +9,7 @@ import i18nProvider from '../../common/translation/i18nProvider';
 import handleApolloError from './handleApolloError';
 
 const uploadLink = createUploadLink({
-  uri: process.env.REACT_APP_API_URI,
+  uri: import.meta.env.VITE_API_URI,
   headers: {
     'keep-alive': 'true',
   },

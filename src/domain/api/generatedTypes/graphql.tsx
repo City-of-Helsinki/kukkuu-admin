@@ -1,11 +1,11 @@
 import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import type * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type Exact<T extends Record<string, unknown>> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type MakeEmpty<T extends Record<string, unknown>, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -483,7 +483,7 @@ export type EventGroupNode = Node & {
   project: ProjectNode;
   publishedAt: Maybe<Scalars['DateTime']['output']>;
   shortDescription: Maybe<Scalars['String']['output']>;
-  translations: Array<EventGroupTranslationType>;
+  translations: EventGroupTranslationType[];
   updatedAt: Scalars['DateTime']['output'];
 };
 
@@ -543,7 +543,7 @@ export type EventNode = Node & {
   readyForEventGroupPublishing: Scalars['Boolean']['output'];
   shortDescription: Maybe<Scalars['String']['output']>;
   ticketSystem: Maybe<EventTicketSystem>;
-  translations: Array<EventTranslationType>;
+  translations: EventTranslationType[];
   updatedAt: Scalars['DateTime']['output'];
 };
 
@@ -815,7 +815,7 @@ export type LanguageNode = Node & {
   /** The ID of the object */
   id: Scalars['ID']['output'];
   name: Maybe<Scalars['String']['output']>;
-  translations: Array<LanguageTranslationType>;
+  translations: LanguageTranslationType[];
 };
 
 export type LanguageNodeConnection = {
@@ -894,7 +894,7 @@ export type MessageNode = Node & {
   recipientSelection: Maybe<RecipientSelectionEnum>;
   sentAt: Maybe<Scalars['DateTime']['output']>;
   subject: Maybe<Scalars['String']['output']>;
-  translations: Array<MessageTranslationType>;
+  translations: MessageTranslationType[];
   updatedAt: Scalars['DateTime']['output'];
 };
 
@@ -1325,7 +1325,7 @@ export type ProjectNode = Node & {
   name: Maybe<Scalars['String']['output']>;
   /** Whether it is allowed to create events outside event groups. */
   singleEventsAllowed: Scalars['Boolean']['output'];
-  translations: Array<ProjectTranslationType>;
+  translations: ProjectTranslationType[];
   year: Scalars['Int']['output'];
 };
 
@@ -1653,7 +1653,7 @@ export type SetEnrolmentAttendanceMutationPayload = {
 
 export type SubmitChildrenAndGuardianMutationInput = {
   /** At least one child is required. */
-  children: Array<ChildInput>;
+  children: ChildInput[];
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
   guardian: GuardianInput;
 };
@@ -1992,7 +1992,7 @@ export type VenueNode = Node & {
   name: Maybe<Scalars['String']['output']>;
   occurrences: OccurrenceNodeConnection;
   project: ProjectNode;
-  translations: Array<VenueTranslationType>;
+  translations: VenueTranslationType[];
   updatedAt: Scalars['DateTime']['output'];
   wcAndFacilities: Maybe<Scalars['String']['output']>;
   wwwUrl: Maybe<Scalars['String']['output']>;
@@ -2263,7 +2263,7 @@ export type OccurrenceQueryVariables = Exact<{
 
 export type OccurrenceQuery = { __typename?: 'Query', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, name: string | null, capacityPerOccurrence: number | null, duration: number | null, publishedAt: any | null, eventGroup: { __typename?: 'EventGroupNode', id: string, name: string | null } | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, enrolments: { __typename?: 'EnrolmentNodeConnection', edges: Array<{ __typename?: 'EnrolmentNodeEdge', node: { __typename?: 'EnrolmentNode', id: string, attended: boolean | null, child: { __typename?: 'ChildNode', id: string, name: string, birthyear: number, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string, firstName: string, lastName: string, language: Language, phoneNumber: string } | null } | null> } } | null } | null } | null> }, freeSpotNotificationSubscriptions: { __typename?: 'FreeSpotNotificationSubscriptionNodeConnection', edges: Array<{ __typename?: 'FreeSpotNotificationSubscriptionNodeEdge', node: { __typename?: 'FreeSpotNotificationSubscriptionNode', id: string } | null } | null> } } | null };
 
-export type MyAdminProfileQueryVariables = Exact<{ [key: string]: never; }>;
+export type MyAdminProfileQueryVariables = Exact<Record<string, never>>;
 
 
 export type MyAdminProfileQuery = { __typename?: 'Query', myAdminProfile: { __typename?: 'AdminNode', id: string, projects: { __typename?: 'ProjectNodeConnection', edges: Array<{ __typename?: 'ProjectNodeEdge', node: { __typename?: 'ProjectNode', id: string, year: number, name: string | null, myPermissions: { __typename?: 'ProjectPermissionsType', publish: boolean | null, manageEventGroups: boolean | null, canSendToAllInProject: boolean | null } | null } | null } | null> } | null } | null };

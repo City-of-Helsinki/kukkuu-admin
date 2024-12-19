@@ -1,6 +1,5 @@
 import React from 'react';
-import type { EmptyProps } from 'react-admin';
-import { Empty as RaEmpty } from 'react-admin';
+import { type EmptyProps, Empty as RaEmpty } from 'react-admin';
 
 import styles from './empty.module.css';
 import { EventsAndEventGroupsListManagementButtonGroup } from './ManagementButtonGroup';
