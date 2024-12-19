@@ -79,5 +79,14 @@ module.exports = {
     'no-plusplus': 'error',
     'no-undef': 'warn',
     'object-curly-spacing': ['warn', 'always'],
+    '@vitest/expect-expect': [
+      'error',
+      {
+        assertFunctionNames: [
+          'expect',
+          'checkErrors', // some tests use only this function to check errors
+        ],
+      },
+    ],
   },
 };
