@@ -56,10 +56,9 @@ describe('<ProfileProjectDropdown />', () => {
     });
 
     const { container } = getWrapper();
-    await React.act(async () => {
-      await waitFor(() => {
-        expect(container.childNodes.length).toEqual(0);
-      });
+
+    await waitFor(() => {
+      expect(container.childNodes.length).toEqual(0);
     });
   });
 
@@ -112,18 +111,14 @@ describe('<ProfileProjectDropdown />', () => {
     // Expect to see menu toggle button
     expect(button).toBeInTheDocument();
 
-    React.act(() => {
-      fireEvent.click(button);
-    });
+    fireEvent.click(button);
 
     const menuItems = screen.getAllByRole('menuitem');
 
     // After clicking menu toggle expect to see menu items
     expect(menuItems.length).toEqual(2);
 
-    React.act(() => {
-      fireEvent.click(menuItems[1]);
-    });
+    fireEvent.click(menuItems[1]);
 
     // After selecting an item
     // Expect projectId to be set
