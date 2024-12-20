@@ -84,15 +84,17 @@ const LocalDataGrid = ({ children, source, rowClick }: any) => {
               (field, index) =>
                 field && (
                   <RecordContextProvider value={localRecord}>
+                    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment, max-len */}
+                    {/* @ts-ignore - ts2739 is a bug in the react-adminlibrary and adding those missing prosp as undefined raises a warning. */}
                     <DatagridCell
-                      placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} 
                       key={`${localRecord.id}-${field.props.source || index}`}
                       className={[
                         `column-${field.props.source}`,
                         classes.rowCell,
                       ].join(' ')}
                       record={localRecord}
-                      {...{ field, resource }}                    />
+                      {...{ field, resource }}
+                    />
                   </RecordContextProvider>
                 )
             )}

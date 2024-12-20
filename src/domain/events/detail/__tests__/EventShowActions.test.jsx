@@ -1,3 +1,5 @@
+import { permission } from 'process';
+
 import React from 'react';
 import * as ReactAdmin from 'react-admin';
 import { screen, render, waitFor } from '@testing-library/react';
@@ -5,7 +7,6 @@ import { ThemeProvider, StyledEngineProvider } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 
 import EventShowActions from '../EventShowActions';
-import { permission } from 'process';
 
 const defaultContext = {
   data: {

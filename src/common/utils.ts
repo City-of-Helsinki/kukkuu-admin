@@ -63,7 +63,7 @@ const labelAllLanguages = (
 
 export function requireFinnishFields(
   values: any,
-  ...fields: Array<[string, string]>
+  ...fields: [string, string][]
 ) {
   const errors: { translations: Record<Language, object> } = {
     translations: {
