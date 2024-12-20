@@ -1,5 +1,10 @@
 import React from 'react';
-import type { RowClickFunction, ShowProps } from 'react-admin';
+import type {
+  RowClickFunction,
+  ShowProps,
+  Identifier,
+  RaRecord,
+} from 'react-admin';
 import {
   TextField,
   SimpleShowLayout,
@@ -19,10 +24,7 @@ import omit from 'lodash/omit';
 import { languageChoices } from '../../common/choices';
 import OccurrenceTimeRangeField from '../occurrences/fields/OccurrenceTimeRangeField';
 import KukkuuShow from '../application/layout/kukkuuDetailPage/KukkuuShow';
-import type {
-  ChildNode,
-  OccurrenceNodeEdge,
-} from '../api/generatedTypes/graphql';
+import type { ChildNode } from '../api/generatedTypes/graphql';
 
 const ChildShow = (props: ShowProps) => {
   const translate = useTranslate();
@@ -33,9 +35,9 @@ const ChildShow = (props: ShowProps) => {
     `${record.guardians.edges[0]?.node?.firstName} ${record.guardians.edges[0]?.node?.lastName}`.trim();
 
   const onClickOccurrence: RowClickFunction = (
-    _id: number,
+    _id: Identifier,
     _resource: string,
-    record: Partial<OccurrenceNodeEdge>
+    record: RaRecord<Identifier>
   ) =>
     record
       ? `/occurrences/${encodeURIComponent(record.node?.id ?? '')}/show`
@@ -48,7 +50,7 @@ const ChildShow = (props: ShowProps) => {
         <SimpleShowLayout>
           <FunctionField
             label="children.fields.name.label"
-            render={(record: Partial<ChildNode>) => record.name?.trim()}
+            render={(record?: Partial<ChildNode>) => record?.name?.trim() ?? ''}
           />
           <TextField
             source="birthyear"

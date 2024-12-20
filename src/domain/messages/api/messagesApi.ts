@@ -21,6 +21,7 @@ import {
 import projectService from '../../projects/projectService';
 import {
   type MessagesQuery,
+  Language,
   MessageDocument,
   MessagesDocument,
 } from '../../api/generatedTypes/graphql';
@@ -37,7 +38,24 @@ async function getMessages(
       orderBy: '-created_at',
     },
   });
-  return handleApiConnection(response.data.messages);
+  const messages = response.data.messages
+    ? {
+        ...response.data.messages,
+        edges: response.data.messages.edges.map((edge) => ({
+          node: {
+            ...edge?.node,
+            id: edge?.node?.id as unknown as string,
+            translations: edge?.node?.translations.map((translation) => ({
+              languageCode: translation.languageCode as unknown as Language,
+              subject: translation.subject,
+              bodyText: translation.bodyText,
+            })),
+          },
+        })),
+      }
+    : null;
+
+  return handleApiConnection(messages);
 }
 
 async function getMessage(
