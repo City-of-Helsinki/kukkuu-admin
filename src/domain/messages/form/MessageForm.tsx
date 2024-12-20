@@ -12,6 +12,7 @@ import {
 } from 'react-admin';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
+import type { FieldValues, Resolver } from 'react-hook-form';
 import { useFormContext } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -85,6 +86,15 @@ type Props = Omit<SimpleFormProps, 'children'> & {
   protocol?: ProtocolType;
 };
 
+type FormValues = {
+  recipientSelection: string;
+  translations: {
+    EN: { bodyText?: string };
+    FI: { bodyText?: string };
+    SV: { bodyText?: string };
+  };
+};
+
 const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
   const record = useRecordContext();
   const { permissions, isLoading: isLoadingPermissions } =
@@ -140,13 +150,13 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
     return null;
   }
 
+  const resolver: Resolver<FormValues> = yupResolver(
+    protocol === ProtocolType.Sms ? smsMessageSchema : emailMessageSchema
+  );
+
   return (
     <SimpleForm
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      resolver={yupResolver(
-        protocol === ProtocolType.Sms ? smsMessageSchema : emailMessageSchema
-      )}
+      resolver={resolver as unknown as Resolver<FieldValues>}
       className={classes.form}
       {...delegatedProps}
     >

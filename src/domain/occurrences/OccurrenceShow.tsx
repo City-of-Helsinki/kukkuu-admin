@@ -130,7 +130,7 @@ const OccurrenceShow = () => {
           label="occurrences.fields.capacity.label"
         />
         <FunctionField
-          render={(occurrence: OccurrenceNode) =>
+          render={(occurrence: Partial<OccurrenceNode>) =>
             occurrence?.freeSpotNotificationSubscriptions?.edges?.length ?? '?'
           }
           label="occurrences.fields.freeSpotNotificationSubscriptions.label"
@@ -140,13 +140,13 @@ const OccurrenceShow = () => {
           source="enrolments.edges"
         >
           <Datagrid
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-expect-error
             rowClick={(
               id: string,
               resource: string,
               record: EnrolmentNodeEdge
-            ) => escape(`/children/${record?.node?.child?.id}/show`)}
+            ) => `/children/${record?.node?.child?.id}/show`}
             bulkActionButtons={false}
           >
             <FunctionField
