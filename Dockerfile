@@ -26,7 +26,7 @@ ENV YARN_VERSION 1.22.4
 RUN yarn policies set-version ${YARN_VERSION}
 
 # Copy package.json and package-lock.json/yarn.lock files
-COPY --chown=root:root package*.json *yarn* ./
+COPY --chown=default:root package*.json *yarn* ./
 
 # Install npm dependencies
 ENV PATH /app/node_modules/.bin:$PATH
@@ -42,7 +42,7 @@ ARG NODE_ENV=development
 ENV NODE_ENV $NODE_ENV
 
 # copy in our source code last, as it changes the most
-COPY --chown=root:root . .
+COPY --chown=default:root . .
 
 # Bake package.json start command into the image
 CMD ["yarn", "start", "--no-open", "--host"]
