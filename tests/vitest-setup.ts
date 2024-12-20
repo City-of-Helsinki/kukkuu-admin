@@ -18,7 +18,6 @@ beforeAll(() => {
     };
   });
 });
-afterEach(() => {});
 
 afterAll(() => {
   cleanup();
