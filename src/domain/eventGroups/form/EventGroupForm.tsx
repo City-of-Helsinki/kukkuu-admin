@@ -15,8 +15,6 @@ type EventGroupFormProps = Omit<SimpleFormProps, 'children'>;
 
 const EventGroupForm = (props: EventGroupFormProps) => {
   return (
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
     <SimpleForm resolver={yupResolver(eventGroupsSchema)} {...props}>
       <TranslatableProvider>
         <EventGroupFormFields />

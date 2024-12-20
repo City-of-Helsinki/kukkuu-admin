@@ -37,8 +37,6 @@ async function getMessages(
       orderBy: '-created_at',
     },
   });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   return handleApiConnection(response.data.messages);
 }
 

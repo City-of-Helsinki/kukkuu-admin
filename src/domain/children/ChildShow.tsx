@@ -1,6 +1,6 @@
 import React from 'react';
+import type { RowClickFunction, ShowProps } from 'react-admin';
 import {
-  type ShowProps,
   TextField,
   SimpleShowLayout,
   DateField,
@@ -19,11 +19,27 @@ import omit from 'lodash/omit';
 import { languageChoices } from '../../common/choices';
 import OccurrenceTimeRangeField from '../occurrences/fields/OccurrenceTimeRangeField';
 import KukkuuShow from '../application/layout/kukkuuDetailPage/KukkuuShow';
-import type { ChildNode } from '../api/generatedTypes/graphql';
+import type {
+  ChildNode,
+  OccurrenceNodeEdge,
+} from '../api/generatedTypes/graphql';
 
 const ChildShow = (props: ShowProps) => {
   const translate = useTranslate();
   const [locale] = useLocaleState();
+
+  const onClickGuardian = (record: ChildNode) =>
+    record &&
+    `${record.guardians.edges[0]?.node?.firstName} ${record.guardians.edges[0]?.node?.lastName}`.trim();
+
+  const onClickOccurrence: RowClickFunction = (
+    _id: number,
+    _resource: string,
+    record: Partial<OccurrenceNodeEdge>
+  ) =>
+    record
+      ? `/occurrences/${encodeURIComponent(record.node?.id ?? '')}/show`
+      : '#';
 
   return (
     <>
@@ -32,7 +48,7 @@ const ChildShow = (props: ShowProps) => {
         <SimpleShowLayout>
           <FunctionField
             label="children.fields.name.label"
-            render={(record: ChildNode) => record.name.trim()}
+            render={(record: Partial<ChildNode>) => record.name?.trim()}
           />
           <TextField
             source="birthyear"
@@ -49,10 +65,7 @@ const ChildShow = (props: ShowProps) => {
           />
           <FunctionField
             label="children.fields.guardians.label"
-            render={(record: ChildNode) =>
-              record &&
-              `${record.guardians.edges[0]?.node?.firstName} ${record.guardians.edges[0]?.node?.lastName}`.trim()
-            }
+            render={onClickGuardian}
           />
           <EmailField
             source="guardians.edges.0.node.email"
@@ -66,22 +79,7 @@ const ChildShow = (props: ShowProps) => {
             source="occurrences.edges"
             label="children.fields.occurrences.label"
           >
-            <Datagrid
-              bulkActionButtons={false}
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-expect-error
-              rowClick={(
-                id: string,
-                resource: string,
-                record: ChildNode['occurrences']['edges'][number]
-              ) =>
-                record
-                  ? `/occurrences/${encodeURIComponent(
-                      record.node?.id ?? ''
-                    )}/show`
-                  : '#'
-              }
-            >
+            <Datagrid bulkActionButtons={false} rowClick={onClickOccurrence}>
               <DateField
                 label="occurrences.fields.time.fields.date.label"
                 source="node.time"
