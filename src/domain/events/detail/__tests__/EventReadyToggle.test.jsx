@@ -59,9 +59,7 @@ describe('<EventReadyToggle />', () => {
 
     expect(getInput(wrapper)).toHaveProperty('checked', false);
 
-    React.act(() => {
-      fireEvent.click(getInput(wrapper));
-    });
+    fireEvent.click(getInput(wrapper));
 
     await waitFor(() => {
       expect(getInput(wrapper)).toHaveProperty('checked', true);
@@ -71,9 +69,7 @@ describe('<EventReadyToggle />', () => {
   it('should use the result it receives in the response as soon as it is available', async () => {
     const wrapper = getWrapper({}, false);
 
-    React.act(() => {
-      fireEvent.click(getInput(wrapper));
-    });
+    fireEvent.click(getInput(wrapper));
 
     await waitFor(() => {
       expect(getInput(wrapper)).toHaveProperty('checked', true);
