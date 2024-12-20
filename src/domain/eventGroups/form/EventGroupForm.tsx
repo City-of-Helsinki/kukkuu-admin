@@ -1,6 +1,7 @@
 import React from 'react';
 import { type SimpleFormProps, TextInput, SimpleForm } from 'react-admin';
 import { yupResolver } from '@hookform/resolvers/yup';
+import type { FieldValues, Resolver } from 'react-hook-form';
 
 import {
   validateName,
@@ -13,9 +14,21 @@ import { Language } from '../../api/generatedTypes/graphql';
 
 type EventGroupFormProps = Omit<SimpleFormProps, 'children'>;
 
+type FormValues = {
+  translations: {
+    EN: { name?: string; shortDescription?: string; description?: string };
+    FI: { name?: string; shortDescription?: string; description?: string };
+    SV: { name?: string; shortDescription?: string; description?: string };
+  };
+};
+
 const EventGroupForm = (props: EventGroupFormProps) => {
+  const resolver: Resolver<FormValues> = yupResolver(eventGroupsSchema);
   return (
-    <SimpleForm resolver={yupResolver(eventGroupsSchema)} {...props}>
+    <SimpleForm
+      resolver={resolver as unknown as Resolver<FieldValues>}
+      {...props}
+    >
       <TranslatableProvider>
         <EventGroupFormFields />
       </TranslatableProvider>
