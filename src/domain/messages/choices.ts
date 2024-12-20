@@ -5,10 +5,10 @@ export type RecipientId =
   | 'ATTENDED'
   | 'SUBSCRIBED_TO_FREE_SPOT_NOTIFICATION';
 
-export const recipientSelectionChoices: Array<{
+export const recipientSelectionChoices: {
   id: RecipientId;
   name: string;
-}> = [
+}[] = [
   {
     id: 'ALL',
     name: 'messages.fields.recipientSelection.choices.ALL.label',

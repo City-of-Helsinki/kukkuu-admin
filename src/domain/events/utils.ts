@@ -14,9 +14,9 @@ type Occurrence = {
 export type CapacityEventNode = {
   capacityPerOccurrence: number | null;
   occurrences: {
-    edges: Array<{
+    edges: ({
       node?: Occurrence | null;
-    } | null>;
+    } | null)[];
   };
 };
 type CapacityEventNodeWithCapacityPerOccurrence = CapacityEventNode & {
@@ -71,11 +71,11 @@ export function countOccurrences(...events: CountEventNode[]): number {
 
 export type EnrollmentsCountEventNode = {
   occurrences: {
-    edges: Array<null | {
+    edges: (null | {
       node: {
         enrolmentCount: number;
       } | null;
-    }>;
+    })[];
   };
 };
 
