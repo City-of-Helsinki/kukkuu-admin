@@ -14,6 +14,9 @@ export default ({ mode }: any) => {
     },
     plugins: [react(), eslint(), viteTsconfigPaths()],
     server: {
+      watch: {
+        usePolling: Boolean(process.env.NODE_ENV === 'development'),
+      },
       open: true, // automatically open the app in the browser
       port: parseInt(process.env.PORT ?? '3001'),
     },
