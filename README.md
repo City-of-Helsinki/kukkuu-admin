@@ -11,6 +11,7 @@
 
 - [Service architecture](#service-architecture)
   - [Environments](#environments)
+  - [Frameworks and Libraries](#frameworks-and-libraries)
 - [Development](#development)
   - [Getting started](#getting-started)
   - [Authorizing login to kukkuu-admin and integrating to Kukkuu API](#authorizing-login-to-kukkuu-admin-and-integrating-to-kukkuu-api)
@@ -62,6 +63,16 @@ The public client environments:
 The headless CMS environments:
 - **Production environment:** https://kukkuu.content.api.hel.fi/graphql
 - **Testing environment:** https://kukkuu.app-staging.hkih.hion.dev/graphql
+
+### Frameworks and Libraries
+
+This project is built using the following key frameworks and libraries:
+
+- **[Vite](https://vite.dev/):** A modern frontend build tool that provides a fast and efficient development experience. It offers features like instant server start, hot module replacement, and optimized builds.
+- **[React](https://react.dev/):** A JavaScript library for building user interfaces. It allows for the creation of reusable UI components and efficient management of application state.
+- **[React Admin](https://marmelab.com/react-admin/):** A framework for building admin applications on top of React. It provides a set of reusable components and utilities for common admin tasks, such as creating data grids, forms, and navigation menus. React Admin simplifies the development of admin interfaces by providing a structured and opinionated approach.
+
+
 
 ## Development
 
