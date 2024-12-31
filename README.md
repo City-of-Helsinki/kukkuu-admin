@@ -78,7 +78,7 @@ You need to authorize the user you are trying to log in with to Kukkuu-Admin. In
 #### Setup authorization service
 
 Setup authorization service:
-- **Use pulic test Keycloak**: The primary option. See [Using the Helsinki-Profile Keycloak](./docs/setup-keycloak.md) -docs.
+- **Use public test Keycloak**: The primary option. See [Using the Helsinki-Profile Keycloak](./docs/setup-keycloak.md) -docs.
 - **Use a local Tunnistamo**: For full local env, see [Setting up Tunnistamo and Kukkuu API locally with Docker](./docs/setup-tunnistamo.md) -docs.
 
 
@@ -92,44 +92,38 @@ Choose the environment:
 
 ##### Using local Kukkuu API backend
 
-If you have set up a local kukkuu backend i.e. in your `.env.local`
 
-    VITE_API_URI=http://localhost:8081/graphql
+If you're using a local Kukkuu API backend (`VITE_API_URI=http://localhost:8081/graphql`), you can easily grant staff privileges to your user account. Here's how:
 
-You need to:
+1. **Start the backend:** Ensure your local Kukkuu API backend is running.
 
-1.  Run the local backend
-2.  Try to log in to kukkuu-admin at http://localhost:3001/login with some user
-3.  Open the backend's django-admin interface at http://localhost:8000/admin/ using
-    username `admin` and password `admin`
-4.  Make the user you tried to log in to kukkuu-admin a superuser
-    - The attempt to log in into kukkuu-admin should have created a user in the backend
+2. **Access the Django admin interface:**
+   - Open the Django admin interface: `http://localhost:8000/admin/`
+   - Log in with the default credentials: username `admin`, password `admin`.
 
-After that you should be able to log in to kukkuu-admin with the user.
+3. **Grant superuser privileges:**
+   - Attempt to log in to Kukkuu-admin (`http://localhost:3001/login`) using your desired user account. This will create the user in the backend if it doesn't exist.
+   - In the Django admin interface, locate the user you just created and grant them superuser privileges.
 
-##### Using remote kukkuu backend
+You should now be able to log in to Kukkuu-admin with that user.
 
-If you have set up a remote kukkuu backend i.e. in your `.env.local` e.g.
+##### Using remote Kukkuu API backend
 
-    VITE_API_URI=https://kukkuu.api.test.hel.ninja/graphql
+If you're using a remote Kukkuu backend (e.g., the test environment; `VITE_API_URI=https://kukkuu.api.test.hel.ninja/graphql`), you'll need to grant staff privileges to your user account. Here's how:
 
-You need to:
+1. **Obtain Django admin credentials:**
+   - Contact the administrator of the remote backend to get the credentials.
+   - If you have access to the backend pod, you can create a superuser by running `python manage.py createsuperuser` in the pod's terminal.
 
-1.  Obtain credentials to log in to the django-admin interface of the backend from
-    someone or something that has them or if you have credentials to the pod which runs
-    the backend you can create a superuser to log in to the backend by running
-    `python manage.py createsuperuser` in the pod's terminal. Then you can use those
-    credentials to log in to the django-admin interface of the backend.
-2.  Try to log in to kukkuu-admin at http://localhost:3001/login with some user
-3.  Open the backend's django-admin interface at (e.g.
-    https://kukkuu.api.test.hel.ninja/admin if your
-    `VITE_API_URI=https://kukkuu.api.test.hel.ninja/graphql`) using the
-    credentials you obtained from the previous steps
-4.  Make the user you tried to log in with to kukkuu-admin—the attempt to log in into
-    kukkuu-admin should have created a user in the backend—a superuser
+2. **Access the Django admin interface:**
+   - Open the Django admin interface for the remote backend (e.g., `https://kukkuu.api.test.hel.ninja/admin`).
+   - Log in using the credentials from step 1.
 
-After that you should be able to log in to kukkuu-admin with that user.
+3. **Grant superuser privileges:**
+    - Attempt to log in to Kukkuu-admin (`http://localhost:3001/login`). This will create a user account in the backend if one doesn't exist.
+    - In the Django admin interface, find the user you just created and grant them superuser privileges.
 
+You should now be able to log in to Kukkuu-admin with your user account.
 
 #### JWT issuance for browser tests
 
@@ -194,7 +188,7 @@ In the project directory, you can run:
 
     For configuration, check the following environment variables:
     1. `BROWSER_TESTS_JWT_SIGN_SECRET` needs to be a valid 256 bits token and it needs to be configured the same in both, the API and in the Admin UI in order to verify the self issued JWT for browser testing.
-    2. `BROWSER_TESTS_JWT_AD_GROUP` defines the AD group that should be used while running the browser tests. This value is used while issuing a JWT for an admin user. The AD group should be madde in the API so that it gives admin permissions for the newly created user with this AD group for the (year) project that is created for browser testing. These AD groups and user groups can be managed from the API.
+    2. `BROWSER_TESTS_JWT_AD_GROUP` defines the AD group that should be used while running the browser tests. This value is used while issuing a JWT for an admin user. The AD group should be made in the API so that it gives admin permissions for the newly created user with this AD group for the (year) project that is created for browser testing. These AD groups and user groups can be managed from the API.
     3. `BROWSER_TESTS_ENV_URL` tells for Testcafe where the testable UI is
     4. `VITE_API_URI` defines the Kukkuu API GraphQL endpoint. It's important in browser testing configuration for JWT mocking reasons.
     5. `VITE_OIDC_KUKKUU_API_CLIENT_ID` OIDC config that is needed in JWT mocking.
