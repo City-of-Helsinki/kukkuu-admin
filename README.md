@@ -221,11 +221,6 @@ Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
 ### `yarn build`
 
 Builds the app for production to the `build` folder.<br />
@@ -236,9 +231,13 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn graphql-types`
+### `yarn generate:graphql`
 
-Fetches the schema from backend and updates typing information.
+Fetches the GraphQL schema from backend and updates typing information. The configuration is written in [codegen.ts](./codegen.ts). Check that the environment variables are set properly to match with your API.
+
+### `yarn test`
+
+Launches the `vitest` test runner.
 
 ### `yarn test:browser`
 
