@@ -166,7 +166,7 @@ To make Kukkuu Admin use the local Tunnistamo set `VITE_OIDC_AUTHORITY="http://t
 
 #### Using the Helsinki-Profile Keycloak instead of Tunnistamo
 
-> It is planned that the Tunnistamo will be replaced with Helsinki-Profile Keycloak during the summer of 2024.
+> The Tunnistamo has been replaced with Helsinki-Profile Keycloak during the autumn of 2024. The Tunnistamo is still a great choice as an auth service if a local authorization service is needed in a local development.
 
 There is an [example of Keycloak environment variables](./.env.local.keycloak-example) that can be used, when a local Kukkuu Admin UI is wanted to be connected to the Helsinki-Profile Keycloak of a test environment.
 
