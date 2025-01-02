@@ -14,6 +14,8 @@
     "test:staged": "cross-env TZ=Europe/Helsinki vitest related --run",
     "test:watch": "cross-env TZ=Europe/Helsinki vitest",
     "lint": "eslint src",
+    "format:code": "eslint --ext js,ts,tsx src --fix",
+    "format:markup": "prettier --config .prettierrc.json --write src/**/*.css",
     "generate:graphql": "cross-env DOTENV_CONFIG_PATH=./.env graphql-codegen -r dotenv/config --config ./codegen.ts",
     "test:browser": "testcafe \"chrome --window-size='1920,1080' --disable-search-engine-choice-screen\" browser-tests/ --live",
     "test:browser:wsl2win": "testcafe 'path:`/mnt/c/Program Files/Google/Chrome/Application/chrome.exe`' browser-tests/ --live --dev --lang=fi-FI",
