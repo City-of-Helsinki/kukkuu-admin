@@ -80,7 +80,7 @@ This project is built using the following key frameworks and libraries:
 
 1. Clone the repo.
 2. `cp .env.example .env`
-3. Use file `.env.local` to modify environment variables if needed. For more info, check [this](https://create-react-app.dev/docs/adding-custom-environment-variables#docsNav).
+3. Use file `.env.local` to modify environment variables if needed. For more info, check [this](https://vite.dev/guide/env-and-mode).
 4. Run either
    - `yarn start` to run the app normally **or**
    - `docker compose up` to run the app in a Docker container. In the future, when there are changes that need rebuilding the container, run `docker compose up --build` instead.
@@ -115,12 +115,12 @@ If you're using a local Kukkuu API backend (`VITE_API_URI=http://localhost:8081/
 1. **Start the backend:** Ensure your local Kukkuu API backend is running.
 
 2. **Access the Django admin interface:**
-   - Open the Django admin interface: `http://localhost:8000/admin/`
-   - Log in with the default credentials: username `admin`, password `admin`.
+   - Open the Django admin interface: `http://localhost:8081/admin/`
+   - Log in with the default credentials: username `admin`, password `admin`. If you don't have an admin user yet, you can create one with `python manage.py createsuperuser`.
 
 3. **Grant superuser privileges:**
    - Attempt to log in to Kukkuu-admin (`http://localhost:3001/login`) using your desired user account. This will create the user in the backend if it doesn't exist.
-   - In the Django admin interface, locate the user you just created and grant them superuser privileges.
+   - In the Django admin interface, locate the user you just created and grant them admin or superuser privileges.
 
 You should now be able to log in to Kukkuu-admin with that user.
 
@@ -179,13 +179,13 @@ You will also see any lint errors in the console.
 
 ### `yarn build`
 
-Builds the app for production to the `build` folder.
+Builds the app for production to the `build` directory.
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+See the section about [building for production](https://vitejs.dev/guide/build.html) and [CLI guide](https://vitejs.dev/guide/cli.html#vite-build) for more information.
 
 ### `yarn generate:graphql`
 
@@ -193,7 +193,7 @@ Fetches the GraphQL schema from the backend and updates typing information. The 
 
 ### `yarn test`
 
-Launches the `vitest` test runner.
+Launches the `vitest` test runner. See the section about [Getting started](https://vitest.dev/guide/) for more information.
 
 ### `yarn test:browser`
 
