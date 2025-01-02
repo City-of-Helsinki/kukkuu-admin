@@ -5,6 +5,34 @@
 
 :baby: Staff interface for Kulttuurin kummilapset / Culture Kids :violin:
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [About](#about)
+- [Deployments](#deployments)
+- [See also](#see-also)
+- [Development](#development)
+  - [Getting started](#getting-started)
+  - [Authorizing login to kukkuu-admin](#authorizing-login-to-kukkuu-admin)
+    - [Using local kukkuu backend](#using-local-kukkuu-backend)
+    - [Using remote kukkuu backend](#using-remote-kukkuu-backend)
+  - [Setting up Tunnistamo and Kukkuu API locally with Docker](#setting-up-tunnistamo-and-kukkuu-api-locally-with-docker)
+    - [Set Tunnistamo hostname](#set-tunnistamo-hostname)
+    - [Create a new OAuth app on GitHub](#create-a-new-oauth-app-on-github)
+    - [Install local Tunnistamo](#install-local-tunnistamo)
+    - [Using the Helsinki-Profile Keycloak instead of Tunnistamo](#using-the-helsinki-profile-keycloak-instead-of-tunnistamo)
+    - [Install Kukkuu API locally](#install-kukkuu-api-locally)
+- [Available Scripts](#available-scripts)
+  - [`yarn start`](#yarn-start)
+  - [`yarn test`](#yarn-test)
+  - [`yarn build`](#yarn-build)
+  - [`yarn graphql-types`](#yarn-graphql-types)
+  - [`yarn test:browser`](#yarn-testbrowser)
+    - [Test JWT issuance for browser tests](#test-jwt-issuance-for-browser-tests)
+- [Debugging](#debugging)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## About
 
 More information about the Culture Kids project is available in the UI project:
