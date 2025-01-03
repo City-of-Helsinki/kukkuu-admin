@@ -2,6 +2,39 @@
 
 # Change Log
 
+## [4.0.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.6.0...kukkuu-admin-v4.0.0) (2025-01-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* **vite:** migrate from CRA to Vite
+
+### Features
+
+* Use polling in docker development to enable hot reload ([2260422](https://github.com/City-of-Helsinki/kukkuu-admin/commit/2260422a3a3564806799104f6cc77cc1da423307))
+
+
+### Bug Fixes
+
+* Build and deps issues ([1868b01](https://github.com/City-of-Helsinki/kukkuu-admin/commit/1868b01390bd49634ab977b5f1b2922689926f00))
+* **build:** Use build arg in docker static builder ([f72856b](https://github.com/City-of-Helsinki/kukkuu-admin/commit/f72856b150e1a66b49d719e5535842d192b157aa))
+* **config:** Admin ui url ([ed16447](https://github.com/City-of-Helsinki/kukkuu-admin/commit/ed1644709be1b408e4c10f2bcb6aaa7d4f66f0e0))
+* **deprecation:** Set package type to "module" ([2ac5a82](https://github.com/City-of-Helsinki/kukkuu-admin/commit/2ac5a8274561ce2e849a8808112fb61c75f54c8d))
+* **docker:** Build ([ff6b515](https://github.com/City-of-Helsinki/kukkuu-admin/commit/ff6b515b87f6badc83723631c68293a0b1b39c9a))
+* Eslint installation ([c832b2c](https://github.com/City-of-Helsinki/kukkuu-admin/commit/c832b2c28b64c02d513511f3d879a459303276cc))
+* **eslint:** Improve linting ([8786e0b](https://github.com/City-of-Helsinki/kukkuu-admin/commit/8786e0b3f0c9816b9bb94124533bf3d1d03496ab))
+* Eslintrc configuration ([3521306](https://github.com/City-of-Helsinki/kukkuu-admin/commit/352130656f02e4afc037ba9ed396482a2cf13c53))
+* Husky pre-commit run vitest related with lint-staged ([0bc25f1](https://github.com/City-of-Helsinki/kukkuu-admin/commit/0bc25f150e802fa519209a7957bb44469f77cacd))
+* Lint-staged should use format:code with max-warnings flag ([8086f82](https://github.com/City-of-Helsinki/kukkuu-admin/commit/8086f824080cb72eb3fb88f8bce22972647726c6))
+* Linter and ts issues ([5e50046](https://github.com/City-of-Helsinki/kukkuu-admin/commit/5e5004602c29960c90e5a8f486ce8ce17df4e418))
+* Linting issues ([5c6ba7f](https://github.com/City-of-Helsinki/kukkuu-admin/commit/5c6ba7f6f2f1349116491e5f104cbcc363f65277))
+* Ts issues ([f17c068](https://github.com/City-of-Helsinki/kukkuu-admin/commit/f17c068ff34343fc2dd9febab9da4289bbf6b2b5))
+
+
+### Build System
+
+* **vite:** Migrate from CRA to Vite ([bfcdf71](https://github.com/City-of-Helsinki/kukkuu-admin/commit/bfcdf7170aa19358d5b9cef59b56cb15bc0fe900))
+
 ## [3.6.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.5.0...kukkuu-admin-v3.6.0) (2024-11-05)
 
 ### Features
