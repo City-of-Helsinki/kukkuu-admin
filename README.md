@@ -7,7 +7,6 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [Service architecture](#service-architecture)
   - [Environments](#environments)
@@ -20,6 +19,9 @@
       - [Using local Kukkuu API backend](#using-local-kukkuu-api-backend)
       - [Using remote Kukkuu API backend](#using-remote-kukkuu-api-backend)
     - [JWT issuance for browser tests](#jwt-issuance-for-browser-tests)
+  - [Husky Git Hooks](#husky-git-hooks)
+    - [Pre-commit Hook](#pre-commit-hook)
+    - [Commit-msg Hook](#commit-msg-hook)
 - [Available Scripts](#available-scripts)
   - [`yarn start`](#yarn-start)
   - [`yarn build`](#yarn-build)
@@ -29,7 +31,6 @@
 - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 
 ## Service architecture
 
@@ -42,25 +43,28 @@ The Culture kids service consists of:
 - **[Notification Service API](https://github.com/City-of-Helsinki/notification-service-api):** A service used by the Kukkuu API to send SMS messages.
 - **Mailer:** A service used by the Kukkuu API to send emails.
 
-
 ### Environments
 
 The admin client environments (this service):
+
 - **Production environment:** https://kummilapset-admin.hel.fi/
 - **Staging environment:** https://kukkuu-admin.stage.hel.ninja/
 - **Testing environment:** https://kukkuu-admin.test.hel.ninja/
 
 The API environments:
+
 - **Production environment:** https://kukkuu.api.hel.fi/graphql
 - **Staging environment:** https://kukkuu.api.stage.hel.ninja/graphql
 - **Testing environment:** https://kukkuu.api.test.hel.ninja/graphql
 
 The public client environments:
+
 - **Production environment:** https://kummilapset.hel.fi/
 - **Staging environment:** https://kukkuu-ui.stage.hel.ninja/
 - **Testing environment:** https://kukkuu-ui.test.hel.ninja/
 
 The headless CMS environments:
+
 - **Production environment:** https://kukkuu.content.api.hel.fi/graphql
 - **Testing environment:** https://kukkuu.app-staging.hkih.hion.dev/graphql
 
@@ -71,8 +75,6 @@ This project is built using the following key frameworks and libraries:
 - **[Vite](https://vite.dev/):** A modern frontend build tool that provides a fast and efficient development experience. It offers features like instant server start, hot module replacement, and optimized builds.
 - **[React](https://react.dev/):** A JavaScript library for building user interfaces. It allows for the creation of reusable UI components and efficient management of application state.
 - **[React Admin](https://marmelab.com/react-admin/):** A framework for building admin applications on top of React. It provides a set of reusable components and utilities for common admin tasks, such as creating data grids, forms, and navigation menus. React Admin simplifies the development of admin interfaces by providing a structured and opinionated approach.
-
-
 
 ## Development
 
@@ -95,26 +97,27 @@ You need to authorize the user you are trying to log in with to Kukkuu-Admin. In
 #### Setup authorization service
 
 Setup authorization service:
+
 - **Use public test Keycloak**: The primary option. See [Using the Helsinki-Profile Keycloak](./docs/setup-keycloak.md).
 - **Use a local Tunnistamo**: For a full local environment, see [Setting up Tunnistamo and Kukkuu API locally with Docker](./docs/setup-tunnistamo.md).
-
 
 #### Setup Kukkuu API backend
 
 You can use the public Kukkuu API from the test environment or set up a local Kukkuu API. It should be noted that in the public test environment, the data is shared with other users. If you want to test with your own data and have an isolated system, you need to set up a local API.
 
-Choose the environment: 
+Choose the environment:
+
 - **Use a public test environment API**: Check that your environment variables are set correctly. The examples are given in [.env.example](./.env.example).
 - **Setup Kukkuu API locally**: See [Use Kukkuu API locally](./docs/setup-local-kukkuu-api.md).
 
 ##### Using local Kukkuu API backend
-
 
 If you're using a local Kukkuu API backend (`VITE_API_URI=http://localhost:8081/graphql`), you can easily grant staff privileges to your user account. Here's how:
 
 1. **Start the backend:** Ensure your local Kukkuu API backend is running.
 
 2. **Access the Django admin interface:**
+
    - Open the Django admin interface: `http://localhost:8081/admin/`
    - Log in with the default credentials: username `admin`, password `admin`. If you don't have an admin user yet, you can create one with `python manage.py createsuperuser`.
 
@@ -129,16 +132,18 @@ You should now be able to log in to Kukkuu-admin with that user.
 If you're using a remote Kukkuu backend (e.g., the test environment; `VITE_API_URI=https://kukkuu.api.test.hel.ninja/graphql`), you'll need to grant staff privileges to your user account. Here's how:
 
 1. **Obtain Django admin credentials:**
+
    - Contact the administrator of the remote backend to get the credentials.
    - If you have access to the backend pod, you can create a superuser by running `python manage.py createsuperuser` in the pod's terminal.
 
 2. **Access the Django admin interface:**
+
    - Open the Django admin interface for the remote backend (e.g., `https://kukkuu.api.test.hel.ninja/admin`).
    - Log in using the credentials from step 1.
 
 3. **Grant superuser privileges:**
-    - Attempt to log in to Kukkuu-admin (`http://localhost:3001/login`). This will create a user account in the backend if one doesn't exist.
-    - In the Django admin interface, find the user you just created and grant them superuser privileges.
+   - Attempt to log in to Kukkuu-admin (`http://localhost:3001/login`). This will create a user account in the backend if one doesn't exist.
+   - In the Django admin interface, find the user you just created and grant them superuser privileges.
 
 You should now be able to log in to Kukkuu-admin with your user account.
 
@@ -150,13 +155,12 @@ In browser tests, we want to bypass the regular authentication flow and directly
 
 **How it works:**
 
-
 - **[`clientUtils`](./browser-tests/utils/jwt/clientUtils/):** Contains helper functions that run within the Testcafe browser environment. These functions utilize Testcafe's [`ClientFunction`](https://testcafe.io/documentation/402832/guides/basic-guides/client-functions) to interact with the browser and manage JWTs.
 - **[`mocks`](./browser-tests/utils/jwt/mocks/):** Provides functions to intercept network requests to the authentication service and replace them with mocked responses containing the test JWTs. This prevents actual authentication and allows us to control the user context during tests.
-- **[`config`](./browser-tests/utils/jwt/config/):**  Holds configuration settings for the JWT library used in browser tests.
-- **[`jwt`](./browser-tests/utils/jwt/jwt.ts):**  Contains utilities to create and sign JWTs symmetrically. The API needs to be configured with the same secret key to verify these tokens.
-- **[`oidc`](./browser-tests/utils/jwt/oidc.ts):**  Adapts the generated JWTs to a format compatible with the OpenID Connect (OIDC) client used in the application.
-- **[`services`](./browser-tests/utils/jwt/services.ts):**  Includes helper functions for managing test data, such as selecting an admin project for the test user. These functions make actual API calls (not mocked) to prepare the test environment.
+- **[`config`](./browser-tests/utils/jwt/config/):** Holds configuration settings for the JWT library used in browser tests.
+- **[`jwt`](./browser-tests/utils/jwt/jwt.ts):** Contains utilities to create and sign JWTs symmetrically. The API needs to be configured with the same secret key to verify these tokens.
+- **[`oidc`](./browser-tests/utils/jwt/oidc.ts):** Adapts the generated JWTs to a format compatible with the OpenID Connect (OIDC) client used in the application.
+- **[`services`](./browser-tests/utils/jwt/services.ts):** Includes helper functions for managing test data, such as selecting an admin project for the test user. These functions make actual API calls (not mocked) to prepare the test environment.
 
 **Key points:**
 
@@ -164,6 +168,33 @@ In browser tests, we want to bypass the regular authentication flow and directly
 - The `BROWSER_TESTS_JWT_AD_GROUP` environment variable defines the Active Directory group used for the test user, which should have admin privileges in the API.
 - Several environment variables are used to configure the JWT mocking and testing environment.
 
+### Husky Git Hooks
+
+This project uses [Husky](https://typicode.github.io/husky/#/) to manage Git hooks. Husky is configured to run specific scripts before committing changes to ensure code quality and consistency.
+
+#### Pre-commit Hook
+
+The pre-commit hook is configured to run the following commands:
+
+```sh
+yarn doctoc .
+yarn lint-staged
+```
+
+- `yarn doctoc .`: This command updates the table of contents in your markdown files.
+- `yarn lint-staged`: This command runs linting on staged files to ensure they meet the project's coding standards. The lint-staged configuration can be found from [.lintstagedrc.json](./.lintstagedrc.json).
+
+> NOTE: `doctoc` and `husky` does not work seamlessly together, since the `doctoc` does update the TOCs of the markdown files, but does not reject the pre-commit hook execution, and only leaves the refactored files as unstaged in Git.
+
+#### Commit-msg Hook
+
+The commit-msg hook is configured to run the following command:
+
+```sh
+npx --no-install commitlint --edit "$1"
+```
+
+- `npx --no-install commitlint --edit "$1"`: This command uses [Commitlint](https://commitlint.js.org/#/) to lint commit messages based on the project's commit message conventions. This repo follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) -rules.
 
 ## Available Scripts
 
@@ -221,7 +252,6 @@ For configuration, check the following environment variables:
 7. `VITE_OIDC_AUTHORITY` OIDC config that is needed in JWT mocking.
 
 NOTE: There is an [.env.test.local.example](.env.test.local.example) that can be copied to a file named `.env.test.local`. If the `.env.test.local` is present, it will be used during the local Testcafe runs.
-
 
 ## License
 
