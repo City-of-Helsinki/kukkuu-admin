@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  useTranslate,
   CreateButton,
   useGetOne,
   usePermissions,
@@ -16,7 +15,6 @@ export const EventsAndEventGroupsListManagementButtonGroup = ({
 }: {
   variant?: CreateButtonProps['variant'];
 }) => {
-  const t = useTranslate();
   const { permissions } = usePermissions<Permissions>();
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const projectId = projectService.projectId!;
@@ -36,7 +34,7 @@ export const EventsAndEventGroupsListManagementButtonGroup = ({
         <CreateButton
           key="create-event-groups"
           resource="event-groups"
-          label={t('eventGroups.actions.create.do')}
+          label={'eventGroups.actions.create.do'}
           variant={variant}
         />
       )}
@@ -44,7 +42,7 @@ export const EventsAndEventGroupsListManagementButtonGroup = ({
         <CreateButton
           key="create-events"
           resource="events"
-          label={t('events.actions.create')}
+          label={'events.actions.create'}
           variant={variant}
         />
       )}
