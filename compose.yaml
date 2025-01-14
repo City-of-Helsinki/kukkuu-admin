@@ -1,3 +1,5 @@
+# This file is for using public test environments of
+# Kukkuu backend, Helsinki Profile and Keycloak.
 services:
   app:
     container_name: kukkuu-admin
@@ -8,6 +10,7 @@ services:
       NODE_ENV: ${DOCKER_TARGET:-development} # which node env the build uses. NOTE: Usually same as the ${DOCKER_TARGET}.
       VITE_ENVIRONMENT: ${DOCKER_TARGET:-development}
       PORT: ${PORT:-3001}
+    env_file: '.env'
     volumes:
       - '.:/app'
       - '/app/node_modules'

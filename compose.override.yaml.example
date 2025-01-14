@@ -1,0 +1,7 @@
+# This file contains local Kukkuu API overrides on top of compose.yaml.
+# If you copy this file to compose.override.yaml, it will be merged with compose.yaml, see:
+# - https://docs.docker.com/compose/how-tos/multiple-compose-files/merge/
+# - https://docs.docker.com/reference/compose-file/merge/
+services:
+  app:
+    env_file: '.env.local'
