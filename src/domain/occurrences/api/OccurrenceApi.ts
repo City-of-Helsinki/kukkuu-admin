@@ -22,6 +22,7 @@ import {
   type OccurrencesQuery,
   OccurrenceDocument,
 } from '../../api/generatedTypes/graphql';
+import Config from '../../config';
 
 moment.tz.setDefault('Europe/Helsinki');
 
@@ -46,11 +47,17 @@ const getOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
 
 // Combine two fields into one:
 const normalizeTime = (date: string, time: string) => {
-  return moment
-    .tz(`${date} ${time}`, 'D.M.YYYY H:mm', true, 'Europe/Helsinki')
-    .toISOString();
-};
+  let datetime;
 
+  for (const format of Config.momentValidationDateTimeFormats) {
+    datetime = moment.tz(`${date} ${time}`, format, true, 'Europe/Helsinki');
+    if (datetime.isValid()) {
+      return datetime.toISOString();
+    }
+  }
+
+  throw new Error(`Invalid date or time format: "${date} ${time}"`);
+};
 const addOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
   const data = mapLocalDataToApiData(params.data);
   data.time = normalizeTime(data.date as string, data.timeField as string);

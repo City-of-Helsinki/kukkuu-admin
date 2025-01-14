@@ -12,10 +12,16 @@ import { makeStyles } from '@mui/styles';
 import moment from 'moment-timezone';
 import { Grid } from '@mui/material';
 
+import Config from '../../../domain/config';
+
 const useStyles = makeStyles({
   dateTimeTextInput: { flexGrow: 1 },
   textFieldInput: { width: '100%' },
 });
+
+const momentValidationDateFormats = ['D.M.YYYY', 'DD.MM.YYYY'] as const;
+
+const momentValidationTimeFormats = ['H:mm', 'HH:mm'] as const;
 
 /**
  * Removes the special prefix `@@react-admin@@` and the needless quotation marks
@@ -47,15 +53,21 @@ const BoundedTextField = (props: BoundedTextFieldProps) => {
   const translate = useTranslate();
   const classes = useStyles();
   const {
-    field,
+    // Use nonControllerField to fix warning:
+    // "MuiOutlinedInputInput contains an input of type text with both value and defaultValue props."
+    // Input elements must be either controlled or uncontrolled.
+    field: { value, ...nonControllerField },
     fieldState: { isTouched, error },
     formState: { isSubmitted },
   } = useInput(props);
 
+  // Use curatedProps to fix warning: "Invalid value for prop `validate` on <div> tag."
+  const { validate, ...curatedProps } = props;
+
   return (
     <TextField
-      {...props}
-      {...field}
+      {...curatedProps}
+      {...nonControllerField}
       className={classes.textFieldInput}
       size="small"
       error={!!(isTouched && error)}
@@ -71,12 +83,16 @@ const BoundedTextField = (props: BoundedTextFieldProps) => {
 };
 
 const validateDate: Validator = (value: string) =>
-  moment(value, 'D.M.YYYY', true)?.isValid()
+  momentValidationDateFormats.some((format) =>
+    moment(value, format, true).isValid()
+  )
     ? undefined
     : 'occurrences.fields.time.fields.date.errorMessage';
 
 const validateTime: Validator = (value: string) =>
-  moment(value, 'H:mm', true)?.isValid()
+  momentValidationTimeFormats.some((format) =>
+    moment(value, format, true).isValid()
+  )
     ? undefined
     : 'occurrences.fields.time.fields.time.errorMessage';
 
