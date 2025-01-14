@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   TopToolbar,
-  useTranslate,
   CreateButton,
   EditButton,
   usePermissions,
@@ -32,7 +31,6 @@ const EventGroupsDetailActions = () => {
   const record = useRecordContext<EventGroupNode>();
   const resource = useResourceContext();
   const basePath = `/${resource}`;
-  const t = useTranslate();
   const classes = useStyles();
   const publishStatus = getEventGroupPublishStatus(record);
   const canPublish = Boolean(
@@ -53,7 +51,7 @@ const EventGroupsDetailActions = () => {
     <TopToolbar className={classes.toolbar}>
       <CreateButton
         to={`/events/create?eventGroupId=${record?.id}`}
-        label={t('eventGroups.actions.addEvent.do')}
+        label={'eventGroups.actions.addEvent.do'}
       />
       {canManageEventGroups && <EditButton record={record} />}
       {showPublishButton && (
