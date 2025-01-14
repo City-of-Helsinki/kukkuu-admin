@@ -12,12 +12,16 @@
   - [Environments](#environments)
   - [Frameworks and Libraries](#frameworks-and-libraries)
 - [Development](#development)
+  - [Requirements](#requirements)
   - [Getting started](#getting-started)
+    - [Running using local Node.js](#running-using-local-nodejs)
+    - [Running using Docker](#running-using-docker)
+    - [Running the Kukkuu backend locally](#running-the-kukkuu-backend-locally)
   - [Authorizing login to kukkuu-admin and integrating to Kukkuu API](#authorizing-login-to-kukkuu-admin-and-integrating-to-kukkuu-api)
     - [Setup authorization service](#setup-authorization-service)
     - [Setup Kukkuu API backend](#setup-kukkuu-api-backend)
-      - [Using local Kukkuu API backend](#using-local-kukkuu-api-backend)
-      - [Using remote Kukkuu API backend](#using-remote-kukkuu-api-backend)
+      - [Authorizing user for login to local backend](#authorizing-user-for-login-to-local-backend)
+      - [Authorizing user for login to test environment's backend](#authorizing-user-for-login-to-test-environments-backend)
     - [JWT issuance for browser tests](#jwt-issuance-for-browser-tests)
   - [Husky Git Hooks](#husky-git-hooks)
     - [Pre-commit Hook](#pre-commit-hook)
@@ -85,15 +89,75 @@ This project is built using the following key frameworks and libraries:
 
 ## Development
 
+### Requirements
+
+Compatibility defined by [Dockerfile](./Dockerfile):
+
+- Node.js 20.x
+- Yarn 1.x
+
 ### Getting started
 
-1. Clone the repo.
-2. `cp .env.example .env`
-3. Use file `.env.local` to modify environment variables if needed. For more info, check [this](https://vite.dev/guide/env-and-mode).
-4. Run either
-   - `yarn start` to run the app normally **or**
-   - `docker compose up` to run the app in a Docker container. In the future, when there are changes that need rebuilding the container, run `docker compose up --build` instead.
-5. Open [http://localhost:3001](http://localhost:3001) to view the app in the browser.
+1. Clone this repository
+2. Copy `.env.example` to `.env`
+3. If you're new to multiple `.env*` files, read Vite's [Env Variables and Modes](https://vite.dev/guide/env-and-mode)
+4. If you're new to multiple Docker compose files, read Docker's [Merge Compose Files](https://docs.docker.com/compose/how-tos/multiple-compose-files/merge/)
+5. Follow the instructions below for your preferred way of running this app:
+   - [Running using local Node.js](#running-using-local-nodejs) **or**
+   - [Running using Docker & Docker compose](#running-using-docker)
+
+#### Running using local Node.js
+
+Using the following instructions you should be able to:
+
+- Run this UI using local Node.js
+- Run the Kukkuu backend locally in Docker or use the public test environment's backend
+- Use the public test environments of Helsinki Profile and Keycloak for authentication
+- Log in successfully to this UI using your user account
+
+1. Install the [requirements](#requirements)
+2. If you want to use the [public test environment's backend](https://kukkuu.api.test.hel.ninja/graphql):
+   - Delete `.env.local` file, if you have it left over, so `.env` is used
+3. If you want to run the Kukkuu backend locally:
+   - Copy `.env.local.example` to `.env.local` (used as env_file for environment variables)
+   - Set up the backend by following the steps in [Running the Kukkuu backend locally](#running-the-kukkuu-backend-locally)
+4. Run `yarn` to install dependencies
+5. Run `yarn start` to run the app
+6. Authorize a user for login into the backend using either:
+   - [Authorizing user for login to local backend](#authorizing-user-for-login-to-local-backend) **or**
+   - [Authorizing user for login to test environment's backend](#authorizing-user-for-login-to-test-environments-backend)
+7. Open http://localhost:3001 to view the app in the browser and log in as the authorized user
+
+#### Running using Docker
+
+Using the following instructions you should be able to:
+
+- Run this UI using Docker & Docker compose
+- Run the Kukkuu backend locally in Docker or use the public test environment's backend
+- Use the public test environments of Helsinki Profile and Keycloak for authentication
+- Log in successfully to this UI using your user account
+
+1. If you want to run the Kukkuu backend locally:
+   - Copy `compose.override.yaml.example` to `compose.override.yaml` (used for setting the env_file)
+   - Copy `.env.local.example` to `.env.local` (used as env_file for environment variables)
+   - Set up the backend by following the steps in [Running the Kukkuu backend locally](#running-the-kukkuu-backend-locally)
+2. If you want to use the [public test environment's backend](https://kukkuu.api.test.hel.ninja/graphql):
+   - Delete `compose.override.yaml`, if you have it left over, so `compose.yaml` is used
+3. Run `docker compose up` to run the app
+   - Later if there are changes that need rebuilding the container, run `docker compose up --build`
+4. Authorize a user for login into the backend using either:
+   - [Authorizing user for login to local backend](#authorizing-user-for-login-to-local-backend) **or**
+   - [Authorizing user for login to test environment's backend](#authorizing-user-for-login-to-test-environments-backend)
+5. Open http://localhost:3001 to view the app in the browser and log in as the authorized user
+
+#### Running the Kukkuu backend locally
+
+If you want to run the Kukkuu backend locally:
+
+- Clone the [backend repo](https://github.com/City-of-Helsinki/kukkuu)
+- Follow its README to run it locally in Docker
+- After this the backend should be running at http://localhost:8081/graphql (i.e. the value of `VITE_API_URI`)
+  using public Keycloak test environment for authentication.
 
 ### Authorizing login to kukkuu-admin and integrating to Kukkuu API
 
@@ -105,7 +169,7 @@ You need to authorize the user you are trying to log in with to Kukkuu-Admin. In
 
 Setup authorization service:
 
-- **Use public test Keycloak**: The primary option. See [Using the Helsinki-Profile Keycloak](./docs/setup-keycloak.md).
+- **Use public test Keycloak**: The default and primary option. See [Using the Helsinki-Profile Keycloak](./docs/setup-keycloak.md).
 - **Use a local Tunnistamo**: For a full local environment, see [Setting up Tunnistamo and Kukkuu API locally with Docker](./docs/setup-tunnistamo.md).
 
 #### Setup Kukkuu API backend
@@ -117,39 +181,41 @@ Choose the environment:
 - **Use a public test environment API**: Check that your environment variables are set correctly. The examples are given in [.env.example](./.env.example).
 - **Setup Kukkuu API locally**: See [Use Kukkuu API locally](./docs/setup-local-kukkuu-api.md).
 
-##### Using local Kukkuu API backend
+##### Authorizing user for login to local backend
 
-If you're using a local Kukkuu API backend (`VITE_API_URI=http://localhost:8081/graphql`), you can easily grant staff privileges to your user account. Here's how:
+If you're using a local Kukkuu API backend (`VITE_API_URI=http://localhost:8081/graphql`), you can easily grant superuser privileges to your user account. Here's how:
 
 1. **Start the backend:** Ensure your local Kukkuu API backend is running.
 
 2. **Access the Django admin interface:**
 
-   - Open the Django admin interface: `http://localhost:8081/admin/`
+   - Open the Django admin interface: http://localhost:8081/admin/
    - Log in with the default credentials: username `admin`, password `admin`. If you don't have an admin user yet, you can create one with `python manage.py createsuperuser`.
 
 3. **Grant superuser privileges:**
-   - Attempt to log in to Kukkuu-admin (`http://localhost:3001/login`) using your desired user account. This will create the user in the backend if it doesn't exist.
-   - In the Django admin interface, locate the user you just created and grant them admin or superuser privileges.
+   - Attempt to log in to Kukkuu-admin at http://localhost:3001/login using your desired user account. This will create the user in the backend if it doesn't exist.
+   - In the Django admin interface, locate the user you just created and grant them superuser status.
 
 You should now be able to log in to Kukkuu-admin with that user.
 
-##### Using remote Kukkuu API backend
+##### Authorizing user for login to test environment's backend
 
-If you're using a remote Kukkuu backend (e.g., the test environment; `VITE_API_URI=https://kukkuu.api.test.hel.ninja/graphql`), you'll need to grant staff privileges to your user account. Here's how:
+If you're using the test environment's backend (`VITE_API_URI=https://kukkuu.api.test.hel.ninja/graphql`), you'll need to grant superuser privileges to your user account. Here's how:
 
 1. **Obtain Django admin credentials:**
 
-   - Contact the administrator of the remote backend to get the credentials.
-   - If you have access to the backend pod, you can create a superuser by running `python manage.py createsuperuser` in the pod's terminal.
+   - Contact the administrator of the test environment's backend to get the credentials to its Django admin **or**
+   - If you have access to the [backend pod in OpenShift](https://console-openshift-console.apps.arodevtest.hel.fi/k8s/ns/hki-kuva-kukkuu-test/pods?name=kukkuu-api&orderBy=desc&sortBy=Status&rowFilter-pod-status=Running), you can create a superuser by running `python manage.py createsuperuser` in the pod's terminal.
 
 2. **Access the Django admin interface:**
 
-   - Open the Django admin interface for the remote backend (e.g., `https://kukkuu.api.test.hel.ninja/admin`).
+   - Open the Django admin interface for the test environment's backend at https://kukkuu.api.test.hel.ninja/admin
    - Log in using the credentials from step 1.
 
 3. **Grant superuser privileges:**
-   - Attempt to log in to Kukkuu-admin (`http://localhost:3001/login`). This will create a user account in the backend if one doesn't exist.
+   - Attempt to log in to Kukkuu-admin at http://localhost:3001/login. This will create a user account in the backend if one doesn't exist.
+     - **NOTE**: If you get stuck at "Viimeistellään tunnistautumista" (i.e. "Finishing authentication") stage,
+       log in again, and you should get in.
    - In the Django admin interface, find the user you just created and grant them superuser privileges.
 
 You should now be able to log in to Kukkuu-admin with your user account.
