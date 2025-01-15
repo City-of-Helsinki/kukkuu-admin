@@ -139,16 +139,7 @@ const OccurrenceShow = () => {
           label={<OccurrenceDataGridTitle occurrenceId={id} />}
           source="enrolments.edges"
         >
-          <Datagrid
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
-            rowClick={(
-              id: string,
-              resource: string,
-              record: EnrolmentNodeEdge
-            ) => `/children/${record?.node?.child?.id}/show`}
-            bulkActionButtons={false}
-          >
+          <Datagrid bulkActionButtons={false}>
             <FunctionField
               label="children.fields.name.label"
               render={withEnrolment(getChildFullName, () => null)}
@@ -162,20 +153,6 @@ const OccurrenceShow = () => {
               )}
               label="guardian.name"
             />
-            <EmailField
-              source="node.child.guardians.edges.0.node.email"
-              label="children.fields.guardians.fields.email.label"
-              emptyText={translate('guardian.doesNotExist')}
-            />
-            <FunctionField
-              render={withEnrolment(
-                withGuardian(getGuardianPhoneNumber, () =>
-                  translate('guardian.doesNotExist')
-                ),
-                () => null
-              )}
-              label="children.fields.guardians.fields.phoneNumber.label"
-            />
             <FunctionField
               render={withEnrolment(
                 withGuardian(getGuardianLanguage, () =>
@@ -185,7 +162,10 @@ const OccurrenceShow = () => {
               )}
               label="events.fields.language.label"
             />
-            <OccurrenceAttendedField />
+            <FunctionField
+              render={OccurrenceAttendedField}
+              label="enrolments.fields.attended.label"
+            />
           </Datagrid>
         </ArrayField>
       </SimpleShowLayout>
