@@ -696,8 +696,7 @@ export type GuardianNode = Node & {
   __typename?: 'GuardianNode';
   children: ChildNodeConnection;
   createdAt: Scalars['DateTime']['output'];
-  /** If left blank, will be populated with the user's email. */
-  email: Scalars['String']['output'];
+  email: Maybe<Scalars['String']['output']>;
   firstName: Scalars['String']['output'];
   hasAcceptedCommunication: Scalars['Boolean']['output'];
   /** The ID of the object */
@@ -705,7 +704,7 @@ export type GuardianNode = Node & {
   language: Language;
   languagesSpokenAtHome: LanguageNodeConnection;
   lastName: Scalars['String']['output'];
-  phoneNumber: Scalars['String']['output'];
+  phoneNumber: Maybe<Scalars['String']['output']>;
   relationships: RelationshipNodeConnection;
   updatedAt: Scalars['DateTime']['output'];
   user: AdminNode;
@@ -1349,6 +1348,7 @@ export type ProjectNodeEdge = {
 
 export type ProjectPermissionsType = {
   __typename?: 'ProjectPermissionsType';
+  canSeeGuardianContactInfo: Maybe<Scalars['Boolean']['output']>;
   canSendToAllInProject: Maybe<Scalars['Boolean']['output']>;
   manageEventGroups: Maybe<Scalars['Boolean']['output']>;
   publish: Maybe<Scalars['Boolean']['output']>;
@@ -2068,16 +2068,16 @@ export type ChildrenQueryVariables = Exact<{
 }>;
 
 
-export type ChildrenQuery = { __typename?: 'Query', children: { __typename?: 'ChildNodeConnection', count: number, edges: Array<{ __typename?: 'ChildNodeEdge', node: { __typename?: 'ChildNode', id: string, name: string, birthyear: number, postalCode: string, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string, language: Language, firstName: string, lastName: string, phoneNumber: string } | null } | null> } } | null } | null> } | null };
+export type ChildrenQuery = { __typename?: 'Query', children: { __typename?: 'ChildNodeConnection', count: number, edges: Array<{ __typename?: 'ChildNodeEdge', node: { __typename?: 'ChildNode', id: string, name: string, birthyear: number, postalCode: string, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string | null, language: Language, firstName: string, lastName: string, phoneNumber: string | null } | null } | null> } } | null } | null> } | null };
 
 export type ChildQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type ChildQuery = { __typename?: 'Query', child: { __typename?: 'ChildNode', id: string, name: string, birthyear: number, postalCode: string, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string, language: Language, firstName: string, lastName: string, phoneNumber: string } | null } | null> }, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, time: any, event: { __typename?: 'EventNode', id: string, duration: number | null }, venue: { __typename?: 'VenueNode', id: string } } | null } | null> } } | null };
+export type ChildQuery = { __typename?: 'Query', child: { __typename?: 'ChildNode', id: string, name: string, birthyear: number, postalCode: string, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string | null, language: Language, firstName: string, lastName: string, phoneNumber: string | null } | null } | null> }, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, time: any, event: { __typename?: 'EventNode', id: string, duration: number | null }, venue: { __typename?: 'VenueNode', id: string } } | null } | null> } } | null };
 
-export type ChildGuardianFragment = { __typename?: 'GuardianNode', id: string, email: string, language: Language, firstName: string, lastName: string, phoneNumber: string };
+export type ChildGuardianFragment = { __typename?: 'GuardianNode', id: string, email: string | null, language: Language, firstName: string, lastName: string, phoneNumber: string | null };
 
 export type ChildOccurrenceFragment = { __typename?: 'OccurrenceNode', id: string, time: any, event: { __typename?: 'EventNode', id: string, duration: number | null }, venue: { __typename?: 'VenueNode', id: string } };
 
@@ -2235,7 +2235,7 @@ export type UpdateOccurrenceMutationVariables = Exact<{
 }>;
 
 
-export type UpdateOccurrenceMutation = { __typename?: 'Mutation', updateOccurrence: { __typename?: 'UpdateOccurrenceMutationPayload', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, capacityPerOccurrence: number | null, duration: number | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, enrolments: { __typename?: 'EnrolmentNodeConnection', edges: Array<{ __typename?: 'EnrolmentNodeEdge', node: { __typename?: 'EnrolmentNode', id: string, attended: boolean | null, child: { __typename?: 'ChildNode', name: string, birthyear: number, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string, firstName: string, lastName: string, language: Language } | null } | null> } } | null } | null } | null> }, ticketSystem: { __typename?: 'InternalOccurrenceTicketSystem', type: TicketSystem } | { __typename?: 'LippupisteOccurrenceTicketSystem', url: string, type: TicketSystem } | { __typename?: 'TicketmasterOccurrenceTicketSystem', url: string, type: TicketSystem } | { __typename?: 'TixlyOccurrenceTicketSystem', url: string, type: TicketSystem } | null } | null } | null };
+export type UpdateOccurrenceMutation = { __typename?: 'Mutation', updateOccurrence: { __typename?: 'UpdateOccurrenceMutationPayload', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, capacityPerOccurrence: number | null, duration: number | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, enrolments: { __typename?: 'EnrolmentNodeConnection', edges: Array<{ __typename?: 'EnrolmentNodeEdge', node: { __typename?: 'EnrolmentNode', id: string, attended: boolean | null, child: { __typename?: 'ChildNode', name: string, birthyear: number, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string | null, firstName: string, lastName: string, language: Language } | null } | null> } } | null } | null } | null> }, ticketSystem: { __typename?: 'InternalOccurrenceTicketSystem', type: TicketSystem } | { __typename?: 'LippupisteOccurrenceTicketSystem', url: string, type: TicketSystem } | { __typename?: 'TicketmasterOccurrenceTicketSystem', url: string, type: TicketSystem } | { __typename?: 'TixlyOccurrenceTicketSystem', url: string, type: TicketSystem } | null } | null } | null };
 
 export type DeleteOccurrenceMutationVariables = Exact<{
   input: DeleteOccurrenceMutationInput;
@@ -2264,7 +2264,7 @@ export type OccurrenceQueryVariables = Exact<{
 }>;
 
 
-export type OccurrenceQuery = { __typename?: 'Query', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, name: string | null, capacityPerOccurrence: number | null, duration: number | null, publishedAt: any | null, eventGroup: { __typename?: 'EventGroupNode', id: string, name: string | null } | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, enrolments: { __typename?: 'EnrolmentNodeConnection', edges: Array<{ __typename?: 'EnrolmentNodeEdge', node: { __typename?: 'EnrolmentNode', id: string, attended: boolean | null, child: { __typename?: 'ChildNode', id: string, name: string, birthyear: number, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string, firstName: string, lastName: string, language: Language, phoneNumber: string } | null } | null> } } | null } | null } | null> }, freeSpotNotificationSubscriptions: { __typename?: 'FreeSpotNotificationSubscriptionNodeConnection', edges: Array<{ __typename?: 'FreeSpotNotificationSubscriptionNodeEdge', node: { __typename?: 'FreeSpotNotificationSubscriptionNode', id: string } | null } | null> } } | null };
+export type OccurrenceQuery = { __typename?: 'Query', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, name: string | null, capacityPerOccurrence: number | null, duration: number | null, publishedAt: any | null, eventGroup: { __typename?: 'EventGroupNode', id: string, name: string | null } | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, enrolments: { __typename?: 'EnrolmentNodeConnection', edges: Array<{ __typename?: 'EnrolmentNodeEdge', node: { __typename?: 'EnrolmentNode', id: string, attended: boolean | null, child: { __typename?: 'ChildNode', id: string, name: string, birthyear: number, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string | null, firstName: string, lastName: string, language: Language, phoneNumber: string | null } | null } | null> } } | null } | null } | null> }, freeSpotNotificationSubscriptions: { __typename?: 'FreeSpotNotificationSubscriptionNodeConnection', edges: Array<{ __typename?: 'FreeSpotNotificationSubscriptionNodeEdge', node: { __typename?: 'FreeSpotNotificationSubscriptionNode', id: string } | null } | null> } } | null };
 
 export type MyAdminProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
