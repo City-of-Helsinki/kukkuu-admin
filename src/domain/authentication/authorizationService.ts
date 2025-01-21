@@ -9,7 +9,7 @@ import type {
 export const PERMISSIONS = 'permissions';
 
 type Role = 'admin' | 'none';
-type PermissionKey = keyof ProjectPermissionsType;
+type PermissionKey = Exclude<keyof ProjectPermissionsType, '__typename'>;
 type PermissionObject = Record<string, PermissionKey[]>;
 type PermissionStorage = {
   role: Role;
@@ -49,11 +49,14 @@ export class AuthorizationService {
     this.isAuthorized = this.isAuthorized.bind(this);
     this.getRole = this.getRole.bind(this);
     this.clear = this.clear.bind(this);
+    this.hasProjectPermission = this.hasProjectPermission.bind(this);
     this.canPublishWithinProject = this.canPublishWithinProject.bind(this);
     this.canManageEventGroupsWithinProject =
       this.canManageEventGroupsWithinProject.bind(this);
     this.canSendMessagesToAllRecipientsWithinProject =
       this.canSendMessagesToAllRecipientsWithinProject.bind(this);
+    this.canViewFamiliesWithinProject =
+      this.canViewFamiliesWithinProject.bind(this);
   }
 
   private get permissionStorage(): null | PermissionStorage {
@@ -95,28 +98,28 @@ export class AuthorizationService {
     sessionStorage.removeItem(PERMISSIONS);
   }
 
-  canPublishWithinProject(projectId?: string) {
+  hasProjectPermission(permission: PermissionKey, projectId?: string) {
     if (!projectId) {
       return null;
     }
     const projectPermissions = this.getProjectPermissions(projectId);
-    return projectPermissions.includes('publish');
+    return projectPermissions.includes(permission);
+  }
+
+  canPublishWithinProject(projectId?: string) {
+    return this.hasProjectPermission('publish', projectId);
   }
 
   canManageEventGroupsWithinProject(projectId?: string) {
-    if (!projectId) {
-      return null;
-    }
-    const projectPermissions = this.getProjectPermissions(projectId);
-    return projectPermissions.includes('manageEventGroups');
+    return this.hasProjectPermission('manageEventGroups', projectId);
   }
 
   canSendMessagesToAllRecipientsWithinProject(projectId?: string) {
-    if (!projectId) {
-      return null;
-    }
-    const projectPermissions = this.getProjectPermissions(projectId);
-    return projectPermissions.includes('canSendToAllInProject');
+    return this.hasProjectPermission('canSendToAllInProject', projectId);
+  }
+
+  canViewFamiliesWithinProject(projectId?: string) {
+    return this.hasProjectPermission('viewFamilies', projectId);
   }
 
   private getProjectPermissions(projectId: string) {

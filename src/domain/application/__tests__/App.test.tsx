@@ -40,6 +40,7 @@ test('renders without crashing', () => {
                 publish: true,
                 manageEventGroups: true,
                 canSendToAllInProject: true,
+                viewFamilies: true,
               },
               year: 2024,
               name: 'project',

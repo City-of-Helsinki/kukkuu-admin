@@ -1352,6 +1352,7 @@ export type ProjectPermissionsType = {
   canSendToAllInProject: Maybe<Scalars['Boolean']['output']>;
   manageEventGroups: Maybe<Scalars['Boolean']['output']>;
   publish: Maybe<Scalars['Boolean']['output']>;
+  viewFamilies: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type ProjectTranslationType = {
@@ -2269,7 +2270,7 @@ export type OccurrenceQuery = { __typename?: 'Query', occurrence: { __typename?:
 export type MyAdminProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MyAdminProfileQuery = { __typename?: 'Query', myAdminProfile: { __typename?: 'AdminNode', id: string, projects: { __typename?: 'ProjectNodeConnection', edges: Array<{ __typename?: 'ProjectNodeEdge', node: { __typename?: 'ProjectNode', id: string, year: number, name: string | null, myPermissions: { __typename?: 'ProjectPermissionsType', publish: boolean | null, manageEventGroups: boolean | null, canSendToAllInProject: boolean | null } | null } | null } | null> } | null } | null };
+export type MyAdminProfileQuery = { __typename?: 'Query', myAdminProfile: { __typename?: 'AdminNode', id: string, projects: { __typename?: 'ProjectNodeConnection', edges: Array<{ __typename?: 'ProjectNodeEdge', node: { __typename?: 'ProjectNode', id: string, year: number, name: string | null, myPermissions: { __typename?: 'ProjectPermissionsType', publish: boolean | null, manageEventGroups: boolean | null, canSendToAllInProject: boolean | null, viewFamilies: boolean | null } | null } | null } | null> } | null } | null };
 
 export type ImportTicketSystemPasswordsMutationVariables = Exact<{
   input: ImportTicketSystemPasswordsMutationInput;
@@ -3112,6 +3113,7 @@ export const MyAdminProfileDocument = gql`
             publish
             manageEventGroups
             canSendToAllInProject
+            viewFamilies
           }
         }
       }
