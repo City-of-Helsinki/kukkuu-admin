@@ -1,35 +1,30 @@
 import React from 'react';
-import type {
-  RowClickFunction,
-  ShowProps,
-  Identifier,
-  RaRecord,
-} from 'react-admin';
 import {
-  TextField,
-  SimpleShowLayout,
+  type Identifier,
+  type RaRecord,
+  type RowClickFunction,
+  ArrayField,
+  Datagrid,
   DateField,
   EmailField,
-  useTranslate,
-  useLocaleState,
-  SelectField,
   FunctionField,
-  Datagrid,
   ReferenceField,
-  ArrayField,
+  SelectField,
+  SimpleShowLayout,
+  TextField,
+  useLocaleState,
+  useTranslate,
 } from 'react-admin';
 import { CardHeader } from '@mui/material';
-import omit from 'lodash/omit';
 
 import { languageChoices } from '../../common/choices';
 import OccurrenceTimeRangeField from '../occurrences/fields/OccurrenceTimeRangeField';
 import KukkuuShow from '../application/layout/kukkuuDetailPage/KukkuuShow';
 import type { ChildNode } from '../api/generatedTypes/graphql';
 
-const ChildShow = (props: ShowProps) => {
+const ChildShow = () => {
   const translate = useTranslate();
   const [locale] = useLocaleState();
-
   const onClickGuardian = (record: ChildNode) =>
     record &&
     `${record.guardians.edges[0]?.node?.firstName} ${record.guardians.edges[0]?.node?.lastName}`.trim();
@@ -46,7 +41,7 @@ const ChildShow = (props: ShowProps) => {
   return (
     <>
       <CardHeader title={translate('children.show.title')} />
-      <KukkuuShow title="children.show.title" {...omit(props, 'hasShow')}>
+      <KukkuuShow title="children.show.title">
         <SimpleShowLayout>
           <FunctionField
             label="children.fields.name.label"

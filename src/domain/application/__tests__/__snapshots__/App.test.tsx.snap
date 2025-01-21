@@ -1,5 +1,95 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`getReactAdminResources > should return all resources when user has canViewFamiliesWithinProject permission 1`] = `
+[
+  {
+    "list": [Function],
+    "name": "events-and-event-groups",
+    "options": {
+      "label": "events.list.title",
+    },
+  },
+  {
+    "create": [Function],
+    "edit": [Function],
+    "icon": {
+      "$$typeof": Symbol(react.memo),
+      "compare": null,
+      "type": {
+        "$$typeof": Symbol(react.forward_ref),
+        "render": [Function],
+      },
+    },
+    "name": "events",
+    "show": [Function],
+  },
+  {
+    "create": [Function],
+    "edit": [Function],
+    "icon": {
+      "$$typeof": Symbol(react.memo),
+      "compare": null,
+      "type": {
+        "$$typeof": Symbol(react.forward_ref),
+        "render": [Function],
+      },
+    },
+    "list": [Function],
+    "name": "venues",
+    "options": {
+      "label": "venues.list.title",
+    },
+    "show": [Function],
+  },
+  {
+    "icon": {
+      "$$typeof": Symbol(react.memo),
+      "compare": null,
+      "type": {
+        "$$typeof": Symbol(react.forward_ref),
+        "render": [Function],
+      },
+    },
+    "list": [Function],
+    "name": "children",
+    "options": {
+      "label": "children.list.title",
+    },
+    "show": [Function],
+  },
+  {
+    "create": [Function],
+    "edit": [Function],
+    "name": "occurrences",
+    "show": [Function],
+  },
+  {
+    "create": [Function],
+    "edit": [Function],
+    "icon": {
+      "$$typeof": Symbol(react.memo),
+      "compare": null,
+      "type": {
+        "$$typeof": Symbol(react.forward_ref),
+        "render": [Function],
+      },
+    },
+    "list": [Function],
+    "name": "messages",
+    "options": {
+      "label": "messages.list.title",
+    },
+    "show": [Function],
+  },
+  {
+    "create": [Function],
+    "edit": [Function],
+    "name": "event-groups",
+    "show": [Function],
+  },
+]
+`;
+
 exports[`renders without crashing 1`] = `
 <div>
   <div
@@ -138,32 +228,6 @@ exports[`renders without crashing 1`] = `
                   >
                     <a
                       class="MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters RaMenuItemLink-active css-d0o59q-MuiButtonBase-root-MuiMenuItem-root-RaMenuItemLink-root"
-                      href="/"
-                      role="menuitem"
-                      tabindex="0"
-                    >
-                      <div
-                        class="MuiListItemIcon-root RaMenuItemLink-icon css-cveggr-MuiListItemIcon-root"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
-                          data-testid="DashboardIcon"
-                          focusable="false"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z"
-                          />
-                        </svg>
-                      </div>
-                      Työpöytä
-                      <span
-                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                      />
-                    </a>
-                    <a
-                      class="MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters css-d0o59q-MuiButtonBase-root-MuiMenuItem-root-RaMenuItemLink-root"
                       href="/events-and-event-groups"
                       role="menuitem"
                       tabindex="0"
@@ -216,42 +280,6 @@ exports[`renders without crashing 1`] = `
                     </a>
                     <a
                       class="MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters css-d0o59q-MuiButtonBase-root-MuiMenuItem-root-RaMenuItemLink-root"
-                      href="/children"
-                      role="menuitem"
-                      tabindex="0"
-                    >
-                      <div
-                        class="MuiListItemIcon-root RaMenuItemLink-icon css-cveggr-MuiListItemIcon-root"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
-                          data-testid="ChildCareIcon"
-                          focusable="false"
-                          viewBox="0 0 24 24"
-                        >
-                          <circle
-                            cx="14.5"
-                            cy="10.5"
-                            r="1.25"
-                          />
-                          <circle
-                            cx="9.5"
-                            cy="10.5"
-                            r="1.25"
-                          />
-                          <path
-                            d="M22.94 12.66c.04-.21.06-.43.06-.66s-.02-.45-.06-.66c-.25-1.51-1.36-2.74-2.81-3.17-.53-1.12-1.28-2.1-2.19-2.91C16.36 3.85 14.28 3 12 3s-4.36.85-5.94 2.26c-.92.81-1.67 1.8-2.19 2.91-1.45.43-2.56 1.65-2.81 3.17-.04.21-.06.43-.06.66s.02.45.06.66c.25 1.51 1.36 2.74 2.81 3.17.52 1.11 1.27 2.09 2.17 2.89C7.62 20.14 9.71 21 12 21s4.38-.86 5.97-2.28c.9-.8 1.65-1.79 2.17-2.89 1.44-.43 2.55-1.65 2.8-3.17M19 14c-.1 0-.19-.02-.29-.03-.2.67-.49 1.29-.86 1.86C16.6 17.74 14.45 19 12 19s-4.6-1.26-5.85-3.17c-.37-.57-.66-1.19-.86-1.86-.1.01-.19.03-.29.03-1.1 0-2-.9-2-2s.9-2 2-2c.1 0 .19.02.29.03.2-.67.49-1.29.86-1.86C7.4 6.26 9.55 5 12 5s4.6 1.26 5.85 3.17c.37.57.66 1.19.86 1.86.1-.01.19-.03.29-.03 1.1 0 2 .9 2 2s-.9 2-2 2M7.5 14c.76 1.77 2.49 3 4.5 3s3.74-1.23 4.5-3z"
-                          />
-                        </svg>
-                      </div>
-                      Kummilapset
-                      <span
-                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                      />
-                    </a>
-                    <a
-                      class="MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters css-d0o59q-MuiButtonBase-root-MuiMenuItem-root-RaMenuItemLink-root"
                       href="/messages"
                       role="menuitem"
                       tabindex="0"
@@ -283,7 +311,13 @@ exports[`renders without crashing 1`] = `
             <div
               class="RaLayout-content"
               id="main-content"
-            />
+            >
+              <h1
+                class="MuiTypography-root MuiTypography-h5 makeStyles-title-8 css-ag7rrr-MuiTypography-root"
+              >
+                Tapahtumat
+              </h1>
+            </div>
           </main>
         </div>
       </div>

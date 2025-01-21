@@ -14,6 +14,7 @@ export const myAdminProfileQuery = gql`
               publish
               manageEventGroups
               canSendToAllInProject
+              viewFamilies
             }
           }
         }

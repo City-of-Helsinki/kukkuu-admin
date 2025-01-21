@@ -126,6 +126,7 @@ describe('authProvider', () => {
           "canManageEventGroupsWithinProject": [Function],
           "canPublishWithinProject": [Function],
           "canSendMessagesToAllRecipientsWithinProject": [Function],
+          "canViewFamiliesWithinProject": [Function],
           "role": "admin",
         }
       `);
