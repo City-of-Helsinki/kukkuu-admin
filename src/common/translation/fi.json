@@ -44,6 +44,7 @@
         "label": "Tapahtumat"
       }
     },
+    "noPermission": "Sinulla ei ole oikeuksia kummilapsien tietojen katseluun",
     "list": {
       "title": "Kummilapset"
     },

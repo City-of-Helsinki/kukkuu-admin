@@ -4,13 +4,14 @@ import type { AuthProvider } from 'ra-core';
 import authService from './authService';
 import authorizationService from './authorizationService';
 
+export type HasProjectPermission = (projectId?: string) => boolean | null;
+
 export type Permissions = {
   role: null | 'admin' | 'none';
-  canPublishWithinProject: (projectId?: string) => boolean | null;
-  canManageEventGroupsWithinProject: (projectId?: string) => boolean | null;
-  canSendMessagesToAllRecipientsWithinProject: (
-    projectId?: string
-  ) => boolean | null;
+  canPublishWithinProject: HasProjectPermission;
+  canManageEventGroupsWithinProject: HasProjectPermission;
+  canSendMessagesToAllRecipientsWithinProject: HasProjectPermission;
+  canViewFamiliesWithinProject: HasProjectPermission;
 };
 
 const authProvider: AuthProvider = {
@@ -77,6 +78,8 @@ const authProvider: AuthProvider = {
         authorizationService.canManageEventGroupsWithinProject,
       canSendMessagesToAllRecipientsWithinProject:
         authorizationService.canSendMessagesToAllRecipientsWithinProject,
+      canViewFamiliesWithinProject:
+        authorizationService.canViewFamiliesWithinProject,
     });
   },
 };

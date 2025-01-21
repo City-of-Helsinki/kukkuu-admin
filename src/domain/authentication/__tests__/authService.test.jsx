@@ -41,6 +41,7 @@ describe('authService', () => {
                   publish: true,
                   manageEventGroups: true,
                   canSendToAllInProject: true,
+                  viewFamilies: true,
                 },
               },
             },

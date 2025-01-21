@@ -133,7 +133,12 @@ const _handleReactAdminPermissions = async (oidcUserData: OIDCUserDataType) => {
       role: 'admin', // 'admin' as in authorizationService.getRole
       projects: {
         // All project permissions, see authorizationService.fetchRole
-        [projectId]: ['publish', 'manageEventGroups', 'canSendToAllInProject'],
+        [projectId]: [
+          'publish',
+          'manageEventGroups',
+          'canSendToAllInProject',
+          'viewFamilies',
+        ],
       },
     };
     // eslint-disable-next-line no-console

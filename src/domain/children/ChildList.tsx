@@ -20,6 +20,7 @@ const ChildList = () => {
   return (
     <>
       <CardHeader title={translate('children.list.title')} />
+
       <KukkuuList
         exporter={false}
         pagination={<Pagination rowsPerPageOptions={[25, 100]} />}
