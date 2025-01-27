@@ -16,7 +16,7 @@ module.exports = {
       version: 'detect',
     },
   },
-  ignorePatterns: ['**/generatedTypes/*', '**/generated/*'],
+  ignorePatterns: ['**/generatedTypes/*'],
   plugins: ['import', 'react', 'react-hooks', '@vitest', 'prettier'],
   rules: {
     '@typescript-eslint/brace-style': [
@@ -67,6 +67,7 @@ module.exports = {
         assertFunctionNames: [
           'expect',
           'checkErrors', // some tests use only this function to check errors
+          't.expect', // browser tests use this form
         ],
       },
     ],

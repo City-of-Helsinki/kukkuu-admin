@@ -1,5 +1,5 @@
 import { within, screen } from '@testing-library/testcafe';
-import { RequestMock } from 'testcafe';
+import { fixture, RequestMock } from 'testcafe';
 
 import { routes } from './pages/routes';
 import { navigation } from './pages/navigation';
@@ -17,6 +17,7 @@ import {
 import { browserTestAdminUser } from './utils/jwt/users';
 import { authorizedAdmin } from './userRoles';
 import BrowserTestJWTConfig from './utils/jwt/config';
+import type { TestController } from './types';
 
 // If we want to prevent the SMS message sending...
 const preventSMSSending = true;

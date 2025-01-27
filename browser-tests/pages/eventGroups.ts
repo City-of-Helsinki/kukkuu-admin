@@ -6,6 +6,7 @@ import {
   eventsListPage,
   fillCreationForm as fillEventCreationForm,
 } from './events';
+import type { TestController } from '../types';
 
 export const eventGroupsDetailPage = {
   title: Selector('h1'),

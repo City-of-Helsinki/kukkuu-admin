@@ -17,7 +17,7 @@
     "allowImportingTsExtensions": true,
     "jsx": "react-jsx",
     "types": [
-      "node", 
+      "node",
       "vitest/globals",
       "vite/client",
       "@testing-library/jest-dom"

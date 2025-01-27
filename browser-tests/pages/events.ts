@@ -2,6 +2,7 @@ import { Selector } from 'testcafe';
 import { screen } from '@testing-library/testcafe';
 
 import { selectOption } from './select';
+import type { TestController } from '../types';
 
 export const eventsListPage = {
   title: screen.getByRole('heading', {
