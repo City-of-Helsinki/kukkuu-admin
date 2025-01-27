@@ -3,7 +3,6 @@ import {
   type Identifier,
   type RaRecord,
   type RowClickFunction,
-  type ShowProps,
   ArrayField,
   Datagrid,
   DateField,
@@ -19,7 +18,6 @@ import {
   useTranslate,
 } from 'react-admin';
 import { CardHeader } from '@mui/material';
-import omit from 'lodash/omit';
 
 import { languageChoices } from '../../common/choices';
 import OccurrenceTimeRangeField from '../occurrences/fields/OccurrenceTimeRangeField';
@@ -28,7 +26,7 @@ import type { ChildNode } from '../api/generatedTypes/graphql';
 import type { Permissions } from '../authentication/authProvider';
 import projectService from '../projects/projectService';
 
-const ChildShow = (props: ShowProps) => {
+const ChildShow = () => {
   const { permissions } = usePermissions<Permissions>();
   const record = useRecordContext<ChildNode>();
   const translate = useTranslate();
@@ -38,7 +36,6 @@ const ChildShow = (props: ShowProps) => {
   const canViewFamilies = Boolean(
     permissions?.canViewFamiliesWithinProject?.(projectId)
   );
-
   const onClickGuardian = (record: ChildNode) =>
     record &&
     `${record.guardians.edges[0]?.node?.firstName} ${record.guardians.edges[0]?.node?.lastName}`.trim();
@@ -56,7 +53,7 @@ const ChildShow = (props: ShowProps) => {
     <>
       <CardHeader title={translate('children.show.title')} />
       {canViewFamilies ? (
-        <KukkuuShow title="children.show.title" {...omit(props, 'hasShow')}>
+        <KukkuuShow title="children.show.title">
           <SimpleShowLayout>
             <FunctionField
               label="children.fields.name.label"
