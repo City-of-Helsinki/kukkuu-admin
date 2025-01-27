@@ -1,11 +1,9 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [Using the Helsinki-Profile Keycloak](#using-the-helsinki-profile-keycloak)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 
 # Using the Helsinki-Profile Keycloak
 

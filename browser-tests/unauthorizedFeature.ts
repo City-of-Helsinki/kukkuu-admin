@@ -1,3 +1,5 @@
+import { fixture } from 'testcafe';
+
 import { routes } from './pages/routes';
 import { unauthorized } from './pages/unauthorized';
 import { unauthorizedAdmin } from './userRoles';

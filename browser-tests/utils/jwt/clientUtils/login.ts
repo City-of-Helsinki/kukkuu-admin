@@ -1,5 +1,6 @@
 import { ClientFunction } from 'testcafe';
 
+import type { TestController } from '../../../types';
 import { generateApiTokens, generateOIDCUserData } from '../oidc';
 import { browserTestAdminUser } from '../users';
 import OIDCLoginProviderStorage from '../storage';

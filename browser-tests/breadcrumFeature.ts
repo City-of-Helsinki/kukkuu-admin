@@ -1,3 +1,5 @@
+import { fixture } from 'testcafe';
+
 import { routes } from './pages/routes';
 import { navigation } from './pages/navigation';
 import { eventsListPage, eventsDetailPage } from './pages/events';
