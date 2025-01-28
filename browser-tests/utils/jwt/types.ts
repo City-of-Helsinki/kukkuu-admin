@@ -88,5 +88,5 @@ type ProjectPermission =
 
 export type PermissionsStoragePermission<T extends string = string> = {
   role: null | 'admin' | 'none';
-  projects: { [K in T]: ProjectPermission[] };
+  projects: Record<T, ProjectPermission[]>;
 };

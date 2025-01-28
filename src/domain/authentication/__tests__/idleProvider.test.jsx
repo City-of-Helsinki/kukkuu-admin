@@ -1,7 +1,7 @@
 import { MessageChannel } from 'worker_threads';
 
 import React from 'react';
-import { render, cleanup, fireEvent, waitFor } from '@testing-library/react';
+import { render, cleanup, fireEvent } from '@testing-library/react';
 
 import authService from '../authService';
 import IdleTimer from '../IdleTimer';
@@ -9,7 +9,7 @@ import IdleTimer from '../IdleTimer';
 const originalEnv = import.meta.env;
 const navigateMock = vi.fn();
 const VITE_IDLE_TIMEOUT_IN_MS = 1000 * 60 * 60;
-beforeAll(() => {
+beforeEach(() => {
   global.MessageChannel = MessageChannel;
   import.meta.env = {
     ...originalEnv,
@@ -23,10 +23,11 @@ beforeAll(() => {
   });
 });
 
-afterAll(() => {
+afterEach(() => {
   cleanup();
   import.meta.env = originalEnv;
   vi.useRealTimers();
+  vi.clearAllMocks();
 });
 
 test.each([
