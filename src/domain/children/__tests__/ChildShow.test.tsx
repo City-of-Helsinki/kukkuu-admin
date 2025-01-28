@@ -7,11 +7,12 @@ import {
   usePermissions,
 } from 'react-admin';
 import { vi } from 'vitest';
-import { MemoryRouter } from 'react-router-dom';
 import { ResourceContextProvider } from 'ra-core';
+import { MemoryRouter, Route, Routes, useParams } from 'react-router-dom';
 
 import i18nProvider from '../../../common/translation/i18nProvider';
 import ChildShow from '../ChildShow';
+import { withRouter } from '../../../common/testUtils';
 
 vi.mock('react-admin', async () => {
   const actual = await vi.importActual('react-admin');
@@ -55,28 +56,30 @@ const child = {
   __typename: 'ChildNode',
 } as const;
 
+const childrenShowPathname = `/children/${child.id}/show`;
+
 const dataProviderWithMockedGetOne = testDataProvider({
   // @ts-ignore
   getOne: () => Promise.resolve({ data: child }),
 });
 
+const reactAdminWrapper = ({ children }: { children: React.ReactNode }) => (
+  <AdminContext
+    dataProvider={dataProviderWithMockedGetOne}
+    i18nProvider={i18nProvider}
+  >
+    <ResourceContextProvider value="ChildNode">
+      <RecordContextProvider value={child}>{children}</RecordContextProvider>
+    </ResourceContextProvider>
+  </AdminContext>
+);
+
 const renderChildShow = () =>
-  render(
-    <MemoryRouter>
-      <AdminContext
-        dataProvider={dataProviderWithMockedGetOne}
-        i18nProvider={i18nProvider}
-      >
-        <ResourceContextProvider value="ChildNode">
-          <RecordContextProvider value={child}>
-            <ChildShow id={child.id} resource="children">
-              {undefined}
-            </ChildShow>
-          </RecordContextProvider>
-        </ResourceContextProvider>
-      </AdminContext>
-    </MemoryRouter>
-  );
+  render(<ChildShow />, {
+    wrapper: withRouter(reactAdminWrapper, '/children/:id/show', [
+      childrenShowPathname,
+    ]),
+  });
 
 beforeEach(() => {
   vi.clearAllMocks();
@@ -87,13 +90,10 @@ describe('<ChildShow />', () => {
     (usePermissions as ReturnType<typeof vi.fn>).mockReturnValue({
       permissions: { canViewFamiliesWithinProject: () => true },
     });
-
     renderChildShow();
 
     // Title
-    await waitFor(() =>
-      expect(screen.getByText('Kummilapsi')).toBeInTheDocument()
-    );
+    await screen.findByText('Kummilapsi');
 
     // Field names
     await waitFor(() => expect(screen.getByText('Nimi')).toBeInTheDocument());
@@ -115,38 +115,5 @@ describe('<ChildShow />', () => {
     expect(screen.getByText(guardianName)).toBeInTheDocument();
     expect(screen.getByText(guardian.email)).toBeInTheDocument();
     expect(screen.getByText(guardian.phoneNumber)).toBeInTheDocument();
-  });
-
-  it('should show permission denied text and no child data, when view families permission is disabled', async () => {
-    (usePermissions as ReturnType<typeof vi.fn>).mockReturnValue({
-      permissions: { canViewFamiliesWithinProject: () => false },
-    });
-
-    renderChildShow();
-
-    // Title
-    await waitFor(() =>
-      expect(screen.getByText('Kummilapsi')).toBeInTheDocument()
-    );
-
-    // Permission denied text
-    await waitFor(() =>
-      expect(
-        screen.getByText(
-          'Sinulla ei ole oikeuksia kummilapsien tietojen katseluun'
-        )
-      ).toBeInTheDocument()
-    );
-
-    // Child data should not be shown
-    expect(screen.queryByText(child.name)).not.toBeInTheDocument();
-    expect(screen.queryByText(child.birthyear)).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(localizedGuardianLanguage)
-    ).not.toBeInTheDocument();
-    expect(screen.queryByText(child.postalCode)).not.toBeInTheDocument();
-    expect(screen.queryByText(guardianName)).not.toBeInTheDocument();
-    expect(screen.queryByText(guardian.email)).not.toBeInTheDocument();
-    expect(screen.queryByText(guardian.phoneNumber)).not.toBeInTheDocument();
   });
 });

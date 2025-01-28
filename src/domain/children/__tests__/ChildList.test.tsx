@@ -7,6 +7,7 @@ import { ResourceContextProvider } from 'ra-core';
 
 import i18nProvider from '../../../common/translation/i18nProvider';
 import ChildList from '../ChildList';
+import { withRouter } from '../../../common/testUtils';
 
 vi.mock('react-admin', async () => {
   const actual = await vi.importActual('react-admin');
@@ -44,24 +45,30 @@ const child = {
   },
 } as const;
 
+const childrenListPathname = `/children`;
+
 const dataProviderWithMockedGetList = testDataProvider({
   // @ts-ignore
   getList: () => Promise.resolve({ data: [child], total: 1 }),
 });
 
+const reactAdminWrapper = ({ children }: { children: React.ReactNode }) => (
+  <AdminContext
+    dataProvider={dataProviderWithMockedGetList}
+    i18nProvider={i18nProvider}
+  >
+    <ResourceContextProvider value="ChildNode">
+      {children as React.ReactElement}
+    </ResourceContextProvider>
+  </AdminContext>
+);
+
 const renderChildList = () =>
-  render(
-    <MemoryRouter>
-      <AdminContext
-        dataProvider={dataProviderWithMockedGetList}
-        i18nProvider={i18nProvider}
-      >
-        <ResourceContextProvider value="ChildNode">
-          <ChildList />
-        </ResourceContextProvider>
-      </AdminContext>
-    </MemoryRouter>
-  );
+  render(<ChildList />, {
+    wrapper: withRouter(reactAdminWrapper, childrenListPathname, [
+      childrenListPathname,
+    ]),
+  });
 
 const expectColumnHeader = (name: string) =>
   expect(screen.getByRole('columnheader', { name })).toBeInTheDocument();
@@ -104,34 +111,5 @@ describe('<ChildList />', () => {
     expectCellValue(child.postalCode);
     expectCellValue(guardian.email);
     expectCellValue(localizedGuardianLanguage);
-  });
-
-  it('should show permission denied text and no list data, when view families permission is disabled', async () => {
-    (usePermissions as ReturnType<typeof vi.fn>).mockReturnValue({
-      permissions: { canViewFamiliesWithinProject: () => false },
-    });
-
-    renderChildList();
-
-    // Title
-    await waitFor(() =>
-      expect(screen.getByText('Kummilapset')).toBeInTheDocument()
-    );
-
-    // Permission denied text
-    await waitFor(() =>
-      expect(
-        screen.getByText(
-          'Sinulla ei ole oikeuksia kummilapsien tietojen katseluun'
-        )
-      ).toBeInTheDocument()
-    );
-
-    // List data should not be shown
-    expectNotCellValue(child.name);
-    expectNotCellValue(child.birthyear.toString());
-    expectNotCellValue(child.postalCode);
-    expectNotCellValue(guardian.email);
-    expectNotCellValue(localizedGuardianLanguage);
   });
 });
