@@ -19,14 +19,10 @@ module.exports = {
   ignorePatterns: ['**/generatedTypes/*'],
   plugins: ['import', 'react', 'react-hooks', '@vitest', 'prettier'],
   rules: {
-    '@typescript-eslint/brace-style': [
-      'error',
-      '1tbs',
-      { allowSingleLine: true },
-    ],
+    'brace-style': ['error', '1tbs', { allowSingleLine: true }],
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/func-call-spacing': ['error'],
+    'func-call-spacing': ['error'],
     '@typescript-eslint/member-ordering': 'warn',
     '@typescript-eslint/no-require-imports': 'error',
     '@typescript-eslint/strict-boolean-expressions': 'off',

@@ -42,11 +42,9 @@ export type MethodHandler = (
   params: DataProviderParams
 ) => Promise<MethodHandlerResponse>;
 
-export type MethodHandlers = {
-  [key in Resource]?: {
-    [key in Method]?: MethodHandler;
-  };
-};
+export type MethodHandlers = Partial<
+  Record<Resource, Partial<Record<Method, MethodHandler>>>
+>;
 
 export type Nullish = null | undefined;
 
