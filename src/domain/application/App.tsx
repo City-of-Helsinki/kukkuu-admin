@@ -87,7 +87,7 @@ function AsyncResources() {
   );
 }
 
-function getReactAdminResources(
+export function getReactAdminResources(
   projectId?: string,
   permissions?: Permissions
 ): ResourceProps[] {
