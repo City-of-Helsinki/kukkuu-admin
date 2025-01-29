@@ -6,6 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Kulttuurin kummilapset ylläpito" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+    block-all-mixed-content;
+    default-src 'self';
+    script-src 'self';
+    style-src 'self' 'unsafe-inline';
+    object-src 'none';
+    frame-src 'self';
+    img-src 'self' data: *.hel.fi *.hel.ninja *.blob.core.windows.net;
+    font-src 'self' *.hel.fi *.hel.ninja;
+    connect-src 'self' *.hel.fi *.hel.ninja;
+    manifest-src 'self';
+    base-uri 'self';
+    form-action 'self';
+    media-src 'self' *.hel.fi *.hel.ninja;
+    worker-src 'self';
+  "
+    />
     <link rel="apple-touch-icon" href="/logo192.png" />
     <link rel="manifest" href="/manifest.json" />
     <title>Kulttuurin kummilapset ylläpito</title>
