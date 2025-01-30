@@ -63,7 +63,12 @@ function AsyncResources() {
   }, [permissions?.role, projectId]);
 
   return (
-    <AdminUI ready={Loading} layout={KukkuuLayout} loginPage={LoginPage}>
+    <AdminUI
+      disableTelemetry
+      ready={Loading}
+      layout={KukkuuLayout}
+      loginPage={LoginPage}
+    >
       <CustomRoutes noLayout>
         <Route path="/callback" element={<CallbackPage />} />
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
