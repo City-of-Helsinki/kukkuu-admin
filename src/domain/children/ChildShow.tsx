@@ -5,7 +5,6 @@ import {
   type RowClickFunction,
   ArrayField,
   Datagrid,
-  DateField,
   EmailField,
   FunctionField,
   ReferenceField,
@@ -18,6 +17,7 @@ import {
 import { CardHeader } from '@mui/material';
 
 import { languageChoices } from '../../common/choices';
+import { toDateString } from '../../common/utils';
 import OccurrenceTimeRangeField from '../occurrences/fields/OccurrenceTimeRangeField';
 import KukkuuShow from '../application/layout/kukkuuDetailPage/KukkuuShow';
 import type { ChildNode } from '../api/generatedTypes/graphql';
@@ -77,9 +77,10 @@ const ChildShow = () => {
             label="children.fields.occurrences.label"
           >
             <Datagrid bulkActionButtons={false} rowClick={onClickOccurrence}>
-              <DateField
+              <FunctionField
                 label="occurrences.fields.time.fields.date.label"
                 source="node.time"
+                render={(record) => toDateString(new Date(record.node.time))}
                 locales={locale}
               />
               <OccurrenceTimeRangeField occurrenceSource="node" />

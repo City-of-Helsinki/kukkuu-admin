@@ -4,6 +4,8 @@ import Typography from '@mui/material/Typography';
 import { useLocaleState, useRecordContext } from 'react-admin';
 import get from 'lodash/get';
 
+import { toDateTimeString } from '../../utils';
+
 type Props = {
   emptyText?: string | null;
   source: string;
@@ -28,7 +30,7 @@ const PublishedField = ({
   return (
     <Typography variant="body2" className={className}>
       {sourceData && render && render(date)}
-      {sourceData && !render && date.toLocaleString(locale)}
+      {sourceData && !render && toDateTimeString(date, locale)}
       {!sourceData && emptyText}
     </Typography>
   );

@@ -7,7 +7,6 @@ import {
   useTranslate,
   ImageField,
   NumberField,
-  DateField,
   SelectField,
   ReferenceManyField,
   Datagrid,
@@ -17,11 +16,13 @@ import {
   UrlField,
   useRecordContext,
   Loading,
+  FunctionField,
 } from 'react-admin';
 import { type WithStyles, createStyles, withStyles } from '@mui/styles';
 import { Link } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 
+import { toDateString, toDateTimeString } from '../../../common/utils';
 import ViewTitle from '../../../common/components/viewTitle/ViewTitle';
 import LongTextField from '../../../common/components/longTextField/LongTextField';
 import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPageLayout';
@@ -36,6 +37,7 @@ import ImportTicketSystemPasswordsFormDialog from '../../ticketSystemPassword/Im
 import TranslatableProvider from '../../../common/providers/TranslatableProvider';
 import useTranslatableContext from '../../../common/hooks/useTranslatableContext';
 import type { OccurrenceNode } from '../../api/generatedTypes/graphql';
+import { dateTimeFieldOptions } from '../../../common/utils';
 
 const styles = createStyles({
   button: {
@@ -217,15 +219,21 @@ const EventDetails = () => {
                 label="events.fields.ticketSystemUrl.label"
                 key="ticketSystemUrl"
               />,
-              <DateField
+              <FunctionField
                 source="ticketSystem.endTime"
                 label="events.fields.ticketSystemEndTime.label"
                 key="ticketSystemEndTime"
-                showTime
+                render={(record) =>
+                  toDateTimeString(
+                    new Date(record.ticketSystem.endTime),
+                    locale
+                  )
+                }
                 locales={locale}
               />,
             ]}
-        <PublishedField />
+        {/* @ts-ignore - label is automatically handled by material-ui */}
+        <PublishedField label="events.fields.publishedAt.published.label" />
       </Tab>
       {internalTicketSystem ? (
         <Tab label="events.fields.occurrences.label">
@@ -235,9 +243,10 @@ const EventDetails = () => {
             target="event_id"
           >
             <Datagrid rowClick="show" bulkActionButtons={false}>
-              <DateField
+              <FunctionField
                 label="occurrences.fields.time.fields.date.label"
                 source="time"
+                render={(record) => toDateString(new Date(record.time), locale)}
                 locales={locale}
               />
               <OccurrenceTimeRangeField />
