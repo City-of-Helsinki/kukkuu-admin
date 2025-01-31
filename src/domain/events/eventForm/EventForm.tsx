@@ -20,7 +20,6 @@ import {
 } from '../validations';
 import { participantsPerInviteChoices, ticketSystemChoices } from '../choices';
 import { type RecordWithTicketSystem, hasInternalTicketSystem } from '../utils';
-import Config from '../../config';
 import TicketSystemInput from '../ticketSystemInput/TicketSystemInput';
 import EventEditToolbar from '../edit/EventEditToolbar';
 import TranslatableContext from '../../../common/contexts/TranslatableContext';
@@ -97,17 +96,15 @@ const EventForm = ({ view }: { view: 'create' | 'edit' }) => {
                 validate={validateParticipantsPerInvite}
                 fullWidth
               />
-              {Config.featureFlagExternalTicketSystemSupport && (
-                <TicketSystemInput
-                  variant="outlined"
-                  source="ticketSystem.type"
-                  label="events.fields.ticketSystem.label"
-                  choices={ticketSystemChoices}
-                  defaultValue={!isEditing ? TicketSystem.Internal : undefined}
-                  disabled={isEditing}
-                  fullWidth
-                />
-              )}
+              <TicketSystemInput
+                variant="outlined"
+                source="ticketSystem.type"
+                label="events.fields.ticketSystem.label"
+                choices={ticketSystemChoices}
+                defaultValue={!isEditing ? TicketSystem.Internal : undefined}
+                disabled={isEditing}
+                fullWidth
+              />
               <FormDataConsumer>
                 {({ formData }) =>
                   hasInternalTicketSystem(formData as RecordWithTicketSystem)
