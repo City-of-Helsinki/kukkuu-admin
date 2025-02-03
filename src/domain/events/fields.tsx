@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import { useRecordContext, useTranslate } from 'react-admin';
 
 import { type EventNode, Language } from '../api/generatedTypes/graphql';
+import { toDateTimeString } from '../../common/utils';
 
 export const PublishedField = ({
   locale = Language.Fi,
@@ -16,7 +17,7 @@ export const PublishedField = ({
   return (
     <Typography variant="body2">
       {record.publishedAt
-        ? date.toLocaleString(locale)
+        ? toDateTimeString(date, locale)
         : translate('events.fields.publishedAt.values.NOT_PUBLISHED')}
     </Typography>
   );

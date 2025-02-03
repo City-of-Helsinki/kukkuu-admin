@@ -3,16 +3,16 @@ import get from 'lodash/get';
 import i18nProvider from './translation/i18nProvider';
 import { Language } from '../domain/api/generatedTypes/graphql';
 
+export const dateTimeFieldOptions = {
+  year: 'numeric',
+  month: 'numeric',
+  day: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+} as const;
+
 export function toDateTimeString(date: Date, locale = 'fi-FI') {
-  return date
-    .toLocaleString(locale, {
-      year: 'numeric',
-      month: 'numeric',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    })
-    .replace(' klo', '');
+  return date.toLocaleString(locale, dateTimeFieldOptions).replace(' klo', '');
 }
 
 export function toShortDateTimeString(

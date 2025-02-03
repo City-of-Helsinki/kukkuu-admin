@@ -9,7 +9,6 @@ import {
   useLocaleState,
   useTranslate,
   SimpleShowLayout,
-  EmailField,
   ArrayField,
   FunctionField,
   useGetOne,
@@ -130,7 +129,7 @@ const OccurrenceShow = () => {
           label="occurrences.fields.capacity.label"
         />
         <FunctionField
-          render={(occurrence: Partial<OccurrenceNode>) =>
+          render={(occurrence: RaRecord) =>
             occurrence?.freeSpotNotificationSubscriptions?.edges?.length ?? '?'
           }
           label="occurrences.fields.freeSpotNotificationSubscriptions.label"
