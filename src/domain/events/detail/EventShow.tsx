@@ -223,12 +223,12 @@ const EventDetails = () => {
                 source="ticketSystem.endTime"
                 label="events.fields.ticketSystemEndTime.label"
                 key="ticketSystemEndTime"
-                render={(record) =>
-                  toDateTimeString(
-                    new Date(record.ticketSystem.endTime),
-                    locale
-                  )
-                }
+                render={(record: RaRecord) => {
+                  const endTime = record.ticketSystem?.endTime;
+                  return endTime
+                    ? toDateTimeString(new Date(endTime), locale)
+                    : '';
+                }}
                 locales={locale}
               />,
             ]}
@@ -246,7 +246,9 @@ const EventDetails = () => {
               <FunctionField
                 label="occurrences.fields.time.fields.date.label"
                 source="time"
-                render={(record) => toDateString(new Date(record.time), locale)}
+                render={(record: RaRecord) =>
+                  toDateString(new Date(record.time), locale)
+                }
                 locales={locale}
               />
               <OccurrenceTimeRangeField />
