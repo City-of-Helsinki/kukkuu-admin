@@ -20,7 +20,10 @@ import { languageChoices } from '../../common/choices';
 import { toDateString } from '../../common/utils';
 import OccurrenceTimeRangeField from '../occurrences/fields/OccurrenceTimeRangeField';
 import KukkuuShow from '../application/layout/kukkuuDetailPage/KukkuuShow';
-import type { ChildNode } from '../api/generatedTypes/graphql';
+import type {
+  ChildNode,
+  OccurrenceNodeEdge,
+} from '../api/generatedTypes/graphql';
 
 const ChildShow = () => {
   const translate = useTranslate();
@@ -80,7 +83,9 @@ const ChildShow = () => {
               <FunctionField
                 label="occurrences.fields.time.fields.date.label"
                 source="node.time"
-                render={(record) => toDateString(new Date(record.node.time))}
+                render={(record?: Partial<OccurrenceNodeEdge>) =>
+                  record?.node ? toDateString(new Date(record.node?.time)) : ''
+                }
                 locales={locale}
               />
               <OccurrenceTimeRangeField occurrenceSource="node" />

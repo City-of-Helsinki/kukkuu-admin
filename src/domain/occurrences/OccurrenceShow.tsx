@@ -9,7 +9,6 @@ import {
   useLocaleState,
   useTranslate,
   SimpleShowLayout,
-  EmailField,
   ArrayField,
   FunctionField,
   useGetOne,
@@ -17,7 +16,6 @@ import {
 import makeStyles from '@mui/styles/makeStyles';
 import { useParams } from 'react-router-dom';
 
-import { dateTimeFieldOptions } from '../../common/utils';
 import KukkuuPageLayout from '../application/layout/kukkuuPageLayout/KukkuuPageLayout';
 import KukkuuDetailPage from '../application/layout/kukkuuDetailPage/KukkuuDetailPage';
 import OccurrenceTimeRangeField from './fields/OccurrenceTimeRangeField';
@@ -131,7 +129,7 @@ const OccurrenceShow = () => {
           label="occurrences.fields.capacity.label"
         />
         <FunctionField
-          render={(occurrence) =>
+          render={(occurrence: RaRecord) =>
             occurrence?.freeSpotNotificationSubscriptions?.edges?.length ?? '?'
           }
           label="occurrences.fields.freeSpotNotificationSubscriptions.label"
