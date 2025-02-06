@@ -2,6 +2,49 @@
 
 # Change Log
 
+## [4.0.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.6.0...kukkuu-admin-v4.0.0) (2025-02-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* **vite:** migrate from CRA to Vite
+
+### Features
+
+* Add csp meta-tag ([081d783](https://github.com/City-of-Helsinki/kukkuu-admin/commit/081d783a982b8cc69be7d000e8be7b567779d123))
+* Enable children resource only with viewFamilies permission ([8381e20](https://github.com/City-of-Helsinki/kukkuu-admin/commit/8381e2058bec910808d255fcbb40c25305cb275f))
+* Use polling in docker development to enable hot reload ([2260422](https://github.com/City-of-Helsinki/kukkuu-admin/commit/2260422a3a3564806799104f6cc77cc1da423307))
+
+
+### Bug Fixes
+
+* Add blob to img-src CSP-rule ([2c09d8e](https://github.com/City-of-Helsinki/kukkuu-admin/commit/2c09d8ebd741a83bb8931a16bbf44488e1322a0c))
+* Build and deps issues ([1868b01](https://github.com/City-of-Helsinki/kukkuu-admin/commit/1868b01390bd49634ab977b5f1b2922689926f00))
+* **build:** Use build arg in docker static builder ([f72856b](https://github.com/City-of-Helsinki/kukkuu-admin/commit/f72856b150e1a66b49d719e5535842d192b157aa))
+* **config:** Admin ui url ([ed16447](https://github.com/City-of-Helsinki/kukkuu-admin/commit/ed1644709be1b408e4c10f2bcb6aaa7d4f66f0e0))
+* Consistency between pre-commit & non-pre-commit linting ([50e66be](https://github.com/City-of-Helsinki/kukkuu-admin/commit/50e66beec2bf8bdc5e307e2d53f762ded81d9cb1))
+* Date formats of date fields ([778933e](https://github.com/City-of-Helsinki/kukkuu-admin/commit/778933ec2e4707108c433dfc87a61fd7701fa9fe))
+* **deprecation:** Set package type to "module" ([2ac5a82](https://github.com/City-of-Helsinki/kukkuu-admin/commit/2ac5a8274561ce2e849a8808112fb61c75f54c8d))
+* Disable React-admin telemetry ([8f9eb51](https://github.com/City-of-Helsinki/kukkuu-admin/commit/8f9eb519f66152ce760e81808b268e068cf8abd6))
+* **docker:** Build ([ff6b515](https://github.com/City-of-Helsinki/kukkuu-admin/commit/ff6b515b87f6badc83723631c68293a0b1b39c9a))
+* Eslint installation ([c832b2c](https://github.com/City-of-Helsinki/kukkuu-admin/commit/c832b2c28b64c02d513511f3d879a459303276cc))
+* **eslint:** Improve linting ([8786e0b](https://github.com/City-of-Helsinki/kukkuu-admin/commit/8786e0b3f0c9816b9bb94124533bf3d1d03496ab))
+* Eslintrc configuration ([3521306](https://github.com/City-of-Helsinki/kukkuu-admin/commit/352130656f02e4afc037ba9ed396482a2cf13c53))
+* Husky pre-commit run vitest related with lint-staged ([0bc25f1](https://github.com/City-of-Helsinki/kukkuu-admin/commit/0bc25f150e802fa519209a7957bb44469f77cacd))
+* Lint-staged should use format:code with max-warnings flag ([8086f82](https://github.com/City-of-Helsinki/kukkuu-admin/commit/8086f824080cb72eb3fb88f8bce22972647726c6))
+* Linter and ts issues ([5e50046](https://github.com/City-of-Helsinki/kukkuu-admin/commit/5e5004602c29960c90e5a8f486ce8ce17df4e418))
+* Linting issues ([5c6ba7f](https://github.com/City-of-Helsinki/kukkuu-admin/commit/5c6ba7f6f2f1349116491e5f104cbcc363f65277))
+* **localdev:** Add localhost:*, 127.0.0.1:* to CSP connect-src ([e599b59](https://github.com/City-of-Helsinki/kukkuu-admin/commit/e599b598585226ce4481b016e7407d93cb21f51e))
+* Occurrence date time validation ([c59eb60](https://github.com/City-of-Helsinki/kukkuu-admin/commit/c59eb6067b539a68894c92332cc6cc6f32a7639d))
+* Remove email, phone number & child link from occurence's user list ([29c4fae](https://github.com/City-of-Helsinki/kukkuu-admin/commit/29c4fae295ca7d20447ddb9e05aad5391499cbe7))
+* Translation handling in events and event groups page ([1b1c454](https://github.com/City-of-Helsinki/kukkuu-admin/commit/1b1c4549a41177065003089793bee74d9c71c0aa))
+* Ts issues ([f17c068](https://github.com/City-of-Helsinki/kukkuu-admin/commit/f17c068ff34343fc2dd9febab9da4289bbf6b2b5))
+
+
+### Build System
+
+* **vite:** Migrate from CRA to Vite ([bfcdf71](https://github.com/City-of-Helsinki/kukkuu-admin/commit/bfcdf7170aa19358d5b9cef59b56cb15bc0fe900))
+
 ## [3.6.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.5.0...kukkuu-admin-v3.6.0) (2024-11-05)
 
 ### Features
