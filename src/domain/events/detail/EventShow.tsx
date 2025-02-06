@@ -232,7 +232,7 @@ const EventDetails = () => {
                 locales={locale}
               />,
             ]}
-        {/* @ts-ignore - label is automatically handled by material-ui */}
+        {/* @ts-ignore - label is magically handled by material-ui */}
         <PublishedField label="events.fields.publishedAt.published.label" />
       </Tab>
       {internalTicketSystem ? (
