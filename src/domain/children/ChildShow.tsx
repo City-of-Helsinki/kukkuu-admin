@@ -84,7 +84,9 @@ const ChildShow = () => {
                 label="occurrences.fields.time.fields.date.label"
                 source="node.time"
                 render={(record?: Partial<OccurrenceNodeEdge>) =>
-                  record?.node ? toDateString(new Date(record.node?.time)) : ''
+                  record?.node
+                    ? toDateString(new Date(record.node?.time), locale)
+                    : ''
                 }
                 locales={locale}
               />
