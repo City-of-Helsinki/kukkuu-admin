@@ -32,7 +32,8 @@ const handleApolloError: ErrorHandler = ({
       ) {
         // If JWT is expired it means that we want people to log in again. We don't need to log this to sentry.
         console.error('JWT expired');
-        authService.resetAuthState();
+        // We don't need to wait for async func to finish. Fire and Forget.
+        void authService.resetAuthState();
       } else if (errorCode === 'PERMISSION_DENIED_ERROR') {
         // Most permission errors happen when user authentication
         // expires or when the user accesses the application before
@@ -42,7 +43,8 @@ const handleApolloError: ErrorHandler = ({
         // worth it to ignore them in our opinion even with the chance
         // that we miss a few edge cases.
         console.error('Permissions denied');
-        authService.resetAuthState();
+        // We don't need to wait for async func to finish. Fire and Forget.
+        void authService.resetAuthState();
       } else {
         const { extensions, locations, message, path } = graphQLError;
 
@@ -74,7 +76,8 @@ const handleApolloError: ErrorHandler = ({
           Sentry.captureMessage(message);
 
           if (errorCode === 'AUTHENTICATION_ERROR') {
-            authService.resetAuthState();
+            // We don't need to wait for async func to finish. Fire and Forget.
+            void authService.resetAuthState();
           }
         });
       }

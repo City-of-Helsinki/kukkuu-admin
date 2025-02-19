@@ -91,16 +91,16 @@ export class AuthService {
     this.fetchApiToken = this.fetchApiToken.bind(this);
 
     // Events
-    this.userManager.events.addAccessTokenExpired(() => {
-      this.logout();
+    this.userManager.events.addAccessTokenExpired(async () => {
+      await this.logout();
     });
 
-    this.userManager.events.addSilentRenewError(() => {
-      this.logout();
+    this.userManager.events.addSilentRenewError(async () => {
+      await this.logout();
     });
 
-    this.userManager.events.addUserSignedOut(() => {
-      this.resetAuthState();
+    this.userManager.events.addUserSignedOut(async () => {
+      await this.resetAuthState();
     });
 
     this.userManager.events.addUserLoaded(async (user) => {
@@ -175,20 +175,20 @@ export class AuthService {
     return user;
   }
 
-  public resetAuthState() {
+  public async resetAuthState() {
     // eslint-disable-next-line no-console
     console.warn('Resetting the auth state...');
     localStorage.removeItem(API_TOKEN);
     localStorage.removeItem(REFRESH_TOKEN);
     projectService.clear();
-    this.userManager.clearStaleState();
+    await this.userManager.clearStaleState();
     authorizationService.clear();
   }
 
   public async logout(): Promise<void> {
     // eslint-disable-next-line no-console
     console.info('Logout...');
-    this.resetAuthState();
+    await this.resetAuthState();
     await this.userManager.signoutRedirect();
   }
 

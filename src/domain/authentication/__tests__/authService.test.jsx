@@ -260,10 +260,12 @@ describe('authService', () => {
   });
 
   describe('logout', () => {
-    it('should call signoutRedirect from oidc', () => {
-      const signoutRedirect = vi.spyOn(userManager, 'signoutRedirect');
+    it('should call signoutRedirect from oidc', async () => {
+      const signoutRedirect = vi
+        .spyOn(userManager, 'signoutRedirect')
+        .mockResolvedValue(undefined);
 
-      authService.logout();
+      await authService.logout();
 
       expect(signoutRedirect).toHaveBeenCalledTimes(1);
     });
