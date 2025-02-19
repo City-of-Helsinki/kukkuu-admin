@@ -42,7 +42,8 @@ export class AuthService {
       redirect_uri: `${origin}/callback`,
       post_logout_redirect_uri: `${origin}/`,
       automaticSilentRenew: AppConfig.oidcAutomaticSilentRenew,
-      checkSessionIntervalInSeconds: AppConfig.oidcSessionPollerIntervalInMs,
+      checkSessionIntervalInSeconds:
+        AppConfig.oidcSessionPollerIntervalInMs / 1000,
       silent_redirect_uri: `${origin}/silent_renew.html`,
       revokeTokensOnSignout: true,
     };
