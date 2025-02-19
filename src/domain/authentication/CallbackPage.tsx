@@ -47,7 +47,8 @@ function CallBackPage() {
         console.error(error);
         setError(error);
         // Clear auth state from the failed login attempt
-        authService.resetAuthState();
+        // We don't need to wait for async func to finish. Fire and Forget.
+        void authService.resetAuthState();
         Sentry.captureException(error);
       });
   }, [dataProvider, navigate, pathname, t]);
