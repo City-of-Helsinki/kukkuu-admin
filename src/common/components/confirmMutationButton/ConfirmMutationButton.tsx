@@ -58,7 +58,7 @@ const ConfirmMutationButton = ({
         key="button"
         className={className}
       >
-        {Icon && Icon}
+        {Icon}
       </Button>
       <Confirm
         isOpen={isDialogOpen}
