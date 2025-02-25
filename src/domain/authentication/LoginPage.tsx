@@ -9,7 +9,7 @@ import {
   CardContent,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 
 import theme from '../../common/materialUI/themeConfig';
 import IsTestEnvironmentLabel from '../../common/components/isTestEnvironmentLabel/IsTestEnvironmentLabel';
@@ -48,7 +48,7 @@ const LoginPage = () => {
   const location = useLocation();
 
   const handleLogin = () => {
-    const nextPathname = location.state?.nextPathname ?? undefined;
+    const nextPathname = location.state?.nextPathname ?? '/';
 
     login(nextPathname === '/login' ? '/' : nextPathname);
   };

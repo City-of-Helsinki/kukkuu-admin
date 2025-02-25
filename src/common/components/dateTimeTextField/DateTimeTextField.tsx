@@ -82,7 +82,7 @@ const BoundedTextField = (props: BoundedTextFieldProps) => {
   );
 };
 
-const validateDate: Validator = (value?: string) => {
+export const validateDate: Validator = (value?: string) => {
   if (value === undefined) return undefined;
 
   return momentValidationDateFormats.some((format) =>
@@ -92,7 +92,7 @@ const validateDate: Validator = (value?: string) => {
     : 'occurrences.fields.time.fields.date.errorMessage';
 };
 
-const validateTime: Validator = (value?: string) => {
+export const validateTime: Validator = (value?: string) => {
   if (value === undefined) return undefined;
 
   return momentValidationTimeFormats.some((format) =>

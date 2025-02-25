@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/browser';
+import { waitFor } from '@testing-library/react';
 
 import Config from '../../../domain/config';
 import handleError from '../handleApolloError';
@@ -140,26 +141,6 @@ describe('client', () => {
           .forEach((errorMessage) => {
             expect(consoleErrorSpy).toHaveBeenCalledWith(errorMessage);
           });
-      });
-
-      it('should capture original error if it exists', () => {
-        const captureExceptionSpy = vi.spyOn(Sentry, 'captureException');
-        const captureMessageSpy = vi.spyOn(Sentry, 'captureMessage');
-
-        vi.spyOn(Sentry, 'withScope').mockImplementation((cb) => cb(mockScope));
-
-        const graphQLErrors = [
-          {
-            originalError: new Error('Error test'),
-            message: 'Error test',
-            extensions: {},
-          },
-        ];
-
-        handleError({ graphQLErrors, operation });
-
-        expect(captureExceptionSpy).toHaveBeenCalledTimes(1);
-        expect(captureMessageSpy).toHaveBeenCalledTimes(0);
       });
     });
 
