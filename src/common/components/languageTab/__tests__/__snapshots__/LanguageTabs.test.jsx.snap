@@ -1,0 +1,60 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`LanguageTabs > renders correctly 1`] = `
+<div>
+  <div
+    class="MuiTabs-root _languageTabs_1070fe css-1ujnqem-MuiTabs-root"
+  >
+    <div
+      class="MuiTabs-scroller MuiTabs-fixed css-jpln7h-MuiTabs-scroller"
+      style="overflow: hidden; margin-bottom: 0px;"
+    >
+      <div
+        class="MuiTabs-flexContainer css-heg063-MuiTabs-flexContainer"
+        role="tablist"
+      >
+        <button
+          aria-selected="true"
+          class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary Mui-selected css-1h9z7r5-MuiButtonBase-root-MuiTab-root"
+          role="tab"
+          tabindex="0"
+          type="button"
+        >
+          languages.en
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          aria-selected="false"
+          class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary css-1h9z7r5-MuiButtonBase-root-MuiTab-root"
+          role="tab"
+          tabindex="-1"
+          type="button"
+        >
+          languages.fi
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          aria-selected="false"
+          class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary css-1h9z7r5-MuiButtonBase-root-MuiTab-root"
+          role="tab"
+          tabindex="-1"
+          type="button"
+        >
+          languages.sv
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+      <span
+        class="MuiTabs-indicator css-11yukd5-MuiTabs-indicator"
+        style="left: 0px; width: 0px;"
+      />
+    </div>
+  </div>
+</div>
+`;

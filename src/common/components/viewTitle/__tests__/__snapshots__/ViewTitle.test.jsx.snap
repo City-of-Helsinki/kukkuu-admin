@@ -1,0 +1,25 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ViewTitle > renders an empty title when record context is empty 1`] = `
+<div>
+  <div
+    class="MuiCardHeader-root css-185gdzj-MuiCardHeader-root"
+  >
+    <div
+      class="MuiCardHeader-content css-1qbkelo-MuiCardHeader-content"
+    />
+  </div>
+</div>
+`;
+
+exports[`ViewTitle > renders an empty title when translations.FI.name does not exist 1`] = `
+<div>
+  <div
+    class="MuiCardHeader-root css-185gdzj-MuiCardHeader-root"
+  >
+    <div
+      class="MuiCardHeader-content css-1qbkelo-MuiCardHeader-content"
+    />
+  </div>
+</div>
+`;
