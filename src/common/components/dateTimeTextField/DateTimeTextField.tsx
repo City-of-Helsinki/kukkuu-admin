@@ -82,19 +82,25 @@ const BoundedTextField = (props: BoundedTextFieldProps) => {
   );
 };
 
-const validateDate: Validator = (value: string) =>
-  momentValidationDateFormats.some((format) =>
+const validateDate: Validator = (value?: string) => {
+  if (value === undefined) return undefined;
+
+  return momentValidationDateFormats.some((format) =>
     moment(value, format, true).isValid()
   )
     ? undefined
     : 'occurrences.fields.time.fields.date.errorMessage';
+};
 
-const validateTime: Validator = (value: string) =>
-  momentValidationTimeFormats.some((format) =>
+const validateTime: Validator = (value?: string) => {
+  if (value === undefined) return undefined;
+
+  return momentValidationTimeFormats.some((format) =>
     moment(value, format, true).isValid()
   )
     ? undefined
     : 'occurrences.fields.time.fields.time.errorMessage';
+};
 
 const DateTimeTextInput = ({
   variant,
