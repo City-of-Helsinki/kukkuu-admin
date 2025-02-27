@@ -46,8 +46,10 @@ const getOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
 };
 
 // Combine two fields into one:
-const normalizeTime = (date: string, time: string) => {
+const normalizeTime = (date?: string, time?: string) => {
   let datetime;
+
+  if (date === undefined || time === undefined) return undefined;
 
   for (const format of Config.momentValidationDateTimeFormats) {
     datetime = moment.tz(`${date} ${time}`, format, true, 'Europe/Helsinki');
