@@ -161,10 +161,8 @@ const OccurrenceShow = () => {
               )}
               label="events.fields.language.label"
             />
-            <FunctionField
-              render={OccurrenceAttendedField}
-              label="enrolments.fields.attended.label"
-            />
+            {/* @ts-ignore - label is magically handled by material-ui */}
+            <OccurrenceAttendedField label="enrolments.fields.attended.label" />
           </Datagrid>
         </ArrayField>
       </SimpleShowLayout>
