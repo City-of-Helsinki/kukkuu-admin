@@ -2,6 +2,19 @@
 
 # Change Log
 
+## [4.0.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.0...kukkuu-admin-v4.0.1) (2025-03-03)
+
+
+### Bug Fixes
+
+* AuthService resetAuthState should be asynchronous ([eb85340](https://github.com/City-of-Helsinki/kukkuu-admin/commit/eb85340be5dd12bacba1423a877b73b7568e4c3f))
+* Convert ms to seconds for UserManager ([5720b5a](https://github.com/City-of-Helsinki/kukkuu-admin/commit/5720b5a35e6be2860420a7ddcb37c595daa6fc55))
+* **deps:** Upgrade vitest coverage package ([fdec5b0](https://github.com/City-of-Helsinki/kukkuu-admin/commit/fdec5b081b0a1874c9d42f0c76943db852825386))
+* **deps:** Upgrade vitest coverage package ([130eff1](https://github.com/City-of-Helsinki/kukkuu-admin/commit/130eff1eb86fe3a2bd9b065e1fe09ab561f3fd00))
+* Hook usage error in OccurrenceAttendedField ([b538732](https://github.com/City-of-Helsinki/kukkuu-admin/commit/b5387325db4091d4fc5499b20665c06a86f139ec))
+* **sonarcloud:** Use {Icon} instead of {Icon && Icon} in JSX ([76cc89d](https://github.com/City-of-Helsinki/kukkuu-admin/commit/76cc89d73e0de917c5439fb12ab497503482fe4d))
+* Validation of the DateTimeTextField when it's disabled ([4d561e5](https://github.com/City-of-Helsinki/kukkuu-admin/commit/4d561e502083cf3e8132194bbebdda121fccffef))
+
 ## [4.0.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.6.0...kukkuu-admin-v4.0.0) (2025-02-06)
 
 
