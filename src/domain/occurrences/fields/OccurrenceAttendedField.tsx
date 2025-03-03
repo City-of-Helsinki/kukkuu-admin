@@ -16,9 +16,16 @@ const OccurrenceAttendedField = () => {
   );
   const dataProvider = useDataProvider();
   const translate = useTranslate();
-  const handleChange = (event: SelectChangeEvent) => {
+  const handleChange = async (event: SelectChangeEvent) => {
     const value = event.target.value;
-    dataProvider.setEnrolmentAttendance(enrolment.id, JSON.parse(value));
+    try {
+      await dataProvider.setEnrolmentAttendance(
+        enrolment.id,
+        JSON.parse(value)
+      );
+    } catch (error) {
+      Promise.reject(error);
+    }
     setAttended(value);
   };
   return (
