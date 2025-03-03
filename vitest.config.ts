@@ -21,7 +21,9 @@ export default defineConfig((configEnv) =>
         },
         coverage: {
           provider: 'v8',
-          reporter: ['lcov', 'html'],
+          reporter: ['lcov', 'text'],
+          include: ['src/**/*'],
+          reportOnFailure: true,
           exclude: [
             '**/*.d.ts',
             '**/*.json',
@@ -38,6 +40,7 @@ export default defineConfig((configEnv) =>
             'codegen.ts',
             'src/index.tsx',
             'src/domain/api/generatedTypes',
+            'src/serviceWorker.ts',
             'public/mockServiceWorker.js',
             'src/setupTests.ts',
             '**/__tests__/**',
