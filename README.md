@@ -230,7 +230,7 @@ In browser tests, we want to bypass the regular authentication flow and directly
 
 - **[`clientUtils`](./browser-tests/utils/jwt/clientUtils/):** Contains helper functions that run within the Testcafe browser environment. These functions utilize Testcafe's [`ClientFunction`](https://testcafe.io/documentation/402832/guides/basic-guides/client-functions) to interact with the browser and manage JWTs.
 - **[`mocks`](./browser-tests/utils/jwt/mocks/):** Provides functions to intercept network requests to the authentication service and replace them with mocked responses containing the test JWTs. This prevents actual authentication and allows us to control the user context during tests.
-- **[`config`](./browser-tests/utils/jwt/config/):** Holds configuration settings for the JWT library used in browser tests.
+- **[`config`](./browser-tests/utils/jwt/config.ts):** Holds configuration settings for the JWT library used in browser tests.
 - **[`jwt`](./browser-tests/utils/jwt/jwt.ts):** Contains utilities to create and sign JWTs symmetrically. The API needs to be configured with the same secret key to verify these tokens.
 - **[`oidc`](./browser-tests/utils/jwt/oidc.ts):** Adapts the generated JWTs to a format compatible with the OpenID Connect (OIDC) client used in the application.
 - **[`services`](./browser-tests/utils/jwt/services.ts):** Includes helper functions for managing test data, such as selecting an admin project for the test user. These functions make actual API calls (not mocked) to prepare the test environment.
