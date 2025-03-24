@@ -2,6 +2,13 @@
 
 # Change Log
 
+## [4.0.2](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.1...kukkuu-admin-v4.0.2) (2025-03-24)
+
+
+### Bug Fixes
+
+* Set dependabot reviewers for ratkaisutoimisto ([d98aea9](https://github.com/City-of-Helsinki/kukkuu-admin/commit/d98aea9816abff362d21fea9bdc6528028381e35))
+
 ## [4.0.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.0...kukkuu-admin-v4.0.1) (2025-03-03)
 
 
