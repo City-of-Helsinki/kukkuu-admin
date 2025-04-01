@@ -96,7 +96,7 @@
     "react-dom": "^18.2.0",
     "react-idle-timer": "^5.7.2",
     "typescript": "<5.4.0",
-    "vite": "^6.0.11",
+    "vite": "^6.0.13",
     "vite-plugin-eslint": "^1.8.1",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.0.7",
