@@ -51,13 +51,20 @@ const MAX_SUPPORTED_FILE_SIZE_BYTES = 1_000_000; // 1MB
  */
 const ImageUploadField = ({
   name,
-  edit,
+  edit: isEditViewActive,
   image,
   source,
   helperText,
   maxSize = MAX_SUPPORTED_FILE_SIZE_BYTES,
 }: ImageUploadFieldProps) => {
   const translate = useTranslate();
+
+  // State to track if the image is persisted in the backend
+  // This is used to determine if the image preview should be formatted
+  // or if it should show the newly uploaded image.
+  // If the form is in edit mode, we assume the image is already persisted.
+  const [isImagePersisted, setIsImagePersisted] =
+    React.useState(isEditViewActive);
 
   // Enforce the hard limit on the maxSize prop
   if (maxSize > MAX_SUPPORTED_FILE_SIZE_BYTES) {
@@ -68,10 +75,14 @@ const ImageUploadField = ({
     );
   }
 
+  // The preview immage needs different configuration when handling a newly uploaded image
+  // and image that is already in the backend.
+  const onChangeHandler = () => setIsImagePersisted(false);
+
   return (
     <ImageInput
       name={name ?? source}
-      format={edit ? formatImage : undefined}
+      format={isImagePersisted ? formatImage : undefined}
       source={image}
       label={'events.fields.image.label'}
       accept="image/*"
@@ -83,8 +94,9 @@ const ImageUploadField = ({
       }
       helperText={helperText}
       maxSize={maxSize}
+      onChange={onChangeHandler}
     >
-      <ImageField source={edit ? source : 'src'} title="title" />
+      <ImageField source={isImagePersisted ? source : 'src'} title="title" />
     </ImageInput>
   );
 };
