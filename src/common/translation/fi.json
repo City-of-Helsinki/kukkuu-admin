@@ -92,7 +92,7 @@
         "label": "ID"
       },
       "image": {
-        "helperText": "Kuvan tulee olla vähintään 1400px leveä ja tärkein sisältö mielellään kuvan yläosassa, jotta tämä toimisi tapahtumasivun taustakuvana.",
+        "helperText": "Kuvan tulee olla vähintään 1400px leveä ja tärkein sisältö mielellään kuvan yläosassa, jotta tämä toimisi tapahtumasivun taustakuvana. Maksimi tiedostokoko on 1MB.",
         "label": "Kuva"
       },
       "imageAltText": {
