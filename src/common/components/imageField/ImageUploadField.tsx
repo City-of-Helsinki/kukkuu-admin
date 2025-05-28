@@ -1,6 +1,6 @@
 import React from 'react';
 import type { ImageInputProps } from 'react-admin';
-import { ImageInput, ImageField, useTranslate } from 'react-admin';
+import { ImageInput, ImageField, useTranslate, useNotify } from 'react-admin';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import Box from '@mui/material/Box';
 
@@ -43,6 +43,38 @@ type ImageUploadFieldProps = {
 const MAX_SUPPORTED_FILE_SIZE_BYTES = 1_000_000; // 1MB
 
 /**
+ * Custom hook to handle file drop rejection, since the `ImageInput` component
+ * does not provide a built-in way to notify about rejected files.
+ * It notifies the user if the dropped files are rejected.
+ *
+ * Example usage:
+ * The maxSize property of the `ImageInput` component only prevents the user from selecting
+ * files that exceed the limit, but it does not notify if any of them were rejected.
+ *
+ * References:
+ * - https://github.com/marmelab/react-admin/blob/master/packages/ra-ui-materialui/src/input/FileInput.tsx
+ * - https://github.com/marmelab/react-admin/issues/6441
+ * - https://github.com/marmelab/react-admin/issues/1611
+ *
+ * @returns A function that takes an array of rejected files and shows a notification.
+ */
+const useHandleDropRejected = () => {
+  const notify = useNotify();
+  const translate = useTranslate();
+
+  return (rejectedFiles: unknown[]) => {
+    if (rejectedFiles.length > 0) {
+      notify(
+        translate('events.fields.image.error.genericFileRejected', {
+          maxSize: MAX_SUPPORTED_FILE_SIZE_BYTES / 1000, // Convert to KB
+        }),
+        { type: 'error' }
+      );
+    }
+  };
+};
+
+/**
  * Image upload field component for React Admin forms.
  * It handles both displaying the image and uploading a new one.
  *
@@ -65,6 +97,8 @@ const ImageUploadField = ({
   // If the form is in edit mode, we assume the image is already persisted.
   const [isImagePersisted, setIsImagePersisted] =
     React.useState(isEditViewActive);
+
+  const handleDropRejected = useHandleDropRejected();
 
   // Enforce the hard limit on the maxSize prop
   if (maxSize > MAX_SUPPORTED_FILE_SIZE_BYTES) {
@@ -95,6 +129,7 @@ const ImageUploadField = ({
       helperText={helperText}
       maxSize={maxSize}
       onChange={onChangeHandler}
+      options={{ onDropRejected: handleDropRejected }}
     >
       <ImageField source={isImagePersisted ? source : 'src'} title="title" />
     </ImageInput>
