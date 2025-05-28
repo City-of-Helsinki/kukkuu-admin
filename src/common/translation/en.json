@@ -93,7 +93,10 @@
       },
       "image": {
         "helperText": "",
-        "label": "Image"
+        "label": "Image",
+        "error": {
+          "genericFileRejected": "Could not upload the file. Check the file size (max %{maxSize} KB) any type."
+        }
       },
       "imageAltText": {
         "helperText": "",

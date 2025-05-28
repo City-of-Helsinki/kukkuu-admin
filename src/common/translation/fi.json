@@ -93,7 +93,10 @@
       },
       "image": {
         "helperText": "Kuvan tulee olla vähintään 1400px leveä ja tärkein sisältö mielellään kuvan yläosassa, jotta tämä toimisi tapahtumasivun taustakuvana. Maksimi tiedostokoko on 1MB.",
-        "label": "Kuva"
+        "label": "Kuva",
+        "error": {
+          "genericFileRejected": "Tiedostoa ei voitu ladata. Tarkista tiedoston koko (enint. %{maxSize} KB) ja tyyppi."
+        }
       },
       "imageAltText": {
         "helperText": "Lisää kuvan alt-tekstiin kuvaajan nimi ja kuvaus siitä mitä kuva esittää",
