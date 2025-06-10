@@ -2,6 +2,28 @@
 
 # Change Log
 
+## [4.0.2](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.1...kukkuu-admin-v4.0.2) (2025-06-10)
+
+
+### Bug Fixes
+
+* **event-image:** Error notification rendering for rejected uploads ([f31a226](https://github.com/City-of-Helsinki/kukkuu-admin/commit/f31a226d9e50dae1431618b577fad3689547cdfa))
+* **event-image:** Preview in event edit view when changing the image ([716f37e](https://github.com/City-of-Helsinki/kukkuu-admin/commit/716f37ef439344d88dbf1097605afa986f5006ca))
+* **event-image:** Set max size to 1MB for image upload ([ac18bea](https://github.com/City-of-Helsinki/kukkuu-admin/commit/ac18bea3b105e179d93ee4175381b9db2246e023))
+* Set dependabot reviewers for ratkaisutoimisto ([d98aea9](https://github.com/City-of-Helsinki/kukkuu-admin/commit/d98aea9816abff362d21fea9bdc6528028381e35))
+
+
+### Dependencies
+
+* Bump @babel/helpers from 7.26.0 to 7.26.10 ([#343](https://github.com/City-of-Helsinki/kukkuu-admin/issues/343)) ([e573063](https://github.com/City-of-Helsinki/kukkuu-admin/commit/e5730639afb276f9a8a338c51a5f30e7e8a163e7))
+* Bump @babel/runtime from 7.26.0 to 7.26.10 ([#342](https://github.com/City-of-Helsinki/kukkuu-admin/issues/342)) ([f116426](https://github.com/City-of-Helsinki/kukkuu-admin/commit/f11642687aadffb82576d4deb5d548b24dfcf241))
+* Bump axios from 1.7.9 to 1.8.2 ([#341](https://github.com/City-of-Helsinki/kukkuu-admin/issues/341)) ([dec33d5](https://github.com/City-of-Helsinki/kukkuu-admin/commit/dec33d5e78108f23e8cad65013268c9ef87bd3df))
+
+
+### Documentation
+
+* Fix link to jwt config.ts ([c2990f1](https://github.com/City-of-Helsinki/kukkuu-admin/commit/c2990f1961470300ef75769fbfe243823f38bae8))
+
 ## [4.0.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.0...kukkuu-admin-v4.0.1) (2025-03-03)
 
 
