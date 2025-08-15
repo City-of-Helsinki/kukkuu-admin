@@ -2,6 +2,13 @@
 
 # Change Log
 
+## [4.0.3](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.2...kukkuu-admin-v4.0.3) (2025-08-15)
+
+
+### Dependencies
+
+* Bump form-data from 4.0.1 to 4.0.4 ([#354](https://github.com/City-of-Helsinki/kukkuu-admin/issues/354)) ([022c77c](https://github.com/City-of-Helsinki/kukkuu-admin/commit/022c77c973e2b227c3ef401a79b25029b34cbdf7))
+
 ## [4.0.2](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.1...kukkuu-admin-v4.0.2) (2025-06-10)
 
 
