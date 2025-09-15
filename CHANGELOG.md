@@ -2,6 +2,14 @@
 
 # Change Log
 
+## [4.0.4](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.3...kukkuu-admin-v4.0.4) (2025-09-15)
+
+
+### Dependencies
+
+* Bump axios from 1.8.2 to 1.12.0 ([76a0be4](https://github.com/City-of-Helsinki/kukkuu-admin/commit/76a0be47ed8df2210a700f2acfb8576acdddcc4e))
+* Bump vite from 6.0.11 to 6.3.6 ([135e278](https://github.com/City-of-Helsinki/kukkuu-admin/commit/135e278890b1d7e30ecabe732c357e83a1fe3d40))
+
 ## [4.0.3](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.2...kukkuu-admin-v4.0.3) (2025-08-15)
 
 
