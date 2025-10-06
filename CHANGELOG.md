@@ -2,6 +2,13 @@
 
 # Change Log
 
+## [4.0.5](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.4...kukkuu-admin-v4.0.5) (2025-10-06)
+
+
+### Bug Fixes
+
+* Enforce frozen lockfile by default ([03e9f9a](https://github.com/City-of-Helsinki/kukkuu-admin/commit/03e9f9afebcf702b32c10e14ac2b265f626987ca))
+
 ## [4.0.4](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.3...kukkuu-admin-v4.0.4) (2025-09-15)
 
 
