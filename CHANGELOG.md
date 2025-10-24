@@ -2,6 +2,13 @@
 
 # Change Log
 
+## [4.0.6](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.5...kukkuu-admin-v4.0.6) (2025-10-24)
+
+
+### Dependencies
+
+* Bump vite from 6.3.6 to 6.4.1 ([bb6087a](https://github.com/City-of-Helsinki/kukkuu-admin/commit/bb6087aaa0af8de8f83fc934acc63746818824b7))
+
 ## [4.0.5](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.4...kukkuu-admin-v4.0.5) (2025-10-06)
 
 
