@@ -6,6 +6,12 @@ import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
 import 'vitest-localstorage-mock';
 
+vi.mock('@sentry/browser', () => ({
+  captureException: vi.fn(),
+  captureMessage: vi.fn(),
+  withScope: vi.fn(),
+}));
+
 afterEach(() => {
   cleanup();
 });
