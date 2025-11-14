@@ -8,15 +8,15 @@ services:
       target: ${DOCKER_TARGET:-development}
     environment:
       NODE_ENV: ${DOCKER_TARGET:-development} # which node env the build uses. NOTE: Usually same as the ${DOCKER_TARGET}.
-      VITE_ENVIRONMENT: ${DOCKER_TARGET:-development}
-      PORT: ${PORT:-3001}
-    env_file: '.env'
+    env_file:
+      - ".env"
+      - ".env.local"
     volumes:
-      - '.:/app'
-      - '/app/node_modules'
+      - ".:/app"
+      - "/app/node_modules"
     ports:
-      - '3001:3001'
-      - '8084:8080'
+      - "3001:3001"
+      - "8084:8080"
 networks:
   default:
-      name: helsinki
+    name: helsinki
