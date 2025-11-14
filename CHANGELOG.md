@@ -4,110 +4,99 @@
 
 ## [4.0.6](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.5...kukkuu-admin-v4.0.6) (2025-10-24)
 
-
 ### Dependencies
 
-* Bump vite from 6.3.6 to 6.4.1 ([bb6087a](https://github.com/City-of-Helsinki/kukkuu-admin/commit/bb6087aaa0af8de8f83fc934acc63746818824b7))
+- Bump vite from 6.3.6 to 6.4.1 ([bb6087a](https://github.com/City-of-Helsinki/kukkuu-admin/commit/bb6087aaa0af8de8f83fc934acc63746818824b7))
 
 ## [4.0.5](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.4...kukkuu-admin-v4.0.5) (2025-10-06)
 
-
 ### Bug Fixes
 
-* Enforce frozen lockfile by default ([03e9f9a](https://github.com/City-of-Helsinki/kukkuu-admin/commit/03e9f9afebcf702b32c10e14ac2b265f626987ca))
+- Enforce frozen lockfile by default ([03e9f9a](https://github.com/City-of-Helsinki/kukkuu-admin/commit/03e9f9afebcf702b32c10e14ac2b265f626987ca))
 
 ## [4.0.4](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.3...kukkuu-admin-v4.0.4) (2025-09-15)
 
-
 ### Dependencies
 
-* Bump axios from 1.8.2 to 1.12.0 ([76a0be4](https://github.com/City-of-Helsinki/kukkuu-admin/commit/76a0be47ed8df2210a700f2acfb8576acdddcc4e))
-* Bump vite from 6.0.11 to 6.3.6 ([135e278](https://github.com/City-of-Helsinki/kukkuu-admin/commit/135e278890b1d7e30ecabe732c357e83a1fe3d40))
+- Bump axios from 1.8.2 to 1.12.0 ([76a0be4](https://github.com/City-of-Helsinki/kukkuu-admin/commit/76a0be47ed8df2210a700f2acfb8576acdddcc4e))
+- Bump vite from 6.0.11 to 6.3.6 ([135e278](https://github.com/City-of-Helsinki/kukkuu-admin/commit/135e278890b1d7e30ecabe732c357e83a1fe3d40))
 
 ## [4.0.3](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.2...kukkuu-admin-v4.0.3) (2025-08-15)
 
-
 ### Dependencies
 
-* Bump form-data from 4.0.1 to 4.0.4 ([#354](https://github.com/City-of-Helsinki/kukkuu-admin/issues/354)) ([022c77c](https://github.com/City-of-Helsinki/kukkuu-admin/commit/022c77c973e2b227c3ef401a79b25029b34cbdf7))
+- Bump form-data from 4.0.1 to 4.0.4 ([#354](https://github.com/City-of-Helsinki/kukkuu-admin/issues/354)) ([022c77c](https://github.com/City-of-Helsinki/kukkuu-admin/commit/022c77c973e2b227c3ef401a79b25029b34cbdf7))
 
 ## [4.0.2](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.1...kukkuu-admin-v4.0.2) (2025-06-10)
 
-
 ### Bug Fixes
 
-* **event-image:** Error notification rendering for rejected uploads ([f31a226](https://github.com/City-of-Helsinki/kukkuu-admin/commit/f31a226d9e50dae1431618b577fad3689547cdfa))
-* **event-image:** Preview in event edit view when changing the image ([716f37e](https://github.com/City-of-Helsinki/kukkuu-admin/commit/716f37ef439344d88dbf1097605afa986f5006ca))
-* **event-image:** Set max size to 1MB for image upload ([ac18bea](https://github.com/City-of-Helsinki/kukkuu-admin/commit/ac18bea3b105e179d93ee4175381b9db2246e023))
-* Set dependabot reviewers for ratkaisutoimisto ([d98aea9](https://github.com/City-of-Helsinki/kukkuu-admin/commit/d98aea9816abff362d21fea9bdc6528028381e35))
-
+- **event-image:** Error notification rendering for rejected uploads ([f31a226](https://github.com/City-of-Helsinki/kukkuu-admin/commit/f31a226d9e50dae1431618b577fad3689547cdfa))
+- **event-image:** Preview in event edit view when changing the image ([716f37e](https://github.com/City-of-Helsinki/kukkuu-admin/commit/716f37ef439344d88dbf1097605afa986f5006ca))
+- **event-image:** Set max size to 1MB for image upload ([ac18bea](https://github.com/City-of-Helsinki/kukkuu-admin/commit/ac18bea3b105e179d93ee4175381b9db2246e023))
+- Set dependabot reviewers for ratkaisutoimisto ([d98aea9](https://github.com/City-of-Helsinki/kukkuu-admin/commit/d98aea9816abff362d21fea9bdc6528028381e35))
 
 ### Dependencies
 
-* Bump @babel/helpers from 7.26.0 to 7.26.10 ([#343](https://github.com/City-of-Helsinki/kukkuu-admin/issues/343)) ([e573063](https://github.com/City-of-Helsinki/kukkuu-admin/commit/e5730639afb276f9a8a338c51a5f30e7e8a163e7))
-* Bump @babel/runtime from 7.26.0 to 7.26.10 ([#342](https://github.com/City-of-Helsinki/kukkuu-admin/issues/342)) ([f116426](https://github.com/City-of-Helsinki/kukkuu-admin/commit/f11642687aadffb82576d4deb5d548b24dfcf241))
-* Bump axios from 1.7.9 to 1.8.2 ([#341](https://github.com/City-of-Helsinki/kukkuu-admin/issues/341)) ([dec33d5](https://github.com/City-of-Helsinki/kukkuu-admin/commit/dec33d5e78108f23e8cad65013268c9ef87bd3df))
-
+- Bump @babel/helpers from 7.26.0 to 7.26.10 ([#343](https://github.com/City-of-Helsinki/kukkuu-admin/issues/343)) ([e573063](https://github.com/City-of-Helsinki/kukkuu-admin/commit/e5730639afb276f9a8a338c51a5f30e7e8a163e7))
+- Bump @babel/runtime from 7.26.0 to 7.26.10 ([#342](https://github.com/City-of-Helsinki/kukkuu-admin/issues/342)) ([f116426](https://github.com/City-of-Helsinki/kukkuu-admin/commit/f11642687aadffb82576d4deb5d548b24dfcf241))
+- Bump axios from 1.7.9 to 1.8.2 ([#341](https://github.com/City-of-Helsinki/kukkuu-admin/issues/341)) ([dec33d5](https://github.com/City-of-Helsinki/kukkuu-admin/commit/dec33d5e78108f23e8cad65013268c9ef87bd3df))
 
 ### Documentation
 
-* Fix link to jwt config.ts ([c2990f1](https://github.com/City-of-Helsinki/kukkuu-admin/commit/c2990f1961470300ef75769fbfe243823f38bae8))
+- Fix link to jwt config.ts ([c2990f1](https://github.com/City-of-Helsinki/kukkuu-admin/commit/c2990f1961470300ef75769fbfe243823f38bae8))
 
 ## [4.0.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.0...kukkuu-admin-v4.0.1) (2025-03-03)
 
-
 ### Bug Fixes
 
-* AuthService resetAuthState should be asynchronous ([eb85340](https://github.com/City-of-Helsinki/kukkuu-admin/commit/eb85340be5dd12bacba1423a877b73b7568e4c3f))
-* Convert ms to seconds for UserManager ([5720b5a](https://github.com/City-of-Helsinki/kukkuu-admin/commit/5720b5a35e6be2860420a7ddcb37c595daa6fc55))
-* **deps:** Upgrade vitest coverage package ([fdec5b0](https://github.com/City-of-Helsinki/kukkuu-admin/commit/fdec5b081b0a1874c9d42f0c76943db852825386))
-* **deps:** Upgrade vitest coverage package ([130eff1](https://github.com/City-of-Helsinki/kukkuu-admin/commit/130eff1eb86fe3a2bd9b065e1fe09ab561f3fd00))
-* Hook usage error in OccurrenceAttendedField ([b538732](https://github.com/City-of-Helsinki/kukkuu-admin/commit/b5387325db4091d4fc5499b20665c06a86f139ec))
-* **sonarcloud:** Use {Icon} instead of {Icon && Icon} in JSX ([76cc89d](https://github.com/City-of-Helsinki/kukkuu-admin/commit/76cc89d73e0de917c5439fb12ab497503482fe4d))
-* Validation of the DateTimeTextField when it's disabled ([4d561e5](https://github.com/City-of-Helsinki/kukkuu-admin/commit/4d561e502083cf3e8132194bbebdda121fccffef))
+- AuthService resetAuthState should be asynchronous ([eb85340](https://github.com/City-of-Helsinki/kukkuu-admin/commit/eb85340be5dd12bacba1423a877b73b7568e4c3f))
+- Convert ms to seconds for UserManager ([5720b5a](https://github.com/City-of-Helsinki/kukkuu-admin/commit/5720b5a35e6be2860420a7ddcb37c595daa6fc55))
+- **deps:** Upgrade vitest coverage package ([fdec5b0](https://github.com/City-of-Helsinki/kukkuu-admin/commit/fdec5b081b0a1874c9d42f0c76943db852825386))
+- **deps:** Upgrade vitest coverage package ([130eff1](https://github.com/City-of-Helsinki/kukkuu-admin/commit/130eff1eb86fe3a2bd9b065e1fe09ab561f3fd00))
+- Hook usage error in OccurrenceAttendedField ([b538732](https://github.com/City-of-Helsinki/kukkuu-admin/commit/b5387325db4091d4fc5499b20665c06a86f139ec))
+- **sonarcloud:** Use {Icon} instead of {Icon && Icon} in JSX ([76cc89d](https://github.com/City-of-Helsinki/kukkuu-admin/commit/76cc89d73e0de917c5439fb12ab497503482fe4d))
+- Validation of the DateTimeTextField when it's disabled ([4d561e5](https://github.com/City-of-Helsinki/kukkuu-admin/commit/4d561e502083cf3e8132194bbebdda121fccffef))
 
 ## [4.0.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.6.0...kukkuu-admin-v4.0.0) (2025-02-06)
 
-
 ### ⚠ BREAKING CHANGES
 
-* **vite:** migrate from CRA to Vite
+- **vite:** migrate from CRA to Vite
 
 ### Features
 
-* Add csp meta-tag ([081d783](https://github.com/City-of-Helsinki/kukkuu-admin/commit/081d783a982b8cc69be7d000e8be7b567779d123))
-* Enable children resource only with viewFamilies permission ([8381e20](https://github.com/City-of-Helsinki/kukkuu-admin/commit/8381e2058bec910808d255fcbb40c25305cb275f))
-* Use polling in docker development to enable hot reload ([2260422](https://github.com/City-of-Helsinki/kukkuu-admin/commit/2260422a3a3564806799104f6cc77cc1da423307))
-
+- Add csp meta-tag ([081d783](https://github.com/City-of-Helsinki/kukkuu-admin/commit/081d783a982b8cc69be7d000e8be7b567779d123))
+- Enable children resource only with viewFamilies permission ([8381e20](https://github.com/City-of-Helsinki/kukkuu-admin/commit/8381e2058bec910808d255fcbb40c25305cb275f))
+- Use polling in docker development to enable hot reload ([2260422](https://github.com/City-of-Helsinki/kukkuu-admin/commit/2260422a3a3564806799104f6cc77cc1da423307))
 
 ### Bug Fixes
 
-* Add blob to img-src CSP-rule ([2c09d8e](https://github.com/City-of-Helsinki/kukkuu-admin/commit/2c09d8ebd741a83bb8931a16bbf44488e1322a0c))
-* Build and deps issues ([1868b01](https://github.com/City-of-Helsinki/kukkuu-admin/commit/1868b01390bd49634ab977b5f1b2922689926f00))
-* **build:** Use build arg in docker static builder ([f72856b](https://github.com/City-of-Helsinki/kukkuu-admin/commit/f72856b150e1a66b49d719e5535842d192b157aa))
-* **config:** Admin ui url ([ed16447](https://github.com/City-of-Helsinki/kukkuu-admin/commit/ed1644709be1b408e4c10f2bcb6aaa7d4f66f0e0))
-* Consistency between pre-commit & non-pre-commit linting ([50e66be](https://github.com/City-of-Helsinki/kukkuu-admin/commit/50e66beec2bf8bdc5e307e2d53f762ded81d9cb1))
-* Date formats of date fields ([778933e](https://github.com/City-of-Helsinki/kukkuu-admin/commit/778933ec2e4707108c433dfc87a61fd7701fa9fe))
-* **deprecation:** Set package type to "module" ([2ac5a82](https://github.com/City-of-Helsinki/kukkuu-admin/commit/2ac5a8274561ce2e849a8808112fb61c75f54c8d))
-* Disable React-admin telemetry ([8f9eb51](https://github.com/City-of-Helsinki/kukkuu-admin/commit/8f9eb519f66152ce760e81808b268e068cf8abd6))
-* **docker:** Build ([ff6b515](https://github.com/City-of-Helsinki/kukkuu-admin/commit/ff6b515b87f6badc83723631c68293a0b1b39c9a))
-* Eslint installation ([c832b2c](https://github.com/City-of-Helsinki/kukkuu-admin/commit/c832b2c28b64c02d513511f3d879a459303276cc))
-* **eslint:** Improve linting ([8786e0b](https://github.com/City-of-Helsinki/kukkuu-admin/commit/8786e0b3f0c9816b9bb94124533bf3d1d03496ab))
-* Eslintrc configuration ([3521306](https://github.com/City-of-Helsinki/kukkuu-admin/commit/352130656f02e4afc037ba9ed396482a2cf13c53))
-* Husky pre-commit run vitest related with lint-staged ([0bc25f1](https://github.com/City-of-Helsinki/kukkuu-admin/commit/0bc25f150e802fa519209a7957bb44469f77cacd))
-* Lint-staged should use format:code with max-warnings flag ([8086f82](https://github.com/City-of-Helsinki/kukkuu-admin/commit/8086f824080cb72eb3fb88f8bce22972647726c6))
-* Linter and ts issues ([5e50046](https://github.com/City-of-Helsinki/kukkuu-admin/commit/5e5004602c29960c90e5a8f486ce8ce17df4e418))
-* Linting issues ([5c6ba7f](https://github.com/City-of-Helsinki/kukkuu-admin/commit/5c6ba7f6f2f1349116491e5f104cbcc363f65277))
-* **localdev:** Add localhost:*, 127.0.0.1:* to CSP connect-src ([e599b59](https://github.com/City-of-Helsinki/kukkuu-admin/commit/e599b598585226ce4481b016e7407d93cb21f51e))
-* Occurrence date time validation ([c59eb60](https://github.com/City-of-Helsinki/kukkuu-admin/commit/c59eb6067b539a68894c92332cc6cc6f32a7639d))
-* Remove email, phone number & child link from occurence's user list ([29c4fae](https://github.com/City-of-Helsinki/kukkuu-admin/commit/29c4fae295ca7d20447ddb9e05aad5391499cbe7))
-* Translation handling in events and event groups page ([1b1c454](https://github.com/City-of-Helsinki/kukkuu-admin/commit/1b1c4549a41177065003089793bee74d9c71c0aa))
-* Ts issues ([f17c068](https://github.com/City-of-Helsinki/kukkuu-admin/commit/f17c068ff34343fc2dd9febab9da4289bbf6b2b5))
-
+- Add blob to img-src CSP-rule ([2c09d8e](https://github.com/City-of-Helsinki/kukkuu-admin/commit/2c09d8ebd741a83bb8931a16bbf44488e1322a0c))
+- Build and deps issues ([1868b01](https://github.com/City-of-Helsinki/kukkuu-admin/commit/1868b01390bd49634ab977b5f1b2922689926f00))
+- **build:** Use build arg in docker static builder ([f72856b](https://github.com/City-of-Helsinki/kukkuu-admin/commit/f72856b150e1a66b49d719e5535842d192b157aa))
+- **config:** Admin ui url ([ed16447](https://github.com/City-of-Helsinki/kukkuu-admin/commit/ed1644709be1b408e4c10f2bcb6aaa7d4f66f0e0))
+- Consistency between pre-commit & non-pre-commit linting ([50e66be](https://github.com/City-of-Helsinki/kukkuu-admin/commit/50e66beec2bf8bdc5e307e2d53f762ded81d9cb1))
+- Date formats of date fields ([778933e](https://github.com/City-of-Helsinki/kukkuu-admin/commit/778933ec2e4707108c433dfc87a61fd7701fa9fe))
+- **deprecation:** Set package type to "module" ([2ac5a82](https://github.com/City-of-Helsinki/kukkuu-admin/commit/2ac5a8274561ce2e849a8808112fb61c75f54c8d))
+- Disable React-admin telemetry ([8f9eb51](https://github.com/City-of-Helsinki/kukkuu-admin/commit/8f9eb519f66152ce760e81808b268e068cf8abd6))
+- **docker:** Build ([ff6b515](https://github.com/City-of-Helsinki/kukkuu-admin/commit/ff6b515b87f6badc83723631c68293a0b1b39c9a))
+- Eslint installation ([c832b2c](https://github.com/City-of-Helsinki/kukkuu-admin/commit/c832b2c28b64c02d513511f3d879a459303276cc))
+- **eslint:** Improve linting ([8786e0b](https://github.com/City-of-Helsinki/kukkuu-admin/commit/8786e0b3f0c9816b9bb94124533bf3d1d03496ab))
+- Eslintrc configuration ([3521306](https://github.com/City-of-Helsinki/kukkuu-admin/commit/352130656f02e4afc037ba9ed396482a2cf13c53))
+- Husky pre-commit run vitest related with lint-staged ([0bc25f1](https://github.com/City-of-Helsinki/kukkuu-admin/commit/0bc25f150e802fa519209a7957bb44469f77cacd))
+- Lint-staged should use format:code with max-warnings flag ([8086f82](https://github.com/City-of-Helsinki/kukkuu-admin/commit/8086f824080cb72eb3fb88f8bce22972647726c6))
+- Linter and ts issues ([5e50046](https://github.com/City-of-Helsinki/kukkuu-admin/commit/5e5004602c29960c90e5a8f486ce8ce17df4e418))
+- Linting issues ([5c6ba7f](https://github.com/City-of-Helsinki/kukkuu-admin/commit/5c6ba7f6f2f1349116491e5f104cbcc363f65277))
+- **localdev:** Add localhost:_, 127.0.0.1:_ to CSP connect-src ([e599b59](https://github.com/City-of-Helsinki/kukkuu-admin/commit/e599b598585226ce4481b016e7407d93cb21f51e))
+- Occurrence date time validation ([c59eb60](https://github.com/City-of-Helsinki/kukkuu-admin/commit/c59eb6067b539a68894c92332cc6cc6f32a7639d))
+- Remove email, phone number & child link from occurence's user list ([29c4fae](https://github.com/City-of-Helsinki/kukkuu-admin/commit/29c4fae295ca7d20447ddb9e05aad5391499cbe7))
+- Translation handling in events and event groups page ([1b1c454](https://github.com/City-of-Helsinki/kukkuu-admin/commit/1b1c4549a41177065003089793bee74d9c71c0aa))
+- Ts issues ([f17c068](https://github.com/City-of-Helsinki/kukkuu-admin/commit/f17c068ff34343fc2dd9febab9da4289bbf6b2b5))
 
 ### Build System
 
-* **vite:** Migrate from CRA to Vite ([bfcdf71](https://github.com/City-of-Helsinki/kukkuu-admin/commit/bfcdf7170aa19358d5b9cef59b56cb15bc0fe900))
+- **vite:** Migrate from CRA to Vite ([bfcdf71](https://github.com/City-of-Helsinki/kukkuu-admin/commit/bfcdf7170aa19358d5b9cef59b56cb15bc0fe900))
 
 ## [3.6.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v3.5.0...kukkuu-admin-v3.6.0) (2024-11-05)
 
