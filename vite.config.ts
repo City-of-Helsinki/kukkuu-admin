@@ -25,6 +25,7 @@ export default ({ mode }: any) => {
     },
     build: {
       outDir: 'build',
+      sourcemap: true,
     },
     // optimizeDeps: {
     //   force: true,
