@@ -7,11 +7,27 @@ import packageJson from '../package.json';
 import App from './domain/application/App';
 import * as serviceWorker from './serviceWorker';
 
-if (process.env.NODE_ENV === 'production') {
+if (import.meta.env.VITE_SENTRY_DSN) {
   Sentry.init({
     dsn: import.meta.env.VITE_SENTRY_DSN,
-    environment: import.meta.env.VITE_ENVIRONMENT,
-    release: `${packageJson.name}@${packageJson.version}`,
+    environment: import.meta.env.VITE_SENTRY_ENVIRONMENT,
+    release: import.meta.env.VITE_SENTRY_RELEASE,
+    integrations: [
+      Sentry.browserTracingIntegration(),
+      Sentry.replayIntegration(),
+    ],
+    tracesSampleRate: parseFloat(
+      import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE || '0'
+    ),
+    tracePropagationTargets: (
+      import.meta.env.VITE_SENTRY_TRACE_PROPAGATION_TARGETS || ''
+    ).split(','),
+    replaysSessionSampleRate: parseFloat(
+      import.meta.env.VITE_SENTRY_REPLAYS_SESSION_SAMPLE_RATE || '0'
+    ),
+    replaysOnErrorSampleRate: parseFloat(
+      import.meta.env.VITE_SENTRY_REPLAYS_ON_ERROR_SAMPLE_RATE || '0'
+    ),
   });
 }
 

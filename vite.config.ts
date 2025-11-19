@@ -9,9 +9,7 @@ export default ({ mode }: any) => {
   // Load app-level env vars to node-level env vars.
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
   return defineConfig({
-    define: {
-      'process.env': process.env,
-    },
+    envPrefix: 'VITE_',
     plugins: [react(), eslint(), viteTsconfigPaths()],
     server: {
       open: true, // automatically open the app in the browser
@@ -27,6 +25,7 @@ export default ({ mode }: any) => {
     },
     build: {
       outDir: 'build',
+      sourcemap: true,
     },
     // optimizeDeps: {
     //   force: true,
