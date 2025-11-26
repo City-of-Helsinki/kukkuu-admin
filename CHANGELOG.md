@@ -2,6 +2,20 @@
 
 # Change Log
 
+## [4.1.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.6...kukkuu-admin-v4.1.0) (2025-11-26)
+
+
+### Features
+
+* Add csp report-uri Ref: KK-1477 ([7dc2e0b](https://github.com/City-of-Helsinki/kukkuu-admin/commit/7dc2e0bc056efd1f232344dcb546813fa842b232))
+* Enable cloud Sentry Ref: KK-1477 ([4f4482f](https://github.com/City-of-Helsinki/kukkuu-admin/commit/4f4482ff7811f09038e2a1bc522dfaba5fb8adab))
+* Generate sourcemaps Ref: KK-1477 ([4f4482f](https://github.com/City-of-Helsinki/kukkuu-admin/commit/4f4482ff7811f09038e2a1bc522dfaba5fb8adab))
+
+
+### Bug Fixes
+
+* Use correct release variable Ref: KK-1477 ([c881109](https://github.com/City-of-Helsinki/kukkuu-admin/commit/c881109058ac9c9232aa5929494803b70a797e74))
+
 ## [4.0.6](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.5...kukkuu-admin-v4.0.6) (2025-10-24)
 
 ### Dependencies
