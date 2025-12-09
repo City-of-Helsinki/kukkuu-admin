@@ -2,6 +2,14 @@
 
 # Change Log
 
+## [4.1.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.1.0...kukkuu-admin-v4.1.1) (2025-12-09)
+
+
+### Dependencies
+
+* Bump jws from 3.2.2 to 3.2.3 ([91e29a6](https://github.com/City-of-Helsinki/kukkuu-admin/commit/91e29a637458f939097c63bba2f07d4fa1a1e86b))
+* Upgrade jsonwebtoken to 9.0.3 ([19e6f18](https://github.com/City-of-Helsinki/kukkuu-admin/commit/19e6f186030b6c7055b61d87adaeaa09126160db))
+
 ## [4.1.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.6...kukkuu-admin-v4.1.0) (2025-11-26)
 
 
