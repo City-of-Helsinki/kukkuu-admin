@@ -2,6 +2,18 @@
 
 # Change Log
 
+## [4.2.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.1.1...kukkuu-admin-v4.2.0) (2026-01-09)
+
+
+### Features
+
+* Yarn install hardening RATY-280 ([b522a60](https://github.com/City-of-Helsinki/kukkuu-admin/commit/b522a6048da5436a74c8417551561013ffe7d862))
+
+
+### Bug Fixes
+
+* Testcafe disable local network checks ([4a6ecda](https://github.com/City-of-Helsinki/kukkuu-admin/commit/4a6ecda479b9e33588899c217e774a4e88d29280))
+
 ## [4.1.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.1.0...kukkuu-admin-v4.1.1) (2025-12-09)
 
 
