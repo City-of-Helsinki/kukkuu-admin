@@ -2,6 +2,13 @@
 
 # Change Log
 
+## [4.2.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.2.0...kukkuu-admin-v4.2.1) (2026-01-27)
+
+
+### Dependencies
+
+* Bump lodash from 4.17.21 to 4.17.23 ([f7c24a4](https://github.com/City-of-Helsinki/kukkuu-admin/commit/f7c24a4561c61b6ca305ee238c655ef1b34a77d2))
+
 ## [4.2.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.1.1...kukkuu-admin-v4.2.0) (2026-01-09)
 
 
