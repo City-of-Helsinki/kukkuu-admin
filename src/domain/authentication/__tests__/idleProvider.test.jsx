@@ -1,3 +1,4 @@
+/* eslint-disable @vitest/no-conditional-expect */
 import { MessageChannel } from 'worker_threads';
 
 import React from 'react';
