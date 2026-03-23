@@ -2,6 +2,14 @@
 
 # Change Log
 
+## [4.2.3](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.2.2...kukkuu-admin-v4.2.3) (2026-03-23)
+
+
+### Dependencies
+
+* Bump eslint plugins Refs: RATY-299 ([9697b05](https://github.com/City-of-Helsinki/kukkuu-admin/commit/9697b05e8dcb7f9af6298879b8e15eff4002914a))
+* Bump flatted from 3.4.1 to 3.4.2 ([96eb4ef](https://github.com/City-of-Helsinki/kukkuu-admin/commit/96eb4ef95a7d3b35e4e91108cfba1f2b2cd1a6bf))
+
 ## [4.2.2](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.2.1...kukkuu-admin-v4.2.2) (2026-03-16)
 
 
