@@ -16,6 +16,7 @@ const getWrapper = (props) =>
   );
 
 // FIXME: KK-1017. Skipped as quite needless.
+// eslint-disable-next-line @vitest/no-disabled-tests
 describe.skip('<MessageForm />', () => {
   // eslint-disable-next-line max-len
   it('should not show event select unless the user has chosen some other recipient count than all or invited', async () => {
