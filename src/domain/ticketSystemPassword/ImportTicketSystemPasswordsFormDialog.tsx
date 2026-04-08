@@ -19,8 +19,9 @@ const styles = createStyles({
   },
 });
 
-interface ImportTicketSystemPasswordsModalProps
-  extends WithStyles<typeof styles> {
+interface ImportTicketSystemPasswordsModalProps extends WithStyles<
+  typeof styles
+> {
   isOpen: boolean;
   onClose: () => void;
   record: AdminEvent;

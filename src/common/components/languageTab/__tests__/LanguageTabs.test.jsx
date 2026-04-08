@@ -36,14 +36,23 @@ describe('LanguageTabs', () => {
   });
 
   it('renders correctly', () => {
-    const { container } = render(<LanguageTabs />);
-    expect(container).toMatchSnapshot();
+    render(<LanguageTabs />);
+    expect(screen.getByRole('tablist')).toBeInTheDocument();
+
+    const selectedTab = screen.getByRole('tab', {
+      name: 'languages.en',
+      selected: true,
+    });
+    expect(selectedTab).toHaveAttribute('aria-selected', 'true');
   });
 
   it('renders the correct number of tabs', () => {
     render(<LanguageTabs />);
     const tabs = screen.getAllByRole('tab');
     expect(tabs.length).toBe(mockLanguages.length);
+    expect(mockTranslate).toHaveBeenCalledWith('languages.en');
+    expect(mockTranslate).toHaveBeenCalledWith('languages.fi');
+    expect(mockTranslate).toHaveBeenCalledWith('languages.sv');
   });
 
   it('calls selectLanguage when a tab is clicked', () => {

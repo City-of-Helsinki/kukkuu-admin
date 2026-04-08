@@ -1,7 +1,7 @@
 import { MessageChannel } from 'worker_threads';
 
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import { render, cleanup, screen } from '@testing-library/react';
 
 import App, { getReactAdminResources } from '../App';
 import dataProvider from '../../../api/dataProvider';
@@ -60,8 +60,8 @@ test('renders without crashing', () => {
     },
   });
 
-  const { container } = render(<App />);
-  expect(container).toMatchSnapshot();
+  render(<App />);
+  expect(screen.getByText(/kulttuurin kummilapset admin/i)).toBeInTheDocument();
 });
 
 describe('getReactAdminResources', () => {
@@ -69,10 +69,19 @@ describe('getReactAdminResources', () => {
     'events-and-event-groups',
     'events',
     'venues',
+    'children',
     'occurrences',
     'messages',
     'event-groups',
-    'children',
+  ];
+
+  const resourceNamesWithoutChildren = [
+    'events-and-event-groups',
+    'events',
+    'venues',
+    'occurrences',
+    'messages',
+    'event-groups',
   ];
 
   const adminPermissionsBase: Permissions = {
@@ -104,8 +113,18 @@ describe('getReactAdminResources', () => {
     });
 
     expect(resources.length).toBe(allResourceNames.length);
-    expect(resources.map((r) => r.name).includes('children')).toBe(true);
-    expect(resources).toMatchSnapshot();
+    expect(resources.map((r) => r.name)).toEqual(allResourceNames);
+
+    const eventResource = resources.find((r) => r.name === 'events');
+    expect(eventResource).toBeDefined();
+    expect(eventResource?.create).toBeDefined();
+    expect(eventResource?.edit).toBeDefined();
+    expect(eventResource?.show).toBeDefined();
+
+    const childrenResource = resources.find((r) => r.name === 'children');
+    expect(childrenResource).toBeDefined();
+    expect(childrenResource?.list).toBeDefined();
+    expect(childrenResource?.show).toBeDefined();
   });
 
   it('should hide the children resource when user does not have canViewFamiliesWithinProject permission', () => {
@@ -113,7 +132,8 @@ describe('getReactAdminResources', () => {
       ...adminPermissionsBase,
       canViewFamiliesWithinProject: (projectId?: string) => false,
     });
-    expect(resources.length).toBe(allResourceNames.length - 1);
-    expect(resources.map((r) => r.name).includes('children')).toBe(false);
+    expect(resources.length).toBe(resourceNamesWithoutChildren.length);
+    expect(resources.map((r) => r.name)).toEqual(resourceNamesWithoutChildren);
+    expect(resources.find((r) => r.name === 'children')).toBeUndefined();
   });
 });
