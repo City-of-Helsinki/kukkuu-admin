@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { AdminContext, SimpleForm } from 'react-admin';
 
 import OccurrenceArraySelect, {
@@ -12,21 +12,20 @@ describe('<OccurrenceArraySelect />', () => {
   it('should render without errors', () => {
     vi.spyOn(global.console, 'error').mockImplementationOnce(() => null);
 
-    expect(
-      render(
-        <AdminContext
-          initialState={{ admin: { resources: { occurrences: { data: {} } } } }}
-        >
-          <SimpleForm>
-            <OccurrenceArraySelect
-              allText="allText"
-              eventId="1"
-              source="event"
-            />
-          </SimpleForm>
-        </AdminContext>
-      )
-    ).toMatchSnapshot();
+    render(
+      <AdminContext
+        initialState={{ admin: { resources: { occurrences: { data: {} } } } }}
+      >
+        <SimpleForm>
+          <OccurrenceArraySelect allText="allText" eventId="1" source="event" />
+        </SimpleForm>
+      </AdminContext>
+    );
+
+    const inputs = screen.getAllByTestId('selectArray');
+    expect(inputs.length).toBeGreaterThan(0);
+    expect(inputs[0]).toBeInTheDocument();
+    expect(screen.getByRole('button')).toBeInTheDocument();
   });
 });
 

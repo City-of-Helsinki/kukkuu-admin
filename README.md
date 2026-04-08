@@ -188,7 +188,6 @@ If you're using a local Kukkuu API backend (`VITE_API_URI=http://localhost:8081/
 1. **Start the backend:** Ensure your local Kukkuu API backend is running.
 
 2. **Access the Django admin interface:**
-
    - Open the Django admin interface: http://localhost:8081/admin/
    - Log in with the default credentials: username `admin`, password `admin`. If you don't have an admin user yet, you can create one with `python manage.py createsuperuser`.
 
@@ -203,12 +202,10 @@ You should now be able to log in to Kukkuu-admin with that user.
 If you're using the test environment's backend (`VITE_API_URI=https://kukkuu.api.test.hel.ninja/graphql`), you'll need to grant superuser privileges to your user account. Here's how:
 
 1. **Obtain Django admin credentials:**
-
    - Contact the administrator of the test environment's backend to get the credentials to its Django admin **or**
    - If you have access to the [backend pod in OpenShift](https://console-openshift-console.apps.arodevtest.hel.fi/k8s/ns/hki-kuva-kukkuu-test/pods?name=kukkuu-api&orderBy=desc&sortBy=Status&rowFilter-pod-status=Running), you can create a superuser by running `python manage.py createsuperuser` in the pod's terminal.
 
 2. **Access the Django admin interface:**
-
    - Open the Django admin interface for the test environment's backend at https://kukkuu.api.test.hel.ninja/admin
    - Log in using the credentials from step 1.
 

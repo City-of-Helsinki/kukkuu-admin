@@ -52,7 +52,7 @@ const useResolveEditPermission = () => {
   );
   const rejectIfForAll = Boolean(
     record?.recipientSelection?.toUpperCase() === RecipientSelectionEnum.All &&
-      !canSendMessagesToAllRecipientsWithinProject
+    !canSendMessagesToAllRecipientsWithinProject
   );
   // Record (message) available,
   // the message is for current active project and
