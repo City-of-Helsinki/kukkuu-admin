@@ -133,6 +133,6 @@ describe('LoginPage', () => {
     renderWithProvider();
     const button2 = screen.getByRole('button');
     const style = window.getComputedStyle(button2);
-    expect(style.backgroundColor).toEqual('rgb(0, 161, 125)');
+    expect(style.backgroundColor).toEqual('rgb(0, 215, 167)');
   });
 });

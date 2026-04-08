@@ -4,60 +4,52 @@
 
 ## [4.2.3](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.2.2...kukkuu-admin-v4.2.3) (2026-03-23)
 
-
 ### Dependencies
 
-* Bump eslint plugins Refs: RATY-299 ([9697b05](https://github.com/City-of-Helsinki/kukkuu-admin/commit/9697b05e8dcb7f9af6298879b8e15eff4002914a))
-* Bump flatted from 3.4.1 to 3.4.2 ([96eb4ef](https://github.com/City-of-Helsinki/kukkuu-admin/commit/96eb4ef95a7d3b35e4e91108cfba1f2b2cd1a6bf))
+- Bump eslint plugins Refs: RATY-299 ([9697b05](https://github.com/City-of-Helsinki/kukkuu-admin/commit/9697b05e8dcb7f9af6298879b8e15eff4002914a))
+- Bump flatted from 3.4.1 to 3.4.2 ([96eb4ef](https://github.com/City-of-Helsinki/kukkuu-admin/commit/96eb4ef95a7d3b35e4e91108cfba1f2b2cd1a6bf))
 
 ## [4.2.2](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.2.1...kukkuu-admin-v4.2.2) (2026-03-16)
 
-
 ### Dependencies
 
-* Bump axios from 1.12.0 to 1.13.5 ([6c28da1](https://github.com/City-of-Helsinki/kukkuu-admin/commit/6c28da1ca38f0313fed6a9cfbfe2a1206ccb93fe))
-* Bump flatted from 3.3.2 to 3.4.1 ([8baed2b](https://github.com/City-of-Helsinki/kukkuu-admin/commit/8baed2bd38b6993979f26833be508a72e88807b6))
+- Bump axios from 1.12.0 to 1.13.5 ([6c28da1](https://github.com/City-of-Helsinki/kukkuu-admin/commit/6c28da1ca38f0313fed6a9cfbfe2a1206ccb93fe))
+- Bump flatted from 3.3.2 to 3.4.1 ([8baed2b](https://github.com/City-of-Helsinki/kukkuu-admin/commit/8baed2bd38b6993979f26833be508a72e88807b6))
 
 ## [4.2.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.2.0...kukkuu-admin-v4.2.1) (2026-01-27)
 
-
 ### Dependencies
 
-* Bump lodash from 4.17.21 to 4.17.23 ([f7c24a4](https://github.com/City-of-Helsinki/kukkuu-admin/commit/f7c24a4561c61b6ca305ee238c655ef1b34a77d2))
+- Bump lodash from 4.17.21 to 4.17.23 ([f7c24a4](https://github.com/City-of-Helsinki/kukkuu-admin/commit/f7c24a4561c61b6ca305ee238c655ef1b34a77d2))
 
 ## [4.2.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.1.1...kukkuu-admin-v4.2.0) (2026-01-09)
 
-
 ### Features
 
-* Yarn install hardening RATY-280 ([b522a60](https://github.com/City-of-Helsinki/kukkuu-admin/commit/b522a6048da5436a74c8417551561013ffe7d862))
-
+- Yarn install hardening RATY-280 ([b522a60](https://github.com/City-of-Helsinki/kukkuu-admin/commit/b522a6048da5436a74c8417551561013ffe7d862))
 
 ### Bug Fixes
 
-* Testcafe disable local network checks ([4a6ecda](https://github.com/City-of-Helsinki/kukkuu-admin/commit/4a6ecda479b9e33588899c217e774a4e88d29280))
+- Testcafe disable local network checks ([4a6ecda](https://github.com/City-of-Helsinki/kukkuu-admin/commit/4a6ecda479b9e33588899c217e774a4e88d29280))
 
 ## [4.1.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.1.0...kukkuu-admin-v4.1.1) (2025-12-09)
 
-
 ### Dependencies
 
-* Bump jws from 3.2.2 to 3.2.3 ([91e29a6](https://github.com/City-of-Helsinki/kukkuu-admin/commit/91e29a637458f939097c63bba2f07d4fa1a1e86b))
-* Upgrade jsonwebtoken to 9.0.3 ([19e6f18](https://github.com/City-of-Helsinki/kukkuu-admin/commit/19e6f186030b6c7055b61d87adaeaa09126160db))
+- Bump jws from 3.2.2 to 3.2.3 ([91e29a6](https://github.com/City-of-Helsinki/kukkuu-admin/commit/91e29a637458f939097c63bba2f07d4fa1a1e86b))
+- Upgrade jsonwebtoken to 9.0.3 ([19e6f18](https://github.com/City-of-Helsinki/kukkuu-admin/commit/19e6f186030b6c7055b61d87adaeaa09126160db))
 
 ## [4.1.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.6...kukkuu-admin-v4.1.0) (2025-11-26)
 
-
 ### Features
 
-* Add csp report-uri Ref: KK-1477 ([7dc2e0b](https://github.com/City-of-Helsinki/kukkuu-admin/commit/7dc2e0bc056efd1f232344dcb546813fa842b232))
-* Enable cloud Sentry Ref: KK-1477 ([4f4482f](https://github.com/City-of-Helsinki/kukkuu-admin/commit/4f4482ff7811f09038e2a1bc522dfaba5fb8adab))
-* Generate sourcemaps Ref: KK-1477 ([4f4482f](https://github.com/City-of-Helsinki/kukkuu-admin/commit/4f4482ff7811f09038e2a1bc522dfaba5fb8adab))
-
+- Add csp report-uri Ref: KK-1477 ([7dc2e0b](https://github.com/City-of-Helsinki/kukkuu-admin/commit/7dc2e0bc056efd1f232344dcb546813fa842b232))
+- Enable cloud Sentry Ref: KK-1477 ([4f4482f](https://github.com/City-of-Helsinki/kukkuu-admin/commit/4f4482ff7811f09038e2a1bc522dfaba5fb8adab))
+- Generate sourcemaps Ref: KK-1477 ([4f4482f](https://github.com/City-of-Helsinki/kukkuu-admin/commit/4f4482ff7811f09038e2a1bc522dfaba5fb8adab))
 
 ### Bug Fixes
 
-* Use correct release variable Ref: KK-1477 ([c881109](https://github.com/City-of-Helsinki/kukkuu-admin/commit/c881109058ac9c9232aa5929494803b70a797e74))
+- Use correct release variable Ref: KK-1477 ([c881109](https://github.com/City-of-Helsinki/kukkuu-admin/commit/c881109058ac9c9232aa5929494803b70a797e74))
 
 ## [4.0.6](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.0.5...kukkuu-admin-v4.0.6) (2025-10-24)
 

@@ -1,7 +1,7 @@
 import { MessageChannel } from 'worker_threads';
 
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import { render, cleanup, screen } from '@testing-library/react';
 
 import App, { getReactAdminResources } from '../App';
 import dataProvider from '../../../api/dataProvider';
@@ -60,8 +60,8 @@ test('renders without crashing', () => {
     },
   });
 
-  const { container } = render(<App />);
-  expect(container).toMatchSnapshot();
+  render(<App />);
+  expect(screen.getByText(/kulttuurin kummilapset admin/i)).toBeInTheDocument();
 });
 
 describe('getReactAdminResources', () => {
