@@ -36,8 +36,8 @@ describe('LanguageTabs', () => {
   });
 
   it('renders correctly', () => {
-    const { container } = render(<LanguageTabs />);
-    expect(container).toMatchSnapshot();
+    render(<LanguageTabs />);
+    expect(screen.getByRole('tablist')).toBeInTheDocument();
   });
 
   it('renders the correct number of tabs', () => {

@@ -68,8 +68,9 @@ const AddOccurrenceButton = withStyles(styles)(({
   );
 });
 
-interface ImportTicketSystemPasswordsButtonProps
-  extends WithStyles<typeof styles> {
+interface ImportTicketSystemPasswordsButtonProps extends WithStyles<
+  typeof styles
+> {
   onClick: () => void;
 }
 

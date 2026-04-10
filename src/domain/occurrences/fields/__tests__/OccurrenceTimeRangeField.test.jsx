@@ -70,12 +70,12 @@ describe('OccurrenceTimeRangeField', () => {
   });
 
   it('displays the startTime when duration does not exist', () => {
-    render(
+    (render(
       <RecordContext.Provider value={occurrenceWithoutDuration}>
         <OccurrenceTimeRangeField />
       </RecordContext.Provider>
     ),
-      { wrapper: ProviderWrapper };
+      { wrapper: ProviderWrapper });
     expect(screen.getByText('10.00 -')).toBeInTheDocument();
   });
 
