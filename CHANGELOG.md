@@ -2,6 +2,13 @@
 
 # Change Log
 
+## [4.2.5](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.2.4...kukkuu-admin-v4.2.5) (2026-04-23)
+
+
+### Dependencies
+
+* Bump follow-redirects from 1.15.11 to 1.16.0 ([ec53e69](https://github.com/City-of-Helsinki/kukkuu-admin/commit/ec53e69e268ed40fe76059641b43ba3bdea74153))
+
 ## [4.2.4](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.2.3...kukkuu-admin-v4.2.4) (2026-04-15)
 
 
