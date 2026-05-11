@@ -2,6 +2,16 @@
 
 # Change Log
 
+## [4.2.6](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.2.5...kukkuu-admin-v4.2.6) (2026-05-11)
+
+
+### Dependencies
+
+* Bump @babel/plugin-transform-modules-systemjs ([1e3f286](https://github.com/City-of-Helsinki/kukkuu-admin/commit/1e3f2866726349dd5706f76a25f3afff635247a9))
+* Bump axios from 1.15.0 to 1.15.2 ([adf5e91](https://github.com/City-of-Helsinki/kukkuu-admin/commit/adf5e914a006614951c741d6937ee3830db24b6b))
+* Bump fast-uri from 3.1.0 to 3.1.2 ([96c7236](https://github.com/City-of-Helsinki/kukkuu-admin/commit/96c7236ba1f0f2e1d63e540b85fa77fe923079e2))
+* Bump postcss from 8.5.9 to 8.5.14 ([8a7a355](https://github.com/City-of-Helsinki/kukkuu-admin/commit/8a7a3555f8159ca2ceb2461d64f1483802077d4e))
+
 ## [4.2.5](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.2.4...kukkuu-admin-v4.2.5) (2026-04-23)
 
 
