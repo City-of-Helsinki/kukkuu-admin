@@ -22,6 +22,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+yarn.lock
+.yarn/
+.yarnrc.yml
 
 # browser test screenshots
 screenshots
