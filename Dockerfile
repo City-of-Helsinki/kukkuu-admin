@@ -2,10 +2,11 @@
 FROM registry.access.redhat.com/ubi9/nodejs-20 AS appbase
 # ===============================================
 
-# install yarn
+# install pnpm via corepack into a shared location so non-root users can use it
 USER root
-RUN curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo
-RUN yum -y install yarn
+ENV COREPACK_HOME=/usr/local/share/corepack
+RUN corepack enable && corepack prepare pnpm@11.5.0 --activate \
+    && chmod -R a+rX "$COREPACK_HOME"
 
 WORKDIR /app
 
@@ -21,17 +22,13 @@ ENV NODE_ENV $NODE_ENV
 ENV NPM_CONFIG_PREFIX=/app/.npm-global
 ENV PATH=$PATH:/app/.npm-global/bin
 
-# Yarn
-ENV YARN_VERSION 1.22.22
-RUN yarn policies set-version ${YARN_VERSION}
+# Copy dependency manifests
+COPY --chown=default:root package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
-# Copy package.json and package-lock.json/yarn.lock files
-COPY --chown=default:root package*.json *yarn* ./
-
-# Install npm dependencies
+# Install dependencies
 ENV PATH /app/node_modules/.bin:$PATH
 
-RUN yarn install --frozen-lockfile --ignore-scripts && yarn cache clean --force
+RUN pnpm install --frozen-lockfile --ignore-scripts && pnpm store prune
 
 # =============================
 FROM appbase AS development
@@ -52,7 +49,7 @@ ENV CHOKIDAR_USEPOLLING=${CHOKIDAR_USEPOLLING}
 COPY --chown=default:root . .
 
 # Bake package.json start command into the image
-CMD ["yarn", "start", "--no-open", "--host"]
+CMD ["pnpm", "start", "--no-open", "--host"]
 
 # ===================================
 FROM appbase AS staticbuilder
@@ -93,13 +90,13 @@ ENV VITE_BUILDTIME=${VITE_BUILDTIME:-""}
 ENV VITE_RELEASE=${VITE_SENTRY_RELEASE:-""}
 ENV VITE_COMMITHASH=${VITE_COMMITHASH:-""}
 COPY .prod/nginx.conf.template /tmp/.prod/nginx.conf.template
-RUN export APP_VERSION=$(yarn --silent app:version) && \
+RUN export APP_VERSION=$(pnpm --silent app:version) && \
     envsubst '${APP_VERSION},${VITE_BUILDTIME},${VITE_RELEASE},${VITE_COMMITHASH}' < \
     "/tmp/.prod/nginx.conf.template" > \
     "/tmp/.prod/nginx.conf"
 
 COPY . /app
-RUN yarn build
+RUN pnpm build
 
 # =============================
 FROM registry.access.redhat.com/ubi9/nginx-122 AS production
