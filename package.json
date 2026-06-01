@@ -4,8 +4,10 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=20.19"
+    "node": ">=20.19",
+    "pnpm": ">=11.5.0"
   },
+  "packageManager": "pnpm@11.5.0",
   "scripts": {
     "app:version": "echo \"$npm_package_version\"",
     "start": "vite",
@@ -17,7 +19,7 @@
     "test:staged": "cross-env TZ=Europe/Helsinki vitest related --run",
     "test:watch": "cross-env TZ=Europe/Helsinki vitest",
     "lint": "eslint --ext js,jsx,ts,tsx,cjs,mjs .",
-    "format:code": "yarn lint --fix",
+    "format:code": "pnpm lint --fix",
     "format:markup": "prettier --config .prettierrc.json --write \"./**/*.{html,json,css,scss,md,mdx}\"",
     "generate:graphql": "cross-env DOTENV_CONFIG_PATH=./.env graphql-codegen -r dotenv/config --config ./codegen.ts",
     "test:browser": "testcafe \"chrome --window-size='1920,1080' --disable-features=LocalNetworkAccessChecks --disable-search-engine-choice-screen\" browser-tests/ --live",
@@ -45,6 +47,7 @@
     "@mui/icons-material": "^5.14.11",
     "@mui/lab": "^5.0.0-alpha.146",
     "@mui/material": "^5.14.11",
+    "@mui/styled-engine": "^5.14.11",
     "@mui/styles": "^5.14.11",
     "@nabla/vite-plugin-eslint": "^3.0.1",
     "@sentry/browser": "^10.25.0",
@@ -59,8 +62,6 @@
     "@types/node": "^20.7.1",
     "@types/react": "^18.2.23",
     "@types/react-dom": "^18.2.8",
-    "@types/react-router": "^5.1.20",
-    "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/eslint-plugin": "^8.57.1",
     "@typescript-eslint/parser": "^8.57.1",
     "@vitejs/plugin-react": "^6.0.0",
@@ -85,20 +86,27 @@
     "graphql": "^16.8.1",
     "history": "^5.3.0",
     "jsonwebtoken": "^9.0.3",
+    "lodash": "^4.18.1",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.43",
     "oidc-client-ts": "^3.0.1",
     "prettier": "^3.4.2",
     "prop-types": "^15.8.1",
     "query-string": "^8.1.0",
+    "ra-core": "^4.16.10",
     "ra-data-fakerest": "^4.14.3",
+    "ra-i18n-polyglot": "^4.16.10",
     "ra-language-english": "^4.14.3",
     "ra-language-finnish": "^4.13.0",
     "ra-language-swedish": "^1.0.0",
     "react": "^18.2.0",
     "react-admin": "^4.16.10",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
     "react-idle-timer": "^5.7.2",
+    "react-query": "^3.39.3",
+    "react-router": "^6.30.3",
+    "react-router-dom": "^6.30.3",
     "typescript": "<5.4.0",
     "vite": "8.0.13",
     "vitest": "^4.1.0",
@@ -123,10 +131,5 @@
     "lint-staged": "^15.4.3",
     "testcafe": "^3.7.1",
     "testcafe-reporter-html": "^1.4.6"
-  },
-  "resolutions": {
-    "@types/minimatch": "^5.1.2",
-    "lodash": "^4.18.1",
-    "underscore": "^1.13.8"
   }
 }
