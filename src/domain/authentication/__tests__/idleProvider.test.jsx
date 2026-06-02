@@ -7,15 +7,11 @@ import { render, cleanup, fireEvent } from '@testing-library/react';
 import authService from '../authService';
 import IdleTimer from '../IdleTimer';
 
-const originalEnv = import.meta.env;
 const navigateMock = vi.fn();
 const VITE_IDLE_TIMEOUT_IN_MS = 1000 * 60 * 60;
 beforeEach(() => {
   global.MessageChannel = MessageChannel;
-  import.meta.env = {
-    ...originalEnv,
-    VITE_IDLE_TIMEOUT_IN_MS,
-  };
+  vi.stubEnv('VITE_IDLE_TIMEOUT_IN_MS', String(VITE_IDLE_TIMEOUT_IN_MS));
   vi.useFakeTimers();
   Object.defineProperty(window, 'location', {
     value: {
@@ -26,7 +22,7 @@ beforeEach(() => {
 
 afterEach(() => {
   cleanup();
-  import.meta.env = originalEnv;
+  vi.unstubAllEnvs();
   vi.useRealTimers();
   vi.clearAllMocks();
 });

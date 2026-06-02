@@ -32,6 +32,7 @@ report
 .env.development
 .env.production
 
+.eslintcache
 sonar-report.json
 
 sonar-report.xml
