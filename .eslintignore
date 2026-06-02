@@ -1,2 +1,4 @@
 src/domain/api/generatedTypes/graphql.tsx
 build/*
+public/env-config.js
+public/test-env-config.js
