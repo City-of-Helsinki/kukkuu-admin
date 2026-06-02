@@ -93,7 +93,7 @@ This project is built using the following key frameworks and libraries:
 
 Compatibility defined by [Dockerfile](./Dockerfile):
 
-- Node.js 20.x
+- Node.js 24.x
 - pnpm (managed via [Corepack](https://nodejs.org/api/corepack.html); version pinned in `package.json`'s `packageManager` field — run `corepack enable` to activate it)
 
 ### Getting started

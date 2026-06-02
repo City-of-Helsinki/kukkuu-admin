@@ -1,3 +1,5 @@
+import { getEnvValue } from '../../common/utils/envUtils';
+
 /**
  * Centralized application configuration fetched from environment variables.
  *
@@ -13,7 +15,7 @@ class AppConfig {
    * @throws {Error} If the `VITE_API_URI` environment variable is not defined.
    */
   static get apiUrl() {
-    return getEnvOrError(import.meta.env.VITE_API_URI, 'VITE_API_URI');
+    return getEnvOrError(getEnvValue('VITE_API_URI'), 'VITE_API_URI');
   }
 
   /**
@@ -22,7 +24,7 @@ class AppConfig {
    */
   static get oidcAuthority() {
     const origin = getEnvOrError(
-      import.meta.env.VITE_OIDC_AUTHORITY,
+      getEnvValue('VITE_OIDC_AUTHORITY'),
       'VITE_OIDC_AUTHORITY'
     );
     return new URL(origin).href;
@@ -37,7 +39,7 @@ class AppConfig {
    * VITE_OIDC_AUDIENCES='audience1 audience2'
    */
   static get oidcAudience() {
-    return import.meta.env.VITE_OIDC_AUDIENCES;
+    return getEnvValue('VITE_OIDC_AUDIENCES');
   }
 
   /**
@@ -46,7 +48,7 @@ class AppConfig {
    */
   static get oidcClientId() {
     return getEnvOrError(
-      import.meta.env.VITE_OIDC_CLIENT_ID,
+      getEnvValue('VITE_OIDC_CLIENT_ID'),
       'VITE_OIDC_CLIENT_ID'
     );
   }
@@ -56,7 +58,7 @@ class AppConfig {
    * @throws {Error} If the `VITE_OIDC_SCOPE` environment variable is not defined.
    */
   static get oidcScope() {
-    return getEnvOrError(import.meta.env.VITE_OIDC_SCOPE, 'VITE_OIDC_SCOPE,');
+    return getEnvOrError(getEnvValue('VITE_OIDC_SCOPE'), 'VITE_OIDC_SCOPE,');
   }
 
   /**
@@ -69,7 +71,7 @@ class AppConfig {
    */
   static get oidcReturnType() {
     // "code" for authorization code flow.
-    return import.meta.env.VITE_OIDC_RETURN_TYPE ?? 'code';
+    return getEnvValue('VITE_OIDC_RETURN_TYPE') ?? 'code';
   }
 
   /**
@@ -83,7 +85,7 @@ class AppConfig {
    */
   static get oidcKukkuuApiClientId() {
     return (
-      import.meta.env.VITE_OIDC_KUKKUU_API_CLIENT_ID ?? this.oidcKukkuuAPIScope
+      getEnvValue('VITE_OIDC_KUKKUU_API_CLIENT_ID') ?? this.oidcKukkuuAPIScope
     );
   }
 
@@ -113,7 +115,7 @@ class AppConfig {
    */
   static get oidcKukkuuAPIScope() {
     return getEnvOrError(
-      import.meta.env.VITE_KUKKUU_API_OIDC_SCOPE,
+      getEnvValue('VITE_KUKKUU_API_OIDC_SCOPE'),
       'VITE_KUKKUU_API_OIDC_SCOPE'
     );
   }
@@ -128,8 +130,7 @@ class AppConfig {
    *                or has an invalid value (not 'KEYCLOAK' or 'TUNNISTAMO').
    */
   static get oidcServerType(): 'KEYCLOAK' | 'TUNNISTAMO' {
-    const oidcServerType =
-      import.meta.env.VITE_OIDC_SERVER_TYPE ?? 'TUNNISTAMO';
+    const oidcServerType = getEnvValue('VITE_OIDC_SERVER_TYPE') ?? 'TUNNISTAMO';
     if (oidcServerType === 'KEYCLOAK' || oidcServerType === 'TUNNISTAMO') {
       return oidcServerType;
     }
@@ -142,7 +143,7 @@ class AppConfig {
    * */
   static get oidcAutomaticSilentRenew(): boolean {
     return Boolean(
-      import.meta.env.VITE_OIDC_AUTOMATIC_SILENT_RENEW_ENABLED ?? true
+      getEnvValue('VITE_OIDC_AUTOMATIC_SILENT_RENEW_ENABLED') ?? true
     );
   }
 
@@ -152,7 +153,7 @@ class AppConfig {
    * */
   static get oidcSessionPollerIntervalInMs(): number {
     return (
-      Number(import.meta.env.VITE_OIDC_SESSION_POLLING_INTERVAL_MS) || 60000
+      Number(getEnvValue('VITE_OIDC_SESSION_POLLING_INTERVAL_MS')) || 60000
     );
   }
 
@@ -161,7 +162,7 @@ class AppConfig {
    * Defaults to 60 minutes.
    * */
   static get userIdleTimeoutInMs(): number {
-    return Number(import.meta.env.VITE_IDLE_TIMEOUT_IN_MS) || 3_600_000;
+    return Number(getEnvValue('VITE_IDLE_TIMEOUT_IN_MS')) || 3_600_000;
   }
 }
 
