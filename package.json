@@ -4,14 +4,15 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=20.19",
+    "node": ">=24.0.0",
     "pnpm": ">=11.5.0"
   },
   "packageManager": "pnpm@11.5.0",
   "scripts": {
     "app:version": "echo \"$npm_package_version\"",
-    "start": "vite",
-    "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 tsc && vite build",
+    "update-runtime-env": "tsx --tsconfig ./scripts/tsconfig.json scripts/update-runtime-env.ts",
+    "start": "pnpm update-runtime-env && vite",
+    "build": "pnpm update-runtime-env && cross-env NODE_OPTIONS=--max-old-space-size=8192 tsc && vite build",
     "serve": "vite preview",
     "typecheck": "tsc",
     "test": "cross-env TZ=Europe/Helsinki vitest run",
@@ -59,7 +60,7 @@
     "@types/dotenv": "^8.2.3",
     "@types/history": "^5.0.0",
     "@types/lodash": "^4.14.199",
-    "@types/node": "^20.7.1",
+    "@types/node": "^24.0.0",
     "@types/react": "^18.2.23",
     "@types/react-dom": "^18.2.8",
     "@typescript-eslint/eslint-plugin": "^8.57.1",
@@ -130,6 +131,7 @@
     "jsdom": "^25.0.1",
     "lint-staged": "^15.4.3",
     "testcafe": "^3.7.1",
-    "testcafe-reporter-html": "^1.4.6"
+    "testcafe-reporter-html": "^1.4.6",
+    "tsx": "^4.22.0"
   }
 }
