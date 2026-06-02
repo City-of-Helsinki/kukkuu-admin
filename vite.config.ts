@@ -2,7 +2,6 @@ import path from 'path';
 
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
-import viteTsconfigPaths from 'vite-tsconfig-paths';
 import eslint from '@nabla/vite-plugin-eslint';
 
 export default ({ mode }: any) => {
@@ -10,7 +9,7 @@ export default ({ mode }: any) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
   return defineConfig({
     envPrefix: 'VITE_',
-    plugins: [react(), eslint(), viteTsconfigPaths()],
+    plugins: [react(), eslint()],
     server: {
       open: true, // automatically open the app in the browser
       port: parseInt(process.env.PORT ?? '3001'),
@@ -19,7 +18,14 @@ export default ({ mode }: any) => {
       port: parseInt(process.env.PORT ?? '3001'),
     },
     resolve: {
+      tsconfigPaths: true,
       alias: {
+        // Rolldown (Vite 8) doesn't auto-synthesize CJS default exports;
+        // redirect all @mui/icons-material sub-path imports to the ESM build.
+        '@mui/icons-material': path.resolve(
+          __dirname,
+          'node_modules/@mui/icons-material/esm'
+        ),
         screens: path.resolve(__dirname, './src/screens'),
       },
     },
