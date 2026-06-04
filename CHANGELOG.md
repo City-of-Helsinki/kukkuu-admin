@@ -2,6 +2,15 @@
 
 # Change Log
 
+## [4.2.7](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.2.6...kukkuu-admin-v4.2.7) (2026-06-04)
+
+
+### Dependencies
+
+* Bump axios from 1.15.2 to 1.16.0 ([79204b7](https://github.com/City-of-Helsinki/kukkuu-admin/commit/79204b728675752f05c470acc9b4e845b46c9dce))
+* Bump vitest from 3.2.4 to 4.1.0 ([885459e](https://github.com/City-of-Helsinki/kukkuu-admin/commit/885459ed1b46f84775f37f86101298d481a01860))
+* Vite 8 migration required for vitest ([43d1d0d](https://github.com/City-of-Helsinki/kukkuu-admin/commit/43d1d0d660b05727ed36049561db8176cb06f9b7))
+
 ## [4.2.6](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.2.5...kukkuu-admin-v4.2.6) (2026-05-11)
 
 
