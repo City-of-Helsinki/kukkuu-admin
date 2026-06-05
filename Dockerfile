@@ -14,12 +14,32 @@ ENV NODE_ENV=$NODE_ENV
 COPY --chown=default:root package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile --ignore-scripts && pnpm store prune
 
-# 2. Copy the rest of the source.
-COPY --chown=default:root . ./
-
-# 3. Generate a build-time public/env-config.js. Its *contents* are overwritten
+# 2. Generate a build-time public/env-config.js. Its *contents* are overwritten
 # at container start by the base image's env.sh with the real runtime values.
+# update-runtime-env only needs the script, the public/ output dir and the .env
+# key templates, so copy just those — editing src/ won't invalidate this layer.
+COPY --chown=default:root scripts ./scripts
+COPY --chown=default:root public ./public
+COPY --chown=default:root .env* ./
 RUN pnpm update-runtime-env
+
+# 3. Copy only the sources the production build (`tsc && vite build`) consumes.
+# tsconfig "include" is ["src"]; the build also reads these root configs — Vite
+# itself, the babel presets used by @vitejs/plugin-react, and the eslint/prettier
+# configs run by @nabla/vite-plugin-eslint. Tests, docs, codegen and other
+# tooling are intentionally left out (and also pruned via .dockerignore).
+COPY --chown=default:root \
+  index.html \
+  vite.config.ts \
+  tsconfig.json \
+  vite-env.d.ts \
+  .babelrc \
+  .eslintrc.cjs \
+  .eslintignore \
+  .prettierrc.json \
+  .prettierignore \
+  ./
+COPY --chown=default:root src ./src
 
 # ============================================================
 # STAGE 2: Development
