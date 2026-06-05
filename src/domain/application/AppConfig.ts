@@ -1,4 +1,4 @@
-import { getEnvValue } from '../../common/utils/envUtils';
+import { getEnvBoolean, getEnvValue } from '../../common/utils/envUtils';
 
 /**
  * Centralized application configuration fetched from environment variables.
@@ -58,7 +58,7 @@ class AppConfig {
    * @throws {Error} If the `VITE_OIDC_SCOPE` environment variable is not defined.
    */
   static get oidcScope() {
-    return getEnvOrError(getEnvValue('VITE_OIDC_SCOPE'), 'VITE_OIDC_SCOPE,');
+    return getEnvOrError(getEnvValue('VITE_OIDC_SCOPE'), 'VITE_OIDC_SCOPE');
   }
 
   /**
@@ -142,9 +142,7 @@ class AppConfig {
    * Defaults to true.
    * */
   static get oidcAutomaticSilentRenew(): boolean {
-    return Boolean(
-      getEnvValue('VITE_OIDC_AUTOMATIC_SILENT_RENEW_ENABLED') ?? true
-    );
+    return getEnvBoolean('VITE_OIDC_AUTOMATIC_SILENT_RENEW_ENABLED', true);
   }
 
   /**
