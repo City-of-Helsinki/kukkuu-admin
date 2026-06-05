@@ -50,3 +50,31 @@ export function getEnvValue(key: string): string | undefined {
 
   return undefined;
 }
+
+const TRUTHY_ENV_VALUES = new Set(['true', '1']);
+const FALSY_ENV_VALUES = new Set(['false', '0', '']);
+
+/**
+ * Parse an environment variable as a boolean.
+ *
+ * Env values always arrive as strings (see {@link getEnvValue}), so a plain
+ * `Boolean(value)` is wrong — any non-empty string, including `"false"` and
+ * `"0"`, would be truthy. This recognizes `"true"`/`"1"` as true and
+ * `"false"`/`"0"`/`""` as false (case-insensitive); anything else, or an unset
+ * variable, returns `defaultValue`.
+ */
+export function getEnvBoolean(key: string, defaultValue: boolean): boolean {
+  const value = getEnvValue(key);
+  if (value === undefined) {
+    return defaultValue;
+  }
+
+  const normalized = value.trim().toLowerCase();
+  if (TRUTHY_ENV_VALUES.has(normalized)) {
+    return true;
+  }
+  if (FALSY_ENV_VALUES.has(normalized)) {
+    return false;
+  }
+  return defaultValue;
+}
