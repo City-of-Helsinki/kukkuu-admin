@@ -1,4 +1,4 @@
-import { getEnvValue } from '../common/utils/envUtils';
+import { getEnvBoolean } from '../common/utils/envUtils';
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 class Config {
@@ -14,7 +14,7 @@ class Config {
   }
 
   static get IS_TEST_ENVIRONMENT() {
-    return Boolean(getEnvValue('VITE_IS_TEST_ENVIRONMENT'));
+    return getEnvBoolean('VITE_IS_TEST_ENVIRONMENT', false);
   }
 }
 
