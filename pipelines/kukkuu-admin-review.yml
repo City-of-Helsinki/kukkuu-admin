@@ -39,6 +39,7 @@ resources:
     # Azure DevOps repository
     - repository: kukkuu-pipelines
       type: git
+      ref: pnpm_KK-1539
       # Azure DevOps project/repository
       name: kukkuu/kukkuu-pipelines
 
