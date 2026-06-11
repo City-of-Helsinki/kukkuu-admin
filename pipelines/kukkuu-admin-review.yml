@@ -53,5 +53,15 @@ extends:
       # VITE_API_URI: 'https://kukkuu-local.api.dev.hel.ninja/graphql'
       VITE_API_URI: https://kukkuu.api.dev.hel.ninja/graphql
       BROWSER_TESTS_JWT_AD_GROUP: kukkuu_browser_test
-    configMap: # pod environment variables
+    configMap: # pod environment variables (read at container start by the base
+      # image's env.sh to build the runtime env-config.js; anything not set here
+      # falls back to the test-environment defaults baked from .env.example).
+      # The browser tests run against the dev API and mint sessions for the dev
+      # OIDC client, so the deployed app MUST use the dev OIDC config — otherwise
+      # the injected session is stored under a client_id the app never reads and
+      # every test is stuck on the login page.
       BROWSER_TESTS_JWT_AD_GROUP: kukkuu_browser_test
+      VITE_API_URI: https://kukkuu.api.dev.hel.ninja/graphql
+      VITE_OIDC_CLIENT_ID: kukkuu-admin-ui-dev
+      VITE_OIDC_KUKKUU_API_CLIENT_ID: kukkuu-api-dev
+      VITE_OIDC_AUDIENCES: kukkuu-api-dev
