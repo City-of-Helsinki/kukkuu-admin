@@ -73,6 +73,14 @@ ENV VITE_CSP_REPORT_URI=${VITE_CSP_REPORT_URI:-""}
 
 RUN pnpm build
 
+# Produce a sanitized runtime env template for the production image. The base
+# image's env.sh is a naive KEY=VALUE parser: it does NOT skip comments or blank
+# lines, so any "# comment"/blank line in .env makes it emit an empty-key entry
+# (`: ""`) or duplicate the previous key — corrupting env-config.js into invalid
+# JavaScript (SyntaxError at load → window._env_ undefined → app can't boot).
+# Keep only `KEY=VALUE` lines so env.sh always generates valid JS.
+RUN grep -E '^[A-Za-z_][A-Za-z0-9_]*=' .env.example > .env.runtime
+
 # ============================================================
 # STAGE 4: Production runtime
 # ============================================================
@@ -83,9 +91,11 @@ COPY --from=staticbuilder /app/build /usr/share/nginx/html
 
 # 2. Runtime env injection inputs (env.sh from the base image reads these).
 # .env lists which keys to expose in env-config.js; the values are overwritten
-# at container start with the real runtime environment.
+# at container start with the real runtime environment. Use the sanitized,
+# comment-free template (see staticbuilder) — the base image's env.sh cannot
+# parse comments/blank lines and would otherwise emit invalid JavaScript.
 WORKDIR /usr/share/nginx/html
-COPY .env.example ./.env
+COPY --from=staticbuilder /app/.env.runtime ./.env
 
 # 3. package.json powers the base image's /readiness version endpoint.
 COPY package.json .
