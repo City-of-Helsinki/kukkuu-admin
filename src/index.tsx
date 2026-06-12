@@ -6,28 +6,27 @@ import './assets/styles/index.css';
 import packageJson from '../package.json';
 import App from './domain/application/App';
 import * as serviceWorker from './serviceWorker';
-import { getEnvValue } from './common/utils/envUtils';
 
-if (getEnvValue('VITE_SENTRY_DSN')) {
+if (import.meta.env.VITE_SENTRY_DSN) {
   Sentry.init({
-    dsn: getEnvValue('VITE_SENTRY_DSN'),
-    environment: getEnvValue('VITE_SENTRY_ENVIRONMENT'),
-    release: getEnvValue('VITE_SENTRY_RELEASE'),
+    dsn: import.meta.env.VITE_SENTRY_DSN,
+    environment: import.meta.env.VITE_SENTRY_ENVIRONMENT,
+    release: import.meta.env.VITE_SENTRY_RELEASE,
     integrations: [
       Sentry.browserTracingIntegration(),
       Sentry.replayIntegration(),
     ],
     tracesSampleRate: parseFloat(
-      getEnvValue('VITE_SENTRY_TRACES_SAMPLE_RATE') || '0'
+      import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE || '0'
     ),
     tracePropagationTargets: (
-      getEnvValue('VITE_SENTRY_TRACE_PROPAGATION_TARGETS') || ''
+      import.meta.env.VITE_SENTRY_TRACE_PROPAGATION_TARGETS || ''
     ).split(','),
     replaysSessionSampleRate: parseFloat(
-      getEnvValue('VITE_SENTRY_REPLAYS_SESSION_SAMPLE_RATE') || '0'
+      import.meta.env.VITE_SENTRY_REPLAYS_SESSION_SAMPLE_RATE || '0'
     ),
     replaysOnErrorSampleRate: parseFloat(
-      getEnvValue('VITE_SENTRY_REPLAYS_ON_ERROR_SAMPLE_RATE') || '0'
+      import.meta.env.VITE_SENTRY_REPLAYS_ON_ERROR_SAMPLE_RATE || '0'
     ),
   });
 }

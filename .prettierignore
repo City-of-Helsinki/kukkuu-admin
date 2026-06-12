@@ -1,5 +1,3 @@
 .yarn
 graphql.ts
 graphql.tsx
-public/env-config.js
-public/test-env-config.js

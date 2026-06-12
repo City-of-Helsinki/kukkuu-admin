@@ -1,55 +1,12 @@
-# Keep the build context small and the appbase/staticbuilder layers cache-stable:
-# only src/, index.html, public/, scripts/ and the build configs are needed for
-# `pnpm build` (tsconfig "include" is just ["src"]). Everything excluded here is
-# outside the production build graph.
-
-# Dependencies & build output (reinstalled/regenerated in the image)
 node_modules
-build
 npm-debug.log
-.eslintcache
-
-# Docker / compose (not needed inside the image)
 Dockerfile*
 docker-compose*
 compose.*
 .dockerignore
-
-# VCS & editor
 .git
 .gitignore
-.vscode
-
-# Local env files that may contain secrets. The image gets its config at runtime
-# (env.sh) and its key template from .env.example — never bake local secrets into
-# an image layer.
-*.local
-
-# Docs, CI/CD and repo meta — not part of the production build
 README.md
-LICENSE.md
-CHANGELOG.md
-CODEOWNERS
-docs
-.github
-pipelines
-
-# Tests & test tooling (the build only compiles src/)
-tests
-browser-tests
-.testcaferc.json
-
-# GraphQL codegen (run separately, not during the production build)
-codegen.ts
-apollo.config.js
-
-# Lint / commit / release tooling (git-hook & release-time only)
-.husky
-lint-staged.config.js
-commitlint.config.cjs
-release-please-config.json
-.release-please-manifest.json
-
-# Quality reports
-sonar-project.properties
-sonar-report.json
+LICENSE
+.vscode
+build

@@ -6,11 +6,10 @@ import { onError } from '@apollo/client/link/error';
 import { createUploadLink } from 'apollo-upload-client';
 
 import i18nProvider from '../../common/translation/i18nProvider';
-import { getEnvValue } from '../../common/utils/envUtils';
 import handleApolloError from './handleApolloError';
 
 const uploadLink = createUploadLink({
-  uri: getEnvValue('VITE_API_URI'),
+  uri: import.meta.env.VITE_API_URI,
   headers: {
     'keep-alive': 'true',
   },

@@ -1,5 +1,3 @@
-import { getEnvBoolean } from '../common/utils/envUtils';
-
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 class Config {
   static readonly momentValidationDateTimeFormats = [
@@ -14,7 +12,7 @@ class Config {
   }
 
   static get IS_TEST_ENVIRONMENT() {
-    return getEnvBoolean('VITE_IS_TEST_ENVIRONMENT', false);
+    return Boolean(import.meta.env.VITE_IS_TEST_ENVIRONMENT);
   }
 }
 
