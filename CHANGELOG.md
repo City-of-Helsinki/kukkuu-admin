@@ -2,6 +2,13 @@
 
 # Change Log
 
+## [4.3.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.3.0...kukkuu-admin-v4.3.1) (2026-06-13)
+
+
+### Reverts
+
+* Migrate kukkuu admin yarn to pnpm ([ebb4f08](https://github.com/City-of-Helsinki/kukkuu-admin/commit/ebb4f08279d24654d6eec52f12c632200fc97d61))
+
 ## [4.3.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.2.7...kukkuu-admin-v4.3.0) (2026-06-11)
 
 
