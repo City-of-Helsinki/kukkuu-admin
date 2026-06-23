@@ -11,38 +11,34 @@
 
 ## [4.2.7](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.2.6...kukkuu-admin-v4.2.7) (2026-06-04)
 
-
 ### Dependencies
 
-* Bump axios from 1.15.2 to 1.16.0 ([79204b7](https://github.com/City-of-Helsinki/kukkuu-admin/commit/79204b728675752f05c470acc9b4e845b46c9dce))
-* Bump vitest from 3.2.4 to 4.1.0 ([885459e](https://github.com/City-of-Helsinki/kukkuu-admin/commit/885459ed1b46f84775f37f86101298d481a01860))
-* Vite 8 migration required for vitest ([43d1d0d](https://github.com/City-of-Helsinki/kukkuu-admin/commit/43d1d0d660b05727ed36049561db8176cb06f9b7))
+- Bump axios from 1.15.2 to 1.16.0 ([79204b7](https://github.com/City-of-Helsinki/kukkuu-admin/commit/79204b728675752f05c470acc9b4e845b46c9dce))
+- Bump vitest from 3.2.4 to 4.1.0 ([885459e](https://github.com/City-of-Helsinki/kukkuu-admin/commit/885459ed1b46f84775f37f86101298d481a01860))
+- Vite 8 migration required for vitest ([43d1d0d](https://github.com/City-of-Helsinki/kukkuu-admin/commit/43d1d0d660b05727ed36049561db8176cb06f9b7))
 
 ## [4.2.6](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.2.5...kukkuu-admin-v4.2.6) (2026-05-11)
 
-
 ### Dependencies
 
-* Bump @babel/plugin-transform-modules-systemjs ([1e3f286](https://github.com/City-of-Helsinki/kukkuu-admin/commit/1e3f2866726349dd5706f76a25f3afff635247a9))
-* Bump axios from 1.15.0 to 1.15.2 ([adf5e91](https://github.com/City-of-Helsinki/kukkuu-admin/commit/adf5e914a006614951c741d6937ee3830db24b6b))
-* Bump fast-uri from 3.1.0 to 3.1.2 ([96c7236](https://github.com/City-of-Helsinki/kukkuu-admin/commit/96c7236ba1f0f2e1d63e540b85fa77fe923079e2))
-* Bump postcss from 8.5.9 to 8.5.14 ([8a7a355](https://github.com/City-of-Helsinki/kukkuu-admin/commit/8a7a3555f8159ca2ceb2461d64f1483802077d4e))
+- Bump @babel/plugin-transform-modules-systemjs ([1e3f286](https://github.com/City-of-Helsinki/kukkuu-admin/commit/1e3f2866726349dd5706f76a25f3afff635247a9))
+- Bump axios from 1.15.0 to 1.15.2 ([adf5e91](https://github.com/City-of-Helsinki/kukkuu-admin/commit/adf5e914a006614951c741d6937ee3830db24b6b))
+- Bump fast-uri from 3.1.0 to 3.1.2 ([96c7236](https://github.com/City-of-Helsinki/kukkuu-admin/commit/96c7236ba1f0f2e1d63e540b85fa77fe923079e2))
+- Bump postcss from 8.5.9 to 8.5.14 ([8a7a355](https://github.com/City-of-Helsinki/kukkuu-admin/commit/8a7a3555f8159ca2ceb2461d64f1483802077d4e))
 
 ## [4.2.5](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.2.4...kukkuu-admin-v4.2.5) (2026-04-23)
 
-
 ### Dependencies
 
-* Bump follow-redirects from 1.15.11 to 1.16.0 ([ec53e69](https://github.com/City-of-Helsinki/kukkuu-admin/commit/ec53e69e268ed40fe76059641b43ba3bdea74153))
+- Bump follow-redirects from 1.15.11 to 1.16.0 ([ec53e69](https://github.com/City-of-Helsinki/kukkuu-admin/commit/ec53e69e268ed40fe76059641b43ba3bdea74153))
 
 ## [4.2.4](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.2.3...kukkuu-admin-v4.2.4) (2026-04-15)
 
-
 ### Dependencies
 
-* Bump axios from 1.13.5 to 1.15.0 ([3f128bb](https://github.com/City-of-Helsinki/kukkuu-admin/commit/3f128bb4b2d136255218916aff6295f733f8cf19))
-* Bump vite from 6.4.1 to 6.4.2 ([4e9d83f](https://github.com/City-of-Helsinki/kukkuu-admin/commit/4e9d83fdd587b4f121ade218a52676a0f8e9ce49))
-* Update vulnerable packages ([c188e40](https://github.com/City-of-Helsinki/kukkuu-admin/commit/c188e40850420117949d6a54d41dd23a65dca56a))
+- Bump axios from 1.13.5 to 1.15.0 ([3f128bb](https://github.com/City-of-Helsinki/kukkuu-admin/commit/3f128bb4b2d136255218916aff6295f733f8cf19))
+- Bump vite from 6.4.1 to 6.4.2 ([4e9d83f](https://github.com/City-of-Helsinki/kukkuu-admin/commit/4e9d83fdd587b4f121ade218a52676a0f8e9ce49))
+- Update vulnerable packages ([c188e40](https://github.com/City-of-Helsinki/kukkuu-admin/commit/c188e40850420117949d6a54d41dd23a65dca56a))
 
 ## [4.2.3](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.2.2...kukkuu-admin-v4.2.3) (2026-03-23)
 
