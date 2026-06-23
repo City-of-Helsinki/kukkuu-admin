@@ -8,8 +8,7 @@ import dotenv from 'dotenv';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const USE_TEST_ENV = process.env.NODE_ENV === 'test';
-const defaultNodeEnv = USE_TEST_ENV ? 'test' : 'development';
+const defaultNodeEnv = 'development';
 
 const env = {
   NODE_ENV: process.env.NODE_ENV || defaultNodeEnv,
@@ -19,9 +18,7 @@ dotenv.config({
   processEnv: env,
   // Loaded in order; later files override earlier ones (matches Vite's
   // .env precedence where *.local overrides the base file).
-  ...(USE_TEST_ENV
-    ? { path: ['.env', '.env.test', '.env.test.local'] }
-    : { path: ['.env', '.env.local'] }),
+  path: ['.env', '.env.local'],
   override: true,
 });
 
@@ -41,7 +38,7 @@ const publicEnv = Object.fromEntries(
 );
 
 // Prevent collision if app is running while tests are started
-const configFile = USE_TEST_ENV ? 'test-env-config.js' : 'env-config.js';
+const configFile = 'env-config.js';
 
 const configurationFile: string = path.join(
   __dirname,
