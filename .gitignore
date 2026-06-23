@@ -35,7 +35,6 @@ screenshots
 report
 
 # don't store these .env files in version control
-.env
 .env.development
 .env.production
 
