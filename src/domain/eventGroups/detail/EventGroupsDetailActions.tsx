@@ -7,7 +7,6 @@ import {
   useResourceContext,
   useRecordContext,
 } from 'react-admin';
-import { makeStyles } from '@mui/styles';
 
 import PublishEventGroupButton from './PublishEventGroupButton';
 import {
@@ -17,21 +16,11 @@ import {
 import type { Permissions } from '../../authentication/authProvider';
 import type { EventGroupNode } from '../../api/generatedTypes/graphql';
 
-const useStyles = makeStyles((theme) => ({
-  toolbar: {
-    margin: `0 -${theme.spacing(1)}`,
-    '& > *': {
-      margin: `0 ${theme.spacing(1)}`,
-    },
-  },
-}));
-
 const EventGroupsDetailActions = () => {
   const { permissions } = usePermissions<Permissions>();
   const record = useRecordContext<EventGroupNode>();
   const resource = useResourceContext();
   const basePath = `/${resource}`;
-  const classes = useStyles();
   const publishStatus = getEventGroupPublishStatus(record);
   const canPublish = Boolean(
     permissions?.canPublishWithinProject?.(record?.project?.id)
@@ -48,7 +37,12 @@ const EventGroupsDetailActions = () => {
     canPublish;
 
   return (
-    <TopToolbar className={classes.toolbar}>
+    <TopToolbar
+      sx={(theme) => ({
+        margin: `0 -${theme.spacing(1)}`,
+        '& > *': { margin: `0 ${theme.spacing(1)}` },
+      })}
+    >
       <CreateButton
         to={`/events/create?eventGroupId=${record?.id}`}
         label={'eventGroups.actions.addEvent.do'}

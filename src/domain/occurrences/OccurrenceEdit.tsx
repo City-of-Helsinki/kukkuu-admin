@@ -22,7 +22,7 @@ const OccurrenceEditToolbar = ({
   ...toolbarProps
 }: ToolbarProps & { redirect: string }) => {
   const record = useRecordContext<OccurrenceNode>();
-  const isPublished = Boolean(record.event.publishedAt);
+  const isPublished = Boolean(record?.event.publishedAt);
   return (
     <Toolbar style={{ justifyContent: 'space-between' }} {...toolbarProps}>
       <SaveButton />
@@ -44,7 +44,7 @@ const OccurrenceEditDateTimeTextInput = (props: any) => {
   return (
     <DateTimeTextInput
       {...props}
-      disabled={Boolean(record.event.publishedAt)}
+      disabled={Boolean(record?.event.publishedAt)}
     />
   );
 };
@@ -52,7 +52,7 @@ const OccurrenceEditDateTimeTextInput = (props: any) => {
 const OccurrenceEditReferenceInput = (props: any) => {
   const record = useRecordContext();
   return (
-    <ReferenceInput {...props} disabled={Boolean(record.event.publishedAt)} />
+    <ReferenceInput {...props} disabled={Boolean(record?.event.publishedAt)} />
   );
 };
 

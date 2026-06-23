@@ -1,26 +1,13 @@
 import React from 'react';
 import { Link } from 'react-admin';
 import { Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 
 export type Crumb = {
   label: string;
   link: string | null;
 };
-
-const useStyles = makeStyles((theme) => ({
-  crumb: {
-    fontSize: theme.typography.body2.fontSize,
-    fontWeight: theme.typography.fontWeightBold,
-  },
-  wrapper: {
-    '& .MuiBreadcrumbs-separator': {
-      fontWeight: theme.typography.fontWeightBold,
-    },
-  },
-}));
 
 type CrumbsProps = {
   className: string;
@@ -28,13 +15,17 @@ type CrumbsProps = {
 };
 
 const BreadCrumbs = ({ className, crumbs }: CrumbsProps) => {
-  const classes = useStyles();
   const location = useLocation();
 
   return (
     <Breadcrumbs
       separator="<"
-      className={[classes.wrapper, className].join(' ')}
+      className={className}
+      sx={(theme) => ({
+        '& .MuiBreadcrumbs-separator': {
+          fontWeight: theme.typography.fontWeightBold,
+        },
+      })}
     >
       {
         // The breadcrumbs component adds a separator between all
@@ -48,7 +39,14 @@ const BreadCrumbs = ({ className, crumbs }: CrumbsProps) => {
 
         if (isActive) {
           return (
-            <Typography key={key} color="textPrimary" className={classes.crumb}>
+            <Typography
+              key={key}
+              color="textPrimary"
+              sx={(theme) => ({
+                fontSize: theme.typography.body2.fontSize,
+                fontWeight: theme.typography.fontWeightBold,
+              })}
+            >
               {label}
             </Typography>
           );
@@ -59,7 +57,15 @@ const BreadCrumbs = ({ className, crumbs }: CrumbsProps) => {
         }
 
         return (
-          <Link key={key} color="inherit" to={link} className={classes.crumb}>
+          <Link
+            key={key}
+            color="inherit"
+            to={link}
+            sx={(theme) => ({
+              fontSize: theme.typography.body2.fontSize,
+              fontWeight: theme.typography.fontWeightBold,
+            })}
+          >
             {label}
           </Link>
         );

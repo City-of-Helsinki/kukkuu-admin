@@ -22,8 +22,10 @@ const PublishEventGroupButton = ({
   const record = useRecordContext<EventGroupNode>();
   const publishEventGroupMutation = usePublishEventGroupMutation({
     basePath,
-    params: { id: record.id },
+    params: { id: record?.id ?? '' },
   });
+
+  if (!record) return null;
 
   return (
     <ConfirmMutationButton
@@ -33,7 +35,7 @@ const PublishEventGroupButton = ({
       mutation={publishEventGroupMutation}
       confirmModalProps={{
         title: t('eventGroups.actions.publish.confirm.title', {
-          eventGroupName: record.name,
+          eventGroupName: record?.name,
         }),
         content: 'eventGroups.actions.publish.confirm.content',
       }}

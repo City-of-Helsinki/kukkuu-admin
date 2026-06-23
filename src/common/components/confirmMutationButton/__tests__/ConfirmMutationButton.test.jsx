@@ -7,7 +7,7 @@ import {
 } from '@testing-library/react';
 import { AdminContext } from 'react-admin';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material';
-import { createTheme } from '@mui/material/styles/';
+import { createTheme } from '@mui/material';
 
 import ConfirmMutationButton from '../ConfirmMutationButton';
 

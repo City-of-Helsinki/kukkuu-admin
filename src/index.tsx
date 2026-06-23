@@ -33,7 +33,28 @@ if (import.meta.env.VITE_SENTRY_DSN) {
 
 const container = document.getElementById('root');
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const root = createRoot(container!);
+const root = createRoot(container!, {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onCaughtError: (error: unknown, errorInfo: any) => {
+    // eslint-disable-next-line no-console
+    console.error(
+      '[CAUGHT_ERROR] message:',
+      (error as Error)?.message,
+      '\nCOMPONENT STACK:',
+      errorInfo?.componentStack
+    );
+  },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onUncaughtError: (error: unknown, errorInfo: any) => {
+    // eslint-disable-next-line no-console
+    console.error(
+      '[UNCAUGHT_ERROR] message:',
+      (error as Error)?.message,
+      '\nCOMPONENT STACK:',
+      errorInfo?.componentStack
+    );
+  },
+} as any);
 root.render(<App />);
 
 // If you want your app to work offline and load faster, you can change

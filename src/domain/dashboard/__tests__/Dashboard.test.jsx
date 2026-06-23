@@ -7,7 +7,7 @@ import {
   useNotify,
   useLocaleState,
 } from 'react-admin';
-import { ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material';
 import { createTheme } from '@mui/material';
 import * as Sentry from '@sentry/browser';
 

@@ -7,6 +7,9 @@ export default defineConfig((configEnv) =>
   mergeConfig(
     viteConfig(configEnv),
     defineConfig({
+      resolve: {
+        dedupe: ['react-router', 'react-router-dom'],
+      },
       test: {
         globals: true,
         environment: 'jsdom',

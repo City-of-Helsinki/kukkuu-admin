@@ -14,7 +14,7 @@ const VenueEditToolbar = () => {
     <Toolbar style={{ justifyContent: 'space-between' }}>
       <SaveButton />
       <DeleteButton
-        disabled={Boolean(record.occurrences?.pageInfo?.startCursor)}
+        disabled={Boolean(record?.occurrences?.pageInfo?.startCursor)}
       />
     </Toolbar>
   );

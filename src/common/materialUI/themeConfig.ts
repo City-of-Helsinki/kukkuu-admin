@@ -1,10 +1,12 @@
-import { createTheme } from '@mui/material/styles/';
+import { createTheme } from '@mui/material';
 import { defaultTheme } from 'react-admin';
 
 const theme = createTheme({
-  ...defaultTheme,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ...(defaultTheme as any),
   palette: {
-    ...defaultTheme.palette,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ...(defaultTheme.palette as any),
     primary: {
       main: '#0072c6', // hds-brand-color-coat-of-arms-blue
     },

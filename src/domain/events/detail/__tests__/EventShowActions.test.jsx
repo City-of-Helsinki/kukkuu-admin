@@ -1,10 +1,8 @@
-import { permission } from 'process';
-
 import React from 'react';
 import * as ReactAdmin from 'react-admin';
 import { screen, render, waitFor } from '@testing-library/react';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material';
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material';
 
 import EventShowActions from '../EventShowActions';
 
@@ -24,7 +22,9 @@ const getWrapper = (props) =>
             getOne: () => Promise.resolve(props?.data),
           }}
         >
-          <EventShowActions permissions={props?.permissions} />
+          <ReactAdmin.ResourceContextProvider value="events">
+            <EventShowActions permissions={props?.permissions} />
+          </ReactAdmin.ResourceContextProvider>
         </ReactAdmin.AdminContext>
       </ThemeProvider>
     </StyledEngineProvider>
@@ -42,7 +42,7 @@ describe('<EventShowActions />', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByRole('link', { name: 'ra.action.edit' })
+        screen.getByRole('link', { name: 'resources.events.action.edit' })
       ).toBeInTheDocument();
     });
   });

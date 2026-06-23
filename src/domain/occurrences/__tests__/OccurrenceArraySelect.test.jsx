@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { AdminContext, SimpleForm } from 'react-admin';
+import { AdminContext, ResourceContextProvider, SimpleForm } from 'react-admin';
 
 import OccurrenceArraySelect, {
   getChoices,
@@ -13,19 +13,20 @@ describe('<OccurrenceArraySelect />', () => {
     vi.spyOn(global.console, 'error').mockImplementationOnce(() => null);
 
     render(
-      <AdminContext
-        initialState={{ admin: { resources: { occurrences: { data: {} } } } }}
-      >
-        <SimpleForm>
-          <OccurrenceArraySelect allText="allText" eventId="1" source="event" />
-        </SimpleForm>
+      <AdminContext>
+        <ResourceContextProvider value="occurrences">
+          <SimpleForm>
+            <OccurrenceArraySelect
+              allText="allText"
+              eventId="1"
+              source="event"
+            />
+          </SimpleForm>
+        </ResourceContextProvider>
       </AdminContext>
     );
 
-    const inputs = screen.getAllByTestId('selectArray');
-    expect(inputs.length).toBeGreaterThan(0);
-    expect(inputs[0]).toBeInTheDocument();
-    expect(screen.getByRole('button')).toBeInTheDocument();
+    expect(screen.getByRole('combobox')).toBeInTheDocument();
   });
 });
 
