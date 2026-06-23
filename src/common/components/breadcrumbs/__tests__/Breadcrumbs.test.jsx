@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { AdminContext } from 'react-admin';
+import { MemoryRouter } from 'react-router-dom';
 
 import Breadcrumbs from '../Breadcrumbs';
 
@@ -19,9 +20,11 @@ const defaultProps = {
 };
 const getWrapper = (props) =>
   render(
-    <AdminContext>
-      <Breadcrumbs {...defaultProps} {...props} />
-    </AdminContext>
+    <MemoryRouter>
+      <AdminContext>
+        <Breadcrumbs {...defaultProps} {...props} />
+      </AdminContext>
+    </MemoryRouter>
   );
 
 describe('Breadcrumbs', () => {

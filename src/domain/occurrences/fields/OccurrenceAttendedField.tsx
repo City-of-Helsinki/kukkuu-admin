@@ -10,7 +10,7 @@ import type { EnrolmentNodeEdge } from '../../api/generatedTypes/graphql';
 const OccurrenceAttendedField = () => {
   const record = useRecordContext<EnrolmentNodeEdge>();
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const enrolment = record.node!; // enrolment should be never undefined or null here
+  const enrolment = record?.node!; // enrolment should be never undefined or null here
   const [attended, setAttended] = React.useState(
     JSON.stringify(enrolment.attended)
   );

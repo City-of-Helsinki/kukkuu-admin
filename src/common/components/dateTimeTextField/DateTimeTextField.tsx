@@ -8,16 +8,10 @@ import {
 } from 'react-admin';
 import type { TextFieldProps } from '@mui/material/TextField';
 import TextField from '@mui/material/TextField';
-import { makeStyles } from '@mui/styles';
 import moment from 'moment-timezone';
 import { Grid } from '@mui/material';
 
 import Config from '../../../domain/config';
-
-const useStyles = makeStyles({
-  dateTimeTextInput: { flexGrow: 1 },
-  textFieldInput: { width: '100%' },
-});
 
 const momentValidationDateFormats = ['D.M.YYYY', 'DD.MM.YYYY'] as const;
 
@@ -51,7 +45,6 @@ export type BoundedTextFieldProps = InputProps & TextFieldProps;
 
 const BoundedTextField = (props: BoundedTextFieldProps) => {
   const translate = useTranslate();
-  const classes = useStyles();
   const {
     // Use nonControllerField to fix warning:
     // "MuiOutlinedInputInput contains an input of type text with both value and defaultValue props."
@@ -68,7 +61,7 @@ const BoundedTextField = (props: BoundedTextFieldProps) => {
     <TextField
       {...curatedProps}
       {...nonControllerField}
-      className={classes.textFieldInput}
+      sx={{ width: '100%' }}
       size="small"
       error={!!(isTouched && error)}
       helperText={
@@ -114,7 +107,6 @@ const DateTimeTextInput = ({
 
   const defaultTime = record?.time ? moment(record.time).format('HH:mm') : '';
 
-  const classes = useStyles();
   const translate = useTranslate();
 
   const dateLabel = `${translate(
@@ -125,7 +117,7 @@ const DateTimeTextInput = ({
   )} (${translate('occurrences.fields.time.fields.time.format')})`;
 
   return (
-    <div className={classes.dateTimeTextInput}>
+    <div style={{ flexGrow: 1 }}>
       <Grid container spacing={1}>
         <Grid item md={6}>
           <BoundedTextField

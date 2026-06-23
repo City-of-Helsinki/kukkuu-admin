@@ -13,7 +13,6 @@ import {
   FunctionField,
   useGetOne,
 } from 'react-admin';
-import makeStyles from '@mui/styles/makeStyles';
 import { useParams } from 'react-router-dom';
 
 import KukkuuPageLayout from '../application/layout/kukkuuPageLayout/KukkuuPageLayout';
@@ -28,23 +27,20 @@ import type {
   OccurrenceNode,
 } from '../api/generatedTypes/graphql';
 
-const useDataGridTitleStyles = makeStyles({
-  fakeValue: {
-    fontSize: 18,
-    color: 'rgba(0, 0, 0, 0.87)',
-    marginLeft: 16,
-  },
-});
-
 const OccurrenceDataGridTitle = ({ occurrenceId }: any) => {
-  const styles = useDataGridTitleStyles();
   const translate = useTranslate();
   const { data: record } = useGetOne('occurrences', { id: occurrenceId });
 
   return (
     <>
       {translate('occurrences.fields.children.label')}
-      <span className={styles.fakeValue}>
+      <span
+        style={{
+          fontSize: 18,
+          color: 'rgba(0, 0, 0, 0.87)',
+          marginLeft: 16,
+        }}
+      >
         {record.enrolments?.edges.length ?? ''}
       </span>
     </>
@@ -139,11 +135,11 @@ const OccurrenceShow = () => {
           source="enrolments.edges"
         >
           <Datagrid bulkActionButtons={false}>
-            <FunctionField
+            <FunctionField<EnrolmentNodeEdge>
               label="children.fields.name.label"
               render={withEnrolment(getChildFullName, () => null)}
             />
-            <FunctionField
+            <FunctionField<EnrolmentNodeEdge>
               render={withEnrolment(
                 withGuardian(getGuardianFullName, () =>
                   translate('guardian.doesNotExist')
@@ -152,7 +148,7 @@ const OccurrenceShow = () => {
               )}
               label="guardian.name"
             />
-            <FunctionField
+            <FunctionField<EnrolmentNodeEdge>
               render={withEnrolment(
                 withGuardian(getGuardianLanguage, () =>
                   translate('guardian.doesNotExist')
