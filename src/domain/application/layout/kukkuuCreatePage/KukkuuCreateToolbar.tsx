@@ -6,7 +6,6 @@ import {
   useResourceContext,
 } from 'react-admin';
 import Button from '@mui/material/Button';
-import { makeStyles } from '@mui/styles';
 import { Link } from 'react-router-dom';
 
 function CancelButton() {
@@ -20,13 +19,6 @@ function CancelButton() {
   );
 }
 
-const useStyles = makeStyles({
-  toolbar: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-});
-
 type KukkuuCreateToolbarProps = React.ComponentProps<typeof Toolbar> & {
   saveLabel?: string;
 };
@@ -35,10 +27,11 @@ function KukkuuCreateToolbar({
   saveLabel,
   ...delegatedProps
 }: KukkuuCreateToolbarProps) {
-  const classes = useStyles();
-
   return (
-    <Toolbar {...delegatedProps} className={classes.toolbar}>
+    <Toolbar
+      {...delegatedProps}
+      sx={{ display: 'flex', justifyContent: 'space-between' }}
+    >
       <SaveButton label={saveLabel} />
       <CancelButton />
     </Toolbar>

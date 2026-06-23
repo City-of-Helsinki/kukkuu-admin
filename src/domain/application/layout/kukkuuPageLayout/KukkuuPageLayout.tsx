@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react';
 import React from 'react';
 import { type RaRecord, useGetOne, useResourceContext } from 'react-admin';
-import { makeStyles } from '@mui/styles';
+import Box from '@mui/material/Box';
 import get from 'lodash/get';
 import { useParams } from 'react-router-dom';
 
@@ -18,8 +18,7 @@ const TitleWithRecord = ({
 }: TitleWithRecordProps) => {
   const resource = useResourceContext();
   const { id } = useParams();
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const { data } = useGetOne(resource, {
+  const { data } = useGetOne(resource!, {
     id,
   });
 
@@ -34,18 +33,6 @@ const TitleWithRecord = ({
   return <KukkuuPageTitle>{pageTitle}</KukkuuPageTitle>;
 };
 
-const useStyles = makeStyles((theme) => ({
-  pageWrapper: {
-    '& .MuiToolbar-root': {
-      paddingTop: 0,
-    },
-  },
-  breadCrumbs: {
-    position: 'absolute',
-    top: theme.spacing(9),
-  },
-}));
-
 export type KukkuuLayoutProps = {
   children: ReactElement;
   pageTitle?: string | ((record?: RaRecord) => string);
@@ -59,24 +46,30 @@ const KukkuuPageLayout = ({
   pageTitle,
   breadcrumbs,
 }: KukkuuLayoutProps) => {
-  const classes = useStyles();
-
   const isSourcePageTitle = Boolean(pageTitleSource);
   const isFunctionPageTitle = typeof pageTitle === 'function';
   const isPlainPageTitle =
     !isSourcePageTitle && !isFunctionPageTitle && Boolean(pageTitle);
 
   return (
-    <div className={classes.pageWrapper}>
+    <Box
+      sx={{
+        '& .MuiToolbar-root': {
+          paddingTop: 0,
+        },
+      }}
+    >
       {breadcrumbs && (
-        <BreadCrumbs className={classes.breadCrumbs} crumbs={breadcrumbs} />
+        <Box sx={(theme) => ({ position: 'absolute', top: theme.spacing(9) })}>
+          <BreadCrumbs className="" crumbs={breadcrumbs} />
+        </Box>
       )}
       {(isSourcePageTitle || isFunctionPageTitle) && (
         <TitleWithRecord pageTitle={pageTitleSource ?? pageTitle ?? ''} />
       )}
       {isPlainPageTitle && <KukkuuPageTitle>{pageTitle}</KukkuuPageTitle>}
       {children}
-    </div>
+    </Box>
   );
 };
 

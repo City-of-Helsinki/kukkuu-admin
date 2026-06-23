@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useDataProvider } from 'react-admin';
 
 import type extendedDataProvider from '../../../api/dataProvider';

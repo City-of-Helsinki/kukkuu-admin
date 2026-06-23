@@ -1,10 +1,15 @@
 import React from 'react';
 import * as ReactAdmin from 'react-admin';
-import * as ReactQuery from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 
 import projectService from '../../projects/projectService';
 import ProfileProjectDropdown from '../ProfileProjectDropdown';
+
+vi.mock('@tanstack/react-query', async (importOriginal) => {
+  const mod = await importOriginal();
+  return { ...mod, useQuery: vi.fn() };
+});
 
 const getWrapper = () =>
   render(
@@ -42,7 +47,7 @@ describe('<ProfileProjectDropdown />', () => {
   });
 
   it('should render null when loading', () => {
-    vi.spyOn(ReactQuery, 'useQuery').mockReturnValueOnce({ isLoading: true });
+    vi.mocked(useQuery).mockReturnValueOnce({ isLoading: true });
 
     const { container } = getWrapper();
 
@@ -50,7 +55,7 @@ describe('<ProfileProjectDropdown />', () => {
   });
 
   it('should render null when error', async () => {
-    vi.spyOn(ReactQuery, 'useQuery').mockReturnValueOnce({
+    vi.mocked(useQuery).mockReturnValueOnce({
       isLoading: false,
       error: new Error('Test'),
     });
@@ -63,7 +68,7 @@ describe('<ProfileProjectDropdown />', () => {
   });
 
   it('should render null when missing data', () => {
-    vi.spyOn(ReactQuery, 'useQuery').mockReturnValue({
+    vi.mocked(useQuery).mockReturnValue({
       isLoading: false,
       data: {},
     });
@@ -75,7 +80,7 @@ describe('<ProfileProjectDropdown />', () => {
 
   it('should render null when there is not selected project', () => {
     vi.spyOn(projectService, 'projectId', 'get').mockReturnValue(null);
-    vi.spyOn(ReactQuery, 'useQuery').mockReturnValue({
+    vi.mocked(useQuery).mockReturnValue({
       isLoading: false,
       data: getProjects(projects),
     });
@@ -86,7 +91,7 @@ describe('<ProfileProjectDropdown />', () => {
   });
 
   it('should render text when there is one project', async () => {
-    vi.spyOn(ReactQuery, 'useQuery').mockReturnValue({
+    vi.mocked(useQuery).mockReturnValue({
       isLoading: false,
       data: getProjects([projects[0]]),
     });
@@ -97,7 +102,7 @@ describe('<ProfileProjectDropdown />', () => {
   });
 
   it('should allow the selected project to be changed when there is more than one project', async () => {
-    vi.spyOn(ReactQuery, 'useQuery').mockReturnValue({
+    vi.mocked(useQuery).mockReturnValue({
       isLoading: false,
       data: getProjects(projects),
     });

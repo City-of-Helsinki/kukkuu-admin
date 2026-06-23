@@ -66,6 +66,7 @@ type Props = Omit<ReferenceArrayInputProps, 'children' | 'reference'> & {
   source: string;
   eventId?: string;
   allText: string;
+  className?: string;
 };
 
 const OccurrenceArraySelect = ({ eventId, allText, ...rest }: Props) => {

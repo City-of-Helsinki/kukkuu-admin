@@ -1,49 +1,29 @@
 import React from 'react';
 import { useTranslate } from 'react-admin';
-import { makeStyles } from '@mui/styles';
+import { useTheme } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import CheckIcon from '@mui/icons-material/Check';
 import PublicIcon from '@mui/icons-material/Public';
 
 import type { EventNode } from '../../api/generatedTypes/graphql';
 
-const useStyles = makeStyles((theme) => ({
-  iconWithBackground: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '20px',
-    width: '20px',
-    color: '#fff',
-    borderRadius: '100%',
-    backgroundColor: theme.palette.grey[500],
-    '&.is-ready': {
-      backgroundColor: theme.palette.success.dark,
-    },
-    '&.is-published': {
-      backgroundColor: theme.palette.info.dark,
-    },
-  },
-}));
-
 type Props = {
   record?: EventNode;
-  className: string;
+  className?: string;
+  style?: React.CSSProperties;
 };
 
-const EventReadyField = ({ record, className }: Props) => {
-  const classes = useStyles();
+const EventReadyField = ({ record, className, style }: Props) => {
   const t = useTranslate();
+  const theme = useTheme();
   const isReady = Boolean(record?.readyForEventGroupPublishing);
   const isPublished = Boolean(record?.publishedAt);
-  const classNames = [
-    classes.iconWithBackground,
-    isReady ? 'is-ready' : null,
-    isPublished ? 'is-published' : null,
-    className,
-  ]
-    .filter(Boolean)
-    .join(' ');
+
+  const backgroundColor = isPublished
+    ? theme.palette.info.dark
+    : isReady
+      ? theme.palette.success.dark
+      : theme.palette.grey[500];
 
   const getEventStatusIcon = () => {
     if (isPublished) {
@@ -73,7 +53,24 @@ const EventReadyField = ({ record, className }: Props) => {
     }
   };
 
-  return <div className={classNames}>{getEventStatusIcon()}</div>;
+  return (
+    <div
+      className={className}
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '20px',
+        width: '20px',
+        color: '#fff',
+        borderRadius: '100%',
+        backgroundColor,
+        ...style,
+      }}
+    >
+      {getEventStatusIcon()}
+    </div>
+  );
 };
 
 export default EventReadyField;

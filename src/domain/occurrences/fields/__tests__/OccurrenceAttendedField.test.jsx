@@ -7,7 +7,7 @@ import {
 } from 'react-admin';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, it, expect, vi } from 'vitest';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import OccurrenceAttendedField from '../OccurrenceAttendedField';
 
