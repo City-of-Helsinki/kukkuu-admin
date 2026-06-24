@@ -26,5 +26,4 @@ const OccurrenceCard = ({ eventName, venueName, occurrenceTime }: Props) => {
     </Card>
   );
 };
-
 export default OccurrenceCard;

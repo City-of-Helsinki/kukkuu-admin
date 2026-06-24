@@ -44,14 +44,30 @@ const LoginPage = () => {
                   <IsTestEnvironmentLabel />
                 </p>
                 <Button
-                  sx={{
-                    marginTop: '1rem',
-                    width: '100%',
-                    backgroundColor: isTest ? '#00D7A7' : undefined,
-                    '&:hover': {
-                      backgroundColor: isTest ? '#00a17d' : undefined,
+                  sx={[
+                    {
+                      marginTop: '1rem',
+                      width: '100%',
                     },
-                  }}
+                    isTest
+                      ? {
+                          backgroundColor: '#00D7A7',
+                        }
+                      : {
+                          backgroundColor: null,
+                        },
+                    isTest
+                      ? {
+                          '&:hover': {
+                            backgroundColor: '#00a17d',
+                          },
+                        }
+                      : {
+                          '&:hover': {
+                            backgroundColor: null,
+                          },
+                        },
+                  ]}
                   variant="contained"
                   color="secondary"
                   onClick={handleLogin}

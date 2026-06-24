@@ -116,5 +116,4 @@ const MessageDetailToolbar = () => {
     </TopToolbar>
   );
 };
-
 export default MessageDetailToolbar;

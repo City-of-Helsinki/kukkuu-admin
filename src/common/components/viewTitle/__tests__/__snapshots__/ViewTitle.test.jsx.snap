@@ -3,10 +3,10 @@
 exports[`ViewTitle > renders an empty title when record context is empty 1`] = `
 <div>
   <div
-    class="MuiCardHeader-root css-185gdzj-MuiCardHeader-root"
+    class="MuiCardHeader-root css-149tc0y-MuiCardHeader-root"
   >
     <div
-      class="MuiCardHeader-content css-1qbkelo-MuiCardHeader-content"
+      class="MuiCardHeader-content css-1jkp9bu-MuiCardHeader-content"
     />
   </div>
 </div>
@@ -15,10 +15,10 @@ exports[`ViewTitle > renders an empty title when record context is empty 1`] = `
 exports[`ViewTitle > renders an empty title when translations.FI.name does not exist 1`] = `
 <div>
   <div
-    class="MuiCardHeader-root css-185gdzj-MuiCardHeader-root"
+    class="MuiCardHeader-root css-149tc0y-MuiCardHeader-root"
   >
     <div
-      class="MuiCardHeader-content css-1qbkelo-MuiCardHeader-content"
+      class="MuiCardHeader-content css-1jkp9bu-MuiCardHeader-content"
     />
   </div>
 </div>
