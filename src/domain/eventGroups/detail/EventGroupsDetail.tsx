@@ -7,7 +7,7 @@ import {
   SelectField,
   FunctionField,
 } from 'react-admin';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPageLayout';
 import KukkuuDetailPage from '../../application/layout/kukkuuDetailPage/KukkuuDetailPage';

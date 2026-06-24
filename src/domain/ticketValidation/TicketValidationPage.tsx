@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { useTranslate, Loading } from 'react-admin';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/lab/Alert';
