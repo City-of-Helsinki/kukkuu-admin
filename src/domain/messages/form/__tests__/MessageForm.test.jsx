@@ -1,4 +1,3 @@
-import React from 'react';
 import { AdminContext } from 'react-admin';
 import { render, fireEvent, screen } from '@testing-library/react';
 

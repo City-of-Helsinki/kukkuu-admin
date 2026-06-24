@@ -1,6 +1,5 @@
 import { MessageChannel } from 'worker_threads';
 
-import React from 'react';
 import { render, cleanup, screen } from '@testing-library/react';
 
 import App, { getReactAdminResources } from '../App';

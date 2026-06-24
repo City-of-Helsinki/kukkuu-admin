@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import {
   useTranslate,
@@ -19,7 +18,6 @@ vi.mock('react-admin', async (importOriginal) => {
     useController: vi.fn(),
     // Mock the ImageInput, because it is really hard to mock the controls of Fileinput.
     // We are more like testing whether the props are handled correctly.
-    // eslint-disable-next-line react/prop-types
     ImageInput: ({ name, edit, image, source, helperText }) => (
       <div>
         ImageInput: <label htmlFor={source}>{name}</label>

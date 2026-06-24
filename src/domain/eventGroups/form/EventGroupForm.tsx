@@ -1,4 +1,3 @@
-import React from 'react';
 import { type SimpleFormProps, TextInput, SimpleForm } from 'react-admin';
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { FieldValues, Resolver } from 'react-hook-form';

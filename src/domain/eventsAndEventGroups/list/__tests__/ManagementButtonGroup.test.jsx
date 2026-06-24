@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
 import { useGetOne, usePermissions } from 'react-admin';
@@ -6,7 +5,6 @@ import { useGetOne, usePermissions } from 'react-admin';
 import { EventsAndEventGroupsListManagementButtonGroup } from '../ManagementButtonGroup';
 
 vi.mock('react-admin', () => ({
-  // eslint-disable-next-line react/prop-types
   CreateButton: ({ resource, label }) => <button>{label}</button>,
   useGetOne: vi.fn(),
   usePermissions: vi.fn(),
