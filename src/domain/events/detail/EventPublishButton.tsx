@@ -1,4 +1,3 @@
-import React from 'react';
 import { useRecordContext, useTranslate } from 'react-admin';
 import PublishIcon from '@mui/icons-material/Check';
 

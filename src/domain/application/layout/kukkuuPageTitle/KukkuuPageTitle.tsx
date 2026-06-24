@@ -1,4 +1,3 @@
-import React from 'react';
 import { type TypographyProps, Typography } from '@mui/material';
 
 const KukkuuPageTitle = (props: TypographyProps<'h1'>) => {

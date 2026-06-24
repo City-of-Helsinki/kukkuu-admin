@@ -1,4 +1,3 @@
-import React from 'react';
 import { Login, useTranslate, useLogin } from 'react-admin';
 import {
   ThemeProvider,

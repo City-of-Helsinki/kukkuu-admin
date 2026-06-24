@@ -1,4 +1,3 @@
-import React from 'react';
 import * as ReactAdmin from 'react-admin';
 import { screen, render, waitFor } from '@testing-library/react';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material';

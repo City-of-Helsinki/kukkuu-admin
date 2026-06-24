@@ -1,7 +1,6 @@
 /* eslint-disable @vitest/no-conditional-expect */
 import { MessageChannel } from 'worker_threads';
 
-import React from 'react';
 import { render, cleanup, fireEvent } from '@testing-library/react';
 
 import authService from '../authService';

@@ -1,5 +1,4 @@
 import type { ReactElement } from 'react';
-import React from 'react';
 import { type RaRecord, useGetOne, useResourceContext } from 'react-admin';
 import Box from '@mui/material/Box';
 import get from 'lodash/get';

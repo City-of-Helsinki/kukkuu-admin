@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import {
   DataProviderContext,
@@ -53,7 +52,6 @@ describe('OccurrenceAttendedField', () => {
     cursor: '3',
   };
 
-  // eslint-disable-next-line react/prop-types
   const ProviderWrapper = ({ children }) => {
     const queryClient = new QueryClient();
     return (
