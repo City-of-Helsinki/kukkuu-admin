@@ -1,4 +1,3 @@
-import React from 'react';
 import { Datagrid, TextField, useTranslate, useLocaleState } from 'react-admin';
 import { CardHeader } from '@mui/material';
 

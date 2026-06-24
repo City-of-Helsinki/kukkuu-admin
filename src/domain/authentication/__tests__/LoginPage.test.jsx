@@ -1,7 +1,6 @@
 // Mock react-admin hooks
 vi.mock('react-admin', async (importOriginal) => ({
   ...(await importOriginal()),
-  // eslint-disable-next-line react/prop-types
   Login: ({ children }) => <div data-testid="login-component">{children}</div>,
   useLogin: vi.fn(),
   useTranslate: vi.fn(),
@@ -22,7 +21,6 @@ vi.mock(import('../../config'), async (importOriginal) => {
     ...actual,
   };
 });
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter, useLocation } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material';

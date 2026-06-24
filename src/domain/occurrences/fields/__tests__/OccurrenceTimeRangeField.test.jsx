@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { RecordContext } from 'react-admin';
 import { MemoryRouter } from 'react-router-dom';
@@ -54,7 +53,6 @@ describe('OccurrenceTimeRangeField', () => {
     },
   };
 
-  // eslint-disable-next-line react/prop-types
   const ProviderWrapper = ({ children }) => {
     return <MemoryRouter>{children}</MemoryRouter>;
   };

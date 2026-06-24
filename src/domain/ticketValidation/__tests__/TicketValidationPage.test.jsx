@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { ThemeProvider } from 'react-admin';
 import { vi } from 'vitest';

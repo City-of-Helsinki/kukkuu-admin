@@ -1,4 +1,3 @@
-import React from 'react';
 import { CardHeader } from '@mui/material';
 import { useRecordContext } from 'react-admin';
 

@@ -1,5 +1,4 @@
 import get from 'lodash/get';
-import React from 'react';
 import {
   useTranslate,
   useGetOne,

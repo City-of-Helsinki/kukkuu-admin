@@ -1,5 +1,4 @@
 import get from 'lodash/get';
-import React from 'react';
 import Typography from '@mui/material/Typography';
 import { useRecordContext } from 'react-admin';
 

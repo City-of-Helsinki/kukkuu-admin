@@ -1,4 +1,3 @@
-import React from 'react';
 import { Create, useTranslate } from 'react-admin';
 import { CardHeader, Grid } from '@mui/material';
 

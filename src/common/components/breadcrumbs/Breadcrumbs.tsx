@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-admin';
 import { Typography } from '@mui/material';
 import Breadcrumbs from '@mui/material/Breadcrumbs';

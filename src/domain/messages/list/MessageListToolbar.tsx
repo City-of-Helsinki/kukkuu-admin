@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslate, TopToolbar, CreateButton } from 'react-admin';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';

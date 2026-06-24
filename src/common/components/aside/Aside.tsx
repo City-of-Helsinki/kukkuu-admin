@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslate } from 'react-admin';
 import Typography from '@mui/material/Typography';
 

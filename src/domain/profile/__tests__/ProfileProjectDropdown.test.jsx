@@ -1,4 +1,3 @@
-import React from 'react';
 import * as ReactAdmin from 'react-admin';
 import { useQuery } from '@tanstack/react-query';
 import { screen, render, fireEvent, waitFor } from '@testing-library/react';
