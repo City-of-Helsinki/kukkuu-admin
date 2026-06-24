@@ -121,7 +121,12 @@ const ImageUploadField = ({
       label={'events.fields.image.label'}
       accept={{ 'image/*': ['.jpeg', '.jpg', '.png', '.gif', '.webp'] }}
       placeholder={
-        <Box display="inline-flex" alignItems="center">
+        <Box
+          sx={{
+            display: 'inline-flex',
+            alignItems: 'center',
+          }}
+        >
           <InsertPhotoIcon />
           {translate('events.fields.imageInput.label')}
         </Box>

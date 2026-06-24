@@ -11,7 +11,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import { useParams } from 'react-router-dom';
 import { useTranslate, Loading } from 'react-admin';
 import Typography from '@mui/material/Typography';
-import Alert from '@mui/lab/Alert';
+import Alert from '@mui/material/Alert';
 import { ApolloProvider } from '@apollo/client';
 
 import unauthenticatedClient from '../../api/apolloClient/unauthenticatedClient';

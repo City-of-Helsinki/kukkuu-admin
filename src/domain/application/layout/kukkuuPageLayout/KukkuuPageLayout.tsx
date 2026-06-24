@@ -72,5 +72,4 @@ const KukkuuPageLayout = ({
     </Box>
   );
 };
-
 export default KukkuuPageLayout;
