@@ -7,7 +7,6 @@ import {
   SelectField,
   FunctionField,
 } from 'react-admin';
-import { GlobalStyles } from '@mui/material';
 import { useNavigate } from 'react-router';
 
 import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPageLayout';
@@ -32,74 +31,66 @@ const EventGroupsDetail = () => {
   };
 
   return (
-    <>
-      <GlobalStyles
-        styles={{
-          '.event-ready-center': { margin: '0 auto', textAlign: 'center' },
-        }}
-      />
-      <KukkuuDetailPage
-        pageTitleSource="name"
-        reactAdminProps={{
-          actions: <EventGroupsDetailActions />,
-        }}
-        layout={KukkuuPageLayout}
-        breadcrumbs={[
-          {
-            label: t('eventsAndEventGroups.list.label'),
-            link: '/events-and-event-groups',
-          },
-        ]}
-      >
-        <LocalDataGrid source="events" rowClick={handleRowClick}>
-          <TextField source="name" label={t('events.fields.name.label')} />
-          <SelectField
-            source="participantsPerInvite"
-            label={t('events.fields.participantsPerInvite.label')}
-            choices={participantsPerInviteChoices}
-          />
-          <NumberField
-            source="duration"
-            label={t('events.fields.duration.label')}
-          />
-          <FunctionField
-            label="events.fields.totalCapacity.label"
-            textAlign="right"
-            // FIXME: Why is it EventNode in EventGroupDetails?
-            render={(record?: Partial<EventNode>) =>
-              record
-                ? countCapacity(record as CapacityEventNode)
-                : t('events.fields.totalCapacity.unknown')
-            }
-          />
-          <NumberField
-            source="occurrences.edges.length"
-            label="events.fields.numOfOccurrences.label"
-          />
-          <FunctionField
-            label="events.fields.numOfEnrolments.label"
-            textAlign="right"
-            // FIXME: Why is it EventNode in EventGroupDetails?
-            render={(record?: Partial<EventNode>) =>
-              record
-                ? countEnrollments(record as EnrollmentsCountEventNode)
-                : null
-            }
-          />
-          <FunctionField
-            headerClassName="event-ready-center"
-            label="events.fields.ready.label2"
-            // FIXME: Why is it EventNode in EventGroupDetails?
-            render={(record: Partial<EventNode>) => (
-              <EventReadyField
-                record={record as EventNode}
-                className="event-ready-center"
-              />
-            )}
-          />
-        </LocalDataGrid>
-      </KukkuuDetailPage>
-    </>
+    <KukkuuDetailPage
+      pageTitleSource="name"
+      reactAdminProps={{
+        actions: <EventGroupsDetailActions />,
+      }}
+      layout={KukkuuPageLayout}
+      breadcrumbs={[
+        {
+          label: t('eventsAndEventGroups.list.label'),
+          link: '/events-and-event-groups',
+        },
+      ]}
+    >
+      <LocalDataGrid source="events" rowClick={handleRowClick}>
+        <TextField source="name" label={t('events.fields.name.label')} />
+        <SelectField
+          source="participantsPerInvite"
+          label={t('events.fields.participantsPerInvite.label')}
+          choices={participantsPerInviteChoices}
+        />
+        <NumberField
+          source="duration"
+          label={t('events.fields.duration.label')}
+        />
+        <FunctionField
+          label="events.fields.totalCapacity.label"
+          textAlign="right"
+          // FIXME: Why is it EventNode in EventGroupDetails?
+          render={(record?: Partial<EventNode>) =>
+            record
+              ? countCapacity(record as CapacityEventNode)
+              : t('events.fields.totalCapacity.unknown')
+          }
+        />
+        <NumberField
+          source="occurrences.edges.length"
+          label="events.fields.numOfOccurrences.label"
+        />
+        <FunctionField
+          label="events.fields.numOfEnrolments.label"
+          textAlign="right"
+          // FIXME: Why is it EventNode in EventGroupDetails?
+          render={(record?: Partial<EventNode>) =>
+            record
+              ? countEnrollments(record as EnrollmentsCountEventNode)
+              : null
+          }
+        />
+        <FunctionField
+          label="events.fields.ready.label2"
+          // FIXME: Why is it EventNode in EventGroupDetails?
+          render={(record: Partial<EventNode>) => (
+            <EventReadyField
+              record={record as EventNode}
+              style={{ margin: '0 auto', textAlign: 'center' }}
+            />
+          )}
+        />
+      </LocalDataGrid>
+    </KukkuuDetailPage>
   );
 };
 

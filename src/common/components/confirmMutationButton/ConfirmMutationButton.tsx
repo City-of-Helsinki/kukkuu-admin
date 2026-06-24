@@ -23,7 +23,7 @@ type Props = {
   confirmModalProps: {
     title: string;
     content: string;
-    translateOptions?: Record<string, string>;
+    translateOptions?: Record<string, string | number>;
   };
   icon?: ReactElement;
 };
