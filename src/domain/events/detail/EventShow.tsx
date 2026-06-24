@@ -35,14 +35,9 @@ import type { AdminEvent } from '../types/EventTypes';
 import ImportTicketSystemPasswordsFormDialog from '../../ticketSystemPassword/ImportTicketSystemPasswordsFormDialog';
 import TranslatableProvider from '../../../common/providers/TranslatableProvider';
 import useTranslatableContext from '../../../common/hooks/useTranslatableContext';
-import type { OccurrenceNode } from '../../api/generatedTypes/graphql';
 import { dateTimeFieldOptions } from '../../../common/utils';
 
-interface AddOccurrenceButtonProps {
-  record?: OccurrenceNode;
-}
-
-const AddOccurrenceButton = (_props: AddOccurrenceButtonProps) => {
+const AddOccurrenceButton = () => {
   const record = useRecordContext();
   return (
     <Button
