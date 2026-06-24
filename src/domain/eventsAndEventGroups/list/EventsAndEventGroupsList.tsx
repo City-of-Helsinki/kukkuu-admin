@@ -97,7 +97,6 @@ const EventsAndEventGroupsList = () => {
           if (!record) {
             return null;
           }
-
           return when(
             record,
             () => translate('eventsAndEventGroups.list.type.event.label'),
@@ -122,7 +121,6 @@ const EventsAndEventGroupsList = () => {
           if (!record) {
             return null;
           }
-
           return when(
             record,
             (event: EventNode) => {
