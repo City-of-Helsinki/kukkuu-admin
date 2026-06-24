@@ -11,7 +11,7 @@ import {
   usePermissions,
 } from 'react-admin';
 import Typography from '@mui/material/Typography';
-import { GlobalStyles } from '@mui/material';
+import Box from '@mui/material/Box';
 import type { FieldValues, Resolver } from 'react-hook-form';
 import { useFormContext } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -125,50 +125,43 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
   );
 
   return (
-    <>
-      <GlobalStyles
-        styles={{
-          '.message-form-event-col': { gridColumn: '1 !important' },
-          '.message-form-occurrences-col': { gridColumn: '2 !important' },
-          '.message-form-full-width': { width: '100%' },
-        }}
-      />
-      <SimpleForm
-        resolver={resolver as unknown as Resolver<FieldValues>}
-        sx={(theme) => ({
-          '& > .MuiCardContent-root': {
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gridTemplateRows: 'auto',
-            columnGap: theme.spacing(2),
-            '& > *': {
-              gridColumn: '1 / -1',
-            },
+    <SimpleForm
+      resolver={resolver as unknown as Resolver<FieldValues>}
+      sx={(theme) => ({
+        '& > .MuiCardContent-root': {
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gridTemplateRows: 'auto',
+          columnGap: theme.spacing(2),
+          '& > *': {
+            gridColumn: '1 / -1',
           },
-        })}
-        {...delegatedProps}
-      >
-        <TranslatableProvider>
-          <TranslatableContext.Consumer>
-            {({
-              selector: languageTabsComponent,
-              getSource: translatableField,
-            }) => (
-              <>
-                {protocol !== ProtocolType.Sms && languageTabsComponent}
-                <CustomOnChange onChange={handleRecipientSelectionChange}>
-                  <SelectInput
-                    variant="outlined"
-                    source="recipientSelection"
-                    label="messages.fields.recipientSelection.label"
-                    choices={recipientSelectionChoices}
-                    validate={validateRecipientSelection}
-                    defaultValue=""
-                    fullWidth
-                    sx={{ gridColumn: '1 !important' }}
-                  />
-                </CustomOnChange>
-                <FormDataConsumer formClassName="message-form-event-col">
+        },
+      })}
+      {...delegatedProps}
+    >
+      <TranslatableProvider>
+        <TranslatableContext.Consumer>
+          {({
+            selector: languageTabsComponent,
+            getSource: translatableField,
+          }) => (
+            <>
+              {protocol !== ProtocolType.Sms && languageTabsComponent}
+              <CustomOnChange onChange={handleRecipientSelectionChange}>
+                <SelectInput
+                  variant="outlined"
+                  source="recipientSelection"
+                  label="messages.fields.recipientSelection.label"
+                  choices={recipientSelectionChoices}
+                  validate={validateRecipientSelection}
+                  defaultValue=""
+                  fullWidth
+                  sx={{ gridColumn: '1 !important' }}
+                />
+              </CustomOnChange>
+              <Box sx={{ gridColumn: '1 !important' }}>
+                <FormDataConsumer>
                   {({ formData: { recipientSelection }, ...rest }) =>
                     recipientsWithEventSelection.includes(
                       recipientSelection
@@ -180,7 +173,6 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
                           source="eventId"
                           label="messages.fields.event.label"
                           fullWidth
-                          className="message-form-full-width"
                           emptyValue="all"
                           emptyText="messages.fields.event.all"
                           InputLabelProps={{
@@ -193,63 +185,66 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
                     )
                   }
                 </FormDataConsumer>
-                <FormDataConsumer formClassName="message-form-occurrences-col">
+              </Box>
+              <Box sx={{ gridColumn: '2 !important' }}>
+                <FormDataConsumer>
                   {({ formData: { eventId, recipientSelection }, ...rest }) =>
                     eventId &&
                     eventId !== 'all' &&
                     recipientSelection !== 'INVITED' && (
-                      <OccurrenceArraySelect
-                        {...rest}
-                        source="occurrenceIds"
-                        label="messages.fields.occurrences.label"
-                        eventId={eventId}
-                        className="message-form-full-width"
-                        defaultValue={getInitialOccurrenceIds(record)}
-                        allText="messages.fields.occurrences.all"
-                      />
+                      <Box sx={{ width: '100%' }}>
+                        <OccurrenceArraySelect
+                          {...rest}
+                          source="occurrenceIds"
+                          label="messages.fields.occurrences.label"
+                          eventId={eventId}
+                          defaultValue={getInitialOccurrenceIds(record)}
+                          allText="messages.fields.occurrences.all"
+                        />
+                      </Box>
                     )
                   }
                 </FormDataConsumer>
-                {protocol === ProtocolType.Email && (
-                  <TextInput
-                    source={translatableField('subject')}
-                    variant="outlined"
-                    label="messages.fields.subject.label2"
-                    validate={validateSubject}
-                    fullWidth
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                  />
-                )}
+              </Box>
+              {protocol === ProtocolType.Email && (
                 <TextInput
-                  source={translatableField('bodyText')}
-                  label="messages.fields.bodyText.label"
+                  source={translatableField('subject')}
                   variant="outlined"
-                  validate={validateBodyText}
-                  multiline
+                  label="messages.fields.subject.label2"
+                  validate={validateSubject}
                   fullWidth
-                  rows={10}
                   InputLabelProps={{
                     shrink: true,
                   }}
                 />
-                {protocol === ProtocolType.Sms && (
-                  <>
-                    <Typography
-                      variant="subtitle2"
-                      sx={(theme) => ({ marginBottom: theme.spacing(1) })}
-                    >
-                      {t('sms.create.messageSentImmediatelyNotice')}
-                    </Typography>
-                  </>
-                )}
-              </>
-            )}
-          </TranslatableContext.Consumer>
-        </TranslatableProvider>
-      </SimpleForm>
-    </>
+              )}
+              <TextInput
+                source={translatableField('bodyText')}
+                label="messages.fields.bodyText.label"
+                variant="outlined"
+                validate={validateBodyText}
+                multiline
+                fullWidth
+                rows={10}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              {protocol === ProtocolType.Sms && (
+                <>
+                  <Typography
+                    variant="subtitle2"
+                    sx={(theme) => ({ marginBottom: theme.spacing(1) })}
+                  >
+                    {t('sms.create.messageSentImmediatelyNotice')}
+                  </Typography>
+                </>
+              )}
+            </>
+          )}
+        </TranslatableContext.Consumer>
+      </TranslatableProvider>
+    </SimpleForm>
   );
 };
 
