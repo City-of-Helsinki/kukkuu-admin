@@ -42,6 +42,7 @@ const App = () => {
         dataProvider={dataProvider as DataProvider}
         i18nProvider={i18nProvider}
         theme={theme}
+        darkTheme={null}
         dashboard={Dashboard}
         authProvider={authProvider}
       >
@@ -108,7 +109,7 @@ export function getReactAdminResources(
   projectId?: string,
   permissions?: Permissions
 ): ResourceProps[] {
-  const resources = [
+  const resources: ResourceProps[] = [
     {
       name: 'events-and-event-groups',
       options: { label: 'events.list.title' },
@@ -161,10 +162,7 @@ export function getReactAdminResources(
       icon: ChildCareIcon,
       list: ChildResource.List,
       show: ChildResource.Detail,
-      // Use `any` to avoid type error for edit and create,
-      // which should allow undefined, but for some reason does not.
-      // eslint-disable-line @typescript-eslint/no-explicit-any
-    } as any);
+    });
   }
   return resources;
 }
