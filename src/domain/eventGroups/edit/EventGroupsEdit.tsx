@@ -5,7 +5,7 @@ const EventGroupsEdit = () => {
   return (
     <KukkuuEditPage
       pageTitleSource="name"
-      reactAdminProps={{ redirect: '/events-and-event-groups' }}
+      reactAdminProps={{ redirect: () => '/events-and-event-groups' }}
     >
       <EventGroupForm />
     </KukkuuEditPage>

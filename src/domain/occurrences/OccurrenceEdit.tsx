@@ -19,7 +19,7 @@ import type { OccurrenceNode } from '../api/generatedTypes/graphql';
 const OccurrenceEditToolbar = ({
   redirect: redirectPath,
   ...toolbarProps
-}: ToolbarProps & { redirect: string }) => {
+}: ToolbarProps & { redirect: string | (() => string) }) => {
   const record = useRecordContext<OccurrenceNode>();
   const isPublished = Boolean(record?.event.publishedAt);
   return (
@@ -58,7 +58,7 @@ const OccurrenceEditReferenceInput = (props: any) => {
 const OccurrenceEditForm = () => {
   const record = useRecordContext<OccurrenceNode>();
   const redirect = record?.event.id
-    ? `/events/${record.event.id}/show/1`
+    ? () => `/events/${record.event.id}/show/1`
     : 'show';
 
   return (
