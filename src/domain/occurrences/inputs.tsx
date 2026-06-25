@@ -5,6 +5,7 @@ import {
   minValue,
   useTranslate,
   useDataProvider,
+  useRecordContext,
   NumberInput,
 } from 'react-admin';
 
@@ -15,7 +16,6 @@ const validateCapacityOverride = [minValue(0)];
 
 type OccurrenceCapacityOverrideInputProps = {
   [index: string]: any;
-  record?: { event: any };
   eventId?: string;
 };
 
@@ -24,27 +24,24 @@ const OccurrenceCapacityOverrideInput = (
 ) => {
   const translate = useTranslate();
   const dataProvider = useDataProvider();
+  const record = useRecordContext<{ event?: AdminEvent }>();
   const [event, setEvent] = useState<AdminEvent | undefined>();
   const { eventId, ...sanitizedProps } = props;
 
-  // useEffect(() => {
-  //   console.log('OccurrenceCapacityOverrideInput mounted with props:', props); // Debug log to check props
-  //   if (props.record?.event) {
-  //     // use already available event data (normally when editing an occurrence this should happen)
-  //     setEvent(props.record.event);
-  //   } else if (eventId) {
-  //     dataProvider
-  //       // fallback to fetching event data from the API
-  //       .getOne('events', { id: eventId })
-  //       .then(({ data }: { data: AdminEvent }) => {
-  //         setEvent(data);
-  //       })
-  //       .catch((error: Error) => {
-  //         Sentry.captureException(error);
-  //       });
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    if (record?.event) {
+      setEvent(record.event);
+    } else if (eventId) {
+      dataProvider
+        .getOne('events', { id: eventId })
+        .then(({ data }: { data: AdminEvent }) => {
+          setEvent(data);
+        })
+        .catch((error: Error) => {
+          Sentry.captureException(error);
+        });
+    }
+  }, [record, eventId, dataProvider]);
 
   return (
     <SanitizedGrid container spacing={1}>

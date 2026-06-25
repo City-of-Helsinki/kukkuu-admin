@@ -47,7 +47,7 @@ const OccurrenceCreate = () => {
       <Create
         title="occurrences.create.title"
         // FIXME: What is the show/1- URL? Questioned in KK-1017.
-        redirect={eventId ? `/events/${eventId}/show/1` : 'show'}
+        redirect={eventId ? () => `/events/${eventId}/show/1` : 'show'}
       >
         <OccurrenceCreateForm />
       </Create>
