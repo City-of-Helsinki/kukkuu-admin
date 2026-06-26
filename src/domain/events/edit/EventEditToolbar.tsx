@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   type MutationMode,
   type ToolbarProps,
@@ -16,7 +15,7 @@ const EventEditToolbar = ({
   return (
     <Toolbar style={{ justifyContent: 'space-between' }} {...toolbarProps}>
       <SaveButton />
-      <DeleteButton disabled={Boolean(record.occurrences.edges.length)} />
+      <DeleteButton disabled={Boolean(record?.occurrences.edges.length)} />
     </Toolbar>
   );
 };

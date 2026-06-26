@@ -1,4 +1,3 @@
-import React from 'react';
 import { TextInput, SimpleForm, required } from 'react-admin';
 
 import { validateVenue } from './validations';

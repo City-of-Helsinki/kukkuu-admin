@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   type ToolbarProps,
   SimpleForm,
@@ -20,9 +19,9 @@ import type { OccurrenceNode } from '../api/generatedTypes/graphql';
 const OccurrenceEditToolbar = ({
   redirect: redirectPath,
   ...toolbarProps
-}: ToolbarProps & { redirect: string }) => {
+}: ToolbarProps & { redirect: string | (() => string) }) => {
   const record = useRecordContext<OccurrenceNode>();
-  const isPublished = Boolean(record.event.publishedAt);
+  const isPublished = Boolean(record?.event.publishedAt);
   return (
     <Toolbar style={{ justifyContent: 'space-between' }} {...toolbarProps}>
       <SaveButton />
@@ -44,7 +43,7 @@ const OccurrenceEditDateTimeTextInput = (props: any) => {
   return (
     <DateTimeTextInput
       {...props}
-      disabled={Boolean(record.event.publishedAt)}
+      disabled={Boolean(record?.event.publishedAt)}
     />
   );
 };
@@ -52,14 +51,14 @@ const OccurrenceEditDateTimeTextInput = (props: any) => {
 const OccurrenceEditReferenceInput = (props: any) => {
   const record = useRecordContext();
   return (
-    <ReferenceInput {...props} disabled={Boolean(record.event.publishedAt)} />
+    <ReferenceInput {...props} disabled={Boolean(record?.event.publishedAt)} />
   );
 };
 
 const OccurrenceEditForm = () => {
   const record = useRecordContext<OccurrenceNode>();
   const redirect = record?.event.id
-    ? `/events/${record.event.id}/show/1`
+    ? () => `/events/${record.event.id}/show/1`
     : 'show';
 
   return (

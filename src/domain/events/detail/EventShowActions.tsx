@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   EditButton,
   TopToolbar,
@@ -6,21 +5,11 @@ import {
   useRecordContext,
   useResourceContext,
 } from 'react-admin';
-import { makeStyles } from '@mui/styles';
 
 import type { Permissions } from '../../authentication/authProvider';
 import type { AdminEvent } from '../types/EventTypes';
 import EventReadyToggle from './EventReadyToggle';
 import EventPublishButton from './EventPublishButton';
-
-const useStyles = makeStyles(() => ({
-  toolbar: {
-    display: 'flex',
-  },
-  isReadyToggle: {
-    marginLeft: 'auto',
-  },
-}));
 
 const EventShowActions = () => {
   const record = useRecordContext<AdminEvent>();
@@ -28,7 +17,6 @@ const EventShowActions = () => {
   const basePath = `/${resource}`;
   const hasEventGroup = Boolean(record?.eventGroup);
   const isPublished = Boolean(record?.publishedAt);
-  const classes = useStyles();
   const { permissions } = usePermissions<Permissions>();
 
   const canPublish = Boolean(
@@ -36,13 +24,15 @@ const EventShowActions = () => {
   );
 
   return (
-    <TopToolbar>
+    <TopToolbar sx={{ display: 'flex' }}>
       <EditButton record={record} />
       {record && !hasEventGroup && !isPublished && canPublish && (
         <EventPublishButton basePath={basePath} />
       )}
       {record && hasEventGroup && !isPublished && (
-        <EventReadyToggle className={classes.isReadyToggle} />
+        <span style={{ marginLeft: 'auto' }}>
+          <EventReadyToggle />
+        </span>
       )}
     </TopToolbar>
   );

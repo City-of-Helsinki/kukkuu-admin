@@ -1,8 +1,8 @@
-import React from 'react';
 import * as ReactAdmin from 'react-admin';
 import { render, screen, waitFor } from '@testing-library/react';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material';
-import { createTheme } from '@mui/material/styles/';
+import { createTheme } from '@mui/material';
+import { ResourceContextProvider } from 'react-admin';
 
 import EventGroupsDetailActions from '../EventGroupsDetailActions';
 
@@ -35,7 +35,9 @@ const getWrapper = (props) =>
             getOne: () => Promise.resolve(props?.data),
           }}
         >
-          <EventGroupsDetailActions permissions={props?.permissions} />
+          <ResourceContextProvider value="event-groups">
+            <EventGroupsDetailActions permissions={props?.permissions} />
+          </ResourceContextProvider>
         </ReactAdmin.AdminContext>
       </ThemeProvider>
     </StyledEngineProvider>
@@ -79,7 +81,7 @@ describe('<EventGroupsDetailActions />', () => {
     getWrapper(context);
 
     expect(
-      screen.getByRole('link', { name: 'ra.action.edit' })
+      screen.getByRole('link', { name: 'resources.event-groups.action.edit' })
     ).toBeInTheDocument();
   });
 

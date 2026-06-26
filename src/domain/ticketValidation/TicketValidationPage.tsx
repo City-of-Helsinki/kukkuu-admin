@@ -1,18 +1,17 @@
 import React from 'react';
-import { makeStyles } from '@mui/styles';
 import {
   FormControl,
   FormControlLabel,
   FormGroup,
   Checkbox,
-  type Theme,
+  useTheme,
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { useTranslate, Loading } from 'react-admin';
 import Typography from '@mui/material/Typography';
-import Alert from '@mui/lab/Alert';
+import Alert from '@mui/material/Alert';
 import { ApolloProvider } from '@apollo/client';
 
 import unauthenticatedClient from '../../api/apolloClient/unauthenticatedClient';
@@ -20,36 +19,13 @@ import useVerifyTicketQuery from './useVerifyTicketQuery';
 import OccurrenceCard from './OccurrenceCard';
 import useUpdateTicketAttendedMutation from './useUpdateTicketAttendedMutation';
 
-const containerStyles = {
+const containerStyles: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
   minHeight: '100vh',
-} as const;
-
-const useStyles = makeStyles((theme) => ({
-  errorContainer: {
-    ...containerStyles,
-  },
-  container: {
-    ...containerStyles,
-    rowGap: theme.spacing(3),
-
-    backgroundColor: theme.palette.grey[200],
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    marginTop: theme.spacing(3),
-  },
-  arrivalStatus: {
-    color: theme.palette.grey[600],
-    display: 'block',
-    textAlign: 'center',
-    fontStyle: 'italic',
-    fontWeight: 'lighter',
-  },
-}));
+};
 
 type Params = {
   cryptographicallySignedCode: string;
@@ -57,7 +33,7 @@ type Params = {
 
 const TicketValidationPage = () => {
   const t = useTranslate();
-  const styles = useStyles();
+  const theme = useTheme();
   const { cryptographicallySignedCode } = useParams<Params>();
   const { data, error, loading, refetch } = useVerifyTicketQuery({
     referenceId: cryptographicallySignedCode ?? '',
@@ -89,7 +65,7 @@ const TicketValidationPage = () => {
 
   if (error) {
     return (
-      <div className={styles.errorContainer}>
+      <div style={containerStyles}>
         <Alert severity="error">{t('ticketValidation.error')}</Alert>
       </div>
     );
@@ -107,7 +83,13 @@ const TicketValidationPage = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div
+      style={{
+        ...containerStyles,
+        rowGap: theme.spacing(3),
+        backgroundColor: theme.palette.grey[200],
+      }}
+    >
       <ValidityIndicator isValid={isValid} />
       <OccurrenceCard
         eventName={eventName}
@@ -116,7 +98,12 @@ const TicketValidationPage = () => {
       />
       {isValid && (
         <div>
-          <div className={styles.formControl}>
+          <div
+            style={{
+              margin: theme.spacing(1),
+              marginTop: theme.spacing(3),
+            }}
+          >
             <FormControl component="fieldset" variant="standard">
               <FormGroup>
                 <FormControlLabel
@@ -133,7 +120,15 @@ const TicketValidationPage = () => {
               </FormGroup>
             </FormControl>
           </div>
-          <div className={styles.arrivalStatus}>
+          <div
+            style={{
+              color: theme.palette.grey[600],
+              display: 'block',
+              textAlign: 'center',
+              fontStyle: 'italic',
+              fontWeight: 'lighter',
+            }}
+          >
             {t('ticketValidation.arrivalStatus.label', {
               attendedEnrolmentCount,
               enrolmentCount,
@@ -149,28 +144,26 @@ type ValidityIndicatorProps = {
   isValid: boolean;
 };
 
-const useValidStyles = makeStyles<Theme, ValidityIndicatorProps>((theme) => ({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    rowGap: theme.spacing(1),
-  },
-  icon: {
-    fontSize: '6rem',
-    color: ({ isValid }) =>
-      isValid ? theme.palette.success.main : theme.palette.error.main,
-  },
-}));
-
 const ValidityIndicator = ({ isValid }: ValidityIndicatorProps) => {
   const t = useTranslate();
-  const styles = useValidStyles({ isValid });
+  const theme = useTheme();
 
   return (
-    <div className={styles.container}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        rowGap: theme.spacing(1),
+      }}
+    >
       {React.createElement(isValid ? CheckCircleIcon : CancelIcon, {
-        className: styles.icon,
+        style: {
+          fontSize: '6rem',
+          color: isValid
+            ? theme.palette.success.main
+            : theme.palette.error.main,
+        },
       })}
       <Typography component="h1" variant="h5">
         {t(isValid ? 'ticketValidation.valid' : 'ticketValidation.invalid')}

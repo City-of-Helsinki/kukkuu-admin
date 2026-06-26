@@ -8,32 +8,17 @@ import {
   RecordContextProvider,
 } from 'react-admin';
 import get from 'lodash/get';
-import { makeStyles } from '@mui/styles';
-
-// TODO: Can this be totally removed?
-// During the migration in KK-1017, an alternative for useDtaGridStyles was not found.
-const useDatagridStyles = makeStyles((theme) => ({
-  table: {},
-  thead: {},
-  row: {},
-  headerRow: {},
-  headerCell: {},
-  rowCell: {},
-  clickableRow: {},
-}));
 
 function disableSorting(field: ReactElement) {
   return {
     ...field,
-    props: {
-      ...field.props,
+    props: Object.assign({}, field.props, {
       sortable: false,
-    },
+    }),
   };
 }
 
 const LocalDataGrid = ({ children, source, rowClick }: any) => {
-  const classes = useDatagridStyles();
   const record = useRecordContext();
   const resource = useResourceContext();
   const handleRowClick = (localRecord?: any) => {
@@ -44,19 +29,17 @@ const LocalDataGrid = ({ children, source, rowClick }: any) => {
   const isHover = Boolean(handleRowClick);
 
   return (
-    <Table className={classes.table} size="small">
-      <TableHead className={classes.thead}>
-        <TableRow className={[classes.row, classes.headerRow].join(' ')}>
+    <Table size="small">
+      <TableHead>
+        <TableRow>
           {Children.map(
             children,
             (field, index) =>
               field && (
                 <DatagridHeaderCell
-                  className={classes.headerCell}
                   field={disableSorting(field)}
                   isSorting={false}
                   key={field.props.source || index}
-                  resource={resource}
                   sort={{
                     field: 'any',
                     order: 'ASC',
@@ -77,7 +60,6 @@ const LocalDataGrid = ({ children, source, rowClick }: any) => {
             onClick={() => {
               handleRowClick(localRecord);
             }}
-            className={rowClick ? classes.clickableRow : undefined}
           >
             {React.Children.map(
               children,
@@ -88,10 +70,7 @@ const LocalDataGrid = ({ children, source, rowClick }: any) => {
                     {/* @ts-ignore - ts2739 is a bug in the react-adminlibrary and adding those missing prosp as undefined raises a warning. */}
                     <DatagridCell
                       key={`${localRecord.id}-${field.props.source || index}`}
-                      className={[
-                        `column-${field.props.source}`,
-                        classes.rowCell,
-                      ].join(' ')}
+                      className={`column-${field.props.source}`}
                       record={localRecord}
                       {...{ field, resource }}
                     />

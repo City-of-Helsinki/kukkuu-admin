@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   type RaRecord,
   useTranslate,
@@ -7,8 +6,7 @@ import {
   SelectField,
   FunctionField,
 } from 'react-admin';
-import { makeStyles } from '@mui/styles';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPageLayout';
 import KukkuuDetailPage from '../../application/layout/kukkuuDetailPage/KukkuuDetailPage';
@@ -24,17 +22,9 @@ import EventReadyField from './EventReadyField';
 import EventGroupsDetailActions from './EventGroupsDetailActions';
 import type { EventNode } from '../../api/generatedTypes/graphql';
 
-const useStyles = makeStyles(() => ({
-  center: {
-    margin: '0 auto',
-    textAlign: 'center',
-  },
-}));
-
 const EventGroupsDetail = () => {
   const navigate = useNavigate();
   const t = useTranslate();
-  const classes = useStyles();
   const handleRowClick = (record?: RaRecord) => {
     navigate(`/events/${record?.id}/show`);
   };
@@ -89,13 +79,12 @@ const EventGroupsDetail = () => {
           }
         />
         <FunctionField
-          headerClassName={classes.center}
           label="events.fields.ready.label2"
           // FIXME: Why is it EventNode in EventGroupDetails?
           render={(record: Partial<EventNode>) => (
             <EventReadyField
               record={record as EventNode}
-              className={classes.center}
+              style={{ margin: '0 auto', textAlign: 'center' }}
             />
           )}
         />

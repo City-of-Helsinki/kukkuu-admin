@@ -1,6 +1,6 @@
-import React, { type ReactElement, type ReactText, useState } from 'react';
+import React, { type ReactElement, useState } from 'react';
 import { Button, Confirm } from 'react-admin';
-import type { useMutation } from 'react-query';
+import type { useMutation } from '@tanstack/react-query';
 
 import type {
   MethodHandlerResponse,
@@ -23,7 +23,7 @@ type Props = {
   confirmModalProps: {
     title: string;
     content: string;
-    translateOptions?: Record<string, ReactText>;
+    translateOptions?: Record<string, string | number>;
   };
   icon?: ReactElement;
 };
@@ -31,7 +31,7 @@ type Props = {
 const ConfirmMutationButton = ({
   className,
   buttonLabel,
-  mutation: { mutate: applyMutation, isLoading },
+  mutation: { mutate: applyMutation, isPending: isLoading },
   confirmModalProps: { title, content, translateOptions },
   icon: Icon,
 }: Props) => {

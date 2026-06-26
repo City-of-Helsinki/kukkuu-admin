@@ -10,8 +10,8 @@ import {
   useRecordContext,
   usePermissions,
 } from 'react-admin';
-import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import type { FieldValues, Resolver } from 'react-hook-form';
 import { useFormContext } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -42,35 +42,6 @@ const CustomOnChange = ({ children, onChange, ...rest }: any) => {
     onChange: (e: ChangeEvent<HTMLInputElement>) => onChange(e, form),
   });
 };
-
-const useStyles = makeStyles((theme) => ({
-  form: {
-    '& > .MuiCardContent-root': {
-      display: 'grid',
-      gridTemplateColumns: '1fr 1fr',
-      gridTemplateRows: 'auto',
-      columnGap: theme.spacing(2),
-      '& > *': {
-        gridColumn: '1 / -1',
-      },
-    },
-  },
-  recipientSelection: {
-    gridColumn: '1 !important',
-  },
-  event: {
-    gridColumn: '1 !important',
-  },
-  occurrences: {
-    gridColumn: '2 !important',
-  },
-  fullWidth: {
-    width: '100%',
-  },
-  formNoticeText: {
-    marginBottom: theme.spacing(1),
-  },
-}));
 
 function getInitialOccurrenceIds(record: any) {
   if (!record?.occurrences?.edges || record.occurrences.edges.length === 0) {
@@ -109,7 +80,6 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
   }
 
   const t = useTranslate();
-  const classes = useStyles();
 
   // Filter the list of recipient choices by permissions
   // NOTE: use `getFilteredRecipientSelectionChoicesByPermissions` if
@@ -157,7 +127,17 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
   return (
     <SimpleForm
       resolver={resolver as unknown as Resolver<FieldValues>}
-      className={classes.form}
+      sx={(theme) => ({
+        '& > .MuiCardContent-root': {
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gridTemplateRows: 'auto',
+          columnGap: theme.spacing(2),
+          '& > *': {
+            gridColumn: '1 / -1',
+          },
+        },
+      })}
       {...delegatedProps}
     >
       <TranslatableProvider>
@@ -177,60 +157,55 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
                   validate={validateRecipientSelection}
                   defaultValue=""
                   fullWidth
-                  formClassName={classes.recipientSelection}
+                  sx={{ gridColumn: '1 !important' }}
                 />
               </CustomOnChange>
-              <FormDataConsumer formClassName={classes.event}>
-                {({
-                  formData: { recipientSelection },
-                  getSource, // Pick away from ..rest
-                  ...rest
-                }) =>
-                  recipientsWithEventSelection.includes(recipientSelection) && (
-                    <CustomOnChange onChange={handleEvenIdChange}>
-                      <EventSelect
-                        {...rest}
-                        variant="outlined"
-                        source="eventId"
-                        label="messages.fields.event.label"
-                        fullWidth
-                        className={classes.fullWidth}
-                        emptyValue="all"
-                        emptyText="messages.fields.event.all"
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        initialValue={record?.event?.id || 'all'} // FIXME: This should no longer be needed KK-1017
-                        defaultValue={record?.event?.id || 'all'}
-                      />
-                    </CustomOnChange>
-                  )
-                }
-              </FormDataConsumer>
-              <FormDataConsumer formClassName={classes.occurrences}>
-                {({
-                  formData: { eventId, recipientSelection },
-                  getSource, // Pick away from ...rest
-                  ...rest
-                }) =>
-                  eventId &&
-                  eventId !== 'all' &&
-                  recipientSelection !== 'INVITED' && (
-                    <OccurrenceArraySelect
-                      {...rest}
-                      variant="outlined"
-                      source="occurrenceIds"
-                      label="messages.fields.occurrences.label"
-                      eventId={eventId}
-                      fullWidth
-                      className={classes.fullWidth}
-                      initialValue={getInitialOccurrenceIds(record)} // FIXME: This should no longer be needed KK-1017
-                      defaultValue={getInitialOccurrenceIds(record)}
-                      allText="messages.fields.occurrences.all"
-                    />
-                  )
-                }
-              </FormDataConsumer>
+              <Box sx={{ gridColumn: '1 !important' }}>
+                <FormDataConsumer>
+                  {({ formData: { recipientSelection }, ...rest }) =>
+                    recipientsWithEventSelection.includes(
+                      recipientSelection
+                    ) && (
+                      <CustomOnChange onChange={handleEvenIdChange}>
+                        <EventSelect
+                          {...rest}
+                          variant="outlined"
+                          source="eventId"
+                          label="messages.fields.event.label"
+                          fullWidth
+                          emptyValue="all"
+                          emptyText="messages.fields.event.all"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          initialValue={record?.event?.id || 'all'} // FIXME: This should no longer be needed KK-1017
+                          defaultValue={record?.event?.id || 'all'}
+                        />
+                      </CustomOnChange>
+                    )
+                  }
+                </FormDataConsumer>
+              </Box>
+              <Box sx={{ gridColumn: '2 !important' }}>
+                <FormDataConsumer>
+                  {({ formData: { eventId, recipientSelection }, ...rest }) =>
+                    eventId &&
+                    eventId !== 'all' &&
+                    recipientSelection !== 'INVITED' && (
+                      <Box sx={{ width: '100%' }}>
+                        <OccurrenceArraySelect
+                          {...rest}
+                          source="occurrenceIds"
+                          label="messages.fields.occurrences.label"
+                          eventId={eventId}
+                          defaultValue={getInitialOccurrenceIds(record)}
+                          allText="messages.fields.occurrences.all"
+                        />
+                      </Box>
+                    )
+                  }
+                </FormDataConsumer>
+              </Box>
               {protocol === ProtocolType.Email && (
                 <TextInput
                   source={translatableField('subject')}
@@ -259,7 +234,7 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
                 <>
                   <Typography
                     variant="subtitle2"
-                    className={classes.formNoticeText}
+                    sx={(theme) => ({ marginBottom: theme.spacing(1) })}
                   >
                     {t('sms.create.messageSentImmediatelyNotice')}
                   </Typography>

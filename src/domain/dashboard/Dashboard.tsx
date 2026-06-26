@@ -1,5 +1,4 @@
 import get from 'lodash/get';
-import React from 'react';
 import {
   useTranslate,
   useGetOne,
@@ -11,18 +10,12 @@ import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import * as Sentry from '@sentry/browser';
-import { makeStyles } from '@mui/styles';
 
 import projectService from '../projects/projectService';
 import { getTranslatedField } from '../../common/translation/TranslationUtils';
 import type { ProjectNode } from '../api/generatedTypes/graphql';
 
-const useStyles = makeStyles({
-  card: { marginTop: 18 },
-});
-
 const Dashboard = () => {
-  const classes = useStyles();
   const translate = useTranslate();
   const [locale] = useLocaleState();
   const notify = useNotify();
@@ -42,7 +35,7 @@ const Dashboard = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <Card className={classes.card}>
+    <Card sx={{ marginTop: '18px' }}>
       <CardHeader title={translate('dashboard.title')} />
       {data ? (
         <CardContent>

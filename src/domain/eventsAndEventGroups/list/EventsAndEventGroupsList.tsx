@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   type RaRecord,
   type Identifier,
@@ -9,7 +8,7 @@ import {
   TopToolbar,
   Labeled,
 } from 'react-admin';
-import { makeStyles } from '@mui/styles';
+import Box from '@mui/material/Box';
 
 import { toDateTimeString } from '../../../common/utils';
 import PublishedField from '../../../common/components/publishedField/PublishedField';
@@ -23,20 +22,14 @@ import type {
 import { EventsAndEventGroupsListManagementButtonGroup } from './ManagementButtonGroup';
 import Empty from './Empty';
 
-const useEventsAndEventGroupsListToolbarStyles = makeStyles((theme?: any) => ({
-  toolbar: {
-    margin: `0 -${theme.spacing(1)}`,
-    '& > *': {
-      margin: `0 ${theme.spacing(1)}`,
-    },
-  },
-}));
-
 const EventsAndEventGroupsListToolbar = () => {
-  const classes = useEventsAndEventGroupsListToolbarStyles();
-
   return (
-    <TopToolbar className={classes.toolbar}>
+    <TopToolbar
+      sx={(theme) => ({
+        margin: `0 -${theme.spacing(1)}`,
+        '& > *': { margin: `0 ${theme.spacing(1)}` },
+      })}
+    >
       <EventsAndEventGroupsListManagementButtonGroup />
     </TopToolbar>
   );
@@ -60,18 +53,8 @@ function when(
   }
 }
 
-const useStyles = makeStyles((theme) => ({
-  uppercase: {
-    textTransform: 'uppercase',
-  },
-  bold: {
-    fontWeight: theme.typography.fontWeightBold,
-  },
-}));
-
 const EventsAndEventGroupsList = () => {
   const translate = useTranslate();
-  const classes = useStyles();
   const handleRowClick = (
     id: Identifier,
     resource: string,
@@ -105,7 +88,7 @@ const EventsAndEventGroupsList = () => {
       <TextField
         source="name"
         label={translate('events.fields.name.label')}
-        className={classes.bold}
+        sx={(theme) => ({ fontWeight: theme.typography.fontWeightBold })}
       />
       <FunctionField
         label="eventsAndEventGroups.list.type.label"
@@ -113,20 +96,22 @@ const EventsAndEventGroupsList = () => {
           if (!record) {
             return null;
           }
-
           return when(
             record,
             () => translate('eventsAndEventGroups.list.type.event.label'),
             () => translate('eventsAndEventGroups.list.type.eventGroup.label')
           );
         }}
-        className={[classes.uppercase, classes.bold].join(' ')}
+        sx={(theme) => ({
+          textTransform: 'uppercase',
+          fontWeight: theme.typography.fontWeightBold,
+        })}
       />
       <NumberField
         label="eventsAndEventGroups.list.eventCount.label"
         source="events.edges.length"
         emptyText="1"
-        className={classes.bold}
+        sx={(theme) => ({ fontWeight: theme.typography.fontWeightBold })}
       />
       <FunctionField
         label="events.fields.totalCapacity.label"
@@ -135,7 +120,6 @@ const EventsAndEventGroupsList = () => {
           if (!record) {
             return null;
           }
-
           return when(
             record,
             (event: EventNode) => {
@@ -173,18 +157,25 @@ const EventsAndEventGroupsList = () => {
         }}
       />
       <Labeled label={translate('events.fields.publishedAt.label')}>
-        <PublishedField
-          source="publishedAt"
-          render={(date: Date) =>
-            `${translate(
-              'events.fields.publishedAt.published.label'
-            )} ${toDateTimeString(date)}`
-          }
-          emptyText={translate(
-            'events.fields.publishedAt.values.NOT_PUBLISHED'
-          )}
-          className={classes.bold}
-        />
+        <Box
+          sx={(theme) => ({
+            '& .MuiTypography-root': {
+              fontWeight: theme.typography.fontWeightBold,
+            },
+          })}
+        >
+          <PublishedField
+            source="publishedAt"
+            render={(date: Date) =>
+              `${translate(
+                'events.fields.publishedAt.published.label'
+              )} ${toDateTimeString(date)}`
+            }
+            emptyText={translate(
+              'events.fields.publishedAt.values.NOT_PUBLISHED'
+            )}
+          />
+        </Box>
       </Labeled>
     </KukkuuListPage>
   );

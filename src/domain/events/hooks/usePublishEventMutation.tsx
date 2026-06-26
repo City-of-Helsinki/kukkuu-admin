@@ -1,5 +1,5 @@
 import { useDataProvider, useNotify } from 'react-admin';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import * as Sentry from '@sentry/browser';
 

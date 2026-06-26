@@ -13,8 +13,7 @@ import PlaceIcon from '@mui/icons-material/Place';
 import EventIcon from '@mui/icons-material/Event';
 import MessageIcon from '@mui/icons-material/EmailOutlined';
 import ChildCareIcon from '@mui/icons-material/ChildCare';
-import { Navigate, Route } from 'react-router';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route } from 'react-router-dom';
 
 import type { Permissions } from '../authentication/authProvider';
 import i18nProvider from '../../common/translation/i18nProvider';
@@ -43,6 +42,7 @@ const App = () => {
         dataProvider={dataProvider as DataProvider}
         i18nProvider={i18nProvider}
         theme={theme}
+        darkTheme={null}
         dashboard={Dashboard}
         authProvider={authProvider}
       >
@@ -62,6 +62,37 @@ function AsyncResources() {
     setResources(getReactAdminResources(projectId, permissions));
   }, [permissions?.role, projectId]);
 
+  // Memoize children so CoreAdminRoutes receives a stable reference between
+  // renders. Without this, resources.map() creates a new array on every render
+  // of AsyncResources, causing useConfigureAdminRouterFromChildren (in
+  // react-admin v5) to re-run its effect on every render and loop infinitely.
+  const adminChildren = React.useMemo(
+    () => (
+      <>
+        <CustomRoutes noLayout>
+          <Route path="/callback" element={<CallbackPage />} />
+          <Route path="/unauthorized" element={<UnauthorizedPage />} />
+          <Route
+            path="/check-ticket-validity/:cryptographicallySignedCode"
+            element={<TicketValidationPage />}
+          />
+          <Route
+            path="/event-groups"
+            element={<Navigate to="/events-and-event-groups" />}
+          />
+          <Route
+            path="/events"
+            element={<Navigate to="/events-and-event-groups" />}
+          />
+        </CustomRoutes>
+        {resources.map((resource: ResourceProps) => (
+          <Resource key={resource.name} {...resource} />
+        ))}
+      </>
+    ),
+    [resources]
+  );
+
   return (
     <AdminUI
       disableTelemetry
@@ -69,25 +100,7 @@ function AsyncResources() {
       layout={KukkuuLayout}
       loginPage={LoginPage}
     >
-      <CustomRoutes noLayout>
-        <Route path="/callback" element={<CallbackPage />} />
-        <Route path="/unauthorized" element={<UnauthorizedPage />} />
-        <Route
-          path="/check-ticket-validity/:cryptographicallySignedCode"
-          element={<TicketValidationPage />}
-        />
-        <Route
-          path="/event-groups"
-          element={<Navigate to="/events-and-event-groups" />}
-        />
-        <Route
-          path="/events"
-          element={<Navigate to="/events-and-event-groups" />}
-        />
-      </CustomRoutes>
-      {resources.map((resource: ResourceProps) => (
-        <Resource key={resource.name} {...resource} />
-      ))}
+      {adminChildren}
     </AdminUI>
   );
 }
@@ -96,7 +109,7 @@ export function getReactAdminResources(
   projectId?: string,
   permissions?: Permissions
 ): ResourceProps[] {
-  const resources = [
+  const resources: ResourceProps[] = [
     {
       name: 'events-and-event-groups',
       options: { label: 'events.list.title' },
@@ -149,10 +162,7 @@ export function getReactAdminResources(
       icon: ChildCareIcon,
       list: ChildResource.List,
       show: ChildResource.Detail,
-      // Use `any` to avoid type error for edit and create,
-      // which should allow undefined, but for some reason does not.
-      // eslint-disable-line @typescript-eslint/no-explicit-any
-    } as any);
+    });
   }
   return resources;
 }

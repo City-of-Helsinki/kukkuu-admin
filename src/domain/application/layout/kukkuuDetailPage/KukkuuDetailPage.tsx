@@ -1,5 +1,4 @@
 import type { ComponentType, ReactElement } from 'react';
-import React from 'react';
 import {
   type RaRecord,
   type ShowProps,
@@ -33,8 +32,7 @@ const KukkuuDetailPage = ({
 }: Props) => {
   const resource = useResourceContext();
   const { id } = useParams();
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const { data } = useGetOne(resource, {
+  const { data } = useGetOne(resource!, {
     id,
   });
 
@@ -47,7 +45,10 @@ const KukkuuDetailPage = ({
       pageTitle={pageTitle}
       breadcrumbs={crumbs}
     >
-      <KukkuuShow {...omit(reactAdminProps, 'hasShow')}>{children}</KukkuuShow>
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+      <KukkuuShow {...(omit(reactAdminProps, 'hasShow') as any)}>
+        {children}
+      </KukkuuShow>
     </Layout>
   );
 };

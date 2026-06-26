@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslate } from 'react-admin';
 import { useLocation } from 'react-router-dom';
 
@@ -19,7 +18,7 @@ const EventCreate = () => {
   };
   const isAddingEventToEventGroup = Boolean(eventGroupId);
   const redirect = isAddingEventToEventGroup
-    ? `/event-groups/${eventGroupId}/show`
+    ? () => `/event-groups/${eventGroupId}/show`
     : 'show';
   return (
     <KukkuuCreatePage

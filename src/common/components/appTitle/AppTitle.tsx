@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslate } from 'react-admin';
 
 import IsTestEnvironmentLabel from '../isTestEnvironmentLabel/IsTestEnvironmentLabel';
