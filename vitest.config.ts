@@ -11,6 +11,7 @@ export default defineConfig((configEnv) =>
         globals: true,
         environment: 'jsdom',
         setupFiles: './tests/vitest-setup.ts',
+        exclude: ['node_modules', 'e2e/**'],
         reporters: ['json', 'verbose', 'vitest-sonar-reporter'],
         outputFile: {
           json: 'sonar-report.json',
