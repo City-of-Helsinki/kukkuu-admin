@@ -34,6 +34,11 @@ yarn.lock
 screenshots
 report
 
+# Playwright
+e2e/.auth/
+playwright-report/
+test-results/
+
 # don't store these .env files in version control
 .env.development
 .env.production
