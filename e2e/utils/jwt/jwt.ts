@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto';
 
-import * as jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 import type { OIDCUserProfileType } from './types';
 import BrowserTestJWTConfig from './config';

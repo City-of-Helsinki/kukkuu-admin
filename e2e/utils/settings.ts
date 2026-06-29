@@ -13,17 +13,14 @@ if (fs.existsSync(browserTestEnvFilePath)) {
 } else {
   // eslint-disable-next-line no-console
   console.info(
-    'HINT: If you are running the Testcafe tests locally, ' +
+    'HINT: If you are running the Playwright tests locally, ' +
       `you could take advantage of "${browserTestEnvFilePath}" file ` +
       'to populate environment variables for browser tests.'
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
-const get = require('lodash/get');
-
 function getOrError(variableName: string) {
-  const variable = get(process.env, variableName);
+  const variable = process.env[variableName];
 
   if (!variable) {
     throw new Error(`No ${variableName} specified.`);
