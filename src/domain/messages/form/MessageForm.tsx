@@ -213,9 +213,6 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
                   label="messages.fields.subject.label2"
                   validate={validateSubject}
                   fullWidth
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
                 />
               )}
               <TextInput
@@ -226,9 +223,6 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
                 multiline
                 fullWidth
                 rows={10}
-                InputLabelProps={{
-                  shrink: true,
-                }}
               />
               {protocol === ProtocolType.Sms && (
                 <>
