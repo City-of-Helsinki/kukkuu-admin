@@ -178,7 +178,6 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
                           InputLabelProps={{
                             shrink: true,
                           }}
-                          initialValue={record?.event?.id || 'all'} // FIXME: This should no longer be needed KK-1017
                           defaultValue={record?.event?.id || 'all'}
                         />
                       </CustomOnChange>
