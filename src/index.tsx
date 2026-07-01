@@ -35,6 +35,9 @@ const container = document.getElementById('root');
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = createRoot(container!, {
   onCaughtError: (error: unknown, errorInfo: { componentStack?: string }) => {
+    Sentry.captureException(error, {
+      contexts: { react: { componentStack: errorInfo?.componentStack } },
+    });
     // eslint-disable-next-line no-console
     console.error(
       '[CAUGHT_ERROR] message:',
@@ -44,6 +47,9 @@ const root = createRoot(container!, {
     );
   },
   onUncaughtError: (error: unknown, errorInfo: { componentStack?: string }) => {
+    Sentry.captureException(error, {
+      contexts: { react: { componentStack: errorInfo?.componentStack } },
+    });
     // eslint-disable-next-line no-console
     console.error(
       '[UNCAUGHT_ERROR] message:',

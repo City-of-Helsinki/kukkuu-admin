@@ -13,13 +13,21 @@ import { envUrl } from '../settings';
 
 let cachedOidcConfig: OIDCOpenIdConfigurationResponseType | null = null;
 
-async function getOidcConfig(): Promise<OIDCOpenIdConfigurationResponseType> {
+// Build the OIDC discovery payload from the known authority URL.
+// Tunnistamo/Keycloak follows the standard path convention, so we can
+// construct all endpoint URLs without a live network call.
+function getOidcConfig(): OIDCOpenIdConfigurationResponseType {
   if (!cachedOidcConfig) {
-    const response = await fetch(
-      BrowserTestJWTConfig.oidcConfigurationEndpoint
-    );
-    cachedOidcConfig =
-      (await response.json()) as OIDCOpenIdConfigurationResponseType;
+    const authority = BrowserTestJWTConfig.oidcAuthority;
+    const base = authority.endsWith('/') ? authority : `${authority}/`;
+    const issuer = base.replace(/\/$/, '');
+    cachedOidcConfig = {
+      issuer,
+      authorization_endpoint: `${base}protocol/openid-connect/auth`,
+      token_endpoint: `${base}protocol/openid-connect/token`,
+      userinfo_endpoint: `${base}protocol/openid-connect/userinfo`,
+      end_session_endpoint: `${base}protocol/openid-connect/logout`,
+    };
   }
   return cachedOidcConfig;
 }
@@ -35,8 +43,10 @@ export async function installOidcMock(
   page: Page,
   user: OIDCUserProfileType
 ): Promise<void> {
+  const oidcConfig = getOidcConfig();
   const { authorization_endpoint, token_endpoint, userinfo_endpoint } =
-    await getOidcConfig();
+    oidcConfig;
+  const discoveryEndpoint = BrowserTestJWTConfig.oidcConfigurationEndpoint;
 
   // Intercept every request whose URL starts with the OIDC authority
   await page.route(`${BrowserTestJWTConfig.oidcAuthority}**`, async (route) => {
@@ -60,8 +70,14 @@ export async function installOidcMock(
         contentType: 'application/json',
         body: JSON.stringify(generateUserInfoEndpointResponse(user)),
       });
+    } else if (url === discoveryEndpoint) {
+      // Serve the discovery document from the mock — no live IdP request needed
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(oidcConfig),
+      });
     } else {
-      // Let .well-known/openid-configuration and anything else pass through live
       await route.continue();
     }
   });

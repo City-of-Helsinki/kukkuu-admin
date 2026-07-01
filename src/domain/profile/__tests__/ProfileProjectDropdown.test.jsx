@@ -46,7 +46,7 @@ describe('<ProfileProjectDropdown />', () => {
   });
 
   it('should render null when loading', () => {
-    vi.mocked(useQuery).mockReturnValueOnce({ isLoading: true });
+    vi.mocked(useQuery).mockReturnValue({ isLoading: true });
 
     const { container } = getWrapper();
 
@@ -54,7 +54,7 @@ describe('<ProfileProjectDropdown />', () => {
   });
 
   it('should render null when error', async () => {
-    vi.mocked(useQuery).mockReturnValueOnce({
+    vi.mocked(useQuery).mockReturnValue({
       isLoading: false,
       error: new Error('Test'),
     });

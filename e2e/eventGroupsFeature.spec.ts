@@ -170,6 +170,12 @@ test.describe('Event groups feature', () => {
   }) => {
     const anyEventGroup = eventsListPage(page).anyEventGroup;
 
+    // If no event group exists yet, create one so there is something to open
+    if ((await anyEventGroup.count()) === 0) {
+      await createEventGroup(page, createEG);
+      await page.goto(routes.eventsList());
+    }
+
     // Select any existing event group
     await anyEventGroup.first().click();
 
