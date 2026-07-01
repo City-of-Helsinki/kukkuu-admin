@@ -44,7 +44,7 @@ test.describe('Messages feature', () => {
 
     // If the list is empty, create one message so the assertions are not
     // vacuous. Mirrors the same pattern in eventGroupsFeature.spec.ts.
-    if ((await list.listBody.count()) === 0) {
+    if ((await list.listBody.locator('tr').count()) === 0) {
       await list.createMessageLink.click();
       await expect(messagesCreatePage(page).title).toBeVisible();
       await selectMuiOption(
