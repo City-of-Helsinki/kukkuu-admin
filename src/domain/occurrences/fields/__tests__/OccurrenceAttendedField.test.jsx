@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import {
   DataProviderContext,
@@ -7,7 +6,7 @@ import {
 } from 'react-admin';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, it, expect, vi } from 'vitest';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import OccurrenceAttendedField from '../OccurrenceAttendedField';
 
@@ -53,7 +52,6 @@ describe('OccurrenceAttendedField', () => {
     cursor: '3',
   };
 
-  // eslint-disable-next-line react/prop-types
   const ProviderWrapper = ({ children }) => {
     const queryClient = new QueryClient();
     return (

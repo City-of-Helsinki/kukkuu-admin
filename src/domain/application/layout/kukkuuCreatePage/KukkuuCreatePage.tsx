@@ -1,5 +1,4 @@
 import type { ReactElement } from 'react';
-import React from 'react';
 import { type CreateProps, Create } from 'react-admin';
 
 import KukkuuPageLayout from '../kukkuuCardPageLayout/KukkuuCardPageLayout';

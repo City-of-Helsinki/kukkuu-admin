@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   useRecordContext,
   useResourceContext,
@@ -21,7 +20,7 @@ const MessagesSendButton = ({ className }: Props) => {
   const t = useTranslate();
   const mutation = useMessageSendMutation({
     basePath,
-    params: { id: record.id },
+    params: { id: record?.id! },
   });
   return (
     <ConfirmMutationButton
@@ -31,11 +30,11 @@ const MessagesSendButton = ({ className }: Props) => {
       mutation={mutation}
       confirmModalProps={{
         title: t('messages.send.confirm.title', {
-          messageSubject: record.subject,
+          messageSubject: record?.subject,
         }),
         content: 'messages.send.confirm.content',
         translateOptions: {
-          recipientCount: record?.recipientCount ?? '?',
+          recipientCount: `${record?.recipientCount ?? '?'}`,
         },
       }}
     />

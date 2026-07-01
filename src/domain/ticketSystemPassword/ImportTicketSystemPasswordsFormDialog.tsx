@@ -1,5 +1,4 @@
 import React from 'react';
-import { type WithStyles, withStyles, createStyles } from '@mui/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -13,24 +12,15 @@ import ticketSystemPasswordsApi from './api/ticketSystemPasswordsApi';
 import type { AdminEvent } from '../events/types/EventTypes';
 import type { ImportTicketSystemPasswordsMutationPayload } from '../api/generatedTypes/graphql';
 
-const styles = createStyles({
-  passwordsField: {
-    width: '100%',
-  },
-});
-
-interface ImportTicketSystemPasswordsModalProps extends WithStyles<
-  typeof styles
-> {
+interface ImportTicketSystemPasswordsModalProps {
   isOpen: boolean;
   onClose: () => void;
   record: AdminEvent;
 }
 
-const ImportTicketSystemPasswordsFormDialog = withStyles(styles)(({
+const ImportTicketSystemPasswordsFormDialog = ({
   isOpen,
   onClose,
-  classes,
   record,
 }: ImportTicketSystemPasswordsModalProps) => {
   const translate = useTranslate();
@@ -94,7 +84,7 @@ const ImportTicketSystemPasswordsFormDialog = withStyles(styles)(({
         </DialogContentText>
         <TextareaAutosize
           name="passwords"
-          className={classes.passwordsField}
+          style={{ width: '100%' }}
           aria-label={translate(
             'ticketSystemPassword.import.passwords.ariaLabel'
           )}
@@ -123,6 +113,6 @@ const ImportTicketSystemPasswordsFormDialog = withStyles(styles)(({
       </DialogActions>
     </Dialog>
   );
-});
+};
 
 export default ImportTicketSystemPasswordsFormDialog;

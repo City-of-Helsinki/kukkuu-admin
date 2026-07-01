@@ -1,4 +1,3 @@
-import React from 'react';
 import { screen, fireEvent, render } from '@testing-library/react';
 import * as ReactAdmin from 'react-admin';
 

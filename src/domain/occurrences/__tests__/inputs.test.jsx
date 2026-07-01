@@ -1,6 +1,5 @@
-import React from 'react';
 import { render } from '@testing-library/react';
-import { AdminContext, SimpleForm } from 'react-admin';
+import { AdminContext, ResourceContextProvider, SimpleForm } from 'react-admin';
 
 import { OccurrenceCapacityOverrideInput } from '../inputs';
 
@@ -17,9 +16,11 @@ describe('inputs', () => {
     const getWrapper = () =>
       render(
         <AdminContext>
-          <SimpleForm>
-            <OccurrenceCapacityOverrideInput {...defaultProps} />
-          </SimpleForm>
+          <ResourceContextProvider value="occurrences">
+            <SimpleForm>
+              <OccurrenceCapacityOverrideInput {...defaultProps} />
+            </SimpleForm>
+          </ResourceContextProvider>
         </AdminContext>
       );
 

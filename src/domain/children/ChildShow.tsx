@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   type Identifier,
   type RaRecord,
@@ -88,7 +87,6 @@ const ChildShow = () => {
                     ? toDateString(new Date(record.node?.time), locale)
                     : ''
                 }
-                locales={locale}
               />
               <OccurrenceTimeRangeField occurrenceSource="node" />
               <ReferenceField

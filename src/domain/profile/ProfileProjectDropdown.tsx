@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDataProvider, useRefresh } from 'react-admin';
-import { useQuery } from 'react-query';
-import { makeStyles } from '@mui/styles';
+import { useQuery } from '@tanstack/react-query';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
@@ -15,24 +14,20 @@ import type {
   ProjectNode,
   ProjectNodeConnection,
 } from '../api/generatedTypes/graphql';
+import authService from '../authentication/authService';
 
 const ProjectList = RelayList<ProjectNode>();
 
-const useStyles = makeStyles((theme) => ({
-  button: {
-    textTransform: 'none',
-    fontSize: theme.typography.body1.fontSize,
-  },
-}));
-
 const ProfileProjectDropdown = () => {
+  const isAuthenticated = authService.isAuthenticated();
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const dataProvider = useDataProvider<typeof extendedDataProvider>();
   const { isLoading, error, data } = useQuery({
+    queryKey: ['myAdminProfile'],
     queryFn: dataProvider.getMyAdminProfile,
+    enabled: isAuthenticated,
   });
   const refresh = useRefresh();
-  const classes = useStyles();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -95,7 +90,10 @@ const ProfileProjectDropdown = () => {
         aria-haspopup="true"
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
-        className={classes.button}
+        sx={(theme) => ({
+          textTransform: 'none',
+          fontSize: theme.typography.body1.fontSize,
+        })}
         color="inherit"
       >
         {selectedProject.year} {selectedProject.name}
@@ -112,6 +110,10 @@ const ProfileProjectDropdown = () => {
             key={project.id}
             data-value={project.id}
             onClick={handleMenuItemClick}
+            sx={(theme) => ({
+              textTransform: 'none',
+              fontSize: theme.typography.body1.fontSize,
+            })}
           >
             {project.year} {project.name}
           </MenuItem>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { useRecordContext, RecordContextProvider } from 'react-admin';
 
@@ -7,7 +6,6 @@ import ViewTitle from '../ViewTitle';
 // Mock the react-admin hooks and components
 vi.mock('react-admin', () => ({
   useRecordContext: vi.fn(),
-  // eslint-disable-next-line react/prop-types
   RecordContextProvider: ({ children }) => <div>{children}</div>,
 }));
 

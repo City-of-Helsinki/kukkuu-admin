@@ -31,21 +31,21 @@ const EventReadyToggle = ({ className }: Props) => {
   const record = useRecordContext<AdminEvent>();
   const t = useTranslate();
   const [isReadyLocal, setReadyLocal] = useState(
-    record.readyForEventGroupPublishing
+    record?.readyForEventGroupPublishing ?? false
   );
-  const { mutate: setReady, data, isLoading } = useSetReadyMutation();
+  const { mutate: setReady, data, isPending } = useSetReadyMutation();
 
   const readyForEventGroupPublishing = getReadyStatus(
-    record.readyForEventGroupPublishing,
+    record?.readyForEventGroupPublishing ?? false,
     isReadyLocal,
-    isLoading,
+    isPending,
     data?.data?.readyForEventGroupPublishing
   );
 
   const handleClick = () => {
     setReadyLocal(!readyForEventGroupPublishing);
     setReady({
-      id: record.id,
+      id: record?.id!,
       readyForEventGroupPublishing: !readyForEventGroupPublishing,
     });
   };

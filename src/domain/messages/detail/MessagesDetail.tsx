@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   TextField,
   SelectField,
@@ -8,7 +7,6 @@ import {
   useRecordContext,
   Loading,
 } from 'react-admin';
-import { makeStyles } from '@mui/styles';
 import Chip from '@mui/material/Chip';
 
 import { toShortDateTimeString } from '../../../common/utils';
@@ -22,37 +20,6 @@ import {
   type MessageNode,
   ProtocolType,
 } from '../../api/generatedTypes/graphql';
-
-const useStyles = makeStyles((theme) => ({
-  showLayout: {
-    '&>div': {
-      display: 'grid',
-      gridTemplateColumns: '1fr 1fr',
-      gridTemplateRows: 'auto',
-      columnGap: theme.spacing(2),
-      rowGap: theme.spacing(2),
-      '& > *': {
-        gridColumn: '1 / -1',
-      },
-    },
-  },
-  recipientSelection: {
-    gridColumn: '1 !important',
-  },
-  event: {
-    gridColumn: '2 !important',
-  },
-  textField: {
-    maxWidth: '600px',
-    whiteSpace: 'break-spaces',
-  },
-  chip: {
-    marginBottom: theme.spacing(0.5),
-    '&:not(:last-child)': {
-      marginRight: theme.spacing(0.5),
-    },
-  },
-}));
 
 const MessagesDetail = () => {
   const t = useTranslate();
@@ -79,7 +46,6 @@ const MessagesDetail = () => {
 
 function MessageDetails() {
   const record = useRecordContext();
-  const classes = useStyles();
   const t = useTranslate();
   const { selector: languageTabsComponent, getSource: translatableField } =
     useTranslatableContext();
@@ -87,7 +53,20 @@ function MessageDetails() {
   if (!record) return <Loading />;
 
   return (
-    <SimpleShowLayout className={classes.showLayout}>
+    <SimpleShowLayout
+      sx={(theme) => ({
+        '&>div': {
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gridTemplateRows: 'auto',
+          columnGap: theme.spacing(2),
+          rowGap: theme.spacing(2),
+          '& > *': {
+            gridColumn: '1 / -1',
+          },
+        },
+      })}
+    >
       {record.protocol !== ProtocolType.Sms && languageTabsComponent}
       <MessageRecipientCountField />
       <FunctionField
@@ -99,12 +78,12 @@ function MessageDetails() {
         source="recipientSelection"
         label="messages.fields.recipientSelection.label"
         choices={recipientSelectionChoices}
-        className={classes.recipientSelection}
+        sx={{ gridColumn: '1 !important' }}
       />
       <TextField
         source="event.name"
         label="messages.fields.event.label"
-        className={classes.event}
+        sx={{ gridColumn: '2 !important' }}
         emptyText={t('messages.fields.event.all')}
       />
       <FunctionField
@@ -123,7 +102,16 @@ function MessageDetails() {
           }
 
           return stringifiedRecords.map((record: string) => (
-            <Chip key={record} label={record} className={classes.chip} />
+            <Chip
+              key={record}
+              label={record}
+              sx={(theme) => ({
+                marginBottom: theme.spacing(0.5),
+                '&:not(:last-child)': {
+                  marginRight: theme.spacing(0.5),
+                },
+              })}
+            />
           ));
         }}
       />
@@ -135,7 +123,7 @@ function MessageDetails() {
         component="pre"
         source={translatableField('bodyText')}
         label="messages.fields.bodyText.label"
-        className={classes.textField}
+        sx={{ maxWidth: '600px', whiteSpace: 'break-spaces' }}
       />
     </SimpleShowLayout>
   );

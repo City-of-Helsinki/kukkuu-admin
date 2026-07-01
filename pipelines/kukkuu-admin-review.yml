@@ -41,6 +41,7 @@ resources:
       type: git
       # Azure DevOps project/repository
       name: kukkuu/kukkuu-pipelines
+      ref: refs/heads/KK-1543/node24
 
 extends:
   # Filename in Azure DevOps Repository

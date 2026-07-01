@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   useTranslate,
   DeleteButton,
@@ -8,8 +7,8 @@ import {
   useRecordContext,
   usePermissions,
 } from 'react-admin';
-import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
 import { toDateTimeString } from '../../../common/utils';
 import MessageSendButton from './MessageSendButton';
@@ -20,29 +19,13 @@ import {
 import type { Permissions } from '../../authentication/authProvider';
 import projectService from '../../projects/projectService';
 
-const useMessageDetailsToolbarStyles = makeStyles((theme) => ({
-  wrapper: {
-    marginBottom: theme.spacing(3),
-  },
-  meta: {
-    fontSize: theme.typography.body2.fontSize,
-  },
-  metaTitle: {
-    fontWeight: theme.typography.fontWeightBold,
-    fontSize: theme.typography.body2.fontSize,
-  },
-  sendButton: {
-    marginLeft: theme.spacing(1),
-  },
-}));
-
 /**
  * If the message is set to be sent to "all" recipients and user doesn't
  * have permissions to send to "all", the Message editing should be prevented.
  * Also, the message must be for the current project that is active in
  * the React-Admin UI.
  */
-const useResolveEditPermission = () => {
+export const useResolveEditPermission = () => {
   const record = useRecordContext<MessageNode>();
   const projectId = projectService.projectId ?? '';
   const isMessageOfCurrentProject = Boolean(projectId === record?.project?.id);
@@ -70,7 +53,6 @@ const MessageDetailToolbar = () => {
   const record = useRecordContext<MessageNode>();
   const resource = useResourceContext();
   const basePath = `/${resource}`;
-  const classes = useMessageDetailsToolbarStyles();
   const t = useTranslate();
   const { hasEditPermission, isLoading: isLoadingPermissions } =
     useResolveEditPermission();
@@ -78,20 +60,36 @@ const MessageDetailToolbar = () => {
 
   if (isSent) {
     return (
-      <div className={classes.wrapper}>
-        <Typography className={classes.meta}>
-          <Typography component="span" className={classes.metaTitle}>
+      <Box sx={(theme) => ({ marginBottom: theme.spacing(3) })}>
+        <Typography
+          sx={(theme) => ({ fontSize: theme.typography.body2.fontSize })}
+        >
+          <Typography
+            component="span"
+            sx={(theme) => ({
+              fontWeight: theme.typography.fontWeightBold,
+              fontSize: theme.typography.body2.fontSize,
+            })}
+          >
             {t('messages.fields.sentAt.sent')}
           </Typography>
           {` ${toDateTimeString(new Date(record?.sentAt))}`}
         </Typography>
-        <Typography className={classes.meta}>
-          <Typography component="span" className={classes.metaTitle}>
+        <Typography
+          sx={(theme) => ({ fontSize: theme.typography.body2.fontSize })}
+        >
+          <Typography
+            component="span"
+            sx={(theme) => ({
+              fontWeight: theme.typography.fontWeightBold,
+              fontSize: theme.typography.body2.fontSize,
+            })}
+          >
             {t('messages.fields.recipientCount.label')}
           </Typography>
           {` ${record?.recipientCount}`}
         </Typography>
-      </div>
+      </Box>
     );
   }
 
@@ -106,9 +104,15 @@ const MessageDetailToolbar = () => {
     <TopToolbar>
       <EditButton record={record} />
       <DeleteButton mutationMode="pessimistic" record={record} />
-      {basePath && <MessageSendButton className={classes.sendButton} />}
+      {basePath && (
+        <Box
+          component="span"
+          sx={(theme) => ({ marginLeft: theme.spacing(1) })}
+        >
+          <MessageSendButton />
+        </Box>
+      )}
     </TopToolbar>
   );
 };
-
 export default MessageDetailToolbar;

@@ -1,51 +1,22 @@
-import React from 'react';
 import { Login, useTranslate, useLogin } from 'react-admin';
 import {
-  type Theme,
   ThemeProvider,
   StyledEngineProvider,
   Button,
   Card,
   CardContent,
 } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import { useLocation } from 'react-router-dom';
 
 import theme from '../../common/materialUI/themeConfig';
 import IsTestEnvironmentLabel from '../../common/components/isTestEnvironmentLabel/IsTestEnvironmentLabel';
 import Config from '../config';
 
-declare module '@mui/styles/defaultTheme' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface DefaultTheme extends Theme {}
-}
-
-type StyleProps = {
-  isTest: boolean;
-};
-
-const useStyles = makeStyles<null, StyleProps>({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    fontWeight: 'bold',
-  },
-  button: {
-    marginTop: '1rem',
-    width: '100%',
-    backgroundColor: (props) => (props.isTest ? '#00D7A7' : undefined),
-    '&:hover': {
-      backgroundColor: (props) => (props.isTest ? '#00a17d' : undefined),
-    },
-  },
-});
-
 const LoginPage = () => {
-  const classes = useStyles({ isTest: Config.IS_TEST_ENVIRONMENT });
   const translate = useTranslate();
   const login = useLogin();
   const location = useLocation();
+  const isTest = Config.IS_TEST_ENVIRONMENT;
 
   const handleLogin = () => {
     const nextPathname = location.state?.nextPathname ?? '/';
@@ -59,13 +30,43 @@ const LoginPage = () => {
         <ThemeProvider theme={theme}>
           <Card>
             <CardContent>
-              <div className={classes.container}>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  fontWeight: 'bold',
+                }}
+              >
                 <p>
                   {translate('dashboard.title')}
                   <IsTestEnvironmentLabel />
                 </p>
                 <Button
-                  className={classes.button}
+                  sx={[
+                    {
+                      marginTop: '1rem',
+                      width: '100%',
+                    },
+                    isTest
+                      ? {
+                          backgroundColor: '#00D7A7',
+                        }
+                      : {
+                          backgroundColor: null,
+                        },
+                    isTest
+                      ? {
+                          '&:hover': {
+                            backgroundColor: '#00a17d',
+                          },
+                        }
+                      : {
+                          '&:hover': {
+                            backgroundColor: null,
+                          },
+                        },
+                  ]}
                   variant="contained"
                   color="secondary"
                   onClick={handleLogin}

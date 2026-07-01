@@ -18,7 +18,6 @@ import {
   Loading,
   FunctionField,
 } from 'react-admin';
-import { type WithStyles, createStyles, withStyles } from '@mui/styles';
 import { Link } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 
@@ -36,27 +35,14 @@ import type { AdminEvent } from '../types/EventTypes';
 import ImportTicketSystemPasswordsFormDialog from '../../ticketSystemPassword/ImportTicketSystemPasswordsFormDialog';
 import TranslatableProvider from '../../../common/providers/TranslatableProvider';
 import useTranslatableContext from '../../../common/hooks/useTranslatableContext';
-import type { OccurrenceNode } from '../../api/generatedTypes/graphql';
 import { dateTimeFieldOptions } from '../../../common/utils';
 
-const styles = createStyles({
-  button: {
-    marginBottom: '1em',
-  },
-});
-
-interface AddOccurrenceButtonProps extends WithStyles<typeof styles> {
-  record?: OccurrenceNode;
-}
-
-const AddOccurrenceButton = withStyles(styles)(({
-  classes,
-}: AddOccurrenceButtonProps) => {
+const AddOccurrenceButton = () => {
   const record = useRecordContext();
   return (
     <Button
       component={Link}
-      className={classes.button}
+      sx={{ marginBottom: '1em' }}
       to={{
         pathname: '/occurrences/create',
         search: `?event_id=${record?.id}`,
@@ -66,29 +52,26 @@ const AddOccurrenceButton = withStyles(styles)(({
       <AddIcon />
     </Button>
   );
-});
+};
 
-interface ImportTicketSystemPasswordsButtonProps extends WithStyles<
-  typeof styles
-> {
+interface ImportTicketSystemPasswordsButtonProps {
   onClick: () => void;
 }
 
-const ImportTicketSystemPasswordsButton = withStyles(styles)(({
-  classes,
+const ImportTicketSystemPasswordsButton = ({
   onClick,
 }: ImportTicketSystemPasswordsButtonProps) => {
   const translate = useTranslate();
   return (
     <Button
-      className={classes.button}
+      sx={{ marginBottom: '1em' }}
       label={translate('ticketSystemPassword.import.dialog.openButton')}
       onClick={onClick}
     >
       <AddIcon />
     </Button>
   );
-});
+};
 
 interface ImportTicketmasterPasswordsControlsProps {
   record: AdminEvent;
@@ -230,7 +213,6 @@ const EventDetails = () => {
                     ? toDateTimeString(new Date(endTime), locale)
                     : '';
                 }}
-                locales={locale}
               />,
             ]}
         {/* @ts-ignore - label is magically handled by material-ui */}
@@ -250,7 +232,6 @@ const EventDetails = () => {
                 render={(record: RaRecord) =>
                   toDateString(new Date(record.time), locale)
                 }
-                locales={locale}
               />
               <OccurrenceTimeRangeField />
               <ReferenceField

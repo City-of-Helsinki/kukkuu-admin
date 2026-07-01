@@ -1,4 +1,3 @@
-import React from 'react';
 import { useRecordContext, useTranslate } from 'react-admin';
 import PublishIcon from '@mui/icons-material/Check';
 
@@ -16,8 +15,10 @@ const EventPublishButton = ({ basePath = '/event' }: Props) => {
   const translate = useTranslate();
   const publishEventMutation = usePublishEventMutation({
     basePath,
-    params: { id: record.id },
+    params: { id: record?.id ?? '' },
   });
+
+  if (!record) return null;
   return (
     <ConfirmMutationButton
       buttonLabel="events.show.publish.button.label"

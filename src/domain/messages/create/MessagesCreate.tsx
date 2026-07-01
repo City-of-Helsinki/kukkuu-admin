@@ -1,6 +1,5 @@
-import React from 'react';
 import { useTranslate } from 'react-admin';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 
 import KukkuuCreatePage from '../../application/layout/kukkuuCreatePage/KukkuuCreatePage';
 import KukkuuCreateToolbar from '../../application/layout/kukkuuCreatePage/KukkuuCreateToolbar';

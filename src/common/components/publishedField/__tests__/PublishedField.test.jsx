@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { useRecordContext, useLocaleState } from 'react-admin';
 import get from 'lodash/get';

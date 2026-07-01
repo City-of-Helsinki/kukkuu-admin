@@ -1,4 +1,4 @@
-import { defineConfig, mergeConfig } from 'vitest/config';
+import { defineConfig, mergeConfig, configDefaults } from 'vitest/config';
 import { config } from 'dotenv';
 
 import viteConfig from './vite.config';
@@ -11,6 +11,7 @@ export default defineConfig((configEnv) =>
         globals: true,
         environment: 'jsdom',
         setupFiles: './tests/vitest-setup.ts',
+        exclude: [...configDefaults.exclude, 'e2e/**'],
         reporters: ['json', 'verbose', 'vitest-sonar-reporter'],
         outputFile: {
           json: 'sonar-report.json',

@@ -31,7 +31,7 @@
   - [`yarn build`](#yarn-build)
   - [`yarn generate:graphql`](#yarn-generategraphql)
   - [`yarn test`](#yarn-test)
-  - [`yarn test:browser`](#yarn-testbrowser)
+  - [`yarn test:e2e`](#yarn-teste2e)
 - [Releases, changelogs and deployments](#releases-changelogs-and-deployments)
   - [Conventional Commits](#conventional-commits)
   - [Releasable units](#releasable-units)
@@ -93,7 +93,7 @@ This project is built using the following key frameworks and libraries:
 
 Compatibility defined by [Dockerfile](./Dockerfile):
 
-- Node.js 20.x
+- Node.js 24.x
 - Yarn 1.x
 
 ### Getting started
@@ -225,12 +225,11 @@ In browser tests, we want to bypass the regular authentication flow and directly
 
 **How it works:**
 
-- **[`clientUtils`](./browser-tests/utils/jwt/clientUtils/):** Contains helper functions that run within the Testcafe browser environment. These functions utilize Testcafe's [`ClientFunction`](https://testcafe.io/documentation/402832/guides/basic-guides/client-functions) to interact with the browser and manage JWTs.
-- **[`mocks`](./browser-tests/utils/jwt/mocks/):** Provides functions to intercept network requests to the authentication service and replace them with mocked responses containing the test JWTs. This prevents actual authentication and allows us to control the user context during tests.
-- **[`config`](./browser-tests/utils/jwt/config.ts):** Holds configuration settings for the JWT library used in browser tests.
-- **[`jwt`](./browser-tests/utils/jwt/jwt.ts):** Contains utilities to create and sign JWTs symmetrically. The API needs to be configured with the same secret key to verify these tokens.
-- **[`oidc`](./browser-tests/utils/jwt/oidc.ts):** Adapts the generated JWTs to a format compatible with the OpenID Connect (OIDC) client used in the application.
-- **[`services`](./browser-tests/utils/jwt/services.ts):** Includes helper functions for managing test data, such as selecting an admin project for the test user. These functions make actual API calls (not mocked) to prepare the test environment.
+- **[`auth`](./e2e/utils/auth/):** Playwright-side auth helpers. `seedStorage.ts` seeds a signed JWT and the OIDC user profile into `localStorage` via `page.addInitScript`, so the app boots already authenticated. `oidcMock.ts` installs `page.route` handlers that intercept the OIDC endpoints and return mocked JWT-based responses. `setupAuth.ts` composes both for use inside a test.
+- **[`config`](./e2e/utils/jwt/config.ts):** Holds configuration settings for the JWT library used in browser tests.
+- **[`jwt`](./e2e/utils/jwt/jwt.ts):** Contains utilities to create and sign JWTs symmetrically. The API needs to be configured with the same secret key to verify these tokens.
+- **[`oidc`](./e2e/utils/jwt/oidc.ts):** Adapts the generated JWTs to a format compatible with the OpenID Connect (OIDC) client used in the application.
+- **[`services`](./e2e/utils/jwt/services.ts):** Includes helper functions for managing test data, such as selecting an admin project for the test user. These functions make actual API calls (not mocked) to prepare the test environment.
 
 **Key points:**
 
@@ -298,32 +297,37 @@ Fetches the GraphQL schema from the backend and updates typing information. The 
 
 Launches the `vitest` test runner. See the section about [Getting started](https://vitest.dev/guide/) for more information.
 
-### `yarn test:browser`
+### `yarn test:e2e`
 
-Runs browser tests against your local version of the application (assumes port `3001`).
+Runs the Playwright browser test suite (`e2e/`) against your local version of the application (assumes port `3001`).
 
-- The `yarn test:browser:ci` variant of this command is meant to run in the CI, and it targets the staging server. It uses headless mode and may therefore behave differently compared to the local test runner.
-- The deployment pipelines are running the browser tests as automated actions. They are run against PR and staging environments when after they have been built and deployed.
+- Deployment pipelines run the browser tests as automated actions. They are run against PR and staging environments after they have been built and deployed.
 - See also [JWT issuance for browser tests](#jwt-issuance-for-browser-tests)
+
+Related scripts:
+
+- `yarn test:e2e:install` — installs the Playwright browsers (first-time setup).
+- `yarn test:e2e:ui` — opens Playwright's interactive UI runner.
+- `yarn test:e2e:debug` — runs Playwright in debug mode.
 
 To run browser tests locally, you need to configure the browser testing environment:
 
 1. Run a local Kukkuu API instance with the browser testing JWT features set on. This allows the UI client to issue new JWTs for authorization by itself.
 2. Run a local Kukkuu Admin UI.
 3. Carefully double-check that the UI instance is configured to use the local API. The browser test JWT token configurations also need to match in order to successfully verify the newly issued tokens. You can navigate through the UI manually to see that everything is working as expected.
-4. Run the browser test with `yarn test:browser` or `yarn test:browser:ci`.
+4. Run the browser tests with `yarn test:e2e`.
 
 For configuration, check the following environment variables:
 
 1. `BROWSER_TESTS_JWT_SIGN_SECRET` needs to be a valid 256 bits token and it needs to be configured the same in both the API and the Admin UI in order to verify the self-issued JWT for browser testing.
 2. `BROWSER_TESTS_JWT_AD_GROUP` defines the AD group that should be used while running the browser tests. This value is used while issuing a JWT for an admin user. The AD group should be made in the API so that it gives admin permissions for the newly created user with this AD group for the (year) project that is created for browser testing. These AD groups and user groups can be managed from the API.
-3. `BROWSER_TESTS_ENV_URL` tells Testcafe where the testable UI is located.
+3. `BROWSER_TESTS_ENV_URL` tells Playwright where the testable UI is located.
 4. `VITE_API_URI` defines the Kukkuu API GraphQL endpoint. It's important in browser testing configuration for JWT mocking reasons.
 5. `VITE_OIDC_KUKKUU_API_CLIENT_ID` OIDC config that is needed in JWT mocking.
 6. `VITE_OIDC_CLIENT_ID` OIDC config that is needed in JWT mocking.
 7. `VITE_OIDC_AUTHORITY` OIDC config that is needed in JWT mocking.
 
-NOTE: There is an [.env.test.local.example](.env.test.local.example) that can be copied to a file named `.env.test.local`. If the `.env.test.local` is present, it will be used during the local Testcafe runs.
+NOTE: There is an [.env.test.local.example](.env.test.local.example) that can be copied to a file named `.env.test.local`. If the `.env.test.local` is present, it will be used during the local Playwright runs.
 
 ## Releases, changelogs and deployments
 
