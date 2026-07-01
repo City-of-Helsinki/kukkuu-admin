@@ -35,7 +35,7 @@ const EventsAndEventGroupsListToolbar = () => {
   );
 };
 
-function when(
+export function when(
   record: Partial<EventOrEventGroupUnion>,
   whenEvent: (record: EventNode) => any,
   whenEventGroup: (record: EventGroupNode) => any
@@ -53,26 +53,27 @@ function when(
   }
 }
 
+export const handleRowClick = (
+  id: Identifier,
+  resource: string,
+  record: RaRecord
+) => {
+  const isEvent = !record.hasOwnProperty('events');
+  const isEventGroup = record.hasOwnProperty('events');
+
+  if (isEvent) {
+    return `/events/${id}/show`;
+  }
+
+  if (isEventGroup) {
+    return `/event-groups/${id}/show`;
+  }
+
+  return '';
+};
+
 const EventsAndEventGroupsList = () => {
   const translate = useTranslate();
-  const handleRowClick = (
-    id: Identifier,
-    resource: string,
-    record: RaRecord
-  ) => {
-    const isEvent = !record.hasOwnProperty('events');
-    const isEventGroup = record.hasOwnProperty('events');
-
-    if (isEvent) {
-      return `/events/${id}/show`;
-    }
-
-    if (isEventGroup) {
-      return `/event-groups/${id}/show`;
-    }
-
-    return '';
-  };
 
   return (
     <KukkuuListPage

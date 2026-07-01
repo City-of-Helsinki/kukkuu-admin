@@ -25,7 +25,7 @@ import projectService from '../../projects/projectService';
  * Also, the message must be for the current project that is active in
  * the React-Admin UI.
  */
-const useResolveEditPermission = () => {
+export const useResolveEditPermission = () => {
   const record = useRecordContext<MessageNode>();
   const projectId = projectService.projectId ?? '';
   const isMessageOfCurrentProject = Boolean(projectId === record?.project?.id);
