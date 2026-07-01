@@ -5,7 +5,6 @@ import {
   useGetOne,
   useResourceContext,
 } from 'react-admin';
-import omit from 'lodash/omit';
 import { useParams } from 'react-router-dom';
 
 import type { Crumb } from '../../../../common/components/breadcrumbs/Breadcrumbs';
@@ -46,9 +45,7 @@ const KukkuuDetailPage = ({
       breadcrumbs={crumbs}
     >
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      <KukkuuShow {...(omit(reactAdminProps, 'hasShow') as any)}>
-        {children}
-      </KukkuuShow>
+      <KukkuuShow {...reactAdminProps}>{children}</KukkuuShow>
     </Layout>
   );
 };

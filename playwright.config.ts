@@ -7,6 +7,12 @@ if (fs.existsSync('.env.test.local')) {
   dotenv.config({ path: '.env.test.local' });
 }
 
+const baseURL = process.env.BROWSER_TESTS_ENV_URL;
+
+if (!baseURL) {
+  throw new Error('BROWSER_TESTS_ENV_URL is required for Playwright runs.');
+}
+
 export default defineConfig({
   testDir: 'e2e',
   fullyParallel: false,
@@ -19,7 +25,7 @@ export default defineConfig({
   ],
   expect: { timeout: 15000 },
   use: {
-    baseURL: process.env.BROWSER_TESTS_ENV_URL,
+    baseURL,
     ignoreHTTPSErrors: true,
     locale: 'fi-FI',
     viewport: { width: 1920, height: 1080 },
