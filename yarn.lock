@@ -7,7 +7,7 @@
   resolved "https://registry.yarnpkg.com/@adobe/css-tools/-/css-tools-4.4.4.tgz#2856c55443d3d461693f32d2b96fb6ea92e1ffa9"
   integrity sha512-Elp+iwUx5rN5+Y8xLt5/GRoG20WGoDCQ/1Fb+1LiGtvwbDavuSk0jhD/eZdckHAuzcDzccnkv+rEjyWfRx18gg==
 
-"@apollo/client@^3.7.0", "@apollo/client@^3.8.4":
+"@apollo/client@^3.14.1", "@apollo/client@^3.7.0":
   version "3.14.1"
   resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.14.1.tgz#98931c8feea4a50c89c32ec0c8ffd04ccaa9416f"
   integrity sha512-SgGX6E23JsZhUdG2anxiyHvEvvN6CUaI4ZfMsndZFeuHPXL3H0IsaiNAhLITSISbeyeYd+CBd9oERXQDdjXWZw==
