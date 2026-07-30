@@ -3,11 +3,12 @@ import { InMemoryCache } from '@apollo/client/cache';
 import { onError } from '@apollo/client/link/error';
 
 import handleApolloError from './handleApolloError';
+import { getEnvValue } from '../../common/utils/envUtils';
 
 const errorLink = onError(handleApolloError);
 
 const httpLink = new HttpLink({
-  uri: import.meta.env.VITE_API_URI,
+  uri: getEnvValue('VITE_API_URI'),
 });
 
 const unauthenticatedClient = new ApolloClient({

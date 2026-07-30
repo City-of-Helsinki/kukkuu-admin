@@ -1,45 +1,42 @@
-# ===============================================
-FROM registry.access.redhat.com/ubi9/nodejs-20 AS appbase
-# ===============================================
+# ============================================================
+# STAGE 1: Build base (install dependencies)
+# ============================================================
+FROM helsinki.azurecr.io/ubi9/nodejs-24-pnpm-builder-base AS appbase
 
-# install yarn
-USER root
-RUN curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo
-RUN yum -y install yarn
+# 1. Copy only necessary files for build
+COPY --chown=default:root package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY --chown=default:root public ./public
+COPY --chown=default:root scripts ./scripts
+COPY --chown=default:root \
+  index.html \
+  vite.config.ts \
+  tsconfig.json \
+  vite-env.d.ts \
+  .babelrc \
+  .eslintrc.cjs \
+  .eslintignore \
+  .prettierrc.json \
+  .prettierignore \
+  .env* \
+  ./
+COPY --chown=default:root ./src ./src
+
+# 2. Run the install and update-runtime-env script
+# corepack in the base image will automatically use the version of pnpm
+# defined in your package.json 'packageManager' field if present.
+RUN pnpm install --frozen-lockfile --ignore-scripts && pnpm store prune
+RUN pnpm update-runtime-env
+
+# ============================================================
+# STAGE 2: Development
+# ============================================================
+FROM appbase AS development
 
 WORKDIR /app
 
-# Offical image has npm log verbosity as info. More info - https://github.com/nodejs/docker-node#verbosity
-ENV NPM_CONFIG_LOGLEVEL warn
-
-# set our node environment, either development or production
-# defaults to production, compose overrides this to development on build and run
-ARG NODE_ENV=${NODE_ENV:-"production"}
-ENV NODE_ENV $NODE_ENV
-
-# Global npm deps in a non-root user directory
-ENV NPM_CONFIG_PREFIX=/app/.npm-global
-ENV PATH=$PATH:/app/.npm-global/bin
-
-# Yarn
-ENV YARN_VERSION 1.22.22
-RUN yarn policies set-version ${YARN_VERSION}
-
-# Copy package.json and package-lock.json/yarn.lock files
-COPY --chown=default:root package*.json *yarn* ./
-
-# Install npm dependencies
-ENV PATH /app/node_modules/.bin:$PATH
-
-RUN yarn install --frozen-lockfile --ignore-scripts && yarn cache clean --force
-
-# =============================
-FROM appbase AS development
-# =============================
-
 # Set NODE_ENV to development in the development container
 ARG NODE_ENV=development
-ENV NODE_ENV $NODE_ENV
+ENV NODE_ENV=$NODE_ENV
 
 # Enable hot reload by default by polling for file changes.
 #
@@ -48,77 +45,41 @@ ENV NODE_ENV $NODE_ENV
 ARG CHOKIDAR_USEPOLLING=true
 ENV CHOKIDAR_USEPOLLING=${CHOKIDAR_USEPOLLING}
 
-# copy in our source code last, as it changes the most
-COPY --chown=default:root . .
+EXPOSE 8080
 
-# Bake package.json start command into the image
-CMD ["yarn", "start", "--no-open", "--host"]
+# `pnpm start` runs update-runtime-env then vite (port from PORT env, default 3001).
+CMD ["pnpm", "start", "--no-open", "--host"]
 
-# ===================================
+# ============================================================
+# STAGE 3: Static builder for production
+# ============================================================
 FROM appbase AS staticbuilder
-# ===================================
 
-ARG VITE_API_URI
-ARG VITE_OIDC_SERVER_TYPE
-ARG VITE_OIDC_RETURN_TYPE
-ARG VITE_OIDC_AUTHORITY
-ARG VITE_OIDC_CLIENT_ID
-ARG VITE_OIDC_KUKKUU_API_CLIENT_ID
-ARG VITE_OIDC_SCOPE
-ARG VITE_OIDC_AUDIENCES
-ARG VITE_OIDC_AUTOMATIC_SILENT_RENEW_ENABLED
-ARG VITE_OIDC_SESSION_POLLING_INTERVAL_MS
-ARG VITE_KUKKUU_API_OIDC_SCOPE
-ARG VITE_SENTRY_ENVIRONMENT
-ARG VITE_SENTRY_DSN
-ARG VITE_SENTRY_TRACES_SAMPLE_RATE
-ARG VITE_SENTRY_TRACE_PROPAGATION_TARGETS
-ARG VITE_SENTRY_REPLAYS_SESSION_SAMPLE_RATE
-ARG VITE_SENTRY_REPLAYS_ON_ERROR_SAMPLE_RATE
+# VITE_CSP_REPORT_URI is substituted into index.html's CSP at *build* time by
+# Vite (it is not a runtime value). Default to empty so the placeholder is not
+# left unreplaced in the output.
 ARG VITE_CSP_REPORT_URI
-ARG VITE_IS_TEST_ENVIRONMENT
-ARG VITE_BUILDTIME
-ARG VITE_SENTRY_RELEASE
-ARG VITE_COMMITHASH
-ARG VITE_IDLE_TIMEOUT_IN_MS
-ARG NODE_OPTIONS
-
-# Fix FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - 
-# JavaScript heap out of memory: https://github.com/vitejs/vite/issues/2433.
-ENV NODE_OPTIONS=${NODE_OPTIONS}
 ENV VITE_CSP_REPORT_URI=${VITE_CSP_REPORT_URI:-""}
 
-# Use template and inject the environment variables into .prod/nginx.conf
-ENV VITE_BUILDTIME=${VITE_BUILDTIME:-""}
-ENV VITE_RELEASE=${VITE_SENTRY_RELEASE:-""}
-ENV VITE_COMMITHASH=${VITE_COMMITHASH:-""}
-COPY .prod/nginx.conf.template /tmp/.prod/nginx.conf.template
-RUN export APP_VERSION=$(yarn --silent app:version) && \
-    envsubst '${APP_VERSION},${VITE_BUILDTIME},${VITE_RELEASE},${VITE_COMMITHASH}' < \
-    "/tmp/.prod/nginx.conf.template" > \
-    "/tmp/.prod/nginx.conf"
+RUN pnpm build
 
-COPY . /app
-RUN yarn build
+# ============================================================
+# STAGE 4: Production runtime
+# ============================================================
+FROM helsinki.azurecr.io/ubi10/nginx-126-spa-standard AS production
 
-# =============================
-FROM registry.access.redhat.com/ubi9/nginx-122 AS production
-# =============================
-# Add application sources to a directory that the assemble script expects them
-# and set permissions so that the container runs without root access
-USER root
-
-RUN chgrp -R 0 /usr/share/nginx/html && \
-    chmod -R g=u /usr/share/nginx/html
-
-# Copy static build
+# 1. Copy the compiled assets.
 COPY --from=staticbuilder /app/build /usr/share/nginx/html
-# Copy nginx config
-COPY --from=staticbuilder /tmp/.prod/nginx.conf  /etc/nginx/nginx.conf
 
-USER 1001
+# 2. Setup Runtime Env Injection
+# env.sh is provided by the base image
+WORKDIR /usr/share/nginx/html
+COPY .env .
 
-# Run script uses standard ways to run the application
-CMD ["/bin/bash", "-c", "nginx -g \"daemon off;\""]
+# 3. Inject Versioning for the /readiness endpoint from package.json using base image
+COPY package.json .
 
-EXPOSE 8080
+# - env.sh      (Inherited from base image at /usr/share/nginx/html/env.sh)
+# - USER 1001   (Inherited from base image)
+# - EXPOSE 8080 (Inherited from base image)
+# - ENTRYPOINT/CMD (Inherited from base image)
