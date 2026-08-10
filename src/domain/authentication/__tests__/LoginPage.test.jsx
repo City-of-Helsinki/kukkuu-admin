@@ -23,9 +23,8 @@ vi.mock(import('../../config'), async (importOriginal) => {
 });
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter, useLocation } from 'react-router-dom';
-import { ThemeProvider } from '@mui/material';
+import { ThemeProvider, StyledEngineProvider } from '@mui/material';
 import { Login, useLogin, useTranslate } from 'react-admin';
-import { StyledEngineProvider } from '@mui/styled-engine';
 
 import LoginPage from '../LoginPage';
 import theme from '../../../common/materialUI/themeConfig';

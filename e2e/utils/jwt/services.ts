@@ -19,7 +19,16 @@ async function fetchMyAdminProfile(apiToken: string) {
         method: 'POST',
       }
     );
-    return await response.json();
+    const json = await response.json();
+    if (!response.ok || !json?.data?.myAdminProfile || json?.errors) {
+      throw new Error(
+        `MyAdminProfile query did not return an authenticated admin profile. ` +
+          `HTTP status: ${response.status} ${response.statusText}. ` +
+          `GraphQL errors: ${JSON.stringify(json?.errors) ?? 'none'}. ` +
+          `Response body: ${JSON.stringify(json)}`
+      );
+    }
+    return json;
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Error fetching admin profile:', error);

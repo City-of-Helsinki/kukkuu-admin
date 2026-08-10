@@ -40,7 +40,7 @@ const OccurrenceDataGridTitle = ({ occurrenceId }: any) => {
           marginLeft: 16,
         }}
       >
-        {record.enrolments?.edges.length ?? ''}
+        {record?.enrolments?.edges.length ?? ''}
       </span>
     </>
   );

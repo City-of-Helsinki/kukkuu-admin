@@ -54,9 +54,14 @@ export function eventsEditPage(page: Page) {
   return {
     nameInput: page.getByLabel('Nimi *'),
     submitButton: page.getByRole('button', { name: 'Tallenna' }),
-    // The edit toolbar has two "Poista" buttons (occurrence-level and event-level).
-    // The second one deletes the event itself.
-    deleteButton: page.getByRole('button', { name: 'Poista' }).nth(1),
+    // Scope to the form's toolbar (react-admin renders it with role="toolbar")
+    // rather than picking a "Poista" button by position — other "Poista"
+    // controls can exist elsewhere on the page (e.g. an uploaded image's
+    // remove button uses the same Finnish label), and a positional index
+    // silently breaks if the count or order ever changes.
+    deleteButton: page
+      .getByRole('toolbar')
+      .getByRole('button', { name: 'Poista' }),
     confirmDeleteButton: page.getByRole('button', { name: 'Vahvista' }),
   };
 }
@@ -79,7 +84,7 @@ export async function fillEventCreationForm(
     event.participantsPerInvite
   );
   // Sanity check: confirm the combobox actually shows the selected value.
-  // If this fails, the form will silently reject the submit on validation.
+  // If this fails, the form will silently reject the submit on validation..
   await expect(form.participantsPerInviteSelect).toHaveText(
     event.participantsPerInvite
   );

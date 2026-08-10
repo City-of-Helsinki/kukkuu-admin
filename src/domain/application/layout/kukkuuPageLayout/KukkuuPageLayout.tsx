@@ -17,9 +17,14 @@ const TitleWithRecord = ({
 }: TitleWithRecordProps) => {
   const resource = useResourceContext();
   const { id } = useParams();
-  const { data } = useGetOne(resource!, {
+  const { data: fetchedRecord } = useGetOne(resource!, {
     id,
   });
+  // Guard against a stale/in-flight fetch for a previous id resolving after
+  // the URL has already moved on to a new record (e.g. right after a
+  // redirect) — react-admin's own <Show> has the same guard internally.
+  // eslint-disable-next-line eqeqeq
+  const data = fetchedRecord?.id == id ? fetchedRecord : undefined;
 
   const pageTitle = (() => {
     if (typeof pageTitleSource === 'function') {

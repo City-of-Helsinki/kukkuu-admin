@@ -7,6 +7,13 @@ import BrowserTestJWTConfig from './config';
 
 const jwtExpirationTimeInSeconds = 1800; // half an hour
 /**
+ * Backdate `iat` by this many seconds to absorb clock skew between the
+ * machine signing the test JWT and the Kukkuu API server verifying it.
+ * Without this, a server clock that lags slightly behind the signing
+ * machine's clock intermittently rejects the token as "not yet valid".
+ */
+const clockSkewLeewayInSeconds = 30;
+/**
  * WARNING: Be careful and try not to leak the JWT signing key!
  * Don't export it and never leak it to the client functions or to browser.
  * Sign the JWT in server or locally and never share it to the browser end.
@@ -22,7 +29,8 @@ const _jwtSignAlgorithm = BrowserTestJWTConfig.jwtSignAlgorithm;
 export function getEpochTimeframeForTestJWt(
   authTime = new Date()
 ): [number, number] {
-  const issuedAt = Math.round(authTime.getTime() / 1000); // Unit timestamp in seconds
+  const issuedAt =
+    Math.round(authTime.getTime() / 1000) - clockSkewLeewayInSeconds; // Unit timestamp in seconds
   const expiresAt = issuedAt + jwtExpirationTimeInSeconds;
   return [issuedAt, expiresAt];
 }

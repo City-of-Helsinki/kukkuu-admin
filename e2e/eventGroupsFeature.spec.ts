@@ -176,6 +176,15 @@ test.describe('Event groups feature', () => {
       await page.goto(routes.eventsList());
     }
 
+    // Read the event group's name from the list row before navigating away —
+    // it's already rendered here, so this avoids a race with the detail
+    // page's own record fetch (the detail page briefly still shows the list
+    // page's title before its data loads).
+    const eventGroupName =
+      (
+        await anyEventGroup.first().locator('td').first().textContent()
+      )?.trim() ?? '';
+
     // Select any existing event group
     await anyEventGroup.first().click();
 
@@ -183,11 +192,7 @@ test.describe('Event groups feature', () => {
     // add-event button. The toolbar renders before the record is fetched, and
     // CreateButton's `to` prop captures `record?.id` at render time — so
     // clicking it too early ships `eventGroupId=undefined` to the backend.
-    await expect(eventGroupsDetailPage(page).title).toHaveText(/.+/);
-
-    // Save the event group name so we can assert on it later
-    const eventGroupName =
-      (await eventGroupsDetailPage(page).title.textContent()) ?? '';
+    await expect(eventGroupsDetailPage(page).title).toHaveText(eventGroupName);
 
     await createEventInEventGroup(page, addEvent);
 
@@ -211,8 +216,14 @@ test.describe('Event groups feature', () => {
       await expect(
         eventGroupsDetailPage(page).getEvent(addEvent.name)
       ).toBeHidden();
-    } catch {
-      // If cleanup fails the dev-env data is stale but the test result is still valid
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(
+        'Cleanup failed: could not delete the event created by this test. ' +
+          'Dev-env data will be left stale.',
+        error
+      );
+      throw error;
     }
   });
 
@@ -268,8 +279,14 @@ test.describe('Event groups feature', () => {
         .first()
         .click();
       await deleteEventGroup(page);
-    } catch {
-      // Stale dev-env data if cleanup fails; test result stands
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(
+        'Cleanup failed: could not delete the event/event group created ' +
+          'by this test. Dev-env data will be left stale.',
+        error
+      );
+      throw error;
     }
   });
 });
