@@ -55,6 +55,7 @@ describe('<EventGroupsDetailActions />', () => {
     vi.spyOn(ReactAdmin, 'usePermissions').mockReturnValue({
       permissions: context.permissions,
     });
+    vi.spyOn(ReactAdmin, 'useRecordContext').mockReturnValue(context.data);
     getWrapper();
 
     await waitFor(() => {

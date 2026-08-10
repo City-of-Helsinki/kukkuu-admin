@@ -160,12 +160,10 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
                   sx={{ gridColumn: '1 !important' }}
                 />
               </CustomOnChange>
-              <Box sx={{ gridColumn: '1 !important' }}>
-                <FormDataConsumer>
-                  {({ formData: { recipientSelection }, ...rest }) =>
-                    recipientsWithEventSelection.includes(
-                      recipientSelection
-                    ) && (
+              <FormDataConsumer>
+                {({ formData: { recipientSelection }, ...rest }) =>
+                  recipientsWithEventSelection.includes(recipientSelection) && (
+                    <Box sx={{ gridColumn: '1 !important' }}>
                       <CustomOnChange onChange={handleEvenIdChange}>
                         <EventSelect
                           {...rest}
@@ -181,30 +179,30 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
                           defaultValue={record?.event?.id || 'all'}
                         />
                       </CustomOnChange>
-                    )
-                  }
-                </FormDataConsumer>
-              </Box>
-              <Box sx={{ gridColumn: '2 !important' }}>
-                <FormDataConsumer>
-                  {({ formData: { eventId, recipientSelection }, ...rest }) =>
-                    eventId &&
-                    eventId !== 'all' &&
-                    recipientSelection !== 'INVITED' && (
-                      <Box sx={{ width: '100%' }}>
-                        <OccurrenceArraySelect
-                          {...rest}
-                          source="occurrenceIds"
-                          label="messages.fields.occurrences.label"
-                          eventId={eventId}
-                          defaultValue={getInitialOccurrenceIds(record)}
-                          allText="messages.fields.occurrences.all"
-                        />
-                      </Box>
-                    )
-                  }
-                </FormDataConsumer>
-              </Box>
+                    </Box>
+                  )
+                }
+              </FormDataConsumer>
+              <FormDataConsumer>
+                {({ formData: { eventId, recipientSelection }, ...rest }) =>
+                  eventId &&
+                  eventId !== 'all' &&
+                  recipientSelection !== 'INVITED' && (
+                    <Box sx={{ gridColumn: '2 !important', width: '100%' }}>
+                      <OccurrenceArraySelect
+                        {...rest}
+                        source="occurrenceIds"
+                        label="messages.fields.occurrences.label"
+                        eventId={eventId}
+                        defaultValue={getInitialOccurrenceIds(record)}
+                        allText="messages.fields.occurrences.all"
+                        variant="outlined"
+                        fullWidth
+                      />
+                    </Box>
+                  )
+                }
+              </FormDataConsumer>
               {protocol === ProtocolType.Email && (
                 <TextInput
                   source={translatableField('subject')}

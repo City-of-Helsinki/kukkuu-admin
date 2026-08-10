@@ -31,13 +31,13 @@
   - [`pnpm build`](#pnpm-build)
   - [`pnpm generate:graphql`](#pnpm-generategraphql)
   - [`pnpm test`](#pnpm-test)
-  - [`yarn test:e2e`](#pnpm-teste2e)
+  - [`pnpm test:e2e`](#pnpm-teste2e)
 - [Releases, changelogs and deployments](#releases-changelogs-and-deployments)
   - [Conventional Commits](#conventional-commits)
   - [Releasable units](#releasable-units)
   - [Configuration](#configuration)
-  - [Troubleshoting release-please](#troubleshoting-release-please)
-    - [Fix merge conflicts by running release-please -action manually](#fix-merge-conflicts-by-running-release-please--action-manually)
+  - [Troubleshooting release-please](#troubleshooting-release-please)
+    - [Fix merge conflicts by running release-please action manually](#fix-merge-conflicts-by-running-release-please-action-manually)
   - [Deployments](#deployments)
 - [License](#license)
 
@@ -306,9 +306,9 @@ Runs the Playwright browser test suite (`e2e/`) against your local version of th
 
 Related scripts:
 
-- `yarn test:e2e:install` — installs the Playwright browsers (first-time setup).
-- `yarn test:e2e:ui` — opens Playwright's interactive UI runner.
-- `yarn test:e2e:debug` — runs Playwright in debug mode.
+- `pnpm test:e2e:install` — installs the Playwright browsers (first-time setup).
+- `pnpm test:e2e:ui` — opens Playwright's interactive UI runner.
+- `pnpm test:e2e:debug` — runs Playwright in debug mode.
 
 To run browser tests locally, you need to configure the browser testing environment:
 
@@ -331,17 +331,17 @@ NOTE: There is an [.env.test.local.example](.env.test.local.example) that can be
 
 ## Releases, changelogs and deployments
 
-The used environments are listed in [Service environments](#service-environments).
+The used environments are listed in [Environments](#environments).
 
 The application uses automatic semantic versions and is released using [Release Please](https://github.com/googleapis/release-please).
 
 > Release Please is a GitHub Action that automates releases for you. It will create a GitHub release and a GitHub Pull Request with a changelog based on conventional commits.
 
-Each time you merge a "normal" pull request, the release-please-action will create or update a "Release PR" with the changelog and the version bump related to the changes (they're named like `release-please--branches--master--components--kukkuu-admin`).
+Each time you merge a "normal" pull request, the release-please action will create or update a "Release PR" with the changelog and the version bump related to the changes (they're named like `release-please--branches--master--components--kukkuu-admin`).
 
 To create a new release for an app, this release PR is merged, which creates a new release with release notes and a new tag. This tag will be picked by Azure pipeline and trigger a new deployment to staging. From there, the release needs to be manually released to production.
 
-When merging release PRs, make sure to use the "Rebase and merge" (or "Squash and merge") option, so that Github doesn't create a merge commit. All the commits must follow the conventional commits format. This is important, because the release-please-action does not work correctly with merge commits (there's an open issue you can track: [Chronological commit sorting means that merged PRs can be ignored ](https://github.com/googleapis/release-please/issues/1533)).
+When merging release PRs, make sure to use the "Rebase and merge" (or "Squash and merge") option, so that Github doesn't create a merge commit. All the commits must follow the conventional commits format. This is important, because the release-please action does not work correctly with merge commits (there's an open issue you can track: [Chronological commit sorting means that merged PRs can be ignored ](https://github.com/googleapis/release-please/issues/1533)).
 
 See [Release Please Implementation Design](https://github.com/googleapis/release-please/blob/main/docs/design.md) for more details.
 
@@ -366,7 +366,7 @@ The manifest file is located in the [release-please-manifest.json](./.release-pl
 
 When adding a new app, add it to both the [release-please-config.json](./release-please-config.json) and [release-please-manifest.json](./.release-please-manifest.json) file with the current version of the app. After this, release-please will keep track of versions with [release-please-manifest.json](./.release-please-manifest.json).
 
-### Troubleshoting release-please
+### Troubleshooting release-please
 
 If you were expecting a new release PR to be created or old one to be updated, but nothing happened, there's probably one of the older release PR's in pending state or action didn't run.
 
@@ -377,11 +377,11 @@ If you were expecting a new release PR to be created or old one to be updated, b
 
 **Important!** If you have closed a release PR manually, you need to change the label of closed release PR to `autorelease: tagged`. Otherwise, the release action will not create a new release PR.
 
-**Important!** Extra label will force release-please to re-generate PR's. This is done when action is run manually with prlabel -option
+**Important!** Extra label will force release-please to re-generate PR's. This is done when action is run manually with prlabel option
 
 Sometimes there might be a merge conflict in release PR - this should resolve itself on the next push to main. It is possible run release-please action manually with label, it should recreate the PR's. You can also resolve it manually, by updating the [release-please-manifest.json](./.release-please-manifest.json) file.
 
-#### Fix merge conflicts by running release-please -action manually
+#### Fix merge conflicts by running release-please action manually
 
 1. Open [release-please github action](https://github.com/City-of-Helsinki/kukkuu-admin/actions/workflows/release-please.yml)
 2. Click **Run workflow**

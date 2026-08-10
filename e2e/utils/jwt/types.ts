@@ -82,10 +82,7 @@ export type OIDCTokenEndpointRefreshResponseType = {
 };
 
 type ProjectPermission =
-  | 'manageEventGroups'
-  | 'publish'
-  | 'canSendToAllInProject'
-  | 'viewFamilies';
+  'manageEventGroups' | 'publish' | 'canSendToAllInProject' | 'viewFamilies';
 
 export type PermissionsStoragePermission<T extends string = string> = {
   role: null | 'admin' | 'none';

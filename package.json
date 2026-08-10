@@ -20,7 +20,7 @@
     "test:coverage": "cross-env TZ=Europe/Helsinki NODE_OPTIONS=--max-old-space-size=8192 vitest run --coverage",
     "test:staged": "cross-env TZ=Europe/Helsinki vitest related --run",
     "test:watch": "cross-env TZ=Europe/Helsinki vitest",
-    "lint": "eslint --ext js,jsx,ts,tsx,cjs,mjs src e2e",
+    "lint": "eslint --ext js,jsx,ts,tsx,cjs,mjs .",
     "format:code": "pnpm lint --fix",
     "format:markup": "prettier --config .prettierrc.json --write \"./**/*.{html,json,css,scss,md,mdx}\"",
     "generate:graphql": "cross-env DOTENV_CONFIG_PATH=./.env graphql-codegen -r dotenv/config --config ./codegen.ts",
@@ -93,14 +93,17 @@
     "oidc-client-ts": "^3.0.1",
     "prettier": "^3.4.2",
     "query-string": "^8.1.0",
+    "ra-core": "^5.15.0",
+    "ra-i18n-polyglot": "^5.15.0",
     "ra-language-english": "^5.14.7",
     "ra-language-finnish": "^5.7.0",
     "ra-language-swedish": "^1.0.0",
     "react": "^19.2.7",
     "react-admin": "^5.14.7",
     "react-dom": "^19.2.7",
+    "react-hook-form": "^7.72.1",
     "react-idle-timer": "^5.7.2",
-    "react-router-dom": "^7.18.0",
+    "react-router-dom": "^7.18.1",
     "typescript": "5.9.3",
     "vite": "8.0.16",
     "vitest": "^4.1.0",
@@ -122,16 +125,7 @@
     "full-icu": "^1.5.0",
     "husky": "^9.1.7",
     "jsdom": "^25.0.1",
-    "lint-staged": "^15.4.3"
-  },
-  "resolutions": {
-    "@types/minimatch": "^5.1.2",
-    "lodash": "^4.18.1",
-    "underscore": "^1.13.8",
-    "shell-quote": ">=1.8.4",
-    "form-data": ">=4.0.6",
-    "qs": ">=6.2.4",
-    "ws": ">=8.21.0",
-    "dompurify": ">=3.4.11"
+    "lint-staged": "^15.4.3",
+    "tsx": "^4.22.0"
   }
 }

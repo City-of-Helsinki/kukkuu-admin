@@ -84,6 +84,11 @@ export function generateTokenEndpointResponse(
       type: 'Refresh',
     });
 
+  const { encodedToken: id_token } = generateTestJwt({
+    user,
+    type: 'ID',
+  });
+
   return {
     upgraded: false,
     access_token,
@@ -94,6 +99,9 @@ export function generateTokenEndpointResponse(
     refresh_token,
     token_type: 'Bearer',
     'not-before-policy': 0,
+    id_token,
+    session_state: 'session_state should be mocked out',
+    scope: 'openid add-ad-groups-claim profile email',
   };
 }
 

@@ -12,6 +12,15 @@ export default defineConfig((configEnv) =>
         environment: 'jsdom',
         setupFiles: './tests/vitest-setup.ts',
         exclude: [...configDefaults.exclude, 'e2e/**'],
+        server: {
+          deps: {
+            // @mui/material's subpath exports (e.g. "@mui/material/styles") rely on
+            // directory/index resolution, which Node's native ESM loader rejects
+            // (ERR_UNSUPPORTED_DIR_IMPORT). Inlining routes them through Vite's
+            // resolver instead, which supports it.
+            inline: [/@mui\//, /ra-ui-materialui/, /react-admin/],
+          },
+        },
         reporters: ['json', 'verbose', 'vitest-sonar-reporter'],
         outputFile: {
           json: 'sonar-report.json',

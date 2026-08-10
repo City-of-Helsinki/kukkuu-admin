@@ -35,6 +35,10 @@ const EventGroupsDetailActions = () => {
     ].includes(publishStatus) &&
     canPublish;
 
+  // The actions toolbar renders before the record is fetched. Wait for it,
+  // otherwise CreateButton's `to` ships `eventGroupId=undefined` to the backend.
+  if (!record) return null;
+
   return (
     <TopToolbar
       sx={(theme) => ({
@@ -43,7 +47,7 @@ const EventGroupsDetailActions = () => {
       })}
     >
       <CreateButton
-        to={`/events/create?eventGroupId=${record?.id}`}
+        to={`/events/create?eventGroupId=${record.id}`}
         label={'eventGroups.actions.addEvent.do'}
       />
       {canManageEventGroups && <EditButton record={record} />}

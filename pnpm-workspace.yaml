@@ -1,5 +1,10 @@
 # Block installation of dependencies released less than 1 week ago (supply-chain hardening)
 minimumReleaseAge: 10080
+minimumReleaseAgeExclude:
+  # GHSA-mh99-v99m-4gvg (high, DoS via unbounded expansion length): 5.0.8 is the
+  # first patched release. Pinned to this exact version below rather than left
+  # floating, so this exception doesn't extend to untested newer releases.
+  - brace-expansion
 
 # Allow build/postinstall scripts only for dependencies that genuinely need them.
 # (pnpm blocks all build scripts by default; yarn used to run them unconditionally.)
@@ -20,3 +25,6 @@ overrides:
   '@types/minimatch': ^5.1.2
   lodash: ^4.18.1
   underscore: ^1.13.8
+  # GHSA-mh99-v99m-4gvg: DoS via unbounded expansion length, fixed in 5.0.8.
+  # Forces all coexisting minimatch-pulled versions (1.x/2.x/5.x lines) to the patched release.
+  brace-expansion: 5.0.8
