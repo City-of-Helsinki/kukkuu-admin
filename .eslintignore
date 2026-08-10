@@ -1,3 +1,10 @@
 src/domain/api/generatedTypes/graphql.tsx
 build/*
 public/env-config.js
+
+# generated test/coverage report output (contains bundled JS, not source)
+report/
+test-results/
+coverage/
+playwright-report/
+screenshots/
