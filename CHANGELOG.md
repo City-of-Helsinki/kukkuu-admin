@@ -2,6 +2,47 @@
 
 # Change Log
 
+## [4.4.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.3.0...kukkuu-admin-v4.4.0) (2026-08-26)
+
+
+### Features
+
+* React 19 and dependencies update ([ce6a425](https://github.com/City-of-Helsinki/kukkuu-admin/commit/ce6a4250411ea3d282d0e75288b9e3915c3a8f35))
+
+
+### Bug Fixes
+
+* Add generated test results to eslintignore ([df51964](https://github.com/City-of-Helsinki/kukkuu-admin/commit/df51964eaf757394e0c3eca9d800b694514c839e))
+* Clean unused dependencies ([a63b67d](https://github.com/City-of-Helsinki/kukkuu-admin/commit/a63b67de15b3b6928a22dda96f014c63f58ee166))
+* Resolve e2e flakiness, PR review findings, and edit crash ([2adb0a9](https://github.com/City-of-Helsinki/kukkuu-admin/commit/2adb0a99fa18b6d74b873669ff331c696dd0cbad))
+* Sonar reliability fixes ([bd6b369](https://github.com/City-of-Helsinki/kukkuu-admin/commit/bd6b3699931e23762a6e35852262e239963ecb1f))
+
+
+### Dependencies
+
+* Add testing-library/dom Refs: KK-1543 ([c8d062b](https://github.com/City-of-Helsinki/kukkuu-admin/commit/c8d062b6a7c1d9bba415ec99f6a54357b2ef053e))
+* Bump @babel/core from 7.29.0 to 7.29.7 ([946bda7](https://github.com/City-of-Helsinki/kukkuu-admin/commit/946bda7a33b61decc3a63bf2d12b2a18487b2acc))
+* Bump apollo/client Refs: KK-1543 ([5359432](https://github.com/City-of-Helsinki/kukkuu-admin/commit/53594321108f15ee0da9589f0e091366d94e946d))
+* Bump axios from 1.16.1 to 1.18.0 ([e1667d5](https://github.com/City-of-Helsinki/kukkuu-admin/commit/e1667d5bd182d5673623334ec075c68678246842))
+* Bump form-data from 4.0.5 to 4.0.6 ([04369f9](https://github.com/City-of-Helsinki/kukkuu-admin/commit/04369f99eac14e2e749612dac57f2277de35e182))
+* Bump immutable from 5.1.5 to 5.1.9 ([2a2a443](https://github.com/City-of-Helsinki/kukkuu-admin/commit/2a2a4430c70e375446411c2256c9366fcf9f4faa))
+* Bump vite from 8.0.13 to 8.0.16 ([49140a8](https://github.com/City-of-Helsinki/kukkuu-admin/commit/49140a8a5a01d9391d7fd381b2659271f0277340))
+* Dompurify resolution, MessageForm ts fix Refs: KK-1543 ([ac3bac3](https://github.com/City-of-Helsinki/kukkuu-admin/commit/ac3bac30f8165b5a6601a4a80f8bcdb6aca16ac5))
+* Drop unnecessary dependencies Refs: KK-1543 ([cce98cd](https://github.com/City-of-Helsinki/kukkuu-admin/commit/cce98cde6a43921a9d4e957c8214f53b85216435))
+* Mui v5to v6, drop mui/lab Refs: KK-1543 ([0c22688](https://github.com/City-of-Helsinki/kukkuu-admin/commit/0c226888082a11aef1c8f3e23d3c72579eb623e2))
+* Upgrade ra packages Refs: KK-1543 ([9eb9506](https://github.com/City-of-Helsinki/kukkuu-admin/commit/9eb9506c0933a46f9abbd209029cff4185e687ef))
+* Upgrade testing-library/react Refs: KK-1543 ([04a0208](https://github.com/City-of-Helsinki/kukkuu-admin/commit/04a02089e7ee35721fec685917f1ddb636d2751a))
+
+
+### Reverts
+
+* Migrate kukkuu admin yarn to pnpm ([ebb4f08](https://github.com/City-of-Helsinki/kukkuu-admin/commit/ebb4f08279d24654d6eec52f12c632200fc97d61))
+
+
+### Documentation
+
+* Documentation cleanup Refs: KK-1543 ([859fcaf](https://github.com/City-of-Helsinki/kukkuu-admin/commit/859fcaf2de27f7a71755b9157d28a1c4adc72b53))
+
 ## [4.3.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.2.7...kukkuu-admin-v4.3.0) (2026-06-11)
 
 ### Features
