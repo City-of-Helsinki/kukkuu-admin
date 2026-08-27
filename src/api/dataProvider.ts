@@ -23,7 +23,6 @@ import type {
   Method,
   Resource,
   DataProviderParams as Params,
-  MethodHandler,
   MethodHandlerResponse,
 } from './types';
 import {
@@ -92,7 +91,6 @@ const METHOD_HANDLERS: MethodHandlers = {
   projects: {
     ONE: getProject,
   },
-  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   messages: {
     LIST: MessagesApi.getMessages,
     ONE: MessagesApi.getMessage,
@@ -101,15 +99,14 @@ const METHOD_HANDLERS: MethodHandlers = {
     UPDATE: MessagesApi.updateMessage,
     DELETE: MessagesApi.deleteMessage,
     SEND: MessagesApi.sendMessage,
-  } as Record<string, MethodHandler>,
-  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+  },
   'event-groups': {
     ONE: EventGroupsApi.getEventGroup,
     CREATE: EventGroupsApi.addEventGroup,
     UPDATE: EventGroupsApi.updateEventGroup,
     DELETE: EventGroupsApi.deleteEventGroup,
     PUBLISH: EventGroupsApi.publishEventGroup,
-  } as Record<string, MethodHandler>,
+  },
   'events-and-event-groups': {
     LIST: EventsAndEventGroupsApi.getEventsAndEventGroups,
   },
@@ -151,9 +148,17 @@ const runHandler = async <T>(
   return await (handler(params) as Promise<T>);
 };
 
-// FIXME: In version 3.9.0 typescript support was added into
-// react-admin and our implementation of dataProvider is not type
-// compatible.
+// FIXME: our dataProvider is not fully type compatible with react-admin's own
+// types (added in react-admin 3.9.0). Still true on 5.x — it compiles only via
+// escape hatches: `Params` is `Record<string, any>` and `runHandler` casts with
+// `as Promise<T>`, so neither params nor results are actually checked. A real
+// fix means typing the handler registry so (resource, method) determines both.
+//
+// Until then, don't "simplify" `Resource[number]` (which resolves to plain
+// `string`) to `Resource`, or drop the `as Resource` casts: the five
+// `useDataProvider<typeof extendedDataProvider>()` call sites constrain against
+// `DataProvider`, whose default `ResourceType` is `string`, so narrowing here
+// fails them with TS2344.
 const baseDataProvider = {
   getList: async (resource: Resource[number], params: Params) =>
     await runHandler<GetListResult>('LIST', resource as Resource, params),
@@ -185,7 +190,7 @@ const baseDataProvider = {
       resource as Resource,
       params
     ),
-} as const satisfies DataProvider<Resource> | DataProvider;
+} as const satisfies DataProvider<Resource>;
 
 const extendedDataProvider = {
   ...baseDataProvider,
@@ -218,6 +223,6 @@ const extendedDataProvider = {
       resource,
       params
     ),
-} as const satisfies DataProvider<Resource> | DataProvider;
+} as const satisfies DataProvider<Resource>;
 
 export default extendedDataProvider;
