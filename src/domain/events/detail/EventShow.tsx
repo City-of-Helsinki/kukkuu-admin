@@ -35,7 +35,6 @@ import type { AdminEvent } from '../types/EventTypes';
 import ImportTicketSystemPasswordsFormDialog from '../../ticketSystemPassword/ImportTicketSystemPasswordsFormDialog';
 import TranslatableProvider from '../../../common/providers/TranslatableProvider';
 import useTranslatableContext from '../../../common/hooks/useTranslatableContext';
-import { dateTimeFieldOptions } from '../../../common/utils';
 
 const AddOccurrenceButton = () => {
   const record = useRecordContext();

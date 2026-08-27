@@ -10,8 +10,6 @@ import TextField from '@mui/material/TextField';
 import moment from 'moment-timezone';
 import { Grid } from '@mui/material';
 
-import Config from '../../../domain/config';
-
 const momentValidationDateFormats = ['D.M.YYYY', 'DD.MM.YYYY'] as const;
 
 const momentValidationTimeFormats = ['H:mm', 'HH:mm'] as const;
