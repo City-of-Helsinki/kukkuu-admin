@@ -3,11 +3,16 @@ import { waitFor, render, fireEvent, screen } from '@testing-library/react';
 import { useTranslate, useNotify, useRefresh } from 'react-admin';
 
 import ImportTicketSystemPasswordsFormDialog from '../ImportTicketSystemPasswordsFormDialog';
+import ticketSystemPasswordsApi from '../api/ticketSystemPasswordsApi';
 
 vi.mock('react-admin', () => ({
   useTranslate: vi.fn(),
   useNotify: vi.fn(),
   useRefresh: vi.fn(),
+}));
+
+vi.mock('../api/ticketSystemPasswordsApi', () => ({
+  default: { importTicketSystemPasswords: vi.fn() },
 }));
 
 const mockTranslate = vi.fn();
@@ -67,6 +72,60 @@ describe('ImportTicketSystemPasswordsFormDialog', () => {
       // TODO: Instead of just testing whether it is called or not, we could test the arguments passed to it
       expect(mockNotify).toHaveBeenCalled();
     });
+  });
+
+  const clickImport = () => {
+    render(<ImportTicketSystemPasswordsFormDialog {...defaultProps} />);
+    fireEvent.click(
+      screen.getByText('ticketSystemPassword.import.action.import')
+    );
+  };
+
+  it('notifies success when every password is imported', async () => {
+    ticketSystemPasswordsApi.importTicketSystemPasswords.mockResolvedValue({
+      data: { errors: [] },
+    });
+    clickImport();
+    await waitFor(() =>
+      expect(mockNotify).toHaveBeenCalledWith(
+        'ticketSystemPassword.import.submit.success',
+        { type: 'info' }
+      )
+    );
+  });
+
+  it('reports only the rejected passwords, without also claiming success', async () => {
+    ticketSystemPasswordsApi.importTicketSystemPasswords.mockResolvedValue({
+      data: { errors: [{ value: 'bad-password' }] },
+    });
+    clickImport();
+    await waitFor(() =>
+      expect(mockNotify).toHaveBeenCalledWith(
+        'ticketSystemPassword.import.submit.passwords.error',
+        { type: 'warning', passwords: 'bad-password' }
+      )
+    );
+    expect(mockNotify).not.toHaveBeenCalledWith(
+      'ticketSystemPassword.import.submit.success',
+      { type: 'info' }
+    );
+  });
+
+  it('notifies an error when the import request fails', async () => {
+    ticketSystemPasswordsApi.importTicketSystemPasswords.mockRejectedValue(
+      new Error('boom')
+    );
+    clickImport();
+    await waitFor(() =>
+      expect(mockNotify).toHaveBeenCalledWith(
+        'ticketSystemPassword.import.submit.error',
+        { type: 'error' }
+      )
+    );
+    expect(mockNotify).not.toHaveBeenCalledWith(
+      'ticketSystemPassword.import.submit.success',
+      { type: 'info' }
+    );
   });
 
   it('calls onClose when the cancel button is clicked', () => {
