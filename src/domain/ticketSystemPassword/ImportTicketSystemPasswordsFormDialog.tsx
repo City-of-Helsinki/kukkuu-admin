@@ -7,6 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { useNotify, useTranslate, useRefresh } from 'react-admin';
+import * as Sentry from '@sentry/browser';
 
 import ticketSystemPasswordsApi from './api/ticketSystemPasswordsApi';
 import type { AdminEvent } from '../events/types/EventTypes';
@@ -57,10 +58,11 @@ const ImportTicketSystemPasswordsFormDialog = ({
           type: 'warning',
           passwords: passwordsWithError.join(', '),
         });
+      } else {
+        notify('ticketSystemPassword.import.submit.success', { type: 'info' });
       }
-
-      notify('ticketSystemPassword.import.submit.success', { type: 'info' });
     } catch (e) {
+      Sentry.captureException(e);
       notify('ticketSystemPassword.import.submit.error', { type: 'error' });
     }
 
