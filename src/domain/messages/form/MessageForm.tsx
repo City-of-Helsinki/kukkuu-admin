@@ -222,14 +222,12 @@ const MessageForm = ({ protocol, ...delegatedProps }: Props) => {
                 rows={10}
               />
               {protocol === ProtocolType.Sms && (
-                <>
-                  <Typography
-                    variant="subtitle2"
-                    sx={(theme) => ({ marginBottom: theme.spacing(1) })}
-                  >
-                    {t('sms.create.messageSentImmediatelyNotice')}
-                  </Typography>
-                </>
+                <Typography
+                  variant="subtitle2"
+                  sx={(theme) => ({ marginBottom: theme.spacing(1) })}
+                >
+                  {t('sms.create.messageSentImmediatelyNotice')}
+                </Typography>
               )}
             </>
           )}
