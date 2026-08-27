@@ -12,12 +12,7 @@ import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPa
 import KukkuuDetailPage from '../../application/layout/kukkuuDetailPage/KukkuuDetailPage';
 import LocalDataGrid from '../../../common/components/localDataGrid/LocalDataGrid';
 import { participantsPerInviteChoices } from '../../events/choices';
-import {
-  type CapacityEventNode,
-  type EnrollmentsCountEventNode,
-  countCapacity,
-  countEnrollments,
-} from '../../events/utils';
+import { countCapacity, countEnrollments } from '../../events/utils';
 import EventReadyField from './EventReadyField';
 import EventGroupsDetailActions from './EventGroupsDetailActions';
 import type { EventNode } from '../../api/generatedTypes/graphql';
@@ -54,13 +49,12 @@ const EventGroupsDetail = () => {
           source="duration"
           label={t('events.fields.duration.label')}
         />
-        <FunctionField
+        <FunctionField<EventNode>
           label="events.fields.totalCapacity.label"
           textAlign="right"
-          // FIXME: Why is it EventNode in EventGroupDetails?
-          render={(record?: Partial<EventNode>) =>
+          render={(record) =>
             record
-              ? countCapacity(record as CapacityEventNode)
+              ? countCapacity(record)
               : t('events.fields.totalCapacity.unknown')
           }
         />
@@ -68,22 +62,16 @@ const EventGroupsDetail = () => {
           source="occurrences.edges.length"
           label="events.fields.numOfOccurrences.label"
         />
-        <FunctionField
+        <FunctionField<EventNode>
           label="events.fields.numOfEnrolments.label"
           textAlign="right"
-          // FIXME: Why is it EventNode in EventGroupDetails?
-          render={(record?: Partial<EventNode>) =>
-            record
-              ? countEnrollments(record as EnrollmentsCountEventNode)
-              : null
-          }
+          render={(record) => (record ? countEnrollments(record) : null)}
         />
-        <FunctionField
+        <FunctionField<EventNode>
           label="events.fields.ready.label2"
-          // FIXME: Why is it EventNode in EventGroupDetails?
-          render={(record: Partial<EventNode>) => (
+          render={(record) => (
             <EventReadyField
-              record={record as EventNode}
+              record={record}
               style={{ margin: '0 auto', textAlign: 'center' }}
             />
           )}
