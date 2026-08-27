@@ -79,7 +79,7 @@ interface ImportTicketmasterPasswordsControlsProps {
 const ImportTicketmasterPasswordsControls = ({
   record,
 }: ImportTicketmasterPasswordsControlsProps) => {
-  const [isDialogShown, setIsDialogShown] = useState(false);
+  const [isDialogShown, setShowDialog] = useState(false);
   const internalTicketSystem = hasInternalTicketSystem(record);
   return (
     <div>
@@ -87,13 +87,13 @@ const ImportTicketmasterPasswordsControls = ({
         <>
           <ImportTicketSystemPasswordsButton
             onClick={() => {
-              setIsDialogShown(true);
+              setShowDialog(true);
             }}
           />
           <ImportTicketSystemPasswordsFormDialog
             isOpen={isDialogShown}
             onClose={() => {
-              setIsDialogShown(false);
+              setShowDialog(false);
             }}
             record={record}
           />
