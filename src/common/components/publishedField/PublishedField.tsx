@@ -28,7 +28,7 @@ const PublishedField = ({
 
   return (
     <Typography variant="body2" className={className}>
-      {sourceData && render && render(date)}
+      {sourceData && render?.(date)}
       {sourceData && !render && toDateTimeString(date, locale)}
       {!sourceData && emptyText}
     </Typography>
