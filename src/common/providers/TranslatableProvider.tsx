@@ -22,8 +22,8 @@ export default function TranslatableProvider({
   defaultLanguage = Language.Fi,
   languages = CONTENT_LANGUAGES,
   selector = <LanguageTabs />,
-}: LanguageTabsProviderProps) {
-  const [selectedLanguage, selectLanguage] =
+}: Readonly<LanguageTabsProviderProps>) {
+  const [selectedLanguage, setSelectedLanguage] =
     React.useState<Language>(defaultLanguage);
 
   const getSource = (fieldName: string) =>
@@ -34,7 +34,7 @@ export default function TranslatableProvider({
     getSource,
     defaultLanguage,
     languages,
-    selectLanguage,
+    selectLanguage: setSelectedLanguage,
     selectedLanguage,
     selector,
   };

@@ -6,7 +6,7 @@ import AppConfig from '../application/AppConfig';
 
 type IdleTimerProps = { children: React.ReactNode };
 
-function IdleTimer({ children }: IdleTimerProps) {
+function IdleTimer({ children }: Readonly<IdleTimerProps>) {
   const onIdle = () => {
     const isAuthenticated = authService.isAuthenticated();
     if (isAuthenticated) {

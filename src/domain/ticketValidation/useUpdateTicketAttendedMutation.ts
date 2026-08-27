@@ -42,7 +42,7 @@ export default function useUpdateTicketAttendedMutation({
             type: 'warning',
           });
         }
-        sideEffect && sideEffect(data);
+        sideEffect?.(data);
       },
       onError: (error: Error) => {
         // eslint-disable-next-line no-console
