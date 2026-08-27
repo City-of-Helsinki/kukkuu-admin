@@ -109,6 +109,7 @@
         "label": "Kieli"
       },
       "name": {
+        "helperText": "Tapahtuman nimi",
         "label": "Nimi"
       },
       "numOfOccurrences": {

@@ -13,8 +13,10 @@ import TranslatableContext from '../../common/contexts/TranslatableContext';
 
 const VenueTitle = () => {
   const record = useRecordContext();
-  // FIXME: is the title wrong, because the translations should always be an array?
-  return <CardHeader title={record ? `${record.translations.FI.name}` : ''} />;
+  // `translations` arrives normalized from the API's array form into a
+  // language-keyed object (see normalizeApiTranslations), so indexing by FI is
+  // correct — but every language is optional, so it may be absent.
+  return <CardHeader title={record?.translations?.FI?.name ?? ''} />;
 };
 
 const VenueShow = () => {

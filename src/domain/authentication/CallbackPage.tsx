@@ -9,7 +9,7 @@ import authorizationService from './authorizationService';
 import AuthError from './AuthErrorPage';
 
 function getRedirectPath(
-  redirectTarget: string | undefined | string,
+  redirectTarget: string | undefined,
   currentPathname: string
 ): string {
   // If the redirectTarget is the same as the current pathname, redirect to
