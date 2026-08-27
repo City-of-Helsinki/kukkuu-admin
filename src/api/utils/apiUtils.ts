@@ -119,21 +119,23 @@ export const mapApiDataToLocalData = <T extends ApiNode>(
   apiNode: T | Nullish
 ) => {
   if (!apiNode) return null;
-  const apiData = Object.assign({}, apiNode);
+  const apiData = { ...apiNode };
   delete (apiData as { __typename?: string }).__typename;
   return apiData.translations
-    ? Object.assign({}, apiData, {
+    ? {
+        ...apiData,
         translations: normalizeApiTranslations(apiData.translations),
-      })
+      }
     : apiData;
 };
 
 // TODO add proper typing
 export const mapLocalDataToApiData = (record: any) => {
   return record.translations
-    ? Object.assign({}, record, {
+    ? {
+        ...record,
         translations: denormalizeLocalTranslations(record.translations),
-      })
+      }
     : record;
 };
 

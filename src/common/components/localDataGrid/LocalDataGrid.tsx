@@ -9,12 +9,13 @@ import {
 } from 'react-admin';
 import get from 'lodash/get';
 
-function disableSorting(field: ReactElement) {
+function disableSorting(field: ReactElement<Record<string, unknown>>) {
   return {
     ...field,
-    props: Object.assign({}, field.props, {
+    props: {
+      ...field.props,
       sortable: false,
-    }),
+    },
   };
 }
 

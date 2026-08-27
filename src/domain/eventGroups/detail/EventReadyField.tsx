@@ -19,11 +19,15 @@ const EventReadyField = ({ record, className, style }: Props) => {
   const isReady = Boolean(record?.readyForEventGroupPublishing);
   const isPublished = Boolean(record?.publishedAt);
 
-  const backgroundColor = isPublished
-    ? theme.palette.info.dark
-    : isReady
-      ? theme.palette.success.dark
-      : theme.palette.grey[500];
+  const getBackgroundColor = () => {
+    if (isPublished) {
+      return theme.palette.info.dark;
+    } else if (isReady) {
+      return theme.palette.success.dark;
+    } else {
+      return theme.palette.grey[500];
+    }
+  };
 
   const getEventStatusIcon = () => {
     if (isPublished) {
@@ -64,7 +68,7 @@ const EventReadyField = ({ record, className, style }: Props) => {
         width: '20px',
         color: '#fff',
         borderRadius: '100%',
-        backgroundColor,
+        backgroundColor: getBackgroundColor(),
         ...style,
       }}
     >

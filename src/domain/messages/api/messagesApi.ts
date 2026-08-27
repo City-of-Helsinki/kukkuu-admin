@@ -60,7 +60,7 @@ async function getMessages(
 
 async function getMessage(
   params: MethodHandlerParams
-): Promise<MethodHandlerResponse | null> {
+): Promise<MethodHandlerResponse> {
   const response = await queryHandler({
     query: MessageDocument,
     variables: { id: params.id },
@@ -107,7 +107,7 @@ function cleanMessage(data: any): any {
 
 async function addMessage(
   params: MethodHandlerParams
-): Promise<MethodHandlerResponse | null> {
+): Promise<MethodHandlerResponse> {
   const cleanedData = cleanMessage(params.data);
   const data = mapLocalDataToApiData(cleanedData);
   const response = await mutationHandler({
@@ -125,7 +125,7 @@ async function addMessage(
 
 async function updateMessage(
   params: MethodHandlerParams
-): Promise<MethodHandlerResponse | null> {
+): Promise<MethodHandlerResponse> {
   const updateData = {
     id: params.data.id,
     translations: params.data.translations,
@@ -146,7 +146,7 @@ async function updateMessage(
 
 async function deleteMessage(
   params: MethodHandlerParams
-): Promise<MethodHandlerResponse | null> {
+): Promise<MethodHandlerResponse> {
   await mutationHandler({
     mutation: deleteMessageMutation,
     variables: { input: { id: params.id } },
@@ -157,7 +157,7 @@ async function deleteMessage(
 
 async function sendMessage(
   params: MethodHandlerParams
-): Promise<MethodHandlerResponse | null> {
+): Promise<MethodHandlerResponse> {
   const response = await mutationHandler({
     mutation: sendMessageMutation,
     variables: { input: { id: params.id } },
