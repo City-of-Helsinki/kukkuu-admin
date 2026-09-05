@@ -2,6 +2,14 @@
 
 # Change Log
 
+## [4.4.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.4.0...kukkuu-admin-v4.4.1) (2026-09-05)
+
+
+### Bug Fixes
+
+* Report password import failures and drop false success notice ([64df00d](https://github.com/City-of-Helsinki/kukkuu-admin/commit/64df00dab05536377f40960b3c38ec6f8c2d665c))
+* Sonar maintainability findings in venue title and event form ([d69d03c](https://github.com/City-of-Helsinki/kukkuu-admin/commit/d69d03c40a586753eb45e432099e6b728832680d))
+
 ## [4.4.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.3.0...kukkuu-admin-v4.4.0) (2026-08-26)
 
 
