@@ -23,8 +23,10 @@ allowBuilds:
 # Translated from the former package.json "resolutions" field
 overrides:
   '@types/minimatch': ^5.1.2
+  fast-uri: 3.1.6
+  js-yaml: 4.3.1
   lodash: ^4.18.1
   underscore: ^1.13.8
-  # GHSA-mh99-v99m-4gvg: DoS via unbounded expansion length, fixed in 5.0.8.
+  # GHSA-rgw5-rvv9-x895: DoS via unbounded expansion length, fixed in 5.0.9.
   # Forces all coexisting minimatch-pulled versions (1.x/2.x/5.x lines) to the patched release.
-  brace-expansion: 5.0.8
+  brace-expansion: 5.0.9
