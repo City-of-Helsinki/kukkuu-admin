@@ -2,6 +2,7 @@
   "name": "kukkuu-admin",
   "version": "4.4.0",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "engines": {
     "node": ">=24.0.0",
