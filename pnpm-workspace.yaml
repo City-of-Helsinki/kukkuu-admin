@@ -1,10 +1,7 @@
 # Block installation of dependencies released less than 1 week ago (supply-chain hardening)
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
-  # GHSA-mh99-v99m-4gvg (high, DoS via unbounded expansion length): 5.0.8 is the
-  # first patched release. Pinned to this exact version below rather than left
-  # floating, so this exception doesn't extend to untested newer releases.
-  - brace-expansion
+  - obug@2.2.1
 
 # Allow build/postinstall scripts only for dependencies that genuinely need them.
 # (pnpm blocks all build scripts by default; yarn used to run them unconditionally.)
