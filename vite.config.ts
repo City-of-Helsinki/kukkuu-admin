@@ -7,7 +7,7 @@ export default ({ mode }: any) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
   return defineConfig({
     envPrefix: 'VITE_',
-    plugins: [react(), eslint()],
+    plugins: [react(), mode !== 'test' && eslint()],
     server: {
       open: true, // automatically open the app in the browser
       port: parseInt(process.env.PORT ?? '3001'),
