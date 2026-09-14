@@ -39,6 +39,8 @@
     - [Fix merge conflicts by running release-please action manually](#fix-merge-conflicts-by-running-release-please-action-manually)
   - [Deployments](#deployments)
 - [License](#license)
+  - [Third-party licenses](#third-party-licenses)
+  - [Asset provenance](#asset-provenance)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -398,4 +400,35 @@ The tag name is defined in the [azure-pipelines-release.yml](./azure-pipelines-r
 
 ## License
 
-This project is licensed under the **[MIT License](LICENSE.md)**.
+This project is licensed under the **[MIT License](LICENSE)**.
+
+### Third-party licenses
+
+The production build bundles third-party open source components whose licenses
+(MIT, BSD, Apache-2.0 and similar) require their copyright and license text to
+travel with the distributed code. A minified bundle carries none of that, so
+`scripts/thirdPartyLicenses.ts` collects the licenses of every package that
+contributes code to the build and writes them to
+`third-party-licenses.txt` in the build output, served from the application
+root. The file is generated during `pnpm build`, so it always describes the
+build it ships with, and it is not committed to the repository.
+
+> NOTE: The notices are not linked from the user interface. Doing that needs
+> Finnish, Swedish and English copy from the PO first.
+
+### Asset provenance
+
+Non-code assets are not covered by the generated notices, so they are listed
+here. The application ships exactly one:
+
+| Asset                | Rights holder | Licence | Notes                                                                                                                                                            |
+| -------------------- | ------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `public/favicon.ico` | Unverified    | Unknown | Added 2020-01-23 in "Add project base". Carries no embedded attribution and is not the HDS favicon. Origin could not be established from the repository history. |
+
+No fonts, images, icons or PDFs are bundled beyond this: the UI draws its
+typography from system font stacks and its icons from `@mui/icons-material`,
+both covered by the generated notices.
+
+> NOTE: The favicon's rights holder is deliberately left as unverified rather
+> than assumed to be the City of Helsinki. Replacing it with an asset of known
+> provenance, such as the HDS favicon kit used by kukkuu-ui, would close this.
