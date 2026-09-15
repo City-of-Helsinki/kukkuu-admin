@@ -2,6 +2,19 @@
 
 # Change Log
 
+## [4.4.2](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.4.1...kukkuu-admin-v4.4.2) (2026-09-15)
+
+
+### Bug Fixes
+
+* Dependabot alerts ([acec066](https://github.com/City-of-Helsinki/kukkuu-admin/commit/acec0662760d1c7c89ab0517051a6d339ea644c4))
+* Vitest upgrade conflicts Refs: RATY-357 ([e1f04cc](https://github.com/City-of-Helsinki/kukkuu-admin/commit/e1f04cc9616206e8f6e2b843ce6005d64715b3ce))
+
+
+### Dependencies
+
+* Bump vitest from 4.1.10 to 4.1.11 ([333bd25](https://github.com/City-of-Helsinki/kukkuu-admin/commit/333bd2589df5cceec4f0f8bec57faf6662699b1c))
+
 ## [4.4.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.4.0...kukkuu-admin-v4.4.1) (2026-09-14)
 
 
