@@ -2,3 +2,16 @@
 graphql.ts
 graphql.tsx
 public/env-config.js
+
+# Generated output — never hand-formatted. `pnpm format:markup` globs json, md
+# and html, all of which these directories contain.
+build
+coverage
+report
+test-results
+playwright-report
+screenshots
+sonar-report.json
+
+# Owned by release-please; reformatting it causes conflicts on the next release.
+CHANGELOG.md
