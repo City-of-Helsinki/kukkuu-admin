@@ -9,6 +9,7 @@
     "authError": {
       "title": "Login Failed",
       "description": "Log out and try again",
+
       "logOut": "Log out"
     },
     "unauthorizedPage": {
@@ -63,8 +64,15 @@
     }
   },
   "events": {
+    "copy": {
+      "title": "Copy target",
+      "description": "Select the target where you want to copy.",
+      "eventGroupHelperText": "Target event group in the selected project.",
+      "projectHelperText": "Select the current project to copy the event inside the same project, or select another project to copy it to another year."
+    },
     "actions": {
-      "create": "New Event"
+      "create": "New Event",
+      "copy": "Copy as new"
     },
     "create": {
       "aside": {
