@@ -36,6 +36,9 @@ export const occurrenceQuery = gql`
       time
       event {
         id
+        project {
+          id
+        }
         name
         capacityPerOccurrence
         duration
