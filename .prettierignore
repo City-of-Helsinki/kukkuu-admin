@@ -2,6 +2,7 @@
 graphql.ts
 graphql.tsx
 public/env-config.js
+AGENTS.md
 
 # Generated output — never hand-formatted. `pnpm format:markup` globs json, md
 # and html, all of which these directories contain.
