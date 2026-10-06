@@ -10,6 +10,16 @@ export const addEventGroupMutation = gql`
   }
 `;
 
+export const copyEventGroupMutation = gql`
+  mutation copyEventGroup($input: CopyEventGroupMutationInput!) {
+    copyEventGroup(input: $input) {
+      eventGroup {
+        id
+      }
+    }
+  }
+`;
+
 export const updateEventGroupMutation = gql`
   mutation updateEventGroup($input: UpdateEventGroupMutationInput!) {
     updateEventGroup(input: $input) {

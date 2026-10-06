@@ -36,6 +36,42 @@ export const addEventMutation = gql`
   }
 `;
 
+export const copyEventMutation = gql`
+  mutation CopyEvent($input: CopyEventMutationInput!) {
+    copyEvent(input: $input) {
+      event {
+        id
+        image
+        participantsPerInvite
+        capacityPerOccurrence
+        duration
+        ticketSystem {
+          type
+          ... on TicketmasterEventTicketSystem {
+            url
+            endTime
+          }
+          ... on LippupisteEventTicketSystem {
+            url
+            endTime
+          }
+          ... on TixlyEventTicketSystem {
+            url
+            endTime
+          }
+        }
+        translations {
+          languageCode
+          name
+          imageAltText
+          description
+          shortDescription
+        }
+      }
+    }
+  }
+`;
+
 export const updateEventMutation = gql`
   mutation UpdateEvent($input: UpdateEventMutationInput!) {
     updateEvent(input: $input) {

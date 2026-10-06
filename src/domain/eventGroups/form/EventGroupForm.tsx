@@ -9,9 +9,12 @@ import {
 } from '../validations';
 import useTranslatableContext from '../../../common/hooks/useTranslatableContext';
 import TranslatableProvider from '../../../common/providers/TranslatableProvider';
+import { CopyTargetFields } from '../../events/copy/CopyTargetFields';
 import { Language } from '../../api/generatedTypes/graphql';
 
-type EventGroupFormProps = Omit<SimpleFormProps, 'children'>;
+type EventGroupFormProps = Omit<SimpleFormProps, 'children'> & {
+  isCopy?: boolean;
+};
 
 type FormValues = {
   translations: {
@@ -22,12 +25,14 @@ type FormValues = {
 };
 
 const EventGroupForm = (props: EventGroupFormProps) => {
+  const { isCopy, ...simpleFormProps } = props;
   const resolver: Resolver<FormValues> = yupResolver(eventGroupsSchema);
   return (
     <SimpleForm
       resolver={resolver as unknown as Resolver<FieldValues>}
-      {...props}
+      {...simpleFormProps}
     >
+      {isCopy && <CopyTargetFields resource="event-groups" />}
       <TranslatableProvider>
         <EventGroupFormFields />
       </TranslatableProvider>

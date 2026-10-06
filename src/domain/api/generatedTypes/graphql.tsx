@@ -332,6 +332,41 @@ export type ChildNotesNode = Node & {
   notes: Scalars['String']['output'];
 };
 
+export type CopyEventGroupMutationInput = {
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['Upload']['input']>;
+  projectId: Scalars['ID']['input'];
+  sourceEventGroupId: Scalars['ID']['input'];
+  translations?: InputMaybe<Array<InputMaybe<EventGroupTranslationsInput>>>;
+};
+
+export type CopyEventGroupMutationPayload = {
+  __typename?: 'CopyEventGroupMutationPayload';
+  clientMutationId: Maybe<Scalars['String']['output']>;
+  eventGroup: Maybe<EventGroupNode>;
+};
+
+export type CopyEventMutationInput = {
+  /** Required for internal ticket system events. */
+  capacityPerOccurrence?: InputMaybe<Scalars['Int']['input']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  duration?: InputMaybe<Scalars['Int']['input']>;
+  eventGroupId?: InputMaybe<Scalars['ID']['input']>;
+  image?: InputMaybe<Scalars['Upload']['input']>;
+  participantsPerInvite: EventParticipantsPerInvite;
+  projectId: Scalars['ID']['input'];
+  readyForEventGroupPublishing?: InputMaybe<Scalars['Boolean']['input']>;
+  sourceEventId: Scalars['ID']['input'];
+  ticketSystem?: InputMaybe<AddEventTicketSystemInput>;
+  translations?: InputMaybe<Array<InputMaybe<EventTranslationsInput>>>;
+};
+
+export type CopyEventMutationPayload = {
+  __typename?: 'CopyEventMutationPayload';
+  clientMutationId: Maybe<Scalars['String']['output']>;
+  event: Maybe<EventNode>;
+};
+
 export type DeleteChildMutationInput = {
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['ID']['input'];
@@ -502,6 +537,23 @@ export type EventGroupNodeEventsArgs = {
   offset: InputMaybe<Scalars['Int']['input']>;
   projectId: InputMaybe<Scalars['ID']['input']>;
   upcoming: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type EventGroupNodeConnection = {
+  __typename?: 'EventGroupNodeConnection';
+  /** Contains the nodes in this connection. */
+  edges: Array<Maybe<EventGroupNodeEdge>>;
+  /** Pagination data for this connection. */
+  pageInfo: PageInfo;
+};
+
+/** A Relay edge containing a `EventGroupNode` and its cursor. */
+export type EventGroupNodeEdge = {
+  __typename?: 'EventGroupNodeEdge';
+  /** A cursor for use in pagination */
+  cursor: Scalars['String']['output'];
+  /** The item at the end of the edge */
+  node: Maybe<EventGroupNode>;
 };
 
 export type EventGroupTranslationType = {
@@ -976,6 +1028,8 @@ export type Mutation = {
   addOccurrence: Maybe<AddOccurrenceMutationPayload>;
   addVenue: Maybe<AddVenueMutationPayload>;
   assignTicketSystemPassword: Maybe<AssignTicketSystemPasswordMutationPayload>;
+  copyEvent: Maybe<CopyEventMutationPayload>;
+  copyEventGroup: Maybe<CopyEventGroupMutationPayload>;
   deleteChild: Maybe<DeleteChildMutationPayload>;
   deleteEvent: Maybe<DeleteEventMutationPayload>;
   deleteEventGroup: Maybe<DeleteEventGroupMutationPayload>;
@@ -1051,6 +1105,16 @@ export type MutationAddVenueArgs = {
 
 export type MutationAssignTicketSystemPasswordArgs = {
   input: AssignTicketSystemPasswordMutationInput;
+};
+
+
+export type MutationCopyEventArgs = {
+  input: CopyEventMutationInput;
+};
+
+
+export type MutationCopyEventGroupArgs = {
+  input: CopyEventGroupMutationInput;
 };
 
 
@@ -1396,6 +1460,7 @@ export type Query = {
   children: Maybe<ChildNodeConnection>;
   event: Maybe<EventNode>;
   eventGroup: Maybe<EventGroupNode>;
+  eventGroups: Maybe<EventGroupNodeConnection>;
   events: Maybe<EventNodeConnection>;
   eventsAndEventGroups: Maybe<EventOrEventGroupConnection>;
   guardians: Maybe<GuardianNodeConnection>;
@@ -1444,6 +1509,16 @@ export type QueryEventArgs = {
 
 export type QueryEventGroupArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type QueryEventGroupsArgs = {
+  after: InputMaybe<Scalars['String']['input']>;
+  before: InputMaybe<Scalars['String']['input']>;
+  first: InputMaybe<Scalars['Int']['input']>;
+  last: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  projectId: InputMaybe<Scalars['ID']['input']>;
 };
 
 
@@ -2096,6 +2171,13 @@ export type AddEventGroupMutationVariables = Exact<{
 
 export type AddEventGroupMutation = { __typename?: 'Mutation', addEventGroup: { __typename?: 'AddEventGroupMutationPayload', eventGroup: { __typename?: 'EventGroupNode', id: string } | null } | null };
 
+export type CopyEventGroupMutationVariables = Exact<{
+  input: CopyEventGroupMutationInput;
+}>;
+
+
+export type CopyEventGroupMutation = { __typename?: 'Mutation', copyEventGroup: { __typename?: 'CopyEventGroupMutationPayload', eventGroup: { __typename?: 'EventGroupNode', id: string } | null } | null };
+
 export type UpdateEventGroupMutationVariables = Exact<{
   input: UpdateEventGroupMutationInput;
 }>;
@@ -2126,19 +2208,48 @@ export type EventGroupQueryVariables = Exact<{
 
 export type EventGroupQuery = { __typename?: 'Query', eventGroup: { __typename?: 'EventGroupNode', id: string, name: string | null, publishedAt: any | null, translations: Array<{ __typename?: 'EventGroupTranslationType', languageCode: Language, name: string, shortDescription: string, description: string }>, events: { __typename?: 'EventNodeConnection', edges: Array<{ __typename?: 'EventNodeEdge', node: { __typename?: 'EventNode', id: string, name: string | null, image: string, participantsPerInvite: EventParticipantsPerInvite, duration: number | null, capacityPerOccurrence: number | null, publishedAt: any | null, readyForEventGroupPublishing: boolean, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, enrolmentCount: number, capacityOverride: number | null } | null } | null> } } | null } | null> }, project: { __typename?: 'ProjectNode', id: string } } | null };
 
+export type EventGroupsQueryVariables = Exact<{
+  projectId: InputMaybe<Scalars['ID']['input']>;
+}>;
+
+
+export type EventGroupsQuery = { __typename?: 'Query', eventGroups: { __typename?: 'EventGroupNodeConnection', edges: Array<{ __typename?: 'EventGroupNodeEdge', node: { __typename?: 'EventGroupNode', id: string, name: string | null } | null } | null> } | null };
+
 export type AddEventMutationVariables = Exact<{
   input: AddEventMutationInput;
 }>;
 
 
-export type AddEventMutation = { __typename?: 'Mutation', addEvent: { __typename?: 'AddEventMutationPayload', event: { __typename?: 'EventNode', id: string, image: string, participantsPerInvite: EventParticipantsPerInvite, capacityPerOccurrence: number | null, duration: number | null, ticketSystem: { __typename?: 'InternalEventTicketSystem', type: TicketSystem } | { __typename?: 'LippupisteEventTicketSystem', url: string, endTime: any | null, type: TicketSystem } | { __typename?: 'TicketmasterEventTicketSystem', url: string, endTime: any | null, type: TicketSystem } | { __typename?: 'TixlyEventTicketSystem', url: string, endTime: any | null, type: TicketSystem } | null, translations: Array<{ __typename?: 'EventTranslationType', languageCode: Language, name: string, imageAltText: string, description: string, shortDescription: string }> } | null } | null };
+export type AddEventMutation = { __typename?: 'Mutation', addEvent: { __typename?: 'AddEventMutationPayload', event: { __typename?: 'EventNode', id: string, image: string, participantsPerInvite: EventParticipantsPerInvite, capacityPerOccurrence: number | null, duration: number | null, ticketSystem:
+        | { __typename?: 'InternalEventTicketSystem', type: TicketSystem }
+        | { __typename?: 'LippupisteEventTicketSystem', url: string, endTime: any | null, type: TicketSystem }
+        | { __typename?: 'TicketmasterEventTicketSystem', url: string, endTime: any | null, type: TicketSystem }
+        | { __typename?: 'TixlyEventTicketSystem', url: string, endTime: any | null, type: TicketSystem }
+       | null, translations: Array<{ __typename?: 'EventTranslationType', languageCode: Language, name: string, imageAltText: string, description: string, shortDescription: string }> } | null } | null };
+
+export type CopyEventMutationVariables = Exact<{
+  input: CopyEventMutationInput;
+}>;
+
+
+export type CopyEventMutation = { __typename?: 'Mutation', copyEvent: { __typename?: 'CopyEventMutationPayload', event: { __typename?: 'EventNode', id: string, image: string, participantsPerInvite: EventParticipantsPerInvite, capacityPerOccurrence: number | null, duration: number | null, ticketSystem:
+        | { __typename?: 'InternalEventTicketSystem', type: TicketSystem }
+        | { __typename?: 'LippupisteEventTicketSystem', url: string, endTime: any | null, type: TicketSystem }
+        | { __typename?: 'TicketmasterEventTicketSystem', url: string, endTime: any | null, type: TicketSystem }
+        | { __typename?: 'TixlyEventTicketSystem', url: string, endTime: any | null, type: TicketSystem }
+       | null, translations: Array<{ __typename?: 'EventTranslationType', languageCode: Language, name: string, imageAltText: string, description: string, shortDescription: string }> } | null } | null };
 
 export type UpdateEventMutationVariables = Exact<{
   input: UpdateEventMutationInput;
 }>;
 
 
-export type UpdateEventMutation = { __typename?: 'Mutation', updateEvent: { __typename?: 'UpdateEventMutationPayload', event: { __typename?: 'EventNode', id: string, image: string, participantsPerInvite: EventParticipantsPerInvite, capacityPerOccurrence: number | null, duration: number | null, readyForEventGroupPublishing: boolean, translations: Array<{ __typename?: 'EventTranslationType', imageAltText: string, languageCode: Language, name: string, description: string, shortDescription: string }>, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string } | null } | null> }, ticketSystem: { __typename?: 'InternalEventTicketSystem', type: TicketSystem } | { __typename?: 'LippupisteEventTicketSystem', url: string, endTime: any | null, type: TicketSystem } | { __typename?: 'TicketmasterEventTicketSystem', url: string, endTime: any | null, type: TicketSystem } | { __typename?: 'TixlyEventTicketSystem', url: string, endTime: any | null, type: TicketSystem } | null } | null } | null };
+export type UpdateEventMutation = { __typename?: 'Mutation', updateEvent: { __typename?: 'UpdateEventMutationPayload', event: { __typename?: 'EventNode', id: string, image: string, participantsPerInvite: EventParticipantsPerInvite, capacityPerOccurrence: number | null, duration: number | null, readyForEventGroupPublishing: boolean, translations: Array<{ __typename?: 'EventTranslationType', imageAltText: string, languageCode: Language, name: string, description: string, shortDescription: string }>, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string } | null } | null> }, ticketSystem:
+        | { __typename?: 'InternalEventTicketSystem', type: TicketSystem }
+        | { __typename?: 'LippupisteEventTicketSystem', url: string, endTime: any | null, type: TicketSystem }
+        | { __typename?: 'TicketmasterEventTicketSystem', url: string, endTime: any | null, type: TicketSystem }
+        | { __typename?: 'TixlyEventTicketSystem', url: string, endTime: any | null, type: TicketSystem }
+       | null } | null } | null };
 
 export type PublishEventMutationVariables = Exact<{
   input: PublishEventMutationInput;
@@ -2159,14 +2270,24 @@ export type EventsQueryVariables = Exact<{
 }>;
 
 
-export type EventsQuery = { __typename?: 'Query', events: { __typename?: 'EventNodeConnection', edges: Array<{ __typename?: 'EventNodeEdge', node: { __typename?: 'EventNode', id: string, name: string | null, image: string, participantsPerInvite: EventParticipantsPerInvite, duration: number | null, capacityPerOccurrence: number | null, publishedAt: any | null, translations: Array<{ __typename?: 'EventTranslationType', languageCode: Language, name: string, imageAltText: string, description: string, shortDescription: string }>, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string } | null } | null> }, ticketSystem: { __typename?: 'InternalEventTicketSystem', type: TicketSystem } | { __typename?: 'LippupisteEventTicketSystem', url: string, endTime: any | null, type: TicketSystem } | { __typename?: 'TicketmasterEventTicketSystem', url: string, endTime: any | null, type: TicketSystem } | { __typename?: 'TixlyEventTicketSystem', url: string, endTime: any | null, type: TicketSystem } | null } | null } | null> } | null };
+export type EventsQuery = { __typename?: 'Query', events: { __typename?: 'EventNodeConnection', edges: Array<{ __typename?: 'EventNodeEdge', node: { __typename?: 'EventNode', id: string, name: string | null, image: string, participantsPerInvite: EventParticipantsPerInvite, duration: number | null, capacityPerOccurrence: number | null, publishedAt: any | null, translations: Array<{ __typename?: 'EventTranslationType', languageCode: Language, name: string, imageAltText: string, description: string, shortDescription: string }>, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string } | null } | null> }, ticketSystem:
+          | { __typename?: 'InternalEventTicketSystem', type: TicketSystem }
+          | { __typename?: 'LippupisteEventTicketSystem', url: string, endTime: any | null, type: TicketSystem }
+          | { __typename?: 'TicketmasterEventTicketSystem', url: string, endTime: any | null, type: TicketSystem }
+          | { __typename?: 'TixlyEventTicketSystem', url: string, endTime: any | null, type: TicketSystem }
+         | null } | null } | null> } | null };
 
 export type EventQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type EventQuery = { __typename?: 'Query', event: { __typename?: 'EventNode', id: string, name: string | null, image: string, participantsPerInvite: EventParticipantsPerInvite, duration: number | null, capacityPerOccurrence: number | null, publishedAt: any | null, readyForEventGroupPublishing: boolean, translations: Array<{ __typename?: 'EventTranslationType', languageCode: Language, name: string, imageAltText: string, description: string, shortDescription: string }>, eventGroup: { __typename?: 'EventGroupNode', id: string, name: string | null } | null, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string } | null } | null> }, project: { __typename?: 'ProjectNode', id: string, myPermissions: { __typename?: 'ProjectPermissionsType', publish: boolean | null } | null }, ticketSystem: { __typename?: 'InternalEventTicketSystem', type: TicketSystem } | { __typename?: 'LippupisteEventTicketSystem', usedPasswordCount: number, freePasswordCount: number, url: string, endTime: any | null, type: TicketSystem } | { __typename?: 'TicketmasterEventTicketSystem', usedPasswordCount: number, freePasswordCount: number, url: string, endTime: any | null, type: TicketSystem } | { __typename?: 'TixlyEventTicketSystem', usedPasswordCount: number, freePasswordCount: number, url: string, endTime: any | null, type: TicketSystem } | null } | null };
+export type EventQuery = { __typename?: 'Query', event: { __typename?: 'EventNode', id: string, name: string | null, image: string, participantsPerInvite: EventParticipantsPerInvite, duration: number | null, capacityPerOccurrence: number | null, publishedAt: any | null, readyForEventGroupPublishing: boolean, translations: Array<{ __typename?: 'EventTranslationType', languageCode: Language, name: string, imageAltText: string, description: string, shortDescription: string }>, eventGroup: { __typename?: 'EventGroupNode', id: string, name: string | null } | null, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string } | null } | null> }, project: { __typename?: 'ProjectNode', id: string, myPermissions: { __typename?: 'ProjectPermissionsType', publish: boolean | null } | null }, ticketSystem:
+      | { __typename?: 'InternalEventTicketSystem', type: TicketSystem }
+      | { __typename?: 'LippupisteEventTicketSystem', usedPasswordCount: number, freePasswordCount: number, url: string, endTime: any | null, type: TicketSystem }
+      | { __typename?: 'TicketmasterEventTicketSystem', usedPasswordCount: number, freePasswordCount: number, url: string, endTime: any | null, type: TicketSystem }
+      | { __typename?: 'TixlyEventTicketSystem', usedPasswordCount: number, freePasswordCount: number, url: string, endTime: any | null, type: TicketSystem }
+     | null } | null };
 
 export type EventFragment = { __typename?: 'EventNode', id: string, name: string | null, image: string, participantsPerInvite: EventParticipantsPerInvite, duration: number | null, capacityPerOccurrence: number | null, publishedAt: any | null, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, capacityOverride: number | null } | null } | null> } };
 
@@ -2175,7 +2296,10 @@ export type EventsAndEventGroupsQueryVariables = Exact<{
 }>;
 
 
-export type EventsAndEventGroupsQuery = { __typename?: 'Query', eventsAndEventGroups: { __typename?: 'EventOrEventGroupConnection', edges: Array<{ __typename?: 'EventOrEventGroupEdge', node: { __typename?: 'EventGroupNode', id: string, name: string | null, publishedAt: any | null, events: { __typename?: 'EventNodeConnection', edges: Array<{ __typename?: 'EventNodeEdge', node: { __typename?: 'EventNode', id: string, name: string | null, image: string, participantsPerInvite: EventParticipantsPerInvite, duration: number | null, capacityPerOccurrence: number | null, publishedAt: any | null, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, capacityOverride: number | null } | null } | null> } } | null } | null> } } | { __typename?: 'EventNode', id: string, name: string | null, image: string, participantsPerInvite: EventParticipantsPerInvite, duration: number | null, capacityPerOccurrence: number | null, publishedAt: any | null, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, capacityOverride: number | null } | null } | null> } } | null } | null> } | null };
+export type EventsAndEventGroupsQuery = { __typename?: 'Query', eventsAndEventGroups: { __typename?: 'EventOrEventGroupConnection', edges: Array<{ __typename?: 'EventOrEventGroupEdge', node:
+        | { __typename?: 'EventGroupNode', id: string, name: string | null, publishedAt: any | null, events: { __typename?: 'EventNodeConnection', edges: Array<{ __typename?: 'EventNodeEdge', node: { __typename?: 'EventNode', id: string, name: string | null, image: string, participantsPerInvite: EventParticipantsPerInvite, duration: number | null, capacityPerOccurrence: number | null, publishedAt: any | null, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, capacityOverride: number | null } | null } | null> } } | null } | null> } }
+        | { __typename?: 'EventNode', id: string, name: string | null, image: string, participantsPerInvite: EventParticipantsPerInvite, duration: number | null, capacityPerOccurrence: number | null, publishedAt: any | null, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, capacityOverride: number | null } | null } | null> } }
+       | null } | null> } | null };
 
 export type AddMessageMutationVariables = Exact<{
   input: AddMessageMutationInput;
@@ -2229,14 +2353,24 @@ export type AddOccurrenceMutationVariables = Exact<{
 }>;
 
 
-export type AddOccurrenceMutation = { __typename?: 'Mutation', addOccurrence: { __typename?: 'AddOccurrenceMutationPayload', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, capacityPerOccurrence: number | null, duration: number | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, ticketSystem: { __typename?: 'InternalOccurrenceTicketSystem', type: TicketSystem } | { __typename?: 'LippupisteOccurrenceTicketSystem', url: string, type: TicketSystem } | { __typename?: 'TicketmasterOccurrenceTicketSystem', url: string, type: TicketSystem } | { __typename?: 'TixlyOccurrenceTicketSystem', url: string, type: TicketSystem } | null } | null } | null };
+export type AddOccurrenceMutation = { __typename?: 'Mutation', addOccurrence: { __typename?: 'AddOccurrenceMutationPayload', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, capacityPerOccurrence: number | null, duration: number | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, ticketSystem:
+        | { __typename?: 'InternalOccurrenceTicketSystem', type: TicketSystem }
+        | { __typename?: 'LippupisteOccurrenceTicketSystem', url: string, type: TicketSystem }
+        | { __typename?: 'TicketmasterOccurrenceTicketSystem', url: string, type: TicketSystem }
+        | { __typename?: 'TixlyOccurrenceTicketSystem', url: string, type: TicketSystem }
+       | null } | null } | null };
 
 export type UpdateOccurrenceMutationVariables = Exact<{
   input: UpdateOccurrenceMutationInput;
 }>;
 
 
-export type UpdateOccurrenceMutation = { __typename?: 'Mutation', updateOccurrence: { __typename?: 'UpdateOccurrenceMutationPayload', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, capacityPerOccurrence: number | null, duration: number | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, enrolments: { __typename?: 'EnrolmentNodeConnection', edges: Array<{ __typename?: 'EnrolmentNodeEdge', node: { __typename?: 'EnrolmentNode', id: string, attended: boolean | null, child: { __typename?: 'ChildNode', name: string, birthyear: number, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string, firstName: string, lastName: string, language: Language } | null } | null> } } | null } | null } | null> }, ticketSystem: { __typename?: 'InternalOccurrenceTicketSystem', type: TicketSystem } | { __typename?: 'LippupisteOccurrenceTicketSystem', url: string, type: TicketSystem } | { __typename?: 'TicketmasterOccurrenceTicketSystem', url: string, type: TicketSystem } | { __typename?: 'TixlyOccurrenceTicketSystem', url: string, type: TicketSystem } | null } | null } | null };
+export type UpdateOccurrenceMutation = { __typename?: 'Mutation', updateOccurrence: { __typename?: 'UpdateOccurrenceMutationPayload', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, capacityPerOccurrence: number | null, duration: number | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, enrolments: { __typename?: 'EnrolmentNodeConnection', edges: Array<{ __typename?: 'EnrolmentNodeEdge', node: { __typename?: 'EnrolmentNode', id: string, attended: boolean | null, child: { __typename?: 'ChildNode', name: string, birthyear: number, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string, firstName: string, lastName: string, language: Language } | null } | null> } } | null } | null } | null> }, ticketSystem:
+        | { __typename?: 'InternalOccurrenceTicketSystem', type: TicketSystem }
+        | { __typename?: 'LippupisteOccurrenceTicketSystem', url: string, type: TicketSystem }
+        | { __typename?: 'TicketmasterOccurrenceTicketSystem', url: string, type: TicketSystem }
+        | { __typename?: 'TixlyOccurrenceTicketSystem', url: string, type: TicketSystem }
+       | null } | null } | null };
 
 export type DeleteOccurrenceMutationVariables = Exact<{
   input: DeleteOccurrenceMutationInput;
@@ -2500,6 +2634,18 @@ export const AddEventGroupDocument = gql`
 export type AddEventGroupMutationFn = Apollo.MutationFunction<AddEventGroupMutation, AddEventGroupMutationVariables>;
 export type AddEventGroupMutationResult = Apollo.MutationResult<AddEventGroupMutation>;
 export type AddEventGroupMutationOptions = Apollo.BaseMutationOptions<AddEventGroupMutation, AddEventGroupMutationVariables>;
+export const CopyEventGroupDocument = gql`
+    mutation copyEventGroup($input: CopyEventGroupMutationInput!) {
+  copyEventGroup(input: $input) {
+    eventGroup {
+      id
+    }
+  }
+}
+    `;
+export type CopyEventGroupMutationFn = Apollo.MutationFunction<CopyEventGroupMutation, CopyEventGroupMutationVariables>;
+export type CopyEventGroupMutationResult = Apollo.MutationResult<CopyEventGroupMutation>;
+export type CopyEventGroupMutationOptions = Apollo.BaseMutationOptions<CopyEventGroupMutation, CopyEventGroupMutationVariables>;
 export const UpdateEventGroupDocument = gql`
     mutation updateEventGroup($input: UpdateEventGroupMutationInput!) {
   updateEventGroup(input: $input) {
@@ -2561,6 +2707,19 @@ export const EventGroupDocument = gql`
 }
     ${EventGroupEventFragmentDoc}`;
 export type EventGroupQueryResult = Apollo.QueryResult<EventGroupQuery, EventGroupQueryVariables>;
+export const EventGroupsDocument = gql`
+    query EventGroups($projectId: ID) {
+  eventGroups(projectId: $projectId) {
+    edges {
+      node {
+        id
+        name
+      }
+    }
+  }
+}
+    `;
+export type EventGroupsQueryResult = Apollo.QueryResult<EventGroupsQuery, EventGroupsQueryVariables>;
 export const AddEventDocument = gql`
     mutation AddEvent($input: AddEventMutationInput!) {
   addEvent(input: $input) {
@@ -2599,6 +2758,44 @@ export const AddEventDocument = gql`
 export type AddEventMutationFn = Apollo.MutationFunction<AddEventMutation, AddEventMutationVariables>;
 export type AddEventMutationResult = Apollo.MutationResult<AddEventMutation>;
 export type AddEventMutationOptions = Apollo.BaseMutationOptions<AddEventMutation, AddEventMutationVariables>;
+export const CopyEventDocument = gql`
+    mutation CopyEvent($input: CopyEventMutationInput!) {
+  copyEvent(input: $input) {
+    event {
+      id
+      image
+      participantsPerInvite
+      capacityPerOccurrence
+      duration
+      ticketSystem {
+        type
+        ... on TicketmasterEventTicketSystem {
+          url
+          endTime
+        }
+        ... on LippupisteEventTicketSystem {
+          url
+          endTime
+        }
+        ... on TixlyEventTicketSystem {
+          url
+          endTime
+        }
+      }
+      translations {
+        languageCode
+        name
+        imageAltText
+        description
+        shortDescription
+      }
+    }
+  }
+}
+    `;
+export type CopyEventMutationFn = Apollo.MutationFunction<CopyEventMutation, CopyEventMutationVariables>;
+export type CopyEventMutationResult = Apollo.MutationResult<CopyEventMutation>;
+export type CopyEventMutationOptions = Apollo.BaseMutationOptions<CopyEventMutation, CopyEventMutationVariables>;
 export const UpdateEventDocument = gql`
     mutation UpdateEvent($input: UpdateEventMutationInput!) {
   updateEvent(input: $input) {
