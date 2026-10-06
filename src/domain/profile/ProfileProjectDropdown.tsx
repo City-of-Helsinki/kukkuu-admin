@@ -40,6 +40,11 @@ const ProfileProjectDropdown = () => {
   const handleMenuItemClick = (event: any) => {
     const value = event.target.dataset.value;
 
+    if (value === activeProjectId) {
+      handleClose();
+      return;
+    }
+
     projectService.projectId = value as string;
 
     // eslint-disable-next-line no-console

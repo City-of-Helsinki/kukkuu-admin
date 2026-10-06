@@ -50,3 +50,16 @@ export const eventGroupQuery = gql`
 
   ${EventGroupEventFragment}
 `;
+
+export const eventGroupsQuery = gql`
+  query EventGroups($projectId: ID) {
+    eventGroups(projectId: $projectId) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
