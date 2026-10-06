@@ -575,5 +575,15 @@
         "success": "Ticket system passwords imported!"
       }
     }
+  },
+  "projects": {
+    "contextMismatch": {
+      "title": "Change project?",
+      "content": "This content belongs to the project %{targetProject}. Your currently selected project is %{currentProject}. Do you want to switch your active project to view this content?",
+      "noAccess": "This content belongs to the project %{targetProject}, which you don't have access to.",
+      "switch": "Switch project",
+      "back": "Back to dashboard",
+      "unknownProject": "Unknown project"
+    }
   }
 }

@@ -11,6 +11,7 @@ import type { Crumb } from '../../../../common/components/breadcrumbs/Breadcrumb
 import type { KukkuuLayoutProps } from '../kukkuuPageLayout/KukkuuPageLayout';
 import KukkuuCardPageLayout from '../kukkuuCardPageLayout/KukkuuCardPageLayout';
 import KukkuuShow from './KukkuuShow';
+import { ProjectContextGuard } from '../../../projects/components/ProjectContextGuard';
 
 type Props = {
   children: ReactElement;
@@ -44,13 +45,15 @@ const KukkuuDetailPage = ({
     typeof breadcrumbs === 'function' ? breadcrumbs(data) : breadcrumbs;
 
   return (
-    <Layout
-      pageTitleSource={pageTitleSource}
-      pageTitle={pageTitle}
-      breadcrumbs={crumbs}
-    >
-      <KukkuuShow {...reactAdminProps}>{children}</KukkuuShow>
-    </Layout>
+    <ProjectContextGuard record={data as any}>
+      <Layout
+        pageTitleSource={pageTitleSource}
+        pageTitle={pageTitle}
+        breadcrumbs={crumbs}
+      >
+        <KukkuuShow {...reactAdminProps}>{children}</KukkuuShow>
+      </Layout>
+    </ProjectContextGuard>
   );
 };
 

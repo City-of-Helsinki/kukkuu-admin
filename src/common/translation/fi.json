@@ -575,5 +575,15 @@
         "success": "Salasanat lisätty!"
       }
     }
+  },
+  "projects": {
+    "contextMismatch": {
+      "title": "Vaihda projektia?",
+      "content": "Tämä sisältö kuuluu projektiin %{targetProject}. Nykyinen valittu projektisi on %{currentProject}. Haluatko vaihtaa aktiivisen projektisi nähdäksesi tämän sisällön?",
+      "noAccess": "Tämä sisältö kuuluu projektiin %{targetProject}, johon sinulla ei ole käyttöoikeutta.",
+      "switch": "Vaihda projektia",
+      "back": "Takaisin etusivulle",
+      "unknownProject": "Tuntematon projekti"
+    }
   }
 }
