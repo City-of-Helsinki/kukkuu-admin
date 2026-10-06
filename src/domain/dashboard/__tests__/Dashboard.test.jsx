@@ -34,6 +34,10 @@ vi.mock('../../projects/projectService', async (importOriginal) => ({
   projectId: 'test-project-id',
 }));
 
+vi.mock('../../projects/useProjectId', () => ({
+  useProjectId: vi.fn(() => 'test-project-id'),
+}));
+
 const theme = createTheme();
 
 describe('Dashboard', () => {

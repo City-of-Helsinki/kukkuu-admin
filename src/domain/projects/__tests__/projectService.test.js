@@ -2,15 +2,41 @@
 import projectService from '../projectService';
 
 describe('projectService', () => {
+  beforeEach(() => {
+    projectService.clear();
+    vi.clearAllMocks();
+  });
+
   describe('projectId', () => {
     it('should allow project id to be set and got', () => {
       expect(projectService.projectId).toEqual(null);
 
       projectService.projectId = '1';
 
-      expect(localStorage.setItem).toHaveBeenCalledTimes(1);
+      expect(localStorage.setItem).toHaveBeenCalledWith('projectId', '1');
       expect(projectService.projectId).toEqual('1');
-      expect(localStorage.getItem).toHaveBeenCalledTimes(2);
+      expect(localStorage.getItem).toHaveBeenCalledWith('projectId');
+    });
+
+    it('should notify listeners when project id is set', () => {
+      const listener = vi.fn();
+      projectService.subscribe(listener);
+
+      projectService.projectId = '1';
+
+      expect(listener).toHaveBeenCalledWith('1');
+    });
+  });
+
+  describe('subscribe', () => {
+    it('should allow listeners to unsubscribe', () => {
+      const listener = vi.fn();
+      const unsubscribe = projectService.subscribe(listener);
+
+      unsubscribe();
+      projectService.projectId = '2';
+
+      expect(listener).not.toHaveBeenCalled();
     });
   });
 
@@ -37,7 +63,7 @@ describe('projectService', () => {
     it('should clear localStorage of data from this service', () => {
       projectService.clear();
 
-      expect(localStorage.removeItem).toHaveBeenCalledTimes(1);
+      expect(localStorage.removeItem).toHaveBeenCalledWith('projectId');
     });
 
     it('should clear project id', () => {
@@ -46,6 +72,15 @@ describe('projectService', () => {
       projectService.clear();
 
       expect(projectService.projectId).toEqual(null);
+    });
+
+    it('should notify listeners on clear', () => {
+      const listener = vi.fn();
+      projectService.subscribe(listener);
+
+      projectService.clear();
+
+      expect(listener).toHaveBeenCalledWith(null);
     });
   });
 });

@@ -1,7 +1,9 @@
 import * as ReactAdmin from 'react-admin';
 import { useQuery } from '@tanstack/react-query';
 import { screen, render, fireEvent, waitFor } from '@testing-library/react';
+import { useNavigate } from 'react-router-dom';
 
+import { useProjectId } from '../../projects/useProjectId';
 import projectService from '../../projects/projectService';
 import ProfileProjectDropdown from '../ProfileProjectDropdown';
 
@@ -9,6 +11,15 @@ vi.mock('@tanstack/react-query', async (importOriginal) => {
   const mod = await importOriginal();
   return { ...mod, useQuery: vi.fn() };
 });
+
+vi.mock('react-router-dom', async (importOriginal) => {
+  const mod = await importOriginal();
+  return { ...mod, useNavigate: vi.fn() };
+});
+
+vi.mock('../../projects/useProjectId', () => ({
+  useProjectId: vi.fn(),
+}));
 
 const getWrapper = () =>
   render(
@@ -43,6 +54,7 @@ const getProjects = (projects) => ({
 describe('<ProfileProjectDropdown />', () => {
   beforeEach(() => {
     vi.spyOn(projectService, 'projectId', 'get').mockReturnValue('1');
+    vi.mocked(useProjectId).mockReturnValue('1');
   });
 
   it('should render null when loading', () => {
@@ -79,6 +91,7 @@ describe('<ProfileProjectDropdown />', () => {
 
   it('should render null when there is not selected project', () => {
     vi.spyOn(projectService, 'projectId', 'get').mockReturnValue(null);
+    vi.mocked(useProjectId).mockReturnValue(null);
     vi.mocked(useQuery).mockReturnValue({
       isLoading: false,
       data: getProjects(projects),
@@ -108,6 +121,8 @@ describe('<ProfileProjectDropdown />', () => {
     const projectServiceSpy = vi.spyOn(projectService, 'projectId', 'set');
     const mockRefresh = vi.fn();
     vi.spyOn(ReactAdmin, 'useRefresh').mockReturnValue(mockRefresh);
+    const mockNavigate = vi.fn();
+    vi.mocked(useNavigate).mockReturnValue(mockNavigate);
 
     getWrapper();
     const button = await screen.findByRole('button', { name: '2020 Test' });
@@ -129,6 +144,8 @@ describe('<ProfileProjectDropdown />', () => {
     expect(projectServiceSpy).toHaveBeenCalledTimes(1);
     // Expect refresh to have been called
     expect(mockRefresh).toHaveBeenCalledTimes(1);
+    // Expect navigate to have been called
+    expect(mockNavigate).toHaveBeenCalledWith('/');
     // Expect for menu items to be hidden
     expect(screen.queryAllByRole('menuitem').length).toEqual(0);
   });
