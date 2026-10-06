@@ -9,6 +9,7 @@
     "authError": {
       "title": "Kirjautuminen epäonnistui",
       "description": "Kirjaudu ulos ja yritä uudelleen",
+
       "logOut": "Kirjaudu ulos"
     },
     "unauthorizedPage": {
@@ -63,8 +64,15 @@
     }
   },
   "events": {
+    "copy": {
+      "title": "Kopioinnin kohde",
+      "description": "Valitse kohde, johon haluat kopioida.",
+      "eventGroupHelperText": "Tapahtumaryhmä valitussa projektissa.",
+      "projectHelperText": "Valitse nykyinen projekti kopioidaksesi tapahtuman sen sisälle, tai valitse toinen projekti kopioidaksesi toiselle vuodelle."
+    },
     "actions": {
-      "create": "Uusi tapahtuma"
+      "create": "Uusi tapahtuma",
+      "copy": "Kopioi uudeksi"
     },
     "create": {
       "aside": {

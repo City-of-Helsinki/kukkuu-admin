@@ -9,6 +9,7 @@
     "authError": {
       "title": "Login Failed",
       "description": "Log out and try again",
+
       "logOut": "Log out"
     },
     "unauthorizedPage": {
@@ -63,8 +64,15 @@
     }
   },
   "events": {
+    "copy": {
+      "title": "Kopieringens mål",
+      "description": "Välj målet dit du vill kopiera.",
+      "eventGroupHelperText": "Målevenemangsgrupp i det valda projektet.",
+      "projectHelperText": "Välj det nuvarande projektet för att kopiera evenemanget inom samma projekt, eller välj ett annat projekt för att kopiera till ett annat år."
+    },
     "actions": {
-      "create": "New Event"
+      "create": "New Event",
+      "copy": "Kopiera som ny"
     },
     "create": {
       "aside": {
@@ -578,12 +586,12 @@
   },
   "projects": {
     "contextMismatch": {
-      "title": "Change project?",
-      "content": "This content belongs to the project %{targetProject}. Your currently selected project is %{currentProject}. Do you want to switch your active project to view this content?",
-      "noAccess": "This content belongs to the project %{targetProject}, which you don't have access to.",
-      "switch": "Switch project",
-      "back": "Back to dashboard",
-      "unknownProject": "Unknown project"
+      "title": "Byt projekt?",
+      "content": "Detta innehåll tillhör projektet %{targetProject}. Ditt nuvarande valda projekt är %{currentProject}. Vill du byta ditt aktiva projekt för att se detta innehåll?",
+      "noAccess": "Detta innehåll tillhör projektet %{targetProject}, som du inte har åtkomst till.",
+      "switch": "Byt projekt",
+      "back": "Tillbaka till startsidan",
+      "unknownProject": "Okänt projekt"
     }
   }
 }

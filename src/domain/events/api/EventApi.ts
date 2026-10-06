@@ -11,6 +11,7 @@ import {
 } from '../../../api/utils/apiUtils';
 import {
   addEventMutation,
+  copyEventMutation,
   publishEventMutation,
   updateEventMutation,
   deleteEventMutation,
@@ -40,8 +41,24 @@ const getEvent: MethodHandler = async (params: MethodHandlerParams) => {
 };
 
 const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
-  const data = mapLocalDataToApiData(params.data);
-  data.projectId = projectService.projectId;
+  const localUpdateData = pick(params.data, [
+    'duration',
+    'participantsPerInvite',
+    'capacityPerOccurrence',
+    'translations',
+    'readyForEventGroupPublishing',
+    'ticketSystem.type',
+    'ticketSystem.url',
+    'ticketSystem.endTime',
+    'projectId',
+    'eventGroupId',
+    'sourceEventId',
+  ]);
+  const data = mapLocalDataToApiData(localUpdateData);
+  data.projectId = data.projectId || projectService.projectId;
+
+  const isCopy = Boolean(data.sourceEventId);
+
   if (params.data.image) {
     data.image = params.data.image.rawFile;
   }
@@ -71,11 +88,13 @@ const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
   }
 
   const response = await mutationHandler({
-    mutation: addEventMutation,
+    mutation: isCopy ? copyEventMutation : addEventMutation,
     variables: { input: data },
   });
 
-  return handleApiNode(response.data?.addEvent.event);
+  return handleApiNode(
+    response.data?.[isCopy ? 'copyEvent' : 'addEvent'].event
+  );
 };
 
 const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
