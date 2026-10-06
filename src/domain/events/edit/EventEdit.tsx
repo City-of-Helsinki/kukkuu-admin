@@ -4,6 +4,7 @@ import { CardHeader, Grid } from '@mui/material';
 import KukkuuEdit from '../../application/layout/kukkuuEditPage/KukkuuEdit';
 import ViewTitle from '../../../common/components/viewTitle/ViewTitle';
 import EventForm from '../eventForm/EventForm';
+import { ProjectContextGuard } from '../../projects/components/ProjectContextGuard';
 
 const EventEdit = () => {
   const translate = useTranslate();
@@ -18,8 +19,10 @@ const EventEdit = () => {
           title={'events.edit.title'}
           redirect="show"
         >
-          <ViewTitle />
-          <EventForm view="edit" />
+          <ProjectContextGuard>
+            <ViewTitle />
+            <EventForm view="edit" />
+          </ProjectContextGuard>
         </KukkuuEdit>
       </Grid>
     </>
