@@ -4,6 +4,10 @@
 
 :baby: Staff interface for Kulttuurin kummilapset / Culture Kids :violin:
 
+> **Architecture & agent context:** system overview in
+> [ARCHITECTURE.md](https://github.com/City-of-Helsinki/kukkuu/blob/HEAD/ARCHITECTURE.md);
+> working instructions for developers and AI agents in [AGENTS.md](./AGENTS.md).
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
