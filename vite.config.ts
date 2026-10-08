@@ -1,9 +1,27 @@
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig, loadEnv, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import eslint from '@nabla/vite-plugin-eslint';
 import { thirdPartyLicenses } from '@city-of-helsinki/license-notices';
 
 import { thirdPartyLicensesConfig } from './scripts/thirdPartyLicenses.config.ts';
+
+export const devCsp = (): Plugin => ({
+  name: 'dev-csp',
+  apply: 'serve',
+  transformIndexHtml(html) {
+    return html
+      .replace(/(img-src\s+[^;]+)/, (match) =>
+        match.includes('localhost:*')
+          ? match
+          : `${match} localhost:* 127.0.0.1:*`
+      )
+      .replace(/(media-src\s+[^;]+)/, (match) =>
+        match.includes('localhost:*')
+          ? match
+          : `${match} localhost:* 127.0.0.1:*`
+      );
+  },
+});
 
 export default ({ mode }: any) => {
   // Load app-level env vars to node-level env vars.
@@ -13,6 +31,7 @@ export default ({ mode }: any) => {
     plugins: [
       react(),
       mode !== 'test' && eslint(),
+      devCsp(),
       thirdPartyLicenses(thirdPartyLicensesConfig),
     ],
     server: {
