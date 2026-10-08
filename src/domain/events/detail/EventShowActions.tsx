@@ -29,7 +29,7 @@ const EventShowActions = () => {
   );
 
   return (
-    <TopToolbar sx={{ display: 'flex' }}>
+    <TopToolbar sx={{ alignItems: 'center' }}>
       {record && (
         <Button
           component={Link}
@@ -43,11 +43,7 @@ const EventShowActions = () => {
       {record && !hasEventGroup && !isPublished && canPublish && (
         <EventPublishButton basePath={basePath} />
       )}
-      {record && hasEventGroup && !isPublished && (
-        <span style={{ marginLeft: 'auto' }}>
-          <EventReadyToggle />
-        </span>
-      )}
+      {record && hasEventGroup && !isPublished && <EventReadyToggle />}
     </TopToolbar>
   );
 };
