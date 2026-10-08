@@ -4,6 +4,10 @@
 
 :baby: Staff interface for Kulttuurin kummilapset / Culture Kids :violin:
 
+> **Architecture & agent context:** system overview in
+> [ARCHITECTURE.md](https://github.com/City-of-Helsinki/kukkuu/blob/HEAD/ARCHITECTURE.md);
+> working instructions for developers and AI agents in [AGENTS.md](./AGENTS.md).
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
@@ -25,6 +29,7 @@
   - [Husky Git Hooks](#husky-git-hooks)
     - [Pre-commit Hook](#pre-commit-hook)
     - [Commit-msg Hook](#commit-msg-hook)
+- [Domain Logic & Context Mismatch Guard](#domain-logic--context-mismatch-guard)
 - [Available Scripts](#available-scripts)
   - [`pnpm start`](#pnpm-start)
   - [`pnpm build`](#pnpm-build)
@@ -265,6 +270,20 @@ npx --no-install commitlint --edit "$1"
 ```
 
 - `npx --no-install commitlint --edit "$1"`: This command uses [Commitlint](https://commitlint.js.org/#/) to lint commit messages based on the project's commit message conventions. This repo follows the [Conventional Commits](#conventional-commits).
+
+## Domain Logic & Context Mismatch Guard
+
+The admin interface manages resources (such as events and event groups) that are strictly scoped to a specific **Project** (usually a birth year group). The active project context is maintained in the application state and `localStorage` via `projectService`.
+
+To prevent data corruption and user confusion caused by project context mismatches, the application enforces the following rules:
+
+1. **Header Navigation Reactivity**: Changing the active project via the header dropdown instantly updates the reactive `useProjectId()` hook across the application and redirects the user to the root dashboard (`/`). This ensures all views and queries use the newly selected project.
+2. **Project Context Guarding**: When a user accesses a direct link to a project-scoped resource (e.g., an event detail or edit page), a `<ProjectContextGuard>` component intercepts the rendering. It compares the active project ID with the resource's project ID:
+   - If they match, the page renders normally.
+   - If they mismatch and the user has access to the target project, rendering is blocked and a dialog prompts the user to either switch their active project to match the resource, or return to the dashboard.
+   - If they mismatch and the user does _not_ have privileges for the target project, the dialog only allows returning to the dashboard.
+
+This prevents sub-queries from being executed against the wrong project context, avoiding invalid data creation or confusing UI states.
 
 ## Available Scripts
 

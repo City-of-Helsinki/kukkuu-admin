@@ -2,10 +2,13 @@ import {
   TopToolbar,
   CreateButton,
   EditButton,
+  Button,
   usePermissions,
   useResourceContext,
   useRecordContext,
 } from 'react-admin';
+import { Link } from 'react-router-dom';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 import PublishEventGroupButton from './PublishEventGroupButton';
 import {
@@ -50,7 +53,18 @@ const EventGroupsDetailActions = () => {
         to={`/events/create?eventGroupId=${record.id}`}
         label={'eventGroups.actions.addEvent.do'}
       />
-      {canManageEventGroups && <EditButton record={record} />}
+      {canManageEventGroups && (
+        <>
+          <Button
+            component={Link}
+            to={`/event-groups/create?copyFrom=${record.id}`}
+            label="events.actions.copy"
+          >
+            <ContentCopyIcon />
+          </Button>
+          <EditButton record={record} />
+        </>
+      )}
       {showPublishButton && (
         <PublishEventGroupButton
           basePath={basePath}

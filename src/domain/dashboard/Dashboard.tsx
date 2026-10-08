@@ -11,7 +11,7 @@ import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import * as Sentry from '@sentry/browser';
 
-import projectService from '../projects/projectService';
+import { useProjectId } from '../projects/useProjectId';
 import { getTranslatedField } from '../../common/translation/TranslationUtils';
 import type { ProjectNode } from '../api/generatedTypes/graphql';
 
@@ -19,12 +19,14 @@ const Dashboard = () => {
   const translate = useTranslate();
   const [locale] = useLocaleState();
   const notify = useNotify();
+  const projectId = useProjectId();
 
   const { data, isLoading } = useGetOne<ProjectNode>(
     'projects',
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    { id: projectService.projectId! },
+    { id: projectId! },
     {
+      enabled: Boolean(projectId),
       onError: (error) => {
         Sentry.captureException(error);
         notify(translate('ra.message.error'), { type: 'warning' });

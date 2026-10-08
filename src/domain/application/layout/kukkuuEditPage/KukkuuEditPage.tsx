@@ -3,6 +3,7 @@ import type { EditProps } from 'react-admin';
 
 import KukkuuPageLayout from '../kukkuuCardPageLayout/KukkuuCardPageLayout';
 import KukkuuEdit from './KukkuuEdit';
+import { ProjectContextGuard } from '../../../projects/components/ProjectContextGuard';
 
 type Props = {
   reactAdminProps?: Omit<EditProps, 'children'>;
@@ -18,7 +19,7 @@ const KukkuuEditPage = ({
   return (
     <KukkuuPageLayout pageTitleSource={pageTitleSource}>
       <KukkuuEdit mutationMode="pessimistic" {...reactAdminProps}>
-        {children}
+        <ProjectContextGuard>{children}</ProjectContextGuard>
       </KukkuuEdit>
     </KukkuuPageLayout>
   );

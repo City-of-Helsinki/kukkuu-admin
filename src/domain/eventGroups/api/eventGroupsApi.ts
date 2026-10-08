@@ -1,3 +1,5 @@
+import pick from 'lodash/pick';
+
 import type { MethodHandlerParams } from '../../../api/types';
 import {
   queryHandler,
@@ -9,6 +11,7 @@ import RelayList from '../../../api/relayList';
 import projectService from '../../projects/projectService';
 import {
   addEventGroupMutation,
+  copyEventGroupMutation,
   updateEventGroupMutation,
   deleteEventGroupMutation,
   publishEventGroupMutation,
@@ -35,18 +38,26 @@ async function getEventGroup(params: MethodHandlerParams) {
 }
 
 async function addEventGroup(params: MethodHandlerParams) {
-  const data = mapLocalDataToApiData(params.data);
+  const localUpdateData = pick(params.data, [
+    'translations',
+    'projectId',
+    'sourceEventGroupId',
+  ]);
+  const data = mapLocalDataToApiData(localUpdateData);
+  const isCopy = Boolean(data.sourceEventGroupId);
   const response = await mutationHandler({
-    mutation: addEventGroupMutation,
+    mutation: isCopy ? copyEventGroupMutation : addEventGroupMutation,
     variables: {
       input: {
         ...data,
-        projectId: projectService.projectId,
+        projectId: data.projectId || projectService.projectId,
       },
     },
   });
 
-  return handleApiNode(response.data?.addEventGroup.eventGroup);
+  return handleApiNode(
+    response.data?.[isCopy ? 'copyEventGroup' : 'addEventGroup'].eventGroup
+  );
 }
 
 async function updateEventGroup(params: MethodHandlerParams) {

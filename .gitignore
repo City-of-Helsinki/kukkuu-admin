@@ -47,3 +47,4 @@ test-results/
 sonar-report.json
 
 sonar-report.xml
+.agents

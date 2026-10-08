@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDataProvider, useRefresh } from 'react-admin';
 import { useQuery } from '@tanstack/react-query';
 import MenuItem from '@mui/material/MenuItem';
@@ -9,6 +10,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 // eslint-disable-next-line max-len
 import RelayList from '../../api/relayList';
 import projectService from '../projects/projectService';
+import { useProjectId } from '../projects/useProjectId';
 import type extendedDataProvider from '../../api/dataProvider';
 import type {
   ProjectNode,
@@ -28,6 +30,8 @@ const ProfileProjectDropdown = () => {
     enabled: isAuthenticated,
   });
   const refresh = useRefresh();
+  const navigate = useNavigate();
+  const activeProjectId = useProjectId();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -36,6 +40,11 @@ const ProfileProjectDropdown = () => {
   const handleMenuItemClick = (event: any) => {
     const value = event.target.dataset.value;
 
+    if (value === activeProjectId) {
+      handleClose();
+      return;
+    }
+
     projectService.projectId = value as string;
 
     // eslint-disable-next-line no-console
@@ -43,6 +52,7 @@ const ProfileProjectDropdown = () => {
 
     refresh();
     handleClose();
+    navigate('/');
   };
 
   const handleClose = () => {
@@ -68,7 +78,7 @@ const ProfileProjectDropdown = () => {
   }
 
   const selectedProject = projects.find(
-    (project) => project.id === projectService.projectId
+    (project) => project.id === activeProjectId
   );
 
   if (!selectedProject) {

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useRecordContext, useTranslate } from 'react-admin';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import type { SxProps, Theme } from '@mui/material';
 
 import type { AdminEvent } from '../types/EventTypes';
 import useSetReadyMutation from '../hooks/useSetReadyMutation';
@@ -25,9 +26,10 @@ function getReadyStatus(
 
 type Props = {
   className?: string;
+  sx?: SxProps<Theme>;
 };
 
-const EventReadyToggle = ({ className }: Props) => {
+const EventReadyToggle = ({ className, sx }: Props) => {
   const record = useRecordContext<AdminEvent>();
   const t = useTranslate();
   const [isReadyLocal, setReadyLocal] = useState(
@@ -53,6 +55,7 @@ const EventReadyToggle = ({ className }: Props) => {
   return (
     <FormControlLabel
       className={className}
+      sx={{ m: 0, ...sx }}
       control={
         <Switch checked={readyForEventGroupPublishing} onClick={handleClick} />
       }
