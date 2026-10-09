@@ -6,6 +6,8 @@ import {
   required,
   FormDataConsumer,
   DateTimeInput,
+  ReferenceInput,
+  AutocompleteInput,
 } from 'react-admin';
 
 import ImageUploadField from '../../../common/components/imageField/ImageUploadField';
@@ -64,6 +66,13 @@ const EventForm = ({
                 helperText="events.fields.imageAltText.helperText"
                 fullWidth
               />
+              <ReferenceInput
+                source="organisationId"
+                reference="organisations"
+                label="events.fields.organisation.label"
+              >
+                <AutocompleteInput optionText="name" fullWidth />
+              </ReferenceInput>
               <TextInput
                 variant="outlined"
                 source={translatableField('name')}

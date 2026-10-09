@@ -80,6 +80,7 @@
       },
       "title": "Luo tapahtuma"
     },
+    "organisation": { "label": "Organisaatio" },
     "edit": {
       "title": "Muokkaa tapahtumaa"
     },
@@ -196,7 +197,8 @@
       }
     },
     "list": {
-      "title": "Tapahtumat"
+      "title": "Tapahtumat",
+      "description": "Näet vain tapahtumat, jotka kuuluvat edustamiisi organisaatioihin."
     },
     "show": {
       "publish": {
@@ -305,6 +307,9 @@
       }
     },
     "fields": {
+      "organisation": {
+        "label": "Organisaatio"
+      },
       "project": {
         "year": {
           "label": "Vuosiryhmä"
@@ -396,6 +401,7 @@
     "create": {
       "title": "Lisää esiintymä"
     },
+    "organisation": { "label": "Organisaatio" },
     "edit": {
       "delete": {
         "confirm": {
@@ -480,6 +486,7 @@
       },
       "title": "Luo uusi tapahtumapaikka"
     },
+    "organisation": { "label": "Organisaatio" },
     "edit": {
       "title": "Muokkaa tapahtumapaikkaa"
     },
