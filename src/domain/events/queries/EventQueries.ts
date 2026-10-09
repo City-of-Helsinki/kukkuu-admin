@@ -26,6 +26,10 @@ export const eventsQuery = gql`
               }
             }
           }
+          organisation {
+            id
+            name
+          }
           ticketSystem {
             type
             ... on TicketmasterEventTicketSystem {
@@ -81,6 +85,10 @@ export const eventQuery = gql`
         myPermissions {
           publish
         }
+      }
+      organisation {
+        id
+        name
       }
       ticketSystem {
         type

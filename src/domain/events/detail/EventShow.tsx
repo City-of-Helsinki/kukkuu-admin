@@ -161,6 +161,10 @@ const EventDetails = () => {
           label={'events.fields.imageAltText.label'}
         />
         <TextField
+          source="organisation.name"
+          label={'events.fields.organisation.label'}
+        />
+        <TextField
           source={translatableField('name')}
           label={'events.fields.name.label'}
         />
