@@ -80,6 +80,7 @@
       },
       "title": "Create event"
     },
+    "organisation": { "label": "Organisation" },
     "edit": {
       "title": "Edit event"
     },
@@ -128,6 +129,9 @@
       },
       "occurrences": {
         "label": "Occurrences"
+      },
+      "organisation": {
+        "label": "Organisation"
       },
       "participantsPerInvite": {
         "choices": {
@@ -199,7 +203,8 @@
       }
     },
     "list": {
-      "title": "Events"
+      "title": "Events",
+      "description": "You can only see the events belonging to the organisations you represent."
     },
     "show": {
       "publish": {
@@ -305,6 +310,9 @@
       }
     },
     "fields": {
+      "organisation": {
+        "label": "Organisation"
+      },
       "project": {
         "year": {
           "label": "Year group"
@@ -396,6 +404,7 @@
     "create": {
       "title": "Add occurrence"
     },
+    "organisation": { "label": "Organisation" },
     "edit": {
       "delete": {
         "confirm": {
@@ -480,6 +489,7 @@
       },
       "title": "Create venue"
     },
+    "organisation": { "label": "Organisation" },
     "edit": {
       "title": "Edit venue"
     },

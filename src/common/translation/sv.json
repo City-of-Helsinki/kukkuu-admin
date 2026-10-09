@@ -9,7 +9,6 @@
     "authError": {
       "title": "Login Failed",
       "description": "Log out and try again",
-
       "logOut": "Log out"
     },
     "unauthorizedPage": {
@@ -80,6 +79,9 @@
       },
       "title": "Create event"
     },
+    "organisation": {
+      "label": "Organisation"
+    },
     "edit": {
       "title": "Edit event"
     },
@@ -128,6 +130,9 @@
       },
       "occurrences": {
         "label": "Occurrences"
+      },
+      "organisation": {
+        "label": "Organisation"
       },
       "participantsPerInvite": {
         "choices": {
@@ -199,7 +204,8 @@
       }
     },
     "list": {
-      "title": "Events"
+      "title": "Events",
+      "description": "Du ser endast de evenemang som hör till de organisationer du representerar."
     },
     "show": {
       "publish": {
@@ -305,6 +311,9 @@
       }
     },
     "fields": {
+      "organisation": {
+        "label": "Organisation"
+      },
       "project": {
         "year": {
           "label": "Year group"
@@ -396,6 +405,9 @@
     "create": {
       "title": "Add occurrence"
     },
+    "organisation": {
+      "label": "Organisation"
+    },
     "edit": {
       "delete": {
         "confirm": {
@@ -479,6 +491,9 @@
         "content": ""
       },
       "title": "Create venue"
+    },
+    "organisation": {
+      "label": "Organisation"
     },
     "edit": {
       "title": "Edit venue"

@@ -37,7 +37,14 @@ const getEvent: MethodHandler = async (params: MethodHandlerParams) => {
     query: EventDocument,
     variables: { id: params.id },
   });
-  return handleApiNode(response.data.event);
+  const data = handleApiNode(response.data.event);
+  return {
+    data: {
+      ...data.data,
+      id: data.data?.id || '',
+      organisationId: response.data.event?.organisation?.id,
+    },
+  };
 };
 
 const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
@@ -53,6 +60,7 @@ const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
     'projectId',
     'eventGroupId',
     'sourceEventId',
+    'organisationId',
   ]);
   const data = mapLocalDataToApiData(localUpdateData);
   data.projectId = data.projectId || projectService.projectId;
@@ -107,6 +115,7 @@ const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
     'readyForEventGroupPublishing',
     'ticketSystem.url',
     'ticketSystem.endTime',
+    'organisationId',
   ]);
   const data = mapLocalDataToApiData(localUpdateData);
 

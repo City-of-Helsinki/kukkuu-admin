@@ -3,6 +3,7 @@ import type {
   EventGroupNode,
   EventParticipantsPerInvite,
   EventTranslationType,
+  OrganisationNode,
   TicketSystem,
 } from '../../api/generatedTypes/graphql';
 
@@ -18,6 +19,8 @@ export interface AdminEvent {
   project: {
     id: string;
   };
+  organisation?: OrganisationNode;
+  organisationId?: string;
   ticketSystem: {
     type: TicketSystem;
   };
