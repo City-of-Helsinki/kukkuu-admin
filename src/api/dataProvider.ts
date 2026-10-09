@@ -49,6 +49,7 @@ import { getProject } from '../domain/dashboard/api';
 import MessagesApi from '../domain/messages/api/messagesApi';
 import EventGroupsApi from '../domain/eventGroups/api/eventGroupsApi';
 import EventsAndEventGroupsApi from '../domain/eventsAndEventGroups/api/eventsAndEventGroupsApi';
+import { getOrganisations } from '../domain/organisations/api/OrganisationApi';
 import type { AdminEvent } from '../domain/events/types/EventTypes';
 import type {
   EventGroupNode,
@@ -109,6 +110,10 @@ const METHOD_HANDLERS: MethodHandlers = {
   },
   'events-and-event-groups': {
     LIST: EventsAndEventGroupsApi.getEventsAndEventGroups,
+  },
+  organisations: {
+    LIST: getOrganisations,
+    MANY: getOrganisations,
   },
 };
 

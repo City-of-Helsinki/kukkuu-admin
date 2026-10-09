@@ -13,7 +13,8 @@ export type Resource =
   | 'messages'
   | 'event-groups'
   | 'events-and-event-groups'
-  | 'sms';
+  | 'sms'
+  | 'organisations';
 
 export type Method =
   | 'LIST'

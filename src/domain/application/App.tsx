@@ -152,6 +152,9 @@ export function getReactAdminResources(
       create: EventGroupsResource.Create,
       edit: EventGroupsResource.Edit,
     },
+    {
+      name: 'organisations',
+    },
   ];
 
   // Add children resource if user has permissions to view families
