@@ -6,6 +6,7 @@ import KukkuuPageTitle from '../kukkuuPageTitle/KukkuuPageTitle';
 
 type Props = {
   pageTitle: string;
+  pageDescription?: React.ReactNode;
   children: React.ReactNode;
   reactAdminProps?: Omit<ListProps, 'children'>;
   datagridProps?: DatagridProps;
@@ -13,6 +14,7 @@ type Props = {
 
 const KukkuuListPage = ({
   pageTitle,
+  pageDescription,
   children,
   reactAdminProps,
   datagridProps = {},
@@ -20,6 +22,7 @@ const KukkuuListPage = ({
   return (
     <>
       <KukkuuPageTitle>{pageTitle}</KukkuuPageTitle>
+      {pageDescription}
       <KukkuuList
         emptyWhileLoading
         pagination={false}
