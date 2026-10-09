@@ -18,6 +18,10 @@ const EventFragment = gql`
         }
       }
     }
+    organisation {
+      id
+      name
+    }
   }
 `;
 

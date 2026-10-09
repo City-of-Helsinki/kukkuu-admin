@@ -20,6 +20,7 @@ import {
 import { participantsPerInviteChoices, ticketSystemChoices } from '../choices';
 import { type RecordWithTicketSystem, hasInternalTicketSystem } from '../utils';
 import TicketSystemInput from '../ticketSystemInput/TicketSystemInput';
+import OrganisationInput from './OrganisationInput';
 import EventEditToolbar from '../edit/EventEditToolbar';
 import TranslatableContext from '../../../common/contexts/TranslatableContext';
 import TranslatableProvider from '../../../common/providers/TranslatableProvider';
@@ -64,6 +65,7 @@ const EventForm = ({
                 helperText="events.fields.imageAltText.helperText"
                 fullWidth
               />
+              <OrganisationInput />
               <TextInput
                 variant="outlined"
                 source={translatableField('name')}
