@@ -21,6 +21,7 @@ pr:
   branches:
     include:
     - main
+    - hekla
   paths:
     exclude:
     - '*release-please*'
