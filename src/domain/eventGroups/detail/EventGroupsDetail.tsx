@@ -40,6 +40,10 @@ const EventGroupsDetail = () => {
     >
       <LocalDataGrid source="events" rowClick={handleRowClick}>
         <TextField source="name" label={t('events.fields.name.label')} />
+        <TextField
+          source="organisation.name"
+          label={t('events.fields.organisation.label')}
+        />
         <SelectField
           source="participantsPerInvite"
           label={t('events.fields.participantsPerInvite.label')}
