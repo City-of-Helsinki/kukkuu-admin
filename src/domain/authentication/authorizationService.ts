@@ -1,53 +1,26 @@
-import RelayList from '../../api/relayList';
 import dataProvider from '../../api/dataProvider';
 import projectService from '../projects/projectService';
-import type {
-  ProjectNode,
-  ProjectPermissionsType,
-} from '../api/generatedTypes/graphql';
+import {
+  DEFAULT_UNAUTHORIZED_STORAGE,
+  extractProfileData,
+  getProjectPermissions,
+  resolveAuthorization,
+  type PermissionKey,
+  type PermissionStorage,
+  type Role,
+  type UnauthorizedReason,
+} from './authorizationUtils';
 
 export const PERMISSIONS = 'permissions';
 
-type Role = 'admin' | 'none';
-type PermissionKey = Exclude<keyof ProjectPermissionsType, '__typename'>;
-type PermissionObject = Record<string, PermissionKey[]>;
-type PermissionStorage = {
-  role: Role;
-  projects: PermissionObject;
-};
-
-function getProjectPermissions(projects: ProjectNode[]) {
-  const permissionObject: PermissionObject = {};
-
-  projects.forEach((project) => {
-    const permissions = project.myPermissions;
-
-    if (permissions) {
-      const projectPermissions = Object.entries(permissions).reduce(
-        (acc: PermissionKey[], [permission, hasPermission]) => {
-          if (hasPermission && permission !== '__typename') {
-            return [...acc, permission as PermissionKey];
-          }
-
-          return acc;
-        },
-        []
-      );
-
-      permissionObject[project.id] = projectPermissions;
-    }
-  });
-
-  return permissionObject;
-}
-
-const ProjectList = RelayList<ProjectNode>();
+export type { Role, UnauthorizedReason };
 
 export class AuthorizationService {
   constructor() {
     this.fetchRole = this.fetchRole.bind(this);
     this.isAuthorized = this.isAuthorized.bind(this);
     this.getRole = this.getRole.bind(this);
+    this.getUnauthorizedReason = this.getUnauthorizedReason.bind(this);
     this.clear = this.clear.bind(this);
     this.hasProjectPermission = this.hasProjectPermission.bind(this);
     this.canPublishWithinProject = this.canPublishWithinProject.bind(this);
@@ -72,22 +45,31 @@ export class AuthorizationService {
   async fetchRole(): Promise<void> {
     try {
       const { data } = await dataProvider.getMyAdminProfile();
-      const projects = ProjectList((data as any)?.projects).items;
-      const role = projects.length > 0 ? 'admin' : 'none';
-      const projectPermissions = getProjectPermissions(projects);
-      if (!projectService.projectId) {
-        projectService.setDefaultProjectId(projects);
+      const profile = extractProfileData(data);
+      const { role, unauthorizedReason } = resolveAuthorization(profile);
+
+      if (role === 'admin' && !projectService.projectId) {
+        projectService.setDefaultProjectId(profile.projects);
       }
-      this.setPermissionStorage({ role, projects: projectPermissions });
+
+      this.setPermissionStorage({
+        role,
+        unauthorizedReason,
+        projects: getProjectPermissions(profile.projects),
+      });
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('Failed to fetch user role/permissions', error);
-      this.setPermissionStorage({ role: 'none' });
+      this.setPermissionStorage(DEFAULT_UNAUTHORIZED_STORAGE);
     }
   }
 
   getRole(): Role | null {
     return this.permissionStorage?.role ?? null;
+  }
+
+  getUnauthorizedReason(): UnauthorizedReason | null {
+    return this.permissionStorage?.unauthorizedReason ?? null;
   }
 
   isAuthorized(): boolean {

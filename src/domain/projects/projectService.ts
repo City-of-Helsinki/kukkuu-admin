@@ -30,7 +30,7 @@ class ProjectService {
     };
   };
 
-  setDefaultProjectId(projects: ProjectNode[]) {
+  setDefaultProjectId(projects: Pick<ProjectNode, 'id' | 'year'>[]) {
     const defaultProject = projects.reduce(
       (incumbent, project) =>
         incumbent.year >= project.year ? incumbent : project,

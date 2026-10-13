@@ -4,6 +4,16 @@ export const myAdminProfileQuery = gql`
   query MyAdminProfile {
     myAdminProfile {
       id
+      isEventOrganiser
+      isSystemAdministrator
+      organisations {
+        edges {
+          node {
+            id
+            name
+          }
+        }
+      }
       projects {
         edges {
           node {

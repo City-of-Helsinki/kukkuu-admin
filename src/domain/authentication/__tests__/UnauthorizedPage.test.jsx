@@ -1,9 +1,9 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { useLogout, useTranslate } from 'react-admin';
-import { MemoryRouter } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { AdminContext, useLogout } from 'react-admin';
 
+import i18nProvider from '../../../common/translation/i18nProvider';
 import UnauthorizedPage from '../UnauthorizedPage';
+import authorizationService from '../authorizationService';
 
 // Mock the dependencies
 vi.mock('react-admin', async (importOriginal) => {
@@ -11,16 +11,6 @@ vi.mock('react-admin', async (importOriginal) => {
   return {
     ...actual,
     useLogout: vi.fn(),
-    useTranslate: vi.fn(),
-  };
-});
-
-// Mock mailto link behavior
-vi.mock('react-router-dom', async () => {
-  const actual = await vi.importActual('react-router-dom');
-  return {
-    ...actual,
-    useNavigate: () => vi.fn(),
   };
 });
 
@@ -36,69 +26,68 @@ vi.mock('./InfoPageTemplate', () => ({
 }));
 
 describe('UnauthorizedPage', () => {
-  const queryClient = new QueryClient();
-
-  const useTranslateMock = (key) => {
-    switch (key) {
-      case 'authentication.unauthorizedPage.title':
-        return 'Unauthorized Title';
-      case 'authentication.unauthorizedPage.content':
-        return 'Unauthorized Content';
-      case 'authentication.unauthorizedPage.contactEmail':
-        return 'test@example.com';
-      case 'ra.auth.logout':
-        return 'Logout';
-      default:
-        return key;
-    }
-  };
+  const renderUnauthorizedPage = () =>
+    render(
+      <AdminContext i18nProvider={i18nProvider}>
+        <UnauthorizedPage />
+      </AdminContext>
+    );
 
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   it('renders the UnauthorizedPage with correct content', () => {
-    const mockTranslate = vi.fn(useTranslateMock);
-    useTranslate.mockReturnValue(mockTranslate);
     useLogout.mockReturnValue(vi.fn());
 
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <UnauthorizedPage />
-        </MemoryRouter>
-      </QueryClientProvider>
-    );
+    renderUnauthorizedPage();
 
-    expect(screen.getByText('Unauthorized Title')).toBeInTheDocument();
-    expect(screen.getByText('Unauthorized Content')).toBeInTheDocument();
+    expect(screen.getByText('Ei käyttöoikeutta')).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /Käyttäjätunnuksellasi ei ole käyttöoikeutta Kulttuurin kummilapset -palvelun ylläpitoon\./
+      )
+    ).toBeInTheDocument();
 
     const link = screen.getByRole('link');
-    expect(link).toHaveAttribute('href', 'mailto:test@example.com');
-    expect(link).toHaveTextContent('test@example.com');
+    expect(link).toHaveAttribute(
+      'href',
+      'mailto:kulttuurin.kummilapset@hel.fi'
+    );
+    expect(link).toHaveTextContent('kulttuurin.kummilapset@hel.fi');
 
-    expect(screen.getByRole('button')).toBeInTheDocument();
-    expect(screen.getByRole('button')).toHaveTextContent('Logout');
+    expect(
+      screen.getByRole('button', { name: 'Kirjaudu ulos' })
+    ).toBeInTheDocument();
   });
 
   it('calls logout when the logout button is clicked', async () => {
     const mockLogout = vi.fn().mockResolvedValue(undefined);
     useLogout.mockReturnValue(mockLogout);
-    useTranslate.mockReturnValue(vi.fn(useTranslateMock));
 
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <UnauthorizedPage />
-        </MemoryRouter>
-      </QueryClientProvider>
-    );
+    renderUnauthorizedPage();
 
-    const logoutButton = screen.getByRole('button');
+    const logoutButton = screen.getByRole('button', { name: 'Kirjaudu ulos' });
     logoutButton.click();
 
     await waitFor(() => {
       expect(mockLogout).toHaveBeenCalledTimes(1);
     });
+  });
+
+  it('renders specific title and content when unauthorizedReason is no_organisation', () => {
+    vi.spyOn(authorizationService, 'getUnauthorizedReason').mockReturnValue(
+      'no_organisation'
+    );
+    useLogout.mockReturnValue(vi.fn());
+
+    renderUnauthorizedPage();
+
+    expect(screen.getByText('Ei organisaatiota')).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /Käyttäjätunnuksellesi ei ole määritetty organisaatiota\./
+      )
+    ).toBeInTheDocument();
   });
 });
