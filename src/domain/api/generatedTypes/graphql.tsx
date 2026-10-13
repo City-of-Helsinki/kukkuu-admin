@@ -127,6 +127,8 @@ export type AdminNode = Node & {
   email: Scalars['String']['output'];
   /** The ID of the object */
   id: Scalars['ID']['output'];
+  isEventOrganiser?: Maybe<Scalars['Boolean']['output']>;
+  isSystemAdministrator?: Maybe<Scalars['Boolean']['output']>;
   organisations: Maybe<OrganisationNodeConnection>;
   projects: Maybe<ProjectNodeConnection>;
   /** Vaaditaan. Enintään 150 merkkiä. Vain kirjaimet, numerot ja @/./+/-/_ ovat sallittuja. */
@@ -2250,14 +2252,14 @@ export type PublishEventGroupMutationVariables = Exact<{
 
 export type PublishEventGroupMutation = { __typename?: 'Mutation', publishEventGroup: { __typename?: 'PublishEventGroupMutationPayload', eventGroup: { __typename?: 'EventGroupNode', id: string, publishedAt: any | null } | null } | null };
 
-export type EventGroupEventFragment = { __typename?: 'EventNode', id: string, name: string | null, image: string, participantsPerInvite: EventParticipantsPerInvite, duration: number | null, capacityPerOccurrence: number | null, publishedAt: any | null, readyForEventGroupPublishing: boolean, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, enrolmentCount: number, capacityOverride: number | null } | null } | null> } };
+export type EventGroupEventFragment = { __typename?: 'EventNode', id: string, name: string | null, image: string, participantsPerInvite: EventParticipantsPerInvite, duration: number | null, capacityPerOccurrence: number | null, publishedAt: any | null, readyForEventGroupPublishing: boolean, organisation?: Maybe<{ __typename?: 'OrganisationNode', id: string, name: string }>, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, enrolmentCount: number, capacityOverride: number | null } | null } | null> } };
 
 export type EventGroupQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type EventGroupQuery = { __typename?: 'Query', eventGroup: { __typename?: 'EventGroupNode', id: string, name: string | null, publishedAt: any | null, translations: Array<{ __typename?: 'EventGroupTranslationType', languageCode: Language, name: string, shortDescription: string, description: string }>, events: { __typename?: 'EventNodeConnection', edges: Array<{ __typename?: 'EventNodeEdge', node: { __typename?: 'EventNode', id: string, name: string | null, image: string, participantsPerInvite: EventParticipantsPerInvite, duration: number | null, capacityPerOccurrence: number | null, publishedAt: any | null, readyForEventGroupPublishing: boolean, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, enrolmentCount: number, capacityOverride: number | null } | null } | null> } } | null } | null> }, project: { __typename?: 'ProjectNode', id: string } } | null };
+export type EventGroupQuery = { __typename?: 'Query', eventGroup: { __typename?: 'EventGroupNode', id: string, name: string | null, publishedAt: any | null, translations: Array<{ __typename?: 'EventGroupTranslationType', languageCode: Language, name: string, shortDescription: string, description: string }>, events: { __typename?: 'EventNodeConnection', edges: Array<{ __typename?: 'EventNodeEdge', node: { __typename?: 'EventNode', id: string, name: string | null, image: string, participantsPerInvite: EventParticipantsPerInvite, duration: number | null, capacityPerOccurrence: number | null, publishedAt: any | null, readyForEventGroupPublishing: boolean, organisation?: Maybe<{ __typename?: 'OrganisationNode', id: string, name: string }>, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, enrolmentCount: number, capacityOverride: number | null } | null } | null> } } | null } | null> }, project: { __typename?: 'ProjectNode', id: string } } | null };
 
 export type EventGroupsQueryVariables = Exact<{
   projectId: InputMaybe<Scalars['ID']['input']>;
@@ -2455,7 +2457,7 @@ export type OccurrenceQuery = { __typename?: 'Query', occurrence: { __typename?:
 export type MyAdminProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MyAdminProfileQuery = { __typename?: 'Query', myAdminProfile: { __typename?: 'AdminNode', id: string, projects: { __typename?: 'ProjectNodeConnection', edges: Array<{ __typename?: 'ProjectNodeEdge', node: { __typename?: 'ProjectNode', id: string, year: number, name: string | null, myPermissions: { __typename?: 'ProjectPermissionsType', publish: boolean | null, manageEventGroups: boolean | null, canSendToAllInProject: boolean | null, viewFamilies: boolean | null } | null } | null } | null> } | null } | null };
+export type MyAdminProfileQuery = { __typename?: 'Query', myAdminProfile: { __typename?: 'AdminNode', id: string, isEventOrganiser?: boolean | null, isSystemAdministrator?: boolean | null, organisations?: { __typename?: 'OrganisationNodeConnection', edges: Array<{ __typename?: 'OrganisationNodeEdge', node: { __typename?: 'OrganisationNode', id: string, name: string } | null } | null> } | null, projects: { __typename?: 'ProjectNodeConnection', edges: Array<{ __typename?: 'ProjectNodeEdge', node: { __typename?: 'ProjectNode', id: string, year: number, name: string | null, myPermissions: { __typename?: 'ProjectPermissionsType', publish: boolean | null, manageEventGroups: boolean | null, canSendToAllInProject: boolean | null, viewFamilies: boolean | null } | null } | null } | null> } | null } | null };
 
 export type ImportTicketSystemPasswordsMutationVariables = Exact<{
   input: ImportTicketSystemPasswordsMutationInput;
@@ -2545,8 +2547,11 @@ export const EventGroupEventFragmentDoc = gql`
   duration
   capacityPerOccurrence
   publishedAt
-  duration
   readyForEventGroupPublishing
+  organisation {
+    id
+    name
+  }
   occurrences {
     edges {
       node {
@@ -3366,6 +3371,16 @@ export const MyAdminProfileDocument = gql`
     query MyAdminProfile {
   myAdminProfile {
     id
+    isEventOrganiser
+    isSystemAdministrator
+    organisations {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
     projects {
       edges {
         node {
