@@ -16,6 +16,8 @@
       "backToLoginPage": "Takaisin kirjautumissivulle",
       "contactEmail": "kulttuurin.kummilapset@hel.fi",
       "content": "Käyttäjätunnuksellasi ei ole käyttöoikeutta Kulttuurin kummilapset -palvelun ylläpitoon. Mikäli tarvitset käyttöoikeuden, ole yhteydessä osoitteeseen",
+      "noOrganisationContent": "Käyttäjätunnuksellesi ei ole määritetty organisaatiota. Tapahtumajärjestäjänä sinun tulee edustaa vähintään yhtä organisaatiota käyttääksesi Kulttuurin kummilapset -palvelun ylläpitoa. Mikäli tarvitset käyttöoikeuden, ole yhteydessä osoitteeseen",
+      "noOrganisationTitle": "Ei organisaatiota",
       "title": "Ei käyttöoikeutta"
     }
   },

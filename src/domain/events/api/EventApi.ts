@@ -1,5 +1,6 @@
 import type { ApolloQueryResult } from '@apollo/client';
 import pick from 'lodash/pick';
+import { HttpError } from 'react-admin';
 
 import type { MethodHandler, MethodHandlerParams } from '../../../api/types';
 import {
@@ -37,12 +38,17 @@ const getEvent: MethodHandler = async (params: MethodHandlerParams) => {
     query: EventDocument,
     variables: { id: params.id },
   });
+  if (!response.data.event) {
+    throw new HttpError('ra.notification.item_doesnt_exist', 404);
+  }
   const data = handleApiNode(response.data.event);
   return {
     data: {
       ...data.data,
-      id: data.data?.id || '',
-      organisationId: response.data.event?.organisation?.id,
+      id: response.data.event.id,
+      // Flatten organisation.id to organisationId so react-admin form inputs
+      // (e.g. ReferenceInput source="organisationId") bind directly to the ID.
+      organisationId: response.data.event.organisation?.id,
     },
   };
 };

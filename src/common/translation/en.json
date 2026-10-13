@@ -9,13 +9,14 @@
     "authError": {
       "title": "Login Failed",
       "description": "Log out and try again",
-
       "logOut": "Log out"
     },
     "unauthorizedPage": {
       "backToLoginPage": "Back to login page",
       "contactEmail": "kulttuurin.kummilapset@hel.fi",
       "content": "Your account is not authorized to use Culture Kids Admin UI. If you need access, please contact",
+      "noOrganisationContent": "Your account is not assigned to any organisation. As an event organiser, you must represent at least one organisation to use Culture Kids Admin UI. If you need access, please contact",
+      "noOrganisationTitle": "No organisation",
       "title": "Not authorized."
     }
   },
@@ -80,7 +81,9 @@
       },
       "title": "Create event"
     },
-    "organisation": { "label": "Organisation" },
+    "organisation": {
+      "label": "Organisation"
+    },
     "edit": {
       "title": "Edit event"
     },
@@ -404,7 +407,9 @@
     "create": {
       "title": "Add occurrence"
     },
-    "organisation": { "label": "Organisation" },
+    "organisation": {
+      "label": "Organisation"
+    },
     "edit": {
       "delete": {
         "confirm": {
@@ -489,7 +494,9 @@
       },
       "title": "Create venue"
     },
-    "organisation": { "label": "Organisation" },
+    "organisation": {
+      "label": "Organisation"
+    },
     "edit": {
       "title": "Edit venue"
     },
