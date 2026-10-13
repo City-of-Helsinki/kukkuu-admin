@@ -3,10 +3,12 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
 import InfoPageTemplate from './InfoPageTemplate';
+import authorizationService from './authorizationService';
 
 const UnauthorizedPage = () => {
   const translate = useTranslate();
   const logout = useLogout();
+  const unauthorizedReason = authorizationService.getUnauthorizedReason();
   const contactEmail = translate(
     'authentication.unauthorizedPage.contactEmail'
   );
@@ -15,13 +17,25 @@ const UnauthorizedPage = () => {
       await logout();
     })();
   };
+
+  const isNoOrganisation = unauthorizedReason === 'no_organisation';
+  const title = translate(
+    isNoOrganisation
+      ? 'authentication.unauthorizedPage.noOrganisationTitle'
+      : 'authentication.unauthorizedPage.title'
+  );
+  const content = translate(
+    isNoOrganisation
+      ? 'authentication.unauthorizedPage.noOrganisationContent'
+      : 'authentication.unauthorizedPage.content'
+  );
+
   return (
     <InfoPageTemplate
-      title={translate('authentication.unauthorizedPage.title')}
+      title={title}
       content={
         <>
-          {translate('authentication.unauthorizedPage.content')}{' '}
-          <a href={'mailto:' + contactEmail}>{contactEmail}</a>
+          {content} <a href={'mailto:' + contactEmail}>{contactEmail}</a>
           <Box style={{ marginTop: '2rem' }}>
             <Button variant="contained" color="secondary" onClick={syncLogout}>
               {translate('ra.auth.logout')}

@@ -1,4 +1,5 @@
 import pick from 'lodash/pick';
+import { HttpError } from 'react-admin';
 
 import type { MethodHandlerParams } from '../../../api/types';
 import {
@@ -30,6 +31,9 @@ async function getEventGroup(params: MethodHandlerParams) {
   });
 
   const eventGroup = response.data.eventGroup;
+  if (!eventGroup) {
+    throw new HttpError('ra.notification.item_doesnt_exist', 404);
+  }
 
   return handleApiNode({
     ...eventGroup,

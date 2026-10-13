@@ -9,8 +9,11 @@ const EventGroupEventFragment = gql`
     duration
     capacityPerOccurrence
     publishedAt
-    duration
     readyForEventGroupPublishing
+    organisation {
+      id
+      name
+    }
     occurrences {
       edges {
         node {
