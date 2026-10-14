@@ -25,9 +25,10 @@ compose.*
 # an image layer.
 *.local
 
-# Docs, CI/CD and repo meta — not part of the production build
+# Docs, CI/CD and repo meta — not part of the production build.
+# LICENSE is deliberately NOT excluded: the third-party notices plugin reads
+# it during `pnpm build` to reproduce the application license in the output.
 README.md
-LICENSE.md
 CHANGELOG.md
 CODEOWNERS
 docs
