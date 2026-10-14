@@ -25,6 +25,7 @@
     - [Setup Kukkuu API backend](#setup-kukkuu-api-backend)
       - [Authorizing user for login to local backend](#authorizing-user-for-login-to-local-backend)
       - [Authorizing user for login to test environment's backend](#authorizing-user-for-login-to-test-environments-backend)
+      - [Authorizing event organisers (standard privileges)](#authorizing-event-organisers-standard-privileges)
     - [JWT issuance for browser tests](#jwt-issuance-for-browser-tests)
   - [Husky Git Hooks](#husky-git-hooks)
     - [Pre-commit Hook](#pre-commit-hook)
@@ -220,6 +221,18 @@ If you're using the test environment's backend (`VITE_API_URI=https://kukkuu.api
    - In the Django admin interface, find the user you just created and grant them superuser privileges.
 
 You should now be able to log in to Kukkuu-admin with your user account.
+
+##### Authorizing event organisers (standard privileges)
+
+In production or for testing realistic roles, users should **not** be superusers. To authorize an event organiser:
+
+1. Ensure the user does **not** have `is_staff` or `is_superuser` and has no global permissions.
+2. In Django Admin, map the user to a **Group** that has the `admin` object permission on one or more **Projects** (set via the Project's "Object permissions" page).
+3. Assign the user to at least one **Organisation** on the user's admin page.
+
+If an organiser lacks assigned organisations, login will fail with _"Ei organisaatiota"_ (`no_organisation`). If they lack project permissions, login will fail with _"Ei käyttöoikeutta"_ (`no_project`).
+
+For the complete architectural breakdown and all 6 use cases, see [Admin UI Privileges & Permissions](https://github.com/City-of-Helsinki/kukkuu/blob/HEAD/docs/admin-ui-privileges.md) in the backend repository.
 
 #### JWT issuance for browser tests
 
