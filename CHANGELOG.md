@@ -2,6 +2,13 @@
 
 # Change Log
 
+## [4.4.3](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.4.2...kukkuu-admin-v4.4.3) (2026-10-14)
+
+
+### Dependencies
+
+* Bump axios from 1.18.1 to 1.20.0 ([1abcb82](https://github.com/City-of-Helsinki/kukkuu-admin/commit/1abcb82e5859ac816032f7e36d04ebc92c9c6ddc))
+
 ## [4.4.2](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.4.1...kukkuu-admin-v4.4.2) (2026-09-16)
 
 
