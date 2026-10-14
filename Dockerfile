@@ -9,6 +9,7 @@ COPY --chown=default:root public ./public
 COPY --chown=default:root scripts ./scripts
 COPY --chown=default:root \
   index.html \
+  LICENSE \
   vite.config.ts \
   tsconfig.json \
   vite-env.d.ts \
