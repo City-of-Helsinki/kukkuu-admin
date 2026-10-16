@@ -5,7 +5,7 @@ import { selectMuiOption } from './select';
 
 export function eventsListPage(page: Page) {
   return {
-    title: page.getByRole('heading', { name: /tapahtumat/i }),
+    title: page.getByRole('heading', { name: /^tapahtumat$/i }),
     listBody: page.locator('.MuiTableBody-root'),
     anyEvent: page.locator('.MuiTableBody-root tr', { hasText: 'TAPAHTUMA' }),
     anyEventGroup: page.locator('.MuiTableBody-root tr', {
