@@ -1,10 +1,14 @@
 import {
   EditButton,
+  Button,
   TopToolbar,
   usePermissions,
   useRecordContext,
   useResourceContext,
+  useTranslate,
 } from 'react-admin';
+import { Link } from 'react-router-dom';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 import type { Permissions } from '../../authentication/authProvider';
 import type { AdminEvent } from '../types/EventTypes';
@@ -14,6 +18,7 @@ import EventPublishButton from './EventPublishButton';
 const EventShowActions = () => {
   const record = useRecordContext<AdminEvent>();
   const resource = useResourceContext();
+  const translate = useTranslate();
   const basePath = `/${resource}`;
   const hasEventGroup = Boolean(record?.eventGroup);
   const isPublished = Boolean(record?.publishedAt);
@@ -24,16 +29,21 @@ const EventShowActions = () => {
   );
 
   return (
-    <TopToolbar sx={{ display: 'flex' }}>
+    <TopToolbar sx={{ alignItems: 'center' }}>
+      {record && (
+        <Button
+          component={Link}
+          to={`/events/create?copyFrom=${record.id}`}
+          label={translate('events.actions.copy')}
+        >
+          <ContentCopyIcon />
+        </Button>
+      )}
       <EditButton record={record} />
       {record && !hasEventGroup && !isPublished && canPublish && (
         <EventPublishButton basePath={basePath} />
       )}
-      {record && hasEventGroup && !isPublished && (
-        <span style={{ marginLeft: 'auto' }}>
-          <EventReadyToggle />
-        </span>
-      )}
+      {record && hasEventGroup && !isPublished && <EventReadyToggle />}
     </TopToolbar>
   );
 };

@@ -9,12 +9,15 @@
     "authError": {
       "title": "Kirjautuminen epäonnistui",
       "description": "Kirjaudu ulos ja yritä uudelleen",
+
       "logOut": "Kirjaudu ulos"
     },
     "unauthorizedPage": {
       "backToLoginPage": "Takaisin kirjautumissivulle",
       "contactEmail": "kulttuurin.kummilapset@hel.fi",
       "content": "Käyttäjätunnuksellasi ei ole käyttöoikeutta Kulttuurin kummilapset -palvelun ylläpitoon. Mikäli tarvitset käyttöoikeuden, ole yhteydessä osoitteeseen",
+      "noOrganisationContent": "Käyttäjätunnuksellesi ei ole määritetty organisaatiota. Tapahtumajärjestäjänä sinun tulee edustaa vähintään yhtä organisaatiota käyttääksesi Kulttuurin kummilapset -palvelun ylläpitoa. Mikäli tarvitset käyttöoikeuden, ole yhteydessä osoitteeseen",
+      "noOrganisationTitle": "Ei organisaatiota",
       "title": "Ei käyttöoikeutta"
     }
   },
@@ -63,8 +66,15 @@
     }
   },
   "events": {
+    "copy": {
+      "title": "Kopioinnin kohde",
+      "description": "Valitse kohde, johon haluat kopioida.",
+      "eventGroupHelperText": "Tapahtumaryhmä valitussa projektissa.",
+      "projectHelperText": "Valitse nykyinen projekti kopioidaksesi tapahtuman sen sisälle, tai valitse toinen projekti kopioidaksesi toiselle vuodelle."
+    },
     "actions": {
-      "create": "Uusi tapahtuma"
+      "create": "Uusi tapahtuma",
+      "copy": "Kopioi uudeksi"
     },
     "create": {
       "aside": {
@@ -72,6 +82,7 @@
       },
       "title": "Luo tapahtuma"
     },
+    "organisation": { "label": "Organisaatio" },
     "edit": {
       "title": "Muokkaa tapahtumaa"
     },
@@ -120,6 +131,9 @@
       },
       "occurrences": {
         "label": "Esiintymät"
+      },
+      "organisation": {
+        "label": "Organisaatio"
       },
       "participantsPerInvite": {
         "choices": {
@@ -188,7 +202,8 @@
       }
     },
     "list": {
-      "title": "Tapahtumat"
+      "title": "Tapahtumat",
+      "description": "Näet vain tapahtumat, jotka kuuluvat edustamiisi organisaatioihin."
     },
     "show": {
       "publish": {
@@ -297,6 +312,9 @@
       }
     },
     "fields": {
+      "organisation": {
+        "label": "Organisaatio"
+      },
       "project": {
         "year": {
           "label": "Vuosiryhmä"
@@ -388,6 +406,7 @@
     "create": {
       "title": "Lisää esiintymä"
     },
+    "organisation": { "label": "Organisaatio" },
     "edit": {
       "delete": {
         "confirm": {
@@ -472,6 +491,7 @@
       },
       "title": "Luo uusi tapahtumapaikka"
     },
+    "organisation": { "label": "Organisaatio" },
     "edit": {
       "title": "Muokkaa tapahtumapaikkaa"
     },
@@ -574,6 +594,16 @@
         "error": "Kriittinen virhe salasanojen lisäämisessä",
         "success": "Salasanat lisätty!"
       }
+    }
+  },
+  "projects": {
+    "contextMismatch": {
+      "title": "Vaihda projektia?",
+      "content": "Tämä sisältö kuuluu projektiin %{targetProject}. Nykyinen valittu projektisi on %{currentProject}. Haluatko vaihtaa aktiivisen projektisi nähdäksesi tämän sisällön?",
+      "noAccess": "Tämä sisältö kuuluu projektiin %{targetProject}, johon sinulla ei ole käyttöoikeutta.",
+      "switch": "Vaihda projektia",
+      "back": "Takaisin etusivulle",
+      "unknownProject": "Tuntematon projekti"
     }
   }
 }

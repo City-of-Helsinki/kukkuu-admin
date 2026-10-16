@@ -20,12 +20,20 @@ import {
 import { participantsPerInviteChoices, ticketSystemChoices } from '../choices';
 import { type RecordWithTicketSystem, hasInternalTicketSystem } from '../utils';
 import TicketSystemInput from '../ticketSystemInput/TicketSystemInput';
+import OrganisationInput from './OrganisationInput';
 import EventEditToolbar from '../edit/EventEditToolbar';
 import TranslatableContext from '../../../common/contexts/TranslatableContext';
 import TranslatableProvider from '../../../common/providers/TranslatableProvider';
+import { CopyTargetFields } from '../copy/CopyTargetFields';
 import { Language, TicketSystem } from '../../api/generatedTypes/graphql';
 
-const EventForm = ({ view }: { view: 'create' | 'edit' }) => {
+const EventForm = ({
+  view,
+  isCopy = false,
+}: {
+  view: 'create' | 'edit';
+  isCopy?: boolean;
+}) => {
   const isEditing = view === 'edit';
   return (
     <SimpleForm
@@ -34,6 +42,7 @@ const EventForm = ({ view }: { view: 'create' | 'edit' }) => {
       validate={validateEvent}
       toolbar={isEditing ? <EventEditToolbar /> : undefined}
     >
+      {isCopy && <CopyTargetFields resource="events" />}
       <TranslatableProvider>
         <TranslatableContext.Consumer>
           {({
@@ -44,7 +53,7 @@ const EventForm = ({ view }: { view: 'create' | 'edit' }) => {
             <>
               {languageTabsComponent}
               <ImageUploadField
-                edit={isEditing}
+                edit={isEditing || isCopy}
                 source="image"
                 image="image"
                 helperText="events.fields.image.helperText"
@@ -56,6 +65,7 @@ const EventForm = ({ view }: { view: 'create' | 'edit' }) => {
                 helperText="events.fields.imageAltText.helperText"
                 fullWidth
               />
+              <OrganisationInput />
               <TextInput
                 variant="outlined"
                 source={translatableField('name')}

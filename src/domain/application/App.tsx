@@ -33,7 +33,7 @@ import KukkuuLayout from './layout/kukkuuAppLayout/KukkuuAppLayout';
 import CallbackPage from '../authentication/CallbackPage';
 import UnauthorizedPage from '../authentication/UnauthorizedPage';
 import TicketValidationPage from '../ticketValidation/TicketValidationPage';
-import projectService from '../projects/projectService';
+import { useProjectId } from '../projects/useProjectId';
 
 const App = () => {
   return (
@@ -53,7 +53,7 @@ const App = () => {
 };
 
 function AsyncResources() {
-  const projectId = projectService.projectId ?? undefined;
+  const projectId = useProjectId() ?? undefined;
   const { permissions } = usePermissions<Permissions>();
   const [resources, setResources] = React.useState<ResourceProps[]>(
     getReactAdminResources(projectId, permissions)
@@ -151,6 +151,9 @@ export function getReactAdminResources(
       show: EventGroupsResource.Detail,
       create: EventGroupsResource.Create,
       edit: EventGroupsResource.Edit,
+    },
+    {
+      name: 'organisations',
     },
   ];
 

@@ -4,6 +4,10 @@
 
 :baby: Staff interface for Kulttuurin kummilapset / Culture Kids :violin:
 
+> **Architecture & agent context:** system overview in
+> [ARCHITECTURE.md](https://github.com/City-of-Helsinki/kukkuu/blob/HEAD/ARCHITECTURE.md);
+> working instructions for developers and AI agents in [AGENTS.md](./AGENTS.md).
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
@@ -21,10 +25,12 @@
     - [Setup Kukkuu API backend](#setup-kukkuu-api-backend)
       - [Authorizing user for login to local backend](#authorizing-user-for-login-to-local-backend)
       - [Authorizing user for login to test environment's backend](#authorizing-user-for-login-to-test-environments-backend)
+      - [Authorizing event organisers (standard privileges)](#authorizing-event-organisers-standard-privileges)
     - [JWT issuance for browser tests](#jwt-issuance-for-browser-tests)
   - [Husky Git Hooks](#husky-git-hooks)
     - [Pre-commit Hook](#pre-commit-hook)
     - [Commit-msg Hook](#commit-msg-hook)
+- [Domain Logic & Context Mismatch Guard](#domain-logic--context-mismatch-guard)
 - [Available Scripts](#available-scripts)
   - [`pnpm start`](#pnpm-start)
   - [`pnpm build`](#pnpm-build)
@@ -216,6 +222,18 @@ If you're using the test environment's backend (`VITE_API_URI=https://kukkuu.api
 
 You should now be able to log in to Kukkuu-admin with your user account.
 
+##### Authorizing event organisers (standard privileges)
+
+In production or for testing realistic roles, users should **not** be superusers. To authorize an event organiser:
+
+1. Ensure the user does **not** have `is_staff` or `is_superuser` and has no global permissions.
+2. In Django Admin, map the user to a **Group** that has the `admin` object permission on one or more **Projects** (set via the Project's "Object permissions" page).
+3. Assign the user to at least one **Organisation** on the user's admin page.
+
+If an organiser lacks assigned organisations, login will fail with _"Ei organisaatiota"_ (`no_organisation`). If they lack project permissions, login will fail with _"Ei käyttöoikeutta"_ (`no_project`).
+
+For the complete architectural breakdown and all 6 use cases, see [Admin UI Privileges & Permissions](https://github.com/City-of-Helsinki/kukkuu/blob/HEAD/docs/admin-ui-privileges.md) in the backend repository.
+
 #### JWT issuance for browser tests
 
 This section describes how JSON Web Tokens (JWT) are issued for browser tests.
@@ -265,6 +283,20 @@ npx --no-install commitlint --edit "$1"
 ```
 
 - `npx --no-install commitlint --edit "$1"`: This command uses [Commitlint](https://commitlint.js.org/#/) to lint commit messages based on the project's commit message conventions. This repo follows the [Conventional Commits](#conventional-commits).
+
+## Domain Logic & Context Mismatch Guard
+
+The admin interface manages resources (such as events and event groups) that are strictly scoped to a specific **Project** (usually a birth year group). The active project context is maintained in the application state and `localStorage` via `projectService`.
+
+To prevent data corruption and user confusion caused by project context mismatches, the application enforces the following rules:
+
+1. **Header Navigation Reactivity**: Changing the active project via the header dropdown instantly updates the reactive `useProjectId()` hook across the application and redirects the user to the root dashboard (`/`). This ensures all views and queries use the newly selected project.
+2. **Project Context Guarding**: When a user accesses a direct link to a project-scoped resource (e.g., an event detail or edit page), a `<ProjectContextGuard>` component intercepts the rendering. It compares the active project ID with the resource's project ID:
+   - If they match, the page renders normally.
+   - If they mismatch and the user has access to the target project, rendering is blocked and a dialog prompts the user to either switch their active project to match the resource, or return to the dashboard.
+   - If they mismatch and the user does _not_ have privileges for the target project, the dialog only allows returning to the dashboard.
+
+This prevents sub-queries from being executed against the wrong project context, avoiding invalid data creation or confusing UI states.
 
 ## Available Scripts
 

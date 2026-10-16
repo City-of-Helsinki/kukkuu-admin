@@ -1,5 +1,6 @@
 import type { ApolloQueryResult } from '@apollo/client';
 import pick from 'lodash/pick';
+import { HttpError } from 'react-admin';
 
 import type { MethodHandler, MethodHandlerParams } from '../../../api/types';
 import {
@@ -11,6 +12,7 @@ import {
 } from '../../../api/utils/apiUtils';
 import {
   addEventMutation,
+  copyEventMutation,
   publishEventMutation,
   updateEventMutation,
   deleteEventMutation,
@@ -36,12 +38,41 @@ const getEvent: MethodHandler = async (params: MethodHandlerParams) => {
     query: EventDocument,
     variables: { id: params.id },
   });
-  return handleApiNode(response.data.event);
+  if (!response.data.event) {
+    throw new HttpError('ra.notification.item_doesnt_exist', 404);
+  }
+  const data = handleApiNode(response.data.event);
+  return {
+    data: {
+      ...data.data,
+      id: response.data.event.id,
+      // Flatten organisation.id to organisationId so react-admin form inputs
+      // (e.g. ReferenceInput source="organisationId") bind directly to the ID.
+      organisationId: response.data.event.organisation?.id,
+    },
+  };
 };
 
 const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
-  const data = mapLocalDataToApiData(params.data);
-  data.projectId = projectService.projectId;
+  const localUpdateData = pick(params.data, [
+    'duration',
+    'participantsPerInvite',
+    'capacityPerOccurrence',
+    'translations',
+    'readyForEventGroupPublishing',
+    'ticketSystem.type',
+    'ticketSystem.url',
+    'ticketSystem.endTime',
+    'projectId',
+    'eventGroupId',
+    'sourceEventId',
+    'organisationId',
+  ]);
+  const data = mapLocalDataToApiData(localUpdateData);
+  data.projectId = data.projectId || projectService.projectId;
+
+  const isCopy = Boolean(data.sourceEventId);
+
   if (params.data.image) {
     data.image = params.data.image.rawFile;
   }
@@ -71,11 +102,13 @@ const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
   }
 
   const response = await mutationHandler({
-    mutation: addEventMutation,
+    mutation: isCopy ? copyEventMutation : addEventMutation,
     variables: { input: data },
   });
 
-  return handleApiNode(response.data?.addEvent.event);
+  return handleApiNode(
+    response.data?.[isCopy ? 'copyEvent' : 'addEvent'].event
+  );
 };
 
 const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
@@ -88,6 +121,7 @@ const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
     'readyForEventGroupPublishing',
     'ticketSystem.url',
     'ticketSystem.endTime',
+    'organisationId',
   ]);
   const data = mapLocalDataToApiData(localUpdateData);
 

@@ -9,6 +9,7 @@ import {
   Labeled,
 } from 'react-admin';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 import { toDateTimeString } from '../../../common/utils';
 import PublishedField from '../../../common/components/publishedField/PublishedField';
@@ -78,6 +79,11 @@ const EventsAndEventGroupsList = () => {
   return (
     <KukkuuListPage
       pageTitle={translate('events.list.title')}
+      pageDescription={
+        <Typography variant="body1" sx={{ mb: 2 }}>
+          {translate('events.list.description')}
+        </Typography>
+      }
       reactAdminProps={{
         actions: <EventsAndEventGroupsListToolbar />,
         empty: <Empty />,
@@ -90,6 +96,17 @@ const EventsAndEventGroupsList = () => {
         source="name"
         label={translate('events.fields.name.label')}
         sx={(theme) => ({ fontWeight: theme.typography.fontWeightBold })}
+      />
+      <FunctionField
+        label="events.fields.organisation.label"
+        render={(record: Partial<EventOrEventGroupUnion>) => {
+          if (!record) return null;
+          return when(
+            record,
+            (event: EventNode) => event.organisation?.name || '',
+            () => ''
+          );
+        }}
       />
       <FunctionField
         label="eventsAndEventGroups.list.type.label"

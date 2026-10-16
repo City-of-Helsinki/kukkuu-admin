@@ -47,6 +47,16 @@ describe('authService', () => {
             },
           ],
         },
+        organisations: {
+          edges: [
+            {
+              node: {
+                id: btoa('OrganisationNode:1'),
+                name: 'Test Organisation',
+              },
+            },
+          ],
+        },
       },
     });
   });

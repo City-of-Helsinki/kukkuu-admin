@@ -1,3 +1,6 @@
+import pick from 'lodash/pick';
+import { HttpError } from 'react-admin';
+
 import type { MethodHandlerParams } from '../../../api/types';
 import {
   queryHandler,
@@ -9,6 +12,7 @@ import RelayList from '../../../api/relayList';
 import projectService from '../../projects/projectService';
 import {
   addEventGroupMutation,
+  copyEventGroupMutation,
   updateEventGroupMutation,
   deleteEventGroupMutation,
   publishEventGroupMutation,
@@ -27,6 +31,9 @@ async function getEventGroup(params: MethodHandlerParams) {
   });
 
   const eventGroup = response.data.eventGroup;
+  if (!eventGroup) {
+    throw new HttpError('ra.notification.item_doesnt_exist', 404);
+  }
 
   return handleApiNode({
     ...eventGroup,
@@ -35,18 +42,26 @@ async function getEventGroup(params: MethodHandlerParams) {
 }
 
 async function addEventGroup(params: MethodHandlerParams) {
-  const data = mapLocalDataToApiData(params.data);
+  const localUpdateData = pick(params.data, [
+    'translations',
+    'projectId',
+    'sourceEventGroupId',
+  ]);
+  const data = mapLocalDataToApiData(localUpdateData);
+  const isCopy = Boolean(data.sourceEventGroupId);
   const response = await mutationHandler({
-    mutation: addEventGroupMutation,
+    mutation: isCopy ? copyEventGroupMutation : addEventGroupMutation,
     variables: {
       input: {
         ...data,
-        projectId: projectService.projectId,
+        projectId: data.projectId || projectService.projectId,
       },
     },
   });
 
-  return handleApiNode(response.data?.addEventGroup.eventGroup);
+  return handleApiNode(
+    response.data?.[isCopy ? 'copyEventGroup' : 'addEventGroup'].eventGroup
+  );
 }
 
 async function updateEventGroup(params: MethodHandlerParams) {

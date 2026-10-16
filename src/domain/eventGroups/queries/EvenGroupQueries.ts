@@ -9,8 +9,11 @@ const EventGroupEventFragment = gql`
     duration
     capacityPerOccurrence
     publishedAt
-    duration
     readyForEventGroupPublishing
+    organisation {
+      id
+      name
+    }
     occurrences {
       edges {
         node {
@@ -49,4 +52,17 @@ export const eventGroupQuery = gql`
   }
 
   ${EventGroupEventFragment}
+`;
+
+export const eventGroupsQuery = gql`
+  query EventGroups($projectId: ID) {
+    eventGroups(projectId: $projectId) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
 `;
