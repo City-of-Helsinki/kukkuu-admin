@@ -160,6 +160,10 @@
           "NOT_PUBLISHED": "Not published"
         }
       },
+      "registrationOpensAt": {
+        "label": "Registration opens at",
+        "notSet": "Not set"
+      },
       "shortDescription": {
         "helperText": "",
         "label": "Short Description"
@@ -216,6 +220,7 @@
         },
         "confirm": {
           "content": "Are you sure that you want to publish this event?",
+          "registrationOpensAtHelperText": "The event becomes visible when it is published, but registration to it opens only at this time.",
           "title": "Publish event \"%{eventName}\""
         },
         "onFailure": {
@@ -247,7 +252,8 @@
         "eventsNotReadyError": "All events are not ready for event group publishing.",
         "confirm": {
           "title": "Publish event group \"%{eventGroupName}\"",
-          "content": "Are you sure that you want to publish this event group?"
+          "content": "Are you sure that you want to publish this event group?",
+          "registrationOpensAtHelperText": "Applies only to the events of the group that are not published yet. Already published events keep their registration opening time."
         }
       },
       "addEvent": {
@@ -544,7 +550,18 @@
     }
   },
   "generic": {
-    "all": "All"
+    "all": "All",
+    "publishDialog": {
+      "date": {
+        "label": "Registration opening date"
+      },
+      "time": {
+        "label": "Registration opening time",
+        "format": "hh:mm",
+        "errorMessage": "Time invalid, use format hh:mm"
+      },
+      "pastErrorMessage": "Registration opening time must not be in the past"
+    }
   },
   "ticketValidation": {
     "valid": "Ticket is valid",

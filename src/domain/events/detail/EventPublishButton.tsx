@@ -1,7 +1,7 @@
 import { useRecordContext, useTranslate } from 'react-admin';
 import PublishIcon from '@mui/icons-material/Check';
 
-import ConfirmMutationButton from '../../../common/components/confirmMutationButton/ConfirmMutationButton';
+import PublishDialogButton from '../../../common/components/publishDialog/PublishDialogButton';
 import type { AdminEvent } from '../types/EventTypes';
 import usePublishEventMutation from '../hooks/usePublishEventMutation';
 
@@ -20,15 +20,17 @@ const EventPublishButton = ({ basePath = '/event' }: Props) => {
 
   if (!record) return null;
   return (
-    <ConfirmMutationButton
+    <PublishDialogButton
       buttonLabel="events.show.publish.button.label"
       icon={<PublishIcon />}
       mutation={publishEventMutation}
-      confirmModalProps={{
+      dialogProps={{
         title: translate('events.show.publish.confirm.title', {
           eventName: record?.translations?.FI?.name,
         }),
         content: 'events.show.publish.confirm.content',
+        registrationOpensAtHelperText:
+          'events.show.publish.confirm.registrationOpensAtHelperText',
       }}
     />
   );

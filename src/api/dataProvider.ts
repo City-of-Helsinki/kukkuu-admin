@@ -201,7 +201,7 @@ const extendedDataProvider = {
   ...baseDataProvider,
   publish: async (
     resource: Extract<Resource, 'events' | 'event-groups'>,
-    params: { id: string }
+    params: { id: string; registrationOpensAt: string }
   ) =>
     await runHandler<MethodHandlerResponse<AdminEvent | EventGroupNode | null>>(
       'PUBLISH',

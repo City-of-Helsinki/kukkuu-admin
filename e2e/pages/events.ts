@@ -44,6 +44,10 @@ export function eventsDetailPage(page: Page) {
     title: (name: string) => page.getByRole('heading', { name, exact: true }),
     editButton: page.getByRole('link', { name: /muokkaa/i }),
     readyToggle: page.getByText(/Valmis julkaistavaksi/i),
+    // Exact match, so that the event group's "Julkaise tapahtumaryhmä" button
+    // is not matched.
+    publishButton: page.getByRole('button', { name: 'Julkaise', exact: true }),
+    publishConfirmButton: page.getByRole('button', { name: 'Vahvista' }),
     eventGroupLink: (name: string) =>
       page.getByRole('link', { name, exact: true }),
     breadcrumbs: page.locator('.MuiBreadcrumbs-ol .MuiBreadcrumbs-li a'),
