@@ -140,6 +140,7 @@ const EventShow = () => {
 };
 
 const EventDetails = () => {
+  const t = useTranslate();
   const [locale] = useLocaleState();
   const record = useRecordContext<AdminEvent>();
   const internalTicketSystem = hasInternalTicketSystem(record);
@@ -220,6 +221,15 @@ const EventDetails = () => {
             ]}
         {/* @ts-ignore - label is magically handled by material-ui */}
         <PublishedField label="events.fields.publishedAt.published.label" />
+        <FunctionField
+          source="registrationOpensAt"
+          label="events.fields.registrationOpensAt.label"
+          render={(record: RaRecord) =>
+            record.registrationOpensAt
+              ? toDateTimeString(new Date(record.registrationOpensAt), locale)
+              : t('events.fields.registrationOpensAt.notSet')
+          }
+        />
       </Tab>
       {internalTicketSystem ? (
         <Tab label="events.fields.occurrences.label">

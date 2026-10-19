@@ -93,10 +93,13 @@ async function deleteEventGroup({ id }: MethodHandlerParams) {
   return { data: { id } };
 }
 
-async function publishEventGroup({ id }: MethodHandlerParams) {
+async function publishEventGroup({
+  id,
+  registrationOpensAt,
+}: MethodHandlerParams) {
   const response = await mutationHandler({
     mutation: publishEventGroupMutation,
-    variables: { input: { id } },
+    variables: { input: { id, registrationOpensAt } },
   });
 
   return handleApiNode(response.data?.publishEventGroup.eventGroup);

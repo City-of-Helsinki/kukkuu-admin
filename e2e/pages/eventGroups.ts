@@ -25,7 +25,28 @@ export function eventGroupsDetailPage(page: Page) {
       name: /Julkaise tapahtumaryhmä/i,
     }),
     publishConfirmButton: page.getByRole('button', { name: 'Vahvista' }),
+    registrationOpensAtDateInput: page.getByLabel(
+      /Ilmoittautumisen alkamispäivä/
+    ),
+    registrationOpensAtTimeInput: page.getByLabel(
+      /Ilmoittautumisen alkamiskellonaika/
+    ),
   };
+}
+
+/** Fills the publish dialog's registration opening time with tomorrow at 12:00. */
+export async function fillRegistrationOpensAt(page: Page) {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const pad = (value: number) => String(value).padStart(2, '0');
+  const date = `${tomorrow.getFullYear()}-${pad(tomorrow.getMonth() + 1)}-${pad(
+    tomorrow.getDate()
+  )}`;
+
+  const { registrationOpensAtDateInput, registrationOpensAtTimeInput } =
+    eventGroupsDetailPage(page);
+  await registrationOpensAtDateInput.fill(date);
+  await registrationOpensAtTimeInput.fill('12:00');
 }
 
 export function eventGroupsCreatePage(page: Page) {

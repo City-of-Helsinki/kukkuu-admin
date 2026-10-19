@@ -160,6 +160,10 @@
           "NOT_PUBLISHED": "Not published"
         }
       },
+      "registrationOpensAt": {
+        "label": "Anmälan öppnas",
+        "notSet": "Inte angiven"
+      },
       "shortDescription": {
         "helperText": "",
         "label": "Short Description"
@@ -216,6 +220,7 @@
         },
         "confirm": {
           "content": "Are you sure that you want to publish this event?",
+          "registrationOpensAtHelperText": "Evenemanget blir synligt när det publiceras, men anmälan till det öppnas först vid denna tidpunkt.",
           "title": "Publish event \"%{eventName}\""
         },
         "onFailure": {
@@ -247,7 +252,8 @@
         "eventsNotReadyError": "All events are not ready for event group publishing.",
         "confirm": {
           "title": "Publish event group \"%{eventGroupName}\"",
-          "content": "Are you sure that you want to publish this event group?"
+          "content": "Are you sure that you want to publish this event group?",
+          "registrationOpensAtHelperText": "Gäller endast gruppens evenemang som ännu inte har publicerats. Redan publicerade evenemang behåller sin tidpunkt för anmälans öppnande."
         }
       },
       "addEvent": {
@@ -544,7 +550,18 @@
     }
   },
   "generic": {
-    "all": "All"
+    "all": "All",
+    "publishDialog": {
+      "date": {
+        "label": "Datum då anmälan öppnas"
+      },
+      "time": {
+        "label": "Tidpunkt då anmälan öppnas",
+        "format": "tt:mm",
+        "errorMessage": "Ogiltig tid, använd formatet tt:mm"
+      },
+      "pastErrorMessage": "Tidpunkten då anmälan öppnas får inte vara i det förflutna"
+    }
   },
   "ticketValidation": {
     "valid": "Ticket is valid",

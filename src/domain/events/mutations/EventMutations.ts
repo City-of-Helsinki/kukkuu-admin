@@ -125,6 +125,7 @@ export const publishEventMutation = gql`
         capacityPerOccurrence
         duration
         publishedAt
+        registrationOpensAt
         translations {
           languageCode
           name
