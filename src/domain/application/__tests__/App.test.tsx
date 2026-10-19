@@ -49,6 +49,9 @@ test('renders without crashing', () => {
   vi.spyOn(dataProvider, 'getMyAdminProfile').mockResolvedValue({
     data: {
       id: 'profile-id',
+      isEventOrganiser: false,
+      isSystemAdministrator: false,
+      organisations: null,
       projects: {
         edges: [
           {

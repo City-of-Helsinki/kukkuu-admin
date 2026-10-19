@@ -16,6 +16,7 @@ import {
   createEventGroup,
   deleteEventGroup,
   createEventInEventGroup,
+  fillRegistrationOpensAt,
 } from './pages/eventGroups';
 
 type EventGroupData = {
@@ -260,6 +261,7 @@ test.describe('Event groups feature', () => {
 
     // Publish the event group
     await eventGroupsDetailPage(page).publishButton.click();
+    await fillRegistrationOpensAt(page);
     await eventGroupsDetailPage(page).publishConfirmButton.click();
 
     // Navigate to the event group from the list and assert it is published

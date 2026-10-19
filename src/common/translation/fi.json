@@ -159,6 +159,10 @@
           "NOT_PUBLISHED": "Ei julkaistu"
         }
       },
+      "registrationOpensAt": {
+        "label": "Ilmoittautuminen alkaa",
+        "notSet": "Ei asetettu"
+      },
       "shortDescription": {
         "helperText": "Tämä näkyy kummilapsen omalla sivulla ilmestyvässä kutsussa. Maksimissaan 140 merkkiä",
         "label": "Lyhyt kuvaus"
@@ -212,6 +216,7 @@
         },
         "confirm": {
           "content": "Oletko varma, että haluat julkaista tämän tapahtuman?",
+          "registrationOpensAtHelperText": "Tapahtuma tulee näkyviin julkaistaessa, mutta ilmoittautuminen siihen alkaa vasta valittuna ajankohtana.",
           "title": "Julkaise tapahtuma \"%{eventName}\""
         },
         "onFailure": {
@@ -246,7 +251,8 @@
         "eventsNotReadyError": "Kaikki tapahtumat eivät ole valmiita julkaisua varten.",
         "confirm": {
           "title": "Julkaise tapahtumaryhmä \"%{eventGroupName}\"",
-          "content": "Oletko varma, että haluat julkaista tämän tapahtumaryhmän?"
+          "content": "Oletko varma, että haluat julkaista tämän tapahtumaryhmän?",
+          "registrationOpensAtHelperText": "Koskee vain ryhmän tapahtumia, joita ei ole vielä julkaistu. Jo julkaistujen tapahtumien ilmoittautumisen alkamisaika säilyy ennallaan."
         }
       },
       "addEvent": {
@@ -539,7 +545,18 @@
     }
   },
   "generic": {
-    "all": "Kaikki"
+    "all": "Kaikki",
+    "publishDialog": {
+      "date": {
+        "label": "Ilmoittautumisen alkamispäivä"
+      },
+      "time": {
+        "label": "Ilmoittautumisen alkamiskellonaika",
+        "format": "tt:mm",
+        "errorMessage": "Kellonaika tulee antaa muodossa tt:mm"
+      },
+      "pastErrorMessage": "Ilmoittautumisen alkamisaika ei saa olla menneisyydessä"
+    }
   },
   "ticketValidation": {
     "valid": "Lippu on voimassa",
