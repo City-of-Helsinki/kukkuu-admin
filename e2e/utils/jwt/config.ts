@@ -87,6 +87,17 @@ class BrowserTestJWTConfig {
   }
 
   /**
+   * The JWT issuer expected by the Kukkuu API for browser testing tokens.
+   * Defaults to 'https://kukkuu-admin.test.hel.ninja' to match Kukkuu backend.
+   */
+  static get jwtIssuer(): string {
+    return (
+      process.env.BROWSER_TESTS_JWT_ISSUER ||
+      'https://kukkuu-admin.test.hel.ninja'
+    );
+  }
+
+  /**
    * Retrieves the JWT signing secret, fetching it from the environment only once.
    */
   static get jwtSigningSecret(): string {
