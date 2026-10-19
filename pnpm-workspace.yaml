@@ -2,6 +2,7 @@
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
   - obug@2.2.1
+  - '@city-of-helsinki/license-notices@0.1.0'
 
 # Allow build/postinstall scripts only for dependencies that genuinely need them.
 # (pnpm blocks all build scripts by default; yarn used to run them unconditionally.)

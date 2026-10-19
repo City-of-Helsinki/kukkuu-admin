@@ -101,6 +101,7 @@
     "yup": "^1.3.2"
   },
   "devDependencies": {
+    "@city-of-helsinki/license-notices": "^0.1.0",
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
     "@graphql-codegen/cli": "^6.2.1",

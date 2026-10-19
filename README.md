@@ -398,4 +398,23 @@ The tag name is defined in the [azure-pipelines-release.yml](./azure-pipelines-r
 
 ## License
 
-This project is licensed under the **[MIT License](LICENSE.md)**.
+The source code in this repository is licensed under the MIT License; see
+[LICENSE](./LICENSE). The licenses of the third-party code included in the
+production build are listed in `third-party-licenses.txt`, which is generated
+during the build and served from the root of the deployed application. The
+same information is emitted alongside it as `oss-licenses.json`, for license
+audit tooling.
+
+The MIT License covers source code only. The following file is **not**
+covered by it:
+
+| File                 | Rights holder and terms                                                                                                                                            |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `public/favicon.ico` | Unverified. Replaced in 2020 without any recorded source; it carries no embedded attribution and is not the HDS favicon, so it is not offered for reuse under MIT. |
+
+One third-party component is loaded at runtime from a public CDN instead of
+being bundled, so it does not appear in either generated file:
+[oidc-client-ts](https://github.com/authts/oidc-client-ts) (Apache-2.0),
+loaded by [silent_renew.html](./public/silent_renew.html) from cdnjs with a
+subresource integrity hash. It is not redistributed by this repository or by
+its build output.
