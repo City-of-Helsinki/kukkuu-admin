@@ -51,5 +51,7 @@ extends:
       # VITE_API_URI: 'https://kukkuu-local.api.dev.hel.ninja/graphql'
       VITE_API_URI: https://kukkuu.api.dev.hel.ninja/graphql
       BROWSER_TESTS_JWT_AD_GROUP: kukkuu_browser_test
+      BROWSER_TESTS_JWT_ISSUER: https://kukkuu-admin.dev.hel.ninja
     configMap: # pod environment variables
       BROWSER_TESTS_JWT_AD_GROUP: kukkuu_browser_test
+      BROWSER_TESTS_JWT_ISSUER: https://kukkuu-admin.dev.hel.ninja
