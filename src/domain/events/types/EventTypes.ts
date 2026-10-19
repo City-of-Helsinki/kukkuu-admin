@@ -13,6 +13,7 @@ export interface AdminEvent {
   capacityPerOccurrence: number;
   duration: number;
   publishedAt?: string;
+  registrationOpensAt?: string | null;
   translations: AdminUITranslation<Omit<EventTranslationType, 'languageCode'>>;
   eventGroup?: EventGroupNode;
   readyForEventGroupPublishing: boolean;

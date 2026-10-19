@@ -10,15 +10,19 @@ const usePublishEventMutation = ({
   params,
 }: {
   basePath: string;
-  params: Parameters<(typeof extendedDataProvider)['publish']>[1];
+  params: Omit<
+    Parameters<(typeof extendedDataProvider)['publish']>[1],
+    'registrationOpensAt'
+  >;
 }) => {
   const dataProvider = useDataProvider<typeof extendedDataProvider>();
   const navigate = useNavigate();
   const notify = useNotify();
   return useMutation({
-    mutationFn: async () =>
+    mutationFn: async (registrationOpensAt: string) =>
       await dataProvider.publish('events', {
         ...params,
+        registrationOpensAt,
       }),
     onSuccess: () => {
       notify('events.show.publish.onSuccess.message');

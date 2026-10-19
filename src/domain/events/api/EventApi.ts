@@ -152,7 +152,12 @@ const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
 const publishEvent: MethodHandler = async (params: MethodHandlerParams) => {
   const response = await mutationHandler({
     mutation: publishEventMutation,
-    variables: { input: { id: params.id } },
+    variables: {
+      input: {
+        id: params.id,
+        registrationOpensAt: params.registrationOpensAt,
+      },
+    },
   });
   return handleApiNode(response.data?.publishEvent.event);
 };

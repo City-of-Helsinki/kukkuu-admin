@@ -11,6 +11,7 @@ import {
   fillEventCreationForm,
   deleteEvent,
 } from './pages/events';
+import { fillRegistrationOpensAt } from './pages/eventGroups';
 
 type EventData = {
   name: string;
@@ -32,12 +33,14 @@ function buildEvent(
 test.describe('Events feature', () => {
   let createEvent: EventData;
   let updateEvent: EventData;
+  let publishEvent: EventData;
 
   test.beforeEach(async ({ page }) => {
     createEvent = buildEvent();
     updateEvent = buildEvent({
       baseName: 'Browser test: event feature (updated)',
     });
+    publishEvent = buildEvent({ baseName: 'Browser test: publish event' });
 
     await setupAuth(page, browserTestAdminUser);
     await page.goto(routes.eventsList());
@@ -76,5 +79,46 @@ test.describe('Events feature', () => {
     await expect(
       eventsListPage(page).eventOrEventGroupByName(updateEvent.name)
     ).toHaveCount(0);
+  });
+
+  test('As an admin I want to be able to publish an event', async ({
+    page,
+  }) => {
+    await eventsListPage(page).createEventButton.click();
+    await fillEventCreationForm(page, publishEvent);
+    await eventsCreatePage(page).submitButton.click();
+
+    // Wait for the record to load on the detail page before publishing — same
+    // record-loading race as in the previous test.
+    await page.waitForURL(/\/events\/[^/]+\/show$/);
+    await expect(eventsDetailPage(page).title(publishEvent.name)).toBeVisible();
+
+    // Publish the event
+    await eventsDetailPage(page).publishButton.click();
+    await fillRegistrationOpensAt(page);
+    await eventsDetailPage(page).publishConfirmButton.click();
+
+    // Publishing redirects to the list. Open the event from the list and assert
+    // that it is published, i.e. that the publish button is not shown.
+    await eventsListPage(page)
+      .eventOrEventGroupByName(publishEvent.name)
+      .first()
+      .click();
+    await expect(eventsDetailPage(page).title(publishEvent.name)).toBeVisible();
+    await expect(eventsDetailPage(page).publishButton).toBeHidden();
+
+    // Cleanup: delete the event
+    try {
+      await deleteEvent(page);
+      await expect(eventsListPage(page).title).toBeVisible({ timeout: 15000 });
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(
+        'Cleanup failed: could not delete the event created by this test. ' +
+          'Dev-env data will be left stale.',
+        error
+      );
+      throw error;
+    }
   });
 });
