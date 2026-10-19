@@ -1,7 +1,7 @@
 import { useRecordContext, useTranslate } from 'react-admin';
 import SendIcon from '@mui/icons-material/Check';
 
-import ConfirmMutationButton from '../../../common/components/confirmMutationButton/ConfirmMutationButton';
+import PublishDialogButton from '../../../common/components/publishDialog/PublishDialogButton';
 import usePublishEventGroupMutation from '../hooks/usePublishEventGroupMutation';
 import type { EventGroupNode } from '../../api/generatedTypes/graphql';
 
@@ -27,16 +27,18 @@ const PublishEventGroupButton = ({
   if (!record) return null;
 
   return (
-    <ConfirmMutationButton
+    <PublishDialogButton
       className={className}
       buttonLabel={buttonLabel}
       icon={<SendIcon />}
       mutation={publishEventGroupMutation}
-      confirmModalProps={{
+      dialogProps={{
         title: t('eventGroups.actions.publish.confirm.title', {
           eventGroupName: record?.name,
         }),
         content: 'eventGroups.actions.publish.confirm.content',
+        registrationOpensAtHelperText:
+          'eventGroups.actions.publish.confirm.registrationOpensAtHelperText',
       }}
     />
   );
