@@ -2,6 +2,18 @@
 
 # Change Log
 
+## [4.5.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.4.3...kukkuu-admin-v4.5.0) (2026-10-24)
+
+
+### Features
+
+* Generate third-party license notices at build time ([#425](https://github.com/City-of-Helsinki/kukkuu-admin/issues/425)) ([7bab961](https://github.com/City-of-Helsinki/kukkuu-admin/commit/7bab9612807a0dbaf082b491975c4eb4cbe6b9a0))
+
+
+### Bug Fixes
+
+* Use latest Node.js 24 LTS and pnpm 11.28.7 ([#431](https://github.com/City-of-Helsinki/kukkuu-admin/issues/431)) ([de36eab](https://github.com/City-of-Helsinki/kukkuu-admin/commit/de36eab7ac809e5f1e91322ce9b7cca6d25c15b4))
+
 ## [4.4.3](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.4.2...kukkuu-admin-v4.4.3) (2026-10-14)
 
 
