@@ -59,6 +59,8 @@ export type AddEventMutationInput = {
   participantsPerInvite: EventParticipantsPerInvite;
   projectId: Scalars['ID']['input'];
   readyForEventGroupPublishing?: InputMaybe<Scalars['Boolean']['input']>;
+  /** At least one theme path is required. */
+  themePathIds: Array<Scalars['ID']['input']>;
   ticketSystem?: InputMaybe<AddEventTicketSystemInput>;
   translations?: InputMaybe<Array<InputMaybe<EventTranslationsInput>>>;
 };
@@ -371,6 +373,8 @@ export type CopyEventMutationInput = {
   projectId: Scalars['ID']['input'];
   readyForEventGroupPublishing?: InputMaybe<Scalars['Boolean']['input']>;
   sourceEventId: Scalars['ID']['input'];
+  /** Omit to copy the source event's theme paths. If given, at least one theme path is required. The resulting theme paths must not be empty. */
+  themePathIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   ticketSystem?: InputMaybe<AddEventTicketSystemInput>;
   translations?: InputMaybe<Array<InputMaybe<EventTranslationsInput>>>;
 };
@@ -575,6 +579,7 @@ export type EventGroupNodeEventsArgs = {
   last: InputMaybe<Scalars['Int']['input']>;
   offset: InputMaybe<Scalars['Int']['input']>;
   projectId: InputMaybe<Scalars['ID']['input']>;
+  themePath: InputMaybe<Scalars['String']['input']>;
   upcoming: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -638,6 +643,7 @@ export type EventNode = Node & {
   readyForEventGroupPublishing: Scalars['Boolean']['output'];
   registrationOpensAt: Maybe<Scalars['DateTime']['output']>;
   shortDescription: Maybe<Scalars['String']['output']>;
+  themePaths: Array<ThemePathNode>;
   ticketSystem: Maybe<EventTicketSystem>;
   translations: Array<EventTranslationType>;
   updatedAt: Scalars['DateTime']['output'];
@@ -1558,6 +1564,8 @@ export type Query = {
   organisations: Maybe<OrganisationNodeConnection>;
   project: Maybe<ProjectNode>;
   projects: Maybe<ProjectNodeConnection>;
+  themePath: Maybe<ThemePathNode>;
+  themePaths: Maybe<ThemePathNodeConnection>;
   venue: Maybe<VenueNode>;
   venues: Maybe<VenueNodeConnection>;
   verifyTicket: Maybe<TicketVerificationNode>;
@@ -1613,6 +1621,7 @@ export type QueryEventsArgs = {
   last: InputMaybe<Scalars['Int']['input']>;
   offset: InputMaybe<Scalars['Int']['input']>;
   projectId: InputMaybe<Scalars['ID']['input']>;
+  themePath: InputMaybe<Scalars['String']['input']>;
   upcoming: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -1717,6 +1726,20 @@ export type QueryProjectArgs = {
 
 
 export type QueryProjectsArgs = {
+  after: InputMaybe<Scalars['String']['input']>;
+  before: InputMaybe<Scalars['String']['input']>;
+  first: InputMaybe<Scalars['Int']['input']>;
+  last: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type QueryThemePathArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QueryThemePathsArgs = {
   after: InputMaybe<Scalars['String']['input']>;
   before: InputMaybe<Scalars['String']['input']>;
   first: InputMaybe<Scalars['Int']['input']>;
@@ -1850,6 +1873,43 @@ export type SubscribeToFreeSpotNotificationMutationPayload = {
   child: Maybe<ChildNode>;
   clientMutationId: Maybe<Scalars['String']['output']>;
   occurrence: Maybe<OccurrenceNode>;
+};
+
+export type ThemePathNode = Node & {
+  __typename?: 'ThemePathNode';
+  description: Scalars['String']['output'];
+  /** The ID of the object */
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  /** Stable identifier of the tag. Use lowercase letters and underscores. */
+  slug: Scalars['String']['output'];
+  /** Tags without a sort order are listed last. */
+  sortOrder: Maybe<Scalars['Int']['output']>;
+  translations: Array<ThemePathTranslationType>;
+};
+
+export type ThemePathNodeConnection = {
+  __typename?: 'ThemePathNodeConnection';
+  /** Contains the nodes in this connection. */
+  edges: Array<Maybe<ThemePathNodeEdge>>;
+  /** Pagination data for this connection. */
+  pageInfo: PageInfo;
+};
+
+/** A Relay edge containing a `ThemePathNode` and its cursor. */
+export type ThemePathNodeEdge = {
+  __typename?: 'ThemePathNodeEdge';
+  /** A cursor for use in pagination */
+  cursor: Scalars['String']['output'];
+  /** The item at the end of the edge */
+  node: Maybe<ThemePathNode>;
+};
+
+export type ThemePathTranslationType = {
+  __typename?: 'ThemePathTranslationType';
+  description: Scalars['String']['output'];
+  languageCode: Language;
+  name: Scalars['String']['output'];
 };
 
 export enum TicketSystem {
@@ -2044,6 +2104,8 @@ export type UpdateEventMutationInput = {
   participantsPerInvite?: InputMaybe<EventParticipantsPerInvite>;
   projectId?: InputMaybe<Scalars['ID']['input']>;
   readyForEventGroupPublishing?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Omit to keep the current theme paths. If given, at least one theme path is required. */
+  themePathIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   ticketSystem?: InputMaybe<UpdateEventTicketSystemInput>;
   translations?: InputMaybe<Array<InputMaybe<EventTranslationsInput>>>;
 };
@@ -2512,6 +2574,11 @@ export type MyAdminProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MyAdminProfileQuery = { __typename?: 'Query', myAdminProfile: { __typename?: 'AdminNode', id: string, isEventOrganiser: boolean | null, isSystemAdministrator: boolean | null, organisations: { __typename?: 'OrganisationNodeConnection', edges: Array<{ __typename?: 'OrganisationNodeEdge', node: { __typename?: 'OrganisationNode', id: string, name: string } | null } | null> } | null, projects: { __typename?: 'ProjectNodeConnection', edges: Array<{ __typename?: 'ProjectNodeEdge', node: { __typename?: 'ProjectNode', id: string, year: number, name: string | null, myPermissions: { __typename?: 'ProjectPermissionsType', publish: boolean | null, manageEventGroups: boolean | null, canSendToAllInProject: boolean | null, viewFamilies: boolean | null } | null } | null } | null> } | null } | null };
+
+export type ThemePathsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ThemePathsQuery = { __typename?: 'Query', themePaths: { __typename?: 'ThemePathNodeConnection', edges: Array<{ __typename?: 'ThemePathNodeEdge', node: { __typename?: 'ThemePathNode', id: string, slug: string, name: string } | null } | null> } | null };
 
 export type ImportTicketSystemPasswordsMutationVariables = Exact<{
   input: ImportTicketSystemPasswordsMutationInput;
@@ -3469,6 +3536,20 @@ export const MyAdminProfileDocument = gql`
 }
     `;
 export type MyAdminProfileQueryResult = Apollo.QueryResult<MyAdminProfileQuery, MyAdminProfileQueryVariables>;
+export const ThemePathsDocument = gql`
+    query ThemePaths {
+  themePaths {
+    edges {
+      node {
+        id
+        slug
+        name
+      }
+    }
+  }
+}
+    `;
+export type ThemePathsQueryResult = Apollo.QueryResult<ThemePathsQuery, ThemePathsQueryVariables>;
 export const ImportTicketSystemPasswordsMutationDocument = gql`
     mutation ImportTicketSystemPasswordsMutation($input: ImportTicketSystemPasswordsMutationInput!) {
   importTicketSystemPasswords(input: $input) {
