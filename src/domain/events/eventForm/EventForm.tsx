@@ -21,6 +21,8 @@ import { participantsPerInviteChoices, ticketSystemChoices } from '../choices';
 import { type RecordWithTicketSystem, hasInternalTicketSystem } from '../utils';
 import TicketSystemInput from '../ticketSystemInput/TicketSystemInput';
 import OrganisationInput from './OrganisationInput';
+import ThemePathInput from './ThemePathInput';
+import useIsThemePathOptional from './useIsThemePathOptional';
 import EventEditToolbar from '../edit/EventEditToolbar';
 import TranslatableContext from '../../../common/contexts/TranslatableContext';
 import TranslatableProvider from '../../../common/providers/TranslatableProvider';
@@ -35,11 +37,12 @@ const EventForm = ({
   isCopy?: boolean;
 }) => {
   const isEditing = view === 'edit';
+  const isThemePathOptional = useIsThemePathOptional(isEditing);
   return (
     <SimpleForm
       // TODO: refactor form validate with YUP
       // https://marmelab.com/react-admin/Upgrade.html#input-level-validation-now-triggers-on-submit
-      validate={validateEvent}
+      validate={(values) => validateEvent(values, { isThemePathOptional })}
       toolbar={isEditing ? <EventEditToolbar /> : undefined}
     >
       {isCopy && <CopyTargetFields resource="events" />}
@@ -66,6 +69,7 @@ const EventForm = ({
                 fullWidth
               />
               <OrganisationInput />
+              <ThemePathInput isEditing={isEditing} />
               <TextInput
                 variant="outlined"
                 source={translatableField('name')}

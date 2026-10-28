@@ -67,6 +67,7 @@ const addEvent: MethodHandler = async (params: MethodHandlerParams) => {
     'eventGroupId',
     'sourceEventId',
     'organisationId',
+    'themePathIds',
   ]);
   const data = mapLocalDataToApiData(localUpdateData);
   data.projectId = data.projectId || projectService.projectId;
@@ -122,8 +123,14 @@ const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
     'ticketSystem.url',
     'ticketSystem.endTime',
     'organisationId',
+    'themePathIds',
   ]);
   const data = mapLocalDataToApiData(localUpdateData);
+
+  // The API rejects an empty list. Omitting it keeps the current theme paths.
+  if (!data.themePathIds?.length) {
+    delete data.themePathIds;
+  }
 
   if (params.data.image) {
     data.image = params.data.image.rawFile;

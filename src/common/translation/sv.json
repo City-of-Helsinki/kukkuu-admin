@@ -168,6 +168,10 @@
         "helperText": "",
         "label": "Short Description"
       },
+      "themePaths": {
+        "label": "Temavägar",
+        "optionalHelperText": "Det här evenemanget har inga temavägar ännu. Att välja en temaväg är valfritt vid redigering."
+      },
       "totalCapacity": {
         "label": "Total capacity",
         "unknown": "unknown"

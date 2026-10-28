@@ -2446,7 +2446,7 @@ export type EventQueryVariables = Exact<{
 }>;
 
 
-export type EventQuery = { __typename?: 'Query', event: { __typename?: 'EventNode', id: string, name: string | null, image: string, participantsPerInvite: EventParticipantsPerInvite, duration: number | null, capacityPerOccurrence: number | null, publishedAt: any | null, registrationOpensAt: any | null, readyForEventGroupPublishing: boolean, translations: Array<{ __typename?: 'EventTranslationType', languageCode: Language, name: string, imageAltText: string, description: string, shortDescription: string }>, eventGroup: { __typename?: 'EventGroupNode', id: string, name: string | null } | null, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string } | null } | null> }, project: { __typename?: 'ProjectNode', id: string, myPermissions: { __typename?: 'ProjectPermissionsType', publish: boolean | null } | null }, organisation: { __typename?: 'OrganisationNode', id: string, name: string } | null, ticketSystem:
+export type EventQuery = { __typename?: 'Query', event: { __typename?: 'EventNode', id: string, name: string | null, image: string, participantsPerInvite: EventParticipantsPerInvite, duration: number | null, capacityPerOccurrence: number | null, publishedAt: any | null, registrationOpensAt: any | null, readyForEventGroupPublishing: boolean, translations: Array<{ __typename?: 'EventTranslationType', languageCode: Language, name: string, imageAltText: string, description: string, shortDescription: string }>, eventGroup: { __typename?: 'EventGroupNode', id: string, name: string | null } | null, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string } | null } | null> }, project: { __typename?: 'ProjectNode', id: string, myPermissions: { __typename?: 'ProjectPermissionsType', publish: boolean | null } | null }, organisation: { __typename?: 'OrganisationNode', id: string, name: string } | null, themePaths: Array<{ __typename?: 'ThemePathNode', id: string, slug: string, name: string }>, ticketSystem:
       | { __typename?: 'InternalEventTicketSystem', type: TicketSystem }
       | { __typename?: 'LippupisteEventTicketSystem', usedPasswordCount: number, freePasswordCount: number, url: string | null, endTime: any | null, type: TicketSystem }
       | { __typename?: 'TicketmasterEventTicketSystem', usedPasswordCount: number, freePasswordCount: number, url: string | null, endTime: any | null, type: TicketSystem }
@@ -3145,6 +3145,11 @@ export const EventDocument = gql`
     }
     organisation {
       id
+      name
+    }
+    themePaths {
+      id
+      slug
       name
     }
     ticketSystem {
