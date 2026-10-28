@@ -170,6 +170,7 @@
       },
       "themePaths": {
         "label": "Temavägar",
+        "notSet": "Inga temavägar",
         "optionalHelperText": "Det här evenemanget har inga temavägar ännu. Att välja en temaväg är valfritt vid redigering."
       },
       "totalCapacity": {
