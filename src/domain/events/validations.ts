@@ -8,20 +8,27 @@ export const validateCapacityPerOccurrence = [minValue(0), required()];
 
 export const validateDuration = minValue(0);
 
-export const validateEvent = ({
-  translations,
-}: {
-  translations?: { FI?: { name?: string } };
-}) => {
+export const validateEvent = (
+  {
+    translations,
+    themePathIds,
+  }: {
+    translations?: { FI?: { name?: string } };
+    themePathIds?: string[];
+  },
+  { isThemePathOptional = false }: { isThemePathOptional?: boolean } = {}
+) => {
+  const errors: Record<string, unknown> = {};
   if (!translations?.FI?.name) {
-    return {
-      'it-does-not-matter': {
-        type: 'required',
-        message: 'what-we-have-here',
-      },
+    errors['it-does-not-matter'] = {
+      type: 'required',
+      message: 'what-we-have-here',
     };
   }
-  return {};
+  if (!isThemePathOptional && !themePathIds?.length) {
+    errors.themePathIds = 'ra.validation.required';
+  }
+  return errors;
 };
 
 export const validateUrl = (input: string) => {

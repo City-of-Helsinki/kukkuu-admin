@@ -168,6 +168,10 @@
         "helperText": "",
         "label": "Short Description"
       },
+      "themePaths": {
+        "label": "Theme paths",
+        "optionalHelperText": "This event has no theme paths yet. Selecting one is optional when editing."
+      },
       "totalCapacity": {
         "label": "Total capacity",
         "unknown": "unknown"

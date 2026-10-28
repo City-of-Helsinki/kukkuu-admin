@@ -17,6 +17,7 @@ type EventData = {
   name: string;
   participantsPerInvite: string;
   capacityPerOccurrence: number;
+  themePaths: string[];
 };
 
 function buildEvent(
@@ -27,6 +28,7 @@ function buildEvent(
     name: `${baseName} ${new Date().toISOString()}`,
     participantsPerInvite: overrides.participantsPerInvite ?? 'Perhe',
     capacityPerOccurrence: overrides.capacityPerOccurrence ?? 5,
+    themePaths: overrides.themePaths ?? ['Rytmi', 'Tarina'],
   };
 }
 
@@ -64,6 +66,12 @@ test.describe('Events feature', () => {
     // Edit name
     await eventsDetailPage(page).editButton.click();
     await page.waitForURL(/\/events\/[^/]+$/);
+    // The theme paths chosen on create must be preselected on edit.
+    for (const themePath of createEvent.themePaths) {
+      await expect(eventsEditPage(page).themePathsSelect).toContainText(
+        themePath
+      );
+    }
     await eventsEditPage(page).nameInput.fill(updateEvent.name);
     await eventsEditPage(page).submitButton.click();
 
