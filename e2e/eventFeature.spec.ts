@@ -62,6 +62,9 @@ test.describe('Events feature', () => {
     // too early sends an undefined id to the backend.
     await page.waitForURL(/\/events\/[^/]+\/show$/);
     await expect(eventsDetailPage(page).title(createEvent.name)).toBeVisible();
+    await expect(
+      eventsDetailPage(page).themePaths(createEvent.themePaths)
+    ).toBeVisible();
 
     // Edit name
     await eventsDetailPage(page).editButton.click();

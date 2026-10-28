@@ -43,6 +43,8 @@ export function eventsCreatePage(page: Page) {
 export function eventsDetailPage(page: Page) {
   return {
     title: (name: string) => page.getByRole('heading', { name, exact: true }),
+    themePaths: (names: string[]) =>
+      page.getByText(names.join(', '), { exact: true }),
     editButton: page.getByRole('link', { name: /muokkaa/i }),
     readyToggle: page.getByText(/Valmis julkaistavaksi/i),
     // Exact match, so that the event group's "Julkaise tapahtumaryhmä" button
