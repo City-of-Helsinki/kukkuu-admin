@@ -16,3 +16,22 @@ export async function selectMuiOption(
   // with the closing animation.
   await expect(listbox).toBeHidden();
 }
+
+/**
+ * Selects all the given options in a multiple select and closes the listbox.
+ * The listbox stays open after each option click, so it is closed explicitly.
+ */
+export async function selectMuiOptions(
+  page: Page,
+  trigger: Locator,
+  values: string[]
+): Promise<void> {
+  await trigger.click();
+  const listbox = page.getByRole('listbox');
+  await expect(listbox).toBeVisible();
+  for (const value of values) {
+    await listbox.getByRole('option', { name: value, exact: true }).click();
+  }
+  await page.keyboard.press('Escape');
+  await expect(listbox).toBeHidden();
+}
