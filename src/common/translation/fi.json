@@ -169,6 +169,7 @@
       },
       "themePaths": {
         "label": "Teemapolut",
+        "notSet": "Ei teemapolkuja",
         "optionalHelperText": "Tällä tapahtumalla ei ole vielä teemapolkuja. Teemapolun valinta ei ole pakollista muokattaessa."
       },
       "totalCapacity": {
