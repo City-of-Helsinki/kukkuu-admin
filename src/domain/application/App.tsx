@@ -155,6 +155,9 @@ export function getReactAdminResources(
     {
       name: 'organisations',
     },
+    {
+      name: 'theme-paths',
+    },
   ];
 
   // Add children resource if user has permissions to view families
