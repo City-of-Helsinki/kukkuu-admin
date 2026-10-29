@@ -12,6 +12,7 @@ export const occurrencesQuery = gql`
             capacityPerOccurrence
           }
           enrolmentCount
+          seatCount
           capacity
           capacityOverride
           venue {
@@ -49,6 +50,7 @@ export const occurrenceQuery = gql`
         }
       }
       enrolmentCount
+      seatCount
       capacity
       capacityOverride
       venue {
@@ -63,6 +65,7 @@ export const occurrenceQuery = gql`
           node {
             id
             attended
+            totalSeats
             child {
               id
               name
