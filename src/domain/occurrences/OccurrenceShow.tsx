@@ -32,7 +32,7 @@ const OccurrenceDataGridTitle = ({ occurrenceId }: any) => {
 
   return (
     <>
-      {translate('occurrences.fields.children.label')}
+      {translate('occurrences.fields.enrolmentsCount.label')}
       <span
         style={{
           fontSize: 18,
@@ -86,6 +86,9 @@ export const getTitle = (record?: RaRecord) =>
 export const getChildFullName = (enrolmentEdge: EnrolmentNodeEdge) =>
   enrolmentEdge.node?.child?.name.trim();
 
+export const getEnrolmentTotalSeats = (enrolmentEdge: EnrolmentNodeEdge) =>
+  enrolmentEdge.node?.totalSeats ?? '-';
+
 const OccurrenceShow = () => {
   const [locale] = useLocaleState();
   const translate = useTranslate();
@@ -123,6 +126,10 @@ const OccurrenceShow = () => {
           source="capacity"
           label="occurrences.fields.capacity.label"
         />
+        <NumberField
+          source="seatCount"
+          label="occurrences.fields.seatCount.label"
+        />
         <FunctionField
           render={(occurrence: RaRecord) =>
             occurrence?.freeSpotNotificationSubscriptions?.edges?.length ?? '?'
@@ -137,6 +144,10 @@ const OccurrenceShow = () => {
             <FunctionField<EnrolmentNodeEdge>
               label="children.fields.name.label"
               render={withEnrolment(getChildFullName, () => null)}
+            />
+            <FunctionField<EnrolmentNodeEdge>
+              label="enrolments.fields.totalSeats.label"
+              render={withEnrolment(getEnrolmentTotalSeats, () => '-')}
             />
             <FunctionField<EnrolmentNodeEdge>
               render={withEnrolment(
