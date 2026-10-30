@@ -165,6 +165,15 @@ const EventDetails = () => {
           source="organisation.name"
           label={'events.fields.organisation.label'}
         />
+        <FunctionField
+          source="themePaths"
+          label="events.fields.themePaths.label"
+          render={(record: AdminEvent) =>
+            record.themePaths?.length
+              ? record.themePaths.map(({ name }) => name).join(', ')
+              : t('events.fields.themePaths.notSet')
+          }
+        />
         <TextField
           source={translatableField('name')}
           label={'events.fields.name.label'}

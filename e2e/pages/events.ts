@@ -1,7 +1,7 @@
 import type { Page } from '@playwright/test';
 import { expect } from '@playwright/test';
 
-import { selectMuiOption } from './select';
+import { selectMuiOption, selectMuiOptions } from './select';
 
 export function eventsListPage(page: Page) {
   return {
@@ -34,6 +34,7 @@ export function eventsCreatePage(page: Page) {
     participantsPerInviteSelect: page.getByRole('combobox', {
       name: 'Osallistujat kutsua kohden',
     }),
+    themePathsSelect: page.getByRole('combobox', { name: 'Teemapolut' }),
     capacityPerOccurrence: page.getByLabel('Esiintymän kapasiteetti *'),
     submitButton: page.getByRole('button', { name: 'Tallenna' }),
   };
@@ -42,6 +43,8 @@ export function eventsCreatePage(page: Page) {
 export function eventsDetailPage(page: Page) {
   return {
     title: (name: string) => page.getByRole('heading', { name, exact: true }),
+    themePaths: (names: string[]) =>
+      page.getByText(names.join(', '), { exact: true }),
     editButton: page.getByRole('link', { name: /muokkaa/i }),
     readyToggle: page.getByText(/Valmis julkaistavaksi/i),
     // Exact match, so that the event group's "Julkaise tapahtumaryhmä" button
@@ -57,6 +60,7 @@ export function eventsDetailPage(page: Page) {
 export function eventsEditPage(page: Page) {
   return {
     nameInput: page.getByLabel('Nimi *'),
+    themePathsSelect: page.getByRole('combobox', { name: 'Teemapolut' }),
     submitButton: page.getByRole('button', { name: 'Tallenna' }),
     // Scope to the form's toolbar (react-admin renders it with role="toolbar")
     // rather than picking a "Poista" button by position — other "Poista"
@@ -74,6 +78,8 @@ type CreateEvent = {
   name: string;
   participantsPerInvite: string;
   capacityPerOccurrence: number;
+  // Names of the theme paths to select. Defaults to the "Rytmi" theme path.
+  themePaths?: string[];
 };
 
 export async function fillEventCreationForm(
@@ -82,6 +88,11 @@ export async function fillEventCreationForm(
 ): Promise<void> {
   const form = eventsCreatePage(page);
   await form.nameInput.fill(event.name);
+  const themePaths = event.themePaths ?? ['Rytmi'];
+  await selectMuiOptions(page, form.themePathsSelect, themePaths);
+  for (const themePath of themePaths) {
+    await expect(form.themePathsSelect).toContainText(themePath);
+  }
   await selectMuiOption(
     page,
     form.participantsPerInviteSelect,

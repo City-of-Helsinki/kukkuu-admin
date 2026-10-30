@@ -91,6 +91,11 @@ export const eventQuery = gql`
         id
         name
       }
+      themePaths {
+        id
+        slug
+        name
+      }
       ticketSystem {
         type
         ... on TicketmasterEventTicketSystem {

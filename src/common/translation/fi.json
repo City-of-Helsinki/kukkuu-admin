@@ -167,6 +167,11 @@
         "helperText": "Tämä näkyy kummilapsen omalla sivulla ilmestyvässä kutsussa. Maksimissaan 140 merkkiä",
         "label": "Lyhyt kuvaus"
       },
+      "themePaths": {
+        "label": "Teemapolut",
+        "notSet": "Ei teemapolkuja",
+        "optionalHelperText": "Tällä tapahtumalla ei ole vielä teemapolkuja. Teemapolun valinta ei ole pakollista muokattaessa."
+      },
       "totalCapacity": {
         "label": "Kokonaiskapasiteetti",
         "unknown": "ei tiedossa"

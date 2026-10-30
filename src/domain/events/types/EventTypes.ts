@@ -4,6 +4,7 @@ import type {
   EventParticipantsPerInvite,
   EventTranslationType,
   OrganisationNode,
+  ThemePathNode,
   TicketSystem,
 } from '../../api/generatedTypes/graphql';
 
@@ -22,6 +23,7 @@ export interface AdminEvent {
   };
   organisation?: OrganisationNode;
   organisationId?: string;
+  themePaths?: Pick<ThemePathNode, 'id' | 'slug' | 'name'>[];
   ticketSystem: {
     type: TicketSystem;
   };
