@@ -17,6 +17,7 @@ import OccurrenceShow, {
   getTitle,
   withEnrolment,
   getEnrolmentTotalSeats,
+  getEnrolmentRowClick,
 } from '../OccurrenceShow';
 import Occurrence from '../Occurrence';
 
@@ -137,6 +138,35 @@ describe('OccurrenceShow utils', () => {
     it('should return "-" fallback when totalSeats is missing or null', () => {
       expect(getEnrolmentTotalSeats({ node: {} })).toBe('-');
       expect(getEnrolmentTotalSeats({ node: { totalSeats: null } })).toBe('-');
+    });
+  });
+
+  describe('getEnrolmentRowClick', () => {
+    it('should return false when canViewFamilies is false', () => {
+      expect(getEnrolmentRowClick(false)).toBe(false);
+    });
+
+    it('should return a RowClickFunction when canViewFamilies is true', () => {
+      const rowClick = getEnrolmentRowClick(true);
+      expect(typeof rowClick).toBe('function');
+    });
+
+    it('should return child details path when child id exists', () => {
+      const rowClick = getEnrolmentRowClick(true);
+      const edge = {
+        node: {
+          child: {
+            id: 'c-1',
+          },
+        },
+      };
+      expect(rowClick('dummy', 'occurrences', edge)).toBe('/children/c-1/show');
+    });
+
+    it('should return false when child id is missing', () => {
+      const rowClick = getEnrolmentRowClick(true);
+      expect(rowClick('dummy', 'occurrences', { node: {} })).toBe(false);
+      expect(rowClick('dummy', 'occurrences', {})).toBe(false);
     });
   });
 });
