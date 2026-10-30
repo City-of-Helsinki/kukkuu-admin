@@ -260,6 +260,10 @@ const EventDetails = () => {
                 label="occurrences.fields.capacity.label"
               />
               <NumberField
+                source="seatCount"
+                label="occurrences.fields.seatCount.label"
+              />
+              <NumberField
                 source="enrolmentCount"
                 label="occurrences.fields.enrolmentsCount.label"
               />

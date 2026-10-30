@@ -1,4 +1,14 @@
+import { render, screen, waitFor } from '@testing-library/react';
 import {
+  AdminContext,
+  RecordContextProvider,
+  ResourceContextProvider,
+  testDataProvider,
+} from 'react-admin';
+
+import i18nProvider from '../../../common/translation/i18nProvider';
+import { withRouter } from '../../../common/testUtils';
+import OccurrenceShow, {
   withGuardian,
   getGuardianFullName,
   getGuardianLanguage,
@@ -6,6 +16,8 @@ import {
   getBreadCrumbs,
   getTitle,
   withEnrolment,
+  getEnrolmentTotalSeats,
+  getEnrolmentRowClick,
 } from '../OccurrenceShow';
 import Occurrence from '../Occurrence';
 
@@ -115,6 +127,138 @@ describe('OccurrenceShow utils', () => {
       expect(getGuardianPhoneNumber(guardian)).toMatchInlineSnapshot(
         `"555-1234567"`
       );
+    });
+  });
+
+  describe('getEnrolmentTotalSeats', () => {
+    it('should return total seats when present', () => {
+      expect(getEnrolmentTotalSeats({ node: { totalSeats: 4 } })).toBe(4);
+    });
+
+    it('should return "-" fallback when totalSeats is missing or null', () => {
+      expect(getEnrolmentTotalSeats({ node: {} })).toBe('-');
+      expect(getEnrolmentTotalSeats({ node: { totalSeats: null } })).toBe('-');
+    });
+  });
+
+  describe('getEnrolmentRowClick', () => {
+    it('should return false when canViewFamilies is false', () => {
+      expect(getEnrolmentRowClick(false)).toBe(false);
+    });
+
+    it('should return a RowClickFunction when canViewFamilies is true', () => {
+      const rowClick = getEnrolmentRowClick(true);
+      expect(typeof rowClick).toBe('function');
+    });
+
+    it('should return child details path when child id exists', () => {
+      const rowClick = getEnrolmentRowClick(true);
+      const edge = {
+        node: {
+          child: {
+            id: 'c-1',
+          },
+        },
+      };
+      expect(rowClick('dummy', 'occurrences', edge)).toBe('/children/c-1/show');
+    });
+
+    it('should return false when child id is missing', () => {
+      const rowClick = getEnrolmentRowClick(true);
+      expect(rowClick('dummy', 'occurrences', { node: {} })).toBe(false);
+      expect(rowClick('dummy', 'occurrences', {})).toBe(false);
+    });
+  });
+});
+
+describe('<OccurrenceShow />', () => {
+  const occurrenceRecord = {
+    id: 'occ-1',
+    time: '2026-10-30T10:00:00Z',
+    capacity: 10,
+    seatCount: 4,
+    event: {
+      id: 'ev-1',
+      name: 'Test Event',
+      duration: 30,
+      eventGroup: null,
+    },
+    venue: {
+      id: 'ven-1',
+    },
+    enrolments: {
+      edges: [
+        {
+          node: {
+            id: 'enr-1',
+            attended: false,
+            totalSeats: 4,
+            child: {
+              id: 'c-1',
+              name: 'Test Child',
+              birthyear: 2024,
+              guardians: {
+                edges: [
+                  {
+                    node: {
+                      id: 'g-1',
+                      firstName: 'Guardian',
+                      lastName: 'Test',
+                      language: 'FI',
+                      phoneNumber: '12345678',
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        },
+      ],
+    },
+    freeSpotNotificationSubscriptions: {
+      edges: [],
+    },
+  };
+
+  const renderOccurrenceShow = (record = occurrenceRecord) => {
+    const wrapper = ({ children }) => (
+      <AdminContext
+        dataProvider={testDataProvider({
+          getOne: () => Promise.resolve({ data: record }),
+          getMany: () => Promise.resolve({ data: [] }),
+        })}
+        i18nProvider={i18nProvider}
+      >
+        <ResourceContextProvider value="occurrences">
+          <RecordContextProvider value={record}>
+            {children}
+          </RecordContextProvider>
+        </ResourceContextProvider>
+      </AdminContext>
+    );
+
+    return render(<OccurrenceShow />, {
+      wrapper: withRouter(wrapper, '/occurrences/:id/show', [
+        `/occurrences/${record.id}/show`,
+      ]),
+    });
+  };
+
+  it('renders enrolments table with totalSeats', async () => {
+    renderOccurrenceShow();
+
+    await waitFor(() => {
+      expect(screen.getByRole('cell', { name: '4' })).toBeInTheDocument();
+    });
+  });
+
+  it('renders enrolments table title with enrolment count label', async () => {
+    renderOccurrenceShow();
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Ilmoittautumisten lukumäärä')
+      ).toBeInTheDocument();
     });
   });
 });

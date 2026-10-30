@@ -445,6 +445,10 @@ export type EnrolOccurrenceMutationInput = {
   /** Guardian's child id */
   childId: Scalars['ID']['input'];
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** Count of extra children in enrolment */
+  extraChildrenCount?: InputMaybe<Scalars['Int']['input']>;
+  /** Count of extra guardians in enrolment */
+  extraGuardiansCount?: InputMaybe<Scalars['Int']['input']>;
   /** Occurrence id of event */
   occurrenceId: Scalars['ID']['input'];
 };
@@ -478,11 +482,16 @@ export type EnrolmentNode = Node & {
   attended: Maybe<Scalars['Boolean']['output']>;
   child: Maybe<ChildNode>;
   createdAt: Scalars['DateTime']['output'];
+  /** NULL means a legacy enrolment, which counts as 1 seat. */
+  extraChildrenCount: Maybe<Scalars['Int']['output']>;
+  /** NULL means a legacy enrolment, which counts as 1 seat. */
+  extraGuardiansCount: Maybe<Scalars['Int']['output']>;
   /** The ID of the object */
   id: Scalars['ID']['output'];
   occurrence: OccurrenceNode;
   /** An unique encoded reference id */
   referenceId: Maybe<Scalars['String']['output']>;
+  totalSeats: Scalars['Int']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
 
@@ -616,6 +625,7 @@ export type EventNode = Node & {
   __typename?: 'EventNode';
   canChildEnroll: Maybe<Scalars['Boolean']['output']>;
   canUserAdminister: Maybe<Scalars['Boolean']['output']>;
+  /** Total physical seat capacity. Each enrolment takes at least 2 seats (1 child + 1 guardian). */
   capacityPerOccurrence: Maybe<Scalars['Int']['output']>;
   createdAt: Scalars['DateTime']['output'];
   description: Maybe<Scalars['String']['output']>;
@@ -721,7 +731,6 @@ export type EventOrEventGroupEdge = {
 export type EventOrEventGroupUnion = EventGroupNode | EventNode;
 
 export enum EventParticipantsPerInvite {
-  ChildAnd_1Or_2Guardians = 'CHILD_AND_1_OR_2_GUARDIANS',
   ChildAndGuardian = 'CHILD_AND_GUARDIAN',
   Family = 'FAMILY'
 }
@@ -1337,7 +1346,7 @@ export type OccurrenceNode = Node & {
   __typename?: 'OccurrenceNode';
   attendedEnrolmentCount: Scalars['Int']['output'];
   capacity: Maybe<Scalars['Int']['output']>;
-  /** When set will be used as the capacity of this occurrence instead of the value coming from the event. */
+  /** Override total physical seat capacity. Each enrolment takes at least 2 seats (1 child + 1 guardian). */
   capacityOverride: Maybe<Scalars['Int']['output']>;
   childHasFreeSpotNotificationSubscription: Maybe<Scalars['Boolean']['output']>;
   children: ChildNodeConnection;
@@ -1351,6 +1360,7 @@ export type OccurrenceNode = Node & {
   id: Scalars['ID']['output'];
   occurrenceLanguage: Language;
   remainingCapacity: Maybe<Scalars['Int']['output']>;
+  seatCount: Scalars['Int']['output'];
   /** @deprecated There is no need for this because the only field ticketSystemUrl has been moved to EventNode.ticketSystem. */
   ticketSystem: Maybe<OccurrenceTicketSystem>;
   time: Scalars['DateTime']['output'];
@@ -2455,7 +2465,7 @@ export type AddOccurrenceMutationVariables = Exact<{
 }>;
 
 
-export type AddOccurrenceMutation = { __typename?: 'Mutation', addOccurrence: { __typename?: 'AddOccurrenceMutationPayload', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, capacityPerOccurrence: number | null, duration: number | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, ticketSystem:
+export type AddOccurrenceMutation = { __typename?: 'Mutation', addOccurrence: { __typename?: 'AddOccurrenceMutationPayload', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, seatCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, capacityPerOccurrence: number | null, duration: number | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, ticketSystem:
         | { __typename?: 'InternalOccurrenceTicketSystem', type: TicketSystem }
         | { __typename?: 'LippupisteOccurrenceTicketSystem', url: string | null, type: TicketSystem }
         | { __typename?: 'TicketmasterOccurrenceTicketSystem', url: string | null, type: TicketSystem }
@@ -2467,7 +2477,7 @@ export type UpdateOccurrenceMutationVariables = Exact<{
 }>;
 
 
-export type UpdateOccurrenceMutation = { __typename?: 'Mutation', updateOccurrence: { __typename?: 'UpdateOccurrenceMutationPayload', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, capacityPerOccurrence: number | null, duration: number | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, enrolments: { __typename?: 'EnrolmentNodeConnection', edges: Array<{ __typename?: 'EnrolmentNodeEdge', node: { __typename?: 'EnrolmentNode', id: string, attended: boolean | null, child: { __typename?: 'ChildNode', name: string, birthyear: number, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string, firstName: string, lastName: string, language: Language } | null } | null> } } | null } | null } | null> }, ticketSystem:
+export type UpdateOccurrenceMutation = { __typename?: 'Mutation', updateOccurrence: { __typename?: 'UpdateOccurrenceMutationPayload', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, seatCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, capacityPerOccurrence: number | null, duration: number | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, enrolments: { __typename?: 'EnrolmentNodeConnection', edges: Array<{ __typename?: 'EnrolmentNodeEdge', node: { __typename?: 'EnrolmentNode', id: string, attended: boolean | null, totalSeats: number, child: { __typename?: 'ChildNode', name: string, birthyear: number, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string, firstName: string, lastName: string, language: Language } | null } | null> } } | null } | null } | null> }, ticketSystem:
         | { __typename?: 'InternalOccurrenceTicketSystem', type: TicketSystem }
         | { __typename?: 'LippupisteOccurrenceTicketSystem', url: string | null, type: TicketSystem }
         | { __typename?: 'TicketmasterOccurrenceTicketSystem', url: string | null, type: TicketSystem }
@@ -2494,14 +2504,14 @@ export type OccurrencesQueryVariables = Exact<{
 }>;
 
 
-export type OccurrencesQuery = { __typename?: 'Query', occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, capacity: number | null, capacityOverride: number | null, attendedEnrolmentCount: number, freeSpotNotificationSubscriptionCount: number, event: { __typename?: 'EventNode', duration: number | null, capacityPerOccurrence: number | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> } } | null } | null> } | null };
+export type OccurrencesQuery = { __typename?: 'Query', occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, seatCount: number, capacity: number | null, capacityOverride: number | null, attendedEnrolmentCount: number, freeSpotNotificationSubscriptionCount: number, event: { __typename?: 'EventNode', duration: number | null, capacityPerOccurrence: number | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> } } | null } | null> } | null };
 
 export type OccurrenceQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type OccurrenceQuery = { __typename?: 'Query', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, name: string | null, capacityPerOccurrence: number | null, duration: number | null, publishedAt: any | null, project: { __typename?: 'ProjectNode', id: string }, eventGroup: { __typename?: 'EventGroupNode', id: string, name: string | null } | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, enrolments: { __typename?: 'EnrolmentNodeConnection', edges: Array<{ __typename?: 'EnrolmentNodeEdge', node: { __typename?: 'EnrolmentNode', id: string, attended: boolean | null, child: { __typename?: 'ChildNode', id: string, name: string, birthyear: number, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string, firstName: string, lastName: string, language: Language, phoneNumber: string } | null } | null> } } | null } | null } | null> }, freeSpotNotificationSubscriptions: { __typename?: 'FreeSpotNotificationSubscriptionNodeConnection', edges: Array<{ __typename?: 'FreeSpotNotificationSubscriptionNodeEdge', node: { __typename?: 'FreeSpotNotificationSubscriptionNode', id: string } | null } | null> } } | null };
+export type OccurrenceQuery = { __typename?: 'Query', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, seatCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, name: string | null, capacityPerOccurrence: number | null, duration: number | null, publishedAt: any | null, project: { __typename?: 'ProjectNode', id: string }, eventGroup: { __typename?: 'EventGroupNode', id: string, name: string | null } | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, enrolments: { __typename?: 'EnrolmentNodeConnection', edges: Array<{ __typename?: 'EnrolmentNodeEdge', node: { __typename?: 'EnrolmentNode', id: string, attended: boolean | null, totalSeats: number, child: { __typename?: 'ChildNode', id: string, name: string, birthyear: number, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string, firstName: string, lastName: string, language: Language, phoneNumber: string } | null } | null> } } | null } | null } | null> }, freeSpotNotificationSubscriptions: { __typename?: 'FreeSpotNotificationSubscriptionNodeConnection', edges: Array<{ __typename?: 'FreeSpotNotificationSubscriptionNodeEdge', node: { __typename?: 'FreeSpotNotificationSubscriptionNode', id: string } | null } | null> } } | null };
 
 export type OrganisationsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3215,6 +3225,7 @@ export const AddOccurrenceDocument = gql`
         duration
       }
       enrolmentCount
+      seatCount
       venue {
         id
         translations {
@@ -3255,6 +3266,7 @@ export const UpdateOccurrenceDocument = gql`
         duration
       }
       enrolmentCount
+      seatCount
       venue {
         id
         translations {
@@ -3269,6 +3281,7 @@ export const UpdateOccurrenceDocument = gql`
           node {
             id
             attended
+            totalSeats
             child {
               name
               birthyear
@@ -3341,6 +3354,7 @@ export const OccurrencesDocument = gql`
           capacityPerOccurrence
         }
         enrolmentCount
+        seatCount
         capacity
         capacityOverride
         venue {
@@ -3378,6 +3392,7 @@ export const OccurrenceDocument = gql`
       }
     }
     enrolmentCount
+    seatCount
     capacity
     capacityOverride
     venue {
@@ -3392,6 +3407,7 @@ export const OccurrenceDocument = gql`
         node {
           id
           attended
+          totalSeats
           child {
             id
             name

@@ -12,6 +12,7 @@ export const addOccurrenceMutation = gql`
           duration
         }
         enrolmentCount
+        seatCount
         venue {
           id
           translations {
@@ -50,6 +51,7 @@ export const updateOccurrenceMutation = gql`
           duration
         }
         enrolmentCount
+        seatCount
         venue {
           id
           translations {
@@ -64,6 +66,7 @@ export const updateOccurrenceMutation = gql`
             node {
               id
               attended
+              totalSeats
               child {
                 name
                 birthyear

@@ -62,6 +62,9 @@
     "fields": {
       "attended": {
         "label": "Paikallaolo"
+      },
+      "totalSeats": {
+        "label": "Paikkoja"
       }
     }
   },
@@ -88,7 +91,7 @@
     },
     "fields": {
       "capacityPerOccurrence": {
-        "helperText": "Montako ilmoittautumista tapahtumaesiintymään vastaanotetaan. Huomioithan että todellinen osallistujamäärä on kapasiteetti kerrottuna sillä montako henkilöä kutsua kohti tapahtumaan voi osallistua. Voit halutessasi muuttaa kapasiteettia myös esiintymäkohtaisesti.",
+        "helperText": "Tapahtuman fyysinen kokonaispaikkamäärä. Jokainen ilmoittautuminen varaa vähintään 2 paikkaa (1 lapsi + 1 huoltaja). Voit halutessasi muuttaa kapasiteettia myös esiintymäkohtaisesti.",
         "label": "Esiintymän kapasiteetti"
       },
       "description": {
@@ -139,9 +142,6 @@
         "choices": {
           "CHILD_AND_GUARDIAN": {
             "label": "1 lapsi + 1 aikuinen"
-          },
-          "CHILD_AND_1_OR_2_GUARDIANS": {
-            "label": "1 lapsi + 1–2 aikuista"
           },
           "FAMILY": {
             "label": "Perhe"
@@ -427,10 +427,13 @@
       },
       "capacityOverride": {
         "label": "Esiintymäkohtainen kapasiteetti",
-        "helperText": "Voit halutessasi muuttaa yksittäisen esiintymän kapasiteettia tapahtuman oletusarvosta (%{capacityPerOccurrence}). Tämä ei vaikuta muihin esiintymiin."
+        "helperText": "Esiintymän fyysinen kokonaispaikkamäärä. Korvaa tapahtuman paikkamäärän (%{capacityPerOccurrence}). Jokainen ilmoittautuminen varaa vähintään 2 paikkaa (1 lapsi + 1 huoltaja). Tämä ei vaikuta muihin esiintymiin."
+      },
+      "seatCount": {
+        "label": "Varatut paikat"
       },
       "children": {
-        "label": "Osallistujat"
+        "label": "Ilmoittautumisten lukumäärä"
       },
       "enrolments": {
         "fields": {
@@ -444,7 +447,7 @@
         }
       },
       "enrolmentsCount": {
-        "label": "Ilmoittautuneet"
+        "label": "Ilmoittautumisten lukumäärä"
       },
       "attendedEnrolmentsCount": {
         "label": "Läsnäolijoita"
