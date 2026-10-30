@@ -1,5 +1,7 @@
 import {
+  type Identifier,
   type RaRecord,
+  type RowClickFunction,
   TextField,
   NumberField,
   DateField,
@@ -7,6 +9,7 @@ import {
   ReferenceField,
   useLocaleState,
   useTranslate,
+  usePermissions,
   SimpleShowLayout,
   ArrayField,
   FunctionField,
@@ -20,6 +23,8 @@ import OccurrenceTimeRangeField from './fields/OccurrenceTimeRangeField';
 import OccurrenceAttendedField from './fields/OccurrenceAttendedField';
 import Occurrence from './Occurrence';
 import Guardian from './Guardian';
+import type { Permissions } from '../authentication/authProvider';
+import projectService from '../projects/projectService';
 import type {
   EnrolmentNodeEdge,
   GuardianNode,
@@ -89,10 +94,31 @@ export const getChildFullName = (enrolmentEdge: EnrolmentNodeEdge) =>
 export const getEnrolmentTotalSeats = (enrolmentEdge: EnrolmentNodeEdge) =>
   enrolmentEdge.node?.totalSeats ?? '-';
 
+export const getEnrolmentRowClick = (
+  canViewFamilies: boolean
+): RowClickFunction | false => {
+  if (!canViewFamilies) {
+    return false;
+  }
+
+  return (_id: Identifier, _resource: string, record: RaRecord<Identifier>) => {
+    const childId = (record as Partial<EnrolmentNodeEdge>)?.node?.child?.id;
+    return childId ? `/children/${encodeURIComponent(childId)}/show` : false;
+  };
+};
+
 const OccurrenceShow = () => {
   const [locale] = useLocaleState();
   const translate = useTranslate();
   const { id } = useParams();
+  const { permissions } = usePermissions<Permissions>();
+  const { data: record } = useGetOne<OccurrenceNode>('occurrences', { id });
+  const projectId =
+    record?.event?.project?.id || projectService.projectId || '';
+  const canViewFamilies = Boolean(
+    permissions?.canViewFamiliesWithinProject(projectId)
+  );
+  const rowClick = getEnrolmentRowClick(canViewFamilies);
   return (
     <KukkuuDetailPage
       layout={KukkuuPageLayout}
@@ -140,7 +166,7 @@ const OccurrenceShow = () => {
           label={<OccurrenceDataGridTitle occurrenceId={id} />}
           source="enrolments.edges"
         >
-          <Datagrid bulkActionButtons={false}>
+          <Datagrid bulkActionButtons={false} rowClick={rowClick}>
             <FunctionField<EnrolmentNodeEdge>
               label="children.fields.name.label"
               render={withEnrolment(getChildFullName, () => null)}
