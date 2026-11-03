@@ -1,5 +1,3 @@
-<!-- DOCTOC SKIP -->
-
 # Change Log
 
 ## [4.4.3](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.4.2...kukkuu-admin-v4.4.3) (2026-10-14)
