@@ -1,5 +1,3 @@
-<!-- DOCTOC SKIP -->
-
 # Kukkuu Admin UI Agent Instructions
 
 ## Role
