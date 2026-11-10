@@ -1,5 +1,6 @@
 import React from 'react';
 import { IdleTimerProvider } from 'react-idle-timer';
+import * as Sentry from '@sentry/browser';
 
 import authService from './authService';
 import AppConfig from '../application/AppConfig';
@@ -10,7 +11,9 @@ function IdleTimer({ children }: Readonly<IdleTimerProps>) {
   const onIdle = () => {
     const isAuthenticated = authService.isAuthenticated();
     if (isAuthenticated) {
-      authService.logout();
+      void authService.logout().catch((error) => {
+        Sentry.captureException(error);
+      });
     }
   };
 
