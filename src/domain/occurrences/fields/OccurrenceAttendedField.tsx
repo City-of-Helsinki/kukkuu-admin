@@ -24,7 +24,8 @@ const OccurrenceAttendedField = () => {
         JSON.parse(value)
       );
     } catch (error) {
-      Promise.reject(error);
+      // eslint-disable-next-line no-console
+      console.error('Failed to update enrolment attendance', error);
     }
     setAttended(value);
   };

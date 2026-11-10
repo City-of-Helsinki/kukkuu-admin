@@ -1,6 +1,7 @@
 import { useLogout, useTranslate } from 'react-admin';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import * as Sentry from '@sentry/browser';
 
 import InfoPageTemplate from './InfoPageTemplate';
 
@@ -11,9 +12,9 @@ const UnauthorizedPage = () => {
     'authentication.unauthorizedPage.contactEmail'
   );
   const syncLogout = () => {
-    (async () => {
-      await logout();
-    })();
+    void logout().catch((error) => {
+      Sentry.captureException(error);
+    });
   };
   return (
     <InfoPageTemplate
