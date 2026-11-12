@@ -94,6 +94,9 @@ export const getChildFullName = (enrolmentEdge: EnrolmentNodeEdge) =>
 export const getEnrolmentTotalSeats = (enrolmentEdge: EnrolmentNodeEdge) =>
   enrolmentEdge.node?.totalSeats ?? '-';
 
+export const getAccessibilityNames = (occurrence: OccurrenceNode) =>
+  occurrence.accessibilities?.map(({ name }) => name).join(', ') ?? '';
+
 export const getEnrolmentRowClick = (
   canViewFamilies: boolean
 ): RowClickFunction | false => {
@@ -155,6 +158,14 @@ const OccurrenceShow = () => {
         <NumberField
           source="seatCount"
           label="occurrences.fields.seatCount.label"
+        />
+        <FunctionField
+          source="accessibilities"
+          label="occurrences.fields.accessibilities.label"
+          render={(occurrence: OccurrenceNode) =>
+            getAccessibilityNames(occurrence) ||
+            translate('occurrences.fields.accessibilities.notSet')
+          }
         />
         <FunctionField
           render={(occurrence: RaRecord) =>

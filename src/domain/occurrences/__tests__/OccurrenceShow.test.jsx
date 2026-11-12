@@ -18,6 +18,7 @@ import OccurrenceShow, {
   withEnrolment,
   getEnrolmentTotalSeats,
   getEnrolmentRowClick,
+  getAccessibilityNames,
 } from '../OccurrenceShow';
 import Occurrence from '../Occurrence';
 
@@ -141,6 +142,24 @@ describe('OccurrenceShow utils', () => {
     });
   });
 
+  describe('getAccessibilityNames', () => {
+    it('should return the names joined with commas', () => {
+      expect(
+        getAccessibilityNames({
+          accessibilities: [
+            { id: 'a-1', slug: 'vision', name: 'Näkemisen tuki' },
+            { id: 'a-2', slug: 'hearing', name: 'Kuulemisen tuki' },
+          ],
+        })
+      ).toBe('Näkemisen tuki, Kuulemisen tuki');
+    });
+
+    it('should return an empty string when there are none', () => {
+      expect(getAccessibilityNames({ accessibilities: [] })).toBe('');
+      expect(getAccessibilityNames({})).toBe('');
+    });
+  });
+
   describe('getEnrolmentRowClick', () => {
     it('should return false when canViewFamilies is false', () => {
       expect(getEnrolmentRowClick(false)).toBe(false);
@@ -260,5 +279,29 @@ describe('<OccurrenceShow />', () => {
         screen.getByText('Ilmoittautumisten lukumäärä')
       ).toBeInTheDocument();
     });
+  });
+
+  it('renders the accessibilities field with the names of the accessibilities', async () => {
+    renderOccurrenceShow({
+      ...occurrenceRecord,
+      accessibilities: [
+        { id: 'a-1', slug: 'vision', name: 'Näkemisen tuki' },
+        { id: 'a-2', slug: 'hearing', name: 'Kuulemisen tuki' },
+      ],
+    });
+
+    expect(await screen.findByText('Saavutettavuus')).toBeInTheDocument();
+    expect(
+      await screen.findByText('Näkemisen tuki, Kuulemisen tuki')
+    ).toBeInTheDocument();
+  });
+
+  it('renders the accessibilities field with the not set text when there are none', async () => {
+    renderOccurrenceShow({ ...occurrenceRecord, accessibilities: [] });
+
+    expect(await screen.findByText('Saavutettavuus')).toBeInTheDocument();
+    expect(
+      await screen.findByText('Ei saavutettavuustietoja')
+    ).toBeInTheDocument();
   });
 });
