@@ -60,6 +60,11 @@ export const occurrenceQuery = gql`
           name
         }
       }
+      accessibilities {
+        id
+        slug
+        name
+      }
       enrolments {
         edges {
           node {
