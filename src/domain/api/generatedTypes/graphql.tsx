@@ -2605,7 +2605,7 @@ export type AddOccurrenceMutationVariables = Exact<{
 }>;
 
 
-export type AddOccurrenceMutation = { __typename?: 'Mutation', addOccurrence: { __typename?: 'AddOccurrenceMutationPayload', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, seatCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, capacityPerOccurrence: number | null, duration: number | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, ticketSystem:
+export type AddOccurrenceMutation = { __typename?: 'Mutation', addOccurrence: { __typename?: 'AddOccurrenceMutationPayload', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, seatCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, capacityPerOccurrence: number | null, duration: number | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, accessibilities: Array<{ __typename?: 'AccessibilityNode', id: string, slug: string, name: string }>, ticketSystem:
         | { __typename?: 'InternalOccurrenceTicketSystem', type: TicketSystem }
         | { __typename?: 'LippupisteOccurrenceTicketSystem', url: string | null, type: TicketSystem }
         | { __typename?: 'TicketmasterOccurrenceTicketSystem', url: string | null, type: TicketSystem }
@@ -2617,7 +2617,7 @@ export type UpdateOccurrenceMutationVariables = Exact<{
 }>;
 
 
-export type UpdateOccurrenceMutation = { __typename?: 'Mutation', updateOccurrence: { __typename?: 'UpdateOccurrenceMutationPayload', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, seatCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, capacityPerOccurrence: number | null, duration: number | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, enrolments: { __typename?: 'EnrolmentNodeConnection', edges: Array<{ __typename?: 'EnrolmentNodeEdge', node: { __typename?: 'EnrolmentNode', id: string, attended: boolean | null, totalSeats: number, child: { __typename?: 'ChildNode', name: string, birthyear: number, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string, firstName: string, lastName: string, language: Language } | null } | null> } } | null } | null } | null> }, ticketSystem:
+export type UpdateOccurrenceMutation = { __typename?: 'Mutation', updateOccurrence: { __typename?: 'UpdateOccurrenceMutationPayload', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, seatCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, capacityPerOccurrence: number | null, duration: number | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, accessibilities: Array<{ __typename?: 'AccessibilityNode', id: string, slug: string, name: string }>, enrolments: { __typename?: 'EnrolmentNodeConnection', edges: Array<{ __typename?: 'EnrolmentNodeEdge', node: { __typename?: 'EnrolmentNode', id: string, attended: boolean | null, totalSeats: number, child: { __typename?: 'ChildNode', name: string, birthyear: number, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string, firstName: string, lastName: string, language: Language } | null } | null> } } | null } | null } | null> }, ticketSystem:
         | { __typename?: 'InternalOccurrenceTicketSystem', type: TicketSystem }
         | { __typename?: 'LippupisteOccurrenceTicketSystem', url: string | null, type: TicketSystem }
         | { __typename?: 'TicketmasterOccurrenceTicketSystem', url: string | null, type: TicketSystem }
@@ -2651,7 +2651,7 @@ export type OccurrenceQueryVariables = Exact<{
 }>;
 
 
-export type OccurrenceQuery = { __typename?: 'Query', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, seatCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, name: string | null, capacityPerOccurrence: number | null, duration: number | null, publishedAt: any | null, project: { __typename?: 'ProjectNode', id: string }, eventGroup: { __typename?: 'EventGroupNode', id: string, name: string | null } | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, enrolments: { __typename?: 'EnrolmentNodeConnection', edges: Array<{ __typename?: 'EnrolmentNodeEdge', node: { __typename?: 'EnrolmentNode', id: string, attended: boolean | null, totalSeats: number, child: { __typename?: 'ChildNode', id: string, name: string, birthyear: number, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string, firstName: string, lastName: string, language: Language, phoneNumber: string } | null } | null> } } | null } | null } | null> }, freeSpotNotificationSubscriptions: { __typename?: 'FreeSpotNotificationSubscriptionNodeConnection', edges: Array<{ __typename?: 'FreeSpotNotificationSubscriptionNodeEdge', node: { __typename?: 'FreeSpotNotificationSubscriptionNode', id: string } | null } | null> } } | null };
+export type OccurrenceQuery = { __typename?: 'Query', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, seatCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, name: string | null, capacityPerOccurrence: number | null, duration: number | null, publishedAt: any | null, project: { __typename?: 'ProjectNode', id: string }, eventGroup: { __typename?: 'EventGroupNode', id: string, name: string | null } | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, accessibilities: Array<{ __typename?: 'AccessibilityNode', id: string, slug: string, name: string }>, enrolments: { __typename?: 'EnrolmentNodeConnection', edges: Array<{ __typename?: 'EnrolmentNodeEdge', node: { __typename?: 'EnrolmentNode', id: string, attended: boolean | null, totalSeats: number, child: { __typename?: 'ChildNode', id: string, name: string, birthyear: number, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string, firstName: string, lastName: string, language: Language, phoneNumber: string } | null } | null> } } | null } | null } | null> }, freeSpotNotificationSubscriptions: { __typename?: 'FreeSpotNotificationSubscriptionNodeConnection', edges: Array<{ __typename?: 'FreeSpotNotificationSubscriptionNodeEdge', node: { __typename?: 'FreeSpotNotificationSubscriptionNode', id: string } | null } | null> } } | null };
 
 export type OrganisationsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3399,6 +3399,11 @@ export const AddOccurrenceDocument = gql`
       }
       capacity
       capacityOverride
+      accessibilities {
+        id
+        slug
+        name
+      }
       ticketSystem {
         type
         ... on TicketmasterOccurrenceTicketSystem {
@@ -3440,6 +3445,11 @@ export const UpdateOccurrenceDocument = gql`
       }
       capacity
       capacityOverride
+      accessibilities {
+        id
+        slug
+        name
+      }
       enrolments {
         edges {
           node {
@@ -3565,6 +3575,11 @@ export const OccurrenceDocument = gql`
         languageCode
         name
       }
+    }
+    accessibilities {
+      id
+      slug
+      name
     }
     enrolments {
       edges {

@@ -437,6 +437,9 @@
         "label": "Occurrence capacity",
         "helperText": "Total physical seat capacity of the occurrence. Overrides the event's capacity (%{capacityPerOccurrence}). Each enrolment reserves at least 2 seats (1 child + 1 guardian). This does not affect other occurrences."
       },
+      "accessibilities": {
+        "label": "Accessibility"
+      },
       "seatCount": {
         "label": "Reserved seats"
       },

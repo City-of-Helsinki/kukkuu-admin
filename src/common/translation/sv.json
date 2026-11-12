@@ -437,6 +437,9 @@
         "label": "Occurrence capacity",
         "helperText": "Förekomstens totala fysiska platsantal. Åsidosätter evenemangets platsantal (%{capacityPerOccurrence}). Varje anmälan reserverar minst 2 platser (1 barn + 1 vårdnadshavare). Detta påverkar inte andra förekomster."
       },
+      "accessibilities": {
+        "label": "Tillgänglighet"
+      },
       "seatCount": {
         "label": "Reserverade platser"
       },

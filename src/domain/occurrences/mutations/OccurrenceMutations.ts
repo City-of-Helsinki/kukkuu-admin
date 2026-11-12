@@ -22,6 +22,11 @@ export const addOccurrenceMutation = gql`
         }
         capacity
         capacityOverride
+        accessibilities {
+          id
+          slug
+          name
+        }
         ticketSystem {
           type
           ... on TicketmasterOccurrenceTicketSystem {
@@ -61,6 +66,11 @@ export const updateOccurrenceMutation = gql`
         }
         capacity
         capacityOverride
+        accessibilities {
+          id
+          slug
+          name
+        }
         enrolments {
           edges {
             node {
