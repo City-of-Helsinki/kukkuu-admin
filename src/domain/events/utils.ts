@@ -17,7 +17,7 @@ export type CapacityEventNode = {
     edges: ({
       node?: Occurrence | null;
     } | null)[];
-  };
+  } | null;
 };
 type CapacityEventNodeWithCapacityPerOccurrence = CapacityEventNode & {
   capacityPerOccurrence: number;
@@ -46,11 +46,13 @@ export function countCapacity(...events: CapacityEventNode[]): number | null {
 
   const occurrenceCapacities = eventsWithCapacities.flatMap(
     ({ capacityPerOccurrence, occurrences }) => {
-      return occurrences.edges?.map((occurrenceEdge) => {
-        const capacityOverride = occurrenceEdge?.node?.capacityOverride;
+      return (
+        occurrences?.edges?.map((occurrenceEdge) => {
+          const capacityOverride = occurrenceEdge?.node?.capacityOverride;
 
-        return capacityOverride ?? capacityPerOccurrence;
-      });
+          return capacityOverride ?? capacityPerOccurrence;
+        }) ?? []
+      );
     }
   );
 
@@ -60,12 +62,14 @@ export function countCapacity(...events: CapacityEventNode[]): number | null {
 type CountEventNode = {
   occurrences: {
     edges: unknown[];
-  };
+  } | null;
 };
 
 export function countOccurrences(...events: CountEventNode[]): number {
   return sum(
-    events.map(({ occurrences }: CountEventNode) => occurrences.edges.length)
+    events.map(
+      ({ occurrences }: CountEventNode) => occurrences?.edges.length ?? 0
+    )
   );
 }
 
@@ -76,18 +80,19 @@ export type EnrollmentsCountEventNode = {
         enrolmentCount: number;
       } | null;
     })[];
-  };
+  } | null;
 };
 
 export function countEnrollments(
   ...events: EnrollmentsCountEventNode[]
 ): number {
   return sum(
-    events?.map((event) =>
-      event.occurrences.edges.reduce(
-        (sum: number, edge) => sum + (edge?.node?.enrolmentCount ?? 0),
-        0
-      )
+    events?.map(
+      (event) =>
+        event.occurrences?.edges.reduce(
+          (sum: number, edge) => sum + (edge?.node?.enrolmentCount ?? 0),
+          0
+        ) ?? 0
     ) ?? [0]
   );
 }

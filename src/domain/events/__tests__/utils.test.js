@@ -41,6 +41,15 @@ describe('event utils', () => {
     it('should return null if any event is missing a capacity', () => {
       expect(countCapacity(mockEvent, mockEventWithoutCapacity)).toEqual(null);
     });
+
+    it('should not count capacity for an event with null occurrences', () => {
+      expect(
+        countCapacity(mockEvent, {
+          capacityPerOccurrence: 5,
+          occurrences: null,
+        })
+      ).toEqual(11);
+    });
   });
 
   describe('countOccurrences', () => {
@@ -56,6 +65,10 @@ describe('event utils', () => {
 
     it('should return the count of occurrences for many events', () => {
       expect(countOccurrences(mockEvent, mockEvent)).toEqual(6);
+    });
+
+    it('should count an event with null occurrences as zero', () => {
+      expect(countOccurrences(mockEvent, { occurrences: null })).toEqual(3);
     });
   });
 
@@ -83,6 +96,10 @@ describe('event utils', () => {
 
     it('should return the count of enrollments for many events', () => {
       expect(countEnrollments(mockEvent, mockEvent)).toEqual(14);
+    });
+
+    it('should count an event with null occurrences as zero', () => {
+      expect(countEnrollments(mockEvent, { occurrences: null })).toEqual(7);
     });
   });
 
