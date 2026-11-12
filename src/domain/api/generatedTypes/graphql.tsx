@@ -2644,7 +2644,7 @@ export type OccurrencesQueryVariables = Exact<{
 }>;
 
 
-export type OccurrencesQuery = { __typename?: 'Query', occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, seatCount: number, capacity: number | null, capacityOverride: number | null, attendedEnrolmentCount: number, freeSpotNotificationSubscriptionCount: number, event: { __typename?: 'EventNode', duration: number | null, capacityPerOccurrence: number | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> } } | null } | null> } | null };
+export type OccurrencesQuery = { __typename?: 'Query', occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, seatCount: number, capacity: number | null, capacityOverride: number | null, attendedEnrolmentCount: number, freeSpotNotificationSubscriptionCount: number, event: { __typename?: 'EventNode', duration: number | null, capacityPerOccurrence: number | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, accessibilities: Array<{ __typename?: 'AccessibilityNode', id: string, name: string }> } | null } | null> } | null };
 
 export type OccurrenceQueryVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -3537,6 +3537,10 @@ export const OccurrencesDocument = gql`
             languageCode
             name
           }
+        }
+        accessibilities {
+          id
+          name
         }
         attendedEnrolmentCount
         freeSpotNotificationSubscriptionCount

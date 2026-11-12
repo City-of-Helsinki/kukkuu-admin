@@ -22,6 +22,10 @@ export const occurrencesQuery = gql`
               name
             }
           }
+          accessibilities {
+            id
+            name
+          }
           attendedEnrolmentCount
           freeSpotNotificationSubscriptionCount
         }
