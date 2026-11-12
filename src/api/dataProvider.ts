@@ -51,6 +51,7 @@ import EventGroupsApi from '../domain/eventGroups/api/eventGroupsApi';
 import EventsAndEventGroupsApi from '../domain/eventsAndEventGroups/api/eventsAndEventGroupsApi';
 import { getOrganisations } from '../domain/organisations/api/OrganisationApi';
 import { getThemePaths } from '../domain/themePaths/api/ThemePathApi';
+import { getAccessibilities } from '../domain/accessibilities/api/AccessibilityApi';
 import type { AdminEvent } from '../domain/events/types/EventTypes';
 import type {
   EventGroupNode,
@@ -119,6 +120,10 @@ const METHOD_HANDLERS: MethodHandlers = {
   'theme-paths': {
     LIST: getThemePaths,
     MANY: getThemePaths,
+  },
+  accessibilities: {
+    LIST: getAccessibilities,
+    MANY: getAccessibilities,
   },
 };
 

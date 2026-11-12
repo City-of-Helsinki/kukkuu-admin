@@ -77,6 +77,7 @@ describe('getReactAdminResources', () => {
     'event-groups',
     'organisations',
     'theme-paths',
+    'accessibilities',
   ];
 
   const resourceNamesWithoutChildren = [
@@ -88,6 +89,7 @@ describe('getReactAdminResources', () => {
     'event-groups',
     'organisations',
     'theme-paths',
+    'accessibilities',
   ];
 
   const adminPermissionsBase: Permissions = {

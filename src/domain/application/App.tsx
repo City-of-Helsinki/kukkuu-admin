@@ -158,6 +158,9 @@ export function getReactAdminResources(
     {
       name: 'theme-paths',
     },
+    {
+      name: 'accessibilities',
+    },
   ];
 
   // Add children resource if user has permissions to view families
