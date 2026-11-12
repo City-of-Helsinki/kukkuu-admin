@@ -14,6 +14,7 @@ import { Grid } from '@mui/material';
 import DateTimeTextInput from '../../common/components/dateTimeTextField/DateTimeTextField';
 import KukkuuEdit from '../application/layout/kukkuuEditPage/KukkuuEdit';
 import { OccurrenceCapacityOverrideInput } from './inputs';
+import AccessibilityInput from './AccessibilityInput';
 import type { OccurrenceNode } from '../api/generatedTypes/graphql';
 
 const OccurrenceEditToolbar = ({
@@ -84,6 +85,7 @@ const OccurrenceEditForm = () => {
         />
       </OccurrenceEditReferenceInput>
       <OccurrenceCapacityOverrideInput />
+      <AccessibilityInput />
     </SimpleForm>
   );
 };

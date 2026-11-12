@@ -76,8 +76,15 @@ const addOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
 
 const updateOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
   const { ...localUpdateData } = params.data;
-  const { id, timeField, date, venue, event, capacityOverride } =
-    localUpdateData;
+  const {
+    id,
+    timeField,
+    date,
+    venue,
+    event,
+    capacityOverride,
+    accessibilityIds,
+  } = localUpdateData;
 
   const data = {
     id,
@@ -85,6 +92,7 @@ const updateOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
     time: normalizeTime(date as string, timeField as string),
     eventId: event.id,
     capacityOverride,
+    accessibilityIds,
   };
 
   const response = await mutationHandler({
