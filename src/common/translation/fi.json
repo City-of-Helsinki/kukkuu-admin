@@ -435,7 +435,8 @@
         "helperText": "Esiintymän fyysinen kokonaispaikkamäärä. Korvaa tapahtuman paikkamäärän (%{capacityPerOccurrence}). Jokainen ilmoittautuminen varaa vähintään 2 paikkaa (1 lapsi + 1 huoltaja). Tämä ei vaikuta muihin esiintymiin."
       },
       "accessibilities": {
-        "label": "Saavutettavuus"
+        "label": "Saavutettavuus",
+        "notSet": "Ei saavutettavuustietoja"
       },
       "seatCount": {
         "label": "Varatut paikat"
