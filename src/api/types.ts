@@ -15,7 +15,8 @@ export type Resource =
   | 'events-and-event-groups'
   | 'sms'
   | 'organisations'
-  | 'theme-paths';
+  | 'theme-paths'
+  | 'accessibilities';
 
 export type Method =
   | 'LIST'
