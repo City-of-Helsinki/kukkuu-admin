@@ -2,6 +2,22 @@
 
 # Change Log
 
+## [4.5.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.5.0...kukkuu-admin-v4.5.1) (2026-11-13)
+
+
+### Bug Fixes
+
+* Add missing runtime environment variables ([88421c5](https://github.com/City-of-Helsinki/kukkuu-admin/commit/88421c54fc325a0352c259539d73800e9ca082dd))
+* Dependabot alerts ([62a472d](https://github.com/City-of-Helsinki/kukkuu-admin/commit/62a472dbb5200a8716c25861344e21b3d25752ac))
+* Move CSP to nginx headers and allow Sentry ingestion ([25138ac](https://github.com/City-of-Helsinki/kukkuu-admin/commit/25138ac320c7f5c9bdc512e2430fccc4bcd238ae))
+* Sonar reliability fixes ([24869fd](https://github.com/City-of-Helsinki/kukkuu-admin/commit/24869fd5ba9c35f17e4c0efa898ea956f52109dc))
+* Update env-config.js script version to v2 ([9bf3154](https://github.com/City-of-Helsinki/kukkuu-admin/commit/9bf3154adbef2ec00432f5bcf2115cde02837e73))
+
+
+### Dependencies
+
+* Bump follow-redirects from 1.16.1 to 1.16.2 ([942577e](https://github.com/City-of-Helsinki/kukkuu-admin/commit/942577e02bd32007d309642ff2ffbc8b1c595014))
+
 ## [4.5.0](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.4.3...kukkuu-admin-v4.5.0) (2026-11-04)
 
 
