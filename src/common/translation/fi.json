@@ -204,7 +204,8 @@
       },
       "ticketSystemEndTime": {
         "label": "Loppuaika",
-        "helperText": "Tämän ajankohdan jälkeen tapahtuma poistuu tapahtumakutsuista ja tulevista tapahtumista."
+        "helperText": "Tämän ajankohdan jälkeen tapahtuma poistuu tapahtumakutsuista ja tulevista tapahtumista.",
+        "pastErrorMessage": "Loppuaika ei saa olla menneisyydessä"
       },
       "ticketSystemUrl": {
         "label": "Tapahtuman URL-osoite lippujärjestelmässä"
@@ -476,12 +477,14 @@
             "errorMessage": "Päivämäärä tulee antaa muodossa pp.kk.vvvv",
             "format": "pp.kk.vvvv",
             "helperText": "Tapahtuman päivämäärä",
-            "label": "Päivämäärä"
+            "label": "Päivämäärä",
+            "pastErrorMessage": "Päivämäärä ei saa olla menneisyydessä"
           },
           "time": {
             "errorMessage": "Kellonaika tulee antaa muodossa tt:mm",
             "format": "tt:mm",
-            "label": "Kellonaika"
+            "label": "Kellonaika",
+            "pastErrorMessage": "Kellonaika ei saa olla menneisyydessä"
           }
         },
         "helperText": "Tapahtuman alkamiskellonaika",

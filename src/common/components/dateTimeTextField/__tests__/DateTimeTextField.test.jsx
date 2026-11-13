@@ -4,6 +4,8 @@ import { useRecordContext, useTranslate, useInput } from 'react-admin';
 import moment from 'moment-timezone';
 
 import DateTimeTextInput, {
+  createValidateDate,
+  createValidateTime,
   validateDate,
   validateTime,
 } from '../DateTimeTextField';
@@ -109,5 +111,82 @@ describe('DateTimeTextInput component', () => {
       const errorMessage = validateTime(validTime);
       expect(errorMessage).toBeUndefined();
     });
+
+    describe('with futureOnly option', () => {
+      const yesterday = moment().subtract(1, 'day').format('D.M.YYYY');
+      const today = moment().format('D.M.YYYY');
+      const tomorrow = moment().add(1, 'day').format('D.M.YYYY');
+
+      it('rejects dates in the past when futureOnly is true', () => {
+        const validator = createValidateDate({ futureOnly: true });
+        expect(validator(yesterday)).toBe(
+          'occurrences.fields.time.fields.date.pastErrorMessage'
+        );
+      });
+
+      it('accepts today and future dates when futureOnly is true', () => {
+        const validator = createValidateDate({ futureOnly: true });
+        expect(validator(today)).toBeUndefined();
+        expect(validator(tomorrow)).toBeUndefined();
+      });
+
+      it('accepts past dates when futureOnly is false', () => {
+        const validator = createValidateDate({ futureOnly: false });
+        expect(validator(yesterday)).toBeUndefined();
+      });
+
+      it('rejects past time when date is today and futureOnly is true', () => {
+        const validator = createValidateTime({ futureOnly: true });
+        const pastTimeToday = moment().subtract(2, 'hours').format('HH:mm');
+        expect(validator(pastTimeToday, { date: today })).toBe(
+          'occurrences.fields.time.fields.time.pastErrorMessage'
+        );
+      });
+
+      it('accepts future time when date is today and futureOnly is true', () => {
+        const validator = createValidateTime({ futureOnly: true });
+        const futureTimeToday = moment().add(2, 'hours').format('HH:mm');
+        expect(validator(futureTimeToday, { date: today })).toBeUndefined();
+      });
+
+      it('accepts any valid time of day when date is tomorrow even if time has passed today', () => {
+        const validator = createValidateTime({ futureOnly: true });
+        const earlierTimeOfDay = '08:00';
+        expect(validator(earlierTimeOfDay, { date: tomorrow })).toBeUndefined();
+      });
+
+      it('delegates past validation to date field when date is in the past', () => {
+        const validator = createValidateTime({ futureOnly: true });
+        expect(validator('12:00', { date: yesterday })).toBeUndefined();
+      });
+
+      it('accepts past time today when futureOnly is false', () => {
+        const validator = createValidateTime({ futureOnly: false });
+        const pastTimeToday = moment().subtract(2, 'hours').format('HH:mm');
+        expect(validator(pastTimeToday, { date: today })).toBeUndefined();
+      });
+    });
+  });
+
+  it('renders with futureOnly prop without crashing', () => {
+    useRecordContext.mockReturnValue(undefined);
+    useTranslate.mockReturnValue((key) => key);
+    useInput.mockReturnValue({
+      field: { value: '' },
+      fieldState: { invalid: false },
+      formState: { isSubmitted: false },
+    });
+
+    render(
+      <DateTimeTextInput
+        variant="outlined"
+        required
+        disabled={false}
+        futureOnly
+      />
+    );
+    expect(
+      screen.getByLabelText(/occurrences.fields.time.fields.date.label/i)
+    ).toBeInTheDocument();
   });
 });
