@@ -23,8 +23,9 @@ import {
   OccurrenceDocument,
 } from '../../api/generatedTypes/graphql';
 import Config from '../../config';
+import AppConfig from '../../application/AppConfig';
 
-moment.tz.setDefault('Europe/Helsinki');
+moment.tz.setDefault(AppConfig.timezone);
 
 const getOccurrences: MethodHandler = async (params: MethodHandlerParams) => {
   const response: ApolloQueryResult<OccurrencesQuery> = await queryHandler({
@@ -46,13 +47,13 @@ const getOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
 };
 
 // Combine two fields into one:
-const normalizeTime = (date?: string, time?: string) => {
+export const normalizeTime = (date?: string, time?: string) => {
   let datetime;
 
   if (date === undefined || time === undefined) return undefined;
 
   for (const format of Config.momentValidationDateTimeFormats) {
-    datetime = moment.tz(`${date} ${time}`, format, true, 'Europe/Helsinki');
+    datetime = moment.tz(`${date} ${time}`, format, true, AppConfig.timezone);
     if (datetime.isValid()) {
       return datetime.toISOString();
     }

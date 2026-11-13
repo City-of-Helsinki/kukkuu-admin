@@ -15,6 +15,7 @@ import {
   validateEvent,
   validateParticipantsPerInvite,
   validateShortDescription,
+  validateTicketSystemEndTime,
   validateUrl,
 } from '../validations';
 import { participantsPerInviteChoices, ticketSystemChoices } from '../choices';
@@ -42,7 +43,9 @@ const EventForm = ({
     <SimpleForm
       // TODO: refactor form validate with YUP
       // https://marmelab.com/react-admin/Upgrade.html#input-level-validation-now-triggers-on-submit
-      validate={(values) => validateEvent(values, { isThemePathOptional })}
+      validate={(values) =>
+        validateEvent(values, { isThemePathOptional, isEditing })
+      }
       toolbar={isEditing ? <EventEditToolbar /> : undefined}
     >
       {isCopy && <CopyTargetFields resource="events" />}
@@ -162,6 +165,9 @@ const EventForm = ({
                           style={{ width: '100%' }}
                           aria-describedby="ticketSystemEndTime-helper-text"
                           id="ticketSystemEndTime"
+                          validate={
+                            !isEditing ? validateTicketSystemEndTime : undefined
+                          }
                         />,
                       ]
                 }

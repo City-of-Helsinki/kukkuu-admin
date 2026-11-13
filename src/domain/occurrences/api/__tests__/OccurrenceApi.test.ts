@@ -1,7 +1,13 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import moment from 'moment-timezone';
 
 import * as apiUtils from '../../../../api/utils/apiUtils';
-import { addOccurrence, updateOccurrence } from '../OccurrenceApi';
+import {
+  addOccurrence,
+  updateOccurrence,
+  normalizeTime,
+} from '../OccurrenceApi';
+import AppConfig from '../../../application/AppConfig';
 
 describe('OccurrenceApi', () => {
   beforeEach(() => {
@@ -69,5 +75,20 @@ describe('OccurrenceApi', () => {
         );
       }
     );
+  });
+
+  describe('normalizeTime', () => {
+    it('normalizes date and time using configured timezone into an ISO string', () => {
+      const result = normalizeTime('1.2.2027', '10:00');
+      const expected = moment
+        .tz('1.2.2027 10:00', 'D.M.YYYY HH:mm', true, AppConfig.timezone)
+        .toISOString();
+      expect(result).toBe(expected);
+    });
+
+    it('returns undefined if date or time is undefined', () => {
+      expect(normalizeTime(undefined, '10:00')).toBeUndefined();
+      expect(normalizeTime('1.2.2027', undefined)).toBeUndefined();
+    });
   });
 });
