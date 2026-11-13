@@ -56,18 +56,18 @@ CMD ["pnpm", "start", "--no-open", "--host"]
 # ============================================================
 FROM appbase AS staticbuilder
 
-# VITE_CSP_REPORT_URI is substituted into index.html's CSP at *build* time by
-# Vite (it is not a runtime value). Default to empty so the placeholder is not
-# left unreplaced in the output.
-ARG VITE_CSP_REPORT_URI
-ENV VITE_CSP_REPORT_URI=${VITE_CSP_REPORT_URI:-""}
-
 RUN pnpm build
 
 # ============================================================
 # STAGE 4: Production runtime
 # ============================================================
 FROM helsinki.azurecr.io/ubi10/nginx-126-spa-standard AS production
+
+ARG VITE_CSP_REPORT_URI
+COPY --chmod=444 nginx/security-headers.conf.template /etc/nginx/templates/security-headers.conf.template
+COPY --chmod=444 nginx/configure-csp.sh /tmp/configure-csp.sh
+RUN bash /tmp/configure-csp.sh \
+  && rm /tmp/configure-csp.sh
 
 # 1. Copy the compiled assets.
 COPY --from=staticbuilder /app/build /usr/share/nginx/html
