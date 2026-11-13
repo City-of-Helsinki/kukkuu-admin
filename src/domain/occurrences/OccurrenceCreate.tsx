@@ -20,7 +20,7 @@ const OccurrenceCreateForm = () => {
 
   return (
     <SimpleForm defaultValues={{ eventId }}>
-      <DateTimeTextInput variant="outlined" required />
+      <DateTimeTextInput variant="outlined" required futureOnly />
       <ReferenceInput
         label="occurrences.fields.venue.label"
         source="venueId"

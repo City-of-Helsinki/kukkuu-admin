@@ -1,4 +1,10 @@
-import { validateEvent, validateUrl } from '../validations';
+import moment from 'moment-timezone';
+
+import {
+  validateEvent,
+  validateTicketSystemEndTime,
+  validateUrl,
+} from '../validations';
 
 describe('event field validations', () => {
   describe('validateEvent', () => {
@@ -36,6 +42,71 @@ describe('event field validations', () => {
           { isThemePathOptional: true }
         )
       ).toEqual({});
+    });
+
+    it('should return error for past ticketSystem.endTime when isEditing is false', () => {
+      const pastEndTime = moment().subtract(1, 'day').toISOString();
+      expect(
+        validateEvent(
+          {
+            translations: { FI: { name: 'Test event' } },
+            themePathIds: ['rhythm'],
+            ticketSystem: { endTime: pastEndTime },
+          },
+          { isEditing: false }
+        )
+      ).toEqual({
+        'ticketSystem.endTime':
+          'events.fields.ticketSystemEndTime.pastErrorMessage',
+      });
+    });
+
+    it('should not return error for past ticketSystem.endTime when isEditing is true', () => {
+      const pastEndTime = moment().subtract(1, 'day').toISOString();
+      expect(
+        validateEvent(
+          {
+            translations: { FI: { name: 'Test event' } },
+            themePathIds: ['rhythm'],
+            ticketSystem: { endTime: pastEndTime },
+          },
+          { isEditing: true }
+        )
+      ).toEqual({});
+    });
+
+    it('should not return error for future ticketSystem.endTime when isEditing is false', () => {
+      const futureEndTime = moment().add(1, 'day').toISOString();
+      expect(
+        validateEvent(
+          {
+            translations: { FI: { name: 'Test event' } },
+            themePathIds: ['rhythm'],
+            ticketSystem: { endTime: futureEndTime },
+          },
+          { isEditing: false }
+        )
+      ).toEqual({});
+    });
+  });
+
+  describe('validateTicketSystemEndTime', () => {
+    it('returns error message when datetime is in the past', () => {
+      const past = moment().subtract(1, 'hour').toISOString();
+      expect(validateTicketSystemEndTime(past)).toBe(
+        'events.fields.ticketSystemEndTime.pastErrorMessage'
+      );
+    });
+
+    it('returns undefined when datetime is in the future', () => {
+      const future = moment().add(1, 'hour').toISOString();
+      expect(validateTicketSystemEndTime(future)).toBeUndefined();
+    });
+
+    it('returns undefined when value is null, undefined, or empty', () => {
+      expect(validateTicketSystemEndTime(null)).toBeUndefined();
+      expect(validateTicketSystemEndTime(undefined)).toBeUndefined();
+      expect(validateTicketSystemEndTime('')).toBeUndefined();
     });
   });
 
