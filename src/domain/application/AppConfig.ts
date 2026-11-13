@@ -162,6 +162,15 @@ class AppConfig {
   static get userIdleTimeoutInMs(): number {
     return Number(getEnvValue('VITE_IDLE_TIMEOUT_IN_MS')) || 3_600_000;
   }
+
+  /**
+   * Application default timezone.
+   *
+   * @default 'Europe/Helsinki'
+   */
+  static get timezone(): string {
+    return getEnvValue('VITE_TIMEZONE') ?? 'Europe/Helsinki';
+  }
 }
 
 // Accept both variable and name so that variable can be correctly replaced

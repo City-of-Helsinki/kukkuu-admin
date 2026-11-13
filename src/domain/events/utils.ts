@@ -99,7 +99,7 @@ export function countEnrollments(
 
 export type RecordWithTicketSystem = {
   ticketSystem?: {
-    type: TicketSystem;
+    type?: TicketSystem;
   } | null;
 };
 

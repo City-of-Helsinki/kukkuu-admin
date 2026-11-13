@@ -12,6 +12,7 @@ import { describe, it, expect, vi } from 'vitest';
 
 import EventForm from '../EventForm';
 import i18nProvider from '../../../../common/translation/i18nProvider';
+import { TicketSystem } from '../../../api/generatedTypes/graphql';
 
 const organisation = { id: 'org-1', name: 'Organisation' };
 const rhythm = { id: 'path-1', slug: 'rhythm', name: 'Rhythm' };
@@ -107,5 +108,44 @@ describe('EventForm theme paths', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Tallenna' }));
 
     await waitFor(() => expect(save).toHaveBeenCalled());
+  });
+
+  describe('ticketSystem.endTime past validation', () => {
+    const pastEndTime = '2020-01-01T12:00';
+    const externalTicketSystemEvent = {
+      ...eventWithName,
+      themePaths: [rhythm],
+      ticketSystem: {
+        type: TicketSystem.Ticketmaster,
+        url: 'https://example.com',
+        endTime: pastEndTime,
+      },
+    };
+
+    it('does not save a new event with a past end time', async () => {
+      const { save } = renderEventForm({
+        view: 'create',
+        record: externalTicketSystemEvent,
+      });
+
+      await screen.findByRole('combobox', { name: /^Teemapolut/ });
+      await userEvent.type(screen.getByLabelText(/^Nimi/), ' dirty form');
+      await userEvent.click(screen.getByRole('button', { name: 'Tallenna' }));
+
+      expect(save).not.toHaveBeenCalled();
+    });
+
+    it('saves an existing event with a past end time', async () => {
+      const { save } = renderEventForm({
+        view: 'edit',
+        record: externalTicketSystemEvent,
+      });
+
+      await screen.findByRole('combobox', { name: /^Teemapolut/ });
+      await userEvent.type(screen.getByLabelText(/^Nimi/), ' updated');
+      await userEvent.click(screen.getByRole('button', { name: 'Tallenna' }));
+
+      await waitFor(() => expect(save).toHaveBeenCalled());
+    });
   });
 });
