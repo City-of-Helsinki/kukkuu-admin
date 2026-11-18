@@ -84,6 +84,10 @@ export async function createEventGroup(
   await form.shortDescriptionInput.fill(values.shortDescription);
   await form.descriptionInput.fill(values.description);
   await form.submitButton.click();
+  await page.waitForURL(
+    (url) => !url.pathname.startsWith('/event-groups/create')
+  );
+  await expect(page).toHaveURL(/\/event-groups\/[^/]+\/show/);
 }
 
 export async function deleteEventGroup(page: Page): Promise<void> {
@@ -92,6 +96,8 @@ export async function deleteEventGroup(page: Page): Promise<void> {
   const edit = eventGroupsEditPage(page);
   await edit.deleteButton.click();
   await edit.confirmDeleteButton.click();
+  await page.waitForURL(/\/events-and-event-groups$/);
+  await expect(eventsListPage(page).title).toBeVisible();
 }
 
 type CreateEvent = {
@@ -110,4 +116,6 @@ export async function createEventInEventGroup(
 
   await fillEventCreationForm(page, event);
   await eventsCreatePage(page).submitButton.click();
+  await page.waitForURL((url) => !url.pathname.startsWith('/events/create'));
+  await expect(page).toHaveURL(/\/event-groups\/[^/]+\/show/);
 }

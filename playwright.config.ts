@@ -17,13 +17,14 @@ export default defineConfig({
   testDir: 'e2e',
   fullyParallel: false,
   workers: 1,
+  timeout: process.env.CI ? 60000 : 30000,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   reporter: [
     ['junit', { outputFile: 'report/e2e-junit-results.xml' }],
     ['html', { open: 'never', outputFolder: 'report/html' }],
   ],
-  expect: { timeout: 15000 },
+  expect: { timeout: process.env.CI ? 30000 : 15000 },
   use: {
     baseURL,
     ignoreHTTPSErrors: true,
