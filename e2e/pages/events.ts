@@ -47,6 +47,9 @@ export function eventsDetailPage(page: Page) {
       page.getByText(names.join(', '), { exact: true }),
     editButton: page.getByRole('link', { name: /muokkaa/i }),
     readyToggle: page.getByText(/Valmis julkaistavaksi/i),
+    readyCheckbox: page.getByRole('checkbox', {
+      name: /Valmis julkaistavaksi/i,
+    }),
     // Exact match, so that the event group's "Julkaise tapahtumaryhmä" button
     // is not matched.
     publishButton: page.getByRole('button', { name: 'Julkaise', exact: true }),
@@ -110,4 +113,6 @@ export async function deleteEvent(page: Page): Promise<void> {
   await eventsDetailPage(page).editButton.click();
   await eventsEditPage(page).deleteButton.click();
   await eventsEditPage(page).confirmDeleteButton.click();
+  await page.waitForURL(/\/events-and-event-groups$/);
+  await expect(eventsListPage(page).title).toBeVisible();
 }

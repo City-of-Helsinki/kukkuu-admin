@@ -111,6 +111,8 @@ test.describe('Events feature', () => {
 
     // Publishing redirects to the list. Open the event from the list and assert
     // that it is published, i.e. that the publish button is not shown.
+    await page.waitForURL(/\/events-and-event-groups$/);
+    await expect(eventsListPage(page).title).toBeVisible();
     await eventsListPage(page)
       .eventOrEventGroupByName(publishEvent.name)
       .first()
