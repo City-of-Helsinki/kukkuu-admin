@@ -13,6 +13,8 @@ import { describe, it, expect, vi } from 'vitest';
 import EventForm from '../EventForm';
 import i18nProvider from '../../../../common/translation/i18nProvider';
 import { TicketSystem } from '../../../api/generatedTypes/graphql';
+import extendedDataProvider from '../../../../api/dataProvider';
+import * as apiUtils from '../../../../api/utils/apiUtils';
 
 const organisation = { id: 'org-1', name: 'Organisation' };
 const rhythm = { id: 'path-1', slug: 'rhythm', name: 'Rhythm' };
@@ -39,11 +41,13 @@ const dataProvider = testDataProvider({
 const renderEventForm = ({
   view,
   record,
+  save: customSave,
 }: {
   view: 'create' | 'edit';
   record?: RaRecord;
+  save?: (data: any) => Promise<any> | void;
 }) => {
-  const save = vi.fn();
+  const save = customSave ?? vi.fn();
   render(
     <AdminContext dataProvider={dataProvider} i18nProvider={i18nProvider}>
       <ResourceContextProvider value="events">
@@ -146,6 +150,65 @@ describe('EventForm theme paths', () => {
       await userEvent.click(screen.getByRole('button', { name: 'Tallenna' }));
 
       await waitFor(() => expect(save).toHaveBeenCalled());
+    });
+  });
+
+  describe('external ticket system GraphQL mutation inputs', () => {
+    it('includes updated URL and end time in GraphQL mutation inputs when saved', async () => {
+      const mutationHandlerSpy = vi
+        .spyOn(apiUtils, 'mutationHandler')
+        .mockResolvedValue({
+          data: { updateEvent: { event: { id: 'event-1' } } },
+        });
+
+      const externalEvent = {
+        ...eventWithName,
+        themePaths: [rhythm],
+        ticketSystem: {
+          type: TicketSystem.Ticketmaster,
+          url: 'https://old-url.example.com',
+          endTime: '2026-10-01T12:00',
+        },
+      };
+
+      renderEventForm({
+        view: 'edit',
+        record: externalEvent,
+        save: (data) =>
+          extendedDataProvider.update('events', {
+            id: externalEvent.id,
+            data,
+            previousData: externalEvent,
+          }),
+      });
+
+      await screen.findByRole('combobox', { name: /^Teemapolut/ });
+
+      const urlInput = screen.getByLabelText(/^Tapahtuman URL-osoite/);
+      await userEvent.clear(urlInput);
+      await userEvent.type(urlInput, 'https://new-url.example.com');
+
+      const endTimeInput = screen.getByLabelText(/^Loppuaika/);
+      await userEvent.clear(endTimeInput);
+      await userEvent.type(endTimeInput, '2026-12-31T18:00');
+
+      await userEvent.click(screen.getByRole('button', { name: 'Tallenna' }));
+
+      await waitFor(() => {
+        expect(mutationHandlerSpy).toHaveBeenCalledWith(
+          expect.objectContaining({
+            variables: {
+              input: expect.objectContaining({
+                id: 'event-1',
+                ticketSystem: expect.objectContaining({
+                  url: 'https://new-url.example.com',
+                  endTime: expect.stringContaining('2026-12-31'),
+                }),
+              }),
+            },
+          })
+        );
+      });
     });
   });
 });

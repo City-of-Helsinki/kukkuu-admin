@@ -138,11 +138,14 @@ const updateEvent: MethodHandler = async (params: MethodHandlerParams) => {
     data.image = '';
   }
 
-  if (hasInternalTicketSystem(params.data)) {
-    if (data.ticketSystem) {
-      delete data.ticketSystem.url;
-      delete data.ticketSystem.endTime;
-    }
+  // The ticket system type cannot be changed after creation, so it is disabled
+  // in the edit form and only present in previousData.
+  const event = params.previousData?.ticketSystem
+    ? params.previousData
+    : params.data;
+
+  if (hasInternalTicketSystem(event)) {
+    delete data.ticketSystem;
   } else {
     delete data.capacityPerOccurrence;
     delete data.duration;
