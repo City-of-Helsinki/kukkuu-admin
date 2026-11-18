@@ -34,8 +34,7 @@ type EventData = {
 function buildEventGroup(
   overrides: Partial<EventGroupData & { baseName: string }> = {}
 ): EventGroupData {
-  const baseName =
-    overrides.baseName ?? 'Browser test: add event to event group';
+  const baseName = overrides.baseName ?? 'Browser test: event group';
   return {
     name: `${baseName} ${new Date().toISOString()}`,
     shortDescription: overrides.shortDescription ?? 'Browser test event group',
@@ -49,8 +48,7 @@ function buildEventGroup(
 function buildEvent(
   overrides: Partial<EventData & { baseName: string }> = {}
 ): EventData {
-  const baseName =
-    overrides.baseName ?? 'Browser test: add event to event group';
+  const baseName = overrides.baseName ?? 'Browser test: event';
   return {
     name: `${baseName} ${new Date().toISOString()}`,
     participantsPerInvite: overrides.participantsPerInvite ?? 'Perhe',
@@ -79,41 +77,48 @@ test.describe('Event groups feature', () => {
   test('As an admin I want to see event groups within the event list', async ({
     page,
   }) => {
-    const anyEventGroup = eventsListPage(page).anyEventGroup;
+    // Create an event group to guarantee one exists in the list
+    await createEventGroup(page, createEG);
+    await page.goto(routes.eventsList());
+    await expect(eventsListPage(page).title).toBeVisible();
 
-    // If no event group exists yet, create one so the assertion is not vacuous
-    if ((await anyEventGroup.count()) === 0) {
-      await createEventGroup(page, createEG);
-      await page.goto(routes.eventsList());
+    await expect(
+      eventsListPage(page).eventOrEventGroupByName(createEG.name).first()
+    ).toBeVisible();
+
+    // Cleanup: delete the event group created for this test
+    try {
+      await eventsListPage(page)
+        .eventOrEventGroupByName(createEG.name)
+        .first()
+        .click();
+      await deleteEventGroup(page);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(
+        'Cleanup failed: could not delete the event group created by this test.',
+        error
+      );
+      throw error;
     }
-
-    await expect(anyEventGroup.first()).toBeVisible();
   });
 
   test('As an admin I want to be able to open an event group and see the events in the event group', async ({
     page,
   }) => {
-    const anyEventGroup = eventsListPage(page).anyEventGroup;
+    // Create an event group to open
+    await createEventGroup(page, createEG);
+    await page.goto(routes.eventsList());
+    await expect(eventsListPage(page).title).toBeVisible();
 
-    // If no event group exists yet, create one
-    if ((await anyEventGroup.count()) === 0) {
-      await createEventGroup(page, createEG);
-      await page.goto(routes.eventsList());
-    }
-
-    // Grab the name from the first cell of the first event-group row
-    const eventGroupName = await anyEventGroup
-      .first()
-      .locator('td')
-      .first()
-      .textContent();
-
-    await anyEventGroup.first().click();
+    const targetRow = eventsListPage(page).eventOrEventGroupByName(
+      createEG.name
+    );
+    await expect(targetRow.first()).toBeVisible();
+    await targetRow.first().click();
 
     // Assert we landed on the right detail page
-    await expect(eventGroupsDetailPage(page).title).toHaveText(
-      eventGroupName ?? ''
-    );
+    await expect(eventGroupsDetailPage(page).title).toHaveText(createEG.name);
 
     // Assert all expected column headers are present
     const header = eventGroupsDetailPage(page).eventListHeader;
@@ -128,13 +133,30 @@ test.describe('Event groups feature', () => {
       await expect(header).toContainText(col);
     }
 
-    // If the event list is empty, add an event so the count assertion holds
-    const eventList = eventGroupsDetailPage(page).eventList;
-    if ((await eventList.locator('tr').count()) === 0) {
-      await createEventInEventGroup(page, addEvent);
-    }
+    // Add an event so the count assertion holds
+    await createEventInEventGroup(page, addEvent);
 
+    const eventList = eventGroupsDetailPage(page).eventList;
     await expect(eventList.locator('tr').first()).toBeVisible();
+
+    // Cleanup: delete event and event group
+    try {
+      await eventGroupsDetailPage(page).getEvent(addEvent.name).click();
+      await deleteEvent(page);
+
+      await eventsListPage(page)
+        .eventOrEventGroupByName(createEG.name)
+        .first()
+        .click();
+      await deleteEventGroup(page);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(
+        'Cleanup failed: could not delete the event/event group created by this test.',
+        error
+      );
+      throw error;
+    }
   });
 
   test('As an admin I want to be able to create, update and delete event groups', async ({
@@ -169,31 +191,14 @@ test.describe('Event groups feature', () => {
   test('As an admin I want to be able to add events to an event group', async ({
     page,
   }) => {
-    const anyEventGroup = eventsListPage(page).anyEventGroup;
-
-    // If no event group exists yet, create one so there is something to open
-    if ((await anyEventGroup.count()) === 0) {
-      await createEventGroup(page, createEG);
-      await page.goto(routes.eventsList());
-    }
-
-    // Read the event group's name from the list row before navigating away —
-    // it's already rendered here, so this avoids a race with the detail
-    // page's own record fetch (the detail page briefly still shows the list
-    // page's title before its data loads).
-    const eventGroupName =
-      (
-        await anyEventGroup.first().locator('td').first().textContent()
-      )?.trim() ?? '';
-
-    // Select any existing event group
-    await anyEventGroup.first().click();
+    // Create an event group to add an event to
+    await createEventGroup(page, createEG);
 
     // Wait for the record to load before reading the title or clicking the
     // add-event button. The toolbar renders before the record is fetched, and
     // CreateButton's `to` prop captures `record?.id` at render time — so
     // clicking it too early ships `eventGroupId=undefined` to the backend.
-    await expect(eventGroupsDetailPage(page).title).toHaveText(eventGroupName);
+    await expect(eventGroupsDetailPage(page).title).toHaveText(createEG.name);
 
     await createEventInEventGroup(page, addEvent);
 
@@ -203,13 +208,13 @@ test.describe('Event groups feature', () => {
     await expect(page).toHaveURL(/\/event-groups\/[^/]+\/show/);
 
     // Assert we are back on the correct event group detail page
-    await expect(eventGroupsDetailPage(page).title).toHaveText(eventGroupName);
+    await expect(eventGroupsDetailPage(page).title).toHaveText(createEG.name);
     // Assert the created event appears in the event list
     await expect(
       eventGroupsDetailPage(page).getEvent(addEvent.name)
     ).toBeVisible();
 
-    // Cleanup: delete the event we just created
+    // Cleanup: delete the event and event group we just created
     try {
       await eventGroupsDetailPage(page).getEvent(addEvent.name).click();
       await page.waitForURL(/\/events\/[^/]+\/show$/);
@@ -217,10 +222,16 @@ test.describe('Event groups feature', () => {
       await expect(
         eventGroupsDetailPage(page).getEvent(addEvent.name)
       ).toBeHidden();
+
+      await eventsListPage(page)
+        .eventOrEventGroupByName(createEG.name)
+        .first()
+        .click();
+      await deleteEventGroup(page);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(
-        'Cleanup failed: could not delete the event created by this test. ' +
+        'Cleanup failed: could not delete the event/event group created by this test. ' +
           'Dev-env data will be left stale.',
         error
       );
@@ -252,12 +263,15 @@ test.describe('Event groups feature', () => {
     await expect(page).toHaveURL(/\/event-groups\/[^/]+\/show/);
     await expect(eventGroupsDetailPage(page).title).toHaveText(publishEG.name);
 
-    // Mark the event as ready for publishing
+    // Mark the event as ready for publishing and wait for the toggle state to persist
     await eventGroupsDetailPage(page).getEvent(addEvent.name).click();
     await eventsDetailPage(page).readyToggle.click();
+    await expect(eventsDetailPage(page).readyCheckbox).toBeChecked();
 
-    // Navigate back to event group detail page
+    // Navigate back to event group detail page and wait for the detail record to load
     await eventsDetailPage(page).eventGroupLink(publishEG.name).click();
+    await page.waitForURL(/\/event-groups\/[^/]+\/show/);
+    await expect(eventGroupsDetailPage(page).title).toHaveText(publishEG.name);
 
     // Publish the event group
     await eventGroupsDetailPage(page).publishButton.click();
@@ -265,6 +279,8 @@ test.describe('Event groups feature', () => {
     await eventGroupsDetailPage(page).publishConfirmButton.click();
 
     // Navigate to the event group from the list and assert it is published
+    await page.waitForURL(/\/events-and-event-groups$/);
+    await expect(eventsListPage(page).title).toBeVisible();
     await eventsListPage(page)
       .eventOrEventGroupByName(publishEG.name)
       .first()
