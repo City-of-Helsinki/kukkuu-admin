@@ -13,8 +13,12 @@ import { Grid } from '@mui/material';
 
 import DateTimeTextInput from '../../common/components/dateTimeTextField/DateTimeTextField';
 import KukkuuEdit from '../application/layout/kukkuuEditPage/KukkuuEdit';
-import { OccurrenceCapacityOverrideInput } from './inputs';
+import {
+  OccurrenceAttendedCountOverrideInput,
+  OccurrenceCapacityOverrideInput,
+} from './inputs';
 import AccessibilityInput from './AccessibilityInput';
+import { hasInternalTicketSystem } from '../events/utils';
 import type { OccurrenceNode } from '../api/generatedTypes/graphql';
 
 const OccurrenceEditToolbar = ({
@@ -58,6 +62,7 @@ const OccurrenceEditReferenceInput = (props: any) => {
 
 const OccurrenceEditForm = () => {
   const record = useRecordContext<OccurrenceNode>();
+  const isInternal = hasInternalTicketSystem(record?.event);
   const redirect = record?.event?.id
     ? () => `/events/${record.event.id}/show/1`
     : 'show';
@@ -84,7 +89,8 @@ const OccurrenceEditForm = () => {
           helperText="occurrences.fields.venue.helperText"
         />
       </OccurrenceEditReferenceInput>
-      <OccurrenceCapacityOverrideInput />
+      {isInternal && <OccurrenceCapacityOverrideInput />}
+      {isInternal && <OccurrenceAttendedCountOverrideInput />}
       <AccessibilityInput />
     </SimpleForm>
   );

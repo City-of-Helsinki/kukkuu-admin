@@ -14,9 +14,28 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  /**
+   * The `Date` scalar type represents a Date
+   * value as specified by
+   * [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+   */
   Date: { input: any; output: any; }
+  /**
+   * The `DateTime` scalar type represents a DateTime
+   * value as specified by
+   * [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+   */
   DateTime: { input: any; output: any; }
+  /**
+   * The `Time` scalar type represents a Time value as
+   * specified by
+   * [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+   */
   Time: { input: any; output: any; }
+  /**
+   * Create scalar that ignores normal serialization/deserialization, since
+   * that will be handled by the multipart request spec
+   */
   Upload: { input: any; output: any; }
 };
 
@@ -109,6 +128,7 @@ export type AddEventMutationPayload = {
 };
 
 export type AddEventTicketSystemInput = {
+  /** @deprecated Deprecated in favor of the event's single occurrence time. */
   endTime?: InputMaybe<Scalars['String']['input']>;
   type: TicketSystem;
   url?: InputMaybe<Scalars['String']['input']>;
@@ -522,18 +542,28 @@ export enum EnrolmentDeniedReason {
 
 export type EnrolmentNode = Node & {
   __typename?: 'EnrolmentNode';
+  arrivedChildrenCount: Maybe<Scalars['Int']['output']>;
+  arrivedGuardiansCount: Maybe<Scalars['Int']['output']>;
+  /** Total arrived physical seats recorded for this enrolment (arrivedChildrenCount + arrivedGuardiansCount, or totalSeats fallback if attended=True without explicit counts). */
+  arrivedSeats: Scalars['Int']['output'];
+  /** Indicates whether the ticket has been handled and someone with the ticket has attended: true if handled and at least one participant attended, false if handled and no one attended, or null if not yet handled. */
   attended: Maybe<Scalars['Boolean']['output']>;
+  /** Read-only number of children booked on this enrolment (1 + extraChildrenCount). */
+  bookedChildrenCount: Scalars['Int']['output'];
+  /** Read-only number of adults/guardians booked on this enrolment (1 + extraGuardiansCount). */
+  bookedGuardiansCount: Scalars['Int']['output'];
   child: Maybe<ChildNode>;
   createdAt: Scalars['DateTime']['output'];
-  /** NULL means a legacy enrolment, which counts as 1 seat. */
+  /** Additional children beyond the enrolled child (empty/NULL means 0). */
   extraChildrenCount: Maybe<Scalars['Int']['output']>;
-  /** NULL means a legacy enrolment, which counts as 1 seat. */
+  /** Additional adults/guardians beyond the accompanying adult (empty/NULL means 0). */
   extraGuardiansCount: Maybe<Scalars['Int']['output']>;
   /** The ID of the object */
   id: Scalars['ID']['output'];
   occurrence: OccurrenceNode;
   /** An unique encoded reference id */
   referenceId: Maybe<Scalars['String']['output']>;
+  /** Total physical seats reserved by this enrolment (2 + extraChildrenCount + extraGuardiansCount). */
   totalSeats: Scalars['Int']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
@@ -600,6 +630,8 @@ export type EventGroupNode = Node & {
   id: Scalars['ID']['output'];
   image: Scalars['String']['output'];
   imageAltText: Maybe<Scalars['String']['output']>;
+  /** Invitation letter for the event group in the active language, without email footer/unsubscribe notes. */
+  invitationMessage: Maybe<Scalars['String']['output']>;
   name: Maybe<Scalars['String']['output']>;
   project: ProjectNode;
   publishedAt: Maybe<Scalars['DateTime']['output']>;
@@ -636,6 +668,11 @@ export type EventGroupNodeEventsArgs = {
   themePath: InputMaybe<Scalars['String']['input']>;
   themePaths: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   upcoming: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type EventGroupNodeInvitationMessageArgs = {
+  format?: InputMaybe<InvitationMessageFormat>;
 };
 
 export type EventGroupNodeConnection = {
@@ -965,6 +1002,12 @@ export type InternalOrTicketSystemEnrolmentEdge = {
 export type InternalOrTicketSystemEnrolmentUnion = EnrolmentNode | LippupisteEnrolmentNode | TicketmasterEnrolmentNode | TixlyEnrolmentNode;
 
 /** An enumeration. */
+export enum InvitationMessageFormat {
+  Html = 'HTML',
+  Text = 'TEXT'
+}
+
+/** An enumeration. */
 export enum Language {
   En = 'EN',
   Fi = 'FI',
@@ -1025,6 +1068,7 @@ export type LippupisteEnrolmentNode = Node & {
 export type LippupisteEventTicketSystem = EventTicketSystem & {
   __typename?: 'LippupisteEventTicketSystem';
   childPassword: Maybe<Scalars['String']['output']>;
+  /** @deprecated Deprecated in favor of the event's single occurrence time. */
   endTime: Maybe<Scalars['DateTime']['output']>;
   freePasswordCount: Scalars['Int']['output'];
   hasAnyFreePasswords: Scalars['Boolean']['output'];
@@ -1389,16 +1433,56 @@ export type OccurrenceArrivalStatusNode = {
    */
   attendedEnrolmentCount: Scalars['Int']['output'];
   /**
+   * **DEPRECATED:** Effective count of arrived physical seats (using attended_count_override when set) for this occurrence.
+   * @deprecated This field exposes potentially sensitive data and will be removed in a future release. Consider using a more secure method to access this information.
+   */
+  attendedSeats: Scalars['Int']['output'];
+  /**
+   * **DEPRECATED:** Total physical seat capacity for this occurrence.
+   * @deprecated This field exposes potentially sensitive data and will be removed in a future release. Consider using a more secure method to access this information.
+   */
+  capacity: Maybe<Scalars['Int']['output']>;
+  /**
    * **DEPRECATED:** Total number of enrolments for this occurrence.
    * @deprecated This field exposes potentially sensitive data and will be removed in a future release. Consider using a more secure method to access this information.
    */
   enrolmentCount: Scalars['Int']['output'];
+  /**
+   * **DEPRECATED:** Number of enrolments whose attendance has been processed (arrived or absent) for this occurrence.
+   * @deprecated This field exposes potentially sensitive data and will be removed in a future release. Consider using a more secure method to access this information.
+   */
+  handledEnrolmentCount: Scalars['Int']['output'];
+  /**
+   * **DEPRECATED:** Booked physical seats belonging to enrolled tickets whose attendance has not been processed yet.
+   * @deprecated This field exposes potentially sensitive data and will be removed in a future release. Consider using a more secure method to access this information.
+   */
+  pendingArrivalSeats: Scalars['Int']['output'];
+  /**
+   * **DEPRECATED:** Total physical seats currently unoccupied in this occurrence (capacity minus arrived seats), or null if capacity is unset.
+   * @deprecated This field exposes potentially sensitive data and will be removed in a future release. Consider using a more secure method to access this information.
+   */
+  remainingEmptySeats: Maybe<Scalars['Int']['output']>;
+  /**
+   * **DEPRECATED:** Total reserved physical seats for this occurrence.
+   * @deprecated This field exposes potentially sensitive data and will be removed in a future release. Consider using a more secure method to access this information.
+   */
+  reservedSeats: Scalars['Int']['output'];
 };
 
 export type OccurrenceNode = Node & {
   __typename?: 'OccurrenceNode';
   accessibilities: Array<AccessibilityNode>;
+  /** Manual override for arrived adults. Set together with attendedChildrenCountOverride, or both null. */
+  attendedAdultsCountOverride: Maybe<Scalars['Int']['output']>;
+  /** Manual override for arrived children. Set together with attendedAdultsCountOverride, or both null. */
+  attendedChildrenCountOverride: Maybe<Scalars['Int']['output']>;
+  /** Read-only total (children + adults) of the manual arrival override, or null when no override is set. When set, reports and Admin UI use it instead of calculatedAttendedSeats. */
+  attendedCountOverride: Maybe<Scalars['Int']['output']>;
   attendedEnrolmentCount: Scalars['Int']['output'];
+  /** Effective arrived physical seats (children and adults), using attendedCountOverride when set. */
+  attendedSeats: Scalars['Int']['output'];
+  /** Sum of arrived physical seats calculated from enrolments, ignoring attendedCountOverride. */
+  calculatedAttendedSeats: Scalars['Int']['output'];
   capacity: Maybe<Scalars['Int']['output']>;
   /** Override total physical seat capacity. Each enrolment takes at least 2 seats (1 child + 1 guardian). */
   capacityOverride: Maybe<Scalars['Int']['output']>;
@@ -1410,10 +1494,16 @@ export type OccurrenceNode = Node & {
   event: EventNode;
   freeSpotNotificationSubscriptionCount: Scalars['Int']['output'];
   freeSpotNotificationSubscriptions: FreeSpotNotificationSubscriptionNodeConnection;
+  /** Number of enrolments whose attendance has been handled (marked arrived or absent). */
+  handledEnrolmentCount: Scalars['Int']['output'];
   /** The ID of the object */
   id: Scalars['ID']['output'];
   occurrenceLanguage: Language;
+  /** Booked physical seats belonging to enrolled tickets not yet marked arrived or absent. */
+  pendingArrivalSeats: Scalars['Int']['output'];
   remainingCapacity: Maybe<Scalars['Int']['output']>;
+  /** Total physical seats currently unoccupied in the occurrence (capacity minus attendedSeats), or null if capacity is unset. */
+  remainingEmptySeats: Maybe<Scalars['Int']['output']>;
   seatCount: Scalars['Int']['output'];
   /** @deprecated There is no need for this because the only field ticketSystemUrl has been moved to EventNode.ticketSystem. */
   ticketSystem: Maybe<OccurrenceTicketSystem>;
@@ -1839,6 +1929,7 @@ export type QueryVenuesArgs = {
   before: InputMaybe<Scalars['String']['input']>;
   first: InputMaybe<Scalars['Int']['input']>;
   last: InputMaybe<Scalars['Int']['input']>;
+  name: InputMaybe<Scalars['String']['input']>;
   offset: InputMaybe<Scalars['Int']['input']>;
   projectId: InputMaybe<Scalars['ID']['input']>;
 };
@@ -1917,7 +2008,11 @@ export type SendMessageMutationPayload = {
 };
 
 export type SetEnrolmentAttendanceMutationInput = {
-  /** This field is required (but it can be null). */
+  /** Number of arrived children (0 to bookedChildrenCount). */
+  arrivedChildrenCount?: InputMaybe<Scalars['Int']['input']>;
+  /** Number of arrived adults/guardians (0 to bookedGuardiansCount). */
+  arrivedGuardiansCount?: InputMaybe<Scalars['Int']['input']>;
+  /** Indicates whether the ticket has been handled and someone with the ticket has attended: true if handled and at least one participant attended, false if handled and no one attended, or null if not yet handled. Optional when arrived counts are given. */
   attended?: InputMaybe<Scalars['Boolean']['input']>;
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
   enrolmentId: Scalars['ID']['input'];
@@ -2002,8 +2097,16 @@ export enum TicketSystem {
 
 export type TicketVerificationNode = {
   __typename?: 'TicketVerificationNode';
-  /** Indicates whether the ticket holder has arrived. If null, the status is unset. */
+  /** Number of arrived children recorded for this ticket, or null if unset. */
+  arrivedChildrenCount: Maybe<Scalars['Int']['output']>;
+  /** Number of arrived adults/guardians recorded for this ticket, or null if unset. */
+  arrivedGuardiansCount: Maybe<Scalars['Int']['output']>;
+  /** Indicates whether the ticket has been handled and someone with the ticket has attended: true if handled and at least one participant attended, false if handled and no one attended, or null if not yet handled. */
   attended: Maybe<Scalars['Boolean']['output']>;
+  /** Read-only number of children booked on this ticket. */
+  bookedChildrenCount: Scalars['Int']['output'];
+  /** Read-only number of adults/guardians booked on this ticket. */
+  bookedGuardiansCount: Scalars['Int']['output'];
   /** The name of the event */
   eventName: Scalars['String']['output'];
   /**
@@ -2029,6 +2132,7 @@ export type TicketmasterEnrolmentNode = Node & {
 export type TicketmasterEventTicketSystem = EventTicketSystem & {
   __typename?: 'TicketmasterEventTicketSystem';
   childPassword: Maybe<Scalars['String']['output']>;
+  /** @deprecated Deprecated in favor of the event's single occurrence time. */
   endTime: Maybe<Scalars['DateTime']['output']>;
   freePasswordCount: Scalars['Int']['output'];
   hasAnyFreePasswords: Scalars['Boolean']['output'];
@@ -2061,6 +2165,7 @@ export type TixlyEnrolmentNode = Node & {
 export type TixlyEventTicketSystem = EventTicketSystem & {
   __typename?: 'TixlyEventTicketSystem';
   childPassword: Maybe<Scalars['String']['output']>;
+  /** @deprecated Deprecated in favor of the event's single occurrence time. */
   endTime: Maybe<Scalars['DateTime']['output']>;
   freePasswordCount: Scalars['Int']['output'];
   hasAnyFreePasswords: Scalars['Boolean']['output'];
@@ -2198,6 +2303,7 @@ export type UpdateEventMutationPayload = {
 };
 
 export type UpdateEventTicketSystemInput = {
+  /** @deprecated Deprecated in favor of the event's single occurrence time. */
   endTime?: InputMaybe<Scalars['String']['input']>;
   url?: InputMaybe<Scalars['String']['input']>;
 };
@@ -2264,6 +2370,8 @@ export type UpdateMyProfileMutationPayload = {
 export type UpdateOccurrenceMutationInput = {
   /** Omit to keep the current accessibilities. If given, replaces them. An empty list removes them all. */
   accessibilityIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  attendedAdultsCountOverride?: InputMaybe<Scalars['Int']['input']>;
+  attendedChildrenCountOverride?: InputMaybe<Scalars['Int']['input']>;
   capacityOverride?: InputMaybe<Scalars['Int']['input']>;
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
   eventId?: InputMaybe<Scalars['ID']['input']>;
@@ -2281,7 +2389,8 @@ export type UpdateOccurrenceMutationPayload = {
 };
 
 export type UpdateTicketAttendedMutationInput = {
-  attended: Scalars['Boolean']['input'];
+  arrivedChildrenCount: Scalars['Int']['input'];
+  arrivedGuardiansCount: Scalars['Int']['input'];
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
   referenceId: Scalars['String']['input'];
 };
@@ -2315,9 +2424,10 @@ export type VenueNode = Node & {
   description: Maybe<Scalars['String']['output']>;
   /** The ID of the object */
   id: Scalars['ID']['output'];
+  isSystem: Scalars['Boolean']['output'];
   name: Maybe<Scalars['String']['output']>;
   occurrences: OccurrenceNodeConnection;
-  project: ProjectNode;
+  project: Maybe<ProjectNode>;
   translations: Array<VenueTranslationType>;
   updatedAt: Scalars['DateTime']['output'];
   wcAndFacilities: Maybe<Scalars['String']['output']>;
@@ -2605,7 +2715,12 @@ export type AddOccurrenceMutationVariables = Exact<{
 }>;
 
 
-export type AddOccurrenceMutation = { __typename?: 'Mutation', addOccurrence: { __typename?: 'AddOccurrenceMutationPayload', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, seatCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, capacityPerOccurrence: number | null, duration: number | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, accessibilities: Array<{ __typename?: 'AccessibilityNode', id: string, slug: string, name: string }>, ticketSystem:
+export type AddOccurrenceMutation = { __typename?: 'Mutation', addOccurrence: { __typename?: 'AddOccurrenceMutationPayload', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, seatCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, capacityPerOccurrence: number | null, duration: number | null, ticketSystem:
+          | { __typename?: 'InternalEventTicketSystem', type: TicketSystem }
+          | { __typename?: 'LippupisteEventTicketSystem', type: TicketSystem }
+          | { __typename?: 'TicketmasterEventTicketSystem', type: TicketSystem }
+          | { __typename?: 'TixlyEventTicketSystem', type: TicketSystem }
+         | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, accessibilities: Array<{ __typename?: 'AccessibilityNode', id: string, slug: string, name: string }>, ticketSystem:
         | { __typename?: 'InternalOccurrenceTicketSystem', type: TicketSystem }
         | { __typename?: 'LippupisteOccurrenceTicketSystem', url: string | null, type: TicketSystem }
         | { __typename?: 'TicketmasterOccurrenceTicketSystem', url: string | null, type: TicketSystem }
@@ -2617,7 +2732,12 @@ export type UpdateOccurrenceMutationVariables = Exact<{
 }>;
 
 
-export type UpdateOccurrenceMutation = { __typename?: 'Mutation', updateOccurrence: { __typename?: 'UpdateOccurrenceMutationPayload', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, seatCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, capacityPerOccurrence: number | null, duration: number | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, accessibilities: Array<{ __typename?: 'AccessibilityNode', id: string, slug: string, name: string }>, enrolments: { __typename?: 'EnrolmentNodeConnection', edges: Array<{ __typename?: 'EnrolmentNodeEdge', node: { __typename?: 'EnrolmentNode', id: string, attended: boolean | null, totalSeats: number, child: { __typename?: 'ChildNode', name: string, birthyear: number, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string, firstName: string, lastName: string, language: Language } | null } | null> } } | null } | null } | null> }, ticketSystem:
+export type UpdateOccurrenceMutation = { __typename?: 'Mutation', updateOccurrence: { __typename?: 'UpdateOccurrenceMutationPayload', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, attendedEnrolmentCount: number, handledEnrolmentCount: number, attendedCountOverride: number | null, attendedChildrenCountOverride: number | null, attendedAdultsCountOverride: number | null, attendedSeats: number, calculatedAttendedSeats: number, pendingArrivalSeats: number, remainingEmptySeats: number | null, seatCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, capacityPerOccurrence: number | null, duration: number | null, ticketSystem:
+          | { __typename?: 'InternalEventTicketSystem', type: TicketSystem }
+          | { __typename?: 'LippupisteEventTicketSystem', type: TicketSystem }
+          | { __typename?: 'TicketmasterEventTicketSystem', type: TicketSystem }
+          | { __typename?: 'TixlyEventTicketSystem', type: TicketSystem }
+         | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, accessibilities: Array<{ __typename?: 'AccessibilityNode', id: string, slug: string, name: string }>, enrolments: { __typename?: 'EnrolmentNodeConnection', edges: Array<{ __typename?: 'EnrolmentNodeEdge', node: { __typename?: 'EnrolmentNode', id: string, attended: boolean | null, arrivedChildrenCount: number | null, arrivedGuardiansCount: number | null, bookedChildrenCount: number, bookedGuardiansCount: number, arrivedSeats: number, totalSeats: number, child: { __typename?: 'ChildNode', name: string, birthyear: number, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string, firstName: string, lastName: string, language: Language } | null } | null> } } | null } | null } | null> }, ticketSystem:
         | { __typename?: 'InternalOccurrenceTicketSystem', type: TicketSystem }
         | { __typename?: 'LippupisteOccurrenceTicketSystem', url: string | null, type: TicketSystem }
         | { __typename?: 'TicketmasterOccurrenceTicketSystem', url: string | null, type: TicketSystem }
@@ -2636,7 +2756,7 @@ export type SetEnrolmentAttendanceMutationVariables = Exact<{
 }>;
 
 
-export type SetEnrolmentAttendanceMutation = { __typename?: 'Mutation', setEnrolmentAttendance: { __typename?: 'SetEnrolmentAttendanceMutationPayload', enrolment: { __typename?: 'EnrolmentNode', id: string, attended: boolean | null } | null } | null };
+export type SetEnrolmentAttendanceMutation = { __typename?: 'Mutation', setEnrolmentAttendance: { __typename?: 'SetEnrolmentAttendanceMutationPayload', enrolment: { __typename?: 'EnrolmentNode', id: string, attended: boolean | null, arrivedChildrenCount: number | null, arrivedGuardiansCount: number | null, bookedChildrenCount: number, bookedGuardiansCount: number, arrivedSeats: number } | null } | null };
 
 export type OccurrencesQueryVariables = Exact<{
   projectId: InputMaybe<Scalars['String']['input']>;
@@ -2644,14 +2764,24 @@ export type OccurrencesQueryVariables = Exact<{
 }>;
 
 
-export type OccurrencesQuery = { __typename?: 'Query', occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, seatCount: number, capacity: number | null, capacityOverride: number | null, attendedEnrolmentCount: number, freeSpotNotificationSubscriptionCount: number, event: { __typename?: 'EventNode', duration: number | null, capacityPerOccurrence: number | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, accessibilities: Array<{ __typename?: 'AccessibilityNode', id: string, name: string }> } | null } | null> } | null };
+export type OccurrencesQuery = { __typename?: 'Query', occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, seatCount: number, capacity: number | null, capacityOverride: number | null, attendedEnrolmentCount: number, handledEnrolmentCount: number, attendedCountOverride: number | null, attendedChildrenCountOverride: number | null, attendedAdultsCountOverride: number | null, attendedSeats: number, calculatedAttendedSeats: number, pendingArrivalSeats: number, remainingEmptySeats: number | null, freeSpotNotificationSubscriptionCount: number, event: { __typename?: 'EventNode', duration: number | null, capacityPerOccurrence: number | null, ticketSystem:
+            | { __typename?: 'InternalEventTicketSystem', type: TicketSystem }
+            | { __typename?: 'LippupisteEventTicketSystem', type: TicketSystem }
+            | { __typename?: 'TicketmasterEventTicketSystem', type: TicketSystem }
+            | { __typename?: 'TixlyEventTicketSystem', type: TicketSystem }
+           | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, accessibilities: Array<{ __typename?: 'AccessibilityNode', id: string, name: string }> } | null } | null> } | null };
 
 export type OccurrenceQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type OccurrenceQuery = { __typename?: 'Query', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, seatCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, name: string | null, capacityPerOccurrence: number | null, duration: number | null, publishedAt: any | null, project: { __typename?: 'ProjectNode', id: string }, eventGroup: { __typename?: 'EventGroupNode', id: string, name: string | null } | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, accessibilities: Array<{ __typename?: 'AccessibilityNode', id: string, slug: string, name: string }>, enrolments: { __typename?: 'EnrolmentNodeConnection', edges: Array<{ __typename?: 'EnrolmentNodeEdge', node: { __typename?: 'EnrolmentNode', id: string, attended: boolean | null, totalSeats: number, child: { __typename?: 'ChildNode', id: string, name: string, birthyear: number, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string, firstName: string, lastName: string, language: Language, phoneNumber: string } | null } | null> } } | null } | null } | null> }, freeSpotNotificationSubscriptions: { __typename?: 'FreeSpotNotificationSubscriptionNodeConnection', edges: Array<{ __typename?: 'FreeSpotNotificationSubscriptionNodeEdge', node: { __typename?: 'FreeSpotNotificationSubscriptionNode', id: string } | null } | null> } } | null };
+export type OccurrenceQuery = { __typename?: 'Query', occurrence: { __typename?: 'OccurrenceNode', id: string, time: any, enrolmentCount: number, attendedEnrolmentCount: number, handledEnrolmentCount: number, attendedCountOverride: number | null, attendedChildrenCountOverride: number | null, attendedAdultsCountOverride: number | null, attendedSeats: number, calculatedAttendedSeats: number, pendingArrivalSeats: number, remainingEmptySeats: number | null, seatCount: number, capacity: number | null, capacityOverride: number | null, event: { __typename?: 'EventNode', id: string, name: string | null, capacityPerOccurrence: number | null, duration: number | null, publishedAt: any | null, project: { __typename?: 'ProjectNode', id: string }, ticketSystem:
+        | { __typename?: 'InternalEventTicketSystem', type: TicketSystem }
+        | { __typename?: 'LippupisteEventTicketSystem', type: TicketSystem }
+        | { __typename?: 'TicketmasterEventTicketSystem', type: TicketSystem }
+        | { __typename?: 'TixlyEventTicketSystem', type: TicketSystem }
+       | null, eventGroup: { __typename?: 'EventGroupNode', id: string, name: string | null } | null }, venue: { __typename?: 'VenueNode', id: string, translations: Array<{ __typename?: 'VenueTranslationType', languageCode: Language, name: string }> }, accessibilities: Array<{ __typename?: 'AccessibilityNode', id: string, slug: string, name: string }>, enrolments: { __typename?: 'EnrolmentNodeConnection', edges: Array<{ __typename?: 'EnrolmentNodeEdge', node: { __typename?: 'EnrolmentNode', id: string, attended: boolean | null, arrivedChildrenCount: number | null, arrivedGuardiansCount: number | null, bookedChildrenCount: number, bookedGuardiansCount: number, arrivedSeats: number, totalSeats: number, child: { __typename?: 'ChildNode', id: string, name: string, birthyear: number, guardians: { __typename?: 'GuardianNodeConnection', edges: Array<{ __typename?: 'GuardianNodeEdge', node: { __typename?: 'GuardianNode', id: string, email: string, firstName: string, lastName: string, language: Language, phoneNumber: string } | null } | null> } } | null } | null } | null> }, freeSpotNotificationSubscriptions: { __typename?: 'FreeSpotNotificationSubscriptionNodeConnection', edges: Array<{ __typename?: 'FreeSpotNotificationSubscriptionNodeEdge', node: { __typename?: 'FreeSpotNotificationSubscriptionNode', id: string } | null } | null> } } | null };
 
 export type OrganisationsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2680,14 +2810,14 @@ export type UpdateTicketAttendedMutationVariables = Exact<{
 }>;
 
 
-export type UpdateTicketAttendedMutation = { __typename?: 'Mutation', updateTicketAttended: { __typename?: 'UpdateTicketAttendedMutationPayload', ticket: { __typename?: 'TicketVerificationNode', occurrenceTime: any, eventName: string, venueName: string | null, validity: boolean, attended: boolean | null, occurrenceArrivalStatus: { __typename?: 'OccurrenceArrivalStatusNode', enrolmentCount: number, attendedEnrolmentCount: number } | null } | null } | null };
+export type UpdateTicketAttendedMutation = { __typename?: 'Mutation', updateTicketAttended: { __typename?: 'UpdateTicketAttendedMutationPayload', ticket: { __typename?: 'TicketVerificationNode', occurrenceTime: any, eventName: string, venueName: string | null, validity: boolean, attended: boolean | null, bookedChildrenCount: number, bookedGuardiansCount: number, arrivedChildrenCount: number | null, arrivedGuardiansCount: number | null, occurrenceArrivalStatus: { __typename?: 'OccurrenceArrivalStatusNode', enrolmentCount: number, attendedEnrolmentCount: number, handledEnrolmentCount: number, attendedSeats: number, reservedSeats: number, capacity: number | null, pendingArrivalSeats: number, remainingEmptySeats: number | null } | null } | null } | null };
 
 export type VerifyTicketQueryVariables = Exact<{
   referenceId: Scalars['String']['input'];
 }>;
 
 
-export type VerifyTicketQuery = { __typename?: 'Query', verifyTicket: { __typename?: 'TicketVerificationNode', occurrenceTime: any, eventName: string, venueName: string | null, validity: boolean, attended: boolean | null, occurrenceArrivalStatus: { __typename?: 'OccurrenceArrivalStatusNode', enrolmentCount: number, attendedEnrolmentCount: number } | null } | null };
+export type VerifyTicketQuery = { __typename?: 'Query', verifyTicket: { __typename?: 'TicketVerificationNode', occurrenceTime: any, eventName: string, venueName: string | null, validity: boolean, attended: boolean | null, bookedChildrenCount: number, bookedGuardiansCount: number, arrivedChildrenCount: number | null, arrivedGuardiansCount: number | null, occurrenceArrivalStatus: { __typename?: 'OccurrenceArrivalStatusNode', enrolmentCount: number, attendedEnrolmentCount: number, handledEnrolmentCount: number, attendedSeats: number, reservedSeats: number, capacity: number | null, pendingArrivalSeats: number, remainingEmptySeats: number | null } | null } | null };
 
 export type AddVenueMutationVariables = Exact<{
   input: AddVenueMutationInput;
@@ -3387,6 +3517,9 @@ export const AddOccurrenceDocument = gql`
         id
         capacityPerOccurrence
         duration
+        ticketSystem {
+          type
+        }
       }
       enrolmentCount
       seatCount
@@ -3433,8 +3566,20 @@ export const UpdateOccurrenceDocument = gql`
         id
         capacityPerOccurrence
         duration
+        ticketSystem {
+          type
+        }
       }
       enrolmentCount
+      attendedEnrolmentCount
+      handledEnrolmentCount
+      attendedCountOverride
+      attendedChildrenCountOverride
+      attendedAdultsCountOverride
+      attendedSeats
+      calculatedAttendedSeats
+      pendingArrivalSeats
+      remainingEmptySeats
       seatCount
       venue {
         id
@@ -3455,6 +3600,11 @@ export const UpdateOccurrenceDocument = gql`
           node {
             id
             attended
+            arrivedChildrenCount
+            arrivedGuardiansCount
+            bookedChildrenCount
+            bookedGuardiansCount
+            arrivedSeats
             totalSeats
             child {
               name
@@ -3509,6 +3659,11 @@ export const SetEnrolmentAttendanceDocument = gql`
     enrolment {
       id
       attended
+      arrivedChildrenCount
+      arrivedGuardiansCount
+      bookedChildrenCount
+      bookedGuardiansCount
+      arrivedSeats
     }
   }
 }
@@ -3526,6 +3681,9 @@ export const OccurrencesDocument = gql`
         event {
           duration
           capacityPerOccurrence
+          ticketSystem {
+            type
+          }
         }
         enrolmentCount
         seatCount
@@ -3543,6 +3701,14 @@ export const OccurrencesDocument = gql`
           name
         }
         attendedEnrolmentCount
+        handledEnrolmentCount
+        attendedCountOverride
+        attendedChildrenCountOverride
+        attendedAdultsCountOverride
+        attendedSeats
+        calculatedAttendedSeats
+        pendingArrivalSeats
+        remainingEmptySeats
         freeSpotNotificationSubscriptionCount
       }
     }
@@ -3564,12 +3730,24 @@ export const OccurrenceDocument = gql`
       capacityPerOccurrence
       duration
       publishedAt
+      ticketSystem {
+        type
+      }
       eventGroup {
         id
         name
       }
     }
     enrolmentCount
+    attendedEnrolmentCount
+    handledEnrolmentCount
+    attendedCountOverride
+    attendedChildrenCountOverride
+    attendedAdultsCountOverride
+    attendedSeats
+    calculatedAttendedSeats
+    pendingArrivalSeats
+    remainingEmptySeats
     seatCount
     capacity
     capacityOverride
@@ -3590,6 +3768,11 @@ export const OccurrenceDocument = gql`
         node {
           id
           attended
+          arrivedChildrenCount
+          arrivedGuardiansCount
+          bookedChildrenCount
+          bookedGuardiansCount
+          arrivedSeats
           totalSeats
           child {
             id
@@ -3705,9 +3888,19 @@ export const UpdateTicketAttendedDocument = gql`
       venueName
       validity
       attended
+      bookedChildrenCount
+      bookedGuardiansCount
+      arrivedChildrenCount
+      arrivedGuardiansCount
       occurrenceArrivalStatus {
         enrolmentCount
         attendedEnrolmentCount
+        handledEnrolmentCount
+        attendedSeats
+        reservedSeats
+        capacity
+        pendingArrivalSeats
+        remainingEmptySeats
       }
     }
   }
@@ -3724,9 +3917,19 @@ export const VerifyTicketDocument = gql`
     venueName
     validity
     attended
+    bookedChildrenCount
+    bookedGuardiansCount
+    arrivedChildrenCount
+    arrivedGuardiansCount
     occurrenceArrivalStatus {
       enrolmentCount
       attendedEnrolmentCount
+      handledEnrolmentCount
+      attendedSeats
+      reservedSeats
+      capacity
+      pendingArrivalSeats
+      remainingEmptySeats
     }
   }
 }

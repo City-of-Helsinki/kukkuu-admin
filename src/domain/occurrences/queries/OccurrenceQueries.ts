@@ -10,6 +10,9 @@ export const occurrencesQuery = gql`
           event {
             duration
             capacityPerOccurrence
+            ticketSystem {
+              type
+            }
           }
           enrolmentCount
           seatCount
@@ -27,6 +30,14 @@ export const occurrencesQuery = gql`
             name
           }
           attendedEnrolmentCount
+          handledEnrolmentCount
+          attendedCountOverride
+          attendedChildrenCountOverride
+          attendedAdultsCountOverride
+          attendedSeats
+          calculatedAttendedSeats
+          pendingArrivalSeats
+          remainingEmptySeats
           freeSpotNotificationSubscriptionCount
         }
       }
@@ -48,12 +59,24 @@ export const occurrenceQuery = gql`
         capacityPerOccurrence
         duration
         publishedAt
+        ticketSystem {
+          type
+        }
         eventGroup {
           id
           name
         }
       }
       enrolmentCount
+      attendedEnrolmentCount
+      handledEnrolmentCount
+      attendedCountOverride
+      attendedChildrenCountOverride
+      attendedAdultsCountOverride
+      attendedSeats
+      calculatedAttendedSeats
+      pendingArrivalSeats
+      remainingEmptySeats
       seatCount
       capacity
       capacityOverride
@@ -74,6 +97,11 @@ export const occurrenceQuery = gql`
           node {
             id
             attended
+            arrivedChildrenCount
+            arrivedGuardiansCount
+            bookedChildrenCount
+            bookedGuardiansCount
+            arrivedSeats
             totalSeats
             child {
               id

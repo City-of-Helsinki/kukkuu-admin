@@ -10,6 +10,9 @@ export const addOccurrenceMutation = gql`
           id
           capacityPerOccurrence
           duration
+          ticketSystem {
+            type
+          }
         }
         enrolmentCount
         seatCount
@@ -54,8 +57,20 @@ export const updateOccurrenceMutation = gql`
           id
           capacityPerOccurrence
           duration
+          ticketSystem {
+            type
+          }
         }
         enrolmentCount
+        attendedEnrolmentCount
+        handledEnrolmentCount
+        attendedCountOverride
+        attendedChildrenCountOverride
+        attendedAdultsCountOverride
+        attendedSeats
+        calculatedAttendedSeats
+        pendingArrivalSeats
+        remainingEmptySeats
         seatCount
         venue {
           id
@@ -76,6 +91,11 @@ export const updateOccurrenceMutation = gql`
             node {
               id
               attended
+              arrivedChildrenCount
+              arrivedGuardiansCount
+              bookedChildrenCount
+              bookedGuardiansCount
+              arrivedSeats
               totalSeats
               child {
                 name
@@ -128,6 +148,11 @@ export const setEnrolmentAttendanceMutation = gql`
       enrolment {
         id
         attended
+        arrivedChildrenCount
+        arrivedGuardiansCount
+        bookedChildrenCount
+        bookedGuardiansCount
+        arrivedSeats
       }
     }
   }

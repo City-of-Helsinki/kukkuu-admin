@@ -1,5 +1,11 @@
 import React from 'react';
-import { useTranslate, useDataProvider, useRecordContext } from 'react-admin';
+import {
+  useTranslate,
+  useDataProvider,
+  useRecordContext,
+  useRefresh,
+  useNotify,
+} from 'react-admin';
 import type { SelectChangeEvent } from '@mui/material/Select';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -14,8 +20,15 @@ const OccurrenceAttendedField = () => {
   const [attended, setAttended] = React.useState(
     JSON.stringify(enrolment.attended)
   );
+  React.useEffect(() => {
+    setAttended(JSON.stringify(enrolment.attended));
+  }, [enrolment.attended]);
+
   const dataProvider = useDataProvider();
   const translate = useTranslate();
+  const refresh = useRefresh();
+  const notify = useNotify();
+
   const handleChange = async (event: SelectChangeEvent) => {
     const value = event.target.value;
     try {
@@ -23,11 +36,13 @@ const OccurrenceAttendedField = () => {
         enrolment.id,
         JSON.parse(value)
       );
+      setAttended(value);
+      refresh();
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('Failed to update enrolment attendance', error);
+      notify('ra.notification.http_error', { type: 'error' });
     }
-    setAttended(value);
   };
   return (
     <FormControl fullWidth>

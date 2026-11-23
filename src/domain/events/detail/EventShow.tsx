@@ -20,7 +20,11 @@ import {
 } from 'react-admin';
 import { Link } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
+import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
+import Tooltip from '@mui/material/Tooltip';
 
+import MetricLabelWithTooltip from '../../../common/components/metricLabelWithTooltip/MetricLabelWithTooltip';
 import { toDateString, toDateTimeString } from '../../../common/utils';
 import ViewTitle from '../../../common/components/viewTitle/ViewTitle';
 import LongTextField from '../../../common/components/longTextField/LongTextField';
@@ -267,19 +271,117 @@ const EventDetails = () => {
               </ReferenceField>
               <NumberField
                 source="capacity"
-                label="occurrences.fields.capacity.label"
+                sortable={false}
+                label={
+                  <MetricLabelWithTooltip
+                    label={t('occurrences.fields.capacity.label')}
+                    tooltip={t('occurrences.fields.capacity.tooltip')}
+                  />
+                }
               />
               <NumberField
                 source="seatCount"
-                label="occurrences.fields.seatCount.label"
+                sortable={false}
+                label={
+                  <MetricLabelWithTooltip
+                    label={t('arrivalMetrics.seatsReserved.label')}
+                    tooltip={t('arrivalMetrics.seatsReserved.tooltip')}
+                  />
+                }
+              />
+              <FunctionField
+                source="attendedSeats"
+                sortable={false}
+                label={
+                  <MetricLabelWithTooltip
+                    label={t('arrivalMetrics.peopleArrived.label')}
+                    tooltip={t('arrivalMetrics.peopleArrived.tooltip')}
+                  />
+                }
+                render={(occ: RaRecord) => {
+                  const isOverridden =
+                    occ.attendedCountOverride !== null &&
+                    occ.attendedCountOverride !== undefined;
+                  return (
+                    <Box
+                      sx={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 0.75,
+                      }}
+                    >
+                      <span>{occ.attendedSeats ?? 0}</span>
+                      {isOverridden && (
+                        <Tooltip
+                          title={
+                            occ.attendedChildrenCountOverride !== null &&
+                            occ.attendedChildrenCountOverride !== undefined &&
+                            occ.attendedAdultsCountOverride !== null &&
+                            occ.attendedAdultsCountOverride !== undefined
+                              ? t(
+                                  'occurrences.fields.attendedCountOverride.tooltipWithBreakdown',
+                                  {
+                                    children: occ.attendedChildrenCountOverride,
+                                    adults: occ.attendedAdultsCountOverride,
+                                    calculated:
+                                      occ.calculatedAttendedSeats ?? '?',
+                                  }
+                                )
+                              : t(
+                                  'occurrences.fields.attendedCountOverride.tooltip',
+                                  {
+                                    calculated:
+                                      occ.calculatedAttendedSeats ?? '?',
+                                  }
+                                )
+                          }
+                          enterTouchDelay={0}
+                          arrow
+                        >
+                          <Chip
+                            size="small"
+                            color="warning"
+                            label={t(
+                              'occurrences.fields.attendedCountOverride.shortBadge'
+                            )}
+                          />
+                        </Tooltip>
+                      )}
+                    </Box>
+                  );
+                }}
+              />
+              <FunctionField
+                label={
+                  <MetricLabelWithTooltip
+                    label={t('arrivalMetrics.spaceLeft.label')}
+                    tooltip={t('arrivalMetrics.spaceLeft.tooltip')}
+                  />
+                }
+                render={(occ: RaRecord) => occ.remainingEmptySeats ?? '—'}
               />
               <NumberField
-                source="enrolmentCount"
-                label="occurrences.fields.enrolmentsCount.label"
+                source="pendingArrivalSeats"
+                sortable={false}
+                label={
+                  <MetricLabelWithTooltip
+                    label={t('arrivalMetrics.expectedRemaining.label')}
+                    tooltip={t('arrivalMetrics.expectedRemaining.tooltip')}
+                  />
+                }
               />
-              <NumberField
-                source="attendedEnrolmentCount"
-                label="occurrences.fields.attendedEnrolmentsCount.label"
+              <FunctionField
+                source="handledEnrolmentCount"
+                sortable={false}
+                label={
+                  <MetricLabelWithTooltip
+                    label={t('arrivalMetrics.ticketsHandled.label')}
+                    tooltip={t('arrivalMetrics.ticketsHandled.tooltip')}
+                  />
+                }
+                render={(occ: RaRecord) =>
+                  `${occ.handledEnrolmentCount ?? 0} / ${occ.enrolmentCount ?? 0}`
+                }
               />
               <NumberField
                 source="freeSpotNotificationSubscriptionCount"

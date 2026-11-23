@@ -22,6 +22,7 @@ import {
   type OccurrencesQuery,
   OccurrenceDocument,
 } from '../../api/generatedTypes/graphql';
+import { hasInternalTicketSystem } from '../../events/utils';
 import Config from '../../config';
 import AppConfig from '../../application/AppConfig';
 
@@ -84,15 +85,26 @@ const updateOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
     venue,
     event,
     capacityOverride,
+    attendedChildrenCountOverride,
+    attendedAdultsCountOverride,
     accessibilityIds,
   } = localUpdateData;
 
+  const isInternal = hasInternalTicketSystem(event);
   const data = {
     id,
     venueId: venue.id,
     time: normalizeTime(date as string, timeField as string),
     eventId: event.id,
-    capacityOverride,
+    ...(isInternal
+      ? {
+          capacityOverride,
+          // Always send both overrides explicitly (null clears an active override;
+          // the backend requires them to be set or cleared together)
+          attendedChildrenCountOverride: attendedChildrenCountOverride ?? null,
+          attendedAdultsCountOverride: attendedAdultsCountOverride ?? null,
+        }
+      : {}),
     accessibilityIds,
   };
 
@@ -114,11 +126,23 @@ const deleteOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
 
 const setEnrolmentAttendance = async (
   enrolmentId: string,
-  attended: boolean | null
+  attended?: boolean | null,
+  counts?: {
+    arrivedChildrenCount: number;
+    arrivedGuardiansCount: number;
+  }
 ) => {
+  const input = counts
+    ? {
+        enrolmentId,
+        arrivedChildrenCount: counts.arrivedChildrenCount,
+        arrivedGuardiansCount: counts.arrivedGuardiansCount,
+      }
+    : { enrolmentId, attended: attended ?? null };
+
   const response = await mutationHandler({
     mutation: setEnrolmentAttendanceMutation,
-    variables: { input: { enrolmentId, attended } },
+    variables: { input },
   });
   return { data: response.data };
 };
