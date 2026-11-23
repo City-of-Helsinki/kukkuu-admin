@@ -69,12 +69,66 @@ describe('OccurrenceApi', () => {
         expect(mutationHandlerSpy).toHaveBeenCalledWith(
           expect.objectContaining({
             variables: {
-              input: expect.objectContaining({ accessibilityIds }),
+              input: expect.objectContaining({
+                accessibilityIds,
+                attendedChildrenCountOverride: null,
+                attendedAdultsCountOverride: null,
+              }),
             },
           })
         );
       }
     );
+
+    it('sends children and adults override fields when set and null when cleared', async () => {
+      const mutationHandlerSpy = mockMutationHandler();
+
+      await updateOccurrence({
+        data: {
+          id: 'occurrence-1',
+          date: '1.2.2027',
+          timeField: '10:00',
+          venue: { id: 'venue-1' },
+          event: { id: 'event-1' },
+          attendedChildrenCountOverride: 6,
+          attendedAdultsCountOverride: 9,
+        },
+      });
+
+      expect(mutationHandlerSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          variables: {
+            input: expect.objectContaining({
+              attendedChildrenCountOverride: 6,
+              attendedAdultsCountOverride: 9,
+            }),
+          },
+        })
+      );
+    });
+
+    it('omits capacityOverride and attended override fields for external ticket system events', async () => {
+      const mutationHandlerSpy = mockMutationHandler();
+
+      await updateOccurrence({
+        data: {
+          id: 'occurrence-1',
+          date: '1.2.2027',
+          timeField: '10:00',
+          venue: { id: 'venue-1' },
+          event: { id: 'event-1', ticketSystem: { type: 'TICKETMASTER' } },
+          capacityOverride: 10,
+          attendedChildrenCountOverride: 2,
+          attendedAdultsCountOverride: 3,
+        },
+      });
+
+      const sentInput = mutationHandlerSpy.mock.calls[0]?.[0]?.variables?.input;
+      expect(sentInput).toBeDefined();
+      expect(sentInput).not.toHaveProperty('capacityOverride');
+      expect(sentInput).not.toHaveProperty('attendedChildrenCountOverride');
+      expect(sentInput).not.toHaveProperty('attendedAdultsCountOverride');
+    });
   });
 
   describe('normalizeTime', () => {

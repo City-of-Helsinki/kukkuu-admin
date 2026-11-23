@@ -20,6 +20,29 @@
       "title": "Not authorized."
     }
   },
+  "arrivalMetrics": {
+    "peopleArrived": {
+      "label": "Anlända personer",
+      "tooltip": "Totalt antal fysiska platser som upptas av anlända barn och vuxna (eller manuell åsidosättning om angiven)."
+    },
+    "seatsReserved": {
+      "label": "Reserverade platser",
+      "tooltip": "Totalt antal bokade fysiska platser jämfört med lokalens kapacitet."
+    },
+    "spaceLeft": {
+      "label": "Ledigt utrymme kvar",
+      "tooltip": "Förekomstens fysiska kapacitet minus personer som anlänt hittills."
+    },
+    "expectedRemaining": {
+      "label": "Väntas fortfarande",
+      "tooltip": "Bokade platser för biljetter som ännu inte markerats som anlända eller frånvarande."
+    },
+    "ticketsHandled": {
+      "label": "Hanterade biljetter",
+      "tooltip": "Antal biljetter markerade som anlända eller frånvarande av alla anmälda biljetter.",
+      "value": "%{handled} / %{total} (%{remaining} väntar, %{arrivedTickets} anlända)"
+    }
+  },
   "children": {
     "fields": {
       "birthyear": {
@@ -61,6 +84,14 @@
     "fields": {
       "attended": {
         "label": ""
+      },
+      "arrivedChildrenCount": {
+        "label": "Anlända barn",
+        "tooltip": "Antal barn som faktiskt anlände för denna anmälan (0 till bokat antal barn)."
+      },
+      "arrivedGuardiansCount": {
+        "label": "Anlända vuxna",
+        "tooltip": "Antal vuxna som faktiskt anlände för denna anmälan (0 till bokat antal vuxna)."
       },
       "totalSeats": {
         "label": "Platser"
@@ -432,11 +463,29 @@
     },
     "fields": {
       "capacity": {
-        "label": "Capacity"
+        "label": "Capacity",
+        "tooltip": "Förekomstens totala fysiska platsantal."
       },
       "capacityOverride": {
         "label": "Occurrence capacity",
         "helperText": "Förekomstens totala fysiska platsantal. Åsidosätter evenemangets platsantal (%{capacityPerOccurrence}). Varje anmälan reserverar minst 2 platser (1 barn + 1 vårdnadshavare). Detta påverkar inte andra förekomster."
+      },
+      "attendedCountOverride": {
+        "label": "Åsidosatt ankomstantal (platser)",
+        "childrenLabel": "Åsidosatt antal anlända barn",
+        "adultsLabel": "Åsidosatt antal anlända vuxna",
+        "helperText": "Valfritt manuellt antal för rapporter och adminvyn, t.ex. om biljettscanning inte kunde användas. Rensa båda fälten för att återställa det beräknade antalet.",
+        "formWarning": "Obs: Om du använder dessa fält måste både barn och vuxna fyllas i. När åsidosättningen är aktiv räknas deltagarna i förekomstens anmälningstabell INTE med i totaler eller rapporter.",
+        "bothRequired": "Både fältet för barn och fältet för vuxna måste fyllas i, eller båda lämnas tomma.",
+        "badge": "Åsidosatt (beräknat: %{calculated})",
+        "shortBadge": "Åsidosatt",
+        "tooltip": "Manuellt åsidosatt (beräknat från anmälningar: %{calculated})",
+        "tooltipWithBreakdown": "Manuellt åsidosatt: %{children} barn, %{adults} vuxna (beräknat från anmälningar: %{calculated}). Deltagare i anmälningstabellen räknas inte.",
+        "alert": "Ankomstantalet är manuellt åsidosatt till %{override} (beräknat från anmälningar: %{calculated}). Deltagare i anmälningstabellen nedan räknas inte med i totaler eller rapporter.",
+        "alertWithBreakdown": "Ankomstantalet är manuellt åsidosatt till %{override} (%{children} barn, %{adults} vuxna; beräknat från anmälningar: %{calculated}). Deltagare i anmälningstabellen nedan räknas inte med i totaler eller rapporter."
+      },
+      "arrivalSummary": {
+        "label": "Ankomst- och platsöversikt"
       },
       "accessibilities": {
         "label": "Tillgänglighet",
@@ -449,6 +498,8 @@
         "label": "Antal anmälningar"
       },
       "enrolments": {
+        "overrideActiveWarning": "Åsidosättning av ankomstantal är aktiv för förekomsten (totalt %{override}). Deltagarna i denna anmälningstabell räknas INTE med i förekomstens totaler eller rapporter.",
+        "arrivedCountsInfo": "Anlända barn och vuxna visar hur många personer som faktiskt deltog för varje anmälan. Att välja närvaro fyller i bokade antal som standard, och du kan justera enskilda antal om färre personer anlände. Om förekomsten har ett åsidosatt ankomstantal använder totaler och rapporter det värdet i stället.",
         "fields": {
           "attended": {
             "choices": {
@@ -582,13 +633,30 @@
     "valid": "Ticket is valid",
     "invalid": "Ticket is not valid",
     "error": "Ticket validation failed",
+    "savedStatus": "Sparad ankomst: %{children} barn, %{adults} vuxna",
+    "arrivedChildren": {
+      "label": "Anlända barn",
+      "helperText": "Bokat: %{booked}",
+      "decrement": "Minska anlända barn",
+      "increment": "Öka anlända barn"
+    },
+    "arrivedAdults": {
+      "label": "Anlända vuxna",
+      "helperText": "Bokat: %{booked}",
+      "decrement": "Minska anlända vuxna",
+      "increment": "Öka anlända vuxna"
+    },
     "updateTicketAttended": {
       "onSuccess": {
         "attendedMessage": "Ticket owner is now marked as attended",
+        "attendedWithCountsMessage": "Ankomst sparad: %{children} barn, %{adults} vuxna",
         "unattendedMessage": "Ticket owner is now marked as unattended"
       },
       "onError": {
         "message": "Ticket processing ended with an error, and the arrival status could not be updated"
+      },
+      "saveButton": {
+        "label": "Spara ankomststatus"
       },
       "switchButton": {
         "label": "Ticket owner has arrived"

@@ -21,6 +21,29 @@
       "title": "Ei käyttöoikeutta"
     }
   },
+  "arrivalMetrics": {
+    "peopleArrived": {
+      "label": "Saapuneet henkilöt",
+      "tooltip": "Paikalle saapuneiden lasten ja aikuisten yhteenlaskettu paikkamäärä (tai manuaalisesti korvattu luku, jos asetettu)."
+    },
+    "seatsReserved": {
+      "label": "Varatut paikat",
+      "tooltip": "Kaikkien ilmoittautumisten varaamat fyysiset paikat suhteessa salin kapasiteettiin."
+    },
+    "spaceLeft": {
+      "label": "Tilaa jäljellä",
+      "tooltip": "Esiintymän fyysinen kokonaiskapasiteetti miinus tähän mennessä saapuneet henkilöt."
+    },
+    "expectedRemaining": {
+      "label": "Vielä odotettavissa",
+      "tooltip": "Käsittelemättömien (ei vielä saapuneiksi tai saapumattomiksi merkittyjen) lippujen varatut paikat."
+    },
+    "ticketsHandled": {
+      "label": "Lippuja käsitelty",
+      "tooltip": "Saapuneiksi tai saapumattomiksi merkittyjen lippujen määrä suhteessa kaikkiin ilmoittautumisiin.",
+      "value": "%{handled} / %{total} (%{remaining} odottaa, %{arrivedTickets} saapunut)"
+    }
+  },
   "children": {
     "fields": {
       "birthyear": {
@@ -62,6 +85,14 @@
     "fields": {
       "attended": {
         "label": "Paikallaolo"
+      },
+      "arrivedChildrenCount": {
+        "label": "Saapuneet lapset",
+        "tooltip": "Tällä ilmoittautumisella saapuneiden lasten määrä (0 – varattujen lasten määrä)."
+      },
+      "arrivedGuardiansCount": {
+        "label": "Saapuneet aikuiset",
+        "tooltip": "Tällä ilmoittautumisella saapuneiden aikuisten määrä (0 – varattujen aikuisten määrä)."
       },
       "totalSeats": {
         "label": "Paikkoja"
@@ -429,11 +460,29 @@
     },
     "fields": {
       "capacity": {
-        "label": "Paikkoja"
+        "label": "Paikkoja",
+        "tooltip": "Esiintymän fyysinen kokonaispaikkamäärä."
       },
       "capacityOverride": {
         "label": "Esiintymäkohtainen kapasiteetti",
         "helperText": "Esiintymän fyysinen kokonaispaikkamäärä. Korvaa tapahtuman paikkamäärän (%{capacityPerOccurrence}). Jokainen ilmoittautuminen varaa vähintään 2 paikkaa (1 lapsi + 1 huoltaja). Tämä ei vaikuta muihin esiintymiin."
+      },
+      "attendedCountOverride": {
+        "label": "Saapujamäärän korvaus (paikat)",
+        "childrenLabel": "Saapuneiden lasten korvaus",
+        "adultsLabel": "Saapuneiden aikuisten korvaus",
+        "helperText": "Valinnainen manuaalinen määrä raportteihin ja ylläpitoon, esim. jos lipuntarkastus ei ollut käytössä. Tyhjennä molemmat kentät palauttaaksesi lasketun määrän.",
+        "formWarning": "Huom: Jos käytät korvauskenttiä, sekä lasten että aikuisten määrä on täytettävä. Kun korvaus on käytössä, esiintymän ilmoittautumistaulukon saapujamääriä EI lasketa mukaan yhteismääriin eikä raportteihin.",
+        "bothRequired": "Sekä lasten että aikuisten korvauskenttä on täytettävä, tai molemmat jätettävä tyhjiksi.",
+        "badge": "Korvattu (laskettu: %{calculated})",
+        "shortBadge": "Korvattu",
+        "tooltip": "Manuaalisesti korvattu (ilmoittautumisista laskettu: %{calculated})",
+        "tooltipWithBreakdown": "Manuaalisesti korvattu: %{children} lasta, %{adults} aikuista (ilmoittautumisista laskettu: %{calculated}). Ilmoittautumistaulukon saapujia ei lasketa.",
+        "alert": "Saapujamäärä on korvattu manuaalisesti arvoon %{override} (ilmoittautumisista laskettu: %{calculated}). Alla olevan ilmoittautumistaulukon saapujamääriä ei lasketa mukaan yhteismääriin eikä raportteihin.",
+        "alertWithBreakdown": "Saapujamäärä on korvattu manuaalisesti arvoon %{override} (%{children} lasta, %{adults} aikuista; ilmoittautumisista laskettu: %{calculated}). Alla olevan ilmoittautumistaulukon saapujamääriä ei lasketa mukaan yhteismääriin eikä raportteihin."
+      },
+      "arrivalSummary": {
+        "label": "Saapumis- ja paikkatilanne"
       },
       "accessibilities": {
         "label": "Saavutettavuus",
@@ -446,6 +495,8 @@
         "label": "Ilmoittautumisten lukumäärä"
       },
       "enrolments": {
+        "overrideActiveWarning": "Esiintymäkohtainen saapujamäärän korvaus on käytössä (yhteensä %{override}). Tämän ilmoittautumistaulukon saapujamääriä EI lasketa mukaan esiintymän yhteismääriin eikä raportteihin.",
+        "arrivedCountsInfo": "Saapuneiden lasten ja aikuisten määrät kertovat, kuinka monta henkilöä kultakin ilmoittautumiselta saapui paikalle. Valinta 'Kyllä' täyttää varatut määrät oletuksena, ja määriä voi muokata rivi kerrallaan, jos kaikki eivät päässeet paikalle. Jos esiintymälle on asetettu saapujamäärän korvaus, yhteismäärät ja raportit käyttävät korvattua arvoa näiden rivikohtaisten määrien sijaan.",
         "fields": {
           "attended": {
             "choices": {
@@ -577,13 +628,30 @@
     "valid": "Lippu on voimassa",
     "invalid": "Lippu ei ole voimassa",
     "error": "Lipun tarkistaminen epäonnistui",
+    "savedStatus": "Tallennettu saapuminen: %{children} lasta, %{adults} aikuista",
+    "arrivedChildren": {
+      "label": "Saapuneet lapset",
+      "helperText": "Varattu: %{booked}",
+      "decrement": "Vähennä saapuneita lapsia",
+      "increment": "Lisää saapuneita lapsia"
+    },
+    "arrivedAdults": {
+      "label": "Saapuneet aikuiset",
+      "helperText": "Varattu: %{booked}",
+      "decrement": "Vähennä saapuneita aikuisia",
+      "increment": "Lisää saapuneita aikuisia"
+    },
     "updateTicketAttended": {
       "onSuccess": {
         "attendedMessage": "Lipun omistaja on nyt merkitty saapuneeksi",
+        "attendedWithCountsMessage": "Saapuminen tallennettu: %{children} lasta, %{adults} aikuista",
         "unattendedMessage": "Lipun omistaja on nyt merkitty saapumattomaksi"
       },
       "onError": {
         "message": "Lipun käsittely päätyi virheeseen, eikä saapumisen tilaa voitu päivittää"
+      },
+      "saveButton": {
+        "label": "Tallenna saapuminen"
       },
       "switchButton": {
         "label": "Lipun omistaja saapunut paikalle"

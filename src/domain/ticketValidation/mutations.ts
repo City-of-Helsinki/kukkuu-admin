@@ -9,9 +9,19 @@ export const updateTicketAttendedMutation = gql`
         venueName
         validity
         attended
+        bookedChildrenCount
+        bookedGuardiansCount
+        arrivedChildrenCount
+        arrivedGuardiansCount
         occurrenceArrivalStatus {
           enrolmentCount
           attendedEnrolmentCount
+          handledEnrolmentCount
+          attendedSeats
+          reservedSeats
+          capacity
+          pendingArrivalSeats
+          remainingEmptySeats
         }
       }
     }

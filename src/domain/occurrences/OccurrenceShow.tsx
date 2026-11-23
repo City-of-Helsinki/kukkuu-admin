@@ -3,7 +3,6 @@ import {
   type RaRecord,
   type RowClickFunction,
   TextField,
-  NumberField,
   DateField,
   Datagrid,
   ReferenceField,
@@ -16,14 +15,25 @@ import {
   useGetOne,
 } from 'react-admin';
 import { useParams } from 'react-router-dom';
+import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
 
+import ArrivalMetricsPanel from '../../common/components/arrivalMetricsPanel/ArrivalMetricsPanel';
+import MetricLabelWithTooltip from '../../common/components/metricLabelWithTooltip/MetricLabelWithTooltip';
 import KukkuuPageLayout from '../application/layout/kukkuuPageLayout/KukkuuPageLayout';
 import KukkuuDetailPage from '../application/layout/kukkuuDetailPage/KukkuuDetailPage';
 import OccurrenceTimeRangeField from './fields/OccurrenceTimeRangeField';
 import OccurrenceAttendedField from './fields/OccurrenceAttendedField';
+import {
+  OccurrenceArrivedChildrenField,
+  OccurrenceArrivedGuardiansField,
+} from './fields/OccurrenceArrivedCountsFields';
 import Occurrence from './Occurrence';
 import Guardian from './Guardian';
 import type { Permissions } from '../authentication/authProvider';
+import { hasInternalTicketSystem } from '../events/utils';
 import projectService from '../projects/projectService';
 import type {
   EnrolmentNodeEdge,
@@ -118,6 +128,10 @@ const OccurrenceShow = () => {
   const { data: record } = useGetOne<OccurrenceNode>('occurrences', { id });
   const projectId =
     record?.event?.project?.id || projectService.projectId || '';
+  const isInternal = hasInternalTicketSystem(record?.event);
+  const hasArrivalOverride =
+    record?.attendedCountOverride !== null &&
+    record?.attendedCountOverride !== undefined;
   const canViewFamilies = Boolean(
     permissions?.canViewFamiliesWithinProject(projectId)
   );
@@ -151,14 +165,6 @@ const OccurrenceShow = () => {
         >
           <TextField source="translations.FI.name" />
         </ReferenceField>
-        <NumberField
-          source="capacity"
-          label="occurrences.fields.capacity.label"
-        />
-        <NumberField
-          source="seatCount"
-          label="occurrences.fields.seatCount.label"
-        />
         <FunctionField
           source="accessibilities"
           label="occurrences.fields.accessibilities.label"
@@ -167,47 +173,125 @@ const OccurrenceShow = () => {
             translate('occurrences.fields.accessibilities.notSet')
           }
         />
-        <FunctionField
-          render={(occurrence: RaRecord) =>
-            occurrence?.freeSpotNotificationSubscriptions?.edges?.length ?? '?'
-          }
-          label="occurrences.fields.freeSpotNotificationSubscriptions.label"
-        />
-        <ArrayField
-          label={<OccurrenceDataGridTitle occurrenceId={id} />}
-          source="enrolments.edges"
-        >
-          <Datagrid bulkActionButtons={false} rowClick={rowClick}>
-            <FunctionField<EnrolmentNodeEdge>
-              label="children.fields.name.label"
-              render={withEnrolment(getChildFullName, () => null)}
+        {isInternal && (
+          <FunctionField
+            render={(occurrence: RaRecord) =>
+              occurrence?.freeSpotNotificationSubscriptions?.edges?.length ??
+              '?'
+            }
+            label="occurrences.fields.freeSpotNotificationSubscriptions.label"
+          />
+        )}
+        {isInternal && record && (
+          <Box sx={{ mt: 2, mb: 1 }}>
+            <Divider sx={{ mb: 2 }} />
+            <Typography
+              component="h2"
+              variant="subtitle2"
+              color="text.secondary"
+              sx={{ mb: 1 }}
+            >
+              {translate('occurrences.fields.arrivalSummary.label')}
+            </Typography>
+            <ArrivalMetricsPanel
+              attendedSeats={record.attendedSeats ?? 0}
+              calculatedAttendedSeats={record.calculatedAttendedSeats ?? 0}
+              attendedCountOverride={record.attendedCountOverride}
+              attendedChildrenCountOverride={
+                record.attendedChildrenCountOverride
+              }
+              attendedAdultsCountOverride={record.attendedAdultsCountOverride}
+              reservedSeats={record.seatCount ?? 0}
+              capacity={record.capacity}
+              pendingArrivalSeats={record.pendingArrivalSeats ?? 0}
+              remainingEmptySeats={record.remainingEmptySeats}
+              enrolmentCount={record.enrolmentCount ?? 0}
+              handledEnrolmentCount={record.handledEnrolmentCount ?? 0}
+              attendedEnrolmentCount={record.attendedEnrolmentCount ?? 0}
             />
-            <FunctionField<EnrolmentNodeEdge>
-              label="enrolments.fields.totalSeats.label"
-              render={withEnrolment(getEnrolmentTotalSeats, () => '-')}
-            />
-            <FunctionField<EnrolmentNodeEdge>
-              render={withEnrolment(
-                withGuardian(getGuardianFullName, () =>
-                  translate('guardian.doesNotExist')
-                ),
-                () => null
+          </Box>
+        )}
+        {isInternal && (
+          <Box sx={{ my: 1 }}>
+            <Alert severity={hasArrivalOverride ? 'warning' : 'info'}>
+              {hasArrivalOverride && (
+                <Box
+                  component="span"
+                  sx={{ display: 'block', mb: 0.5, fontWeight: 500 }}
+                >
+                  {translate(
+                    'occurrences.fields.enrolments.overrideActiveWarning',
+                    {
+                      override: record.attendedCountOverride,
+                    }
+                  )}
+                </Box>
               )}
-              label="guardian.name"
-            />
-            <FunctionField<EnrolmentNodeEdge>
-              render={withEnrolment(
-                withGuardian(getGuardianLanguage, () =>
-                  translate('guardian.doesNotExist')
-                ),
-                () => null
-              )}
-              label="events.fields.language.label"
-            />
-            {/* @ts-ignore - label is magically handled by material-ui */}
-            <OccurrenceAttendedField label="enrolments.fields.attended.label" />
-          </Datagrid>
-        </ArrayField>
+              {translate('occurrences.fields.enrolments.arrivedCountsInfo')}
+            </Alert>
+          </Box>
+        )}
+        {isInternal && (
+          <ArrayField
+            label={<OccurrenceDataGridTitle occurrenceId={id} />}
+            source="enrolments.edges"
+          >
+            <Datagrid bulkActionButtons={false} rowClick={rowClick}>
+              <FunctionField<EnrolmentNodeEdge>
+                label="children.fields.name.label"
+                render={withEnrolment(getChildFullName, () => null)}
+              />
+              <FunctionField<EnrolmentNodeEdge>
+                label="enrolments.fields.totalSeats.label"
+                render={withEnrolment(getEnrolmentTotalSeats, () => '-')}
+              />
+              <FunctionField<EnrolmentNodeEdge>
+                render={withEnrolment(
+                  withGuardian(getGuardianFullName, () =>
+                    translate('guardian.doesNotExist')
+                  ),
+                  () => null
+                )}
+                label="guardian.name"
+              />
+              <FunctionField<EnrolmentNodeEdge>
+                render={withEnrolment(
+                  withGuardian(getGuardianLanguage, () =>
+                    translate('guardian.doesNotExist')
+                  ),
+                  () => null
+                )}
+                label="events.fields.language.label"
+              />
+              {/* @ts-ignore - label is magically handled by material-ui */}
+              <OccurrenceAttendedField label="enrolments.fields.attended.label" />
+              <OccurrenceArrivedChildrenField
+                label={
+                  <MetricLabelWithTooltip
+                    label={translate(
+                      'enrolments.fields.arrivedChildrenCount.label'
+                    )}
+                    tooltip={translate(
+                      'enrolments.fields.arrivedChildrenCount.tooltip'
+                    )}
+                  />
+                }
+              />
+              <OccurrenceArrivedGuardiansField
+                label={
+                  <MetricLabelWithTooltip
+                    label={translate(
+                      'enrolments.fields.arrivedGuardiansCount.label'
+                    )}
+                    tooltip={translate(
+                      'enrolments.fields.arrivedGuardiansCount.tooltip'
+                    )}
+                  />
+                }
+              />
+            </Datagrid>
+          </ArrayField>
+        )}
       </SimpleShowLayout>
     </KukkuuDetailPage>
   );

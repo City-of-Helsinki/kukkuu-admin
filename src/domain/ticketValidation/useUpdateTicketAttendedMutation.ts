@@ -20,12 +20,19 @@ export default function useUpdateTicketAttendedMutation({
     UpdateTicketAttendedDocument,
     {
       onCompleted: (data) => {
-        const attended = data?.updateTicketAttended?.ticket?.attended;
+        const ticket = data?.updateTicketAttended?.ticket;
+        const attended = ticket?.attended;
         if (attended === true) {
           // eslint-disable-next-line no-console
           console.info('The ticket attendance status set to', true);
           notify(
-            'ticketValidation.updateTicketAttended.onSuccess.attendedMessage'
+            'ticketValidation.updateTicketAttended.onSuccess.attendedWithCountsMessage',
+            {
+              messageArgs: {
+                children: ticket?.arrivedChildrenCount ?? 0,
+                adults: ticket?.arrivedGuardiansCount ?? 0,
+              },
+            }
           );
         } else if (attended === false) {
           // eslint-disable-next-line no-console

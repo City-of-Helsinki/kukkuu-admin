@@ -196,6 +196,16 @@ describe('<OccurrenceShow />', () => {
     time: '2026-10-30T10:00:00Z',
     capacity: 10,
     seatCount: 4,
+    enrolmentCount: 1,
+    attendedEnrolmentCount: 0,
+    handledEnrolmentCount: 1,
+    attendedSeats: 0,
+    calculatedAttendedSeats: 0,
+    attendedCountOverride: null,
+    attendedChildrenCountOverride: null,
+    attendedAdultsCountOverride: null,
+    pendingArrivalSeats: 0,
+    remainingEmptySeats: 10,
     event: {
       id: 'ev-1',
       name: 'Test Event',
@@ -211,6 +221,11 @@ describe('<OccurrenceShow />', () => {
           node: {
             id: 'enr-1',
             attended: false,
+            arrivedChildrenCount: 0,
+            arrivedGuardiansCount: 0,
+            bookedChildrenCount: 2,
+            bookedGuardiansCount: 2,
+            arrivedSeats: 0,
             totalSeats: 4,
             child: {
               id: 'c-1',
@@ -303,5 +318,68 @@ describe('<OccurrenceShow />', () => {
     expect(
       await screen.findByText('Ei saavutettavuustietoja')
     ).toBeInTheDocument();
+  });
+
+  it('renders explicit arrival summary and override indicator when overridden', async () => {
+    renderOccurrenceShow({
+      ...occurrenceRecord,
+      attendedCountOverride: 8,
+      attendedChildrenCountOverride: 3,
+      attendedAdultsCountOverride: 5,
+      attendedSeats: 8,
+      calculatedAttendedSeats: 2,
+    });
+
+    expect(await screen.findByText('Saapuneet henkilöt')).toBeInTheDocument();
+    expect(
+      await screen.findByText(
+        /Saapujamäärä on korvattu manuaalisesti arvoon 8 \(3 lasta, 5 aikuista/
+      )
+    ).toBeInTheDocument();
+    expect(
+      await screen.findByText(
+        /Tämän ilmoittautumistaulukon saapujamääriä EI lasketa/
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/Saapuneiden lasten ja aikuisten määrät kertovat/)
+    ).toBeInTheDocument();
+    // Combined into a single warning alert above the enrolments table
+    // (plus the summary alert = 2 alerts total, no info alert)
+    expect(document.querySelectorAll('.MuiAlert-standardWarning')).toHaveLength(
+      2
+    );
+    expect(document.querySelectorAll('.MuiAlert-standardInfo')).toHaveLength(0);
+    expect(await screen.findByText('Tilaa jäljellä')).toBeInTheDocument();
+    expect(await screen.findByText('Vielä odotettavissa')).toBeInTheDocument();
+    expect(await screen.findByText('Lippuja käsitelty')).toBeInTheDocument();
+  });
+
+  it('renders a single info alert above the enrolments table when no override is set', async () => {
+    renderOccurrenceShow();
+
+    expect(
+      await screen.findByText(/Saapuneiden lasten ja aikuisten määrät kertovat/)
+    ).toBeInTheDocument();
+    expect(document.querySelectorAll('.MuiAlert-standardInfo')).toHaveLength(1);
+    expect(document.querySelectorAll('.MuiAlert-standardWarning')).toHaveLength(
+      0
+    );
+  });
+
+  it('hides arrival metrics and enrolments table for external ticket system events', async () => {
+    renderOccurrenceShow({
+      ...occurrenceRecord,
+      event: {
+        ...occurrenceRecord.event,
+        ticketSystem: { type: 'TICKETMASTER' },
+      },
+    });
+
+    expect(await screen.findByText('Saavutettavuus')).toBeInTheDocument();
+    expect(screen.queryByText('Saapuneet henkilöt')).not.toBeInTheDocument();
+    expect(
+      screen.queryByText('Ilmoittautumisten lukumäärä')
+    ).not.toBeInTheDocument();
   });
 });

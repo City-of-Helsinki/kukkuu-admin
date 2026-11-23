@@ -20,6 +20,29 @@
       "title": "Not authorized."
     }
   },
+  "arrivalMetrics": {
+    "peopleArrived": {
+      "label": "People arrived",
+      "tooltip": "Total physical seats occupied by arrived children and adults (or the manual override if set)."
+    },
+    "seatsReserved": {
+      "label": "Reserved seats",
+      "tooltip": "Total physical seats booked across all enrolments compared to room capacity."
+    },
+    "spaceLeft": {
+      "label": "Space left in room",
+      "tooltip": "Physical room capacity minus people who have arrived so far."
+    },
+    "expectedRemaining": {
+      "label": "Still expected",
+      "tooltip": "Booked seats belonging to tickets that have not yet been marked as arrived or absent."
+    },
+    "ticketsHandled": {
+      "label": "Tickets handled",
+      "tooltip": "Number of tickets marked as arrived or absent out of all enrolled tickets.",
+      "value": "%{handled} / %{total} (%{remaining} waiting, %{arrivedTickets} arrived)"
+    }
+  },
   "children": {
     "fields": {
       "birthyear": {
@@ -61,6 +84,14 @@
     "fields": {
       "attended": {
         "label": ""
+      },
+      "arrivedChildrenCount": {
+        "label": "Arrived children",
+        "tooltip": "Number of children who actually arrived for this enrolment (from 0 up to booked children)."
+      },
+      "arrivedGuardiansCount": {
+        "label": "Arrived adults",
+        "tooltip": "Number of adults who actually arrived for this enrolment (from 0 up to booked adults)."
       },
       "totalSeats": {
         "label": "Seats"
@@ -432,11 +463,29 @@
     },
     "fields": {
       "capacity": {
-        "label": "Capacity"
+        "label": "Capacity",
+        "tooltip": "Total physical seat capacity of this occurrence."
       },
       "capacityOverride": {
         "label": "Occurrence capacity",
         "helperText": "Total physical seat capacity of the occurrence. Overrides the event's capacity (%{capacityPerOccurrence}). Each enrolment reserves at least 2 seats (1 child + 1 guardian). This does not affect other occurrences."
+      },
+      "attendedCountOverride": {
+        "label": "Arrival count override (seats)",
+        "childrenLabel": "Arrived children override",
+        "adultsLabel": "Arrived adults override",
+        "helperText": "Optional manual count for reports and Admin UI, e.g. if ticket scanning could not be used. Clear both fields to restore the calculated count.",
+        "formWarning": "Note: If you set these override fields, both children and adults must be filled. When active, the per-enrolment attendees in the occurrence's enrolments table are NOT counted in totals or reports.",
+        "bothRequired": "Both children and adults override fields must be filled, or both left empty.",
+        "badge": "Overridden (calculated: %{calculated})",
+        "shortBadge": "Overridden",
+        "tooltip": "Manually overridden (calculated from enrolments: %{calculated})",
+        "tooltipWithBreakdown": "Manually overridden: %{children} children, %{adults} adults (calculated from enrolments: %{calculated}). Enrolments table attendees are not counted.",
+        "alert": "Arrival count is manually overridden to %{override} (calculated from enrolments: %{calculated}). Per-enrolment attendees in the table below are not counted in totals or reports.",
+        "alertWithBreakdown": "Arrival count is manually overridden to %{override} (%{children} children, %{adults} adults; calculated from enrolments: %{calculated}). Per-enrolment attendees in the table below are not counted in totals or reports."
+      },
+      "arrivalSummary": {
+        "label": "Arrival & capacity summary"
       },
       "accessibilities": {
         "label": "Accessibility",
@@ -449,6 +498,8 @@
         "label": "Number of enrolments"
       },
       "enrolments": {
+        "overrideActiveWarning": "Occurrence-level arrival override is active (%{override} total). The attendees in this enrolments table are NOT counted in occurrence totals or reports.",
+        "arrivedCountsInfo": "Arrived children and adults track how many people actually attended each booking. Selecting 'Arrived' fills in the booked counts by default, and you can adjust individual counts if fewer people arrived. If an occurrence-level arrival override is set, totals and reports use the override instead of these per-enrolment counts.",
         "fields": {
           "attended": {
             "choices": {
@@ -582,13 +633,30 @@
     "valid": "Ticket is valid",
     "invalid": "Ticket is not valid",
     "error": "Ticket validation failed",
+    "savedStatus": "Recorded arrival: %{children} children, %{adults} adults",
+    "arrivedChildren": {
+      "label": "Arrived children",
+      "helperText": "Booked: %{booked}",
+      "decrement": "Decrease arrived children",
+      "increment": "Increase arrived children"
+    },
+    "arrivedAdults": {
+      "label": "Arrived adults",
+      "helperText": "Booked: %{booked}",
+      "decrement": "Decrease arrived adults",
+      "increment": "Increase arrived adults"
+    },
     "updateTicketAttended": {
       "onSuccess": {
         "attendedMessage": "Ticket owner is now marked as attended",
+        "attendedWithCountsMessage": "Recorded arrival: %{children} children, %{adults} adults",
         "unattendedMessage": "Ticket owner is now marked as unattended"
       },
       "onError": {
         "message": "Ticket processing ended with an error, and the arrival status could not be updated"
+      },
+      "saveButton": {
+        "label": "Save arrival status"
       },
       "switchButton": {
         "label": "Ticket owner has arrived"
