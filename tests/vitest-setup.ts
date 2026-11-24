@@ -8,6 +8,7 @@ import 'vitest-localstorage-mock';
 
 vi.mock('@sentry/browser', () => ({
   captureException: vi.fn(),
+  addBreadcrumb: vi.fn(),
   captureMessage: vi.fn(),
   withScope: vi.fn(),
 }));

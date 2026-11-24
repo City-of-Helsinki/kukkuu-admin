@@ -1,6 +1,5 @@
 import React from 'react';
 import { IdleTimerProvider } from 'react-idle-timer';
-import * as Sentry from '@sentry/browser';
 
 import authService from './authService';
 import AppConfig from '../application/AppConfig';
@@ -12,7 +11,8 @@ function IdleTimer({ children }: Readonly<IdleTimerProps>) {
     const isAuthenticated = authService.isAuthenticated();
     if (isAuthenticated) {
       void authService.logout().catch((error) => {
-        Sentry.captureException(error);
+        // eslint-disable-next-line no-console
+        console.error('Logout after idle timeout failed', error);
       });
     }
   };

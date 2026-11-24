@@ -16,6 +16,22 @@ const origin = window.location.origin;
 export const API_TOKEN = 'apiToken';
 export const REFRESH_TOKEN = 'refreshToken';
 
+const FETCH_NETWORK_ERROR_MESSAGES = [
+  'Failed to fetch',
+  'NetworkError when attempting to fetch resource.',
+  'Load failed',
+];
+
+export const isNetworkError = (error: unknown): boolean => {
+  if (!(error instanceof TypeError)) {
+    return false;
+  }
+  return FETCH_NETWORK_ERROR_MESSAGES.some(
+    (message) =>
+      error.message === message || error.message.startsWith(`${message} (`)
+  );
+};
+
 export type ApiTokenClientProps = {
   url: string;
   queryProps?: { permission: string; grant_type: string };
@@ -27,6 +43,7 @@ export class AuthService {
   private readonly apiTokensClientConfig: ApiTokenClientProps;
   private readonly authServerType: 'KEYCLOAK' | 'TUNNISTAMO';
   private readonly audience: string;
+  private logoutPromise: Promise<void> | null = null;
 
   constructor() {
     this.authServerType = AppConfig.oidcServerType;
@@ -92,11 +109,11 @@ export class AuthService {
 
     // Events
     this.userManager.events.addAccessTokenExpired(async () => {
-      await this.logout();
+      await this.logout().catch(this.handleAutomaticLogoutError);
     });
 
     this.userManager.events.addSilentRenewError(async () => {
-      await this.logout();
+      await this.logout().catch(this.handleAutomaticLogoutError);
     });
 
     this.userManager.events.addUserSignedOut(async () => {
@@ -186,10 +203,46 @@ export class AuthService {
   }
 
   public async logout(): Promise<void> {
+    // Collapse concurrent logout calls (e.g. accessTokenExpired and
+    // silentRenewError firing together) into a single sign-out flow.
+    this.logoutPromise ??= this.performLogout().finally(() => {
+      this.logoutPromise = null;
+    });
+    return this.logoutPromise;
+  }
+
+  private readonly handleAutomaticLogoutError = (error: unknown): void => {
+    if (isNetworkError(error)) {
+      // eslint-disable-next-line no-console
+      console.error('Automatic logout failed due to a network error', error);
+      return;
+    }
+    Sentry.captureException(error);
+  };
+
+  private async performLogout(): Promise<void> {
     // eslint-disable-next-line no-console
     console.info('Logout...');
+    const user = await this.userManager.getUser().catch(() => null);
     await this.resetAuthState();
-    await this.userManager.signoutRedirect();
+    try {
+      await this.userManager.signoutRedirect();
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(
+        'Sign-out with token revocation failed, retrying without revocation',
+        error
+      );
+      Sentry.addBreadcrumb({
+        category: 'auth',
+        level: 'warning',
+        message:
+          'Sign-out with token revocation failed, retrying without revocation',
+        data: { isNetworkError: isNetworkError(error), error: String(error) },
+      });
+      await this.userManager.removeUser();
+      await this.userManager.signoutRedirect({ id_token_hint: user?.id_token });
+    }
   }
 
   /**
