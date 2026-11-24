@@ -1,6 +1,11 @@
 import axios from 'axios';
+import * as Sentry from '@sentry/browser';
 
-import authService, { API_TOKEN, REFRESH_TOKEN } from '../authService';
+import authService, {
+  API_TOKEN,
+  REFRESH_TOKEN,
+  isNetworkError,
+} from '../authService';
 import authorizationService from '../authorizationService';
 import AppConfig from '../../application/AppConfig';
 import dataProvider from '../../../api/dataProvider';
@@ -307,6 +312,113 @@ describe('authService', () => {
 
       expect(authorizationServiceClearSpy).toHaveBeenCalledTimes(1);
     });
+
+    it('should retry sign-out without token revocation when the first attempt fails', async () => {
+      const idToken = 'id-token-123';
+      vi.spyOn(userManager, 'getUser').mockResolvedValue({ id_token: idToken });
+      const removeUser = vi
+        .spyOn(userManager, 'removeUser')
+        .mockResolvedValue(undefined);
+      const signoutRedirect = vi
+        .spyOn(userManager, 'signoutRedirect')
+        .mockRejectedValueOnce(new TypeError('Failed to fetch'))
+        .mockResolvedValueOnce(undefined);
+
+      await authService.logout();
+
+      expect(removeUser).toHaveBeenCalledTimes(1);
+      expect(signoutRedirect).toHaveBeenCalledTimes(2);
+      expect(signoutRedirect).toHaveBeenLastCalledWith({
+        id_token_hint: idToken,
+      });
+    });
+
+    it('should run a single sign-out flow for concurrent logout calls', async () => {
+      const signoutRedirect = vi
+        .spyOn(userManager, 'signoutRedirect')
+        .mockResolvedValue(undefined);
+
+      await Promise.all([authService.logout(), authService.logout()]);
+
+      expect(signoutRedirect).toHaveBeenCalledTimes(1);
+    });
+
+    it('should still sign out when reading the user fails', async () => {
+      vi.spyOn(userManager, 'getUser').mockRejectedValue(new Error('boom'));
+      const signoutRedirect = vi
+        .spyOn(userManager, 'signoutRedirect')
+        .mockResolvedValue(undefined);
+
+      await authService.logout();
+
+      expect(signoutRedirect).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('isNetworkError', () => {
+    it.each([
+      'Failed to fetch',
+      'Failed to fetch (tunnistus.hel.fi)',
+      'NetworkError when attempting to fetch resource.',
+      'Load failed',
+    ])('should return true for TypeError "%s"', (message) => {
+      expect(isNetworkError(new TypeError(message))).toBe(true);
+    });
+
+    it('should return false for other errors', () => {
+      expect(isNetworkError(new Error('Failed to fetch'))).toBe(false);
+      expect(isNetworkError(new TypeError('x is not a function'))).toBe(false);
+      expect(isNetworkError('Failed to fetch')).toBe(false);
+    });
+  });
+
+  describe('automatic logout on oidc-client-ts events', () => {
+    // The automatic logout handlers are registered in the AuthService
+    // constructor, so trigger them through the oidc-client-ts event
+    // internals that raise the registered callbacks.
+    const eventTriggers = [
+      ['access token expired', () => userManager.events._expiredTimer.raise()],
+      [
+        'silent renew error',
+        () =>
+          userManager.events._raiseSilentRenewError(
+            new Error('silent renew failed')
+          ),
+      ],
+    ];
+
+    beforeEach(() => {
+      vi.spyOn(userManager, 'getUser').mockResolvedValue(null);
+      vi.spyOn(userManager, 'removeUser').mockResolvedValue(undefined);
+      vi.spyOn(console, 'error').mockImplementation(() => undefined);
+      vi.mocked(Sentry.captureException).mockClear();
+    });
+
+    it.each(eventTriggers)(
+      'should consume a network error without reporting it to Sentry on %s',
+      async (_, raiseEvent) => {
+        // Both the sign-out and the no-revocation fallback fail.
+        vi.spyOn(userManager, 'signoutRedirect').mockRejectedValue(
+          new TypeError('Failed to fetch')
+        );
+
+        await expect(raiseEvent()).resolves.toBeUndefined();
+
+        expect(Sentry.captureException).not.toHaveBeenCalled();
+      }
+    );
+
+    it.each(eventTriggers)(
+      'should report a non-network error to Sentry and still resolve on %s',
+      async (_, raiseEvent) => {
+        const error = new Error('Unexpected logout failure');
+        vi.spyOn(userManager, 'signoutRedirect').mockRejectedValue(error);
+
+        await expect(raiseEvent()).resolves.toBeUndefined();
+
+        expect(Sentry.captureException).toHaveBeenCalledWith(error);
+      }
+    );
   });
 
   describe('fetchApiToken', () => {

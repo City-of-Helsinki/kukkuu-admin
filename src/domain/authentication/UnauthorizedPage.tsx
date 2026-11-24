@@ -1,7 +1,6 @@
 import { useLogout, useTranslate } from 'react-admin';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import * as Sentry from '@sentry/browser';
 
 import InfoPageTemplate from './InfoPageTemplate';
 
@@ -13,7 +12,8 @@ const UnauthorizedPage = () => {
   );
   const syncLogout = () => {
     void logout().catch((error) => {
-      Sentry.captureException(error);
+      // eslint-disable-next-line no-console
+      console.error('Logout failed', error);
     });
   };
   return (
