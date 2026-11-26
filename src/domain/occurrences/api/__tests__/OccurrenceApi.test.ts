@@ -47,6 +47,31 @@ describe('OccurrenceApi', () => {
   });
 
   describe('updateOccurrence', () => {
+    it('sends the language IDs', async () => {
+      const mutationHandlerSpy = mockMutationHandler();
+
+      await updateOccurrence({
+        data: {
+          id: 'occurrence-1',
+          date: '1.2.2027',
+          timeField: '10:00',
+          venue: { id: 'venue-1' },
+          event: { id: 'event-1' },
+          languageIds: ['lang-1', 'lang-2'],
+        },
+      });
+
+      expect(mutationHandlerSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          variables: {
+            input: expect.objectContaining({
+              languageIds: ['lang-1', 'lang-2'],
+            }),
+          },
+        })
+      );
+    });
+
     it.each([
       { description: 'some', accessibilityIds: ['acc-1', 'acc-2'] },
       { description: 'none', accessibilityIds: [] },

@@ -88,6 +88,7 @@ const updateOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
     attendedChildrenCountOverride,
     attendedAdultsCountOverride,
     accessibilityIds,
+    languageIds,
   } = localUpdateData;
 
   const isInternal = hasInternalTicketSystem(event);
@@ -106,6 +107,7 @@ const updateOccurrence: MethodHandler = async (params: MethodHandlerParams) => {
         }
       : {}),
     accessibilityIds,
+    languageIds,
   };
 
   const response = await mutationHandler({

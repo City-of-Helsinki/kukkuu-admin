@@ -29,6 +29,10 @@ export const occurrencesQuery = gql`
             id
             name
           }
+          languages {
+            id
+            name
+          }
           attendedEnrolmentCount
           handledEnrolmentCount
           attendedCountOverride
@@ -90,6 +94,11 @@ export const occurrenceQuery = gql`
       accessibilities {
         id
         slug
+        name
+      }
+      languages {
+        id
+        alpha3Code
         name
       }
       enrolments {

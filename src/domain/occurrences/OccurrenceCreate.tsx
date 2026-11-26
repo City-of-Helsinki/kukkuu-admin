@@ -11,6 +11,7 @@ import { useLocation } from 'react-router-dom';
 import DateTimeTextInput from '../../common/components/dateTimeTextField/DateTimeTextField';
 import { OccurrenceCapacityOverrideInput } from './inputs';
 import AccessibilityInput from './AccessibilityInput';
+import OccurrenceLanguageInput from './OccurrenceLanguageInput';
 
 const OccurrenceCreateForm = () => {
   const location = useLocation();
@@ -36,6 +37,7 @@ const OccurrenceCreateForm = () => {
         />
       </ReferenceInput>
       <OccurrenceCapacityOverrideInput eventId={eventId} />
+      <OccurrenceLanguageInput />
       <AccessibilityInput />
     </SimpleForm>
   );
