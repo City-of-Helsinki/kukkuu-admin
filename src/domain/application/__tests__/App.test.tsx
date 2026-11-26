@@ -78,6 +78,7 @@ describe('getReactAdminResources', () => {
     'organisations',
     'theme-paths',
     'accessibilities',
+    'languages',
   ];
 
   const resourceNamesWithoutChildren = [
@@ -90,6 +91,7 @@ describe('getReactAdminResources', () => {
     'organisations',
     'theme-paths',
     'accessibilities',
+    'languages',
   ];
 
   const adminPermissionsBase: Permissions = {

@@ -488,6 +488,9 @@
         "label": "Saavutettavuus",
         "notSet": "Ei saavutettavuustietoja"
       },
+      "languages": {
+        "label": "Kielet"
+      },
       "seatCount": {
         "label": "Varatut paikat"
       },

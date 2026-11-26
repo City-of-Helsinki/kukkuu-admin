@@ -491,6 +491,9 @@
         "label": "Accessibility",
         "notSet": "No accessibility information"
       },
+      "languages": {
+        "label": "Languages"
+      },
       "seatCount": {
         "label": "Reserved seats"
       },

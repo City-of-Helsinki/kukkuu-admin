@@ -161,6 +161,9 @@ export function getReactAdminResources(
     {
       name: 'accessibilities',
     },
+    {
+      name: 'languages',
+    },
   ];
 
   // Add children resource if user has permissions to view families

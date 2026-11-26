@@ -491,6 +491,9 @@
         "label": "Tillgänglighet",
         "notSet": "Ingen tillgänglighetsinformation"
       },
+      "languages": {
+        "label": "Språk"
+      },
       "seatCount": {
         "label": "Reserverade platser"
       },
