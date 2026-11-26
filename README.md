@@ -322,7 +322,7 @@ See the section about [building for production](https://vitejs.dev/guide/build.h
 
 ### `pnpm generate:graphql`
 
-Fetches the GraphQL schema from the backend and updates typing information. The configuration is written in [codegen.ts](./codegen.ts). Check that the environment variables are set properly to match with your API.
+Fetches the GraphQL schema from the backend and updates typing information. The configuration is written in [codegen.ts](./codegen.ts). Check that the environment variables are set properly to match with your API. Deprecated input fields are included on purpose: codegen omits them by default, but deprecated is not removed.
 
 ### `pnpm test`
 
