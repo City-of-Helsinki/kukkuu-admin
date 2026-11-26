@@ -246,6 +246,34 @@ const EventDetails = () => {
           }
         />
       </Tab>
+      {!internalTicketSystem && (
+        <Tab label="events.fields.occurrences.label">
+          <ReferenceManyField
+            label=" "
+            reference="occurrences"
+            target="event_id"
+          >
+            <Datagrid rowClick="show" bulkActionButtons={false}>
+              <FunctionField
+                label="occurrences.fields.time.fields.date.label"
+                source="time"
+                render={(record: RaRecord) =>
+                  toDateString(new Date(record.time), locale)
+                }
+              />
+              <OccurrenceTimeRangeField />
+              <OccurrenceLanguagesField
+                source="languages"
+                label="occurrences.fields.languages.label"
+              />
+              <OccurrenceHasAccessibilitiesField
+                source="accessibilities"
+                label="occurrences.fields.accessibilities.label"
+              />
+            </Datagrid>
+          </ReferenceManyField>
+        </Tab>
+      )}
       {internalTicketSystem ? (
         <Tab label="events.fields.occurrences.label">
           <ReferenceManyField
