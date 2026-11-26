@@ -28,18 +28,18 @@ const OccurrenceEditToolbar = ({
 }: ToolbarProps & { redirect: string | (() => string) }) => {
   const record = useRecordContext<OccurrenceNode>();
   const isPublished = Boolean(record?.event?.publishedAt);
+  const isDeletable = hasInternalTicketSystem(record?.event);
   return (
     <Toolbar style={{ justifyContent: 'space-between' }} {...toolbarProps}>
       <SaveButton />
-      {isPublished ? (
+      {isDeletable && isPublished && (
         <DeleteWithConfirmButton
           confirmTitle="occurrences.edit.delete.confirm.title"
           confirmContent="occurrences.edit.delete.confirm.content"
           redirect={redirectPath}
         />
-      ) : (
-        <DeleteButton redirect={redirectPath} />
       )}
+      {isDeletable && !isPublished && <DeleteButton redirect={redirectPath} />}
     </Toolbar>
   );
 };
@@ -75,23 +75,27 @@ const OccurrenceEditForm = () => {
         required
         source="time"
       />
-      <OccurrenceEditReferenceInput
-        variant="outlined"
-        label="occurrences.fields.venue.label"
-        source="venue.id"
-        reference="venues"
-        isRequired
-        fullWidth
-      >
-        <SelectInput
-          required
-          variant="outlined"
-          optionText="translations.FI.name"
-          helperText="occurrences.fields.venue.helperText"
-        />
-      </OccurrenceEditReferenceInput>
-      {isInternal && <OccurrenceCapacityOverrideInput />}
-      {isInternal && <OccurrenceAttendedCountOverrideInput />}
+      {isInternal && (
+        <>
+          <OccurrenceEditReferenceInput
+            variant="outlined"
+            label="occurrences.fields.venue.label"
+            source="venue.id"
+            reference="venues"
+            isRequired
+            fullWidth
+          >
+            <SelectInput
+              required
+              variant="outlined"
+              optionText="translations.FI.name"
+              helperText="occurrences.fields.venue.helperText"
+            />
+          </OccurrenceEditReferenceInput>
+          <OccurrenceCapacityOverrideInput />
+          <OccurrenceAttendedCountOverrideInput />
+        </>
+      )}
       <OccurrenceLanguageInput />
       <AccessibilityInput />
     </SimpleForm>
@@ -111,4 +115,5 @@ const OccurrenceEdit = () => {
   );
 };
 
+export { OccurrenceEditForm };
 export default OccurrenceEdit;
