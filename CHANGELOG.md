@@ -2,6 +2,13 @@
 
 # Change Log
 
+## [4.5.2](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.5.1...kukkuu-admin-v4.5.2) (2026-11-26)
+
+
+### Bug Fixes
+
+* **auth:** Retry signout without revocation and swallow network errors ([7f48df3](https://github.com/City-of-Helsinki/kukkuu-admin/commit/7f48df3bdb63df93cfc4f00ecaf9ebf4665af266))
+
 ## [4.5.1](https://github.com/City-of-Helsinki/kukkuu-admin/compare/kukkuu-admin-v4.5.0...kukkuu-admin-v4.5.1) (2026-11-13)
 
 
