@@ -2653,6 +2653,13 @@ export type EventsAndEventGroupsQuery = { __typename?: 'Query', eventsAndEventGr
         | { __typename?: 'EventNode', id: string, name: string | null, image: string, participantsPerInvite: EventParticipantsPerInvite, duration: number | null, capacityPerOccurrence: number | null, publishedAt: any | null, occurrences: { __typename?: 'OccurrenceNodeConnection', edges: Array<{ __typename?: 'OccurrenceNodeEdge', node: { __typename?: 'OccurrenceNode', id: string, capacityOverride: number | null } | null } | null> } | null, organisation: { __typename?: 'OrganisationNode', id: string, name: string } | null }
        | null } | null> } | null };
 
+export type LanguagesQueryVariables = Exact<{
+  canBeOccurrenceLanguage: InputMaybe<Scalars['Boolean']['input']>;
+}>;
+
+
+export type LanguagesQuery = { __typename?: 'Query', languages: { __typename?: 'LanguageNodeConnection', edges: Array<{ __typename?: 'LanguageNodeEdge', node: { __typename?: 'LanguageNode', id: string, alpha3Code: string, name: string | null } | null } | null> } | null };
+
 export type AddMessageMutationVariables = Exact<{
   input: AddMessageMutationInput;
 }>;
@@ -3425,6 +3432,20 @@ export const EventsAndEventGroupsDocument = gql`
 }
     ${EventFragmentDoc}`;
 export type EventsAndEventGroupsQueryResult = Apollo.QueryResult<EventsAndEventGroupsQuery, EventsAndEventGroupsQueryVariables>;
+export const LanguagesDocument = gql`
+    query Languages($canBeOccurrenceLanguage: Boolean) {
+  languages(canBeOccurrenceLanguage: $canBeOccurrenceLanguage) {
+    edges {
+      node {
+        id
+        alpha3Code
+        name
+      }
+    }
+  }
+}
+    `;
+export type LanguagesQueryResult = Apollo.QueryResult<LanguagesQuery, LanguagesQueryVariables>;
 export const AddMessageDocument = gql`
     mutation AddMessage($input: AddMessageMutationInput!) {
   addMessage(input: $input) {

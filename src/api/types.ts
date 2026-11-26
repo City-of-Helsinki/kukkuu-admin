@@ -16,7 +16,8 @@ export type Resource =
   | 'sms'
   | 'organisations'
   | 'theme-paths'
-  | 'accessibilities';
+  | 'accessibilities'
+  | 'languages';
 
 export type Method =
   | 'LIST'

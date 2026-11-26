@@ -52,6 +52,7 @@ import EventsAndEventGroupsApi from '../domain/eventsAndEventGroups/api/eventsAn
 import { getOrganisations } from '../domain/organisations/api/OrganisationApi';
 import { getThemePaths } from '../domain/themePaths/api/ThemePathApi';
 import { getAccessibilities } from '../domain/accessibilities/api/AccessibilityApi';
+import { getLanguages } from '../domain/languages/api/LanguageApi';
 import type { AdminEvent } from '../domain/events/types/EventTypes';
 import type {
   EventGroupNode,
@@ -124,6 +125,10 @@ const METHOD_HANDLERS: MethodHandlers = {
   accessibilities: {
     LIST: getAccessibilities,
     MANY: getAccessibilities,
+  },
+  languages: {
+    LIST: getLanguages,
+    MANY: getLanguages,
   },
 };
 
