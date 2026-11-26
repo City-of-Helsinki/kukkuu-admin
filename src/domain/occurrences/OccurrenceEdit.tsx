@@ -18,6 +18,7 @@ import {
   OccurrenceCapacityOverrideInput,
 } from './inputs';
 import AccessibilityInput from './AccessibilityInput';
+import OccurrenceLanguageInput from './OccurrenceLanguageInput';
 import { hasInternalTicketSystem } from '../events/utils';
 import type { OccurrenceNode } from '../api/generatedTypes/graphql';
 
@@ -91,6 +92,7 @@ const OccurrenceEditForm = () => {
       </OccurrenceEditReferenceInput>
       {isInternal && <OccurrenceCapacityOverrideInput />}
       {isInternal && <OccurrenceAttendedCountOverrideInput />}
+      <OccurrenceLanguageInput />
       <AccessibilityInput />
     </SimpleForm>
   );

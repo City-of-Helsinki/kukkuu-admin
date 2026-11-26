@@ -30,6 +30,11 @@ export const addOccurrenceMutation = gql`
           slug
           name
         }
+        languages {
+          id
+          alpha3Code
+          name
+        }
         ticketSystem {
           type
           ... on TicketmasterOccurrenceTicketSystem {
@@ -84,6 +89,11 @@ export const updateOccurrenceMutation = gql`
         accessibilities {
           id
           slug
+          name
+        }
+        languages {
+          id
+          alpha3Code
           name
         }
         enrolments {

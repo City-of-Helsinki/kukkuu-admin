@@ -26,6 +26,7 @@ import KukkuuPageLayout from '../application/layout/kukkuuPageLayout/KukkuuPageL
 import KukkuuDetailPage from '../application/layout/kukkuuDetailPage/KukkuuDetailPage';
 import OccurrenceTimeRangeField from './fields/OccurrenceTimeRangeField';
 import OccurrenceAttendedField from './fields/OccurrenceAttendedField';
+import OccurrenceLanguagesField from './fields/OccurrenceLanguagesField';
 import {
   OccurrenceArrivedChildrenField,
   OccurrenceArrivedGuardiansField,
@@ -165,6 +166,10 @@ const OccurrenceShow = () => {
         >
           <TextField source="translations.FI.name" />
         </ReferenceField>
+        <OccurrenceLanguagesField
+          source="languages"
+          label="occurrences.fields.languages.label"
+        />
         <FunctionField
           source="accessibilities"
           label="occurrences.fields.accessibilities.label"

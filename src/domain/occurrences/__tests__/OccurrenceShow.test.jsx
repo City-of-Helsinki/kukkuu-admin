@@ -206,6 +206,7 @@ describe('<OccurrenceShow />', () => {
     attendedAdultsCountOverride: null,
     pendingArrivalSeats: 0,
     remainingEmptySeats: 10,
+    languages: [{ id: 'lang-1', alpha3Code: 'fin', name: 'suomi' }],
     event: {
       id: 'ev-1',
       name: 'Test Event',
@@ -294,6 +295,19 @@ describe('<OccurrenceShow />', () => {
         screen.getByText('Ilmoittautumisten lukumäärä')
       ).toBeInTheDocument();
     });
+  });
+
+  it('renders the languages field with the names of the languages', async () => {
+    renderOccurrenceShow({
+      ...occurrenceRecord,
+      languages: [
+        { id: 'lang-1', alpha3Code: 'fin', name: 'suomi' },
+        { id: 'lang-2', alpha3Code: 'eng', name: 'englanti' },
+      ],
+    });
+
+    expect(await screen.findByText('Kielet')).toBeInTheDocument();
+    expect(await screen.findByText('suomi, englanti')).toBeInTheDocument();
   });
 
   it('renders the accessibilities field with the names of the accessibilities', async () => {

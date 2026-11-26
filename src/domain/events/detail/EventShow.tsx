@@ -32,6 +32,7 @@ import KukkuuPageLayout from '../../application/layout/kukkuuPageLayout/KukkuuPa
 import KukkuuDetailPage from '../../application/layout/kukkuuDetailPage/KukkuuDetailPage';
 import OccurrenceTimeRangeField from '../../occurrences/fields/OccurrenceTimeRangeField';
 import OccurrenceHasAccessibilitiesField from '../../occurrences/fields/OccurrenceHasAccessibilitiesField';
+import OccurrenceLanguagesField from '../../occurrences/fields/OccurrenceLanguagesField';
 import { PublishedField } from '../fields';
 import { participantsPerInviteChoices, ticketSystemChoices } from '../choices';
 import EventShowActions from './EventShowActions';
@@ -386,6 +387,10 @@ const EventDetails = () => {
               <NumberField
                 source="freeSpotNotificationSubscriptionCount"
                 label="occurrences.fields.freeSpotNotificationSubscriptions.label"
+              />
+              <OccurrenceLanguagesField
+                source="languages"
+                label="occurrences.fields.languages.label"
               />
               <OccurrenceHasAccessibilitiesField
                 source="accessibilities"
