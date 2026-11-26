@@ -14,28 +14,9 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
-  /**
-   * The `Date` scalar type represents a Date
-   * value as specified by
-   * [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
-   */
   Date: { input: any; output: any; }
-  /**
-   * The `DateTime` scalar type represents a DateTime
-   * value as specified by
-   * [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
-   */
   DateTime: { input: any; output: any; }
-  /**
-   * The `Time` scalar type represents a Time value as
-   * specified by
-   * [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
-   */
   Time: { input: any; output: any; }
-  /**
-   * Create scalar that ignores normal serialization/deserialization, since
-   * that will be handled by the multipart request spec
-   */
   Upload: { input: any; output: any; }
 };
 
@@ -159,7 +140,8 @@ export type AddOccurrenceMutationInput = {
   capacityOverride?: InputMaybe<Scalars['Int']['input']>;
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
   eventId: Scalars['ID']['input'];
-  occurrenceLanguage?: InputMaybe<Language>;
+  /** Languages of the occurrence. At least one is required. */
+  languageIds: Array<Scalars['ID']['input']>;
   ticketSystem?: InputMaybe<OccurrenceTicketSystemInput>;
   time: Scalars['DateTime']['input'];
   venueId: Scalars['ID']['input'];
@@ -338,13 +320,14 @@ export type ChildNodeLanguagesSpokenAtHomeArgs = {
 
 
 export type ChildNodeOccurrencesArgs = {
+  accessibilities: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   after: InputMaybe<Scalars['String']['input']>;
   before: InputMaybe<Scalars['String']['input']>;
   date: InputMaybe<Scalars['Date']['input']>;
   eventId: InputMaybe<Scalars['String']['input']>;
   first: InputMaybe<Scalars['Int']['input']>;
+  languages: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   last: InputMaybe<Scalars['Int']['input']>;
-  occurrenceLanguage: InputMaybe<Scalars['String']['input']>;
   offset: InputMaybe<Scalars['Int']['input']>;
   projectId: InputMaybe<Scalars['String']['input']>;
   time: InputMaybe<Scalars['Time']['input']>;
@@ -652,14 +635,13 @@ export type EventGroupNodeEnrolmentDeniedReasonArgs = {
 
 
 export type EventGroupNodeEventsArgs = {
-  accessibility: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  accessibilities: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   after: InputMaybe<Scalars['String']['input']>;
-  availableForChild: InputMaybe<Scalars['String']['input']>;
-  availableOnly: InputMaybe<Scalars['Boolean']['input']>;
   before: InputMaybe<Scalars['String']['input']>;
   childId: InputMaybe<Scalars['ID']['input']>;
   familyOnly: InputMaybe<Scalars['Boolean']['input']>;
   first: InputMaybe<Scalars['Int']['input']>;
+  hasFreeSpots: InputMaybe<Scalars['Boolean']['input']>;
   languages: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   last: InputMaybe<Scalars['Int']['input']>;
   offset: InputMaybe<Scalars['Int']['input']>;
@@ -767,13 +749,14 @@ export type EventNodeMessagesArgs = {
 
 
 export type EventNodeOccurrencesArgs = {
+  accessibilities: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   after: InputMaybe<Scalars['String']['input']>;
   before: InputMaybe<Scalars['String']['input']>;
   date: InputMaybe<Scalars['Date']['input']>;
   eventId: InputMaybe<Scalars['String']['input']>;
   first: InputMaybe<Scalars['Int']['input']>;
+  languages: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   last: InputMaybe<Scalars['Int']['input']>;
-  occurrenceLanguage: InputMaybe<Scalars['String']['input']>;
   offset: InputMaybe<Scalars['Int']['input']>;
   projectId: InputMaybe<Scalars['String']['input']>;
   time: InputMaybe<Scalars['Time']['input']>;
@@ -925,6 +908,8 @@ export type GuardianNodeChildrenArgs = {
 export type GuardianNodeLanguagesSpokenAtHomeArgs = {
   after: InputMaybe<Scalars['String']['input']>;
   before: InputMaybe<Scalars['String']['input']>;
+  canBeOccurrenceLanguage: InputMaybe<Scalars['Boolean']['input']>;
+  canBeSpokenAtHome: InputMaybe<Scalars['Boolean']['input']>;
   first: InputMaybe<Scalars['Int']['input']>;
   last: InputMaybe<Scalars['Int']['input']>;
   offset: InputMaybe<Scalars['Int']['input']>;
@@ -1016,8 +1001,8 @@ export enum Language {
 
 export type LanguageNode = Node & {
   __typename?: 'LanguageNode';
-  /** ISO 639-3 (language) or ISO 639-5 (language family) alpha-3 code */
-  alpha3Code: Maybe<Scalars['String']['output']>;
+  /** ISO 639-3 alpha-3 code */
+  alpha3Code: Scalars['String']['output'];
   /** The ID of the object */
   id: Scalars['ID']['output'];
   name: Maybe<Scalars['String']['output']>;
@@ -1110,13 +1095,14 @@ export type MessageNode = Node & {
 
 
 export type MessageNodeOccurrencesArgs = {
+  accessibilities: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   after: InputMaybe<Scalars['String']['input']>;
   before: InputMaybe<Scalars['String']['input']>;
   date: InputMaybe<Scalars['Date']['input']>;
   eventId: InputMaybe<Scalars['String']['input']>;
   first: InputMaybe<Scalars['Int']['input']>;
+  languages: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   last: InputMaybe<Scalars['Int']['input']>;
-  occurrenceLanguage: InputMaybe<Scalars['String']['input']>;
   offset: InputMaybe<Scalars['Int']['input']>;
   projectId: InputMaybe<Scalars['String']['input']>;
   time: InputMaybe<Scalars['Time']['input']>;
@@ -1433,7 +1419,7 @@ export type OccurrenceArrivalStatusNode = {
    */
   attendedEnrolmentCount: Scalars['Int']['output'];
   /**
-   * **DEPRECATED:** Effective count of arrived physical seats (using attended_count_override when set) for this occurrence.
+   * **DEPRECATED:** Effective count of arrived physical seats (using the arrival count override when set) for this occurrence.
    * @deprecated This field exposes potentially sensitive data and will be removed in a future release. Consider using a more secure method to access this information.
    */
   attendedSeats: Scalars['Int']['output'];
@@ -1479,9 +1465,9 @@ export type OccurrenceNode = Node & {
   /** Read-only total (children + adults) of the manual arrival override, or null when no override is set. When set, reports and Admin UI use it instead of calculatedAttendedSeats. */
   attendedCountOverride: Maybe<Scalars['Int']['output']>;
   attendedEnrolmentCount: Scalars['Int']['output'];
-  /** Effective arrived physical seats (children and adults), using attendedCountOverride when set. */
+  /** Effective arrived physical seats (children and adults), using the arrival count override (attendedCountOverride) when set. */
   attendedSeats: Scalars['Int']['output'];
-  /** Sum of arrived physical seats calculated from enrolments, ignoring attendedCountOverride. */
+  /** Sum of arrived physical seats calculated from enrolments, ignoring the arrival count override. */
   calculatedAttendedSeats: Scalars['Int']['output'];
   capacity: Maybe<Scalars['Int']['output']>;
   /** Override total physical seat capacity. Each enrolment takes at least 2 seats (1 child + 1 guardian). */
@@ -1498,7 +1484,7 @@ export type OccurrenceNode = Node & {
   handledEnrolmentCount: Scalars['Int']['output'];
   /** The ID of the object */
   id: Scalars['ID']['output'];
-  occurrenceLanguage: Language;
+  languages: Array<LanguageNode>;
   /** Booked physical seats belonging to enrolled tickets not yet marked arrived or absent. */
   pendingArrivalSeats: Scalars['Int']['output'];
   remainingCapacity: Maybe<Scalars['Int']['output']>;
@@ -1778,14 +1764,13 @@ export type QueryEventGroupsArgs = {
 
 
 export type QueryEventsArgs = {
-  accessibility: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  accessibilities: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   after: InputMaybe<Scalars['String']['input']>;
-  availableForChild: InputMaybe<Scalars['String']['input']>;
-  availableOnly: InputMaybe<Scalars['Boolean']['input']>;
   before: InputMaybe<Scalars['String']['input']>;
   childId: InputMaybe<Scalars['ID']['input']>;
   familyOnly: InputMaybe<Scalars['Boolean']['input']>;
   first: InputMaybe<Scalars['Int']['input']>;
+  hasFreeSpots: InputMaybe<Scalars['Boolean']['input']>;
   languages: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   last: InputMaybe<Scalars['Int']['input']>;
   offset: InputMaybe<Scalars['Int']['input']>;
@@ -1824,6 +1809,8 @@ export type QueryLanguageArgs = {
 export type QueryLanguagesArgs = {
   after: InputMaybe<Scalars['String']['input']>;
   before: InputMaybe<Scalars['String']['input']>;
+  canBeOccurrenceLanguage: InputMaybe<Scalars['Boolean']['input']>;
+  canBeSpokenAtHome: InputMaybe<Scalars['Boolean']['input']>;
   first: InputMaybe<Scalars['Int']['input']>;
   last: InputMaybe<Scalars['Int']['input']>;
   offset: InputMaybe<Scalars['Int']['input']>;
@@ -1860,13 +1847,14 @@ export type QueryOccurrenceArgs = {
 
 
 export type QueryOccurrencesArgs = {
+  accessibilities: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   after: InputMaybe<Scalars['String']['input']>;
   before: InputMaybe<Scalars['String']['input']>;
   date: InputMaybe<Scalars['Date']['input']>;
   eventId: InputMaybe<Scalars['String']['input']>;
   first: InputMaybe<Scalars['Int']['input']>;
+  languages: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   last: InputMaybe<Scalars['Int']['input']>;
-  occurrenceLanguage: InputMaybe<Scalars['String']['input']>;
   offset: InputMaybe<Scalars['Int']['input']>;
   projectId: InputMaybe<Scalars['String']['input']>;
   time: InputMaybe<Scalars['Time']['input']>;
@@ -2376,7 +2364,8 @@ export type UpdateOccurrenceMutationInput = {
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
   eventId?: InputMaybe<Scalars['ID']['input']>;
   id: Scalars['ID']['input'];
-  occurrenceLanguage?: InputMaybe<Language>;
+  /** Omit to keep the current languages. If given, replaces them. At least one is required. */
+  languageIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   ticketSystem?: InputMaybe<OccurrenceTicketSystemInput>;
   time?: InputMaybe<Scalars['DateTime']['input']>;
   venueId?: InputMaybe<Scalars['ID']['input']>;
@@ -2436,13 +2425,14 @@ export type VenueNode = Node & {
 
 
 export type VenueNodeOccurrencesArgs = {
+  accessibilities: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   after: InputMaybe<Scalars['String']['input']>;
   before: InputMaybe<Scalars['String']['input']>;
   date: InputMaybe<Scalars['Date']['input']>;
   eventId: InputMaybe<Scalars['String']['input']>;
   first: InputMaybe<Scalars['Int']['input']>;
+  languages: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   last: InputMaybe<Scalars['Int']['input']>;
-  occurrenceLanguage: InputMaybe<Scalars['String']['input']>;
   offset: InputMaybe<Scalars['Int']['input']>;
   projectId: InputMaybe<Scalars['String']['input']>;
   time: InputMaybe<Scalars['Time']['input']>;
