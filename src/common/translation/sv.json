@@ -121,6 +121,7 @@
     "edit": {
       "title": "Edit event"
     },
+    "occurrenceNotice": "Ange språk och tillgänglighet i evenemangets förekomster efter att du har sparat evenemanget.",
     "fields": {
       "capacityPerOccurrence": {
         "helperText": "Evenemangets totala fysiska platsantal. Varje anmälan reserverar minst 2 platser (1 barn + 1 vårdnadshavare). Du kan även ändra kapaciteten per förekomst.",

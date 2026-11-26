@@ -6,7 +6,10 @@ import {
   required,
   FormDataConsumer,
   DateTimeInput,
+  useTranslate,
 } from 'react-admin';
+import { Alert } from '@mui/material';
+import { useWatch } from 'react-hook-form';
 
 import ImageUploadField from '../../../common/components/imageField/ImageUploadField';
 import {
@@ -30,6 +33,19 @@ import TranslatableProvider from '../../../common/providers/TranslatableProvider
 import { CopyTargetFields } from '../copy/CopyTargetFields';
 import { Language, TicketSystem } from '../../api/generatedTypes/graphql';
 
+const OccurrenceNotice = ({ isEditing }: { isEditing: boolean }) => {
+  const translate = useTranslate();
+  const formValues = useWatch<RecordWithTicketSystem>();
+  const isShown = !isEditing || !hasInternalTicketSystem(formValues);
+  return (
+    isShown && (
+      <Alert severity="info" sx={{ mb: 2 }}>
+        {translate('events.occurrenceNotice')}
+      </Alert>
+    )
+  );
+};
+
 const EventForm = ({
   view,
   isCopy = false,
@@ -48,6 +64,7 @@ const EventForm = ({
       }
       toolbar={isEditing ? <EventEditToolbar /> : undefined}
     >
+      <OccurrenceNotice isEditing={isEditing} />
       {isCopy && <CopyTargetFields resource="events" />}
       <TranslatableProvider>
         <TranslatableContext.Consumer>

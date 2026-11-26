@@ -120,6 +120,7 @@
     "edit": {
       "title": "Muokkaa tapahtumaa"
     },
+    "occurrenceNotice": "Määritä kielet ja saavutettavuus tapahtuman esiintymistä tapahtuman tallentamisen jälkeen.",
     "fields": {
       "capacityPerOccurrence": {
         "helperText": "Tapahtuman fyysinen kokonaispaikkamäärä. Jokainen ilmoittautuminen varaa vähintään 2 paikkaa (1 lapsi + 1 huoltaja). Voit halutessasi muuttaa kapasiteettia myös esiintymäkohtaisesti.",
