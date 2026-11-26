@@ -121,6 +121,7 @@
     "edit": {
       "title": "Edit event"
     },
+    "occurrenceNotice": "Please set languages and accessibilities from the event's occurrences after saving the event.",
     "fields": {
       "capacityPerOccurrence": {
         "helperText": "Total physical seat capacity of the event. Each enrolment reserves at least 2 seats (1 child + 1 guardian). You can also change capacity per occurrence.",

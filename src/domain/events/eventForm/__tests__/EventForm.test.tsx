@@ -211,4 +211,41 @@ describe('EventForm theme paths', () => {
       });
     });
   });
+
+  describe('occurrence notice', () => {
+    const noticeText = /^Määritä kielet ja saavutettavuus/;
+
+    it('is shown when creating an event', async () => {
+      renderEventForm({ view: 'create' });
+
+      expect(await screen.findByText(noticeText)).toBeInTheDocument();
+    });
+
+    it('is shown when editing an external event', async () => {
+      renderEventForm({
+        view: 'edit',
+        record: {
+          ...eventWithName,
+          themePaths: [rhythm],
+          ticketSystem: { type: TicketSystem.Ticketmaster },
+        },
+      });
+
+      expect(await screen.findByText(noticeText)).toBeInTheDocument();
+    });
+
+    it('is not shown when editing an internal event', async () => {
+      renderEventForm({
+        view: 'edit',
+        record: {
+          ...eventWithName,
+          themePaths: [rhythm],
+          ticketSystem: { type: TicketSystem.Internal },
+        },
+      });
+
+      await screen.findByRole('combobox', { name: /^Teemapolut/ });
+      expect(screen.queryByText(noticeText)).not.toBeInTheDocument();
+    });
+  });
 });
