@@ -39,6 +39,7 @@ export const validateTicketSystemEndTime = (value?: string | null) => {
 export const validateEvent = (
   values: {
     translations?: { FI?: { name?: string } };
+    organisationId?: string;
     themePathIds?: string[];
     ticketSystem?: {
       type?: TicketSystem;
@@ -57,6 +58,9 @@ export const validateEvent = (
       type: 'required',
       message: 'what-we-have-here',
     };
+  }
+  if (!values?.organisationId) {
+    errors.organisationId = 'ra.validation.required';
   }
   if (!isThemePathOptional && !values?.themePathIds?.length) {
     errors.themePathIds = 'ra.validation.required';
