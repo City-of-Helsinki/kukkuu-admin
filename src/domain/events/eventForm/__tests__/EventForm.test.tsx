@@ -17,39 +17,46 @@ import extendedDataProvider from '../../../../api/dataProvider';
 import * as apiUtils from '../../../../api/utils/apiUtils';
 
 const organisation = { id: 'org-1', name: 'Organisation' };
+const otherOrganisation = { id: 'org-2', name: 'Other organisation' };
 const rhythm = { id: 'path-1', slug: 'rhythm', name: 'Rhythm' };
 const story = { id: 'path-2', slug: 'story', name: 'Story' };
 const themePaths = [rhythm, story];
 
-const dataProvider = testDataProvider({
-  getList: vi
-    .fn()
-    .mockImplementation((resource: string) =>
-      Promise.resolve(
-        resource === 'organisations'
-          ? { data: [organisation], total: 1 }
-          : { data: themePaths, total: themePaths.length }
-      )
+const mockDataProvider = (organisations: RaRecord[]) =>
+  testDataProvider({
+    getList: vi
+      .fn()
+      .mockImplementation((resource: string) =>
+        Promise.resolve(
+          resource === 'organisations'
+            ? { data: organisations, total: organisations.length }
+            : { data: themePaths, total: themePaths.length }
+        )
+      ),
+    getMany: vi.fn().mockImplementation((resource: string) =>
+      Promise.resolve({
+        data: resource === 'organisations' ? organisations : themePaths,
+      })
     ),
-  getMany: vi.fn().mockImplementation((resource: string) =>
-    Promise.resolve({
-      data: resource === 'organisations' ? [organisation] : themePaths,
-    })
-  ),
-});
+  });
 
 const renderEventForm = ({
   view,
   record,
   save: customSave,
+  organisations = [organisation],
 }: {
   view: 'create' | 'edit';
   record?: RaRecord;
   save?: (data: any) => Promise<any> | void;
+  organisations?: RaRecord[];
 }) => {
   const save = customSave ?? vi.fn();
   render(
-    <AdminContext dataProvider={dataProvider} i18nProvider={i18nProvider}>
+    <AdminContext
+      dataProvider={mockDataProvider(organisations)}
+      i18nProvider={i18nProvider}
+    >
       <ResourceContextProvider value="events">
         <SaveContextProvider value={{ save }}>
           <RecordContextProvider value={record}>
@@ -246,6 +253,64 @@ describe('EventForm theme paths', () => {
 
       await screen.findByRole('combobox', { name: /^Teemapolut/ });
       expect(screen.queryByText(noticeText)).not.toBeInTheDocument();
+    });
+  });
+
+  describe('organisation with several organisations available', () => {
+    const organisations = [organisation, otherOrganisation];
+    const eventWithThemePath = { ...eventWithName, themePaths: [rhythm] };
+
+    it('does not save a new event without an organisation', async () => {
+      const { save } = renderEventForm({
+        view: 'create',
+        record: eventWithThemePath,
+        organisations,
+      });
+
+      await userEvent.type(screen.getByLabelText(/^Nimi/), ' new');
+      await userEvent.click(screen.getByRole('button', { name: 'Tallenna' }));
+
+      expect(
+        await screen.findByRole('combobox', { name: /^Organisaatio/ })
+      ).toBeInvalid();
+      expect(save).not.toHaveBeenCalled();
+    });
+
+    it('saves a new event with the selected organisation', async () => {
+      const { save } = renderEventForm({
+        view: 'create',
+        record: eventWithThemePath,
+        organisations,
+      });
+
+      await userEvent.click(
+        await screen.findByRole('combobox', { name: /^Organisaatio/ })
+      );
+      await userEvent.click(
+        await screen.findByRole('option', { name: otherOrganisation.name })
+      );
+      await userEvent.click(screen.getByRole('button', { name: 'Tallenna' }));
+
+      await waitFor(() =>
+        expect(save).toHaveBeenCalledWith(
+          expect.objectContaining({ organisationId: otherOrganisation.id }),
+          expect.anything()
+        )
+      );
+    });
+
+    it('saves an existing event', async () => {
+      const { save } = renderEventForm({
+        view: 'edit',
+        record: { ...eventWithThemePath, organisationId: organisation.id },
+        organisations,
+      });
+
+      await screen.findByRole('combobox', { name: /^Teemapolut/ });
+      await userEvent.type(screen.getByLabelText(/^Nimi/), ' renamed');
+      await userEvent.click(screen.getByRole('button', { name: 'Tallenna' }));
+
+      await waitFor(() => expect(save).toHaveBeenCalled());
     });
   });
 });

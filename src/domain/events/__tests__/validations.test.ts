@@ -9,37 +9,43 @@ import {
 
 describe('event field validations', () => {
   describe('validateEvent', () => {
+    const validEvent = {
+      translations: { FI: { name: 'Test event' } },
+      organisationId: 'org-1',
+      themePathIds: ['rhythm'],
+    };
+
     it('should return an error object when the Finnish name is missing', () => {
-      expect(validateEvent({ themePathIds: ['rhythm'] })).toEqual({
-        'it-does-not-matter': {
-          type: 'required',
-          message: 'what-we-have-here',
-        },
-      });
+      expect(validateEvent({ ...validEvent, translations: undefined })).toEqual(
+        {
+          'it-does-not-matter': {
+            type: 'required',
+            message: 'what-we-have-here',
+          },
+        }
+      );
     });
 
-    it('should return an empty object when the Finnish name and a theme path exist', () => {
+    it('should return an empty object when the Finnish name, an organisation and a theme path exist', () => {
+      expect(validateEvent(validEvent)).toEqual({});
+    });
+
+    it('should return an error for organisationId when none is selected', () => {
       expect(
-        validateEvent({
-          translations: { FI: { name: 'Test event' } },
-          themePathIds: ['rhythm'],
-        })
-      ).toEqual({});
+        validateEvent({ ...validEvent, organisationId: undefined })
+      ).toEqual({ organisationId: 'ra.validation.required' });
     });
 
     it('should return an error for themePathIds when none are selected', () => {
-      expect(
-        validateEvent({
-          translations: { FI: { name: 'Test event' } },
-          themePathIds: [],
-        })
-      ).toEqual({ themePathIds: 'ra.validation.required' });
+      expect(validateEvent({ ...validEvent, themePathIds: [] })).toEqual({
+        themePathIds: 'ra.validation.required',
+      });
     });
 
     it('should not require a theme path when it is optional', () => {
       expect(
         validateEvent(
-          { translations: { FI: { name: 'Test event' } }, themePathIds: [] },
+          { ...validEvent, themePathIds: [] },
           { isThemePathOptional: true }
         )
       ).toEqual({});
@@ -50,8 +56,7 @@ describe('event field validations', () => {
       expect(
         validateEvent(
           {
-            translations: { FI: { name: 'Test event' } },
-            themePathIds: ['rhythm'],
+            ...validEvent,
             ticketSystem: {
               type: TicketSystem.Ticketmaster,
               endTime: pastEndTime,
@@ -71,8 +76,7 @@ describe('event field validations', () => {
       expect(
         validateEvent(
           {
-            translations: { FI: { name: 'Test event' } },
-            themePathIds: ['rhythm'],
+            ...validEvent,
             ticketSystem: {
               type: TicketSystem.Internal,
               endTime: pastEndTime,
@@ -88,8 +92,7 @@ describe('event field validations', () => {
       expect(
         validateEvent(
           {
-            translations: { FI: { name: 'Test event' } },
-            themePathIds: ['rhythm'],
+            ...validEvent,
             ticketSystem: {
               type: TicketSystem.Ticketmaster,
               endTime: pastEndTime,
@@ -105,8 +108,7 @@ describe('event field validations', () => {
       expect(
         validateEvent(
           {
-            translations: { FI: { name: 'Test event' } },
-            themePathIds: ['rhythm'],
+            ...validEvent,
             ticketSystem: {
               type: TicketSystem.Ticketmaster,
               endTime: futureEndTime,
