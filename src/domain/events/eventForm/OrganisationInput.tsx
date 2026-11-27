@@ -1,11 +1,9 @@
-import { useEffect } from 'react';
 import {
   AutocompleteInput,
   ReferenceInput,
   required,
   useGetList,
 } from 'react-admin';
-import { useFormContext } from 'react-hook-form';
 
 import type { OrganisationNode } from '../../api/generatedTypes/graphql';
 
@@ -18,22 +16,10 @@ import type { OrganisationNode } from '../../api/generatedTypes/graphql';
  * for manual selection. In all cases, the selection is not clearable.
  */
 const OrganisationInput = () => {
-  const { data: organisations, isLoading } =
-    useGetList<OrganisationNode>('organisations');
-  const { setValue, watch } = useFormContext();
-  const currentOrganisationId = watch('organisationId');
-
-  const isSingle = !isLoading && organisations?.length === 1;
-
-  useEffect(() => {
-    if (isSingle && organisations?.[0]?.id) {
-      if (currentOrganisationId !== organisations[0].id) {
-        setValue('organisationId', organisations[0].id, {
-          shouldValidate: true,
-        });
-      }
-    }
-  }, [isSingle, organisations, currentOrganisationId, setValue]);
+  const { data: organisations } = useGetList<OrganisationNode>('organisations');
+  const singleOrganisationId =
+    organisations?.length === 1 ? organisations[0].id : undefined;
+  const hasSingleOrganisation = singleOrganisationId !== undefined;
 
   return (
     <ReferenceInput
@@ -46,7 +32,9 @@ const OrganisationInput = () => {
         optionText="name"
         label="events.fields.organisation.label"
         fullWidth
-        readOnly={isSingle}
+        // react-admin applies this to an empty field with no record value
+        defaultValue={singleOrganisationId}
+        readOnly={hasSingleOrganisation}
         disableClearable
         validate={required()}
       />
